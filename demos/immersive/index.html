@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Willow Creek Barn · Immersive demo by Nolan Day Studio</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="Sample Immersive site: a 3D event barn you can turn, light and lay out. Made-up business by Nolan Day Studio.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+:root{--ink:#f6f1e7;--mut:#c9bfae;--dim:#8e8676;--bg:#0b0d12;--card:#141720;--line:#ffffff17;--gold:#f3c26b;--rose:#e8a39b;--sage:#9cc3a0}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif;overflow-x:hidden}
+a{color:inherit}
+.demo{position:relative;z-index:30;background:var(--gold);color:#1b1408;font-size:13px;text-align:center;padding:8px 12px;font-weight:600}.demo a{font-weight:700}
+nav{position:absolute;top:var(--bt,36px);left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:18px clamp(16px,4vw,48px)}
+.logo{font:600 22px Fraunces,serif;text-decoration:none;letter-spacing:.01em}.logo i{color:var(--gold);font-style:italic;font-weight:400}
+nav .links a{margin-left:22px;text-decoration:none;font-size:14px;color:var(--mut)}nav .links a:hover{color:var(--ink)}nav .links a.pillbtn{color:#1b1408}
+.pillbtn{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#1b1408;font-weight:700;font-size:14px;text-decoration:none;padding:12px 18px;border-radius:99px;border:0;cursor:pointer}
+.ghost{background:#ffffff14;color:var(--ink);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+/* hero scene */
+.scene{position:relative;height:min(calc(100svh - var(--bt,36px)),920px);min-height:620px;overflow:hidden;background:radial-gradient(120% 80% at 50% 10%,#f7b98a,#6d4e7a 45%,#151827 80%)}
+#c{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:pan-y;cursor:grab}
+#c:active{cursor:grabbing}
+.veil{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,#0b0d12a0 0%,#0b0d1200 48%),linear-gradient(180deg,#0b0d1299 0%,#0b0d1200 28%,#0b0d1200 60%,#0b0d12 100%)}
+.hcopy{position:absolute;left:clamp(16px,5vw,64px);top:clamp(96px,14vh,170px);max-width:560px;z-index:5;pointer-events:none}
+.kicker{display:inline-block;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:10px}
+h1{font:400 clamp(40px,min(7vw,10.5vh),92px)/.95 Fraunces,serif;margin:0 0 16px;letter-spacing:-.01em;text-shadow:0 4px 30px #0007}h1 i{color:var(--gold)}
+.lede{font-size:clamp(16px,1.6vw,19px);color:#e9e0cf;text-shadow:0 2px 16px #000a;max-width:440px;margin:0 0 22px}
+.hcta{display:flex;gap:10px;flex-wrap:wrap;pointer-events:auto}
+/* control dock */
+.dock{position:absolute;left:50%;bottom:clamp(14px,4vh,34px);transform:translateX(-50%);z-index:6;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;width:min(980px,calc(100% - 24px))}
+@media (min-width:1180px){.dock{left:auto;right:clamp(16px,4vw,48px);transform:none;width:auto;justify-content:flex-end}}
+.panel{background:#0e1118cc;border:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-radius:18px;padding:10px 12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.panel label,.panel .lab{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);font-weight:600;margin-right:2px}
+.seg{display:flex;background:#ffffff0d;border-radius:99px;padding:3px}
+.seg button{border:0;background:transparent;color:var(--mut);font:600 13px Inter,sans-serif;padding:8px 13px;border-radius:99px;cursor:pointer;transition:.25s}
+.seg button[aria-pressed=true]{background:var(--ink);color:#12131a}
+input[type=range]{accent-color:var(--gold);width:140px}
+.out{font:600 14px Inter;min-width:84px}
+.hint{position:absolute;right:clamp(16px,4vw,48px);top:clamp(110px,16vh,170px);z-index:5;font-size:12px;color:var(--mut);background:#0e1118aa;border:1px solid var(--line);border-radius:99px;padding:7px 12px;pointer-events:none;transition:opacity .6s}
+.fallback{position:absolute;inset:0;display:none;place-items:center;text-align:center;color:var(--mut);padding:24px}
+.noGL .fallback{display:grid}.noGL #c{display:none}
+/* sections */
+section{padding:clamp(64px,9vw,120px) clamp(16px,5vw,64px);max-width:1200px;margin:0 auto}
+.k{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:600}
+h2{font:400 clamp(34px,4.6vw,58px)/1.02 Fraunces,serif;margin:10px 0 16px}h2 i{color:var(--gold)}
+.sub{color:var(--mut);max-width:620px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:34px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px}
+.stat b{display:block;font:400 40px/1 Fraunces,serif;color:var(--ink)}.stat span{color:var(--dim);font-size:14px}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start;margin-top:34px}
+.quote{background:linear-gradient(160deg,#1a1d28,#11131b);border:1px solid var(--line);border-radius:22px;padding:24px}
+.quote h3{font:400 28px Fraunces,serif;margin:0 0 4px}
+.qrow{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed var(--line);color:var(--mut);font-size:15px}
+.qrow b{color:var(--ink)}
+.total{display:flex;justify-content:space-between;align-items:baseline;margin-top:14px}.total b{font:400 44px Fraunces,serif;color:var(--gold)}
+.note{font-size:12.5px;color:var(--dim);margin-top:10px}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:34px}
+.card{position:relative;border-radius:22px;overflow:hidden;min-height:300px;border:1px solid var(--line);padding:22px;display:flex;flex-direction:column;justify-content:flex-end;transform-style:preserve-3d;transition:transform .3s}
+.card h4{font:400 26px Fraunces,serif;margin:0 0 4px;position:relative}.card p{margin:0;color:var(--mut);font-size:14.5px;position:relative}
+.card::before{content:"";position:absolute;inset:0;opacity:.9}
+.c1::before{background:radial-gradient(90% 70% at 30% 20%,#f7c98d,#b2665a 50%,#2a1a28)}
+.c2::before{background:radial-gradient(90% 70% at 70% 20%,#a8d8ff,#4f7aa8 50%,#121b2c)}
+.c3::before{background:radial-gradient(90% 70% at 50% 20%,#ffe9a8,#7a5d2a 50%,#1a140a)}
+.card::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 120%,#000c,transparent 60%)}
+.card .glyph{position:absolute;top:22px;left:22px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#fff;z-index:1;opacity:.9}
+form{display:grid;gap:12px}
+form label{display:grid;gap:6px;font-size:13px;color:var(--mut)}
+input,select,textarea{font:15px Inter,sans-serif;background:#0e1118;border:1px solid var(--line);color:var(--ink);border-radius:12px;padding:12px 14px}
+.ok{background:#16231a;border:1px solid #2f5a39;border-radius:14px;padding:14px;color:#cfe9d2}
+footer{border-top:1px solid var(--line);padding:28px clamp(16px,5vw,64px);color:var(--dim);font-size:13px;text-align:center}
+.rv{opacity:0;transform:translateY(24px);transition:opacity .8s,transform .8s}.rv.in{opacity:1;transform:none}
+@media (max-width:860px){.demo .lg{display:none}.panel .lab,.panel label{display:none}.panel{padding:6px 8px}.seg button{padding:7px 10px;font-size:12px}.dock{gap:6px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.split,.cards{grid-template-columns:minmax(0,1fr)}nav .links a:not(.pillbtn){display:none}nav .pillbtn{padding:9px 14px;font-size:13px}.demo{font-size:12px}.dock{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;scrollbar-width:none;-webkit-mask:linear-gradient(90deg,#000 88%,#0000)}.dock::-webkit-scrollbar{display:none}.panel{flex:none;flex-wrap:nowrap}.hint{display:none}.hcopy{top:104px}.dock{bottom:12px}input[type=range]{width:110px}}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+/* custom cursor (mouse and trackpad only): a warm dot, a ring that trails it, and "Drag" over the 3D barn */
+#cur{display:none}
+html.cc,html.cc *{cursor:none!important}
+html.cc input:not([type=range]),html.cc textarea,html.cc select{cursor:auto!important}
+html.cc #cur{display:block;position:fixed;inset:0;pointer-events:none;z-index:2147483647;opacity:0;transition:opacity .3s}
+html.cc #cur.on{opacity:1}html.cc #cur.txt{opacity:0}
+#cur .cd,#cur .cr{position:absolute;left:0;top:0;border-radius:50%;will-change:transform}
+#cur .cd{width:7px;height:7px;margin:-3.5px 0 0 -3.5px;background:#ffe3a3;box-shadow:0 0 8px 2px #f4c26b,0 0 20px 6px #f4c26b44;transition:opacity .25s}
+#cur .cr{width:38px;height:38px;margin:-19px 0 0 -19px;border:1px solid #f4c26b8c;display:grid;place-items:center;transition:width .4s cubic-bezier(.2,.7,.2,1),height .4s cubic-bezier(.2,.7,.2,1),margin .4s cubic-bezier(.2,.7,.2,1),background .3s,border-color .3s}
+#cur .cr b{font:700 10.5px Inter,sans-serif;letter-spacing:.2em;text-indent:.2em;text-transform:uppercase;color:#1b1408;opacity:0;transition:opacity .2s}
+#cur.hov .cr{width:58px;height:58px;margin:-29px 0 0 -29px;border-color:var(--gold);background:#f4c26b1f}
+#cur.lab .cr{width:84px;height:84px;margin:-42px 0 0 -42px;border-color:#fff6;background:#f4c26bee}#cur.lab .cr b{opacity:1}#cur.lab .cd{opacity:0}
+#cur.dn .cr{width:30px;height:30px;margin:-15px 0 0 -15px}#cur.dn.hov .cr{width:46px;height:46px;margin:-23px 0 0 -23px}#cur.dn.lab .cr{width:64px;height:64px;margin:-32px 0 0 -32px}
+</style>
+</head>
+<body>
+<div class="demo">Sample site by Nolan Day Studio<span class="lg">. Willow Creek Barn is a made-up venue; the prices are examples</span>. <a href="../../?plan=Immersive#start">Get a site like this · Immersive</a></div>
+<nav><a class="logo" href="#">Willow Creek <i>Barn</i></a><div class="links"><a href="#space">The space</a><a href="#plan">Plan your day</a><a href="#seasons">Seasons</a><a class="pillbtn" href="#tour" style="margin-left:22px">Book a tour</a></div></nav>
+
+<header class="scene" id="top">
+  <canvas id="c" aria-label="Interactive 3D model of a sample event barn. Drag to turn it; use the controls below to change the layout, the time of day and the guest count."></canvas>
+  <div class="fallback"><div><b style="font:400 30px Fraunces,serif;color:#fff">Willow Creek Barn</b><br>The 3D preview isn't available. You can still explore the page below.</div></div>
+  <div class="veil"></div>
+  <div class="hcopy">
+    <span class="kicker">Weddings · Showers · Company nights</span>
+    <h1>Walk the barn <i>before</i> you book&nbsp;it.</h1>
+    <p class="lede">Turn the 3D model, set the room for your day and watch the lights come on at dusk. Your quote updates as you go.</p>
+    <div class="hcta"><a class="pillbtn" href="#plan">Plan your day</a><a class="pillbtn ghost" href="#tour">Book a tour</a></div>
+  </div>
+  <div class="hint" id="hint">Drag to look around</div>
+  <div class="dock" role="group" aria-label="Scene controls">
+    <div class="panel"><span class="lab">Layout</span><div class="seg" id="layout"><button aria-pressed="true" data-v="ceremony">Ceremony</button><button aria-pressed="false" data-v="dinner">Dinner</button><button aria-pressed="false" data-v="dance">Dance</button></div></div>
+    <div class="panel"><span class="lab">Light</span><div class="seg" id="tod"><button aria-pressed="false" data-v="0">Day</button><button aria-pressed="true" data-v="0.55">Golden</button><button aria-pressed="false" data-v="1">Night</button></div></div>
+    <div class="panel"><label for="guests">Guests</label><input type="range" id="guests" min="40" max="240" step="10" value="120"><span class="out" id="gout">120 guests</span></div>
+  </div>
+</header>
+
+<section id="space" class="rv">
+  <span class="k">The space</span>
+  <h2>A 1890s dairy barn, <i>rebuilt for parties.</i></h2>
+  <p class="sub">Hand-hewn beams, a 30-foot loft, string lights in every bay and doors that slide all the way open to the meadow. Every number below is a sample.</p>
+  <div class="stats"><div class="stat"><b>4,800</b><span>square feet inside</span></div><div class="stat"><b>240</b><span>seated guests, max</span></div><div class="stat"><b>12</b><span>acres of meadow</span></div><div class="stat"><b>1</b><span>event per day</span></div></div>
+</section>
+
+<section id="plan" class="rv">
+  <span class="k">Plan your day</span>
+  <h2>Your quote, <i>live.</i></h2>
+  <p class="sub">The model at the top and this quote use the same settings. Change the layout or guest count up there and the numbers here follow.</p>
+  <div class="split">
+    <div class="quote" aria-live="polite">
+      <h3 id="qtitle">Ceremony for 120</h3>
+      <div class="qrow"><span>Barn and meadow, 10 hours</span><b id="qbase">$3,200</b></div>
+      <div class="qrow"><span id="qtl">Chairs and setup</span><b id="qtables">$600</b></div>
+      <div class="qrow"><span>Lighting package</span><b id="qlight">$350</b></div>
+      <div class="qrow"><span>Day-of coordinator</span><b>$450</b></div>
+      <div class="total"><span>Sample estimate</span><b id="qtotal">$4,600</b></div>
+      <p class="note">Example pricing for a made-up venue. A real site uses the owner's own rates.</p>
+    </div>
+    <div>
+      <h3 style="font:400 26px Fraunces,serif;margin:0 0 10px">What changes per layout</h3>
+      <p class="sub" id="ldesc">Ceremony: rows of chairs facing an arch, with a center aisle. One more row for every 10 guests.</p>
+      <p class="sub">Night mode turns on 900 bulbs and the lanterns along the path. Golden hour is the photo everyone asks for.</p>
+    </div>
+  </div>
+</section>
+
+<section id="seasons" class="rv">
+  <span class="k">Seasons</span>
+  <h2>Every month <i>looks different.</i></h2>
+  <div class="cards">
+    <div class="card c1" data-tilt><span class="glyph">Spring</span><h4>Meadow ceremonies</h4><p>Wildflowers to the fence line. Doors open, breeze through.</p></div>
+    <div class="card c2" data-tilt><span class="glyph">Winter</span><h4>Fire-lit dinners</h4><p>Doors shut, stove going, every bulb on by five.</p></div>
+    <div class="card c3" data-tilt><span class="glyph">Fall</span><h4>Harvest weekends</h4><p>Hay bales, cider bar and the best sunsets of the year.</p></div>
+  </div>
+</section>
+
+<section id="tour" class="rv">
+  <span class="k">Book a tour</span>
+  <h2>Come see it <i>in person.</i></h2>
+  <div class="split">
+    <form id="tf"><label>Your name<input required name="n" autocomplete="name"></label><label>Event date<input type="date" name="d"></label><label>Guest count<select name="g"><option>Under 80</option><option selected>80–160</option><option>160–240</option></select></label><button class="pillbtn" type="submit" style="justify-self:start">Request a tour</button></form>
+    <div><p class="sub">Tours run Thursday to Sunday. On a real site this form would reach the venue's inbox. In this demo nothing is sent.</p><div class="ok" id="tok" hidden>Tour request ready. In a live site this would go straight to the owner.</div></div>
+  </div>
+</section>
+
+<footer>Willow Creek Barn is a made-up venue used to demo the Immersive plan. The 3D model is built in code for this page, with no stock photos; sky lighting uses free CC0 skies from Poly Haven. <a href="../../">Built by Nolan Day Studio</a></footer>
+
+<div id="cur" aria-hidden="true"><i class="cr"><b></b></i><i class="cd"></i></div>
+
+<script>
+// page bits that do not need 3D
+(function(){
+  var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // the sample-site banner can wrap on phones, so the nav sits under its real height
+  var db=document.querySelector(".demo");function bt(){document.documentElement.style.setProperty("--bt",db.offsetHeight+"px")}addEventListener("resize",bt);bt();
+  var io=("IntersectionObserver" in window)?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})},{threshold:.15}):null;
+  document.querySelectorAll(".rv").forEach(function(el){io?io.observe(el):el.classList.add("in")});
+  if(!reduce)document.querySelectorAll("[data-tilt]").forEach(function(c){c.addEventListener("pointermove",function(e){var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform="perspective(700px) rotateY("+(x*10)+"deg) rotateX("+(-y*10)+"deg)"});c.addEventListener("pointerleave",function(){c.style.transform=""})});
+  document.getElementById("tf").addEventListener("submit",function(e){e.preventDefault();document.getElementById("tok").hidden=false});
+  // quote + shared state (the 3D scene listens to the same events)
+  var S=window.VENUE={layout:"ceremony",tod:.55,guests:120};
+  var fmt=function(n){return "$"+n.toLocaleString("en-US")};
+  var desc={ceremony:"Ceremony: rows of chairs facing an arch, with a center aisle. One more row for every 10 guests.",dinner:"Dinner: round tables of 8, a head table and a bar. Tables appear as you add guests.",dance:"Dance: tables pushed to the walls and a lit floor in the middle, with a DJ booth."};
+  function quote(){var g=S.guests,t=S.layout==="ceremony"?g*5:Math.ceil(g/8)*95,l=S.tod>.8?650:350;
+    document.getElementById("qtitle").textContent=S.layout[0].toUpperCase()+S.layout.slice(1)+" for "+g;
+    document.getElementById("qtl").textContent=S.layout==="ceremony"?"Chairs and setup ("+g+")":"Tables and linens ("+Math.ceil(g/8)+" tables)";
+    document.getElementById("qtables").textContent=fmt(t);document.getElementById("qlight").textContent=fmt(l);
+    document.getElementById("qtotal").textContent=fmt(3200+t+l+450);document.getElementById("ldesc").textContent=desc[S.layout];
+    document.getElementById("gout").textContent=g+" guests"}
+  function seg(id,key,parse){var w=document.getElementById(id);w.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;w.querySelectorAll("button").forEach(function(x){x.setAttribute("aria-pressed",x===b)});S[key]=parse(b.dataset.v);quote();dispatchEvent(new Event("venue"))})}
+  seg("layout","layout",String);seg("tod","tod",parseFloat);
+  // optional deep links: ?light=day|golden|night&layout=ceremony|dinner|dance&guests=40..240
+  var q=new URLSearchParams(location.search),lm={day:"0",golden:"0.55",night:"1"};
+  if(lm[q.get("light")]){S.tod=parseFloat(lm[q.get("light")]);document.querySelectorAll("#tod button").forEach(function(x){x.setAttribute("aria-pressed",x.dataset.v===lm[q.get("light")])})}
+  if(/^(ceremony|dinner|dance)$/.test(q.get("layout")||"")){S.layout=q.get("layout");document.querySelectorAll("#layout button").forEach(function(x){x.setAttribute("aria-pressed",x.dataset.v===S.layout)})}
+  var gq=+q.get("guests");if(gq>=40&&gq<=240){S.guests=Math.round(gq/10)*10;document.getElementById("guests").value=S.guests}
+  document.getElementById("guests").addEventListener("input",function(e){S.guests=+e.target.value;quote();dispatchEvent(new Event("venue"))});
+  quote();
+  // custom cursor, only where there is a real mouse or trackpad; phones and tablets keep normal touch
+  (function(){if(!matchMedia("(hover:hover) and (pointer:fine)").matches)return;
+    var cur=document.getElementById("cur"),dot=cur.querySelector(".cd"),ring=cur.querySelector(".cr"),lab=ring.querySelector("b"),x=0,y=0,rx=0,ry=0,run=false,seen=false;
+    document.documentElement.classList.add("cc");
+    function tick(){var k=reduce?1:.2;rx+=(x-rx)*k;ry+=(y-ry)*k;ring.style.transform="translate3d("+rx+"px,"+ry+"px,0)";
+      if(Math.abs(x-rx)>.3||Math.abs(y-ry)>.3)requestAnimationFrame(tick);else run=false}
+    addEventListener("pointermove",function(e){if(e.pointerType==="touch")return;x=e.clientX;y=e.clientY;if(!seen){seen=true;rx=x;ry=y}
+      cur.classList.add("on");dot.style.transform="translate3d("+x+"px,"+y+"px,0)";if(!run){run=true;requestAnimationFrame(tick)}},{passive:true});
+    document.addEventListener("pointerover",function(e){var t=e.target.closest?e.target:e.target.parentElement;if(!t)return;var c=t.id==="c",a=t.closest("a,button,input[type=range],label"),tx=t.matches("input:not([type=range]),textarea,select");
+      cur.classList.toggle("lab",c);lab.textContent=c?"Drag":"";cur.classList.toggle("hov",!c&&!!a);cur.classList.toggle("txt",tx)});
+    addEventListener("pointerdown",function(){cur.classList.add("dn")});addEventListener("pointerup",function(){cur.classList.remove("dn")});
+    document.addEventListener("mouseout",function(e){if(!e.relatedTarget)cur.classList.remove("on")});
+  })();
+})();
+</script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/","@pmndrs/assets/":"https://cdn.jsdelivr.net/npm/@pmndrs/assets@1.7.0/"}}</script>
+<script type="module">
+import("./scene.js").catch(()=>{document.querySelector(".scene").classList.add("noGL")});
+</script>
+</body>
+</html>

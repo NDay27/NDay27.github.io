@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Prairie Line Lawn Co. · Essential demo by Nolan Day Studio</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="Sample Essential site: a one-page lawn care website with an instant estimate. Made-up business by Nolan Day Studio.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+:root{--g9:#0f2a17;--g8:#163d21;--g6:#2e7d32;--g4:#7cc36a;--lime:#c8f08a;--cream:#f7f5ee;--ink:#14231a;--mut:#4e5d52;--line:#dfe5d8;--sun:#f2c94c}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif;overflow-x:hidden}
+a{color:inherit}
+.demo{background:var(--ink);color:#e9efe6;font-size:13px;text-align:center;padding:8px 12px}.demo a{color:var(--lime);font-weight:600}
+.wrap{max-width:1140px;margin:0 auto;padding:0 clamp(16px,4vw,32px)}
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+.logo{display:flex;align-items:center;gap:10px;font:800 20px "Bricolage Grotesque",sans-serif;text-decoration:none;letter-spacing:-.01em}
+.logo i{width:30px;height:30px;border-radius:9px;background:repeating-linear-gradient(90deg,var(--g6) 0 5px,var(--g4) 5px 10px);display:inline-block}
+.call{display:inline-flex;align-items:center;gap:8px;background:var(--g8);color:#fff;text-decoration:none;font-weight:700;font-size:15px;padding:11px 16px;border-radius:12px}
+.call svg{width:16px;height:16px}
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:40px;align-items:center;padding:22px 0 56px}
+.badge{display:inline-flex;gap:8px;align-items:center;font-size:13px;font-weight:600;color:var(--g8);background:#e6f2dc;border-radius:99px;padding:6px 12px}
+.badge b{width:8px;height:8px;border-radius:50%;background:var(--g6);box-shadow:0 0 0 4px #2e7d3226}
+h1{font:800 clamp(42px,6.4vw,78px)/.96 "Bricolage Grotesque",sans-serif;letter-spacing:-.03em;margin:16px 0 18px}
+h1 em{font-style:normal;background:linear-gradient(transparent 62%,var(--lime) 62%)}
+.lede{font-size:clamp(17px,1.6vw,19px);color:var(--mut);max-width:30em;margin:0 0 26px}
+.ctas{display:flex;gap:10px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 22px;border-radius:14px;font-weight:700;text-decoration:none;font-size:16px;border:0;cursor:pointer}
+.btn.y{background:var(--sun);color:#1d1a10;box-shadow:0 10px 24px -12px #b8901a}.btn.o{background:#fff;border:1px solid var(--line)}
+.trust{display:flex;gap:18px;flex-wrap:wrap;margin-top:22px;font-size:14px;color:var(--mut)}.trust span::before{content:"✓ ";color:var(--g6);font-weight:800}
+.art{position:relative;aspect-ratio:1/1;border-radius:28px;overflow:hidden;background:linear-gradient(#bfe3ff,#e9f6ff 46%,#d7ecc5 47%);box-shadow:0 40px 80px -40px #0f2a1766}
+.art svg{position:absolute;inset:0;width:100%;height:100%}
+.mow{animation:mow 7s linear infinite}
+@keyframes mow{0%{transform:translateX(-30%)}100%{transform:translateX(130%)}}
+.stripe-new{animation:paint 7s linear infinite;transform-origin:left}
+@keyframes paint{0%{transform:scaleX(0)}100%{transform:scaleX(1.6)}}
+.chip{position:absolute;background:#fff;border-radius:14px;padding:10px 12px;font-size:13px;box-shadow:0 18px 40px -20px #0005}
+.chip b{display:block;font-size:16px}
+.c1{left:5%;bottom:7%}.c2{right:5%;top:6%}
+/* sections */
+section{padding:clamp(56px,8vw,96px) 0}
+.k{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--g6)}
+h2{font:800 clamp(32px,4.2vw,50px)/1.02 "Bricolage Grotesque",sans-serif;letter-spacing:-.02em;margin:10px 0 14px}
+.sub{color:var(--mut);max-width:36em}
+.svc{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:30px}
+.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px;transition:transform .25s,box-shadow .25s}
+.card:hover{transform:translateY(-4px);box-shadow:0 20px 40px -26px #0f2a1755}
+.card .ic{width:44px;height:44px;border-radius:12px;background:#e6f2dc;display:grid;place-items:center;margin-bottom:12px}
+.card h3{margin:0 0 4px;font:700 20px "Bricolage Grotesque",sans-serif}.card p{margin:0 0 12px;color:var(--mut);font-size:15px}
+.price{font-weight:700;color:var(--g8)}
+/* estimator */
+.est{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;margin-top:30px;background:var(--g9);color:#eaf3e4;border-radius:28px;padding:clamp(20px,4vw,40px)}
+.est label{display:block;font-size:13px;font-weight:600;color:#b9cdb5;margin:16px 0 8px}
+.opts{display:flex;gap:8px;flex-wrap:wrap}
+.opts button{border:1px solid #ffffff26;background:transparent;color:#eaf3e4;font:600 14px Inter,sans-serif;padding:10px 14px;border-radius:12px;cursor:pointer}
+.opts button[aria-pressed=true]{background:var(--lime);color:#13230f;border-color:var(--lime)}
+input[type=range]{width:100%;accent-color:var(--lime)}
+.out{background:#ffffff0d;border:1px solid #ffffff1a;border-radius:22px;padding:24px;display:flex;flex-direction:column;justify-content:space-between}
+.big{font:800 clamp(52px,7vw,84px)/1 "Bricolage Grotesque",sans-serif;color:var(--lime);letter-spacing:-.03em}
+.out small{color:#b9cdb5}
+/* steps + area */
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:30px;counter-reset:s}
+.step{border-top:3px solid var(--g6);padding-top:16px}.step b{display:block;font:700 19px "Bricolage Grotesque",sans-serif;margin-bottom:4px}.step span{color:var(--mut);font-size:15px}
+.area{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:center}
+.towns{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.towns span{background:#fff;border:1px solid var(--line);border-radius:99px;padding:7px 13px;font-size:14px;font-weight:600}
+.map{aspect-ratio:4/3;border-radius:24px;background:#e3edd9;position:relative;overflow:hidden}
+.map svg{position:absolute;inset:0;width:100%;height:100%}
+.map svg{font-family:Inter,sans-serif}.rv.in .map .ring{animation:ringin 1.6s .2s cubic-bezier(.2,.7,.2,1) both}@keyframes ringin{from{opacity:0;transform:scale(.6)}}.map .ring{transform-origin:200px 148px}
+.mapnote{font-size:12.5px;color:var(--mut);margin:12px 0 0}
+@media (max-width:520px){.map .mn{display:none}}
+.ping{animation:ping 2s ease-out infinite;transform-origin:center;transform-box:fill-box}@keyframes ping{0%{transform:scale(.6);opacity:.9}100%{transform:scale(2.4);opacity:0}}
+/* contact */
+.contact{background:#fff;border:1px solid var(--line);border-radius:28px;padding:clamp(20px,4vw,40px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px}
+form{display:grid;gap:12px}
+form label{display:grid;gap:6px;font-size:13px;font-weight:600;color:var(--mut)}
+input,select,textarea{font:16px Inter,sans-serif;border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--cream);color:var(--ink)}
+.ok{background:#e6f2dc;border-radius:14px;padding:14px;color:var(--g8);font-weight:600}
+footer{padding:28px 0 90px;color:var(--mut);font-size:13px;text-align:center}
+.bar{position:fixed;left:12px;right:12px;bottom:12px;z-index:20;display:none;gap:8px}
+.bar a{flex:1;text-align:center;font-weight:700;text-decoration:none;padding:14px;border-radius:14px}
+.bar .a1{background:var(--g8);color:#fff}.bar .a2{background:var(--sun);color:#1d1a10}
+.rv{opacity:0;transform:translateY(18px);transition:opacity .6s,transform .6s}.rv.in{opacity:1;transform:none}
+@media (max-width:860px){.hero,.est,.area,.contact{grid-template-columns:minmax(0,1fr)}.svc,.steps{grid-template-columns:minmax(0,1fr)}.bar{display:flex}nav .call span{display:none}}
+@media (prefers-reduced-motion:reduce){.mow,.stripe-new,.ping,.rv.in .map .ring{animation:none}.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="demo">Sample site by Nolan Day Studio. Prairie Line Lawn Co. is made up, and so are its prices. <a href="../../?plan=Essential#start">Get a site like this · Essential</a></div>
+<div class="wrap">
+<nav><a class="logo" href="#"><i aria-hidden="true"></i>Prairie Line Lawn Co.</a><a class="call" href="tel:+13095550100"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><span>(309) 555-0100</span></a></nav>
+
+<header class="hero">
+  <div>
+    <span class="badge"><b></b><span id="season">Booking fall cleanups now</span></span>
+    <h1>Straight lines. <em>Every week.</em></h1>
+    <p class="lede">Mowing, edging and cleanups in Morton, Washington and Tremont. Price on the page, a real person on the phone, and the same crew every visit.</p>
+    <div class="ctas"><a class="btn y" href="#estimate">Get my price in 20 seconds</a><a class="btn o" href="tel:+13095550100">Call now</a></div>
+    <div class="trust"><span>Licensed &amp; insured</span><span>No contracts</span><span>Text when we're done</span></div>
+  </div>
+  <div class="art" role="img" aria-label="Illustration of a striped lawn being mowed in front of a house">
+    <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs><clipPath id="lawn"><rect x="0" y="188" width="400" height="212"/></clipPath>
+        <linearGradient id="roofg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3d4a52"/><stop offset="1" stop-color="#2a3338"/></linearGradient></defs>
+      <circle cx="320" cy="70" r="34" fill="#ffe89a"/><circle cx="320" cy="70" r="54" fill="#ffe89a" opacity=".25"/>
+      <path d="M0 176 Q60 150 120 168 T240 160 T400 166 V200 H0Z" fill="#a9d18e"/>
+      <g fill="#5f9b56"><circle cx="34" cy="150" r="26"/><circle cx="62" cy="140" r="30"/><rect x="44" y="160" width="8" height="30" fill="#5b4632"/><circle cx="360" cy="150" r="24"/><rect x="356" y="166" width="7" height="26" fill="#5b4632"/></g>
+      <rect x="120" y="112" width="160" height="80" fill="#f4efe4"/><path d="M108 116 L200 62 L292 116Z" fill="url(#roofg)"/>
+      <rect x="186" y="146" width="28" height="46" fill="#2e7d32"/><rect x="138" y="130" width="34" height="26" fill="#bfe3ff" stroke="#fff" stroke-width="4"/><rect x="228" y="130" width="34" height="26" fill="#bfe3ff" stroke="#fff" stroke-width="4"/>
+      <g clip-path="url(#lawn)">
+        <rect x="0" y="188" width="400" height="212" fill="#4f9e45"/>
+        <g fill="#6fbd5f">
+          <rect x="0" y="204" width="400" height="22"/><rect x="0" y="248" width="400" height="26"/><rect x="0" y="298" width="400" height="30"/><rect x="0" y="354" width="400" height="34"/>
+        </g>
+        <rect class="stripe-new" x="0" y="326" width="260" height="28" fill="#7fd06d" opacity=".9"/>
+        <g class="mow"><g transform="translate(0 312)"><rect x="0" y="8" width="44" height="22" rx="5" fill="#d23b2c"/><rect x="6" y="2" width="30" height="10" rx="3" fill="#262626"/><path d="M40 10 L64 -26" stroke="#262626" stroke-width="4" stroke-linecap="round"/><circle cx="8" cy="32" r="7" fill="#1d1d1d"/><circle cx="38" cy="32" r="7" fill="#1d1d1d"/></g></g>
+      </g>
+      <path d="M0 188 H400" stroke="#3f8a37" stroke-width="2"/>
+    </svg>
+    <div class="chip c1"><b>from $35</b>weekly mowing</div>
+    <div class="chip c2"><b>Same crew</b>every single visit</div>
+  </div>
+</header>
+</div>
+
+<section class="rv"><div class="wrap">
+  <span class="k">Services</span><h2>Everything the yard needs.</h2><p class="sub">Clear prices for the jobs people ask about most. Bigger yards and odd jobs get a quick quote.</p>
+  <div class="svc">
+    <div class="card"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2.2"><path d="M3 20h18M5 20v-6l7-4 7 4v6"/></svg></div><h3>Weekly mowing</h3><p>Mow, string-trim and blow off every hard surface.</p><span class="price">from $35 a visit</span></div>
+    <div class="card"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2.2"><path d="M4 18c4-10 12-10 16 0M12 8V3"/></svg></div><h3>Spring &amp; fall cleanup</h3><p>Leaves, sticks and beds cleared, then hauled away.</p><span class="price">from $120</span></div>
+    <div class="card"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2.2"><path d="M3 12h18M3 6h18M3 18h12"/></svg></div><h3>Edging &amp; mulch</h3><p>Sharp bed lines and fresh mulch at the depth you pick.</p><span class="price">quoted per yard</span></div>
+  </div>
+</div></section>
+
+<section id="estimate" class="rv"><div class="wrap">
+  <span class="k">Instant estimate</span><h2>Your price, before you call.</h2>
+  <div class="est">
+    <div>
+      <label>Service</label><div class="opts" id="svc"><button aria-pressed="true" data-p="35">Weekly mowing</button><button aria-pressed="false" data-p="45">Every 2 weeks</button><button aria-pressed="false" data-p="120">One-time cleanup</button></div>
+      <label for="yd">Yard size: <span id="ydl">Medium (about ¼ acre)</span></label><input type="range" id="yd" min="1" max="4" step="1" value="2">
+      <label>Extras</label><div class="opts" id="ex"><button aria-pressed="false" data-p="10">Edging</button><button aria-pressed="false" data-p="8">Bag clippings</button></div>
+    </div>
+    <div class="out" aria-live="polite"><div><small>Sample estimate</small><div class="big" id="tot">$35</div><small id="per">per visit</small></div><a class="btn y" href="#contact" style="margin-top:20px">Hold my spot</a></div>
+  </div>
+</div></section>
+
+<section class="rv"><div class="wrap">
+  <span class="k">How it works</span><h2>Three steps, then you're done thinking about it.</h2>
+  <div class="steps"><div class="step"><b>1. Get your price</b><span>Use the estimate above or call. No visit needed for most yards.</span></div><div class="step"><b>2. Pick a day</b><span>Same day each week, same crew each time.</span></div><div class="step"><b>3. Get a text</b><span>A photo when we're finished, and the gate's closed behind us.</span></div></div>
+</div></section>
+
+<section class="rv"><div class="wrap area">
+  <div><span class="k">Service area</span><h2>Morton and about 15 miles around.</h2><p class="sub">If you're close to the edge, text us your street and we'll tell you straight.</p>
+    <div class="towns"><span>Morton</span><span>Washington</span><span>East Peoria</span><span>Peoria</span><span>Pekin</span><span>Groveland</span><span>Tremont</span><span>Deer Creek</span><span>Mackinaw</span><span>Goodfield</span><span>Eureka</span><span>Germantown Hills</span><span>Metamora</span></div>
+    <p class="mapnote">Map drawn to scale; town positions are approximate.</p></div>
+  <div class="map" role="img" aria-label="To-scale map of a 15-mile circle around Morton, Illinois. Inside it: Peoria, East Peoria, Pekin, Washington, Germantown Hills, Metamora, Eureka, Goodfield, Deer Creek, Groveland, Tremont, Mackinaw, Hopedale and Minier. The Illinois River runs down the west side.">
+    <svg viewBox="0 0 400 300" aria-hidden="true">
+      <circle cx="200" cy="148" r="126.0" fill="#f4f8ef"/>
+      <circle cx="200" cy="148" r="42.0" fill="none" stroke="#2e7d32" stroke-opacity=".18" stroke-dasharray="2 4"/>
+      <circle cx="200" cy="148" r="84.0" fill="none" stroke="#2e7d32" stroke-opacity=".18" stroke-dasharray="2 4"/>
+      <path d="M191.0 -47.6 C189.9 -44.7 187.7 -38.9 184.4 -30.2 C181.1 -21.5 175.2 -6.0 171.2 4.6 C167.2 15.3 163.2 24.0 160.2 33.6 C157.2 43.3 155.0 53.9 153.1 62.6 C151.3 71.3 150.5 79.1 149.2 85.8 C147.8 92.6 145.5 100.3 144.7 103.2" stroke="#9fc4e8" stroke-width="9" fill="none" stroke-linecap="round"/>
+      <path d="M144.7 103.2 C143.6 106.1 140.3 113.9 138.1 120.6 C135.9 127.4 135.6 135.1 131.5 143.8 C127.5 152.5 120.1 164.1 113.9 172.8 C107.6 181.5 102.5 187.3 94.0 196.0 C85.6 204.7 74.9 214.4 63.2 225.0 C51.4 235.7 36.7 248.2 23.5 259.8 C10.2 271.4 -9.6 288.8 -16.2 294.6" stroke="#9fc4e8" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+      <g fill="none" stroke-linecap="round"><path d="M-18.4 38.8 C-1.6 44.0 59.3 61.8 82.4 69.9 C105.5 78.0 110.3 82.2 120.2 87.5 C130.1 92.8 135.0 96.8 142.0 101.8 C149.0 106.8 155.6 112.7 162.2 117.8 C168.8 122.8 175.2 128.1 181.5 132.0 C187.8 136.0 194.7 139.0 200.0 141.3 C205.3 143.5 206.4 145.2 213.4 145.5 C220.4 145.8 230.7 143.6 242.0 143.0 C253.3 142.3 269.6 140.9 281.5 141.7 C293.4 142.5 300.4 144.4 313.4 148.0 C326.4 151.6 339.3 156.1 359.6 163.1 C379.9 170.1 422.6 185.5 435.2 190.0" stroke="#fff" stroke-width="4.5"/><path d="M211.8 145.1 C212.0 149.8 212.7 161.5 213.4 173.2 C214.1 184.9 215.1 200.9 216.0 215.2 C216.8 229.5 217.6 243.5 218.5 258.9 C219.3 274.3 220.6 299.5 221.0 307.6" stroke="#fff" stroke-width="4.5"/><path d="M-18.4 38.8 C-1.6 44.0 59.3 61.8 82.4 69.9 C105.5 78.0 110.3 82.2 120.2 87.5 C130.1 92.8 135.0 96.8 142.0 101.8 C149.0 106.8 155.6 112.7 162.2 117.8 C168.8 122.8 175.2 128.1 181.5 132.0 C187.8 136.0 194.7 139.0 200.0 141.3 C205.3 143.5 206.4 145.2 213.4 145.5 C220.4 145.8 230.7 143.6 242.0 143.0 C253.3 142.3 269.6 140.9 281.5 141.7 C293.4 142.5 300.4 144.4 313.4 148.0 C326.4 151.6 339.3 156.1 359.6 163.1 C379.9 170.1 422.6 185.5 435.2 190.0" stroke="#c9d6bd" stroke-width="1"/><path d="M211.8 145.1 C212.0 149.8 212.7 161.5 213.4 173.2 C214.1 184.9 215.1 200.9 216.0 215.2 C216.8 229.5 217.6 243.5 218.5 258.9 C219.3 274.3 220.6 299.5 221.0 307.6" stroke="#c9d6bd" stroke-width="1"/></g>
+      <circle class="ring" cx="200" cy="148" r="126.0" fill="none" stroke="#2e7d32" stroke-width="1.6" stroke-dasharray="6 5"/>
+      <text x="151.3" y="39.4" font-size="7.5" font-style="italic" fill="#4f7fae" text-anchor="end">Peoria Lake</text>
+      <text x="74.6" y="223.4" font-size="7.5" font-style="italic" fill="#4f7fae" text-anchor="end" transform="rotate(-38 74.6 223.4)">Illinois River</text>
+      <g transform="translate(297.4 145.5)"><path d="M-5.0 -6.5 h10.0 q1.5 0 1.5 1.6 v5 q0 4.4 -6.5 6.4 q-5.0 -2 -6.5 -6.4 v-5 q0 -1.6 1.5 -1.6z" fill="#1f4fa3" stroke="#fff" stroke-width="1"/><path d="M-5.0 -6.5 h10.0 q1.5 0 1.5 1.6 v1.4 h-13.0 v-1.4 q0 -1.6 1.5 -1.6z" fill="#c8102e"/><text y="2.6" font-size="6" font-weight="800" fill="#fff" text-anchor="middle">74</text></g>
+      <g transform="translate(216.0 228.6)"><path d="M-6.5 -6.5 h13.0 q1.5 0 1.5 1.6 v5 q0 4.4 -8.0 6.4 q-6.5 -2 -8.0 -6.4 v-5 q0 -1.6 1.5 -1.6z" fill="#1f4fa3" stroke="#fff" stroke-width="1"/><path d="M-6.5 -6.5 h13.0 q1.5 0 1.5 1.6 v1.4 h-16.0 v-1.4 q0 -1.6 1.5 -1.6z" fill="#c8102e"/><text y="2.6" font-size="6" font-weight="800" fill="#fff" text-anchor="middle">155</text></g>
+      <g font-size="9.5" font-weight="700" fill="#14231a">
+      <g><circle cx="223.4" cy="95.3" r="2.3" fill="#14231a"/>
+      <text x="227.9" y="98.6">Washington</text></g>
+      <g><circle cx="146.5" cy="116.0" r="2.3" fill="#14231a"/>
+      <text x="151.0" y="119.3">East Peoria</text></g>
+      <g><circle cx="133.7" cy="97.4" r="2.3" fill="#14231a"/>
+      <text x="129.2" y="100.7" text-anchor="end">Peoria</text></g>
+      <g><circle cx="127.7" cy="174.1" r="2.3" fill="#14231a"/>
+      <text x="123.2" y="177.4" text-anchor="end">Pekin</text></g>
+      <g><circle cx="185.7" cy="197.6" r="2.3" fill="#14231a"/>
+      <text x="181.2" y="200.9" text-anchor="end">Tremont</text></g>
+      <g><circle cx="245.3" cy="192.7" r="2.3" fill="#14231a"/>
+      <text x="249.8" y="196.0">Mackinaw</text></g>
+      <g><circle cx="256.1" cy="139.0" r="2.3" fill="#14231a"/>
+      <text x="256.1" y="151.5" text-anchor="middle">Deer Creek</text></g>
+      <g class="mn"><circle cx="165.5" cy="154.3" r="2.3" fill="#14231a"/>
+      <text x="165.5" y="166.8" text-anchor="middle">Groveland</text></g>
+      <g class="mn"><circle cx="196.6" cy="56.6" r="2.3" fill="#14231a"/>
+      <text x="201.1" y="59.9">Germantown Hills</text></g>
+      <g class="mn"><circle cx="244.1" cy="44.9" r="2.3" fill="#14231a"/>
+      <text x="248.6" y="48.2">Metamora</text></g>
+      <g class="mn"><circle cx="282.3" cy="86.5" r="2.3" fill="#14231a"/>
+      <text x="286.8" y="89.8">Eureka</text></g>
+      <g class="mn"><circle cx="281.1" cy="138.0" r="2.3" fill="#14231a"/>
+      <text x="281.1" y="132.5" text-anchor="middle">Goodfield</text></g>
+      <g class="mn"><circle cx="218.6" cy="259.2" r="2.3" fill="#14231a"/>
+      <text x="223.1" y="262.5">Hopedale</text></g>
+      <g class="mn"><circle cx="264.4" cy="251.6" r="2.3" fill="#14231a"/>
+      <text x="268.9" y="254.9">Minier</text></g>
+      </g>
+      <circle class="ping" cx="200" cy="148" r="9" fill="#2e7d32" opacity=".35"/><circle cx="200" cy="148" r="5.5" fill="#2e7d32" stroke="#fff" stroke-width="2"/>
+      <text x="200" y="136" font-size="12" font-weight="800" fill="#14231a" text-anchor="middle" paint-order="stroke" stroke="#f4f8ef" stroke-width="3">Morton</text>
+      <text x="293.1" y="56.9" font-size="8.5" font-weight="800" fill="#2e7d32">15 mi</text>
+      <g transform="translate(372 30)" fill="#14231a"><path d="M0 -12 L5 3 L0 0 L-5 3z"/><text y="14" font-size="8" font-weight="800" text-anchor="middle">N</text></g>
+      <g transform="translate(340 286)" font-size="7.5" font-weight="700" fill="#14231a"><path d="M0 0 h42.0" stroke="#14231a" stroke-width="2"/><path d="M0 -3 v6 M42.0 -3 v6" stroke="#14231a" stroke-width="1.2"/><text x="21.0" y="-5" text-anchor="middle">5 mi</text></g>
+      </svg>
+  </div>
+</div></section>
+
+<section id="contact" class="rv"><div class="wrap">
+  <div class="contact">
+    <div><span class="k">Get started</span><h2>Text, call or send this.</h2><p class="sub">Most yards get a price back the same day. In this demo nothing is sent.</p><p><a class="call" href="tel:+13095550100">(309) 555-0100</a></p></div>
+    <form id="f"><label>Name<input required name="n" autocomplete="name"></label><label>Street address<input required name="a" autocomplete="street-address"></label><label>What do you need?<select name="s"><option>Weekly mowing</option><option>Cleanup</option><option>Edging &amp; mulch</option><option>Not sure</option></select></label><button class="btn y" type="submit">Request my price</button><div class="ok" id="ok" hidden>Got it. On a live site this goes straight to the owner's phone.</div></form>
+  </div>
+</div></section>
+
+<footer>Prairie Line Lawn Co. is a made-up business used to demo the Essential plan: one page, up to five sections. <a href="../../">Built by Nolan Day Studio</a></footer>
+<div class="bar"><a class="a1" href="tel:+13095550100">Call</a><a class="a2" href="#estimate">Get my price</a></div>
+
+<script>
+(function(){
+  var io="IntersectionObserver" in window?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})},{threshold:.12}):null;
+  document.querySelectorAll(".rv").forEach(function(el){io?io.observe(el):el.classList.add("in")});
+  var sizes=["Small (under ⅛ acre)","Medium (about ¼ acre)","Large (about ½ acre)","Big (1 acre)"],mult=[.8,1,1.45,2.2];
+  function one(id){var w=document.getElementById(id);w.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;w.querySelectorAll("button").forEach(function(x){x.setAttribute("aria-pressed",x===b)});calc()})}
+  function many(id){var w=document.getElementById(id);w.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;b.setAttribute("aria-pressed",b.getAttribute("aria-pressed")!=="true");calc()})}
+  function calc(){var s=document.querySelector("#svc [aria-pressed=true]"),y=+document.getElementById("yd").value,ex=0;
+    document.querySelectorAll("#ex [aria-pressed=true]").forEach(function(b){ex+=+b.dataset.p});
+    var base=+s.dataset.p,t=Math.round((base*mult[y-1]+ex)/5)*5;document.getElementById("tot").textContent="$"+t;
+    document.getElementById("per").textContent=base>=100?"one time":"per visit";document.getElementById("ydl").textContent=sizes[y-1]}
+  one("svc");many("ex");document.getElementById("yd").addEventListener("input",calc);calc();
+  document.getElementById("f").addEventListener("submit",function(e){e.preventDefault();document.getElementById("ok").hidden=false});
+})();
+// the badge follows the season, the way a real lawn company would keep it current
+(function(){var m=new Date().getMonth(),t=m>=8&&m<=10?"Booking fall cleanups now":m>=5&&m<=7?"Weekly mowing spots open":"Booking spring cleanups now";document.getElementById("season").textContent=t})();
+</script>
+</body>
+</html>
