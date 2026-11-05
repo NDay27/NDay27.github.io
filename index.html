@@ -278,6 +278,7 @@ td.all{text-align:left;font-weight:500}
 .fx-card .btn{min-height:44px;font-size:15px}
 .fx-badge{position:absolute;top:-11px;left:16px;background:var(--accent);color:var(--accent-ink);font-size:11px;font-weight:700;padding:3px 10px;border-radius:99px;letter-spacing:.04em;text-transform:uppercase}
 .fx-fine{font-size:12px;color:var(--muted)}
+.call{display:flex;flex-direction:column;gap:6px;font-size:14px;line-height:1.45;flex:1}.call p{margin:0}.call b{display:inline-block;min-width:52px;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--accent)}
 .fx-vis{margin:0;position:relative;display:grid;gap:14px}
 .gbp{position:relative;background:#fff;color:#1f1f1f;border-radius:16px;padding:16px 16px 14px;box-shadow:0 20px 40px -24px #0006;border:1px solid #e3e3e3;font-size:14px}
 .gbp.before{transform:rotate(-2deg);opacity:.85;filter:saturate(.6)}
@@ -617,7 +618,19 @@ footer a{color:var(--muted)}
       <h3 class="fx-h" id="ai-h">An AI receptionist that answers <em>when you can't</em>.</h3>
       <p class="fx-sub">When you're on a roof, under a sink or with a customer, missed calls go to whoever picks up next. Your AI receptionist answers in a natural voice, asks what they need, takes their name, number and address, flags emergencies, and texts or emails you the details so you can call back.</p>
       <div class="fx-cards" role="list">
-        <div class="fx-card hot" role="listitem"><span class="fx-badge">Try it now</span><h4>Talk to the demo</h4><div class="p">Free <small>2-minute demo</small></div><ul><li>A sample roofing company's receptionist, built by me</li><li>Talk to it from your phone or computer, no sign-up</li><li>Ask about a leak, an estimate or the hours</li></ul><a class="btn" href="https://elevenlabs.io/app/talk-to?agent_id=agent_6001m6pen943e9tbtvf3j8kbjwx8" target="_blank" rel="noopener">Talk to the demo receptionist</a><span class="fx-fine">Demo for a made-up business. It says it's an AI assistant if asked.</span></div>
+        <div class="fx-card hot" role="listitem"><span class="fx-badge">Real test call</span><h4>How it handles a call</h4><div class="call" aria-label="Transcript of a test call">
+<p><b>Kai</b> Thanks for calling Sample Roofing, this is Kai, the virtual assistant. How can I help you today?</p>
+<p><b>Caller</b> Hi, yeah, I've got some hail damage on my roof and I need to get someone out to take a look.</p>
+<p><b>Kai</b> I can certainly help you with that. We work with hail damage and our estimates are free. To get started, could I please get your first and last name?</p>
+<p><b>Caller</b> Sure, it's Priya Shah.</p>
+<p><b>Kai</b> Got it, thank you, Priya Shah. What is the best callback number for the owner to reach you?</p>
+<p><b>Caller</b> It's 309 555 0168.</p>
+<p><b>Kai</b> Thank you. Let me read that back to you: three oh nine, five five five, zero one six eight. Is that correct?</p>
+<p><b>Caller</b> No, the last four are 0186, not 0168.</p>
+<p><b>Kai</b> Ah, thank you for correcting me. So that is three oh nine, five five five, zero one eight six. Did I get it right this time?</p>
+<p><b>Caller</b> No, nothing's leaking. But I did already file a claim with my insurance, so there's that.</p>
+<p><b>Kai</b> That is great to know, we work with homeowners' insurance claims all the time.</p>
+</div><span class="fx-fine">Shortened from a test call with a simulated customer. The replies are word for word from the demo receptionist, for a made-up roofing company.</span></div>
         <div class="fx-card" role="listitem"><h4>Phone Desk for your business</h4><div class="p">$197 <small>/ month, founding price</small></div><ul><li>Set up with your services, hours and service area ($497 one-time setup)</li><li>Answers missed or after-hours calls forwarded from your number</li><li>Every call summarized to your phone or email</li><li>Try it on your own calls before you pay. Cancel any month.</li></ul><a class="btn ghost" href="mailto:hanbackj1@gmail.com?subject=AI%20receptionist%20for%20my%20business&amp;body=Business%20name%3A%20%0ATown%3A%20%0AWhat%20callers%20usually%20ask%3A%20">Ask about Phone Desk</a></div>
       </div>
       <p class="note" style="margin-top:12px">It never makes up prices or promises: it takes the details and you call back.</p>
