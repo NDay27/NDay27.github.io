@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Make Your Site Live · Nolan Day Studio</title>
+<meta name="description" content="Say yes to your free preview and get your website live the same day. $0 down and $99 a month, or $300 to own it. Pay by Venmo or Cash App only after you approve it.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://nday27.github.io/yes/">
+<link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Figtree:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+<style>
+.plans{display:grid;gap:10px;margin:8px 0 4px}
+.plan{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--bg);cursor:pointer;font-weight:400;margin:0}
+.plan input{width:auto;min-height:0;margin-top:4px;accent-color:var(--accent)}
+.plan b{display:block}
+.plan:has(input:checked){border-color:var(--accent);background:var(--soft)}
+textarea{width:100%;font:inherit;padding:12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);min-height:84px}
+.row{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.row .btn{flex:1 1 220px}
+.done{display:none;margin-top:16px;padding:14px;border-radius:12px;background:var(--soft)}
+.paybtns{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.paybtns .btn{flex:1 1 200px}
+</style>
+</head>
+<body>
+<div class="navbar"><nav><a class="brand" href="/">Nolan Day <span>Studio</span></a><a class="pill" href="/#plans">Plans</a></nav></div>
+<main class="wrap">
+
+<p class="crumbs"><a href="/">Home</a> › Make it live</p>
+<h1 id="h">Make your site live today.</h1>
+<p class="lede">Pick a plan and tap send. I reply the same day, put your site on its own link, and make any changes you want. <b>You pay only after you approve it.</b></p>
+
+<div class="card">
+<form id="yes" onsubmit="return false">
+<label for="biz">Business name</label>
+<input id="biz" autocomplete="organization" required>
+<label for="town">Town</label>
+<input id="town" autocomplete="address-level2">
+
+<label id="plan-l">Plan</label>
+<div class="plans" role="radiogroup" aria-labelledby="plan-l">
+<label class="plan"><input type="radio" name="plan" value="Starter Site, $0 down and $99 a month" checked><span><b>$0 down, $99 a month</b>Hosting, edits and your Google listing handled. Cancel any time.</span></label>
+<label class="plan"><input type="radio" name="plan" value="Own it, $300 one time"><span><b>$300 one time, you own it</b>Same site, paid once. Free hosting.</span></label>
+<label class="plan"><input type="radio" name="plan" value="Not sure yet, help me pick"><span><b>Not sure yet</b>I'll tell you which one fits, no pressure.</span></label>
+</div>
+
+<label for="who">Your name</label>
+<input id="who" autocomplete="name">
+<label for="phone">Best number to text you (optional)</label>
+<input id="phone" type="tel" inputmode="tel" autocomplete="tel">
+<label for="pay">How you'd like to pay after you approve it</label>
+<select id="pay"><option>Venmo</option><option>Cash App</option><option>Check</option></select>
+<label for="notes">Anything to change on the preview? (optional)</label>
+<textarea id="notes" placeholder="New photos, hours, a service to add, a different phone number..."></textarea>
+
+<div class="row">
+<a class="btn" id="send" href="mailto:hanbackj1@gmail.com?subject=Yes%2C%20make%20my%20site%20live">Send my yes</a>
+<button class="btn ghost" id="copy" type="button">Copy message</button>
+</div>
+<p class="fine">This opens your email app with the message filled in. Nothing is sent until you send it. No email app? Copy the message and send it to <b>hanbackj1@gmail.com</b>.</p>
+<div class="done" id="done" role="status" aria-live="polite"></div>
+</form>
+</div>
+
+<h2>What happens next</h2>
+<ol class="steps">
+<li><b>I reply the same day</b> and make the changes you asked for.</li>
+<li><b>You look it over on your phone.</b> Nothing goes live until you say it's right.</li>
+<li><b>Your site goes live</b>, and I set up your Google listing link if you have one.</li>
+<li><b>Then you pay</b>: the first $99 month, or the $300 one time.</li>
+</ol>
+
+<h2 id="pay-h">How paying works</h2>
+<p>I send a Venmo or Cash App request for the exact amount, so you just tap approve. On the $99 plan I send the same request on the same date each month, and you can cancel any time by replying "cancel".</p>
+<div class="paybtns" id="paybtns" hidden></div>
+<p class="fine">Prefer a check or a card? Say so in your message and I'll sort it out.</p>
+
+</main>
+<script>
+(function(){
+  // Payment handles. Fill these in once and the pay buttons appear. Leave blank to hide them.
+  var PAY = { venmo: "", cashapp: "" };
+  var TO = "hanbackj1@gmail.com";
+  var q = new URLSearchParams(location.search);
+  var $ = function(id){ return document.getElementById(id); };
+  var clean = function(s){ return String(s || "").replace(/[<>]/g, "").slice(0, 120); };
+  if (q.get("biz")) { $("biz").value = clean(q.get("biz")); $("h").textContent = "Let's put " + clean(q.get("biz")) + " online today."; }
+  if (q.get("town")) $("town").value = clean(q.get("town"));
+  var want = (q.get("plan") || "").toLowerCase();
+  if (want) document.querySelectorAll('input[name=plan]').forEach(function(r){ if (r.value.toLowerCase().indexOf(want) === 0) r.checked = true; });
+  var src = clean(q.get("src") || q.get("p") || "");
+
+  function plan(){ var r = document.querySelector('input[name=plan]:checked'); return r ? r.value : ""; }
+  function body(){
+    var lines = [
+      "Yes, make my site live.",
+      "",
+      "Business: " + $("biz").value,
+      "Town: " + $("town").value,
+      "Plan: " + plan(),
+      "My name: " + $("who").value,
+      "Text me at: " + $("phone").value,
+      "I'll pay by: " + $("pay").value
+    ];
+    if ($("notes").value.trim()) lines.push("", "Changes: " + $("notes").value.trim());
+    if (src) lines.push("", "(from " + src + ")");
+    return lines.join("\n");
+  }
+  function subject(){ return "Yes, make my site live: " + ($("biz").value || "my business"); }
+  function refresh(){ $("send").href = "mailto:" + TO + "?subject=" + encodeURIComponent(subject()) + "&body=" + encodeURIComponent(body()); }
+  $("yes").addEventListener("input", refresh); $("yes").addEventListener("change", refresh); refresh();
+  $("send").addEventListener("click", function(){
+    if (!$("biz").value.trim()) { $("biz").focus(); return; }
+    $("done").style.display = "block";
+    $("done").textContent = "Your email app should open with your message. Didn't open? Tap Copy message and send it to " + TO + ". I reply the same day.";
+  });
+  $("copy").addEventListener("click", function(){
+    var t = "To: " + TO + "\nSubject: " + subject() + "\n\n" + body();
+    var ok = function(){ $("done").style.display = "block"; $("done").textContent = "Copied. Paste it into an email or text to " + TO + "."; };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(ok, function(){ fallback(t); ok(); });
+    else { fallback(t); ok(); }
+  });
+  function fallback(t){ var a = document.createElement("textarea"); a.value = t; document.body.appendChild(a); a.select(); try { document.execCommand("copy"); } catch (e) {} a.remove(); }
+  var pb = $("paybtns"), any = false;
+  if (PAY.venmo) { any = true; pb.insertAdjacentHTML("beforeend", '<a class="btn ghost" href="https://venmo.com/u/' + encodeURIComponent(PAY.venmo.replace(/^@/, "")) + '">Pay with Venmo</a>'); }
+  if (PAY.cashapp) { any = true; pb.insertAdjacentHTML("beforeend", '<a class="btn ghost" href="https://cash.app/$' + encodeURIComponent(PAY.cashapp.replace(/^\$/, "")) + '">Pay with Cash App</a>'); }
+  if (any) pb.hidden = false;
+})();
+</script>
+</body>
+</html>
