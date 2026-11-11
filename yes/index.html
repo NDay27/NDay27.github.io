@@ -61,7 +61,7 @@ textarea{width:100%;font:inherit;padding:12px;border-radius:10px;border:1px soli
 <a class="btn" id="send" href="mailto:hanbackj1@gmail.com?subject=Yes%2C%20make%20my%20site%20live">Send my yes</a>
 <button class="btn ghost" id="copy" type="button">Copy message</button>
 </div>
-<p class="fine">This opens your email app with the message filled in. Nothing is sent until you send it. No email app? Copy the message and send it to <b>hanbackj1@gmail.com</b>.</p>
+<p class="fine">No email app on this phone? Send it with <a id="m-g" target="_blank" rel="noopener" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=hanbackj1@gmail.com">Gmail</a>, <a id="m-o" target="_blank" rel="noopener" href="https://outlook.live.com/mail/0/deeplink/compose?to=hanbackj1@gmail.com">Outlook</a> or <a id="m-y" target="_blank" rel="noopener" href="https://compose.mail.yahoo.com/?to=hanbackj1@gmail.com">Yahoo Mail</a>, or tap Copy message and send it to <b>hanbackj1@gmail.com</b>. Nothing is sent until you send it.</p>
 <div class="done" id="done" role="status" aria-live="polite"></div>
 </form>
 </div>
@@ -111,7 +111,11 @@ textarea{width:100%;font:inherit;padding:12px;border-radius:10px;border:1px soli
     return lines.join("\n");
   }
   function subject(){ return "Yes, make my site live: " + ($("biz").value || "my business"); }
-  function refresh(){ $("send").href = "mailto:" + TO + "?subject=" + encodeURIComponent(subject()) + "&body=" + encodeURIComponent(body()); }
+  function refresh(){ var sj = encodeURIComponent(subject()), bd = encodeURIComponent(body());
+    $("send").href = "mailto:" + TO + "?subject=" + sj + "&body=" + bd;
+    $("m-g").href = "https://mail.google.com/mail/?view=cm&fs=1&to=" + TO + "&su=" + sj + "&body=" + bd;
+    $("m-o").href = "https://outlook.live.com/mail/0/deeplink/compose?to=" + TO + "&subject=" + sj + "&body=" + bd;
+    $("m-y").href = "https://compose.mail.yahoo.com/?to=" + TO + "&subject=" + sj + "&body=" + bd; }
   $("yes").addEventListener("input", refresh); $("yes").addEventListener("change", refresh); refresh();
   $("send").addEventListener("click", function(){
     if (!$("biz").value.trim()) { $("biz").focus(); return; }
@@ -131,5 +135,6 @@ textarea{width:100%;font:inherit;padding:12px;border-radius:10px;border:1px soli
   if (any) pb.hidden = false;
 })();
 </script>
+<script>/*nds-count*/(function(){try{var ls=function(){try{return localStorage.getItem("nds_nc")}catch(e){return null}};if(location.hash==="#nc"){try{localStorage.setItem("nds_nc","1")}catch(e){}}if(navigator.webdriver||ls())return;var p=location.pathname.replace(/index\.html$/,"").replace(/^\/+|\/+$/g,"");var k=p?(p.indexOf("p/")===0?p.split("/").pop():p.replace(/[^A-Za-z0-9]+/g,"-")):"home";k=k.slice(0,60);if(k.length<3)k="pg-"+k;fetch("https://abacus.jasoncameron.dev/hit/ndstudio/"+k,{keepalive:true}).catch(function(){})}catch(e){}})();</script>
 </body>
 </html>
