@@ -1,0 +1,50 @@
+/* Shared look for the client journey pages: the studio's paper-and-ink brand (site.css tokens), with the
+   shop's own accent color (--shop) threaded through, so every page feels made for that one business. */
+:root{--shop:#2F5DFF;--shop-ink:#FFFFFF;--shop-deep:#1A2330;--paper:#FBFAF7;--radius:18px;--ease:cubic-bezier(.16,1,.3,1)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#121418}}
+:root[data-theme="dark"]{--paper:#121418}
+body.j{padding:0;font-size:17px}
+.j .shell{max-width:1120px;margin:0 auto;padding:0 20px}
+.j .topbar{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:saturate(1.4) blur(12px);-webkit-backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--line)}
+.j .topbar .shell{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:60px}
+.j .mark{display:flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;font-weight:700;min-width:0}
+.j .mark i{flex:none;width:30px;height:30px;border-radius:9px;background:var(--ink);color:var(--bg);display:grid;place-items:center;font:400 19px/1 "Instrument Serif",Georgia,serif;font-style:normal}
+.j .mark span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.j .mark small{color:var(--muted);font-weight:500}
+@media (max-width:520px){.j .mark small{display:none}}
+.j .topbar .btn{white-space:nowrap;flex:none}
+.j .btn{border-radius:12px;transition:transform .2s var(--ease),box-shadow .2s var(--ease),background .2s}
+.j .btn:hover{transform:translateY(-1px)}
+.j .btn:active{transform:translateY(0) scale(.985)}
+.j .btn:focus-visible,.j a:focus-visible,.j button:focus-visible,.j input:focus-visible,.j textarea:focus-visible,.j select:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.j .btn.shop{background:var(--shop);color:var(--shop-ink);box-shadow:0 12px 30px -14px var(--shop)}
+.j .btn.ink{background:var(--ink);color:var(--bg)}
+.j .btn.sm{min-height:42px;padding:0 16px;font-size:15px}
+.j .eyebrow{font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+.j .eyebrow b{color:var(--ink)}
+.j h1{font-size:clamp(40px,6.6vw,76px);line-height:.98;margin:0 0 18px;letter-spacing:-.02em}
+.j h1 em,.j h2 em{font-style:italic;color:var(--shop)}
+.j h2{font-size:clamp(32px,4.6vw,50px);margin:0 0 14px;line-height:1.02}
+.j section{padding:clamp(56px,8vw,104px) 0}
+.j .sub{color:var(--muted);font-size:18.5px;max-width:58ch}
+.j .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+.j .grid2{display:grid;gap:18px}
+@media (min-width:860px){.j .grid2{grid-template-columns:1fr 1fr}}
+.j .ticks{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.j .ticks li{display:flex;gap:10px;align-items:flex-start}
+.j .ticks li{position:relative}
+.j .ticks li::before{content:"";flex:none;width:20px;height:20px;margin-top:3px;border-radius:50%;background:var(--shop)}
+.j .ticks li::after{content:"";position:absolute;left:0;top:3px;width:20px;height:20px;background:var(--shop-ink);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 12.5l3.5 3.5L17 9'/%3E%3C/svg%3E") center/14px no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 12.5l3.5 3.5L17 9'/%3E%3C/svg%3E") center/14px no-repeat}
+.j .fine{font-size:14px;color:var(--muted)}
+.j .toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,20px);opacity:0;background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:12px;font-weight:600;font-size:15px;transition:.3s var(--ease);z-index:50;pointer-events:none;max-width:calc(100vw - 32px)}
+.j .toast.on{opacity:1;transform:translate(-50%,0)}
+.j .rv{opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.j .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.j .rv{opacity:1;transform:none;transition:none}.j .btn{transition:none}}
+.j footer.foot{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--muted);font-size:14px}
+.j footer.foot .shell{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+.j label{display:block;font-weight:600;font-size:15px;margin:16px 0 6px}
+.j input,.j textarea,.j select{width:100%;font:inherit;font-size:16px;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);min-height:48px}
+.j textarea{min-height:96px;resize:vertical}
+.j .hint{font-weight:400;color:var(--muted);font-size:14px}
+@media print{.j .topbar,.j .noprint,.j .toast{display:none!important}.j section{padding:24px 0}body.j{background:#fff;color:#000}}

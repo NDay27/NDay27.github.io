@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>How Did I Do? · Nolan Day Studio</title>
+<meta name="description" content="Tell Nolan Day Studio how your new website went, and send a friend who needs one. You get $50 when they become a client.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/journey.css">
+<style>
+/* After launch: an honest review (every rating gets the same options; no filtering of unhappy clients)
+   and a referral the client can send from their own phone. */
+.layout{max-width:760px;margin:0 auto;padding:clamp(24px,4vw,56px) 0 72px;display:grid;gap:22px}
+.stars{display:flex;gap:6px;margin:8px 0 4px}
+.stars button{width:52px;height:52px;border-radius:14px;border:1px solid var(--line);background:var(--bg);cursor:pointer;display:grid;place-items:center;color:var(--line);transition:transform .15s,color .15s}
+.stars button svg{width:28px;height:28px}
+.stars button.on{color:#E8A317;border-color:#E8A31766}
+.stars button:hover{transform:scale(1.06)}
+.row{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.row .btn{flex:1 1 200px}
+.ref{background:var(--ink);color:var(--bg);border-radius:24px;padding:clamp(22px,4vw,36px)}
+.ref h2{color:var(--bg)}
+.ref p{color:color-mix(in srgb,var(--bg) 75%,transparent)}
+.ref .msg{background:color-mix(in srgb,var(--bg) 10%,transparent);border-radius:14px;padding:14px 16px;font-size:15.5px;white-space:pre-wrap;color:var(--bg)}
+.ref .btn.ghost{color:var(--bg);border-color:color-mix(in srgb,var(--bg) 35%,transparent)}
+.check{display:flex;gap:10px;align-items:flex-start;font-weight:500}
+.check input{width:20px;height:20px;min-height:0;margin:2px 0 0;flex:none;accent-color:var(--shop)}
+</style>
+</head>
+<body class="j">
+<header class="topbar"><div class="shell"><a class="mark" href="/"><i>N</i><span>Nolan Day Studio <small id="forWho"></small></span></a></div></header>
+<main class="shell"><div class="layout">
+  <div><p class="eyebrow">Thank you</p>
+  <h1 id="h1">How did <em>I do?</em></h1>
+  <p class="sub" id="lede">Two minutes of honest feedback helps me more than anything, good or bad.</p></div>
+
+  <section class="card" style="padding:clamp(20px,4vw,32px)">
+    <h2 style="font-size:30px;margin:0 0 4px">Your rating</h2>
+    <div class="stars" id="stars" role="radiogroup" aria-label="Rating out of 5"></div>
+    <label for="words">In your words <span class="hint">(what was it like working with me? how's the site doing?)</span></label>
+    <textarea id="words" rows="4"></textarea>
+    <label for="name">Your name as it should appear <span class="hint">(first name and business is perfect)</span></label>
+    <input id="name" autocomplete="name">
+    <label class="check"><input type="checkbox" id="ok" checked> You can put these words on the Nolan Day Studio website.</label>
+    <div class="row"><a class="btn shop" id="sendRev" href="mailto:hanbackj1@gmail.com">Send my review</a><a class="btn ghost" id="google" href="#" target="_blank" rel="noopener" hidden>Also post it on Google</a></div>
+    <p class="fine" id="googleNote" style="margin-top:10px" hidden>Tip: tap "Copy my words" first, then paste them on Google.</p>
+    <button class="btn ghost sm" type="button" id="copyRev" style="margin-top:8px">Copy my words</button>
+    <div class="done card" id="done" role="status" aria-live="polite" hidden style="margin-top:14px"></div>
+  </section>
+
+  <section class="ref">
+    <p class="eyebrow" style="color:inherit;opacity:.7">Know someone?</p>
+    <h2 style="margin:0 0 10px">Send a friend, get <em style="color:inherit">$50.</em></h2>
+    <p>If you know another business owner who needs a website, send them this. When they become a paying client, I send you $50 by Venmo or Cash App. No limit.</p>
+    <div class="msg" id="refMsg"></div>
+    <div class="row"><a class="btn shop" id="refText" href="sms:">Text it to a friend</a><button class="btn ghost" type="button" id="refCopy">Copy the message</button></div>
+  </section>
+</div></main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="/assets/journey.js"></script>
+<script>
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id)};
+var shop={slug:"",name:""},rating=0;
+function toast(m){var t=$("toast");t.textContent=m;t.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(function(){t.classList.remove("on")},2200)}
+var STAR='<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4L2.8 9.5l6.4-.8z"/></svg>';
+for(var i=1;i<=5;i++)(function(n){var b=document.createElement("button");b.type="button";b.innerHTML=STAR;b.setAttribute("role","radio");b.setAttribute("aria-label",n+" star"+(n>1?"s":""));b.setAttribute("aria-checked","false");
+  b.addEventListener("click",function(){rating=n;paint();refresh()});$("stars").appendChild(b)})(i);
+function paint(){Array.prototype.forEach.call($("stars").children,function(b,k){b.classList.toggle("on",k<rating);b.setAttribute("aria-checked",String(k+1===rating))})}
+function words(){return $("words").value.trim()}
+function body(){return ["Here's my review.","","Rating: "+(rating?rating+" out of 5":"(no rating)"),"",words()||"(no words)","","Name: "+$("name").value.trim(),"Business: "+(shop.name||""),"OK to put on your website: "+($("ok").checked?"yes":"no"),"","NDS-REVIEW "+JSON.stringify({s:shop.slug,r:rating,ok:$("ok").checked})].join("\n")}
+function refresh(){var c=NDS.composeLinks("My review for Nolan Day Studio",body());$("sendRev").href=c.mailto}
+["words","name","ok"].forEach(function(id){$(id).addEventListener("input",refresh);$(id).addEventListener("change",refresh)});
+$("sendRev").addEventListener("click",function(){refresh();var d=$("done");d.hidden=false;d.textContent="Thank you. Your email is ready to send."+(NDS.STUDIO.reviewUrl?" If you have a minute, posting the same words on Google helps other owners find me.":"")});
+$("copyRev").addEventListener("click",function(){NDS.copy(words()||"").then(function(){toast(words()?"Copied":"Write a few words first")})});
+/* Google gets the same offer at every rating. */
+if(NDS.STUDIO.reviewUrl){$("google").href=NDS.STUDIO.reviewUrl;$("google").hidden=false;$("googleNote").hidden=false}
+
+function refMessage(){var from=shop.name?" ("+shop.name+")":"";
+  return "Hey, my website"+from+" was made by Nolan Day in Morton. Nolan builds you a free sample site first, then it's $0 down and $99 a month or $300 to own it, live the same day. Worth a look: https://nday27.github.io/?ref="+encodeURIComponent(shop.slug||"friend")}
+function paintRef(){var m=refMessage();$("refMsg").textContent=m;$("refText").href="sms:?&body="+encodeURIComponent(m)}
+$("refCopy").addEventListener("click",function(){NDS.copy(refMessage()).then(function(){toast("Copied. Paste it in a text.")})});
+paintRef();refresh();
+NDS.loadShop().then(function(s){shop=s;
+  NDS.applyColors(s.colors);
+  var who=NDS.contactName();
+  if(s.name){$("forWho").textContent="· for "+s.name;$("h1").textContent="";$("h1").appendChild(document.createTextNode("How did I do"+(who?", "+who:"")+"?"));
+    $("lede").textContent="Thanks for trusting me with "+s.name+". Two minutes of honest feedback helps me more than anything, good or bad.";
+    $("name").value=(who?who+", ":"")+s.name}
+  paintRef();refresh();NDS.count("r-",s.slug);
+});
+})();
+</script>
+</body>
+</html>

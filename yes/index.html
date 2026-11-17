@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Make Your Site Live · Nolan Day Studio</title>
 <meta name="description" content="Say yes to your free preview and get your website live the same day. $0 down and $99 a month, or $300 to own it. Pay by Venmo or Cash App only after you approve it.">
 <meta name="robots" content="noindex">
@@ -10,131 +10,146 @@
 <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Figtree:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Figtree:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/journey.css">
 <style>
+/* The yes page: the shortest path from "I like it" to a message in Nolan's inbox. Everything known about the
+   shop is filled in from the link, so the owner only picks a plan and taps send. */
+.layout{display:grid;gap:clamp(24px,4vw,48px);padding:clamp(24px,4vw,56px) 0 64px}
+@media (min-width:960px){.layout{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);align-items:start}}
 .plans{display:grid;gap:10px;margin:8px 0 4px}
-.plan{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--bg);cursor:pointer;font-weight:400;margin:0}
-.plan input{width:auto;min-height:0;margin-top:4px;accent-color:var(--accent)}
-.plan b{display:block}
-.plan:has(input:checked){border-color:var(--accent);background:var(--soft)}
-textarea{width:100%;font:inherit;padding:12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);min-height:84px}
-.row{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
-.row .btn{flex:1 1 220px}
-.done{display:none;margin-top:16px;padding:14px;border-radius:12px;background:var(--soft)}
-.paybtns{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
-.paybtns .btn{flex:1 1 200px}
+.opt{display:flex;gap:14px;align-items:flex-start;border:1px solid var(--line);border-radius:16px;padding:16px;background:var(--bg);cursor:pointer;font-weight:400;margin:0;transition:border-color .2s,background .2s}
+.opt input{width:20px;height:20px;min-height:0;margin:3px 0 0;accent-color:var(--shop);flex:none}
+.opt b{display:block;font-size:17px}
+.opt span span{color:var(--muted);font-size:15px}
+.opt:has(input:checked){border-color:var(--shop);background:color-mix(in srgb,var(--shop) 8%,var(--bg));box-shadow:inset 0 0 0 1px var(--shop)}
+.row2{display:grid;gap:0 14px}
+@media (min-width:620px){.row2{grid-template-columns:1fr 1fr}}
+.send{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.send .btn{flex:1 1 220px}
+.done{margin-top:18px;padding:18px;border-radius:16px;background:color-mix(in srgb,var(--good) 12%,var(--card));border:1px solid color-mix(in srgb,var(--good) 40%,transparent)}
+.done b{display:block;font-size:18px;margin-bottom:4px}
+.aside{position:sticky;top:84px;display:grid;gap:16px}
+.mini{border-radius:20px;overflow:hidden;border:1px solid var(--line);background:var(--card)}
+.mini .shot{aspect-ratio:4/3;position:relative;overflow:hidden;background:var(--shop-deep)}
+.mini iframe{border:0;width:1280px;height:960px;transform-origin:0 0;position:absolute;top:0;left:0;pointer-events:none}
+.mini .cap{padding:14px 18px;display:flex;justify-content:space-between;gap:10px;align-items:center}
+.next{list-style:none;padding:0;margin:0;display:grid;gap:14px}
+.next li{display:grid;grid-template-columns:30px 1fr;gap:10px}
+.next i{width:26px;height:26px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-style:normal;font-weight:700;font-size:13px}
+.paybtns{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.paybtns .btn{flex:1 1 180px}
 </style>
 </head>
-<body>
-<div class="navbar"><nav><a class="brand" href="/">Nolan Day <span>Studio</span></a><a class="pill" href="/#plans">Plans</a></nav></div>
-<main class="wrap">
+<body class="j">
+<header class="topbar"><div class="shell">
+  <a class="mark" href="/"><i>N</i><span>Nolan Day Studio <small>· make it live</small></span></a>
+  <a class="btn ghost sm" id="backMeet" href="/#plans">See plans</a>
+</div></header>
 
-<p class="crumbs"><a href="/">Home</a> › Make it live</p>
-<h1 id="h">Make your site live today.</h1>
-<p class="lede">Pick a plan and tap send. I reply the same day, put your site on its own link, and make any changes you want. <b>You pay only after you approve it.</b></p>
+<main class="shell layout">
+<div>
+  <p class="eyebrow" id="eyebrow">Last step</p>
+  <h1 id="h">Make your site live <em>today.</em></h1>
+  <p class="sub">Pick a plan and tap send. I reply the same day and finish your site. <b>You pay only after you approve it.</b></p>
 
-<div class="card">
-<form id="yes" onsubmit="return false">
-<label for="biz">Business name</label>
-<input id="biz" autocomplete="organization" required>
-<label for="town">Town</label>
-<input id="town" autocomplete="address-level2">
+  <form id="yes" class="card" style="margin-top:22px" onsubmit="return false" novalidate>
+    <label id="plan-l">Your plan</label>
+    <div class="plans" role="radiogroup" aria-labelledby="plan-l" id="plans"></div>
 
-<label id="plan-l">Plan</label>
-<div class="plans" role="radiogroup" aria-labelledby="plan-l">
-<label class="plan"><input type="radio" name="plan" value="Starter Site, $0 down and $99 a month" checked><span><b>$0 down, $99 a month</b>Hosting, edits and your Google listing handled. Cancel any time.</span></label>
-<label class="plan"><input type="radio" name="plan" value="Own it, $300 one time"><span><b>$300 one time, you own it</b>Same site, paid once. Free hosting.</span></label>
-<label class="plan"><input type="radio" name="plan" value="Not sure yet, help me pick"><span><b>Not sure yet</b>I'll tell you which one fits, no pressure.</span></label>
+    <div class="row2">
+      <div><label for="biz">Business name</label><input id="biz" autocomplete="organization" required></div>
+      <div><label for="town">Town</label><input id="town" autocomplete="address-level2"></div>
+      <div><label for="who">Your name</label><input id="who" autocomplete="name"></div>
+      <div><label for="phone">Best number to text you</label><input id="phone" type="tel" inputmode="tel" autocomplete="tel"></div>
+    </div>
+    <label for="pay">How you'd like to pay after you approve it</label>
+    <select id="pay"><option>Venmo</option><option>Cash App</option><option>Check</option></select>
+    <label for="notes">Anything to change? <span class="hint">(optional)</span></label>
+    <textarea id="notes" placeholder="New photos, hours, a service to add, a different phone number..."></textarea>
+
+    <div class="send">
+      <a class="btn shop" id="send" href="mailto:hanbackj1@gmail.com">Send my yes</a>
+      <button class="btn ghost" id="copy" type="button">Copy message</button>
+    </div>
+    <p class="fine" style="margin-top:12px">No email app on this phone? Send it with <a id="m-g" target="_blank" rel="noopener" href="https://mail.google.com/">Gmail</a>, <a id="m-o" target="_blank" rel="noopener" href="https://outlook.live.com/">Outlook</a> or <a id="m-y" target="_blank" rel="noopener" href="https://mail.yahoo.com/">Yahoo Mail</a>, or tap Copy message and text or email it to <b>hanbackj1@gmail.com</b>. Nothing is sent until you send it.</p>
+    <div class="done" id="done" role="status" aria-live="polite" hidden></div>
+  </form>
 </div>
 
-<label for="who">Your name</label>
-<input id="who" autocomplete="name">
-<label for="phone">Best number to text you (optional)</label>
-<input id="phone" type="tel" inputmode="tel" autocomplete="tel">
-<label for="pay">How you'd like to pay after you approve it</label>
-<select id="pay"><option>Venmo</option><option>Cash App</option><option>Check</option></select>
-<label for="notes">Anything to change on the preview? (optional)</label>
-<textarea id="notes" placeholder="New photos, hours, a service to add, a different phone number..."></textarea>
-
-<div class="row">
-<a class="btn" id="send" href="mailto:hanbackj1@gmail.com?subject=Yes%2C%20make%20my%20site%20live">Send my yes</a>
-<button class="btn ghost" id="copy" type="button">Copy message</button>
-</div>
-<p class="fine">No email app on this phone? Send it with <a id="m-g" target="_blank" rel="noopener" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=hanbackj1@gmail.com">Gmail</a>, <a id="m-o" target="_blank" rel="noopener" href="https://outlook.live.com/mail/0/deeplink/compose?to=hanbackj1@gmail.com">Outlook</a> or <a id="m-y" target="_blank" rel="noopener" href="https://compose.mail.yahoo.com/?to=hanbackj1@gmail.com">Yahoo Mail</a>, or tap Copy message and send it to <b>hanbackj1@gmail.com</b>. Nothing is sent until you send it.</p>
-<div class="done" id="done" role="status" aria-live="polite"></div>
-</form>
-</div>
-
-<h2>What happens next</h2>
-<ol class="steps">
-<li><b>I reply the same day</b> and make the changes you asked for.</li>
-<li><b>You look it over on your phone.</b> Nothing goes live until you say it's right.</li>
-<li><b>Your site goes live</b>, and I set up your Google listing link if you have one.</li>
-<li><b>Then you pay</b>: the first $99 month, or the $300 one time.</li>
-</ol>
-
-<h2 id="pay-h">How paying works</h2>
-<p>I send a Venmo or Cash App request for the exact amount, so you just tap approve. On the $99 plan I send the same request on the same date each month, and you can cancel any time by replying "cancel".</p>
-<div class="paybtns" id="paybtns" hidden></div>
-<p class="fine">Prefer a check or a card? Say so in your message and I'll sort it out.</p>
-
+<aside class="aside">
+  <div class="mini" id="mini" hidden><div class="shot" id="shot"></div><div class="cap"><b id="miniName">Your site</b><a id="miniLink" href="/" target="_blank" rel="noopener">Open ↗</a></div></div>
+  <div class="card"><h3>What happens next</h3>
+    <ol class="next"><li><i>1</i><span><b>I reply the same day</b> and make the changes you asked for.</span></li><li><i>2</i><span><b>You send what you have</b>: photos, logo, hours. <a id="startLink" href="/start/">Use this short form</a> or just text them.</span></li><li><i>3</i><span><b>You look it over on your phone.</b> Nothing goes live until you say it's right.</span></li><li><i>4</i><span><b>It goes live, then you pay</b> by Venmo, Cash App or check.</span></li></ol>
+  </div>
+  <div class="card" id="payCard"><h3>How paying works</h3><p class="fine" style="margin:0">Once you approve the finished site, I send a request for the exact amount, so you just tap approve. On the $99 plan the same request comes on the same date each month, and you can cancel any time by texting "cancel".</p><div class="paybtns" id="paybtns" hidden></div></div>
+</aside>
 </main>
+
+<script src="/assets/journey.js"></script>
 <script>
 (function(){
-  // Payment handles. Fill these in once and the pay buttons appear. Leave blank to hide them.
-  var PAY = { venmo: "", cashapp: "" };
-  var TO = "hanbackj1@gmail.com";
-  var q = new URLSearchParams(location.search);
-  var $ = function(id){ return document.getElementById(id); };
-  var clean = function(s){ return String(s || "").replace(/[<>]/g, "").slice(0, 120); };
-  if (q.get("biz")) { $("biz").value = clean(q.get("biz")); $("h").textContent = "Let's put " + clean(q.get("biz")) + " online today."; }
-  if (q.get("town")) $("town").value = clean(q.get("town"));
-  var want = (q.get("plan") || "").toLowerCase();
-  if (want) document.querySelectorAll('input[name=plan]').forEach(function(r){ if (r.value.toLowerCase().indexOf(want) === 0) r.checked = true; });
-  var src = clean(q.get("src") || q.get("p") || "");
+"use strict";
+var $=function(id){return document.getElementById(id)};
+var q=NDS.params(),TO=NDS.STUDIO.email,shop={slug:""};
+function num(k,max){var v=parseInt(q.get(k),10);return isFinite(v)&&v>=0&&v<=max?v:null}
+var price=num("price",10000),mo=num("mo",2000);
 
-  function plan(){ var r = document.querySelector('input[name=plan]:checked'); return r ? r.value : ""; }
-  function body(){
-    var lines = [
-      "Yes, make my site live.",
-      "",
-      "Business: " + $("biz").value,
-      "Town: " + $("town").value,
-      "Plan: " + plan(),
-      "My name: " + $("who").value,
-      "Text me at: " + $("phone").value,
-      "I'll pay by: " + $("pay").value
-    ];
-    if ($("notes").value.trim()) lines.push("", "Changes: " + $("notes").value.trim());
-    if (src) lines.push("", "(from " + src + ")");
-    return lines.join("\n");
-  }
-  function subject(){ return "Yes, make my site live: " + ($("biz").value || "my business"); }
-  function refresh(){ var sj = encodeURIComponent(subject()), bd = encodeURIComponent(body());
-    $("send").href = "mailto:" + TO + "?subject=" + sj + "&body=" + bd;
-    $("m-g").href = "https://mail.google.com/mail/?view=cm&fs=1&to=" + TO + "&su=" + sj + "&body=" + bd;
-    $("m-o").href = "https://outlook.live.com/mail/0/deeplink/compose?to=" + TO + "&subject=" + sj + "&body=" + bd;
-    $("m-y").href = "https://compose.mail.yahoo.com/?to=" + TO + "&subject=" + sj + "&body=" + bd; }
-  $("yes").addEventListener("input", refresh); $("yes").addEventListener("change", refresh); refresh();
-  $("send").addEventListener("click", function(){
-    if (!$("biz").value.trim()) { $("biz").focus(); return; }
-    $("done").style.display = "block";
-    $("done").textContent = "Your email app should open with your message. Didn't open? Tap Copy message and send it to " + TO + ". I reply the same day.";
-  });
-  $("copy").addEventListener("click", function(){
-    var t = "To: " + TO + "\nSubject: " + subject() + "\n\n" + body();
-    var ok = function(){ $("done").style.display = "block"; $("done").textContent = "Copied. Paste it into an email or text to " + TO + "."; };
-    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(ok, function(){ fallback(t); ok(); });
-    else { fallback(t); ok(); }
-  });
-  function fallback(t){ var a = document.createElement("textarea"); a.value = t; document.body.appendChild(a); a.select(); try { document.execCommand("copy"); } catch (e) {} a.remove(); }
-  var pb = $("paybtns"), any = false;
-  if (PAY.venmo) { any = true; pb.insertAdjacentHTML("beforeend", '<a class="btn ghost" href="https://venmo.com/u/' + encodeURIComponent(PAY.venmo.replace(/^@/, "")) + '">Pay with Venmo</a>'); }
-  if (PAY.cashapp) { any = true; pb.insertAdjacentHTML("beforeend", '<a class="btn ghost" href="https://cash.app/$' + encodeURIComponent(PAY.cashapp.replace(/^\$/, "")) + '">Pay with Cash App</a>'); }
-  if (any) pb.hidden = false;
+/* Plan options. A price agreed on a proposal (price=, mo=) shows on its plan so the owner sees the same number. */
+var OPTS=[["starter"],["own"],["signature"],["immersive"],["unsure"]];
+var picked=NDS.planFromParam()||(q.get("plan")||"").toLowerCase()==="unsure"&&"unsure"||"starter";
+var showBig=picked==="signature"||picked==="immersive";
+OPTS.forEach(function(o){var id=o[0],p=NDS.PLANS[id];
+  if((id==="signature"||id==="immersive")&&!showBig)return;
+  var lab=document.createElement("label");lab.className="opt";
+  var r=document.createElement("input");r.type="radio";r.name="plan";r.value=id;r.checked=id===picked;
+  var t=document.createElement("span"),b=document.createElement("b"),s=document.createElement("span");
+  if(p){var agreed=id===picked&&(price!=null||mo!=null);
+    var setup=agreed&&price!=null?price:p.setup,monthly=agreed&&mo!=null?mo:p.monthly;
+    b.textContent=(monthly?(setup?NDS.money(setup)+" + ":"$0 down, ")+"$"+monthly+" a month":NDS.money(setup)+" one time")+" · "+p.name;
+    s.textContent=agreed?"The price on your proposal. "+p.line:p.line;r.dataset.label=b.textContent}
+  else{b.textContent="Not sure yet";s.textContent="I'll tell you which one fits, no pressure.";r.dataset.label="Not sure yet, help me pick"}
+  t.appendChild(b);t.appendChild(s);lab.appendChild(r);lab.appendChild(t);$("plans").appendChild(lab)});
+
+function plan(){var r=document.querySelector('input[name=plan]:checked');return r?r.dataset.label:""}
+function planId(){var r=document.querySelector('input[name=plan]:checked');return r?r.value:""}
+function body(){
+  var lines=["Yes, make my site live.","","Business: "+$("biz").value,"Town: "+$("town").value,"Plan: "+plan(),"My name: "+$("who").value,"Text me at: "+$("phone").value,"I'll pay by: "+$("pay").value];
+  if($("notes").value.trim())lines.push("","Changes: "+$("notes").value.trim());
+  /* One machine-readable line so the Lead Board files this under the right shop without retyping. */
+  lines.push("","NDS-YES "+JSON.stringify({s:shop.slug||"",plan:planId(),price:price,mo:mo,src:NDS.clean(q.get("src"),40),by:NDS.clean(q.get("by"),30)}));
+  return lines.join("\n");
+}
+function subject(){return "Yes, make my site live: "+($("biz").value||"my business")}
+function refresh(){var c=NDS.composeLinks(subject(),body());$("send").href=c.mailto;$("m-g").href=c.gmail;$("m-o").href=c.outlook;$("m-y").href=c.yahoo;
+  $("startLink").href=NDS.link("/start/",{plan:planId()})}
+function afterSend(how){
+  var d=$("done");d.hidden=false;d.textContent="";
+  var b=document.createElement("b");b.textContent=how==="copy"?"Copied.":"Your message is ready to send.";d.appendChild(b);
+  d.appendChild(document.createTextNode(how==="copy"?"Paste it into a text or an email to "+TO+". ":"Didn't open? Tap Copy message and send it to "+TO+". "));
+  d.appendChild(document.createTextNode("Want to save a step? "));
+  var a=document.createElement("a");a.href=NDS.link("/start/",{plan:planId()});a.textContent="Send your photos, hours and services now";d.appendChild(a);d.appendChild(document.createTextNode(", and your site can be finished today."));
+}
+$("yes").addEventListener("input",refresh);$("yes").addEventListener("change",refresh);
+$("send").addEventListener("click",function(e){if(!$("biz").value.trim()){e.preventDefault();$("biz").focus();return}afterSend("mail")});
+$("copy").addEventListener("click",function(){NDS.copy("To: "+TO+"\nSubject: "+subject()+"\n\n"+body()).then(function(){afterSend("copy")})});
+
+var pb=$("paybtns");NDS.payLinks(0,"Website").forEach(function(l){var a=document.createElement("a");a.className="btn ghost";a.href=l.href;a.textContent=l.label;pb.appendChild(a)});if(pb.children.length)pb.hidden=false;
+
+$("biz").value=NDS.clean(q.get("biz"));$("town").value=NDS.clean(q.get("town"));refresh();
+NDS.loadShop().then(function(s){shop=s;
+  NDS.applyColors(s.colors);
+  if(s.name){$("biz").value=s.name;$("h").textContent="";$("h").appendChild(document.createTextNode("Let's put "+s.name+" "));var em=document.createElement("em");em.textContent="online today.";$("h").appendChild(em);$("eyebrow").textContent="Last step for "+s.name}
+  if(s.town)$("town").value=s.town;
+  var who=NDS.contactName();if(who&&!$("who").value)$("who").value=who;
+  if(s.url){$("mini").hidden=false;$("miniName").textContent=s.name||"Your site";$("miniLink").href=s.url;
+    var f=document.createElement("iframe");f.src=s.url;f.title="Your site";f.loading="lazy";f.tabIndex=-1;f.setAttribute("aria-hidden","true");$("shot").appendChild(f);
+    var fit=function(){f.style.transform="scale("+($("shot").clientWidth/1280)+")"};fit();window.addEventListener("resize",fit)}
+  if(s.slug){$("backMeet").href=NDS.link("/meet/",{plan:planId()});$("backMeet").textContent="Back to your site"}
+  refresh();NDS.count("y-",s.slug);
+});
 })();
 </script>
-<script>/*nds-count*/(function(){try{var ls=function(){try{return localStorage.getItem("nds_nc")}catch(e){return null}};if(location.hash==="#nc"){try{localStorage.setItem("nds_nc","1")}catch(e){}}if(navigator.webdriver||ls())return;var p=location.pathname.replace(/index\.html$/,"").replace(/^\/+|\/+$/g,"");var k=p?(p.indexOf("p/")===0?p.split("/").pop():p.replace(/[^A-Za-z0-9]+/g,"-")):"home";k=k.slice(0,60);if(k.length<3)k="pg-"+k;fetch("https://abacus.jasoncameron.dev/hit/ndstudio/"+k,{keepalive:true}).catch(function(){})}catch(e){}})();</script>
 </body>
 </html>

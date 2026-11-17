@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Website Proposal · Nolan Day Studio</title>
+<meta name="description" content="A one-page website proposal: what you get, what it costs, when it's live, and how to say yes.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/journey.css">
+<style>
+/* A proposal that reads like a short signed letter: one sheet, printable, with the price and the next step obvious. */
+.sheet{max-width:820px;margin:clamp(20px,4vw,48px) auto;background:var(--paper);border:1px solid var(--line);border-radius:28px;padding:clamp(24px,5vw,60px);box-shadow:0 40px 80px -60px #0005}
+.head{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:28px}
+.head dl{margin:0;display:grid;grid-template-columns:auto auto;gap:4px 14px;font-size:14.5px}
+.head dt{color:var(--muted)}
+.head dd{margin:0;font-weight:600}
+.sheet h1{font-size:clamp(38px,6vw,64px);margin:6px 0 14px}
+.sheet h2{font-size:clamp(26px,3.4vw,34px);margin:38px 0 12px}
+.letter{font-size:18px}
+.invest{border:1px solid var(--line);border-radius:20px;overflow:hidden;margin-top:6px}
+.invest table{width:100%;border-collapse:collapse;font-size:16.5px}
+.invest td{padding:16px 20px;border-top:1px solid var(--line);vertical-align:top}
+.invest tr:first-child td{border-top:0}
+.invest td:last-child{text-align:right;font-weight:600;white-space:nowrap}
+.invest tr.total td{background:color-mix(in srgb,var(--shop) 10%,var(--card));font-size:19px}
+.invest small{display:block;color:var(--muted);font-weight:400;font-size:14px}
+.cols{display:grid;gap:18px}
+@media (min-width:720px){.cols{grid-template-columns:1fr 1fr}}
+.steps3{counter-reset:s;list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.steps3 li{counter-increment:s;display:grid;grid-template-columns:40px 1fr;gap:12px;align-items:start}
+.steps3 li::before{content:counter(s);width:32px;height:32px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-weight:700;font-size:15px}
+.accept{margin-top:40px;padding:28px;border-radius:22px;background:var(--ink);color:var(--bg)}
+.accept h2{color:var(--bg);margin-top:0}
+.accept p{color:color-mix(in srgb,var(--bg) 75%,transparent)}
+.accept .btn.ghost{color:var(--bg);border-color:color-mix(in srgb,var(--bg) 35%,transparent)}
+.sig{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-top:34px}
+.sig .name{font:italic 400 34px/1 "Instrument Serif",Georgia,serif}
+.valid{font-size:14px;color:var(--muted)}
+.tools{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:0 0 40px}
+@media print{.sheet{border:0;box-shadow:none;margin:0;padding:0}.accept{background:none;color:#000;border:1px solid #000}.accept h2,.accept p{color:#000}}
+</style>
+</head>
+<body class="j">
+<header class="topbar"><div class="shell">
+  <a class="mark" href="/"><i>N</i><span>Nolan Day Studio <small>· proposal</small></span></a>
+  <a class="btn shop sm" id="topYes" href="/yes/">Accept</a>
+</div></header>
+
+<main class="shell">
+<article class="sheet" id="sheet">
+  <div class="head">
+    <div><p class="eyebrow">Website proposal</p><p style="margin:0;font-weight:700" id="forLine">Prepared for your business</p></div>
+    <dl><dt>Date</dt><dd id="dDate"></dd><dt>Good until</dt><dd id="dValid"></dd><dt>From</dt><dd id="dFrom">Nolan Day Studio</dd></dl>
+  </div>
+
+  <h1 id="h1">A website that's <em>ready today.</em></h1>
+  <div class="letter">
+    <p id="greet">Hi,</p>
+    <p id="body1">Thanks for taking a look at the site I built for you. Here's everything in writing: what you get, what it costs, and how it goes from here. No hidden fees and no long contract.</p>
+  </div>
+
+  <h2>What you get</h2>
+  <p id="planLine" class="sub" style="font-size:17px"></p>
+  <ul class="ticks" id="includes"></ul>
+  <p id="noteLine" class="card" style="margin-top:18px" hidden></p>
+
+  <h2>Your investment</h2>
+  <div class="invest"><table id="invest"></table></div>
+  <p class="fine" style="margin-top:10px" id="domainLine">A web address of your own is optional and costs the registrar's price, usually $15 to $20 a year, paid by you. The site works without one.</p>
+
+  <div class="cols">
+    <div><h2>How it goes</h2>
+      <ol class="steps3"><li><span><b>You accept</b> with the button below, or just text "yes".</span></li><li><span><b>Send what you have</b>: photos, logo, hours, prices. Phone pictures are fine.</span></li><li><span><b>I finish it the same day</b> and send you the link to check.</span></li><li><span><b>You approve, it goes live</b>, then you pay.</span></li></ol></div>
+    <div><h2>The fine print</h2>
+      <ul class="ticks" id="terms"></ul></div>
+  </div>
+
+  <div class="accept noprint-keep">
+    <h2 id="acceptH">Ready to go?</h2>
+    <p>Accepting starts the work. You still pay nothing until you've seen the finished site and said it's right.</p>
+    <div class="ctas"><a class="btn shop" id="acceptBtn" href="/yes/">Accept this proposal</a><a class="btn ghost" id="meetLink" href="/meet/">See the site again</a></div>
+  </div>
+
+  <div class="sig"><div><p class="valid" style="margin:0 0 4px">Thank you,</p><p class="name" id="sigName">Nolan Day</p><p class="valid" style="margin:4px 0 0">Nolan Day Studio · Morton, Illinois · <a href="mailto:hanbackj1@gmail.com">hanbackj1@gmail.com</a></p></div>
+  <p class="valid" id="ref"></p></div>
+</article>
+<div class="tools noprint"><button class="btn ghost sm" type="button" id="print">Save as PDF or print</button><button class="btn ghost sm" type="button" id="copyLink">Copy this link</button></div>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="/assets/journey.js"></script>
+<script>
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id)};
+function el(tag,cls,text){var e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e}
+function toast(m){var t=$("toast");t.textContent=m;t.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(function(){t.classList.remove("on")},2200)}
+var q=NDS.params(),planId=NDS.planFromParam()||"starter",plan=NDS.PLANS[planId];
+/* Optional overrides from the Lead Board: a founding-client price or a custom monthly. Whole dollars, sane range. */
+function num(k,max){var v=parseInt(q.get(k),10);return isFinite(v)&&v>=0&&v<=max?v:null}
+var setup=num("price",10000),monthly=num("mo",2000);
+if(setup==null)setup=plan.setup;if(monthly==null)monthly=plan.monthly;
+var note=NDS.clean(q.get("note"),280);
+var issued=/^\d{4}-\d{2}-\d{2}$/.test(q.get("d")||"")?new Date(q.get("d")+"T12:00:00"):new Date();
+function fmtDate(d){return d.toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"})}
+
+function render(shop){
+  var name=shop.name||"your business",who=NDS.contactName(),by=NDS.sender();
+  document.title="Website proposal for "+name+" · Nolan Day Studio";
+  $("forLine").textContent="Prepared for "+name+(shop.town?", "+shop.town:"");
+  $("dDate").textContent=fmtDate(issued);
+  var valid=new Date(issued.getTime()+14*864e5);$("dValid").textContent=fmtDate(valid);
+  $("dFrom").textContent=by==="Nolan"?"Nolan Day":by+" for Nolan Day Studio";
+  var h=$("h1");h.textContent="";h.appendChild(document.createTextNode("A website for "));h.appendChild(el("em",null,name+"."));
+  $("greet").textContent="Hi"+(who?" "+who:"")+",";
+  $("body1").textContent="Thanks for taking a look at the site I built for "+name+". Here's everything in writing: what you get, what it costs, and how it goes from here. No hidden fees and no long contract.";
+  $("planLine").textContent=plan.name+": "+plan.line;
+  var ul=$("includes");plan.includes.forEach(function(t){ul.appendChild(el("li",null,t))});
+  if(note){$("noteLine").hidden=false;$("noteLine").textContent="Also agreed: "+note}
+  /* Investment table */
+  var rows=[],tb=$("invest");
+  if(setup)rows.push([setup!==plan.setup?"Website, your price":"Website",monthly?"Due once you approve the finished site":"One payment, once you approve the finished site",NDS.money(setup)]);
+  else rows.push(["Setup","Nothing up front","$0"]);
+  if(monthly)rows.push(["Monthly plan","Hosting, changes whenever you ask, Google listing kept current. First month due when it goes live. Cancel any time.",NDS.money(monthly)+" / month"]);
+  rows.push(["Due today","You pay nothing until you approve it","$0"]);
+  rows.forEach(function(r,i){var tr=el("tr",i===rows.length-1?"total":"");var a=el("td");a.appendChild(document.createTextNode(r[0]));a.appendChild(el("small",null,r[1]));tr.appendChild(a);tr.appendChild(el("td",null,r[2]));tb.appendChild(tr)});
+  if(planId==="immersive")$("domainLine").textContent="Immersive runs $1,250 to $1,500 depending on the 3D work; the price above is the one we agreed. A web address of your own is optional and costs the registrar's price, usually $15 to $20 a year.";
+  var terms=[
+    "You pay only after you approve the finished site.",
+    monthly?"Month to month. Text \"cancel\" any time and it stops at the end of that month.":"One payment. No monthly fee; hosting is free.",
+    "Your words, photos and web address are yours.",
+    "Payment by Venmo, Cash App or check.",
+    planId==="own"?"One round of changes included; later changes are quoted first.":planId==="starter"?"Small changes are included for as long as you're on the plan.":"Two rounds of changes included."];
+  var tl=$("terms");terms.forEach(function(t){tl.appendChild(el("li",null,t))});
+  $("acceptH").textContent="Ready to put "+name+" online?";
+  var yes=NDS.link("/yes/",{plan:planId,src:"proposal",price:q.get("price"),mo:q.get("mo")});
+  $("acceptBtn").href=yes;$("topYes").href=yes;
+  $("meetLink").href=NDS.link("/meet/",{plan:planId});
+  if(!shop.slug)$("meetLink").hidden=true;
+  $("sigName").textContent=by==="Nolan"?"Nolan Day":by;
+  $("ref").textContent=shop.slug?"Ref. "+shop.slug.slice(0,24).toUpperCase():"";
+}
+$("print").addEventListener("click",function(){window.print()});
+$("copyLink").addEventListener("click",function(){NDS.copy(location.href).then(function(){toast("Link copied")})});
+NDS.loadShop().then(function(shop){
+  NDS.applyColors(shop.colors);
+  render(shop);NDS.count("q-",shop.slug);
+});
+})();
+</script>
+</body>
+</html>
