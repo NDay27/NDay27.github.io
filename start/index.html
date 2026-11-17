@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Send Your Details · Nolan Day Studio</title>
+<meta name="description" content="Five minutes of details so your new website can go live today: hours, services, the towns you serve and your photos.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/journey.css">
+<style>
+/* Client onboarding: one form in four short steps, prefilled from the preview (services, towns) so the owner
+   corrects instead of typing. A draft is kept on this phone, so leaving halfway loses nothing. */
+.layout{max-width:760px;margin:0 auto;padding:clamp(24px,4vw,56px) 0 72px}
+.prog{display:flex;gap:6px;margin:22px 0 8px}
+.prog i{flex:1;height:6px;border-radius:99px;background:var(--line);transition:background .3s}
+.prog i.on{background:var(--shop)}
+fieldset{border:0;margin:0;padding:0}
+legend{font:400 clamp(28px,4vw,38px)/1.05 "Instrument Serif",Georgia,serif;margin:18px 0 4px;padding:0}
+.step{display:none}
+.step.on{display:block;animation:in .45s var(--ease)}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.step.on{animation:none}}
+.nav2{display:flex;justify-content:space-between;gap:10px;margin-top:26px}
+.nav2 .btn{min-width:140px}
+.choice{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.choice label{margin:0;font-weight:500;display:inline-flex;gap:8px;align-items:center;border:1px solid var(--line);border-radius:999px;padding:10px 16px;cursor:pointer;background:var(--bg)}
+.choice input{width:auto;min-height:0;margin:0;accent-color:var(--shop)}
+.choice label:has(input:checked){border-color:var(--shop);background:color-mix(in srgb,var(--shop) 10%,var(--bg))}
+.photos{border:1px dashed var(--line);border-radius:16px;padding:18px;margin-top:10px;background:color-mix(in srgb,var(--card) 70%,transparent)}
+.review{white-space:pre-wrap;font:14px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:14px;max-height:260px;overflow:auto}
+.sendrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.sendrow .btn{flex:1 1 200px}
+.saved{font-size:13px;color:var(--muted);text-align:right;min-height:18px}
+</style>
+</head>
+<body class="j">
+<header class="topbar"><div class="shell">
+  <a class="mark" href="/"><i>N</i><span>Nolan Day Studio <small id="forWho">· your details</small></span></a>
+</div></header>
+
+<main class="shell"><div class="layout">
+  <p class="eyebrow" id="eyebrow">Getting your site live</p>
+  <h1 id="h1">Five minutes, then <em>it's live.</em></h1>
+  <p class="sub">Correct what's here and add what's missing. Skip anything you don't know; I'll fill the gaps and you approve everything before it goes live.</p>
+  <div class="prog" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></div>
+  <p class="saved" id="saved" aria-live="polite"></p>
+
+  <form id="f" class="card" onsubmit="return false" novalidate>
+    <fieldset class="step on" data-step="1"><legend>You and your business</legend>
+      <label for="biz">Business name</label><input id="biz" name="biz" autocomplete="organization">
+      <label for="who">Your name</label><input id="who" name="who" autocomplete="name">
+      <label for="phone">Phone number for the site <span class="hint">(the one customers should call)</span></label><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel">
+      <label for="email">Email for customer requests <span class="hint">(optional)</span></label><input id="email" name="email" type="email" autocomplete="email" inputmode="email">
+      <label for="address">Street address <span class="hint">(only if customers come to you)</span></label><input id="address" name="address" autocomplete="street-address">
+    </fieldset>
+
+    <fieldset class="step" data-step="2"><legend>What you do and where</legend>
+      <label for="services">Services, one per line <span class="hint">(add a starting price if you like, e.g. "Brake job - from $180")</span></label><textarea id="services" name="services" rows="6"></textarea>
+      <label for="towns">Towns you serve</label><input id="towns" name="towns">
+      <label for="hours">Hours</label><textarea id="hours" name="hours" rows="3" placeholder="Mon to Fri 8 to 5, Sat 8 to noon, Sun closed"></textarea>
+      <label for="about">In a sentence or two: what should customers know about you? <span class="hint">(years in business, family-owned, what you're known for)</span></label><textarea id="about" name="about" rows="3"></textarea>
+    </fieldset>
+
+    <fieldset class="step" data-step="3"><legend>Photos, reviews and links</legend>
+      <div class="photos"><b>Photos and logo</b><p class="fine" style="margin:6px 0 0">Text or email them to me after you send this, straight from your phone: your work, your truck or shop, you and your crew. No logo? I make a clean one from your name at no charge.</p>
+        <div class="choice" role="group" aria-label="Photos"><label><input type="radio" name="photos" value="I'll send photos" checked> I'll send photos</label><label><input type="radio" name="photos" value="No photos yet, use the illustrations"> No photos yet</label></div></div>
+      <label for="quotes">Anything nice customers have said? <span class="hint">(real reviews only; I'll add them with first names)</span></label><textarea id="quotes" name="quotes" rows="3"></textarea>
+      <label>Do you have a Google listing?</label>
+      <div class="choice" role="group" aria-label="Google listing"><label><input type="radio" name="google" value="Yes"> Yes</label><label><input type="radio" name="google" value="No"> No</label><label><input type="radio" name="google" value="Not sure" checked> Not sure</label></div>
+      <label for="social">Facebook or Instagram page <span class="hint">(optional)</span></label><input id="social" name="social" inputmode="url">
+      <label>Your own web address (like yourshop.com)?</label>
+      <div class="choice" role="group" aria-label="Web address"><label><input type="radio" name="domain" value="Not needed for now" checked> Not now</label><label><input type="radio" name="domain" value="I want one"> I want one</label><label><input type="radio" name="domain" value="I already have one"> I have one</label></div>
+      <input id="domainName" name="domainName" placeholder="Which one? e.g. smithautorepair.com" style="margin-top:10px" hidden>
+    </fieldset>
+
+    <fieldset class="step" data-step="4"><legend>Check it and send</legend>
+      <label for="extra">Anything else to change on the site? <span class="hint">(optional)</span></label><textarea id="extra" name="extra" rows="3"></textarea>
+      <p class="fine" style="margin-top:16px">This is what gets sent. Nothing goes anywhere until you tap send.</p>
+      <div class="review" id="review"></div>
+      <div class="sendrow"><a class="btn shop" id="send" href="mailto:hanbackj1@gmail.com">Send to Nolan</a><button class="btn ghost" type="button" id="copy">Copy it</button></div>
+      <p class="fine" style="margin-top:12px">No email app? Use <a id="m-g" target="_blank" rel="noopener" href="https://mail.google.com/">Gmail</a> or <a id="m-o" target="_blank" rel="noopener" href="https://outlook.live.com/">Outlook</a>, or copy it into a text.</p>
+      <div class="done card" id="done" role="status" aria-live="polite" hidden style="margin-top:16px"></div>
+    </fieldset>
+
+    <div class="nav2"><button class="btn ghost" type="button" id="back" hidden>Back</button><span></span><button class="btn shop" type="button" id="next">Next</button></div>
+  </form>
+</div></main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="/assets/journey.js"></script>
+<script>
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id)};
+var f=$("f"),step=1,LAST=4,shop={slug:""},KEY="nds_start_";
+var FIELDS=["biz","who","phone","email","address","services","towns","hours","about","quotes","social","domainName","extra"];
+var RADIOS=["photos","google","domain"];
+function toast(m){var t=$("toast");t.textContent=m;t.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(function(){t.classList.remove("on")},2200)}
+function radio(n){var r=f.querySelector('input[name="'+n+'"]:checked');return r?r.value:""}
+function data(){var d={};FIELDS.forEach(function(k){d[k]=$(k).value.trim()});RADIOS.forEach(function(k){d[k]=radio(k)});return d}
+
+/* Draft kept on this device only, per shop. */
+function draftKey(){return KEY+(shop.slug||"x")}
+function saveDraft(){try{localStorage.setItem(draftKey(),JSON.stringify(data()));$("saved").textContent="Saved on this phone"}catch(e){/* private mode: no draft */}}
+function loadDraft(){try{var d=JSON.parse(localStorage.getItem(draftKey())||"null");if(!d)return false;
+  FIELDS.forEach(function(k){if(d[k])$(k).value=d[k]});RADIOS.forEach(function(k){var r=f.querySelector('input[name="'+k+'"][value="'+(d[k]||"").replace(/"/g,"")+'"]');if(r)r.checked=true});return true}catch(e){return false}}
+
+function text(){var d=data(),L=[];
+  L.push("Here are my details for the website.","");
+  L.push("Business: "+d.biz,"Name: "+d.who,"Phone for the site: "+d.phone);
+  if(d.email)L.push("Email for requests: "+d.email);
+  if(d.address)L.push("Address: "+d.address);
+  L.push("","Services:",d.services||"(use what's on the preview)","","Towns: "+(d.towns||"(as on the preview)"),"Hours: "+(d.hours||"(not sure yet)"));
+  if(d.about)L.push("","About us: "+d.about);
+  if(d.quotes)L.push("","What customers say: "+d.quotes);
+  L.push("","Photos: "+d.photos,"Google listing: "+d.google);
+  if(d.social)L.push("Facebook/Instagram: "+d.social);
+  L.push("Web address: "+d.domain+(d.domainName?" ("+d.domainName+")":""));
+  if(d.extra)L.push("","Other changes: "+d.extra);
+  var plan=NDS.planFromParam();
+  /* One line the Lead Board reads to fill the client's project file. */
+  L.push("","NDS-INTAKE "+JSON.stringify({s:shop.slug||"",plan:plan,d:d}));
+  return L.join("\n");
+}
+function subject(){return "My website details: "+($("biz").value||"my business")}
+function refresh(){var c=NDS.composeLinks(subject(),text());$("send").href=c.mailto;$("m-g").href=c.gmail;$("m-o").href=c.outlook;$("review").textContent=text().replace(/\n\nNDS-INTAKE .*$/,"")}
+function go(n){step=Math.max(1,Math.min(LAST,n));
+  document.querySelectorAll(".step").forEach(function(s){s.classList.toggle("on",+s.dataset.step===step)});
+  document.querySelectorAll(".prog i").forEach(function(i,k){i.classList.toggle("on",k<step)});
+  $("back").hidden=step===1;$("next").hidden=step===LAST;if(step===LAST)refresh();
+  var lg=document.querySelector(".step.on legend");if(lg){lg.setAttribute("tabindex","-1");lg.focus({preventScroll:true})}
+  window.scrollTo({top:document.querySelector(".layout").offsetTop-70,behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"})}
+$("next").addEventListener("click",function(){if(step===1&&!$("biz").value.trim()){$("biz").focus();toast("Add the business name first");return}go(step+1)});
+$("back").addEventListener("click",function(){go(step-1)});
+var tmr;f.addEventListener("input",function(){clearTimeout(tmr);tmr=setTimeout(saveDraft,400);if(step===LAST)refresh()});
+f.addEventListener("change",function(e){if(e.target.name==="domain")$("domainName").hidden=e.target.value==="Not needed for now";saveDraft();if(step===LAST)refresh()});
+function done(how){var d=$("done");d.hidden=false;d.textContent=(how==="copy"?"Copied. Paste it into a text or email to "+NDS.STUDIO.email+".":"Your email is ready to send.")+" Next: text or email your photos. I'll send you the finished site to check today."}
+$("send").addEventListener("click",function(){refresh();done("mail")});
+$("copy").addEventListener("click",function(){refresh();NDS.copy("To: "+NDS.STUDIO.email+"\nSubject: "+subject()+"\n\n"+text()).then(function(){done("copy")})});
+
+$("biz").value=NDS.clean(NDS.params().get("biz"));
+NDS.loadShop().then(function(s){shop=s;
+  NDS.applyColors(s.colors);
+  if(!loadDraft()){
+    if(s.name)$("biz").value=s.name;if(s.phone)$("phone").value=s.phone;
+    var who=NDS.contactName();if(who)$("who").value=who;
+    if(s.services&&s.services.length)$("services").value=s.services.join("\n");
+    var towns=[s.town].concat(s.towns||[]).filter(function(t,i,a){return t&&a.indexOf(t)===i});if(towns.length)$("towns").value=towns.join(", ");
+  }
+  if(s.name){$("forWho").textContent="· "+s.name;$("eyebrow").textContent="Getting "+s.name+" live"}
+  $("domainName").hidden=radio("domain")==="Not needed for now";
+  NDS.count("o-",s.slug);
+});
+})();
+</script>
+</body>
+</html>

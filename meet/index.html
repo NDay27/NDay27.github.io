@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your New Website · Nolan Day Studio</title>
+<meta name="description" content="A website built for your business before you paid anything. See it on a phone and a computer, pick a plan, and it can be live today.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/journey.css">
+<style>
+/* The pitch room: one page per shop (?s=slug) that presents the site we built for them.
+   Layout: a letter-style hero beside a live device, a guided tour of the site, the two plans, how today goes, FAQ. */
+.hero{padding:clamp(28px,5vw,64px) 0 clamp(40px,6vw,80px)}
+.hero .shell{display:grid;gap:clamp(28px,5vw,64px);align-items:center}
+@media (min-width:980px){.hero .shell{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr)}}
+.hello{font:italic 400 clamp(22px,2.6vw,28px)/1.2 "Instrument Serif",Georgia,serif;color:var(--muted);margin:0 0 14px}
+.hero .ctas{margin:26px 0 14px}
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:14.5px;color:var(--muted);list-style:none;padding:0;margin:0}
+.meta li{display:flex;align-items:center;gap:8px}
+.meta li::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--good)}
+/* The device stage */
+.stage{position:relative;border-radius:28px;padding:clamp(18px,3vw,34px);background:radial-gradient(120% 90% at 85% 0%,color-mix(in srgb,var(--shop) 26%,transparent),transparent 60%),linear-gradient(160deg,color-mix(in srgb,var(--shop-deep) 92%,#000),var(--shop-deep));color:#fff;overflow:hidden;isolation:isolate}
+.stage::after{content:"";position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E");z-index:-1;pointer-events:none}
+.switch{display:inline-flex;background:#ffffff14;border:1px solid #ffffff22;border-radius:999px;padding:4px;gap:4px;margin-bottom:18px}
+.switch button{border:0;background:transparent;color:#ffffffc0;font:600 14px Figtree,sans-serif;padding:8px 14px;border-radius:999px;cursor:pointer;min-height:36px}
+.switch button[aria-pressed="true"]{background:#fff;color:var(--shop-deep)}
+.devices{position:relative;display:grid;place-items:center;min-height:clamp(420px,52vw,560px)}
+.phone{width:min(300px,78vw);aspect-ratio:300/620;border-radius:44px;background:#0b0d10;padding:11px;box-shadow:0 40px 80px -30px #000c,0 0 0 1px #ffffff1f inset;position:relative;transition:transform .6s var(--ease),opacity .4s}
+.phone::before{content:"";position:absolute;top:18px;left:50%;transform:translateX(-50%);width:84px;height:22px;border-radius:12px;background:#0b0d10;z-index:2}
+.screen{width:100%;height:100%;border-radius:34px;overflow:hidden;background:#fff;position:relative}
+.screen iframe{border:0;display:block;transform-origin:0 0;position:absolute;top:0;left:0}
+.laptop{display:none;width:100%;max-width:640px}
+.laptop .lid{border-radius:16px 16px 4px 4px;background:#0b0d10;padding:10px 10px 12px;box-shadow:0 40px 80px -30px #000c}
+.laptop .screen{border-radius:6px;aspect-ratio:16/10;height:auto}
+.laptop .base{height:14px;margin:0 -6%;border-radius:0 0 14px 14px;background:linear-gradient(#c9ccd1,#9ea3aa)}
+.stage[data-view="desk"] .phone{display:none}
+.stage[data-view="desk"] .laptop{display:block}
+.loading{position:absolute;inset:0;display:grid;place-items:center;color:#666;font-size:14px;background:#f4f4f4}
+.stage .cap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:18px;font-size:14px;color:#ffffffb8}
+.stage .cap a{color:#fff;font-weight:600}
+/* Tour */
+.tour{display:grid;gap:14px;margin-top:34px;counter-reset:t}
+@media (min-width:760px){.tour{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1080px){.tour{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.stop{position:relative;padding:24px 22px 22px;border-radius:var(--radius);background:var(--card);border:1px solid var(--line);counter-increment:t}
+.stop::before{content:counter(t,decimal-leading-zero);font:400 44px/1 "Instrument Serif",Georgia,serif;color:var(--shop);display:block;margin-bottom:12px}
+.stop h3{font-size:19px}
+.stop p{color:var(--muted);margin:0;font-size:16px}
+/* Why section: a big quote-like statement */
+.why{background:var(--ink);color:var(--bg);border-radius:32px;margin:0 12px;padding:clamp(40px,7vw,88px) 0}
+.why .shell{display:grid;gap:28px}
+@media (min-width:900px){.why .shell{grid-template-columns:1.2fr 1fr;align-items:end}}
+.why h2{color:var(--bg);font-size:clamp(34px,5vw,58px)}
+.why p{color:color-mix(in srgb,var(--bg) 72%,transparent);font-size:18px;margin:0}
+.why ol{margin:0;padding:0;list-style:none;display:grid;gap:14px}
+.why li{border-top:1px solid color-mix(in srgb,var(--bg) 20%,transparent);padding-top:14px}
+.why li b{display:block;color:var(--bg);font-size:18px}
+/* Plans */
+.plans2{display:grid;gap:18px;margin-top:30px}
+@media (min-width:860px){.plans2{grid-template-columns:1.08fr 1fr}}
+.plan{position:relative;border-radius:24px;padding:28px;background:var(--card);border:1px solid var(--line);display:flex;flex-direction:column;gap:14px}
+.plan.lead{border:2px solid var(--shop);box-shadow:0 30px 60px -36px var(--shop)}
+.plan .tag{position:absolute;top:-13px;left:24px;background:var(--shop);color:var(--shop-ink);font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;border-radius:999px}
+.plan .tag.quiet{background:var(--ink);color:var(--bg)}
+.price{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.price b{font:400 clamp(48px,6vw,64px)/1 "Instrument Serif",Georgia,serif}
+.price span{color:var(--muted)}
+.plan .btn{margin-top:auto}
+.more{display:grid;gap:12px;margin-top:18px}
+@media (min-width:760px){.more{grid-template-columns:1fr 1fr}}
+.more a{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 20px;border-radius:16px;border:1px dashed var(--line);color:var(--ink);text-decoration:none;background:color-mix(in srgb,var(--card) 60%,transparent);transition:border-color .2s}
+.more a:hover{border-color:var(--ink)}
+.more a>span{flex:1 1 220px;min-width:0}
+.more a{flex-wrap:wrap}
+.more small{display:block;color:var(--muted);font-size:14px}
+.more b{white-space:nowrap}
+/* Timeline */
+.today{display:grid;gap:0;margin-top:30px;position:relative}
+.today li{list-style:none;display:grid;grid-template-columns:92px 1fr;gap:16px;padding:18px 0;border-top:1px solid var(--line)}
+.today li:last-child{border-bottom:1px solid var(--line)}
+.today time{font:400 26px/1.1 "Instrument Serif",Georgia,serif;color:var(--shop)}
+.today b{display:block}
+.today span{color:var(--muted)}
+/* About */
+.about{display:grid;gap:22px;align-items:center}
+@media (min-width:860px){.about{grid-template-columns:auto 1fr}}
+.mono{width:120px;height:120px;border-radius:30px;background:var(--ink);color:var(--bg);display:grid;place-items:center;font:400 64px/1 "Instrument Serif",Georgia,serif;transform:rotate(-4deg)}
+/* FAQ */
+.faq{display:grid;gap:10px;margin-top:24px}
+.faq details{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:0 20px}
+.faq summary{cursor:pointer;list-style:none;padding:18px 0;font-weight:600;display:flex;justify-content:space-between;gap:12px}
+.faq summary::after{content:"+";font-size:22px;line-height:1;color:var(--muted);transition:transform .25s var(--ease)}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq summary::-webkit-details-marker{display:none}
+.faq p{color:var(--muted);margin:0 0 18px}
+/* Close */
+.close{text-align:center}
+.close h2{max-width:18ch;margin:0 auto 16px}
+.close .ctas{justify-content:center}
+.dock{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:40;display:flex;gap:8px;padding:8px;border-radius:18px;background:color-mix(in srgb,var(--card) 92%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--line);box-shadow:0 20px 40px -20px #0006;transform:translateY(140%);transition:transform .45s var(--ease)}
+.dock.on{transform:none}
+.dock .btn{flex:1;min-height:48px}
+@media (min-width:980px){.dock{display:none}}
+.missing{padding:80px 0;text-align:center}
+</style>
+</head>
+<body class="j">
+<header class="topbar"><div class="shell">
+  <a class="mark" href="/"><i>N</i><span>Nolan Day Studio <small id="forWho"></small></span></a>
+  <a class="btn shop sm" id="topYes" href="/yes/">Make it mine</a>
+</div></header>
+
+<main id="main">
+<section class="hero"><div class="shell">
+  <div>
+    <p class="hello" id="hello">Hi there,</p>
+    <h1 id="h1">Here's the website I built <em>for your business.</em></h1>
+    <p class="sub" id="lede">I made it before asking for anything, so you can judge it for yourself. Tap through it on your phone. If you like it, it can be live today, and you pay only after you approve it.</p>
+    <div class="ctas"><a class="btn shop" id="heroYes" href="/yes/">Put it online today</a><a class="btn ghost" id="openFull" href="/" target="_blank" rel="noopener">Open the full site</a></div>
+    <ul class="meta"><li>Built for phones first</li><li>Live the same day</li><li>Pay after you approve</li></ul>
+  </div>
+  <div class="stage" id="stage" data-view="phone">
+    <div class="switch" role="group" aria-label="Show the site on"><button type="button" aria-pressed="true" data-v="phone">Phone</button><button type="button" aria-pressed="false" data-v="desk">Computer</button></div>
+    <div class="devices">
+      <div class="phone"><div class="screen" id="scrPhone"><div class="loading">Loading your site…</div></div></div>
+      <div class="laptop"><div class="lid"><div class="screen" id="scrDesk"><div class="loading">Loading your site…</div></div></div><div class="base"></div></div>
+    </div>
+    <p class="cap"><span>This is the real page, live. Scroll inside it.</span><a id="capLink" href="/" target="_blank" rel="noopener">Open it full screen ↗</a></p>
+  </div>
+</div></section>
+
+<section id="tour-s" style="padding-top:0"><div class="shell">
+  <p class="eyebrow rv">A quick tour</p>
+  <h2 class="rv" id="tourH">Four things it does for you.</h2>
+  <p class="sub rv" id="tourSub">Every part of it is there for one reason: to turn someone looking at their phone into a call to you.</p>
+  <div class="tour" id="tour"></div>
+</div></section>
+
+<div class="why"><div class="shell">
+  <div><p class="eyebrow" style="color:inherit;opacity:.7">Why it matters</p><h2 id="whyH">When someone needs you, they look you up first.</h2><p id="whyP">Even when a friend gives them your name, most people check online before they call. Today they find a listing with a phone number, or nothing. This gives them a page that says who you are, what you do and where, with a button that calls you.</p></div>
+  <ol><li><b>It answers before they ask.</b>Services, area and a call button on the first screen.</li><li><b>It looks like a real business.</b>Because it is one. People call the shop that looks cared for.</li><li><b>It's yours to grow.</b>Add photos, prices and new services whenever you want.</li></ol>
+</div></div>
+
+<section id="plans"><div class="shell">
+  <p class="eyebrow rv">Pick how you want it</p>
+  <h2 class="rv">Two simple ways. <em>Same site.</em></h2>
+  <p class="sub rv">No surprises: these are the full prices. Either way, you see every change first and pay only once you say it's right.</p>
+  <div class="plans2" id="plans2"></div>
+  <div class="more" id="more"></div>
+  <p class="fine" style="margin-top:14px">A web address of your own (like yourshop.com) is optional and costs the registrar's price, usually $15 to $20 a year, paid by you. Your site works without one.</p>
+</div></section>
+
+<section style="padding-top:0"><div class="shell">
+  <p class="eyebrow rv">How today goes</p>
+  <h2 class="rv">Yes this morning, <em>live tonight.</em></h2>
+  <ol class="today" id="todayList">
+    <li class="rv"><time>Step 1</time><div><b>You say yes</b><span>Tap "Make it mine", or just reply to my text. Tell me anything you want changed.</span></div></li>
+    <li class="rv"><time>Step 2</time><div><b>I finish it the same day</b><span>Your photos, hours, services and prices go in. Send them by text or email; whatever you have is fine.</span></div></li>
+    <li class="rv"><time>Step 3</time><div><b>You approve it</b><span>You look it over on your phone. Nothing goes live until you say it's right.</span></div></li>
+    <li class="rv"><time>Step 4</time><div><b>It goes live, then you pay</b><span>I send a Venmo or Cash App request for the exact amount. Prefer a check? That works too.</span></div></li>
+  </ol>
+</div></section>
+
+<section style="padding-top:0"><div class="shell about rv">
+  <div class="mono" aria-hidden="true">N</div>
+  <div><p class="eyebrow">Who's building it</p><h2 style="font-size:clamp(28px,3.6vw,40px)" id="aboutH">Nolan Day, in Morton.</h2>
+  <p class="sub" id="aboutP">I build websites for local businesses around Central Illinois. You deal with me directly, by text or email, and you get answers the same day. No sales team, no call center, no long contract.</p></div>
+</div></section>
+
+<section style="padding-top:0"><div class="shell">
+  <p class="eyebrow rv">Questions people ask</p>
+  <h2 class="rv">Straight answers.</h2>
+  <div class="faq" id="faq">
+    <details><summary>Is there a contract?</summary><p>No. The $99 plan is month to month: text me "cancel" and it stops at the end of that month. The $300 option is one payment and done.</p></details>
+    <details><summary>Do I own it?</summary><p>On the $300 option, yes, it's yours outright. On the $99 plan you own your words, photos and web address, and I handle the hosting and changes for as long as you stay. Either way your content is yours.</p></details>
+    <details><summary>What if I don't like something?</summary><p>Tell me and I change it. You see every change before it goes live, and you don't pay until you approve the site.</p></details>
+    <details><summary>Do I need my own web address?</summary><p>No. The site works on its own link. If you want yourshop.com, I set it up and you pay only the registrar's price, usually $15 to $20 a year.</p></details>
+    <details><summary>How do I send photos and my logo?</summary><p>Text or email them, straight from your phone. No logo? I'll make a clean text logo from your name at no charge.</p></details>
+    <details><summary>Why is it this cheap?</summary><p>I build sites for local shops in batches, starting from a solid design like the one you just saw, so I can finish them fast without cutting corners on how they look or work.</p></details>
+  </div>
+</div></section>
+
+<section class="close"><div class="shell">
+  <p class="eyebrow rv">Ready when you are</p>
+  <h2 class="rv" id="closeH">Let's put it online today.</h2>
+  <p class="sub rv" style="margin:0 auto 6px">One tap starts it. You still pay only after you approve it.</p>
+  <div class="ctas rv"><a class="btn shop" id="closeYes" href="/yes/">Make it mine</a><a class="btn ghost" id="proposalLink" href="/proposal/">See the full proposal</a></div>
+  <p class="fine rv" id="contactLine">Questions first? Email <a href="mailto:hanbackj1@gmail.com">hanbackj1@gmail.com</a> or reply to my text.</p>
+</div></section>
+</main>
+
+<footer class="foot"><div class="shell"><span>© 2026 Nolan Day Studio · Morton, Illinois</span><span>This page was made for one business. Please don't share the link publicly.</span></div></footer>
+<div class="dock" id="dock"><a class="btn ghost" href="#plans">See prices</a><a class="btn shop" id="dockYes" href="/yes/">Make it mine</a></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="/assets/journey.js"></script>
+<script>
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id)};
+function el(tag,cls,text){var e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e}
+
+/* What each trade's customers are doing when they look a shop up. Plain reasons, no invented numbers. */
+var TRADES={
+  "auto repair":{who:"drivers",moment:"When a car starts making a noise, people grab their phone and call the first shop that looks trustworthy.",tour:["Tap-to-call on every screen","so a driver stuck in a parking lot reaches you in one tap."]},
+  "auto body":{who:"drivers",moment:"After a fender bender, people search on their phone and call the shop that looks most professional.",tour:["Tap-to-call on every screen","so someone fresh from an accident reaches you in one tap."]},
+  "auto glass":{who:"drivers",moment:"A cracked windshield means a quick search and a call to the first shop that looks legit.",tour:["Tap-to-call on every screen","so a driver with a chip in the glass reaches you in one tap."]},
+  "tree service":{who:"homeowners",moment:"After a storm, homeowners search for tree help and call whoever looks established and local.",tour:["Tap-to-call on every screen","so a homeowner with a limb on the roof reaches you in one tap."]},
+  "lawn & landscaping":{who:"homeowners",moment:"Homeowners compare a couple of lawn companies online before they pick one for the season.",tour:["Tap-to-call on every screen","so a homeowner comparing crews reaches you first."]},
+  "painting":{who:"homeowners",moment:"People hiring a painter look you up first, because they're letting you into their home.",tour:["Tap-to-call on every screen","so a homeowner ready to paint reaches you in one tap."]},
+  "house cleaning":{who:"families",moment:"People hiring a cleaner want to see a real business before they hand over a key.",tour:["Tap-to-call on every screen","so a busy family reaches you in one tap."]},
+  "ice cream & treats":{who:"customers",moment:"People check hours and the menu on their phone before they drive over.",tour:["Tap-to-call on every screen","so a party order is one tap away."]}
+};
+function tradeInfo(t){return TRADES[(t||"").toLowerCase()]||{who:"customers",moment:"Even when someone hears your name from a friend, they look you up before they call.",tour:["Tap-to-call on every screen","so anyone who finds you reaches you in one tap."]}}
+
+/* A scaled live iframe of the preview, in a phone or a laptop frame. */
+function mount(box,src,width){
+  var f=document.createElement("iframe");f.src=src;f.title="Your website preview";f.loading="lazy";
+  f.setAttribute("referrerpolicy","same-origin");
+  function fit(){var w=box.clientWidth,h=box.clientHeight;if(!w)return;var s=w/width;f.style.width=width+"px";f.style.height=(h/s)+"px";f.style.transform="scale("+s+")"}
+  f.addEventListener("load",function(){var l=box.querySelector(".loading");if(l)l.remove()});
+  box.appendChild(f);fit();window.addEventListener("resize",fit);
+  if("ResizeObserver" in window)new ResizeObserver(fit).observe(box);
+  return fit;
+}
+
+function render(shop){
+  var name=shop.name,town=shop.town,trade=shop.trade,info=tradeInfo(trade),who=NDS.contactName(),by=NDS.sender();
+  document.title=(name?name+": your new website":"Your new website")+" · Nolan Day Studio";
+  if(name){
+    $("forWho").textContent="· for "+name;
+    $("hello").textContent=(who?"Hi "+who:"Hi")+", this is for "+name+".";
+    var h=$("h1");h.textContent="";h.appendChild(document.createTextNode(shop.url?"Here's the website I built for ":"Here's the website I'm building for "));h.appendChild(el("em",null,name+"."));
+    $("lede").textContent=shop.url?"I made it before asking for anything, so you can judge it yourself. It already has your name, "+(town?"your town, ":"")+"your phone number and the work you do. If you like it, it can be live today, and you pay only after you approve it.":"You'll see it before you pay anything. Below is exactly what it does and what it costs. If you like it, it can be live the same day you say yes.";
+    $("closeH").textContent="Let's put "+name+" online today.";
+  }
+  if(by&&by!=="Nolan"){$("aboutH").textContent=by+" and Nolan Day, Morton.";$("aboutP").textContent=by+" works with Nolan Day Studio, which builds websites for local businesses around Central Illinois. You deal with us directly, by text or email, with answers the same day. No call center and no long contract.";}
+  $("whyP").textContent=info.moment+" Today, "+(name||"your business")+" has no real page to land on. This gives them one: who you are, what you do"+(town?", that you're in "+town:"")+", and a button that calls you.";
+  /* The tour: four stops, named for what the visitor gets. */
+  var services=(shop.services||[]).slice(0,3).join(", ");
+  var stops=[
+    [info.tour[0],"Your number, "+(shop.phone||"front and center")+", sits at the top and stays on screen as people scroll, "+info.tour[1]],
+    ["Your services, spelled out",services?"It already lists "+services+". We add your full list and starting prices if you want them.":"Your full list of services goes here, with prices if you want them."],
+    ["Your area on a map",town?"It shows "+town+" and the towns around it, so nobody wonders whether you come out to them.":"It shows the towns you serve, so nobody wonders whether you come out to them."],
+    ["Requests while you work","People who'd rather not call can send a request with their name and number. Those go straight to you."]];
+  var tour=$("tour");tour.textContent="";stops.forEach(function(s){var d=el("div","stop rv");d.appendChild(el("h3",null,s[0]));d.appendChild(el("p",null,s[1]));tour.appendChild(d)});
+  /* Plans: the lead offer twice, bigger sites as quiet links. A ?plan= in the link marks the one we talked about. */
+  var picked=NDS.planFromParam()||"starter",box=$("plans2");box.textContent="";
+  ["starter","own"].forEach(function(id){var p=NDS.PLANS[id],lead=id===picked;
+    var c=el("article","plan rv"+(lead?" lead":""));c.appendChild(el("span","tag"+(lead?"":" quiet"),lead&&NDS.params().get("plan")?"What we talked about":p.tag));
+    c.appendChild(el("h3",null,p.name));
+    var pr=el("div","price");pr.appendChild(el("b",null,p.monthly?"$"+p.monthly:NDS.money(p.setup)));pr.appendChild(el("span",null,p.monthly?"a month, $0 down":"one time"));c.appendChild(pr);
+    c.appendChild(el("p",null,p.line));
+    var ul=el("ul","ticks");p.includes.forEach(function(t){ul.appendChild(el("li",null,t))});c.appendChild(ul);
+    var a=el("a","btn "+(lead?"shop":"ink"),id==="starter"?"Start for $0 today":"Own it for $300");a.href=NDS.link("/yes/",{plan:id,src:"meet"});c.appendChild(a);
+    box.appendChild(c)});
+  var more=$("more");more.textContent="";["signature","immersive"].forEach(function(id){var p=NDS.PLANS[id],a=el("a");a.href=p.demo;a.target="_blank";a.rel="noopener";
+    var t=el("span");t.appendChild(el("b",null,"Want something bigger? "+p.name));t.appendChild(el("small",null,p.line));a.appendChild(t);a.appendChild(el("b",null,p.short));more.appendChild(a)});
+  /* Every yes button carries the shop and the plan. */
+  ["topYes","heroYes","closeYes","dockYes"].forEach(function(id){$(id).href=NDS.link("/yes/",{plan:picked,src:"meet"})});
+  $("proposalLink").href=NDS.link("/proposal/",{plan:picked});
+  if(shop.url){$("openFull").href=shop.url;$("capLink").href=shop.url;
+    var fitP=mount($("scrPhone"),shop.url,390),fitD=null;
+    document.querySelectorAll(".switch button").forEach(function(b){b.addEventListener("click",function(){
+      $("stage").dataset.view=b.dataset.v;document.querySelectorAll(".switch button").forEach(function(x){x.setAttribute("aria-pressed",String(x===b))});
+      if(b.dataset.v==="desk"&&!fitD)fitD=mount($("scrDesk"),shop.url,1280);else if(fitD)fitD();fitP()})});
+  } else {
+    /* No preview (a warm lead before its site is built): say so plainly instead of showing an empty phone. */
+    $("stage").querySelector(".devices").innerHTML='<div style="text-align:center;max-width:32ch"><p style="font:400 30px/1.1 \'Instrument Serif\',serif;margin:0 0 10px">Your site is being built.</p><p style="opacity:.75;margin:0">Nolan will text you the link to it today. Everything below is what you get.</p></div>';
+    $("stage").querySelector(".switch").hidden=true;$("capLink").hidden=true;$("openFull").hidden=true;
+  }
+  observe();
+}
+
+function observe(){
+  var els=document.querySelectorAll(".rv:not(.in)");
+  if(!("IntersectionObserver" in window)||matchMedia("(prefers-reduced-motion: reduce)").matches){els.forEach(function(e){e.classList.add("in")});return}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})},{rootMargin:"0px 0px -6% 0px"});
+  els.forEach(function(e){io.observe(e)});
+}
+var dock=$("dock");window.addEventListener("scroll",function(){dock.classList.toggle("on",window.scrollY>window.innerHeight*.9)},{passive:true});
+
+NDS.loadShop().then(function(shop){
+  NDS.applyColors(shop.colors);render(shop);NDS.count("m-",shop.slug);
+});
+})();
+</script>
+</body>
+</html>
