@@ -192,6 +192,16 @@ footer{padding:36px 0 44px;font-size:14px;color:var(--mute);text-align:center;li
 .dock .btn{min-width:0;padding:0 10px}
 @media(min-width:820px){.dock{display:none}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.wheel .strip{transition:none}}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:12px;counter-reset:s}
+@media(min-width:820px){.steps{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.steps li{background:var(--navy2);border-radius:20px;padding:22px 20px 24px;box-shadow:inset 0 0 0 1px #ffffff12;position:relative}
+.steps li b{display:block;font:800 30px/1 "Big Shoulders Display",sans-serif;color:var(--amber);margin-bottom:14px}
+.steps h3{font:800 24px/1.05 "Big Shoulders Display",sans-serif;text-transform:uppercase;margin:0 0 8px;text-wrap:balance}
+.steps p{margin:0;color:#C3CDDD;font-size:15.5px;text-wrap:pretty}
+@media(min-width:820px){.steps li:not(:last-child)::after{content:"";position:absolute;right:-12px;top:36px;width:12px;height:2px;background:var(--amber);opacity:.6}}
+.rt{margin:0 0 -4px;font:700 12px/1 "Instrument Sans",sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--amber)}
+/* polish: smoothing, balanced headings, tactile presses */
+html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}h1,h2,h3{text-wrap:balance}p,li,blockquote{text-wrap:pretty}.btn:active,.act:active,.chip:active,.tile:active{transform:scale(.97)}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"AutoRepair","name":"Brecklin's Servicenter","description":"Full-service fuel, oil changes and auto repair at 119 Walnut St in Washington, Illinois.","telephone":"+1-309-444-9245","address":{"@type":"PostalAddress","streetAddress":"119 Walnut St","addressLocality":"Washington","addressRegion":"IL","postalCode":"61571","addressCountry":"US"},"geo":{"@type":"GeoCoordinates","latitude":40.70359,"longitude":-89.40545},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"06:30","closes":"20:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"07:00","closes":"20:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Sunday","opens":"08:00","closes":"18:00"}],"paymentAccepted":"Cash, Credit Card, Debit Card, NFC mobile payments","makesOffer":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Oil change"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Auto repair and diagnosis"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Full-service fuel"}}]}</script>
 </head>
@@ -265,6 +275,16 @@ footer{padding:36px 0 44px;font-size:14px;color:var(--mute);text-align:center;li
   </div>
 </div></section>
 
+<section class="s" id="how"><div class="wrap">
+  <h2 class="d h2">How a repair goes</h2>
+  <ol class="steps">
+    <li><b>01</b><h3>Tell us what it's doing</h3><p>Call (309) 444-9245 or send a drop-off ticket with a photo of the dash.</p></li>
+    <li><b>02</b><h3>Bring it up to Walnut St</h3><p>Drop it off at the time you picked. Fill the tank at the full-service pump while you're there.</p></li>
+    <li><b>03</b><h3>Get a straight answer</h3><p>The shop looks at it and tells you what it needs. Customers on Google call it a "good honest estimate."</p></li>
+    <li><b>04</b><h3>Back on the road</h3><p>One customer on Google had theirs fixed within 40 minutes. Another got same-day service.</p></li>
+  </ol>
+</div></section>
+
 <section class="s" id="book"><div class="wrap">
   <h2 class="d h2">Plan a drop-off</h2>
   <p class="intro">Pick a day and about when you'll bring the car up, and tell us what it's doing. The shop calls you back to confirm.</p>
@@ -306,10 +326,10 @@ footer{padding:36px 0 44px;font-size:14px;color:var(--mute);text-align:center;li
   <h2 class="d h2">Word around town</h2>
   <div class="rate"><b>4.8</b><span>average on Google<br>from 21 reviews</span></div>
   <div class="revs">
-    <figure class="rev"><blockquote>"They treat us like we are their only customer. The young people working the register are ALWAYS very nice and eager to help."</blockquote><figcaption><span><b>Keegan F.</b>, Google review</span><span class="st" aria-label="5 stars">★★★★★</span></figcaption></figure>
-    <figure class="rev"><blockquote>"Went to this business for the 1st time and was not disappointed! Good honest estimate, with a good same day service turn out so I wouldn't hesitate to bring my vehicle back!!"</blockquote><figcaption><span><b>Pete</b>, Google review</span><span class="st" aria-label="5 stars">★★★★★</span></figcaption></figure>
-    <figure class="rev"><blockquote>"Was having awful issues with my car. Tom said bring it up. Let me see what's going on within 40 minutes fixed the problem so very thankful. Excellent place to take your car.!!"</blockquote><figcaption><span><b>Cathy G.</b>, Google review</span><span class="st" aria-label="5 stars">★★★★★</span></figcaption></figure>
-    <figure class="rev"><blockquote>"Not many full service gas stations left. It was refreshing to meet some down to earth good people here."</blockquote><figcaption><span><b>John S.</b>, Google review</span><span class="st" aria-label="4 stars">★★★★</span></figcaption></figure>
+    <figure class="rev"><p class="rt">At the counter</p><blockquote>"They treat us like we are their only customer. The young people working the register are ALWAYS very nice and eager to help."</blockquote><figcaption><span><b>Keegan F.</b>, Google review</span><span class="st" aria-label="5 stars">★★★★★</span></figcaption></figure>
+    <figure class="rev"><p class="rt">Estimate and same-day repair</p><blockquote>"Went to this business for the 1st time and was not disappointed! Good honest estimate, with a good same day service turn out so I wouldn't hesitate to bring my vehicle back!!"</blockquote><figcaption><span><b>Pete</b>, Google review</span><span class="st" aria-label="5 stars">★★★★★</span></figcaption></figure>
+    <figure class="rev"><p class="rt">Repair</p><blockquote>"Was having awful issues with my car. Tom said bring it up. Let me see what's going on within 40 minutes fixed the problem so very thankful. Excellent place to take your car.!!"</blockquote><figcaption><span><b>Cathy G.</b>, Google review</span><span class="st" aria-label="5 stars">★★★★★</span></figcaption></figure>
+    <figure class="rev"><p class="rt">Full-service fuel</p><blockquote>"Not many full service gas stations left. It was refreshing to meet some down to earth good people here."</blockquote><figcaption><span><b>John S.</b>, Google review</span><span class="st" aria-label="4 stars">★★★★</span></figcaption></figure>
   </div>
   <p class="small">Quotes are copied word for word from public reviews on Brecklin's Google listing.</p>
 </div></section>
