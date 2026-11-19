@@ -104,7 +104,7 @@ footer{border-top:1px solid var(--line);padding:28px clamp(16px,5vw,64px) 40px;c
   <div class="dock" role="group" aria-label="Scene controls">
     <div class="panel"><label for="fix">Repair</label><input type="range" id="fix" min="0" max="100" step="1" value="0"><span class="out" id="fout">0%</span><button class="act" type="button" id="auto">Fix it</button></div>
     <div class="panel"><span class="lab">Hail</span><div class="seg" id="hail"><button aria-pressed="false" data-v="1">Pea</button><button aria-pressed="true" data-v="2">Quarter</button><button aria-pressed="false" data-v="3">Golf ball</button></div><button class="act sec" type="button" id="storm">Storm again</button></div>
-    <div class="panel"><span class="lab">Light</span><div class="seg" id="view"><button aria-pressed="true" data-v="board">Light board</button><button aria-pressed="false" data-v="day">Daylight</button></div></div>
+    <div class="panel"><span class="lab">Light</span><div class="seg" id="view"><button aria-pressed="true" data-v="board">Light board</button><button aria-pressed="false" data-v="shop">Shop</button><button aria-pressed="false" data-v="day">Daylight</button></div></div>
     <div class="panel"><span class="lab">Paint</span><div class="seg" id="paint"><button aria-pressed="true" data-v="#a3121a"><i class="sw" style="background:#a3121a"></i>Red</button><button aria-pressed="false" data-v="#0b0b0d"><i class="sw" style="background:#0b0b0d"></i>Black</button><button aria-pressed="false" data-v="#b9bec4"><i class="sw" style="background:#b9bec4"></i>Silver</button><button aria-pressed="false" data-v="#173a78"><i class="sw" style="background:#173a78"></i>Blue</button></div></div>
   </div>
 </header>
@@ -160,7 +160,7 @@ footer{border-top:1px solid var(--line);padding:28px clamp(16px,5vw,64px) 40px;c
   </div>
 </section>
 
-<footer>© Just Dents of Illinois, Inc. · 832 N Main St, Morton, IL 61550 · (309) 266-6677<br>Immersive sample made by <a href="https://nday27.github.io/">Nolan Day Studio</a>. The 3D hood is built in code for this page, with no stock photos. Not the business's official site. Reviews are quoted from Google.</footer>
+<footer>© Just Dents of Illinois, Inc. · 832 N Main St, Morton, IL 61550 · (309) 266-6677<br>Immersive sample made by <a href="https://nday27.github.io/">Nolan Day Studio</a>. The 3D car is built in code for this page, with no stock photos; shop and street lighting uses free CC0 HDRIs from Poly Haven. Not the business's official site. Reviews are quoted from Google.</footer>
 
 <script>
 (function(){
@@ -177,7 +177,7 @@ footer{border-top:1px solid var(--line);padding:28px clamp(16px,5vw,64px) 40px;c
   function seg(id,cb){var w=document.getElementById(id);w.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;w.querySelectorAll("button").forEach(function(x){x.setAttribute("aria-pressed",x===b)});cb(b.dataset.v)})}
   seg("hail",function(v){S.hail=+v;dispatchEvent(new Event("hoodstorm"))});
   seg("paint",function(v){S.paint=v;dispatchEvent(new Event("hoodpaint"))});
-  seg("view",function(v){S.view=v;document.getElementById("cv").textContent=v==="day"?"Daylight: shallow dents hide":"Light board: every dent shows";dispatchEvent(new Event("hoodview"))});
+  seg("view",function(v){S.view=v;document.getElementById("cv").textContent=v==="day"?"Daylight: shallow dents hide":v==="shop"?"Shop lights: most dents show":"Light board: every dent shows";dispatchEvent(new Event("hoodview"))});
   document.getElementById("copyc").addEventListener("click",function(){var t="Hood inspection (Just Dents sample)\nDents found: "+S.dents+"\nHail size: "+names[S.hail]+"\nRepaired: "+Math.round(S.fix)+"%\nMethod: paintless, from behind. Factory paint kept.";
     var done=function(){var b=document.getElementById("copyc");b.textContent="Copied";setTimeout(function(){b.textContent="Copy this summary"},1600)};
     if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(done,done);else done()});
