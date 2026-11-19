@@ -20,6 +20,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from tiercopy import V, STEPS, LOOK, STARTER, TOOLS  # noqa: E402
+import ill  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 BASE = "/p/2e8e4a/"
@@ -192,6 +193,15 @@ def hcard(shop):
             f'<p>{ic("pin", 16)} {E(shop.get("addr") or shop["town"] + ", IL")}</p><p>{ic("phone", 16)} {E(shop["phone"])}</p></aside>')
 
 
+def ill_card(shop):
+    r = rating_txt(shop)
+    chips = []
+    if r:
+        chips.append(f'{ic("star", 15)} <b>{r}</b> <small>{shop["reviews"]} Google review{"s" if shop["reviews"] != 1 else ""}</small>')
+    chips.append(f'{ic("pin", 15)} <b>{E(shop["town"])}, IL</b> <small>{E(shop["phone"])}</small>')
+    return ill.card(shop["group"], shop["v"], shop["short"], chips)
+
+
 # ---------- Starter ($300) ----------
 
 def starter(shop, meet_json):
@@ -212,7 +222,7 @@ def starter(shop, meet_json):
 <main id="top"><section class="hero"><div class="w hgrid"><div><p class="addr">{E(shop.get('addr') or shop['town'] + ', Illinois')}</p>
 <h1>{E(h[0])} <em>{E(h[1])}</em></h1><p class="lede">{E(fmt(v['lede'], shop))}</p>
 <div class="ctas"><a class="btn pri" href="tel:{tel(shop['phone'])}">{ic('phone')} Call the {E(v['noun'])}</a><a class="btn ghost" href="{E(shop['maps'])}" target="_blank" rel="noopener">{ic('pin')} Get directions</a></div>
-{facts_row(shop)}</div>{hcard(shop)}</div></section>
+{facts_row(shop)}</div>{ill_card(shop)}</div></section>
 <section class="sec text"><div class="w"><div class="txt rv"><p class="ey">Text instead</p><h2>Rather text than call?</h2>
 <p class="lead">Tap what you need and the message writes itself.</p><div class="chips" data-txt>{chips}</div>
 <div class="bubble" data-bubble aria-live="polite">Hi {E(shop['short'])}, I'd like to ask about…</div>
@@ -237,6 +247,37 @@ MOTION_TITLE = {
  "sweets": ("Build your order.", "Pick the occasion and the size and watch your order come together."),
 }
 
+# Line drawings for the three service cards, per trade (stroke only; t.js draws them in on scroll).
+ART = {
+ "auto": ['<path d="M12 64h96M22 64c0-9 4-13 10-13h5l11-15h33l13 15h8c6 0 10 4 10 13"/><circle cx="38" cy="65" r="8"/><circle cx="86" cy="65" r="8"/><path d="M52 36v15M74 36l6 15"/>',
+          '<path d="M22 46h48l18-10 14 4-20 18H22z"/><path d="M38 46v-8h14v8"/><path d="M22 58v12h50V58"/><path d="M100 46c0 6-4 9-4 13"/>',
+          '<path d="M18 72a42 42 0 0 1 84 0"/><path d="M60 72l22-26"/><circle cx="60" cy="72" r="4"/><path d="M27 52l7 4M60 30v9M93 52l-7 4M38 37l5 7M82 37l-5 7"/>'],
+ "tree": ['<path d="M60 86V48M60 62l-13-11M60 55l15-13"/><path d="M60 10c-23 0-35 17-31 33 3 11 15 15 31 15s28-4 31-15c4-16-8-33-31-33z"/><path d="M38 86h44"/>',
+          '<path d="M16 68l62-42 8 11-62 42z"/><path d="M25 76l4-4M33 71l4-4M41 66l4-4M49 61l4-4M57 56l4-4M65 51l4-4"/><path d="M86 37l14-10a6 6 0 0 1 4 10l-12 8"/>',
+          '<path d="M33 52a16 16 0 0 1 4-31 22 22 0 0 1 43 4 14 14 0 0 1 4 27z"/><path d="M61 56l-9 15h13l-9 16"/><path d="M36 62l-4 9M86 62l-4 9"/>'],
+ "lawn": ['<path d="M18 58h58l7-15H27z"/><circle cx="32" cy="65" r="7"/><circle cx="70" cy="65" r="7"/><path d="M83 43l20-27M99 16h9"/><path d="M8 76h104"/>',
+          '<path d="M22 82C22 41 49 16 98 14c0 47-27 68-60 68z"/><path d="M22 82l58-52M50 57l-2-16M66 43l14 1"/>',
+          '<circle cx="38" cy="46" r="12"/><path d="M38 23v6M38 63v6M15 46h6M55 46h6M22 30l4 4M50 58l4 4M22 62l4-4M50 34l4-4"/><path d="M88 28v40M68 48h40M74 34l28 28M74 62l28-28"/>'],
+ "painting": ['<rect x="20" y="16" width="64" height="22" rx="7"/><path d="M84 27h13v19H56v14"/><path d="M51 60h10v24H51z"/>',
+              '<path d="M72 12l17 17-31 31-17-17z"/><path d="M41 43c-11 0-19 8-19 19 0 8-6 12-11 14 15 4 35 0 37-14l2-7"/>',
+              '<path d="M16 54L60 18l44 36"/><path d="M27 45v37h66V45"/><path d="M52 82V61h16v21"/><path d="M35 53h11v11H35zM74 53h11v11H74z"/>'],
+ "cleaning": ['<path d="M40 36h28v48H40z"/><path d="M46 36v-9h16v9M62 27h15l6 6"/><path d="M92 22l6-4M94 33h9M92 44l6 4"/>',
+              '<path d="M16 56L55 23l39 33"/><path d="M27 48v34h56V48"/><path d="M98 12l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/><path d="M45 63l7 7 14-15"/>',
+              '<path d="M28 42h62l-7 42H35z"/><path d="M28 42c0-19 62-19 62 0"/><circle cx="74" cy="20" r="6"/><circle cx="90" cy="27" r="3.5"/><circle cx="57" cy="24" r="4"/>'],
+ "sweets": ['<path d="M43 47l17 39 17-39"/><path d="M41 47a19 19 0 0 1 38 0z"/><path d="M47 31a13 13 0 0 1 26 0"/><path d="M50 58h20M54 68h12"/>',
+            '<path d="M24 84h72V55H24z"/><path d="M24 66c8 6 15-4 23 2s15-4 23 2 15-4 26 2"/><path d="M40 55V44M60 55V40M80 55V44"/><path d="M40 37c-3 2-3 5 0 6M60 33c-3 2-3 5 0 6M80 37c-3 2-3 5 0 6"/>',
+            '<path d="M22 47h76v37H22zM18 34h84v13H18z"/><path d="M60 34v50"/><path d="M60 34c-9-17-28-15-21-2 2 3 12 2 21 2s19 1 21-2c7-13-12-15-21 2z"/>'],
+}
+
+
+def cta_for(g):
+    return "Plan a visit" if g == "auto" else "Start an order" if g == "sweets" else "Get a quote"
+
+
+def art(g, i):
+    return (f'<svg class="art" viewBox="0 0 120 96" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" '
+            f'stroke-linejoin="round" aria-hidden="true">{ART[g][i % 3]}</svg>')
+
 
 def body_750(shop, tier):
     v, g, L = V[shop["v"]], shop["group"], LOOK[shop["group"]]
@@ -245,7 +286,11 @@ def body_750(shop, tier):
     mt = MOTION_TITLE[g]
     if shop["v"] == "snow":
         mt = ("Your property, all year.", "Tap a season to see what it needs and when.")
-    svc = "".join(f'<li class="rv"><span>0{i + 1}</span><div><h3>{E(t)}</h3><p>{E(d)}</p></div></li>' for i, (t, d) in enumerate(v["services"]))
+    svc = "".join(f'<li class="rv" style="--d:{i * 90}ms"><div class="svc-top"><span>0{i + 1}</span>{art(g, i)}</div><h3>{E(t)}</h3><p>{E(d)}</p>'
+                  f'<a href="#plan">{E(cta_for(g))} {ic("arrow", 14)}</a></li>' for i, (t, d) in enumerate(v["services"]))
+    words = [j for j in v["jobs"]] + [t for t in (shop.get("towns") or [shop["town"]])[:6]]
+    mq_row = "".join(f"<span>{E(w)}</span><i>✦</i>" for w in words)
+    marquee = f'<div class="mq" aria-hidden="true"><div class="mq-t">{mq_row}{mq_row}</div></div>'
     steps = "".join(f'<li class="rv"><b>{E(t)}</b><span>{E(d)}</span></li>' for t, d in STEPS[g])
     r = rating_txt(shop)
     proof = (f'<div class="proof rv"><div class="big"><b data-count="{shop["rating"]}">{r}</b><span>{ic("star", 20)}{ic("star", 20)}{ic("star", 20)}{ic("star", 20)}{ic("star", 20)}</span></div>'
@@ -253,17 +298,20 @@ def body_750(shop, tier):
              f'<a href="{E(shop["maps"])}" target="_blank" rel="noopener">Read them on Google</a></p></div>') if r else ""
     mono = E(shop["short"][0].upper())
     plan = "Signature" if tier == 750 else "Immersive"
-    cta = "Plan a visit" if g == "auto" else "Start an order" if g == "sweets" else "Get a quote"
-    scene = ""
-    if tier == 1250:
-        scene = f"""<section class="scene" data-scene="{g}" data-v="{shop['v']}"><canvas id="c" aria-label="Interactive 3D view for {E(shop['short'])}"></canvas>
-<div class="sc-ui"><div class="sc-btns" id="scBtns"></div><button class="sc-nt" id="scNight" type="button" aria-pressed="false">Night</button></div>
-<p class="sc-hint" id="scHint">Drag to look around</p><div class="sc-fb"><b>{E(shop['short'])}</b><span>{E(tools[2][0].upper() + tools[2][1:])}. Open on a newer phone or computer to explore it.</span></div></section>"""
-    hero = f"""<section class="hero{' over' if tier == 1250 else ''}"><div class="w hgrid"><div><p class="kick"><i></i>{E(shop['cat'] or TRADE_LABEL[shop['v']])} · {E(shop['town'])}, IL</p>
-<h1><span>{E(h[0])}</span><em>{E(h[1])}</em></h1><p class="lede">{E(fmt(v['lede'], shop))}{' Try it: ' + E(tools[2]) + ', up top.' if tier == 1250 else ''}</p>
+    cta = cta_for(g)
+    hero = f"""<section class="hero fxh"><canvas class="fx" aria-hidden="true"></canvas><div class="w hgrid"><div><p class="kick"><i></i>{E(shop['cat'] or TRADE_LABEL[shop['v']])} · {E(shop['town'])}, IL</p>
+<h1><span>{E(h[0])}</span><em>{E(h[1])}</em></h1><p class="lede">{E(fmt(v['lede'], shop))}</p>
 <div class="ctas"><a class="btn pri" href="#plan">{E(cta)}</a><a class="btn ghost" href="tel:{tel(shop['phone'])}">{ic('phone')} {E(shop['phone'])}</a></div></div>{hcard(shop)}</div></section>"""
     if tier == 1250:
-        hero = scene + hero
+        try_it = tools[2][0].upper() + tools[2][1:]
+        hero = f"""<section class="scene" data-scene="{g}" data-v="{shop['v']}"><canvas id="c" aria-label="Interactive 3D view for {E(shop['short'])}: {E(tools[2])}. Use the buttons to try it and to switch between day, golden hour and night."></canvas>
+<div class="sc-fb"><div><b>{E(shop['short'])}</b><span>{E(try_it)}. Open this page on a newer phone or computer to explore it in 3D.</span></div></div><div class="veil"></div>
+<div class="hcopy"><p class="kick"><i></i>{E(shop['cat'] or TRADE_LABEL[shop['v']])} · {E(shop['town'])}, IL</p>
+<h1><span>{E(h[0])}</span><em>{E(h[1])}</em></h1><p class="lede">{E(fmt(v['lede'], shop))} {E(try_it)}, right here.</p>
+<div class="ctas"><a class="btn pri" href="#plan">{E(cta)}</a><a class="btn ghost" href="tel:{tel(shop['phone'])}">{ic('phone')} <span class="hp">{E(shop['phone'])}</span><span class="hc">Call</span></a></div></div>
+<p class="sc-hint" id="scHint">Drag to look around</p>
+<div class="sc-dock" role="group" aria-label="3D scene controls"><div class="panel"><span class="lab">Try it</span><div class="sc-btns" id="scBtns"></div></div>
+<div class="panel"><span class="lab">Light</span><div class="seg" id="scTod"><button type="button" aria-pressed="false" data-v="0.1">Day</button><button type="button" aria-pressed="true" data-v="0.55">Golden</button><button type="button" aria-pressed="false" data-v="1">Night</button></div></div></div></section>"""
     jobs = "".join(f'<button type="button" class="chip" aria-pressed="{str(i == 0).lower()}">{E(j)}</button>' for i, j in enumerate(v["jobs"]))
     when = "".join(f'<button type="button" class="chip" aria-pressed="{str(i == 0).lower()}">{E(j)}</button>' for i, j in enumerate(v["when"]))
     return f"""<body class="t750 t{tier} g-{g} v-{shop['v']}{' up' if L['up'] else ''}">{banner(shop, plan)}
@@ -272,6 +320,7 @@ def body_750(shop, tier):
 {proof and '<section class="sec"><div class="w">' + proof + '</div></section>'}
 <section class="sec motion"><div class="w"><p class="ey rv">{E(tools[1])}</p><h2 class="rv">{E(mt[0])}</h2><p class="lead rv">{E(mt[1])}</p><div class="mp rv" id="mp" data-g="{g}"></div></div></section>
 <section class="sec"><div class="w"><p class="ey rv">What we do</p><h2 class="rv">The work, spelled out.</h2><ol class="svc">{svc}</ol></div></section>
+{marquee}
 <section class="sec plan" id="plan"><div class="w two"><div><p class="ey rv">{'Plan a visit' if g == 'auto' else 'Start an order' if g == 'sweets' else 'Get a quote'}</p><h2 class="rv">Tell us once. We'll call you back.</h2>
 <form class="planner rv" data-planner><fieldset><legend>{E(v['ask'])}</legend><div class="chips" data-k="job">{jobs}</div></fieldset>
 <fieldset><legend>When?</legend><div class="chips" data-k="when">{when}</div></fieldset>
@@ -294,10 +343,13 @@ def signature(shop, tier):
     imp = ""
     if tier == 1250:
         imp = ('<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",'
-               '"three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>')
+               '"three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",'
+               '"@pmndrs/assets/":"https://cdn.jsdelivr.net/npm/@pmndrs/assets@1.7.0/"}}</script>')
     plan = "Signature" if tier == 750 else "Immersive"
     out = head(shop, f"{shop['name']} · {shop['town']}, IL ({plan} sample)", f"{TRADE_LABEL[shop['v']]} in {shop['town']}, IL. {plan} sample website by Nolan Day Studio.",
                f"family={L['font']}&family=Inter:wght@400;500;600;700", style) + data_json(shop, tier) + imp + "</head>\n" + body_750(shop, tier)
+    out = out.replace('<main id="top">', '<div class="prog" aria-hidden="true"></div><main id="top">', 1)
+    out += '\n<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>'
     out += f'\n<script src="/assets/tiers/t.js?v={VER}" defer></script>'
     if tier == 1250:
         out += f'<script type="module" src="/assets/tiers/scene.js?v={VER}"></script>'

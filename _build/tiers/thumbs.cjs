@@ -19,15 +19,15 @@ for (const s of shops) if (!only || only.has(s.slug)) for (const [t, sub] of [[3
       const [slug, t, sub] = jobs[i++];
       const dir = path.join(ROOT, "p/2e8e4a", slug, "shots"); fs.mkdirSync(dir, {recursive: true});
       try {
-        await p.goto(`http://localhost:8811/p/2e8e4a/${slug}/${sub}#nc`, {waitUntil: "load", timeout: 30000});
+        await p.goto(`http://localhost:8811/p/2e8e4a/${slug}/${sub}#nc`, {waitUntil: "load", timeout: 60000});
         await p.evaluate(() => document.querySelectorAll(".rv").forEach(e => e.classList.add("in")));
-        await p.waitForTimeout(t === 1250 ? 3500 : 700);
-        await p.screenshot({path: path.join(dir, `v${t}.jpg`), type: "jpeg", quality: 72});
+        await p.waitForTimeout(t === 1250 ? 9000 : 1600);
+        await p.screenshot({path: path.join(dir, `v${t}.jpg`), type: "jpeg", quality: 72, timeout: 120000});
       } catch (e) { console.log("fail", slug, t, e.message); }
       if (++done % 30 === 0) console.log(new Date().toISOString().slice(11, 19), done, "/", jobs.length);
     }
     await p.close();
   }
-  await Promise.all(Array.from({length: 6}, worker));
+  await Promise.all(Array.from({length: 5}, worker));
   await b.close(); console.log("thumbs done", done);
 })();
