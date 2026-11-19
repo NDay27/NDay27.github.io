@@ -1,0 +1,250 @@
+/* Sample-site tiers: shared behavior. Reads #t-data (written per shop by _build/tiers/build.py).
+   Nothing here sends anything: forms and texts explain what the live site will do. */
+(function () {
+  "use strict";
+  var D = {};
+  try { D = JSON.parse(document.getElementById("t-data").textContent); } catch (e) { /* page still works without it */ }
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.documentElement.classList.add("js");
+  function $(s, r) { return (r || document).querySelector(s); }
+  function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function svg(s) { var d = document.createElement("div"); d.innerHTML = s.trim(); return d.firstChild; }
+
+  /* Reveal on scroll. */
+  var els = $$(".rv");
+  if (!("IntersectionObserver" in window) || reduce) els.forEach(function (e) { e.classList.add("in"); });
+  else {
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }); }, { rootMargin: "0px 0px -6% 0px" });
+    els.forEach(function (e) { io.observe(e); });
+  }
+
+  /* Chip groups: one pressed at a time. */
+  function chipGroup(box, cb) {
+    if (!box) return;
+    $$(".chip", box).forEach(function (b) {
+      b.addEventListener("click", function () {
+        $$(".chip", box).forEach(function (x) { x.setAttribute("aria-pressed", String(x === b)); });
+        if (cb) cb(b.textContent);
+      });
+    });
+  }
+
+  /* Starter: the text writes itself. */
+  var bubble = $("[data-bubble]");
+  if (bubble) {
+    var picked = "";
+    chipGroup($("[data-txt]"), function (t) {
+      picked = t; bubble.classList.add("on");
+      bubble.textContent = "Hi " + D.short + ", I'd like to ask about " + t.toLowerCase().replace(/^something else$/, "something") + ". Can you call or text me back?";
+    });
+    $("[data-txtgo]").addEventListener("click", function () {
+      $("[data-txtnote]").textContent = picked ? "Sample site: nothing was sent. On the live site this opens a text to " + D.phone + " with that message filled in." : "Tap one of the choices above first.";
+    });
+  }
+
+  /* Request forms (Starter): say what the live site does. */
+  $$("[data-req]").forEach(function (f) {
+    f.addEventListener("submit", function (e) { e.preventDefault(); $(".fine", f).textContent = "Sample site: nothing was sent. On the live site this goes straight to " + D.short + " at " + D.phone + "."; });
+  });
+
+  /* Signature: rating counts up. */
+  var cnt = $("[data-count]");
+  if (cnt && !reduce && "IntersectionObserver" in window) {
+    var to = parseFloat(cnt.dataset.count), done = false;
+    new IntersectionObserver(function (es, o) {
+      if (!es[0].isIntersecting || done) return; done = true; o.disconnect();
+      var t0 = performance.now(); cnt.textContent = "0.0";
+      (function f(t) { var k = Math.min(1, (t - t0) / 1300), e = 1 - Math.pow(1 - k, 3); cnt.textContent = (to * e).toFixed(1); if (k < 1) requestAnimationFrame(f); else cnt.textContent = cnt.dataset.count.replace(/\.0$/, "") === cnt.dataset.count ? cnt.dataset.count : String(to); })(t0);
+    }, { threshold: .4 }).observe(cnt);
+  }
+
+  /* Signature: planner fills a live ticket. */
+  var pl = $("[data-planner]");
+  function setT(k, v) { var d = $('[data-t="' + k + '"]'); if (!d) return; d.textContent = v || "–"; d.classList.remove("pop"); void d.offsetWidth; d.classList.add("pop"); }
+  if (pl) {
+    $$("[data-k]", pl).forEach(function (box) { chipGroup(box, function (t) { setT(box.dataset.k, t); }); });
+    ["n", "p", "d"].forEach(function (k) { var i = pl.elements[k]; i.addEventListener("input", function () { setT(k, i.value.trim()); }); });
+    pl.addEventListener("submit", function (e) { e.preventDefault(); $(".fine", pl).textContent = "Sample site: nothing was sent. On the live site this ticket lands on " + D.short + "'s phone at " + D.phone + "."; });
+  }
+  function pickJob(name) {
+    if (!pl) return;
+    var box = $('[data-k="job"]', pl), hit = null;
+    $$(".chip", box).forEach(function (b) { if (!hit && b.textContent.toLowerCase().indexOf(name.toLowerCase()) >= 0) hit = b; });
+    if (hit) hit.click();
+    var d = pl.elements.d; if (d && !d.value) { d.value = name; setT("d", name); }
+    $("#plan").scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
+  }
+
+  /* Motion pieces, one per trade. */
+  var mp = $("#mp");
+  if (!mp) return;
+  var G = mp.dataset.g;
+  function options(list, onPick, cls) {
+    var row = el("div", "row " + (cls || ""));
+    list.forEach(function (o, i) {
+      var b = el("button", "opt"); b.type = "button"; b.setAttribute("aria-pressed", "false");
+      if (o.icon) b.appendChild(svg(o.icon));
+      b.appendChild(el("span", null, o.label));
+      b.addEventListener("click", function () { $$(".opt", row).forEach(function (x) { x.setAttribute("aria-pressed", String(x === b)); }); onPick(o, i); });
+      row.appendChild(b);
+    });
+    return row;
+  }
+  function outBox(art) {
+    var o = el("div", "out"); if (art) o.appendChild(art);
+    var t = el("div"); var h = el("h3"), p = el("p"), m = el("div", "meter"), i = el("i"); m.appendChild(i); i.style.width = "0%";
+    var a = el("a", "go"); a.href = "#plan"; a.addEventListener("click", function (e) { e.preventDefault(); pickJob(a.dataset.job || ""); });
+    t.appendChild(h); t.appendChild(p); t.appendChild(m); t.appendChild(a); o.appendChild(t);
+    return { o: o, set: function (title, text, pct, cta, job) { h.textContent = title; p.textContent = text; i.style.width = pct + "%"; m.hidden = pct == null; a.textContent = cta + " →"; a.dataset.job = job || ""; } };
+  }
+  var I = {
+    eng: '<svg viewBox="0 0 24 24" fill="none" stroke="#E8A317" stroke-width="2" stroke-linejoin="round"><path d="M4 10h3l2-2h5l2 2h2v3h2v-2h1v6h-1v-2h-2v3h-3l-2 2H8l-1-2H4z"/></svg>',
+    brk: '<svg viewBox="0 0 24 24" fill="none" stroke="#D33A2C" stroke-width="2"><circle cx="12" cy="12" r="6"/><path d="M5 6a9 9 0 0 0 0 12M19 6a9 9 0 0 1 0 12M12 9v4M12 15v.5"/></svg>',
+    bat: '<svg viewBox="0 0 24 24" fill="none" stroke="#D33A2C" stroke-width="2"><rect x="3" y="7" width="18" height="12" rx="1"/><path d="M7 7V5M17 7V5M7 13h3M15 11.5v3M13.5 13h3"/></svg>',
+    tmp: '<svg viewBox="0 0 24 24" fill="none" stroke="#D33A2C" stroke-width="2"><path d="M12 3v11M9 6h3M9 9h3"/><circle cx="12" cy="17" r="3"/><path d="M4 21c2-1 3 1 5 0s3 1 5 0 3 1 5 0"/></svg>',
+    oil: '<svg viewBox="0 0 24 24" fill="none" stroke="#D33A2C" stroke-width="2" stroke-linejoin="round"><path d="M3 12h4l2-2h8l4-2-5 7H7l-4-2zM20 16v1"/></svg>',
+    tpm: '<svg viewBox="0 0 24 24" fill="none" stroke="#E8A317" stroke-width="2"><path d="M7 5C4 8 4 16 7 19h10c3-3 3-11 0-14M12 8v5M12 15.5v.5"/></svg>'
+  };
+
+  if (G === "auto") {
+    var dial = svg('<svg class="dial" viewBox="0 0 200 130" aria-hidden="true"><path d="M20 110a80 80 0 0 1 160 0" fill="none" stroke="#0001" stroke-width="16" stroke-linecap="round"/><path id="arc" d="M20 110a80 80 0 0 1 160 0" fill="none" stroke="url(#gr)" stroke-width="16" stroke-linecap="round" pathLength="100" stroke-dasharray="0 100" style="transition:stroke-dasharray .9s cubic-bezier(.2,.8,.2,1)"/><defs><linearGradient id="gr"><stop offset="0" stop-color="#58B368"/><stop offset=".5" stop-color="#F5B83D"/><stop offset="1" stop-color="#E2382B"/></linearGradient></defs><g id="nd" style="transform-origin:100px 110px;transform:rotate(-90deg);transition:transform .9s cubic-bezier(.3,1.4,.4,1)"><path d="M98 110 100 40 102 110z" fill="#16181d"/></g><circle cx="100" cy="110" r="9" fill="#16181d"/><text x="22" y="128" font-size="10" font-weight="700" fill="#0008">CAN WAIT</text><text x="178" y="128" font-size="10" font-weight="700" fill="#0008" text-anchor="end">RIGHT NOW</text></svg>');
+    var ob = outBox(dial);
+    var L = [
+      { label: "Check engine", icon: I.eng, u: 60, t: "Check engine light", p: "Steady usually means get it checked soon. Flashing means ease off and have it looked at right away, because driving on it can damage more parts." },
+      { label: "Brakes", icon: I.brk, u: 88, t: "Brake warning", p: "It can be the parking brake, low brake fluid or a problem in the system. Brakes are not worth guessing on: have them checked before a long drive." },
+      { label: "Battery", icon: I.bat, u: 70, t: "Charging system", p: "The battery or alternator may not be keeping up. The car might not start next time you turn it off, so get it tested soon." },
+      { label: "Temperature", icon: I.tmp, u: 96, t: "Engine running hot", p: "Pull over when it's safe and let the engine cool. Driving hot can do serious damage. Call before you go further." },
+      { label: "Oil pressure", icon: I.oil, u: 96, t: "Low oil pressure", p: "Stop when it's safe and check the oil. Running an engine without oil pressure can ruin it in minutes." },
+      { label: "Tire pressure", icon: I.tpm, u: 38, t: "Tire pressure low", p: "One or more tires are low. Check the pressures soon, and have a tire looked at if one keeps losing air." }];
+    mp.appendChild(options(L, function (o) {
+      $("#arc", dial).setAttribute("stroke-dasharray", o.u + " 100"); $("#nd", dial).style.transform = "rotate(" + (-90 + o.u * 1.8) + "deg)";
+      ob.set(o.t, o.p, null, "Add this to my request", "Warning light");
+    }));
+    mp.appendChild(ob.o); ob.set("Pick a light", "Tap the symbol that matches your dashboard. " + D.short + " can take it from there.", null, "Or just ask " + D.short, "");
+    return;
+  }
+
+  if (G === "tree") {
+    var tr = svg('<svg viewBox="0 0 220 170" aria-hidden="true" style="width:100%;max-width:260px;margin:auto"><rect width="220" height="170" rx="14" fill="#DCEBF5"/><rect y="140" width="220" height="30" fill="#7FB069"/><g id="hs"><path d="M130 100l35-28 35 28v40h-70z" fill="#E9E1D3"/><path d="M124 104l41-34 41 34" fill="none" stroke="#7A3E2B" stroke-width="7" stroke-linejoin="round"/><rect x="157" y="115" width="16" height="25" fill="#7A3E2B"/></g><path id="ln" d="M0 40 220 26" stroke="#333" stroke-width="1.5" opacity="0"/><g id="tr" style="transform-origin:60px 140px;transition:transform 1s cubic-bezier(.3,1.3,.4,1)"><path d="M55 140c2-30 1-50-2-70h12c-3 20-4 40-2 70z" fill="#6B4A2F"/><circle cx="58" cy="58" r="30" fill="#3E7B3A"/><circle cx="38" cy="72" r="20" fill="#4C8C45"/><circle cx="80" cy="70" r="22" fill="#356C33"/><path id="dd" d="M78 52l18-10M30 60l-14-8" stroke="#6B4A2F" stroke-width="3" opacity="0"/></g></svg>');
+    var ob2 = outBox(tr), st = { w: null, s: null };
+    var W = [{ label: "Over the house", u: 30 }, { label: "Near the drive", u: 15 }, { label: "Near power lines", u: 45, lines: 1 }, { label: "Open yard", u: 0 }];
+    var S = [{ label: "Leaning", u: 45, tilt: 14 }, { label: "Dead branches", u: 35, dead: 1 }, { label: "Cracked trunk", u: 55, tilt: 6 }, { label: "Storm damage", u: 60, tilt: 9 }, { label: "Just overgrown", u: 10 }];
+    function upd() {
+      var u = (st.w ? st.w.u : 0) + (st.s ? st.s.u : 0);
+      $("#tr", tr).style.transform = "rotate(" + ((st.s && st.s.tilt) || 0) + "deg)";
+      $("#dd", tr).setAttribute("opacity", st.s && st.s.dead ? 1 : 0);
+      $("#ln", tr).setAttribute("opacity", st.w && st.w.lines ? 1 : 0);
+      if (!st.w || !st.s) { ob2.set("Two quick questions", "Pick where the tree is and what you're seeing.", u, "Or just ask " + D.short, ""); return; }
+      var lines = st.w.lines ? " Stay well away from the lines and call the utility company first." : "";
+      var hi = u >= 75, mid = u >= 40;
+      ob2.set(hi ? "Get it looked at soon" : mid ? "Worth a look this season" : "No rush, but plan for it",
+        (hi ? "A " + st.s.label.toLowerCase() + " tree " + st.w.label.toLowerCase() + " is the kind of thing that gets worse in the next storm." : mid ? "It's not an emergency, but it's easier and safer to deal with before it becomes one." : "Good time to get a quote while it's on your mind.") + lines,
+        Math.min(100, u), "Add this to my request", st.s.label === "Storm damage" ? "Storm" : "Remove");
+    }
+    var lb1 = el("p", null, "Where is it?"), lb2 = el("p", null, "What do you see?"); lb1.style.fontWeight = lb2.style.fontWeight = 700; lb2.style.marginTop = "14px"; lb1.style.marginBottom = lb2.style.marginBottom = "8px";
+    mp.appendChild(lb1); mp.appendChild(options(W, function (o) { st.w = o; upd(); }));
+    mp.appendChild(lb2); mp.appendChild(options(S, function (o) { st.s = o; upd(); }));
+    mp.appendChild(ob2.o); upd(); return;
+  }
+
+  if (G === "lawn") {
+    var snow = D.v === "snow";
+    var yd = svg('<svg viewBox="0 0 220 150" aria-hidden="true" style="width:100%;max-width:280px;margin:auto"><rect id="sk" width="220" height="150" rx="14" fill="#CFE6F7" style="transition:fill .8s"/><circle id="sun" cx="180" cy="34" r="16" fill="#FFD166" style="transition:all .8s"/><rect id="gd" y="96" width="220" height="54" fill="#58B368" style="transition:fill .8s"/><g id="st" opacity="1" style="transition:opacity .8s"><path d="M0 106h220M0 118h220M0 130h220M0 142h220" stroke="#ffffff30" stroke-width="5"/></g><path d="M40 96l35-26 35 26v30H40z" fill="#F3EDE2"/><path d="M34 100l41-32 41 32" fill="none" stroke="#5B4636" stroke-width="6" stroke-linejoin="round"/><circle cx="170" cy="78" r="20" id="tc" fill="#3E7B3A" style="transition:fill .8s"/><rect x="167" y="92" width="6" height="18" fill="#6B4A2F"/><g id="fx"></g></svg>');
+    var ob3 = outBox(yd);
+    var SE = [
+      { label: "Spring", sky: "#D4ECF7", g: "#6CC070", t: "#5FA35A", s: 1, h: "Spring", p: snow ? "Cleanup after the plow season: gravel and edges put back, and the property ready for warm weather." : "Cleanup after winter, first cuts as the grass wakes up, and beds made ready.", j: snow ? "Seasonal" : "Spring" },
+      { label: "Summer", sky: "#BFE0F7", g: "#4FA357", t: "#2F6B2E", s: 1, h: "Summer", p: snow ? "Book your winter plan early, before the first snow catches everyone at once." : "Mowing on a schedule, trimmed edges, and a yard that looks sharp all season.", j: snow ? "Seasonal" : "mowing" },
+      { label: "Fall", sky: "#F3E3C7", g: "#9AA84E", t: "#D2782F", s: 1, leaves: 1, h: "Fall", p: snow ? "Get on the list before the first storm so your drive and walks are covered." : "Leaves cleared and hauled off, and the yard put to bed for winter.", j: snow ? "Seasonal" : "Fall" },
+      { label: "Winter", sky: "#DDE6EE", g: "#F4F7FA", t: "#C8D3DC", s: 0, flakes: 1, h: "Winter", p: snow ? "Drives, lots and walks cleared after the snow, so you can get out in the morning." : "Quiet season. A good time to plan next year's yard and get on the schedule early.", j: snow ? "Driveway" : "Something" }];
+    mp.appendChild(options(SE, function (o) {
+      $("#sk", yd).style.fill = o.sky; $("#gd", yd).style.fill = o.g; $("#tc", yd).style.fill = o.t; $("#st", yd).style.opacity = o.s;
+      var fx = $("#fx", yd); fx.innerHTML = "";
+      var n = o.leaves || o.flakes ? 14 : 0;
+      for (var i = 0; i < n; i++) { var c = document.createElementNS("http://www.w3.org/2000/svg", o.flakes ? "circle" : "ellipse"); var x = 10 + Math.random() * 200;
+        c.setAttribute("cx", x); c.setAttribute("cy", -5); if (o.flakes) c.setAttribute("r", 2 + Math.random() * 2); else { c.setAttribute("rx", 3); c.setAttribute("ry", 2); }
+        c.setAttribute("fill", o.flakes ? "#fff" : ["#D2782F", "#E8A33D", "#B5502A"][i % 3]);
+        if (!reduce && c.animate) c.animate([{ transform: "translate(0,0)" }, { transform: "translate(" + (Math.random() * 30 - 15) + "px,160px)" }], { duration: 2400 + Math.random() * 2400, delay: Math.random() * 2000, iterations: Infinity });
+        fx.appendChild(c); }
+      ob3.set(o.h, o.p, null, "Add this to my request", o.j);
+    }));
+    mp.appendChild(ob3.o); ob3.set("Pick a season", "See what the " + (snow ? "property" : "yard") + " needs and when " + D.short + " can help.", null, "Or just ask " + D.short, "");
+    return;
+  }
+
+  if (G === "painting") {
+    var rm = svg('<svg class="room" viewBox="0 0 320 200" aria-label="A room you can recolor"><rect id="wl" width="320" height="160" fill="#E9E4DA"/><rect id="ac" x="200" width="120" height="160" fill="#D9D2C5"/><rect y="152" width="320" height="8" id="tm" fill="#FFFFFF"/><rect y="160" width="320" height="40" fill="#B98C5E"/><path d="M0 172h320M0 186h320" stroke="#0001"/><rect x="40" y="38" width="70" height="62" rx="3" id="fr" fill="#FFFFFF"/><rect x="46" y="44" width="58" height="50" fill="#CFE6F7"/><rect x="232" y="56" width="58" height="96" rx="3" id="dr" fill="#FFFFFF"/><circle cx="280" cy="106" r="3" fill="#B9A37A"/><rect x="72" y="118" width="110" height="34" rx="10" fill="#5A6B7A"/><rect x="66" y="110" width="20" height="42" rx="8" fill="#4D5D6B"/><rect x="168" y="110" width="20" height="42" rx="8" fill="#4D5D6B"/><circle cx="150" cy="30" r="0" fill="none"/></svg>');
+    var ob4 = outBox(rm), target = "wall";
+    var C = [["Swiss Cream", "#F1E7D0"], ["Sage", "#B8C4A6"], ["Harbor Blue", "#6E8FAE"], ["Clay", "#C9876A"], ["Charcoal", "#4A4E57"], ["Butter", "#F3D98B"], ["Blush", "#E9C2BA"], ["Forest", "#3F5E4A"]];
+    var tg = options([{ label: "Walls" }, { label: "Accent wall" }, { label: "Trim and door" }], function (o) { target = o.label; });
+    $(".opt", tg).setAttribute("aria-pressed", "true"); target = "Walls";
+    mp.appendChild(rm); mp.appendChild(tg);
+    var sw = el("div", "swatches");
+    C.forEach(function (c) {
+      var b = el("button", "sw"); b.type = "button"; b.style.background = c[1]; b.setAttribute("aria-label", c[0]); b.setAttribute("aria-pressed", "false");
+      b.addEventListener("click", function () {
+        $$(".sw", sw).forEach(function (x) { x.setAttribute("aria-pressed", String(x === b)); });
+        if (target === "Walls") { $("#wl", rm).style.fill = c[1]; }
+        else if (target === "Accent wall") $("#ac", rm).style.fill = c[1];
+        else ["#tm", "#fr", "#dr"].forEach(function (s) { $(s, rm).style.fill = c[1]; });
+        ob4.set(c[0] + " on the " + target.toLowerCase(), "Picking colors is the fun part. " + D.short + " handles the prep, the clean lines and the cleanup.", null, "Add this to my request", "Interior");
+      });
+      sw.appendChild(b);
+    });
+    mp.appendChild(sw); ob4.o.style.gridTemplateColumns = "1fr"; mp.appendChild(ob4.o);
+    ob4.set("Tap a swatch", "Choose walls, an accent wall or the trim, then tap a color.", null, "Or just ask " + D.short, "");
+    return;
+  }
+
+  if (G === "cleaning") {
+    var biz = D.v === "janitorial";
+    var R = biz ? ["Offices", "Restrooms", "Break room", "Lobby", "Floors", "Windows"] : ["Kitchen", "Bathrooms", "Bedrooms", "Living room", "Floors", "Windows"];
+    var plan = svg('<svg viewBox="0 0 240 150" aria-hidden="true" style="width:100%;max-width:300px;margin:auto"><rect width="240" height="150" rx="12" fill="#fff"/>' +
+      [[8, 8, 110, 64], [122, 8, 110, 40], [122, 52, 52, 54], [8, 76, 110, 66], [178, 52, 54, 54], [122, 110, 110, 32]].map(function (r, i) {
+        return '<g class="rm" data-i="' + i + '"><rect x="' + r[0] + '" y="' + r[1] + '" width="' + r[2] + '" height="' + r[3] + '" rx="6" fill="#E8EEF0" stroke="#C9D3D6" style="transition:fill .5s"/><text x="' + (r[0] + 8) + '" y="' + (r[1] + 14) + '" font-size="' + (r[2] < 60 ? 7.5 : 10) + '" font-weight="700" fill="#0009">' + R[i] + '</text></g>';
+      }).join("") + "</svg>");
+    var ob5 = outBox(plan), on = {};
+    var row = el("div", "row");
+    R.forEach(function (name, i) {
+      var b = el("button", "opt", name); b.type = "button"; b.setAttribute("aria-pressed", "false");
+      b.addEventListener("click", function () {
+        on[i] = !on[i]; b.setAttribute("aria-pressed", String(!!on[i]));
+        var g = $('[data-i="' + i + '"] rect', plan); g.style.fill = on[i] ? "#BDF0EC" : "#E8EEF0";
+        if (on[i] && !reduce) { for (var k = 0; k < 4; k++) { var s = document.createElementNS("http://www.w3.org/2000/svg", "path"); var bx = +g.getAttribute("x") + Math.random() * +g.getAttribute("width"), by = +g.getAttribute("y") + 10 + Math.random() * (+g.getAttribute("height") - 10);
+          s.setAttribute("d", "M" + bx + " " + (by - 5) + "l1.5 3.5 3.5 1.5-3.5 1.5-1.5 3.5-1.5-3.5-3.5-1.5 3.5-1.5z"); s.setAttribute("fill", "#33C3C8"); plan.appendChild(s);
+          if (s.animate) s.animate([{ opacity: 0, transform: "scale(.3)" }, { opacity: 1, transform: "scale(1)" }, { opacity: 0 }], { duration: 1100, delay: k * 120 }).onfinish = (function (x) { return function () { x.remove(); }; })(s); else s.remove(); } }
+        var n = Object.keys(on).filter(function (k) { return on[k]; }).length;
+        ob5.set(n ? n + " of " + R.length + " picked" : "Pick the rooms", n ? "Your clean, your way. " + D.short + " will confirm the details and the price when they call you back." : "Tap each one you want done.", n / R.length * 100, "Add this to my request", biz ? "Regular" : n >= 5 ? "Deep" : "Regular");
+      });
+      row.appendChild(b);
+    });
+    mp.appendChild(row); mp.appendChild(ob5.o); ob5.set("Pick the rooms", "Tap each one you want done.", 0, "Or just ask " + D.short, "");
+    return;
+  }
+
+  if (G === "sweets") {
+    var cake = D.v === "icecream";
+    var art = svg('<svg viewBox="0 0 160 170" aria-hidden="true" style="width:100%;max-width:200px;margin:auto"><ellipse cx="80" cy="160" rx="60" ry="7" fill="#0001"/><g id="lay"></g></svg>');
+    var ob6 = outBox(art), occ = null, size = null;
+    var O = [{ label: "Birthday" }, { label: "Office" }, { label: "Holiday" }, { label: "Just because" }];
+    var Z = [{ label: "A few people", n: 1 }, { label: "A party", n: 2 }, { label: "A big crowd", n: 3 }];
+    function draw() {
+      var g = $("#lay", art); g.innerHTML = ""; var n = size ? size.n : 1;
+      var cols = ["#FF7AA2", "#FFD39A", "#8C5A3C", "#BFE3C0"];
+      if (cake) {
+        g.innerHTML = '<path d="M62 100 80 158 98 100z" fill="#E3A857"/><path d="M66 106h28M70 118h20M74 130h12" stroke="#C78B3D" stroke-width="2"/>';
+        for (var i = 0; i < n + 1; i++) g.innerHTML += '<circle cx="80" cy="' + (92 - i * 24) + '" r="' + (22 - i) + '" fill="' + cols[i % 4] + '"/>';
+      } else {
+        for (var k = 0; k < n; k++) { var w = 110 - k * 26, y = 150 - (k + 1) * 32;
+          g.innerHTML += '<rect x="' + (80 - w / 2) + '" y="' + y + '" width="' + w + '" height="32" rx="6" fill="' + cols[k % 4] + '"/><path d="M' + (80 - w / 2) + ' ' + (y + 6) + 'q' + w / 8 + ' 8 ' + w / 4 + ' 0t' + w / 4 + ' 0t' + w / 4 + ' 0t' + w / 4 + ' 0" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>'; }
+        if (occ && occ.label === "Birthday") { var top = 150 - n * 32; g.innerHTML += '<rect x="78" y="' + (top - 16) + '" width="4" height="16" fill="#5B8DEF"/><path d="M80 ' + (top - 26) + 'c4 4 4 8 0 9-4-1-4-5 0-9z" fill="#FFB020"/>'; }
+      }
+      if (!reduce && g.animate) g.animate([{ transform: "translateY(-8px)", opacity: .4 }, { transform: "none", opacity: 1 }], { duration: 450, easing: "cubic-bezier(.3,1.5,.5,1)" });
+      if (occ && size) ob6.set(occ.label + " · " + size.label.toLowerCase(), "Tell " + D.short + " the date and they'll call you back to sort out the details.", null, "Add this to my request", occ.label === "Office" ? "Office" : occ.label === "Birthday" ? "Birthday" : "Party");
+      else ob6.set("Pick the occasion and the size", "Watch your order come together.", null, "Or just ask " + D.short, "");
+    }
+    mp.appendChild(options(O, function (o) { occ = o; draw(); }));
+    var s2 = options(Z, function (o) { size = o; draw(); }); s2.style.marginTop = "8px"; mp.appendChild(s2);
+    mp.appendChild(ob6.o); draw();
+  }
+})();

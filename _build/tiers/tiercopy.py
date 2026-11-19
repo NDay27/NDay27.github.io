@@ -1,0 +1,123 @@
+"""Trade copy for the three sample tiers. Only things true of every shop in that Google category:
+no prices, no years in business, no licenses, no guarantees, no hours, no reviews text.
+Each variant: h300/h750/h1250 headlines ([line1, accent]), lede, services [(title, text)],
+steps, jobs (planner choices), when (planner timing), who (the visitor), verb (CTA)."""
+
+AUTO_WHEN = ["As soon as possible", "This week", "Next week", "Just getting a quote"]
+HOME_WHEN = ["As soon as possible", "In the next two weeks", "This season", "Just getting a quote"]
+
+V = {
+ "auto": dict(group="auto", noun="shop", h300=["Honest repairs.", "No runaround."], h750=["Bring it in.", "Drive it home."],
+   h1250=["Up on the lift.", "Back on the road."],
+   lede="Auto repair and maintenance in {town}. Tell us what the car is doing and get a straight answer before any work starts.",
+   services=[("Repairs", "Brakes, suspension, engines and the noises you'd rather not hear."), ("Maintenance", "Oil changes, fluids, filters and the checkups that keep a car out of the shop."), ("Diagnostics", "Check-engine light on? Find out what it's actually telling you.")],
+   jobs=["Strange noise", "Warning light", "Brakes", "Oil change", "Won't start", "Something else"], when=AUTO_WHEN, who="drivers", ask="What is the car doing?"),
+ "truck": dict(group="auto", noun="shop", h300=["Trucks fixed right.", "Back to work."], h750=["Heavy work.", "Straight answers."], h1250=["Up on the lift.", "Back on the road."],
+   lede="Truck repair in {town}. Tell us what the truck is doing and get a straight answer before any work starts.",
+   services=[("Truck repair", "Brakes, suspension, engines and drivetrain work for trucks that have to keep running."), ("Maintenance", "Fluids, filters and the service that keeps a truck on the road."), ("Diagnostics", "Warning light or a new noise? Find out what's going on.")],
+   jobs=["Strange noise", "Warning light", "Brakes", "Service", "Won't start", "Something else"], when=AUTO_WHEN, who="drivers", ask="What is the truck doing?"),
+ "transmission": dict(group="auto", noun="shop", h300=["Slipping? Shifting hard?", "Get it checked."], h750=["Shift smooth.", "Drive easy."], h1250=["Up on the lift.", "Back on the road."],
+   lede="Transmission work in {town}. Tell us how it's shifting and get a straight answer before any work starts.",
+   services=[("Transmission repair", "Slipping, hard shifts, delays and noises from the drivetrain."), ("Service", "Fluid and filter service to keep a transmission healthy."), ("Diagnostics", "Find out what's actually wrong before you decide anything.")],
+   jobs=["Slipping", "Hard shifts", "Noise", "Fluid leak", "Warning light", "Something else"], when=AUTO_WHEN, who="drivers", ask="What is it doing?"),
+ "radiator": dict(group="auto", noun="shop", h300=["Running hot?", "Cool it down."], h750=["Keep your cool.", "We'll fix the rest."], h1250=["Up on the lift.", "Back on the road."],
+   lede="Radiator and cooling system repair in {town}. Tell us what the gauge is doing and get a straight answer.",
+   services=[("Radiator repair", "Leaks, clogs and radiators that can't keep up."), ("Cooling system", "Hoses, water pumps, thermostats and coolant service."), ("Diagnostics", "Overheating or a sweet smell? Find out why.")],
+   jobs=["Overheating", "Coolant leak", "Heater not working", "Warning light", "Something else"], when=AUTO_WHEN, who="drivers", ask="What is the car doing?"),
+ "muffler": dict(group="auto", noun="shop", h300=["Too loud?", "Let's quiet it down."], h750=["Exhaust work,", "done right."], h1250=["Up on the lift.", "Back on the road."],
+   lede="Muffler and exhaust work in {town}. Tell us what you're hearing and get a straight answer.",
+   services=[("Mufflers", "Rattles, roars and holes fixed."), ("Exhaust systems", "Pipes, hangers and the rest of the system under the car."), ("Repairs", "Tell us what else the car is doing.")],
+   jobs=["Loud exhaust", "Rattle underneath", "Smell of fumes", "Warning light", "Something else"], when=AUTO_WHEN, who="drivers", ask="What are you hearing?"),
+ "brake": dict(group="auto", noun="shop", h300=["Squeal? Grind?", "Stop worrying."], h750=["Stop sure.", "Every time."], h1250=["Up on the lift.", "Back on the road."],
+   lede="Brake work in {town}. Tell us what the pedal feels like and get a straight answer before any work starts.",
+   services=[("Brakes", "Pads, rotors, calipers and lines."), ("Inspections", "Know what's worn and what can wait."), ("Repairs", "Tell us what else the car is doing.")],
+   jobs=["Squealing", "Grinding", "Soft pedal", "Warning light", "Something else"], when=AUTO_WHEN, who="drivers", ask="What are the brakes doing?"),
+ "autobody": dict(group="auto", noun="shop", h300=["Dents, dings, damage.", "Gone."], h750=["Wrecked today.", "Right again."], h1250=["Every panel.", "Put right."],
+   lede="Auto body repair in {town}. Send a few details about the damage and get a straight answer on what it takes.",
+   services=[("Collision repair", "Damage from an accident, fixed and put back to the way it was."), ("Dents and scratches", "Door dings, scrapes and the little stuff that bugs you."), ("Paint", "Color-matched paint work so the repair disappears.")],
+   jobs=["Accident damage", "Dent", "Scratch or scrape", "Paint work", "Something else"], when=AUTO_WHEN, who="drivers", ask="What happened to the car?"),
+ "autoglass": dict(group="auto", noun="shop", h300=["Cracked glass?", "Clear view."], h750=["See clearly.", "Drive safely."], h1250=["Every window.", "Crystal clear."],
+   lede="Auto glass in {town}. Tell us what's cracked or chipped and get a straight answer.",
+   services=[("Windshields", "Cracks and chips in the windshield."), ("Car windows", "Side and back glass."), ("Chip repair", "Stop a small chip before it spreads.")],
+   jobs=["Windshield crack", "Chip", "Side window", "Back glass", "Something else"], when=AUTO_WHEN, who="drivers", ask="What's broken?"),
+ "tree": dict(group="tree", noun="crew", h300=["Big trees.", "Handled safely."], h750=["Rooted in", "{town}."], h1250=["Every limb.", "Every inch."],
+   lede="Tree service in {town} and nearby. Tell us about the tree and get a straight answer on what it needs.",
+   services=[("Tree removal", "Dead, leaning or in the way, taken down carefully."), ("Trimming and pruning", "Limbs off the roof, the lines and the driveway."), ("Storm cleanup", "Downed limbs and trees after the weather passes.")],
+   jobs=["Remove a tree", "Trim or prune", "Storm damage", "Stump", "Something else"], when=HOME_WHEN, who="homeowners", ask="What does the tree need?"),
+ "lawn": dict(group="lawn", noun="crew", h300=["A yard you're", "proud of."], h750=["Fresh cut.", "Every week."], h1250=["The best lawn", "on the block."],
+   lede="Lawn care in {town} and nearby. Tell us about your yard and get a straight quote.",
+   services=[("Mowing", "Cut, trimmed and edged so the yard looks sharp."), ("Cleanups", "Spring and fall cleanups, leaves and debris hauled off."), ("Lawn care", "Keep the grass thick and green all season.")],
+   jobs=["Weekly mowing", "Spring cleanup", "Fall cleanup", "Leaves", "Something else"], when=HOME_WHEN, who="homeowners", ask="What does the yard need?"),
+ "landscape": dict(group="lawn", noun="crew", h300=["Your yard,", "redone right."], h750=["Outdoors,", "by design."], h1250=["The best yard", "on the block."],
+   lede="Landscaping in {town} and nearby. Tell us what you picture and get a straight quote.",
+   services=[("Landscaping", "Beds, plantings and the finishing touches."), ("Yard projects", "From one corner of the yard to the whole thing."), ("Upkeep", "Keep it looking the way it did on day one.")],
+   jobs=["New landscaping", "Beds and plantings", "Cleanup", "Upkeep", "Something else"], when=HOME_WHEN, who="homeowners", ask="What's the project?"),
+ "snow": dict(group="lawn", noun="crew", h300=["Snow tonight?", "We've got it."], h750=["Cleared before", "you wake up."], h1250=["Every drift.", "Gone."],
+   lede="Snow removal in {town} and nearby. Tell us about your drive or lot and get a straight quote.",
+   services=[("Snow plowing", "Driveways and lots cleared."), ("Shoveling", "Walks, steps and the spots a plow can't reach."), ("Seasonal service", "Set it once and stop worrying about the forecast.")],
+   jobs=["Driveway", "Parking lot", "Walks", "Seasonal plan", "Something else"], when=HOME_WHEN, who="homeowners", ask="What needs clearing?"),
+ "painter": dict(group="painting", noun="crew", h300=["Fresh paint.", "Clean lines."], h750=["Color,", "done carefully."], h1250=["Pick a color.", "Watch it change."],
+   lede="Painting in {town} and nearby. Tell us about the rooms or the house and get a straight quote.",
+   services=[("Interior painting", "Walls, ceilings and trim, with clean lines and covered floors."), ("Exterior painting", "Siding, trim and doors that face the street."), ("Prep and repair", "Patching, sanding and prep so the paint lasts.")],
+   jobs=["Interior rooms", "Exterior", "Trim and doors", "Cabinets", "Something else"], when=HOME_WHEN, who="homeowners", ask="What are we painting?"),
+ "houseclean": dict(group="cleaning", noun="team", h300=["Come home to", "clean."], h750=["Your time back.", "Your home clean."], h1250=["Every room.", "Spotless."],
+   lede="House cleaning in {town} and nearby. Tell us about your home and get a straight quote.",
+   services=[("Regular cleaning", "Kitchens, bathrooms, floors and dusting on a schedule that works for you."), ("Deep cleaning", "The top-to-bottom clean for when it's been a while."), ("Move-in and move-out", "Get the keys back to a spotless place.")],
+   jobs=["Regular cleaning", "Deep clean", "Move-in or move-out", "One-time", "Something else"], when=HOME_WHEN, who="families", ask="What kind of clean?"),
+ "janitorial": dict(group="cleaning", noun="team", h300=["A clean workplace,", "every time."], h750=["Clean spaces.", "Good impressions."], h1250=["Every room.", "Spotless."],
+   lede="Commercial cleaning in {town} and nearby. Tell us about your building and get a straight quote.",
+   services=[("Office cleaning", "Desks, floors, kitchens and restrooms."), ("Regular service", "A schedule that fits your hours."), ("Deep cleaning", "The bigger clean when it's needed.")],
+   jobs=["Office", "Retail space", "Regular service", "One-time clean", "Something else"], when=HOME_WHEN, who="businesses", ask="What kind of space?"),
+ "bakery": dict(group="sweets", noun="bakery", h300=["Baked fresh", "in {town}."], h750=["Fresh from", "the oven."], h1250=["Build something", "sweet."],
+   lede="A bakery in {town}. Stop in, call ahead, or ask about an order for your next get-together.",
+   services=[("Fresh baked goods", "Stop by and see what's out today."), ("Orders", "Call ahead for parties, offices and holidays."), ("Something special", "Ask about treats for birthdays and celebrations.")],
+   jobs=["Party order", "Office treats", "Birthday", "Holiday order", "Something else"], when=["This week", "Next week", "Later this month", "Just asking"], who="customers", ask="What's the occasion?"),
+ "cake": dict(group="sweets", noun="shop", h300=["Cakes for", "every occasion."], h750=["Make it", "a celebration."], h1250=["Build your", "cake."],
+   lede="Cakes in {town}. Tell us about the occasion and start your order.",
+   services=[("Celebration cakes", "Birthdays, showers and the days worth marking."), ("Custom orders", "Tell us the theme and the size."), ("Treats", "Ask what else is coming out of the kitchen.")],
+   jobs=["Birthday", "Wedding or shower", "Graduation", "Party", "Something else"], when=["This week", "Next week", "Later this month", "Just asking"], who="customers", ask="What's the occasion?"),
+ "icecream": dict(group="sweets", noun="shop", h300=["The best scoop", "in {town}."], h750=["Cold treats.", "Warm welcome."], h1250=["Stack your", "scoops."],
+   lede="Ice cream in {town}. Stop in for a scoop, or ask about treats for your next party.",
+   services=[("Scoops", "Come see what's in the case today."), ("Treats", "Sundaes, shakes and more."), ("Parties", "Ask about treats for a group.")],
+   jobs=["Party order", "Group visit", "Fundraiser", "Something else"], when=["This week", "Next week", "Later this month", "Just asking"], who="customers", ask="What are you planning?"),
+ "candy": dict(group="sweets", noun="shop", h300=["Something sweet", "in {town}."], h750=["Treat", "yourself."], h1250=["Build something", "sweet."],
+   lede="Candy and treats in {town}. Stop in, or ask about gifts and party orders.",
+   services=[("Candy and treats", "Stop in and see what's on the shelves."), ("Gifts", "Something sweet for someone you like."), ("Party orders", "Ask about treats for a group.")],
+   jobs=["Gift", "Party order", "Holiday order", "Something else"], when=["This week", "Next week", "Later this month", "Just asking"], who="customers", ask="What's the occasion?"),
+ "donut": dict(group="sweets", noun="shop", h300=["Fresh donuts", "in {town}."], h750=["Mornings,", "made better."], h1250=["Build something", "sweet."],
+   lede="Donuts in {town}. Stop in early, or call ahead for the office or a party.",
+   services=[("Donuts", "Come early and see what's in the case."), ("Dozens to go", "Call ahead for the office, the team or a party."), ("Coffee runs", "Ask what else is on the counter.")],
+   jobs=["Office order", "Party order", "Team or school", "Something else"], when=["Tomorrow morning", "This week", "Next week", "Just asking"], who="customers", ask="What's the order for?"),
+}
+
+STEPS = {
+ "auto": [("Call or send a request", "Tell us the year, make and what you're hearing, seeing or feeling."), ("Get a straight answer", "Know what it needs and what it costs before any work starts."), ("Back on the road", "Pick it up and get going.")],
+ "tree": [("Tell us about the tree", "Where it is, how big, and what's worrying you."), ("Get a straight quote", "Know the plan and the price before anyone climbs."), ("Done and cleaned up", "The job finished and the yard left tidy.")],
+ "lawn": [("Tell us about the yard", "Where you are and what it needs."), ("Get a straight quote", "Know the price before the first visit."), ("Enjoy the yard", "We take care of it so you don't have to.")],
+ "painting": [("Tell us what we're painting", "Rooms, walls, trim or the outside of the house."), ("Get a straight quote", "Know the plan and the price before we start."), ("Enjoy the color", "Clean lines and a tidy space when we're done.")],
+ "cleaning": [("Tell us about the space", "Size, rooms and how often you'd like it done."), ("Get a straight quote", "Know the price up front."), ("Walk into clean", "Spend the time on something you'd rather do.")],
+ "sweets": [("Tell us what you need", "The occasion, the date and how many people."), ("We'll confirm it", "Get a call back to sort out the details."), ("Pick it up", "Stop in and enjoy.")],
+}
+
+# Signature + Immersive look per group: display font (Google Fonts family, css family), palette.
+LOOK = {
+ "auto": dict(font="Big+Shoulders+Display:wght@700;900", fam="'Big Shoulders Display'", up=1, bg="#0E1726", bg2="#16233A", ink="#F4F6FA", acc="#E2382B", acc2="#F5B83D", paper="#F3EFE7"),
+ "tree": dict(font="Fraunces:opsz,wght@9..144,600;9..144,800", fam="'Fraunces'", up=0, bg="#13281C", bg2="#1C3826", ink="#F4F1E6", acc="#E59A3A", acc2="#9BC36B", paper="#F4F0E4"),
+ "lawn": dict(font="Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800", fam="'Bricolage Grotesque'", up=0, bg="#0F2A1A", bg2="#173A24", ink="#F2F8EE", acc="#B6E14B", acc2="#58B368", paper="#F1F6EA"),
+ "painting": dict(font="DM+Serif+Display:ital@0;1", fam="'DM Serif Display'", up=0, bg="#22212B", bg2="#2E2C3A", ink="#FAF7F2", acc="#E8734A", acc2="#5B8DEF", paper="#FAF6EF"),
+ "cleaning": dict(font="Outfit:wght@600;800", fam="'Outfit'", up=0, bg="#0D2A33", bg2="#123843", ink="#F2FBFC", acc="#33C3C8", acc2="#FFD166", paper="#EEF8F9"),
+ "sweets": dict(font="Yeseva+One", fam="'Yeseva One'", up=0, bg="#3A1F2B", bg2="#4B2837", ink="#FFF6F2", acc="#FF7AA2", acc2="#FFD39A", paper="#FFF4EE"),
+}
+
+# Starter accent per group (light site).
+STARTER = {"auto": "#D33A2C", "tree": "#2F6B3A", "lawn": "#3D8B3D", "painting": "#C9572F", "cleaning": "#178E96", "sweets": "#D1497A"}
+
+# What each tier's trade tools are called (pitch room "tools", compare rows).
+TOOLS = {
+ "auto": ("Text-the-shop button", "Dashboard light checker", "a 3D car on a lift you can raise and open up"),
+ "tree": ("Text-the-crew button", "Storm check that sizes up the tree", "a 3D tree you can trim branch by branch"),
+ "lawn": ("Text-the-crew button", "Season planner for the yard", "a 3D yard you can mow stripes into"),
+ "painting": ("Text-the-painter button", "Room recolor: tap a swatch, watch the room change", "a 3D house you can repaint in any color"),
+ "cleaning": ("Text-the-team button", "Room-by-room clean picker", "a 3D room you can clean with one swipe"),
+ "sweets": ("Text-the-shop button", "Order builder with a live ticket", "a 3D treat you can stack layer by layer"),
+}
