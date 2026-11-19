@@ -89,12 +89,42 @@ svg{display:block}
 .hint{margin:0;font-size:13px;color:#C3CDDD;flex-basis:100%;text-shadow:0 1px 8px #000}
 @media(pointer:coarse){.hint{display:none}}
 .scene.touched .hint{visibility:hidden}
+.hs{position:absolute;left:0;top:0;z-index:3;display:inline-flex;align-items:center;gap:7px;padding:7px 12px 7px 9px;border:0;border-radius:99px;background:#0B1730C7;color:#fff;font:700 13px/1 "Instrument Sans",sans-serif;cursor:pointer;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:inset 0 0 0 1px #ffffff2E;white-space:nowrap;transition:opacity .25s;opacity:0}
+.hs i{width:9px;height:9px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 4px #F2B33D40}
+.hs:hover{background:#10213F}
+.scene.noGL .hs{display:none}
 .nogl{display:none;position:absolute;inset:auto 20px 120px;z-index:3;color:#C3CDDD}
 .scene.noGL .nogl{display:block}.scene.noGL .dash .acts,.scene.noGL .say{display:none}
 @media(max-width:700px){.scene{height:auto;min-height:0;max-height:none;display:flex;flex-direction:column}.hcopy{order:1;position:relative;left:auto;top:auto;padding:26px 20px 6px;max-width:none}.hcopy h1{font-size:clamp(52px,15vw,76px)}.hcopy .lede{font-size:16px;margin:0}#c{order:2;position:relative;inset:auto;height:min(60vh,460px)}.veil{display:none}.dash{order:3;position:relative;left:auto;right:auto;bottom:auto;padding:4px 20px 26px}.say{flex-basis:100%}.act{padding:0 12px;font-size:15px}.acts{width:100%}.acts .act{flex:1 1 auto;justify-content:center}.nogl{position:relative;inset:auto;order:2;padding:20px}}
 .todayrow{display:grid;gap:40px;align-items:center}
 @media(min-width:960px){.todayrow{grid-template-columns:.85fr 1.15fr;gap:70px}}
 .todayrow .h2{font-size:clamp(48px,8vw,92px)}
+/* warning light decoder */
+.dashp{display:grid;gap:18px;background:#0A1426;border-radius:26px;padding:20px;box-shadow:inset 0 0 0 1px #ffffff14,0 30px 60px -40px #000}
+@media(min-width:960px){.dashp{grid-template-columns:1.1fr .9fr;padding:28px;gap:28px;align-items:center}}
+.cluster{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.wl{appearance:none;border:0;background:#111E36;border-radius:18px;padding:16px 8px 12px;display:grid;justify-items:center;gap:8px;cursor:pointer;color:#5C6B86;font:600 13px/1.2 "Instrument Sans",sans-serif;transition:background .2s,color .2s,box-shadow .2s}
+.wl svg{width:54px;height:54px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;transition:filter .25s}
+.wl span{color:#8E9BB4}
+.wl:hover{background:#16264A}
+.wl.amb[aria-pressed="true"]{color:#FFB000;background:#1B2440;box-shadow:inset 0 0 0 1.5px #FFB00055}
+.wl.red[aria-pressed="true"]{color:#FF4A3D;background:#22203A;box-shadow:inset 0 0 0 1.5px #FF4A3D55}
+.wl[aria-pressed="true"] svg{filter:drop-shadow(0 0 8px currentColor)}
+.wl[aria-pressed="true"] span{color:#fff}
+.readout{background:#F4F1E8;color:#14203A;border-radius:18px;padding:22px 22px 18px}
+.readout .sev{display:inline-block;margin:0 0 10px;font:700 12.5px/1 "Instrument Sans",sans-serif;padding:7px 11px;border-radius:99px;background:#14203A14;color:#14203A}
+.readout .sev.stop{background:#D23A2E;color:#fff}.readout .sev.soon{background:#F2B33D;color:#1C1606}
+.readout h3{font:900 30px/1 "Big Shoulders Display",sans-serif;text-transform:uppercase;margin:0 0 10px}
+.readout p{margin:0 0 16px;font-size:16px;line-height:1.55}
+.readout .lfine{font-size:13px;color:#5A6680;margin:14px 0 0}
+.ph{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.ph label{display:inline-flex;align-items:center;gap:8px;min-height:46px;padding:0 14px;border-radius:12px;border:1.5px dashed #ffffff40;cursor:pointer;font:600 15px "Instrument Sans",sans-serif;color:#E3E9F2}
+.ph label:hover{border-color:var(--amber)}
+.ph input{position:absolute;width:1px;height:1px;opacity:0}
+.ph img{width:58px;height:58px;object-fit:cover;border-radius:10px;border:1px solid #ffffff2A}
+.ph:focus-within label{outline:3px solid var(--amber);outline-offset:3px}
+.ics{display:none;margin-top:10px;background:#14203A;color:#fff}
+.ics.on{display:inline-flex;width:100%}
 /* sections */
 .s{padding:72px 0;border-top:1px solid var(--line)}
 @media(min-width:960px){.s{padding:110px 0}}
@@ -185,22 +215,24 @@ tr.today td:first-child::after{content:" (today)";font-weight:500}
 .close p{font-size:19px;margin:0 auto 30px;max-width:30em;color:#FFE9E6}
 .close .big{display:inline-block;font:900 clamp(44px,9vw,84px)/1 "Big Shoulders Display",sans-serif;text-decoration:none;color:#fff;margin:0 0 26px;border-bottom:4px solid #ffffff66}
 .close .btn.navy{background:var(--navy);color:#fff}
+.close .save{display:inline-block;margin-top:18px;color:#fff;font-weight:700;font-size:16px;text-underline-offset:4px}
 footer{padding:36px 0 44px;font-size:14px;color:var(--mute);text-align:center;line-height:1.7}
 .dock{position:fixed;left:0;right:0;bottom:0;z-index:50;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:var(--navy);border-top:1px solid var(--line)}
 .dock .btn{min-width:0;padding:0 10px}
 @media(min-width:820px){.dock{display:none}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.wheel .strip{transition:none}}
 </style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"AutoRepair","name":"Brecklin's Servicenter","description":"Full-service fuel, oil changes and auto repair at 119 Walnut St in Washington, Illinois.","telephone":"+1-309-444-9245","address":{"@type":"PostalAddress","streetAddress":"119 Walnut St","addressLocality":"Washington","addressRegion":"IL","postalCode":"61571","addressCountry":"US"},"geo":{"@type":"GeoCoordinates","latitude":40.70359,"longitude":-89.40545},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"06:30","closes":"20:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"07:00","closes":"20:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Sunday","opens":"08:00","closes":"18:00"}],"paymentAccepted":"Cash, Credit Card, Debit Card, NFC mobile payments","makesOffer":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Oil change"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Auto repair and diagnosis"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Full-service fuel"}}]}</script>
 </head>
 <body>
-<p class="note">Sample Immersive site made for Brecklin's Servicenter by Nolan Day Studio. <a href="https://nday27.github.io/?src=brecklins1250">Not the official site</a></p>
+<p class="note"><b>Immersive sample, $1,250</b>, made for Brecklin's Servicenter by Nolan Day Studio. Not the official site. <a href="https://nday27.github.io/meet/?s=brecklin-s-servicenter-washington&by=nolan">See all 3 versions</a></p>
 
 <header class="nav"><div class="wrap">
   <a class="logo" href="#top" aria-label="Brecklin's Servicenter, back to top">
     <svg width="38" height="38" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#D23A2E"/><path d="M13 9h9.5c4.4 0 6.8 2.1 6.8 5.4 0 2.3-1.3 3.8-3.2 4.4 2.5.5 4.1 2.3 4.1 4.9 0 3.6-2.7 5.9-7.3 5.9H13z" fill="none" stroke="#fff" stroke-width="3.2" stroke-linejoin="round"/><path d="M13 19h11" stroke="#fff" stroke-width="3.2"/></svg>
     <span><b>BRECKLIN'S</b><small>Servicenter, Washington IL</small></span>
   </a>
-  <nav class="links" aria-label="Sections"><a href="#services">Services</a><a href="#book">Drop off</a><a href="#reviews">Reviews</a><a href="#visit">Hours</a></nav>
+  <nav class="links" aria-label="Sections"><a href="#services">Services</a><a href="#lights">Dash lights</a><a href="#book">Drop off</a><a href="#reviews">Reviews</a><a href="#visit">Hours</a></nav>
   <a class="btn red" href="tel:+13094449245">(309) 444-9245</a>
 </div></header>
 
@@ -257,6 +289,28 @@ footer{padding:36px 0 44px;font-size:14px;color:var(--mute);text-align:center;li
   </div>
 </div></section>
 
+<section class="s" id="lights"><div class="wrap">
+  <h2 class="d h2">Light on the dash?</h2>
+  <p class="intro">Tap the one you're seeing for a plain-English answer and whether it's safe to keep driving.</p>
+  <div class="dashp">
+    <div class="cluster" role="group" aria-label="Warning lights">
+      <button type="button" class="wl amb" data-l="0" aria-pressed="false" aria-label="Check engine light"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 18h4v-4h6v-3h10v3h4l3 4h4v14h-4l-3 4H18l-4-5h-4z"/><path d="M6 21v8M14 24h-4"/></svg><span>Check engine</span></button>
+      <button type="button" class="wl red" data-l="1" aria-pressed="false" aria-label="Oil pressure light"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M6 22l6-2h10l3 3h8l9-6 2 2-9 11H12l-2-6H6z"/><path d="M42 30c0 2.2-1.3 4-3 4s-3-1.8-3-4 3-5 3-5 3 2.8 3 5z"/></svg><span>Oil pressure</span></button>
+      <button type="button" class="wl red" data-l="2" aria-pressed="false" aria-label="Battery or charging light"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="6" y="15" width="36" height="22" rx="2"/><path d="M12 15v-4h6v4M30 15v-4h6v4M13 26h6M33 23v6M30 26h6"/></svg><span>Battery</span></button>
+      <button type="button" class="wl red" data-l="3" aria-pressed="false" aria-label="Engine temperature light"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 8v20"/><circle cx="24" cy="32" r="4"/><path d="M24 14h6M24 19h6M24 24h6M8 38c3-2 5-2 8 0s5 2 8 0 5-2 8 0 5 2 8 0"/></svg><span>Temperature</span></button>
+      <button type="button" class="wl amb" data-l="4" aria-pressed="false" aria-label="Tire pressure light"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M14 10c-5 5-6 17-2 24l-2 4h28l-2-4c4-7 3-19-2-24"/><path d="M24 16v10"/><circle cx="24" cy="31" r="1.2"/></svg><span>Tire pressure</span></button>
+      <button type="button" class="wl red" data-l="5" aria-pressed="false" aria-label="Brake warning light"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="11"/><path d="M11 13a17 17 0 0 0 0 22M37 13a17 17 0 0 1 0 22M24 17v9"/><circle cx="24" cy="30.5" r="1.2"/></svg><span>Brakes</span></button>
+    </div>
+    <div class="readout" aria-live="polite">
+      <p class="sev" data-sev>Pick a light</p>
+      <h3 data-lh>What is my car telling me?</h3>
+      <p data-lp>Six of the lights people ask about most. Pick the one on your dash.</p>
+      <a class="btn red" href="#book" data-lgo hidden>Plan a drop-off for this</a>
+      <p class="lfine">General guidance, not a diagnosis. If you're not sure, call (309) 444-9245.</p>
+    </div>
+  </div>
+</div></section>
+
 <section class="s" id="book"><div class="wrap">
   <h2 class="d h2">Plan a drop-off</h2>
   <p class="intro">Pick a day and about when you'll bring the car up, and tell us what it's doing. The shop calls you back to confirm.</p>
@@ -271,6 +325,7 @@ footer{padding:36px 0 44px;font-size:14px;color:var(--mute);text-align:center;li
         <button type="button" class="chip" aria-pressed="false">Won't start</button>
         <button type="button" class="chip" aria-pressed="false">Something else</button>
       </div></fieldset>
+      <fieldset><legend>Photo of the dash or the problem <span style="font-weight:500;color:#AEBBD0">(optional)</span></legend><div class="ph" id="ph"><label><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h3l2-3h6l2 3h3v12H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Add photos<input type="file" id="phin" accept="image/*" multiple></label></div></fieldset>
       <fieldset style="margin:0"><legend>Who's dropping off</legend><div class="who">
         <label>Name<input name="name" autocomplete="name"></label>
         <label>Phone<input name="phone" type="tel" inputmode="tel" autocomplete="tel"></label>
@@ -283,9 +338,11 @@ footer{padding:36px 0 44px;font-size:14px;color:var(--mute);text-align:center;li
         <div><dt>Day</dt><dd data-t="day" class="empty">Pick a day</dd></div>
         <div><dt>Time</dt><dd data-t="time" class="empty">Pick a time</dd></div>
         <div><dt>The car</dt><dd data-t="need" class="empty">Tell us what's going on</dd></div>
+        <div><dt>Photos</dt><dd data-t="photos" class="empty">None added</dd></div>
         <div><dt>Name</dt><dd data-t="name" class="empty">Your name</dd></div>
       </dl>
       <button class="btn red" type="button" data-send>Send drop-off request</button>
+      <a class="btn ics" data-ics download="brecklins-drop-off.ics" href="#">Add it to my calendar</a>
       <p class="msg" data-msg>This is a sample, so nothing is sent. On the live site the shop gets it right away.</p>
     </aside>
   </div>
@@ -331,6 +388,7 @@ footer{padding:36px 0 44px;font-size:14px;color:var(--mute);text-align:center;li
   <p>Call the shop and tell us what it's doing. We'll tell you straight what it needs.</p>
   <a class="big" href="tel:+13094449245">(309) 444-9245</a><br>
   <a class="btn navy" href="#book">Plan a drop-off instead</a>
+  <br><a class="save" href="data:text/vcard;charset=utf-8,BEGIN%3AVCARD%0D%0AVERSION%3A3.0%0D%0AFN%3ABrecklin%27s%20Servicenter%0D%0AORG%3ABrecklin%27s%20Servicenter%0D%0ATEL%3BTYPE%3DWORK%2CVOICE%3A%2B13094449245%0D%0AADR%3BTYPE%3DWORK%3A%3B%3B119%20Walnut%20St%3BWashington%3BIL%3B61571%3BUSA%0D%0AEND%3AVCARD%0D%0A" download="Brecklins-Servicenter.vcf">Save the shop to your contacts</a>
 </div></section>
 </main>
 
@@ -409,6 +467,37 @@ footer{padding:36px 0 44px;font-size:14px;color:var(--mute);text-align:center;li
   times();
   var needs=document.querySelector("[data-needs]");
   needs.querySelectorAll(".chip").forEach(function(b){b.addEventListener("click",function(){press(needs,b);sel.need=b.textContent;setT("need",sel.need)})});
+
+  /* warning light decoder */
+  var LIGHTS=[
+    ["soon","Get it checked soon","Check engine","Something in the engine or emissions system needs a look. A steady light usually means the car is fine to drive over soon. A flashing light usually means a misfire: ease off and have it checked right away."],
+    ["stop","Stop when it's safe","Oil pressure","The engine isn't getting enough oil pressure. Pull over when it's safe and turn the engine off. Driving on low oil pressure can ruin an engine in minutes."],
+    ["soon","Head in today","Battery or charging","The charging system isn't keeping up, often the alternator or the battery. The car may run only until the battery drains, so come straight in and skip extra stops."],
+    ["stop","Stop when it's safe","Engine temperature","The engine is running hot. Pull over, turn it off and let it cool. Never open the radiator cap while it's hot."],
+    ["soon","Check it today","Tire pressure","At least one tire is low. The right pressure is on the sticker inside the driver's door. Cold mornings often set this light off, but a tire that keeps losing air needs a look."],
+    ["stop","Don't ignore it","Brakes","It can mean the parking brake is still on or the brake fluid is low. If the parking brake is off and the light stays on, have the brakes checked before you drive far."]];
+  var cl=document.querySelector(".cluster");
+  if(cl){var lsev=document.querySelector("[data-sev]"),lh=document.querySelector("[data-lh]"),lp=document.querySelector("[data-lp]"),lgo=document.querySelector("[data-lgo]");
+    cl.querySelectorAll(".wl").forEach(function(b){b.addEventListener("click",function(){
+      var L=LIGHTS[+b.dataset.l];cl.querySelectorAll(".wl").forEach(function(x){x.setAttribute("aria-pressed",String(x===b))});
+      lsev.className="sev "+L[0];lsev.textContent=L[1];lh.textContent=L[2];lp.textContent=L[3];lgo.hidden=false;lgo.dataset.light=L[2];
+      if(L[0]==="stop"){lgo.href="tel:+13094449245";lgo.textContent="Call the shop: (309) 444-9245"}else{lgo.href="#book";lgo.textContent="Plan a drop-off for this"}})});
+    lgo.addEventListener("click",function(){if(lgo.getAttribute("href")!=="#book")return;var w=needs.querySelectorAll(".chip")[1];if(w){press(needs,w);sel.need="Warning light ("+lgo.dataset.light.toLowerCase()+")";setT("need",sel.need)}});}
+  /* photos stay on the visitor's device in the sample */
+  var photos=0,phin=document.getElementById("phin"),phb=document.getElementById("ph");
+  if(phin)phin.addEventListener("change",function(){phb.querySelectorAll("img").forEach(function(i){URL.revokeObjectURL(i.src);i.remove()});
+    var fs=Array.prototype.slice.call(phin.files||[],0,4).filter(function(f){return /^image\//.test(f.type)});photos=fs.length;
+    fs.forEach(function(f){var im=document.createElement("img");im.alt="Your photo";im.src=URL.createObjectURL(f);phb.appendChild(im)});
+    setT("photos",photos?photos+" photo"+(photos>1?"s":""):"")});
+  /* add the drop-off to the visitor's calendar */
+  function ics(){var d=new Date(t.date.getTime());d.setDate(d.getDate()+sel.day.i);
+    var m=sel.time.match(/(\d+)(?::(\d+))? (AM|PM)/),hh=(+m[1])%12+(m[3]==="PM"?12:0),mm=+(m[2]||0);
+    function z(n){return (n<10?"0":"")+n}
+    var day=d.getFullYear()+z(d.getMonth()+1)+z(d.getDate()),tot=hh*60+mm+30;
+    var st=day+"T"+z(hh)+z(mm)+"00",en=day+"T"+z(Math.floor(tot/60))+z(tot%60)+"00";
+    var body=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Brecklins sample//EN","BEGIN:VEVENT","UID:"+Date.now()+"@brecklins-sample","DTSTAMP:"+new Date().toISOString().replace(/[-:]/g,"").slice(0,15)+"Z",
+      "DTSTART;TZID=America/Chicago:"+st,"DTEND;TZID=America/Chicago:"+en,"SUMMARY:Drop off the car at Brecklin's","LOCATION:119 Walnut St\\, Washington\\, IL 61571","DESCRIPTION:"+sel.need.replace(/[,;]/g," ")+". Shop: (309) 444-9245","END:VEVENT","END:VCALENDAR"].join("\r\n");
+    return "data:text/calendar;charset=utf-8,"+encodeURIComponent(body)}
   var f=document.getElementById("bk");
   f.name.addEventListener("input",function(){setT("name",f.name.value.trim())});
   f.addEventListener("submit",function(e){e.preventDefault()});
@@ -416,8 +505,9 @@ footer{padding:36px 0 44px;font-size:14px;color:var(--mute);text-align:center;li
     var msg=document.querySelector("[data-msg]"),miss=[];
     if(!sel.day)miss.push("a day");if(!sel.time)miss.push("a time");if(!sel.need)miss.push("what's going on");
     if(!f.name.value.trim())miss.push("your name");if(f.phone.value.replace(/\D/g,"").length<10)miss.push("a 10-digit phone number");
-    if(miss.length){msg.className="msg err";msg.textContent="Add "+miss.join(", ").replace(/, ([^,]*)$/," and $1")+" to finish the ticket.";return}
-    msg.className="msg ok";msg.textContent="Ticket ready for "+sel.day.label+" at "+sel.time+". In this sample nothing was sent; on the live site the shop gets it and calls you to confirm.";
+    if(miss.length){document.querySelector("[data-ics]").classList.remove("on");msg.className="msg err";msg.textContent="Add "+miss.join(", ").replace(/, ([^,]*)$/," and $1")+" to finish the ticket.";return}
+    msg.className="msg ok";msg.textContent="Ticket ready for "+sel.day.label+" at "+sel.time+". In this sample nothing was sent, and photos stay on your phone. On the live site the shop gets it and calls you to confirm.";
+    var ic=document.querySelector("[data-ics]");ic.href=ics();ic.classList.add("on");
   });
 })();
 </script>
