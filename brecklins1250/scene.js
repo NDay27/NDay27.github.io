@@ -8,6 +8,7 @@ import {EffectComposer} from "three/addons/postprocessing/EffectComposer.js";
 import {RenderPass} from "three/addons/postprocessing/RenderPass.js";
 import {UnrealBloomPass} from "three/addons/postprocessing/UnrealBloomPass.js";
 import {OutputPass} from "three/addons/postprocessing/OutputPass.js";
+import {EXRLoader} from "three/addons/loaders/EXRLoader.js";
 
 const host = document.querySelector(".scene");
 const canvas = document.getElementById("c");
@@ -77,6 +78,53 @@ const mat = {
   tail: new THREE.MeshStandardMaterial({color: 0x400000, emissive: 0xff2a1a, emissiveIntensity: 2.2})
 };
 
+/* ---------- surface textures, painted in code: aggregate, slab joints, oil, damp patches ---------- */
+function rng(seed) { seed = seed % 2147483647 || 1; return () => (seed = seed * 16807 % 2147483647, (seed - 1) / 2147483646); }
+function canvasTex(w, h, draw, {rep = [1, 1], srgb = true} = {}) {
+  const c = document.createElement("canvas"); c.width = w; c.height = h; draw(c.getContext("2d"), w, h);
+  const t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(rep[0], rep[1]);
+  if (srgb) t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = Math.min(8, R.capabilities.getMaxAnisotropy()); return t;
+}
+function grain(x, w, h, r, n, cols, size) { for (let i = 0; i < n; i++) { x.fillStyle = cols[(r() * cols.length) | 0]; const q = size * (0.4 + r()); x.fillRect(r() * w, r() * h, q, q); } }
+function blot(x, r, w, h, n, col, min, max, at) {
+  for (let i = 0; i < n; i++) {
+    const cx = at ? at[0] + (r() - 0.5) * at[2] : r() * w, cy = at ? at[1] + (r() - 0.5) * at[2] : r() * h, rad = min + r() * (max - min);
+    const g = x.createRadialGradient(cx, cy, 0, cx, cy, rad); g.addColorStop(0, col); g.addColorStop(1, "rgba(0,0,0,0)");
+    x.fillStyle = g; x.beginPath(); x.ellipse(cx, cy, rad, rad * (0.55 + r() * 0.45), r() * 3, 0, 7); x.fill();
+  }
+}
+const asR = rng(7), asR2 = rng(11);
+const asphaltMap = canvasTex(512, 512, (x, w, h) => {
+  x.fillStyle = "#2b2f36"; x.fillRect(0, 0, w, h);
+  blot(x, asR, w, h, 10, "rgba(8,10,14,.16)", 70, 220);
+  grain(x, w, h, asR, small ? 14000 : 26000, ["#3b4048", "#1b1e23", "#474c55", "#24272d"], 1.6);
+}, {rep: [30, 30]});
+const asphaltRough = canvasTex(512, 512, (x, w, h) => {
+  x.fillStyle = "#e8e8e8"; x.fillRect(0, 0, w, h);
+  blot(x, asR2, w, h, 5, "rgba(60,60,60,.7)", 50, 160);
+  grain(x, w, h, asR2, 8000, ["#ffffff", "#bcbcbc"], 1.5);
+}, {rep: [30, 30], srgb: false});
+Object.assign(mat.asphalt, {map: asphaltMap, roughnessMap: asphaltRough, roughness: 1}); mat.asphalt.color.set(0xffffff);
+const streetMap = asphaltMap.clone(); streetMap.repeat.set(30, 0.9); streetMap.needsUpdate = true;
+const streetRough = asphaltRough.clone(); streetRough.repeat.set(30, 0.9); streetRough.needsUpdate = true;
+const streetMat = new THREE.MeshStandardMaterial({color: 0xa9adb5, map: streetMap, roughnessMap: streetRough, roughness: 1});
+const apR = rng(3), apR2 = rng(5);
+const PX = 64; // 64 px per metre on the 16 x 11 m apron
+function apronDraw(rough) {
+  return (x, w, h) => {
+    x.fillStyle = rough ? "#e2e2e2" : "#9b9da1"; x.fillRect(0, 0, w, h);
+    const r = rough ? apR2 : apR;
+    if (!rough) { blot(x, r, w, h, 40, "rgba(255,255,255,.07)", 30, 130); blot(x, r, w, h, 30, "rgba(40,40,46,.10)", 20, 90); grain(x, w, h, r, small ? 16000 : 30000, ["#aaacb0", "#8b8d91", "#b6b8bb"], 1.4); }
+    // where cars stop beside each island: oil drips and a damp patch that catches the canopy light
+    [[w / 2, h / 2 - 0.6 * PX], [w / 2 - 5.2 * PX, h / 2], [w / 2 + 5.2 * PX, h / 2]].forEach(([cx, cy]) =>
+      blot(x, r, w, h, 7, rough ? "rgba(70,70,70,.85)" : "rgba(28,26,24,.3)", 10, 40, [cx, cy, 2.2 * PX]));
+    x.strokeStyle = rough ? "rgba(255,255,255,1)" : "rgba(58,58,62,.6)"; x.lineWidth = 3;
+    for (let m = -6; m <= 6; m += 3) { x.beginPath(); x.moveTo(w / 2 + m * PX, 0); x.lineTo(w / 2 + m * PX, h); x.stroke(); }
+    for (let m = -4.5; m <= 4.5; m += 3) { x.beginPath(); x.moveTo(0, h / 2 + m * PX); x.lineTo(w, h / 2 + m * PX); x.stroke(); }
+  };
+}
+const apronMat = new THREE.MeshStandardMaterial({map: canvasTex(16 * PX, 11 * PX, apronDraw(false)), roughnessMap: canvasTex(16 * PX, 11 * PX, apronDraw(true), {srgb: false}), roughness: 0.95});
+
 function box(w, h, d, m, x = 0, y = 0, z = 0, parent = scene, cast = true) {
   const g = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m);
   g.position.set(x, y, z); g.castShadow = cast; g.receiveShadow = true; parent.add(g); return g;
@@ -104,6 +152,13 @@ function slatTex() {
   const t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(1, 1.4); t.colorSpace = THREE.SRGBColorSpace; return t;
 }
 
+/* ---------- image-based light: Poly Haven HDRIs via @pmndrs/assets, RoomEnvironment until they load ---------- */
+const envs = {};
+let hdri = false;
+Promise.all([["night", "night"], ["day", "park"]].map(async ([k, n]) => {
+  try { const m = await import(`@pmndrs/assets/hdri/${n}.exr.js`); const t = await new EXRLoader().loadAsync(m.default); t.mapping = THREE.EquirectangularReflectionMapping; envs[k] = pmrem.fromEquirectangular(t).texture; t.dispose(); } catch (e) {}
+})).then(() => { hdri = !!(envs.night && envs.day); if (hdri) applyLook(1); });
+
 /* ---------- sky ---------- */
 const skyU = {top: {value: new THREE.Color(0x061026)}, bot: {value: new THREE.Color(0x29467a)}, st: {value: 1}};
 const sky = new THREE.Mesh(new THREE.SphereGeometry(200, 32, 16), new THREE.ShaderMaterial({
@@ -117,8 +172,8 @@ scene.fog = new THREE.Fog(0x162a4f, 45, 120);
 /* ---------- ground ---------- */
 const ground = new THREE.Mesh(new THREE.PlaneGeometry(240, 240), mat.asphalt);
 ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; scene.add(ground);
-box(16, 0.04, 11, mat.concrete, 0, 0.02, 0, scene, false); // apron under the canopy
-box(240, 0.03, 7, M(0x1b1e23, {roughness: 0.95}), 0, 0.015, 13, scene, false); // Walnut Street
+box(16, 0.04, 11, apronMat, 0, 0.02, 0, scene, false); // apron under the canopy
+box(240, 0.03, 7, streetMat, 0, 0.015, 13, scene, false); // Walnut Street
 for (let x = -60; x < 60; x += 4) box(2, 0.035, 0.14, mat.yellow, x, 0.02, 13, scene, false);
 box(240, 0.25, 0.4, mat.curb, 0, 0.12, 9.3, scene, false);
 // the curb opens where cars pull in
@@ -229,11 +284,24 @@ const door1 = door(3.5), door2 = door(8);
 box(3.6, 1.6, 0.06, mat.store, 8, 2.4, BZ - 0.04, bld, false).visible = false; // reserved for a window if the shop wants one
 
 /* ---------- trees and a neighbour ---------- */
+const leafMats = [0x1f3b2c, 0x27482f, 0x2f5636, 0x1a3125].map(c => M(c, {roughness: 0.9, flatShading: true}));
+const barkMat = M(0x3b2a1e, {roughness: 0.95});
+function lump(rad, seed) {
+  const g = new THREE.IcosahedronGeometry(rad, 2), p = g.attributes.position;
+  for (let k = 0; k < p.count; k++) {
+    const X = p.getX(k), Y = p.getY(k), Z = p.getZ(k), n = Math.sin(X * 12.99 + Y * 78.23 + Z * 37.72 + seed) * 43758.55, f = 0.82 + 0.32 * (n - Math.floor(n));
+    p.setXYZ(k, X * f, Y * f * 0.86, Z * f);
+  }
+  g.computeVertexNormals(); return g;
+}
 function tree(x, z, s = 1) {
   const g = new THREE.Group(); g.position.set(x, 0, z); g.scale.setScalar(s); scene.add(g);
-  box(0.3, 2, 0.3, M(0x3b2a1e), 0, 1, 0, g);
-  const c = new THREE.Mesh(new THREE.IcosahedronGeometry(1.6, 1), M(0x1f3b2c, {roughness: 0.9, flatShading: true}));
-  c.position.y = 3; c.castShadow = true; g.add(c);
+  const r = rng(Math.abs(Math.round(x * 31 + z * 17)) + 3);
+  const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.13, 0.22, 2.8, 7), barkMat); trunk.position.y = 1.4; trunk.castShadow = true; g.add(trunk);
+  for (let i = 0; i < 6; i++) {
+    const m = new THREE.Mesh(lump(0.85 + r() * 0.75, i * 9.1 + x), leafMats[i % 4]);
+    m.position.set((r() - 0.5) * 1.9, 2.9 + r() * 1.7, (r() - 0.5) * 1.9); m.rotation.y = r() * 6; m.castShadow = true; g.add(m);
+  }
 }
 tree(-16, -6, 1.1); tree(-14, -12, 1.3); tree(-19, 4, 0.9); tree(29, 2, 1); tree(-24, -14, 1.4); tree(25, -9, 1.2);
 box(9, 5.5, 7, M(0x7d4b3c, {roughness: 0.95}), -24, 2.75, -20); box(10, 4, 7, M(0x8a8f96, {roughness: 0.95}), 31, 2, -21);
@@ -309,7 +377,8 @@ function applyLook(t) {
   fasciaMat.emissiveIntensity = 0.15 + 0.5 * g;
   mat.head.emissiveIntensity = 0.6 + 2.4 * g;
   beam.intensity = (carMoving || carState === "road") ? 40 * g : 10 * g;
-  envMats.forEach(m => { m.envMapIntensity = k.env; });
+  if (hdri) scene.environment = envs[mode];
+  envMats.forEach(m => { m.envMapIntensity = hdri ? (mode === "night" ? 1.4 : 1.25) * (k.env > 0.4 ? 1 : 0.8) : k.env; });
   if (bloom) bloom.strength = 0.15 + 0.3 * g;
 }
 moon.position.set(-20, 30, 10);
