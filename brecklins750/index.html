@@ -41,13 +41,14 @@ svg{display:block}
 /* hero */
 .hero{position:relative;padding:44px 0 64px;overflow:hidden}
 .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 70% at 78% 40%,#24457E 0%,transparent 70%);pointer-events:none}
+.streaks{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;-webkit-mask-image:linear-gradient(180deg,transparent 18%,#000 45%);mask-image:linear-gradient(180deg,transparent 18%,#000 45%)}
 .hero .wrap{position:relative;display:grid;gap:44px;align-items:center}
 @media(min-width:960px){.hero .wrap{grid-template-columns:1.1fr .9fr}.hero{padding:84px 0 110px}}
 .open{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:15px;color:var(--mute);margin:0 0 20px}
 .open i{width:10px;height:10px;border-radius:50%;background:#7E8CA6}
 .open.on i{background:var(--ok);box-shadow:0 0 0 5px #46B06E2E}
 .open.on{color:#fff}
-.hero h1{font-size:clamp(74px,17vw,168px);text-transform:uppercase;margin:0 0 24px}
+.hero h1{font-size:clamp(74px,15vw,150px);text-shadow:0 8px 40px #0a1428;text-transform:uppercase;margin:0 0 24px}
 .hero h1 span{display:block}
 .hero h1 .r{color:var(--red)}
 .lede{font-size:clamp(17px,2vw,20px);color:#D3DBE8;max-width:30em;margin:0 0 30px}
@@ -207,7 +208,7 @@ footer{padding:36px 0 44px;font-size:14px;color:var(--mute);text-align:center;li
 </div></header>
 
 <main id="top">
-<section class="hero"><div class="wrap">
+<section class="hero"><canvas class="streaks" aria-hidden="true"></canvas><div class="wrap">
   <div>
     <p class="open" data-open><i></i><span>Checking today's hours</span></p>
     <h1 class="d"><span>Fill up.</span><span>Fix up.</span><span class="r">Same stop.</span></h1>
@@ -462,6 +463,36 @@ footer{padding:36px 0 44px;font-size:14px;color:var(--mute);text-align:center;li
     msg.className="msg ok";msg.textContent="Ticket ready for "+sel.day.label+" at "+sel.time+". In this sample nothing was sent, and photos stay on your phone. On the live site the shop gets it and calls you to confirm.";
     var ic=document.querySelector("[data-ics]");ic.href=ics();ic.classList.add("on");
   });
+})();
+
+/* Walnut Street after dark: long-exposure headlight and taillight streaks behind the hero */
+(function(){
+  var c=document.querySelector(".streaks");if(!c||!c.getContext)return;
+  var x=c.getContext("2d"),W=0,H=0,dpr=Math.min(2,window.devicePixelRatio||1),cars=[],run=true,last=0;
+  var still=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function size(){W=c.clientWidth;H=c.clientHeight;c.width=W*dpr;c.height=H*dpr;x.setTransform(dpr,0,0,dpr,0,0)}
+  function lane(i){return [.40,.50,.64,.74][i]}
+  function spawn(pre){var i=Math.floor(Math.random()*4),dir=i<2?-1:1,sp=(140+Math.random()*160)*(i===1||i===2?1.15:1);
+    return{l:i,dir:dir,sp:sp,len:160+Math.random()*260,x:pre?Math.random()*W:(dir>0?-400:W+400),w:i<2?2.2:3.2}}
+  function init(){size();cars=[];var n=Math.max(10,Math.round(W/60));for(var i=0;i<n;i++)cars.push(spawn(true))}
+  function draw(dt){
+    x.clearRect(0,0,W,H);
+    x.fillStyle="rgba(242,179,61,.18)";for(var d=0;d<W;d+=70)x.fillRect(d,H*.57,34,2);
+    for(var i=0;i<cars.length;i++){var k=cars[i];k.x+=k.dir*k.sp*dt;
+      if((k.dir>0&&k.x-k.len>W+40)||(k.dir<0&&k.x+k.len<-40)){cars[i]=spawn(false);continue}
+      var y=H*lane(k.l),head=k.dir>0,col=head?"255,244,214":"226,58,46";
+      var x0=k.x,x1=k.x-k.dir*k.len,g=x.createLinearGradient(x0,0,x1,0);
+      g.addColorStop(0,"rgba("+col+",.95)");g.addColorStop(.25,"rgba("+col+",.45)");g.addColorStop(1,"rgba("+col+",0)");
+      x.strokeStyle=g;x.lineWidth=k.w;x.lineCap="round";x.shadowColor="rgba("+col+",.8)";x.shadowBlur=12;
+      x.beginPath();x.moveTo(x0,y);x.lineTo(x1,y);x.stroke();x.beginPath();x.moveTo(x0,y+k.w*2.4);x.lineTo(x1,y+k.w*2.4);x.stroke();
+      x.shadowBlur=0}
+  }
+  function loop(ts){if(!run)return;var dt=Math.min(.05,(ts-(last||ts))/1000);last=ts;draw(dt);requestAnimationFrame(loop)}
+  init();
+  if(still){draw(0);return}
+  if("IntersectionObserver" in window)new IntersectionObserver(function(e){var v=e[0].isIntersecting;if(v&&!run){run=true;last=0;requestAnimationFrame(loop)}else if(!v)run=false}).observe(c);
+  requestAnimationFrame(loop);
+  var rt;addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(init,150)});
 })();
 </script>
 <script>/*nds-count*/(function(){try{var ls=function(){try{return localStorage.getItem("nds_nc")}catch(e){return null}};if(location.hash==="#nc"){try{localStorage.setItem("nds_nc","1")}catch(e){}}if(navigator.webdriver||ls())return;var p=location.pathname.replace(/index\.html$/,"").replace(/^\/+|\/+$/g,"");var k=p?(p.indexOf("p/")===0?p.split("/").pop():p.replace(/[^A-Za-z0-9]+/g,"-")):"home";k=k.slice(0,60);if(k.length<3)k="pg-"+k;fetch("https://abacus.jasoncameron.dev/hit/ndstudio/"+k,{keepalive:true}).catch(function(){})}catch(e){}})();</script>

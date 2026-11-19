@@ -17,7 +17,7 @@
    Layout: a letter-style hero beside a live device, a guided tour of the site, the two plans, how today goes, FAQ. */
 .hero{padding:clamp(28px,5vw,64px) 0 clamp(40px,6vw,80px)}
 .hero .shell{display:grid;gap:clamp(28px,5vw,64px);align-items:center}
-@media (min-width:980px){.hero .shell{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr)}}
+@media (min-width:980px){.hero .shell{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);align-items:start}.hero .shell>div:first-child{position:sticky;top:96px;padding-top:clamp(24px,6vh,72px)}}
 .hello{font:italic 400 clamp(22px,2.6vw,28px)/1.2 "Instrument Serif",Georgia,serif;color:var(--muted);margin:0 0 14px}
 .hero .ctas{margin:26px 0 14px}
 .meta{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:14.5px;color:var(--muted);list-style:none;padding:0;margin:0}
@@ -44,6 +44,7 @@
 .phone::before{content:"";position:absolute;top:18px;left:50%;transform:translateX(-50%);width:84px;height:22px;border-radius:12px;background:#0b0d10;z-index:2}
 .screen{width:100%;height:100%;border-radius:34px;overflow:hidden;background:#fff;position:relative}
 .screen iframe{border:0;display:block;transform-origin:0 0;position:absolute;top:0;left:0}
+.phone .screen{background:#0b0d10}.phone .screen iframe{top:34px}
 .laptop{display:none;width:100%;max-width:640px}
 .laptop .lid{border-radius:16px 16px 4px 4px;background:#0b0d10;padding:10px 10px 12px;box-shadow:0 40px 80px -30px #000c}
 .laptop .screen{border-radius:6px;aspect-ratio:16/10;height:auto}
