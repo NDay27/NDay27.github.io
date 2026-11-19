@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<script>try{if(window.top!==window.self)document.documentElement.classList.add("framed")}catch(e){document.documentElement.classList.add("framed")}</script><style>.framed .demo{display:none}</style>
 <title>Just Dents of Illinois · Signature sample by Nolan Day Studio</title>
 <meta name="robots" content="noindex,nofollow">
 <meta name="description" content="Signature sample site for Just Dents of Illinois, paintless dent repair in Morton, IL. Made by Nolan Day Studio.">
@@ -51,6 +52,16 @@ h2{font:900 clamp(38px,5.6vw,76px)/.92 Archivo,sans-serif;font-stretch:108%;text
 .draw path{stroke-dasharray:900;stroke-dashoffset:900;transition:stroke-dashoffset 2.6s ease}
 .in .draw path{stroke-dashoffset:0}
 .facts{display:flex;gap:40px;margin-top:34px;flex-wrap:wrap}.facts b{display:block;font:900 46px/1 Archivo,sans-serif;font-stretch:110%;color:var(--y)}.facts span{font-size:12.5px;color:var(--dim);letter-spacing:.12em;text-transform:uppercase}
+/* paintless vs body shop */
+.vs{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1fr);margin-top:34px;border-top:1px solid var(--line)}
+.vs>div{padding:18px 14px;border-bottom:1px solid var(--line);font-size:16px;line-height:1.45}
+.vs .h{font:800 12px Inter,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);padding-top:22px}
+.vs .h.p{color:var(--y)}
+.vs .q{color:var(--ink);font-weight:600}
+.vs .a{color:var(--y);font-weight:600;background:#f5b3010d}
+.vs .b{color:var(--mut)}
+.vsnote{margin:22px 0 0;color:var(--mut);font-size:15px;max-width:44em}
+@media (max-width:640px){.vs{grid-template-columns:1fr 1fr}.vs .q{grid-column:1/-1;padding-bottom:4px;border-bottom:0}.vs .h:first-child{display:none}.vs>div{padding:12px 10px;font-size:15px}}
 /* services tabs */
 .tabs{display:flex;gap:4px;margin:30px 0 26px;border-bottom:1px solid var(--line);flex-wrap:wrap}
 .tabs button{background:none;border:0;color:var(--dim);font:700 13px Inter,sans-serif;letter-spacing:.18em;text-transform:uppercase;padding:14px 16px;cursor:pointer;position:relative;min-height:48px}
@@ -181,6 +192,20 @@ html.cc #cur.on{opacity:1}
   <div class="marq" aria-hidden="true"><span>Hail damage · Door dings · Creases · Dealer lots · Hail damage · Door dings · Creases · Dealer lots · </span><span>Hail damage · Door dings · Creases · Dealer lots · Hail damage · Door dings · Creases · Dealer lots · </span></div>
 </section></div>
 
+<section id="vs" class="rv">
+  <span class="k">Why paintless</span><h2>Paintless or <i>body shop?</i></h2>
+  <p class="lead">Both fix dents. Only one keeps the paint the car came with. Here is the honest difference.</p>
+  <div class="vs" role="table" aria-label="Paintless dent repair compared with a body shop">
+    <div class="h" role="columnheader"></div><div class="h p" role="columnheader">Paintless, at Just Dents</div><div class="h" role="columnheader">Body shop</div>
+    <div class="q" role="rowheader">How the dent comes out</div><div class="a" role="cell">Pushed out from behind the panel</div><div class="b" role="cell">Sanded, filled and primed</div>
+    <div class="q" role="rowheader">Your factory paint</div><div class="a" role="cell">Stays. Nothing is painted</div><div class="b" role="cell">Repainted and blended to match</div>
+    <div class="q" role="rowheader">Filler</div><div class="a" role="cell">None</div><div class="b" role="cell">Body filler under new paint</div>
+    <div class="q" role="rowheader">Time without your car</div><div class="a" role="cell">Small dings often while you wait</div><div class="b" role="cell">Usually days in the shop</div>
+    <div class="q" role="rowheader">Hail claims</div><div class="a" role="cell">Photos and paperwork handled for you</div><div class="b" role="cell">Varies by shop</div>
+  </div>
+  <p class="vsnote">If the paint is cracked or chipped, paintless isn't the right fix, and Kurt will tell you so before any work starts.</p>
+</section>
+
 <section id="book" class="rv">
   <span class="k">Book a look</span><h2>Pick a time. <i>Bring the car.</i></h2>
   <div class="res">
@@ -246,13 +271,13 @@ html.cc #cur.on{opacity:1}
     var pr=gl.createProgram();gl.attachShader(pr,sh(gl.VERTEX_SHADER,"attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}"));
     gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,"precision mediump float;uniform vec2 r;uniform float t;uniform vec4 d[10];"+
       "void main(){vec2 uv=gl_FragCoord.xy/r;float ar=r.x/r.y;vec2 p=vec2(uv.x*ar,uv.y);float h=0.;vec2 g=vec2(0.);"+
-      "for(int i=0;i<10;i++){vec2 q=p-d[i].xy;float s=d[i].z,rr=d[i].w;float e=s*exp(-dot(q,q)/(rr*rr));h+=e;g+=e*(-2.*q/(rr*rr));}"+
+      "for(int i=0;i<10;i++){vec2 q=p-d[i].xy;float s=d[i].z,rr=max(d[i].w,.01);float e=s*exp(-dot(q,q)/(rr*rr));h+=e;g+=e*(-2.*q/(rr*rr));}"+
       "float cx=p.x-ar*.5;float y=uv.y+.18*cx*cx-.06*sin(uv.x*2.+t*.05);"+
       "y+=g.y*.011+g.x*.003;float f=fract(y*6.5+t*.006);"+
-      "float line=smoothstep(.0,.025,f)*(1.-smoothstep(.07,.12,f));float soft=exp(-pow((f-.06)/.11,2.))*.25;"+
+      "float line=smoothstep(.0,.025,f)*(1.-smoothstep(.07,.12,f));float sd=(f-.06)/.11;float soft=exp(-sd*sd)*.25;"+
       "float fr=.55+.45*uv.y;vec3 base=mix(vec3(.012,.012,.014),vec3(.05,.045,.04),uv.y);"+
       "vec3 col=base+vec3(1.,.95,.84)*(line*.85+soft)*fr;"+
-      "col+=vec3(.96,.70,.0)*.10*exp(-pow((uv.y-.98)/.25,2.));"+
+      "float gy=(uv.y-.98)/.25;col+=vec3(.96,.70,.0)*.10*exp(-gy*gy);"+
       "col*=1.-clamp(h,0.,1.)*.35;col*=.55+.45*(1.-smoothstep(.2,1.25,length((uv-.5)*vec2(ar*.8,1.))));"+
       "gl_FragColor=vec4(col,1.);}"));
     gl.linkProgram(pr);if(!gl.getProgramParameter(pr,gl.LINK_STATUS))return;gl.useProgram(pr);

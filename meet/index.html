@@ -31,6 +31,7 @@
 .switch button[aria-pressed="true"]{background:#fff;color:var(--shop-deep)}
 .planbar{display:flex;flex-direction:column;align-items:flex-start;gap:8px;margin:0 0 14px;width:100%}
 .planbar[hidden]{display:none}
+#stage{scroll-margin-top:84px}
 .planbar small{font:600 12px Figtree,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#ffffffa8}
 .planbar .seg{display:flex;width:100%;max-width:420px;background:#00000038;border:1px solid #ffffff2a;border-radius:14px;padding:4px;gap:4px}
 .planbar button{flex:1;border:0;background:transparent;color:#ffffffd0;font:600 13px/1.15 Figtree,sans-serif;padding:8px 6px;border-radius:10px;cursor:pointer;min-height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
@@ -128,6 +129,15 @@
 .ver h3 b{font:400 30px/1 "Instrument Serif",Georgia,serif;white-space:nowrap}
 .ver p{margin:0;color:var(--muted);font-size:15.5px}
 .ver .go{margin-top:auto;padding-top:8px;font-weight:700;color:var(--shop)}
+.ver .shot{border:0;padding:0;cursor:pointer;width:100%;display:block}
+.ver .shot::after{content:"See it above";position:absolute;right:12px;bottom:12px;background:#fff;color:#111;font:700 12.5px Figtree,sans-serif;padding:6px 11px;border-radius:99px;box-shadow:0 6px 18px #0004;opacity:0;transform:translateY(6px);transition:.3s var(--ease)}
+.ver:hover .shot::after,.ver .shot:focus-visible::after{opacity:1;transform:none}
+.ver .acts{margin-top:auto;padding-top:12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.ver .acts .pick{flex:1 1 100%;display:inline-flex;justify-content:center;align-items:center;min-height:46px;padding:0 18px;border-radius:999px;background:var(--ink);color:#fff;font-weight:700;text-decoration:none}
+.ver.lead .acts .pick{background:var(--shop);color:#fff}
+.ver .acts .see,.ver .acts .open{flex:1 1 0;justify-content:center;min-height:44px;display:inline-flex;align-items:center;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);font:600 14.5px Figtree,sans-serif;cursor:pointer;text-decoration:none}
+.planbar .try{margin:2px 0 0;font-size:14px;line-height:1.4;color:#ffffffd9;max-width:420px;min-height:2.8em}
+.planbar .try b{color:#fff}
 .ver.lead{border:2px solid var(--shop)}
 .ver ul{list-style:none;padding:0;margin:6px 0 0;display:grid;gap:7px;font-size:15px}
 .ver li{display:grid;grid-template-columns:18px 1fr;gap:8px;align-items:start}
@@ -164,7 +174,7 @@
     <ul class="meta"><li>Built for phones first</li><li>Live the same day</li><li>Pay after you approve</li></ul>
   </div>
   <div class="stage" id="stage" data-view="phone">
-    <div class="planbar" id="planbar" hidden><small>See each plan on your site</small><div class="seg" role="group" aria-label="Show this plan" id="planSeg"></div></div>
+    <div class="planbar" id="planbar" hidden><small>See each plan on your site</small><div class="seg" role="group" aria-label="Show this plan" id="planSeg"></div><p class="try" id="planTry" aria-live="polite"></p></div>
     <div class="switch" role="group" aria-label="Show the site on"><button type="button" aria-pressed="true" data-v="phone">Phone</button><button type="button" aria-pressed="false" data-v="desk">Computer</button></div>
     <div class="devices">
       <div class="phone"><div class="screen" id="scrPhone"><div class="loading">Loading your site…</div></div></div>
@@ -291,7 +301,7 @@ function render(shop){
     $("hello").textContent=(who?"Hi "+who:"Hi")+", this is for "+name+".";
     var h=$("h1");h.textContent="";h.appendChild(document.createTextNode(shop.url?"Here's the website I built for ":"Here's the website I'm building for "));h.appendChild(el("em",null,name+"."));
     $("lede").textContent=shop.url?"I made it before asking for anything, so you can judge it yourself. It already has your name, "+(town?"your town, ":"")+"your phone number and the work you do. If you like it, it can be live today, and you pay only after you approve it.":"You'll see it before you pay anything. Below is exactly what it does and what it costs. If you like it, it can be live the same day you say yes.";
-    $("closeH").textContent="Let's put "+name+" online today.";
+    $("closeH").textContent="Let's put "+(shop.short||name)+" online today.";
   }
   if(by&&by!=="Nolan"){$("aboutH").textContent=by+" and Nolan Day, Morton.";$("aboutP").textContent=by+" works with Nolan Day Studio, which builds websites for local businesses around Central Illinois. You deal with us directly, by text or email, with answers the same day. No call center and no long contract.";}
   $("whyP").textContent=shop.why?info.moment+" "+shop.why:info.moment+" Today, "+(name||"your business")+" has no real page to land on. This gives them one: who you are, what you do"+(town?", that you're in "+town:"")+", and a button that calls you.";
@@ -328,11 +338,14 @@ function render(shop){
     [["essential","Starter Site","$300","The clean, fast version: one page that answers every question and gets the call. Or $0 down and $99 a month with hosting and changes included.","starter"],
      ["signature","Signature","$750","Art-directed: a custom look, a motion piece made for your business and a booking flow.","signature"],
      ["immersive","Immersive","from $1,250","The showpiece: a real-time 3D centerpiece made for your business that people can explore.","immersive"]].forEach(function(v,i){
-      if(!S[v[0]])return;if(VX[v[0]]&&VX[v[0]].blurb)v[3]=VX[v[0]].blurb;var a=el("a","ver rv"+(i===0?" lead":""));a.href=S[v[0]];a.target="_blank";a.rel="noopener";
-      var sh=el("div","shot");if(th[v[0]])sh.style.backgroundImage="url("+th[v[0]]+")";sh.appendChild(el("span",null,["Version 1","Version 2","Version 3"][i]));a.appendChild(sh);
+      if(!S[v[0]])return;if(VX[v[0]]&&VX[v[0]].blurb)v[3]=VX[v[0]].blurb;var a=el("article","ver rv"+(i===0?" lead":""));
+      var sh=el("button","shot");sh.type="button";sh.setAttribute("aria-label","See "+v[1]+" in the preview above");sh.addEventListener("click",function(){if(window.ndsShowPlan)window.ndsShowPlan(v[0]);else window.open(S[v[0]],"_blank","noopener")});if(th[v[0]])sh.style.backgroundImage="url("+th[v[0]]+")";sh.appendChild(el("span",null,["Version 1","Version 2","Version 3"][i]));a.appendChild(sh);
       var tx=el("div","tx"),h3=el("h3");h3.appendChild(el("span",null,v[1]));h3.appendChild(el("b",null,v[2]));tx.appendChild(h3);tx.appendChild(el("p",null,v[3]));
       var ul=el("ul");(FEAT[v[0]]||[]).forEach(function(f,k){var li=el("li",k===0&&i>0?"plus":null);li.textContent=f;ul.appendChild(li)});tx.appendChild(ul);
-      tx.appendChild(el("span","go","Open it ↗"));a.appendChild(tx);vb.appendChild(a)});
+      var ac=el("div","acts"),pk=el("a","pick",i===0?"Pick this one":"Pick "+v[1]);pk.href=NDS.link("/yes/",{plan:v[4],src:"meet"});ac.appendChild(pk);
+      var sb=el("button","see","See it above");sb.type="button";sb.addEventListener("click",function(){if(window.ndsShowPlan)window.ndsShowPlan(v[0])});ac.appendChild(sb);
+      var op=el("a","open","Open ↗");op.href=S[v[0]];op.target="_blank";op.rel="noopener";op.setAttribute("aria-label","Open "+v[1]+" full screen");ac.appendChild(op);
+      tx.appendChild(ac);a.appendChild(tx);vb.appendChild(a)});
     /* Side-by-side: what each level adds. */
     var rows=[["Built for phones first, tap-to-call on every screen",1,1,1],["Your Google reviews, a map and a request form",1,1,1],["A smart tool for your trade"+(TL.essential?" ("+TL.essential.toLowerCase()+")":""),1,1,1],["Business details set up for Google search",1,1,1],["Live the same day you approve it",1,1,1],
       ["Custom look and type made for your shop, not a template",0,1,1],["A motion piece made for your business"+(TL.signature?" ("+TL.signature.toLowerCase()+")":""),0,1,1],["Booking or quote requests",0,1,1],
@@ -353,10 +366,14 @@ function render(shop){
     /* Plan bar: switch the live preview between every version built for this shop. */
     var PB=[["essential","$300","Starter"],["signature","$750","Signature"],["immersive","$1,250","Immersive"]].filter(function(v){return S[v[0]]});
     if(PB.length>1){var seg=$("planSeg");seg.textContent="";
-      PB.forEach(function(v,i){var b=el("button");b.type="button";b.dataset.src=i===0&&S.essential?shop.url:S[v[0]];b.setAttribute("aria-pressed",String(i===0));
+      var TRY=shop.try||{},TRYD={essential:"The fast one-page site. Scroll inside the screen to see all of it.",signature:"The custom version. Scroll inside the screen and play with the moving parts.",immersive:"The showpiece. Scroll inside the screen and try the 3D piece."};
+      function tryText(k){var t=TRY[k]||TRYD[k],x=$("planTry");x.textContent="";x.appendChild(el("b",null,"Try this: "));x.appendChild(document.createTextNode(t))}
+      PB.forEach(function(v,i){var b=el("button");b.type="button";b.dataset.k=v[0];b.dataset.src=i===0&&S.essential?shop.url:S[v[0]];b.setAttribute("aria-pressed",String(i===0));
         b.appendChild(el("b",null,v[1]));b.appendChild(el("span",null,v[2]));
-        b.addEventListener("click",function(){seg.querySelectorAll("button").forEach(function(x){x.setAttribute("aria-pressed",String(x===b))});show(b.dataset.src)});seg.appendChild(b)});
-      $("planbar").hidden=false}
+        b.addEventListener("click",function(){seg.querySelectorAll("button").forEach(function(x){x.setAttribute("aria-pressed",String(x===b))});show(b.dataset.src);tryText(v[0])});seg.appendChild(b)});
+      tryText(PB[0][0]);$("planbar").hidden=false;
+      /* Version cards can switch the preview too. */
+      window.ndsShowPlan=function(k){var b=seg.querySelector('[data-k="'+k+'"]');if(b)b.click();$("stage").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"})}}
     document.querySelectorAll(".switch button").forEach(function(b){b.addEventListener("click",function(){
       $("stage").dataset.view=b.dataset.v;document.querySelectorAll(".switch button").forEach(function(x){x.setAttribute("aria-pressed",String(x===b))});
       if(b.dataset.v==="desk"&&!fitD)fitD=mount($("scrDesk"),cur,1280);else if(fitD)fitD();fitP()})});
