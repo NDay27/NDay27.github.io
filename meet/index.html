@@ -302,6 +302,7 @@ function render(shop){
     ["Your services, spelled out",services?"It already lists "+services+". We add your full list and starting prices if you want them.":"Your full list of services goes here, with prices if you want them."],
     ["Your area on a map",town?"It shows "+town+" and the towns around it, so nobody wonders whether you come out to them.":"It shows the towns you serve, so nobody wonders whether you come out to them."],
     ["Requests while you work","People who'd rather not call can send a request with their name and number. Those go straight to you."]];
+  if(Array.isArray(shop.tour)&&shop.tour.length)stops=shop.tour;
   var tour=$("tour");tour.textContent="";stops.forEach(function(s){var d=el("div","stop rv");d.appendChild(el("h3",null,s[0]));d.appendChild(el("p",null,s[1]));tour.appendChild(d)});
   /* Plans: the lead offer twice, bigger sites as quiet links. A ?plan= in the link marks the one we talked about. */
   var picked=NDS.planFromParam()||"starter",box=$("plans2");box.textContent="";
@@ -318,21 +319,25 @@ function render(shop){
     var t=el("span");t.appendChild(el("b",null,(S[id]?"Built for you too: ":"Want something bigger? ")+p.name));t.appendChild(el("small",null,p.line));a.appendChild(t);a.appendChild(el("b",null,p.short));more.appendChild(a)});
   /* All the versions built for this shop, when there is more than one. */
   if(S.essential&&(S.signature||S.immersive)){var vb=$("vers");vb.textContent="";var th=shop.thumbs||{},TL=shop.tools||{};
-    var FEAT={essential:["One fast page, up to 5 sections","Tap-to-call bar on every screen",(TL.essential||"A smart tool for your trade"),"Your Google reviews, your towns on a map, a request form","Set up for Google search, live the same day"],
-      signature:["Everything in Starter, up to 7 sections","Custom look and type made for your shop",(TL.signature||"A motion piece made for your business"),"Before-and-after slider for your job photos","Booking requests with photos of the damage","Two rounds of changes"],
-      immersive:["Everything in Signature","A real-time 3D centerpiece: "+(TL.immersive||"built for your business"),"Light board and daylight views","A live inspection card that reads the 3D model","Built to be the site people remember and share"]};
+    /* Neutral defaults; a shop's preview JSON can replace them with its own "versions" and "compare". */
+    var VX=shop.versions||{};
+    var FEAT={essential:["One fast page, up to 5 sections","Tap-to-call bar on every screen",(TL.essential||"A smart tool for your trade"),"Your Google reviews, a map and a request form","Set up for Google search, live the same day"],
+      signature:["Everything in Starter, up to 7 sections","Custom look and type made for your shop",(TL.signature||"A motion piece made for your business"),"Booking or quote requests","Two rounds of changes"],
+      immersive:["Everything in Signature","A real-time 3D centerpiece: "+(TL.immersive||"built for your business"),"Interactive views people can explore","Built to be the site people remember and share"]};
+    ["essential","signature","immersive"].forEach(function(k){if(VX[k]&&Array.isArray(VX[k].features))FEAT[k]=VX[k].features});
     [["essential","Starter Site","$300","The clean, fast version: one page that answers every question and gets the call. Or $0 down and $99 a month with hosting and changes included.","starter"],
-     ["signature","Signature","$750","Art-directed: a live light-board hero that bends as you touch it, a before-and-after slider and a booking picker.","signature"],
-     ["immersive","Immersive","from $1,250","The showpiece: a 3D hood you can drop hail on, turn under the lights and repair with a slider.","immersive"]].forEach(function(v,i){
-      if(!S[v[0]])return;var a=el("a","ver rv"+(i===0?" lead":""));a.href=S[v[0]];a.target="_blank";a.rel="noopener";
+     ["signature","Signature","$750","Art-directed: a custom look, a motion piece made for your business and a booking flow.","signature"],
+     ["immersive","Immersive","from $1,250","The showpiece: a real-time 3D centerpiece made for your business that people can explore.","immersive"]].forEach(function(v,i){
+      if(!S[v[0]])return;if(VX[v[0]]&&VX[v[0]].blurb)v[3]=VX[v[0]].blurb;var a=el("a","ver rv"+(i===0?" lead":""));a.href=S[v[0]];a.target="_blank";a.rel="noopener";
       var sh=el("div","shot");if(th[v[0]])sh.style.backgroundImage="url("+th[v[0]]+")";sh.appendChild(el("span",null,["Version 1","Version 2","Version 3"][i]));a.appendChild(sh);
       var tx=el("div","tx"),h3=el("h3");h3.appendChild(el("span",null,v[1]));h3.appendChild(el("b",null,v[2]));tx.appendChild(h3);tx.appendChild(el("p",null,v[3]));
       var ul=el("ul");(FEAT[v[0]]||[]).forEach(function(f,k){var li=el("li",k===0&&i>0?"plus":null);li.textContent=f;ul.appendChild(li)});tx.appendChild(ul);
       tx.appendChild(el("span","go","Open it ↗"));a.appendChild(tx);vb.appendChild(a)});
     /* Side-by-side: what each level adds. */
-    var rows=[["Built for phones first, tap-to-call on every screen",1,1,1],["Your Google reviews, a map of your towns and a request form",1,1,1],["A smart tool for your trade"+(TL.essential?" ("+TL.essential.toLowerCase()+")":""),1,1,1],["Business details set up for Google search",1,1,1],["Live the same day you approve it",1,1,1],
-      ["Custom look and type made for your shop, not a template",0,1,1],["A motion piece made for your business"+(TL.signature?" ("+TL.signature.toLowerCase()+")":""),0,1,1],["Before-and-after slider for your own job photos",0,1,1],["Booking requests with photos of the damage",0,1,1],
-      ["A real-time 3D centerpiece"+(TL.immersive?" ("+TL.immersive.toLowerCase()+")":""),0,0,1],["Tools wired to the 3D model (a live inspection card)",0,0,1],["Rounds of changes included",'1 (any time on $99/mo)','2','2'],["Sections",'up to 5','up to 7','up to 7']];
+    var rows=[["Built for phones first, tap-to-call on every screen",1,1,1],["Your Google reviews, a map and a request form",1,1,1],["A smart tool for your trade"+(TL.essential?" ("+TL.essential.toLowerCase()+")":""),1,1,1],["Business details set up for Google search",1,1,1],["Live the same day you approve it",1,1,1],
+      ["Custom look and type made for your shop, not a template",0,1,1],["A motion piece made for your business"+(TL.signature?" ("+TL.signature.toLowerCase()+")":""),0,1,1],["Booking or quote requests",0,1,1],
+      ["A real-time 3D centerpiece"+(TL.immersive?" ("+TL.immersive.toLowerCase()+")":""),0,0,1],["Rounds of changes included",'1 (any time on $99/mo)','2','2'],["Sections",'up to 5','up to 7','up to 7']];
+    if(Array.isArray(shop.compare)&&shop.compare.length)rows=shop.compare;
     var t=el("table"),th=el("thead"),tr=el("tr");tr.appendChild(el("th",null,"What you get"));[["Starter","$300"],["Signature","$750"],["Immersive","$1,250+"]].forEach(function(c){var x=el("th");x.appendChild(el("b",null,c[1]));x.appendChild(document.createTextNode(c[0]));tr.appendChild(x)});th.appendChild(tr);t.appendChild(th);
     var tb=el("tbody");rows.forEach(function(r){var tr=el("tr");tr.appendChild(el("td",null,r[0]));for(var k=1;k<4;k++){var v=r[k],td=el("td",typeof v==="number"?(v?"y":"n"):null,typeof v==="number"?(v?"✓":"–"):v);if(typeof v==="number")td.setAttribute("aria-label",v?"Included":"Not included");tr.appendChild(td)}tb.appendChild(tr)});t.appendChild(tb);
     var cmp=$("cmp");cmp.textContent="";cmp.appendChild(t);

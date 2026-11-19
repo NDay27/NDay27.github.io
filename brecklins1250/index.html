@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Brecklin's Servicenter · Washington, IL (sample site, Immersive)</title>
+<meta name="description" content="Sample Immersive site with a 3D model of the station for Brecklin's Servicenter, 119 Walnut St, Washington, IL: oil changes, repairs and full-service fuel. Made by Nolan Day Studio.">
+<meta name="theme-color" content="#10213F">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Instrument+Sans:wght@400;500;600;700&display=swap">
+<style>
+:root{--navy:#10213F;--navy2:#172C52;--navy3:#213A66;--paper:#F1F3F6;--mute:#AEBBD0;--red:#D23A2E;--red2:#B32D23;--amber:#F2B33D;--line:#FFFFFF1F;--ok:#46B06E}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--navy);color:var(--paper);font:17px/1.6 "Instrument Sans",system-ui,-apple-system,sans-serif;padding-bottom:76px;overflow-x:hidden}
+@media(min-width:820px){body{padding-bottom:0}}
+a{color:inherit}
+svg{display:block}
+:focus-visible{outline:3px solid var(--amber);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.note{background:var(--amber);color:#1C1606;font-size:13px;text-align:center;padding:9px 16px;line-height:1.45;font-weight:600}
+.note a{font-weight:700}
+.d{font-family:"Big Shoulders Display",Impact,sans-serif;font-weight:900;line-height:.9;letter-spacing:.005em;margin:0}
+/* nav */
+.nav{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--navy) 86%,transparent);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:66px;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo svg{flex:none}
+.logo b{font:900 26px/1 "Big Shoulders Display",sans-serif;letter-spacing:.01em}
+.logo small{display:block;font:600 11.5px/1 "Instrument Sans",sans-serif;color:var(--mute);margin-top:3px}
+.links{display:none;gap:26px;font-size:15px}
+.links a{text-decoration:none;color:var(--mute)}.links a:hover{color:#fff}
+@media(min-width:960px){.links{display:flex}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:50px;padding:0 22px;border-radius:12px;border:0;font:700 16px/1 "Instrument Sans",sans-serif;text-decoration:none;cursor:pointer;transition:background .15s,transform .15s,box-shadow .15s}
+.btn:active{transform:translateY(1px)}
+.btn.red{background:var(--red);color:#fff}.btn.red:hover{background:var(--red2)}
+.btn.ghost{background:#ffffff12;color:#fff;box-shadow:inset 0 0 0 1.5px #ffffff40}.btn.ghost:hover{background:#ffffff1f}
+.btn.amber{background:var(--amber);color:#1C1606}
+.nav .btn{min-height:42px;padding:0 16px;font-size:15px;white-space:nowrap}
+@media(max-width:480px){.logo small{display:none}.logo b{font-size:24px}.nav .btn{padding:0 12px}}
+/* hero */
+.hero{position:relative;padding:44px 0 64px;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 70% at 78% 40%,#24457E 0%,transparent 70%);pointer-events:none}
+.hero .wrap{position:relative;display:grid;gap:44px;align-items:center}
+@media(min-width:960px){.hero .wrap{grid-template-columns:1.1fr .9fr}.hero{padding:84px 0 110px}}
+.open{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:15px;color:var(--mute);margin:0 0 20px}
+.open i{width:10px;height:10px;border-radius:50%;background:#7E8CA6}
+.open.on i{background:var(--ok);box-shadow:0 0 0 5px #46B06E2E}
+.open.on{color:#fff}
+.hero h1{font-size:clamp(74px,17vw,168px);text-transform:uppercase;margin:0 0 24px}
+.hero h1 span{display:block}
+.hero h1 .r{color:var(--red)}
+.lede{font-size:clamp(17px,2vw,20px);color:#D3DBE8;max-width:30em;margin:0 0 30px}
+.ctas{display:flex;flex-wrap:wrap;gap:12px}
+/* the pump face */
+.pump{position:relative;background:#F4F1E8;color:#14203A;border-radius:26px 26px 18px 18px;padding:22px;box-shadow:0 40px 80px -40px #000C,inset 0 -6px 0 #D9D3C2;max-width:440px;justify-self:center;width:100%}
+.pump .cap{display:flex;justify-content:space-between;align-items:center;background:var(--red);color:#fff;border-radius:14px;padding:12px 16px;margin-bottom:16px}
+.pump .cap b{font:900 26px/1 "Big Shoulders Display",sans-serif;letter-spacing:.02em}
+.pump .cap span{font-size:12.5px;font-weight:600;opacity:.9;text-align:right;line-height:1.25}
+.reading{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 6px;border-top:1.5px solid #14203A1A}
+.reading:first-of-type{border-top:0}
+.reading p{margin:0;font-size:14px;font-weight:600;line-height:1.25}
+.reading p small{display:block;font-weight:500;color:#5A6680;font-size:12.5px}
+.wheels{display:flex;align-items:center;gap:3px;background:#14203A;border-radius:10px;padding:6px 8px;box-shadow:inset 0 2px 6px #000A}
+.wheel{position:relative;width:30px;height:46px;overflow:hidden;background:linear-gradient(#0A1222,#1B2A48 50%,#0A1222);border-radius:5px}
+.wheel .strip{position:absolute;left:0;right:0;top:0;transition:transform 1.9s cubic-bezier(.16,.8,.2,1)}
+.wheel .strip span{display:block;height:46px;font:800 34px/46px "Big Shoulders Display",sans-serif;color:#F4F1E8;text-align:center;font-variant-numeric:tabular-nums}
+.sep{font:800 30px/46px "Big Shoulders Display",sans-serif;color:var(--amber);padding:0 1px}
+.unit{font:700 13px/1 "Instrument Sans",sans-serif;color:var(--amber);padding-left:4px}
+.pump .hose{position:absolute;right:-14px;top:90px;width:28px;height:150px;border:7px solid #1C2B47;border-left:0;border-radius:0 40px 40px 0;opacity:.9}
+@media(max-width:520px){.pump .hose{display:none}.wheel{width:25px;height:40px}.wheel .strip span{height:40px;font-size:29px;line-height:40px}.sep{line-height:40px;font-size:26px}}
+/* 3D scene */
+.scene{position:relative;height:calc(100svh - 110px);min-height:600px;max-height:900px;overflow:hidden;background:radial-gradient(120% 90% at 60% 20%,#29467a,#0b1730 75%)}
+#c{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab;touch-action:pan-y;opacity:0;transition:opacity 1.2s}
+#c:active{cursor:grabbing}
+.scene.ready #c{opacity:1}
+.veil{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,#0b1730d9 0%,#0b173000 55%),linear-gradient(180deg,#0b173066 0%,#0b173000 30%,#0b173000 62%,#0b1730e6 100%)}
+.hcopy{position:absolute;left:clamp(20px,5vw,64px);top:clamp(28px,8vh,90px);max-width:620px;z-index:3;pointer-events:none}
+.hcopy h1{font-size:clamp(60px,min(9vw,12vh),124px);text-transform:uppercase;margin:0 0 18px;text-shadow:0 6px 30px #000a}
+.hcopy h1 span{display:block}.hcopy h1 .r{color:var(--red)}
+.hcopy .lede{text-shadow:0 2px 14px #000c;max-width:28em}
+.dash{position:absolute;left:clamp(20px,5vw,64px);right:clamp(20px,5vw,64px);bottom:22px;z-index:4;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 20px}
+.say{margin:0;font-weight:600;font-size:15px;color:#fff;text-shadow:0 2px 10px #000;min-height:1.6em;flex:1 1 260px}
+.acts{display:flex;flex-wrap:wrap;gap:8px}
+.act{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:0 18px;border-radius:12px;border:0;background:var(--amber);color:#1C1606;font:700 15.5px/1 "Instrument Sans",sans-serif;cursor:pointer;box-shadow:0 10px 30px -12px #000}
+.act:hover{filter:brightness(1.06)}
+.act:disabled{opacity:.55;cursor:progress}
+.act.ghosty{background:#ffffff1f;color:#fff;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:inset 0 0 0 1.5px #ffffff40}
+.hint{margin:0;font-size:13px;color:#C3CDDD;flex-basis:100%;text-shadow:0 1px 8px #000}
+@media(pointer:coarse){.hint{display:none}}
+.scene.touched .hint{visibility:hidden}
+.nogl{display:none;position:absolute;inset:auto 20px 120px;z-index:3;color:#C3CDDD}
+.scene.noGL .nogl{display:block}.scene.noGL .dash .acts,.scene.noGL .say{display:none}
+@media(max-width:700px){.scene{height:auto;min-height:0;max-height:none;display:flex;flex-direction:column}.hcopy{order:1;position:relative;left:auto;top:auto;padding:26px 20px 6px;max-width:none}.hcopy h1{font-size:clamp(52px,15vw,76px)}.hcopy .lede{font-size:16px;margin:0}#c{order:2;position:relative;inset:auto;height:min(60vh,460px)}.veil{display:none}.dash{order:3;position:relative;left:auto;right:auto;bottom:auto;padding:4px 20px 26px}.say{flex-basis:100%}.act{padding:0 12px;font-size:15px}.acts{width:100%}.acts .act{flex:1 1 auto;justify-content:center}.nogl{position:relative;inset:auto;order:2;padding:20px}}
+.todayrow{display:grid;gap:40px;align-items:center}
+@media(min-width:960px){.todayrow{grid-template-columns:.85fr 1.15fr;gap:70px}}
+.todayrow .h2{font-size:clamp(48px,8vw,92px)}
+/* sections */
+.s{padding:72px 0;border-top:1px solid var(--line)}
+@media(min-width:960px){.s{padding:110px 0}}
+.h2{font-size:clamp(52px,10vw,104px);text-transform:uppercase;margin:0 0 18px}
+.intro{color:#C3CDDD;max-width:34em;margin:0 0 40px;font-size:18px}
+/* story */
+.story{display:grid;gap:36px;align-items:end}
+@media(min-width:960px){.story{grid-template-columns:1.3fr 1fr;gap:64px}}
+.story blockquote{margin:0;font:800 clamp(34px,5.4vw,62px)/1 "Big Shoulders Display",sans-serif;text-transform:uppercase;letter-spacing:.005em}
+.story blockquote::before{content:"\201C";display:block;font-size:1.6em;line-height:.6;color:var(--red);margin-bottom:6px}
+.story cite{display:block;margin-top:18px;font:600 15px "Instrument Sans",sans-serif;color:var(--mute);font-style:normal;text-transform:none}
+.story p{color:#C3CDDD;margin:0 0 16px}
+.story p strong{color:#fff}
+/* services */
+.svc{display:grid;gap:2px;background:var(--line);border-radius:22px;overflow:hidden}
+@media(min-width:820px){.svc{grid-template-columns:1fr 1fr}}
+.svc article{background:var(--navy2);padding:30px 26px 32px;display:grid;grid-template-columns:64px 1fr;gap:6px 20px;align-items:start}
+.svc article:hover{background:var(--navy3)}
+.svc .ico{grid-row:span 2;width:64px;height:64px;border-radius:16px;background:#ffffff0F;display:grid;place-items:center;color:var(--amber)}
+.svc h3{font:900 34px/1 "Big Shoulders Display",sans-serif;text-transform:uppercase;margin:4px 0 6px}
+.svc p{margin:0;color:#C3CDDD;font-size:16px}
+/* booking */
+.book{display:grid;gap:22px}
+@media(min-width:960px){.book{grid-template-columns:1.25fr .75fr;align-items:start}}
+.panel{background:var(--navy2);border-radius:22px;padding:24px}
+@media(min-width:960px){.panel{padding:32px}}
+fieldset{border:0;margin:0 0 26px;padding:0;min-width:0}
+legend{font-weight:700;font-size:15px;margin:0 0 12px;padding:0;color:#fff}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{appearance:none;border:0;background:#ffffff10;color:#E3E9F2;border-radius:12px;padding:10px 14px;font:600 15px/1.2 "Instrument Sans",sans-serif;cursor:pointer;box-shadow:inset 0 0 0 1.5px #ffffff1A;text-align:center}
+.chip small{display:block;font-weight:500;font-size:12px;color:var(--mute);margin-top:2px}
+.chip:hover{background:#ffffff1A}
+.chip[aria-pressed="true"]{background:var(--amber);color:#1C1606;box-shadow:none}
+.chip[aria-pressed="true"] small{color:#4A3A0E}
+.days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.days .chip{padding:10px 2px}
+.days .chip b{display:block;font:800 22px/1.1 "Big Shoulders Display",sans-serif}
+.times{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:6px}
+.times .chip{padding:10px 4px;font-variant-numeric:tabular-nums}
+.who{display:grid;gap:12px}
+@media(min-width:620px){.who{grid-template-columns:1fr 1fr}}
+label{display:grid;gap:6px;font-size:14px;font-weight:600;color:#D3DBE8}
+input{font:16px "Instrument Sans",sans-serif;padding:13px 14px;border-radius:12px;border:1.5px solid #ffffff2A;background:#0B1830;color:#fff;width:100%}
+input:focus{outline:none;border-color:var(--amber)}
+/* the ticket */
+.ticket{position:sticky;top:90px;background:#F4F1E8;color:#14203A;border-radius:18px;padding:24px 24px 22px;box-shadow:0 30px 60px -36px #000C}
+.ticket::before,.ticket::after{content:"";position:absolute;top:118px;width:22px;height:22px;border-radius:50%;background:var(--navy)}
+.ticket::before{left:-11px}.ticket::after{right:-11px}
+.ticket h3{font:900 30px/1 "Big Shoulders Display",sans-serif;text-transform:uppercase;margin:0 0 4px}
+.ticket .tsub{font-size:13.5px;color:#5A6680;margin:0 0 26px}
+.ticket dl{margin:0;border-top:2px dashed #14203A33;padding-top:16px;display:grid;gap:12px}
+.ticket dt{font-size:12.5px;font-weight:600;color:#5A6680}
+.ticket dd{margin:0;font-weight:700;font-size:17px;line-height:1.3}
+.ticket dd.empty{color:#9AA3B5;font-weight:500}
+.ticket .btn{width:100%;margin-top:20px}
+.ticket .msg{margin:12px 0 0;font-size:13.5px;color:#5A6680}
+.ticket .msg.ok{color:#1E6B3C;font-weight:600}
+.ticket .msg.err{color:#B32D23;font-weight:600}
+/* reviews */
+.revs{display:grid;gap:16px}
+@media(min-width:820px){.revs{grid-template-columns:repeat(2,1fr)}}
+.rev{margin:0;background:var(--navy2);border-radius:20px;padding:26px;display:flex;flex-direction:column;justify-content:space-between;gap:18px}
+.rev blockquote{margin:0;font-size:18px;line-height:1.55;color:#E8EDF4}
+.rev figcaption{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:14.5px;color:var(--mute)}
+.rev figcaption b{color:#fff}
+.st{display:flex;gap:2px;color:var(--amber)}
+.rate{display:flex;align-items:flex-end;gap:18px;margin:0 0 36px}
+.rate b{font:900 104px/.8 "Big Shoulders Display",sans-serif;color:var(--amber)}
+.rate span{color:#C3CDDD;font-size:16px;line-height:1.4;padding-bottom:4px}
+/* visit */
+.visit{display:grid;gap:30px}
+@media(min-width:960px){.visit{grid-template-columns:1fr 1.15fr;align-items:start}}
+table{width:100%;border-collapse:collapse}
+td{padding:12px 0;border-bottom:1px solid var(--line);font-size:17px}
+td:last-child{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+tr.today td{color:var(--amber);font-weight:700}
+tr.today td:first-child::after{content:" (today)";font-weight:500}
+.addr{font:800 32px/1.05 "Big Shoulders Display",sans-serif;text-transform:uppercase;margin:0 0 6px}
+.small{font-size:14px;color:var(--mute);margin:14px 0 0}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0;padding:0;list-style:none}
+.tags li{border:1.5px solid var(--line);border-radius:99px;padding:6px 12px;font-size:14px;color:#D3DBE8}
+.map{position:relative;border-radius:22px;overflow:hidden;aspect-ratio:4/3.3;background:#1B2C4C}
+.map iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:grayscale(.35) contrast(1.05)}
+.map .btn{position:absolute;right:12px;top:12px;min-height:44px}
+/* close */
+.close{text-align:center;padding:90px 0 96px;background:var(--red);border-top:0}
+.close .h2{font-size:clamp(56px,12vw,130px)}
+.close p{font-size:19px;margin:0 auto 30px;max-width:30em;color:#FFE9E6}
+.close .big{display:inline-block;font:900 clamp(44px,9vw,84px)/1 "Big Shoulders Display",sans-serif;text-decoration:none;color:#fff;margin:0 0 26px;border-bottom:4px solid #ffffff66}
+.close .btn.navy{background:var(--navy);color:#fff}
+footer{padding:36px 0 44px;font-size:14px;color:var(--mute);text-align:center;line-height:1.7}
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:50;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:var(--navy);border-top:1px solid var(--line)}
+.dock .btn{min-width:0;padding:0 10px}
+@media(min-width:820px){.dock{display:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.wheel .strip{transition:none}}
+</style>
+</head>
+<body>
+<p class="note">Sample Immersive site made for Brecklin's Servicenter by Nolan Day Studio. <a href="https://nday27.github.io/?src=brecklins1250">Not the official site</a></p>
+
+<header class="nav"><div class="wrap">
+  <a class="logo" href="#top" aria-label="Brecklin's Servicenter, back to top">
+    <svg width="38" height="38" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#D23A2E"/><path d="M13 9h9.5c4.4 0 6.8 2.1 6.8 5.4 0 2.3-1.3 3.8-3.2 4.4 2.5.5 4.1 2.3 4.1 4.9 0 3.6-2.7 5.9-7.3 5.9H13z" fill="none" stroke="#fff" stroke-width="3.2" stroke-linejoin="round"/><path d="M13 19h11" stroke="#fff" stroke-width="3.2"/></svg>
+    <span><b>BRECKLIN'S</b><small>Servicenter, Washington IL</small></span>
+  </a>
+  <nav class="links" aria-label="Sections"><a href="#services">Services</a><a href="#book">Drop off</a><a href="#reviews">Reviews</a><a href="#visit">Hours</a></nav>
+  <a class="btn red" href="tel:+13094449245">(309) 444-9245</a>
+</div></header>
+
+<main id="top">
+<section class="scene" aria-label="3D model of Brecklin's Servicenter">
+  <canvas id="c" aria-hidden="true"></canvas>
+  <div class="veil" aria-hidden="true"></div>
+  <div class="nogl"><p>The 3D station needs a newer browser. Everything else on the page works.</p></div>
+  <div class="hcopy">
+    <p class="open" data-open><i></i><span>Checking today's hours</span></p>
+    <h1 class="d"><span>Pull in.</span><span class="r">We'll take it from here.</span></h1>
+    <p class="lede">Full-service fuel, oil changes and honest repairs on Walnut Street in Washington. Try it: send the car to the pump or into the bay.</p>
+  </div>
+  <div class="dash" role="group" aria-label="Drive the car">
+    <p class="say" data-scene-status aria-live="polite">Loading the station…</p>
+    <div class="acts">
+      <button type="button" class="act" data-act="pump"><svg width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="6" width="20" height="36" rx="3"/><path d="M12 12h12v8H12zM28 16h6l4 4v14a3 3 0 0 1-6 0v-6h-4"/></svg>To the pump</button>
+      <button type="button" class="act" data-act="bay"><svg width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M30 6a10 10 0 0 0-9 14L7 34a4 4 0 0 0 6 6l14-14a10 10 0 0 0 14-9l-6 6-6-2-2-6z"/></svg>Into the bay</button>
+      <button type="button" class="act ghosty" data-act="light" aria-pressed="false"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><span>Day</span></button>
+    </div>
+    <p class="hint">Drag to look around</p>
+  </div>
+</section>
+<section class="s todaybar"><div class="wrap todayrow">
+  <div class="pump" role="group" aria-label="Today at Brecklin's: hours and Google rating">
+    <div class="cap"><b>TODAY</b><span data-dayname>Hours from Google</span></div>
+    <div class="reading"><p>Opens<small>Central time</small></p><div class="wheels" data-roll="open" aria-hidden="true"></div></div>
+    <div class="reading"><p>Closes<small>Pumps and counter</small></p><div class="wheels" data-roll="close" aria-hidden="true"></div></div>
+    <div class="reading"><p>Google rating<small>21 reviews</small></p><div class="wheels" data-roll="rate" aria-hidden="true"></div></div>
+  </div>
+  <div>
+    <h2 class="d h2">Fill up. Fix up. Same stop.</h2>
+    <p class="intro" style="margin-bottom:26px">Open seven days a week on Walnut Street in Washington. Today's hours and the shop's Google rating, at a glance.</p>
+    <div class="ctas"><a class="btn red" href="#book">Plan a drop-off</a><a class="btn ghost" href="tel:+13094449245">Call the shop</a></div>
+  </div>
+</div></section>
+
+<section class="s" id="story"><div class="wrap story">
+  <figure style="margin:0"><blockquote>Not many full service gas stations left.</blockquote><cite>John S., Google review</cite></figure>
+  <div>
+    <p><strong>Brecklin's still does it the old way.</strong> Pull up to the full-service pump and someone comes out to fill the tank. Bring the car into the bay and you get a straight answer about what it needs.</p>
+    <p>That's why people keep coming back. One customer on Google put it simply: they treat you like you're the only customer.</p>
+  </div>
+</div></section>
+
+<section class="s" id="services"><div class="wrap">
+  <h2 class="d h2">What we do</h2>
+  <p class="intro">The everyday work that keeps a car on the road. Not sure if we handle something? Call and ask.</p>
+  <div class="svc">
+    <article><span class="ico"><svg width="34" height="34" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 20h22l8-6 4 3-9 9v12H8z"/><path d="M14 20v-4h8v4"/><path d="M42 24c0 3-2 5-2 5s-2-2-2-5"/></svg></span><h3>Oil changes</h3><p>Pull in and we'll change the oil and get you back on the road. Call ahead for a time that fits your day.</p></article>
+    <article><span class="ico"><svg width="34" height="34" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M30 6a10 10 0 0 0-9 14L7 34a4 4 0 0 0 6 6l14-14a10 10 0 0 0 14-9l-6 6-6-2-2-6z"/></svg></span><h3>Repairs</h3><p>A new noise, a warning light, something that feels off. We'll look at it, tell you straight what it needs and give you an honest estimate.</p></article>
+    <article><span class="ico"><svg width="34" height="34" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="6" width="20" height="36" rx="3"/><path d="M12 12h12v8H12zM28 16h6l4 4v14a3 3 0 0 1-6 0v-6h-4"/></svg></span><h3>Full-service fuel</h3><p>One of the last full-service pumps around. Stay in the car and we'll fill it for you.</p></article>
+    <article><span class="ico"><svg width="34" height="34" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 18l4-10h28l4 10"/><path d="M8 18v22h32V18"/><path d="M6 18h36"/><path d="M20 40V28h8v12"/></svg></span><h3>Gas and the counter</h3><p>Self-serve pumps and a counter inside, open from early morning until 8 PM most days.</p></article>
+  </div>
+</div></section>
+
+<section class="s" id="book"><div class="wrap">
+  <h2 class="d h2">Plan a drop-off</h2>
+  <p class="intro">Pick a day and about when you'll bring the car up, and tell us what it's doing. The shop calls you back to confirm.</p>
+  <div class="book">
+    <form class="panel" id="bk" novalidate>
+      <fieldset><legend>Day</legend><div class="days chips" data-days></div></fieldset>
+      <fieldset><legend>Drop-off time</legend><div class="times chips" data-times></div></fieldset>
+      <fieldset><legend>What's going on?</legend><div class="chips" data-needs>
+        <button type="button" class="chip" aria-pressed="false">Oil change</button>
+        <button type="button" class="chip" aria-pressed="false">Warning light</button>
+        <button type="button" class="chip" aria-pressed="false">Strange noise</button>
+        <button type="button" class="chip" aria-pressed="false">Won't start</button>
+        <button type="button" class="chip" aria-pressed="false">Something else</button>
+      </div></fieldset>
+      <fieldset style="margin:0"><legend>Who's dropping off</legend><div class="who">
+        <label>Name<input name="name" autocomplete="name"></label>
+        <label>Phone<input name="phone" type="tel" inputmode="tel" autocomplete="tel"></label>
+      </div></fieldset>
+    </form>
+    <aside class="ticket" aria-live="polite">
+      <h3>Drop-off ticket</h3>
+      <p class="tsub">Brecklin's Servicenter, 119 Walnut St</p>
+      <dl>
+        <div><dt>Day</dt><dd data-t="day" class="empty">Pick a day</dd></div>
+        <div><dt>Time</dt><dd data-t="time" class="empty">Pick a time</dd></div>
+        <div><dt>The car</dt><dd data-t="need" class="empty">Tell us what's going on</dd></div>
+        <div><dt>Name</dt><dd data-t="name" class="empty">Your name</dd></div>
+      </dl>
+      <button class="btn red" type="button" data-send>Send drop-off request</button>
+      <p class="msg" data-msg>This is a sample, so nothing is sent. On the live site the shop gets it right away.</p>
+    </aside>
+  </div>
+</div></section>
+
+<section class="s" id="reviews"><div class="wrap">
+  <h2 class="d h2">Word around town</h2>
+  <div class="rate"><b>4.8</b><span>average on Google<br>from 21 reviews</span></div>
+  <div class="revs">
+    <figure class="rev"><blockquote>"They treat us like we are their only customer. The young people working the register are ALWAYS very nice and eager to help."</blockquote><figcaption><span><b>Keegan F.</b>, Google review</span><span class="st" aria-label="5 stars">★★★★★</span></figcaption></figure>
+    <figure class="rev"><blockquote>"Went to this business for the 1st time and was not disappointed! Good honest estimate, with a good same day service turn out so I wouldn't hesitate to bring my vehicle back!!"</blockquote><figcaption><span><b>Pete</b>, Google review</span><span class="st" aria-label="5 stars">★★★★★</span></figcaption></figure>
+    <figure class="rev"><blockquote>"Was having awful issues with my car. Tom said bring it up. Let me see what's going on within 40 minutes fixed the problem so very thankful. Excellent place to take your car.!!"</blockquote><figcaption><span><b>Cathy G.</b>, Google review</span><span class="st" aria-label="5 stars">★★★★★</span></figcaption></figure>
+    <figure class="rev"><blockquote>"Not many full service gas stations left. It was refreshing to meet some down to earth good people here."</blockquote><figcaption><span><b>John S.</b>, Google review</span><span class="st" aria-label="4 stars">★★★★</span></figcaption></figure>
+  </div>
+  <p class="small">Quotes are copied word for word from public reviews on Brecklin's Google listing.</p>
+</div></section>
+
+<section class="s" id="visit"><div class="wrap visit">
+  <div>
+    <h2 class="d h2">Find us</h2>
+    <p class="addr">119 Walnut St<br>Washington, IL 61571</p>
+    <p style="color:#C3CDDD;margin:0 0 26px">At the bp station on Walnut Street.</p>
+    <table aria-label="Hours"><tbody>
+      <tr data-d="1"><td>Monday</td><td>6:30 AM to 8 PM</td></tr>
+      <tr data-d="2"><td>Tuesday</td><td>6:30 AM to 8 PM</td></tr>
+      <tr data-d="3"><td>Wednesday</td><td>6:30 AM to 8 PM</td></tr>
+      <tr data-d="4"><td>Thursday</td><td>6:30 AM to 8 PM</td></tr>
+      <tr data-d="5"><td>Friday</td><td>6:30 AM to 8 PM</td></tr>
+      <tr data-d="6"><td>Saturday</td><td>7 AM to 8 PM</td></tr>
+      <tr data-d="0"><td>Sunday</td><td>8 AM to 6 PM</td></tr>
+    </tbody></table>
+    <p class="small">Hours as listed on Google. Holidays can differ, so call if you're not sure.</p>
+    <ul class="tags" aria-label="At the shop"><li>Wheelchair accessible</li><li>Accessible parking</li><li>Restroom</li><li>Credit, debit and tap to pay</li></ul>
+  </div>
+  <div class="map">
+    <iframe title="Map of Brecklin's Servicenter, 119 Walnut St, Washington, IL" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=-89.4124%2C40.6998%2C-89.3985%2C40.7074&amp;layer=mapnik&amp;marker=40.70359%2C-89.40545"></iframe>
+    <a class="btn amber" href="https://www.google.com/maps/dir/?api=1&amp;destination=Brecklin%27s+Servicenter%2C+119+Walnut+St%2C+Washington%2C+IL+61571" target="_blank" rel="noopener">Directions</a>
+  </div>
+</div></section>
+
+<section class="close"><div class="wrap">
+  <h2 class="d h2">Car acting up?</h2>
+  <p>Call the shop and tell us what it's doing. We'll tell you straight what it needs.</p>
+  <a class="big" href="tel:+13094449245">(309) 444-9245</a><br>
+  <a class="btn navy" href="#book">Plan a drop-off instead</a>
+</div></section>
+</main>
+
+<footer><div class="wrap">Brecklin's Servicenter, 119 Walnut St, Washington, IL 61571, (309) 444-9245<br>Sample Immersive site by <a href="https://nday27.github.io/?src=brecklins1250">Nolan Day Studio</a>. Not the business's official site.<br>The 3D station is a model built for this page. Hours, reviews and details come from the shop's Google listing.</div></footer>
+<nav class="dock" aria-label="Quick actions"><a class="btn ghost" href="tel:+13094449245">Call</a><a class="btn red" href="#book">Plan a drop-off</a></nav>
+
+<script>
+(function(){
+  "use strict";
+  var H={0:[480,1080],1:[390,1200],2:[390,1200],3:[390,1200],4:[390,1200],5:[390,1200],6:[420,1200]};
+  var DAYS=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],SH=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+  var MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function fmt(m){var h=Math.floor(m/60),mm=m%60,ap=h>=12?"PM":"AM";h=h%12||12;return h+(mm?":"+(mm<10?"0":"")+mm:"")+" "+ap}
+  function now(){
+    try{var p=new Intl.DateTimeFormat("en-US",{timeZone:"America/Chicago",year:"numeric",month:"numeric",day:"numeric",weekday:"short",hour:"numeric",minute:"numeric",hourCycle:"h23"}).formatToParts(new Date()),o={};
+      p.forEach(function(x){o[x.type]=x.value});
+      return{d:SH.indexOf(o.weekday),m:(+o.hour%24)*60+(+o.minute),date:new Date(+o.year,+o.month-1,+o.day)}}
+    catch(e){var d=new Date();return{d:d.getDay(),m:d.getHours()*60+d.getMinutes(),date:new Date(d.getFullYear(),d.getMonth(),d.getDate())}}
+  }
+  var t=now(),h=H[t.d],isOpen=t.m>=h[0]&&t.m<h[1];
+  /* live status line */
+  var op=document.querySelector("[data-open]"),txt;
+  if(isOpen)txt="Open now, until "+fmt(h[1]);
+  else if(t.m<h[0])txt="Opens today at "+fmt(h[0]);
+  else txt="Closed now. Opens "+fmt(H[(t.d+1)%7][0])+" tomorrow";
+  op.classList.toggle("on",isOpen);op.querySelector("span").textContent=txt;
+  document.querySelector("[data-dayname]").textContent=DAYS[t.d];
+  var row=document.querySelector('tr[data-d="'+t.d+'"]');if(row)row.className="today";
+  /* the pump wheels roll to today's real numbers */
+  function hhmm(m){var hr=Math.floor(m/60)%12||12,mm=m%60;return (hr<10?" ":"")+hr+":"+(mm<10?"0":"")+mm}
+  function build(el,str,unit){
+    el.textContent="";var strips=[];
+    str.split("").forEach(function(c){
+      if(c===":"||c==="."){var s=document.createElement("span");s.className="sep";s.textContent=c;el.appendChild(s);return}
+      var w=document.createElement("span");w.className="wheel";var st=document.createElement("span");st.className="strip";
+      for(var r=0;r<2;r++)for(var i=0;i<10;i++){var n=document.createElement("span");n.textContent=i;st.appendChild(n)}
+      w.appendChild(st);el.appendChild(w);
+      if(c===" "){w.style.visibility="hidden";return}
+      strips.push([st,10+(+c)]);
+    });
+    if(unit){var u=document.createElement("span");u.className="unit";u.textContent=unit;el.appendChild(u)}
+    return strips;
+  }
+  var all=[];
+  all=all.concat(build(document.querySelector('[data-roll="open"]'),hhmm(h[0]),h[0]<720?"AM":"PM"));
+  all=all.concat(build(document.querySelector('[data-roll="close"]'),hhmm(h[1]),h[1]<720?"AM":"PM"));
+  all=all.concat(build(document.querySelector('[data-roll="rate"]'),"4.8",""));
+  function roll(){all.forEach(function(p,i){var px=p[0].firstChild.getBoundingClientRect().height||46;p[0].style.transitionDelay=(reduce?0:i*0.09)+"s";p[0].style.transform="translateY(-"+(p[1]*px)+"px)"})}
+  if(reduce)roll();else requestAnimationFrame(function(){requestAnimationFrame(roll)});
+  addEventListener("resize",function(){all.forEach(function(p){p[0].style.transition="none"});roll()});
+
+  /* booking: next 7 days, 30-minute drop-off slots from opening until an hour before close */
+  var sel={day:null,time:null,need:null};
+  function firstSlot(hh,i){var st=hh[0];if(i===0)while(st<t.m+30)st+=60;return st}
+  var daysBox=document.querySelector("[data-days]"),timesBox=document.querySelector("[data-times]");
+  function press(box,btn){box.querySelectorAll(".chip").forEach(function(b){b.setAttribute("aria-pressed",String(b===btn))})}
+  function setT(k,v){var dd=document.querySelector('[data-t="'+k+'"]');if(v){dd.textContent=v;dd.classList.remove("empty")}else{dd.textContent=dd.getAttribute("data-empty");dd.classList.add("empty")}}
+  document.querySelectorAll("[data-t]").forEach(function(dd){dd.setAttribute("data-empty",dd.textContent)});
+  for(var i=0;i<7;i++){(function(i){
+    var d=new Date(t.date.getTime());d.setDate(d.getDate()+i);var wd=d.getDay(),hh=H[wd];
+    var left=(hh[1]-60)-firstSlot(hh,i);
+    var b=document.createElement("button");b.type="button";b.className="chip";b.setAttribute("aria-pressed","false");
+    b.innerHTML="";b.appendChild(document.createTextNode(i===0?"Today":SH[wd]));var big=document.createElement("b");big.textContent=d.getDate();b.appendChild(big);
+    b.setAttribute("aria-label",(i===0?"Today, ":"")+DAYS[wd]+" "+MON[d.getMonth()]+" "+d.getDate());
+    if(left<0){b.disabled=true;b.style.opacity=".35";b.style.cursor="not-allowed";b.title="No more drop-off times today"}
+    b.addEventListener("click",function(){press(daysBox,b);sel.day={i:i,wd:wd,label:(i===0?"Today, ":"")+DAYS[wd]+", "+MON[d.getMonth()]+" "+d.getDate()};sel.time=null;setT("day",sel.day.label);setT("time","");times()});
+    daysBox.appendChild(b)})(i)}
+  function times(){
+    timesBox.textContent="";
+    if(!sel.day){var p=document.createElement("p");p.style.cssText="margin:0;color:#AEBBD0;font-size:15px";p.textContent="Pick a day first.";timesBox.appendChild(p);return}
+    var hh=H[sel.day.wd],start=firstSlot(hh,sel.day.i);
+    for(var m=start;m<=hh[1]-60;m+=60){(function(m){var b=document.createElement("button");b.type="button";b.className="chip";b.setAttribute("aria-pressed","false");b.textContent=fmt(m);
+      b.addEventListener("click",function(){press(timesBox,b);sel.time=fmt(m);setT("time",sel.time)});timesBox.appendChild(b)})(m)}
+  }
+  times();
+  var needs=document.querySelector("[data-needs]");
+  needs.querySelectorAll(".chip").forEach(function(b){b.addEventListener("click",function(){press(needs,b);sel.need=b.textContent;setT("need",sel.need)})});
+  var f=document.getElementById("bk");
+  f.name.addEventListener("input",function(){setT("name",f.name.value.trim())});
+  f.addEventListener("submit",function(e){e.preventDefault()});
+  document.querySelector("[data-send]").addEventListener("click",function(){
+    var msg=document.querySelector("[data-msg]"),miss=[];
+    if(!sel.day)miss.push("a day");if(!sel.time)miss.push("a time");if(!sel.need)miss.push("what's going on");
+    if(!f.name.value.trim())miss.push("your name");if(f.phone.value.replace(/\D/g,"").length<10)miss.push("a 10-digit phone number");
+    if(miss.length){msg.className="msg err";msg.textContent="Add "+miss.join(", ").replace(/, ([^,]*)$/," and $1")+" to finish the ticket.";return}
+    msg.className="msg ok";msg.textContent="Ticket ready for "+sel.day.label+" at "+sel.time+". In this sample nothing was sent; on the live site the shop gets it and calls you to confirm.";
+  });
+})();
+</script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script type="module">
+import("./scene.js").catch(function(){document.querySelector(".scene").classList.add("noGL")});
+</script>
+<script>/*nds-count*/(function(){try{var ls=function(){try{return localStorage.getItem("nds_nc")}catch(e){return null}};if(location.hash==="#nc"){try{localStorage.setItem("nds_nc","1")}catch(e){}}if(navigator.webdriver||ls())return;var p=location.pathname.replace(/index\.html$/,"").replace(/^\/+|\/+$/g,"");var k=p?(p.indexOf("p/")===0?p.split("/").pop():p.replace(/[^A-Za-z0-9]+/g,"-")):"home";k=k.slice(0,60);if(k.length<3)k="pg-"+k;fetch("https://abacus.jasoncameron.dev/hit/ndstudio/"+k,{keepalive:true}).catch(function(){})}catch(e){}})();</script>
+</body>
+</html>
