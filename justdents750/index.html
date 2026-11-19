@@ -92,6 +92,10 @@ h2{font:900 clamp(38px,5.6vw,76px)/.92 Archivo,sans-serif;font-stretch:108%;text
 .chips button[aria-pressed=true]{background:var(--y);color:#15130F;border-color:var(--y)}.chips button[aria-pressed=true] small{color:#5a4400}
 .chips button:disabled{opacity:.3;cursor:not-allowed;text-decoration:line-through}
 .summary{font:800 30px/1.15 Archivo,sans-serif;font-stretch:104%}.summary i{font-style:normal;color:var(--y)}
+.ph{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.ph label{display:inline-flex;align-items:center;gap:8px;border:1px dashed #ffffff40;padding:10px 14px;cursor:pointer;font:600 14px Inter,sans-serif;min-height:44px}
+.ph label:hover{border-color:var(--y)}.ph input{position:absolute;width:1px;height:1px;opacity:0}
+.ph img{width:58px;height:58px;object-fit:cover;border:1px solid var(--line)}
 .ok{border:1px solid #6b5420;background:#221a07;padding:14px;color:#f3dc9c;margin-top:18px}
 /* visit */
 .visit{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:34px}
@@ -116,10 +120,11 @@ html.cc #cur.on{opacity:1}
 #cur.hov .cr{width:58px;height:58px;margin:-29px 0 0 -29px;background:#f5b3011f}
 #cur.lab .cr{width:80px;height:80px;margin:-40px 0 0 -40px;background:var(--y)}#cur.lab .cr b{opacity:1}#cur.lab .cd{opacity:0}
 </style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"AutoBodyShop","name":"Just Dents of Illinois, Inc.","description":"Paintless dent repair in Morton, Illinois: hail damage, door dings, dents and creases, and dealer lot work.","telephone":"+1-309-266-6677","address":{"@type":"PostalAddress","streetAddress":"832 N Main St","addressLocality":"Morton","addressRegion":"IL","postalCode":"61550","addressCountry":"US"},"areaServed":["Morton","Washington","East Peoria","Peoria","Pekin","Tremont","Deer Creek","Mackinaw","Groveland","Eureka","Goodfield","Metamora","Germantown Hills"],"aggregateRating":{"@type":"AggregateRating","ratingValue":"5.0","reviewCount":"16"},"makesOffer":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Paintless dent repair"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Hail damage repair"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Door ding repair"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Dealer and lot dent service"}}]}</script>
 </head>
 <body>
 <div class="prog" id="prog"></div>
-<div class="demo">Signature sample made for Just Dents of Illinois by Nolan Day Studio. Not the official site. <a href="https://nday27.github.io/meet/?s=just-dents-of-illinois-inc-morton">See plans →</a></div>
+<div class="demo"><b>Signature sample, $750</b>: custom look, live light-board hero, before and after, booking with photos. Made for Just Dents by Nolan Day Studio. <a href="https://nday27.github.io/meet/?s=just-dents-of-illinois-inc-morton">See all 3 →</a></div>
 <header id="hd"><a class="logo" href="#"><svg viewBox="0 0 52 38" aria-hidden="true"><ellipse cx="26" cy="19" rx="24.5" ry="17.5" fill="#F5B301" stroke="#E0382B" stroke-width="2.6"/><text x="26" y="17.5" font-family="Archivo,Arial" font-weight="900" font-size="11.5" text-anchor="middle" fill="#15130F" transform="rotate(-6 26 19)">Just</text><text x="27" y="28.5" font-family="Archivo,Arial" font-weight="900" font-size="11.5" text-anchor="middle" fill="#15130F" transform="rotate(-6 26 19)">Dents</text></svg><span>Just Dents<small>of Illinois · Morton</small></span></a>
 <nav><a href="#craft">The craft</a><a href="#work">What we fix</a><a href="#proof">Before &amp; after</a><a href="#book">Book</a><a class="btn hcall" href="tel:+13092666677" style="margin-left:24px">Call</a></nav></header>
 
@@ -181,11 +186,12 @@ html.cc #cur.on{opacity:1}
   <div class="res">
     <div class="panel">
       <div class="lbl">What happened</div><div class="chips" id="what"><button aria-pressed="true">Hail</button><button aria-pressed="false">Door ding</button><button aria-pressed="false">Dent or crease</button><button aria-pressed="false">Dealer work</button></div>
+      <div class="lbl">Photos of the damage (optional)</div><div class="ph" id="ph"><label><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h3l2-3h6l2 3h3v12H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Add photos<input type="file" id="phin" accept="image/*" multiple></label></div>
       <div class="lbl">Day</div><div class="chips" id="days"></div>
       <div class="lbl">Time</div><div class="chips" id="times"></div>
     </div>
     <div class="panel" style="display:flex;flex-direction:column;justify-content:space-between;gap:20px">
-      <div><div class="lbl">Your visit</div><div class="summary" id="sum"></div><p style="color:var(--dim);font-size:14px;margin-top:14px">Sample times for this preview. On the live site they match Kurt's real hours, and your request goes straight to his phone.</p></div>
+      <div><div class="lbl">Your visit</div><div class="summary" id="sum"></div><p style="color:var(--dim);font-size:14px;margin-top:14px">Sample times for this preview. On the live site they match Kurt's real hours, and your request and photos go straight to his phone. Photos stay on your device in this preview.</p></div>
       <div><button class="btn" id="bookb" style="width:100%">Request this time</button><div class="ok" id="ok" hidden>Request ready. In this preview nothing is sent or held.</div></div>
     </div>
   </div>
@@ -227,8 +233,11 @@ html.cc #cur.on{opacity:1}
   function pick(w,cb){w.addEventListener("click",function(e){var b=e.target.closest("button");if(!b||b.disabled)return;w.querySelectorAll("button").forEach(function(x){x.setAttribute("aria-pressed",x===b)});cb(b)})}
   function sum(){var d=days.querySelector("[aria-pressed=true]"),w=document.querySelector("#what [aria-pressed=true]").textContent;
     document.getElementById("sum").innerHTML="";var s=document.getElementById("sum");s.appendChild(document.createTextNode(w+" look, "));var i1=document.createElement("i");i1.textContent=d.dataset.label;s.appendChild(i1);
-    if(st.t){s.appendChild(document.createTextNode(" at "));var i2=document.createElement("i");i2.textContent=st.t;s.appendChild(i2)}else s.appendChild(document.createTextNode(". Choose a time."));
+    if(st.t){s.appendChild(document.createTextNode(" at "));var i2=document.createElement("i");i2.textContent=st.t;s.appendChild(i2);if(photos)s.appendChild(document.createTextNode(", with "+photos+" photo"+(photos>1?"s":"")+"."))}else s.appendChild(document.createTextNode(". Choose a time."));
     document.getElementById("bookb").disabled=!st.t;document.getElementById("ok").hidden=true}
+  var photos=0,phin=document.getElementById("phin"),ph=document.getElementById("ph");
+  phin.addEventListener("change",function(){ph.querySelectorAll("img").forEach(function(i){URL.revokeObjectURL(i.src);i.remove()});
+    var fs=Array.prototype.slice.call(phin.files||[],0,4);photos=fs.length;fs.forEach(function(f){if(!/^image\//.test(f.type))return;var im=document.createElement("img");im.alt="Your photo";im.src=URL.createObjectURL(f);ph.appendChild(im)});sum()});
   pick(days,function(){slots()});pick(times,function(b){st.t=b.textContent;sum()});pick(document.getElementById("what"),function(){sum()});slots();
   document.getElementById("bookb").addEventListener("click",function(){if(st.t)document.getElementById("ok").hidden=false});
   // the hero: glossy paint under a light board (WebGL). Dents bend the reflection, then heal.
