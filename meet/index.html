@@ -107,6 +107,19 @@
 .dock .btn{flex:1;min-height:48px}
 @media (min-width:980px){.dock{display:none}}
 .missing{padding:80px 0;text-align:center}
+/* Versions: when a shop has more than one sample built, show all of them side by side */
+.vers{display:grid;gap:18px;margin-top:30px}
+@media (min-width:900px){.vers{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.ver{display:flex;flex-direction:column;border-radius:22px;overflow:hidden;background:var(--card);border:1px solid var(--line);text-decoration:none;color:var(--ink);transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+.ver:hover{transform:translateY(-4px);box-shadow:0 30px 60px -36px #0008}
+.ver .shot{aspect-ratio:16/10;background:#111 center top/cover no-repeat;position:relative}
+.ver .shot span{position:absolute;left:14px;top:14px;background:#000c;color:#fff;font-size:12.5px;font-weight:700;letter-spacing:.06em;padding:5px 10px;border-radius:99px}
+.ver .tx{padding:20px 22px 22px;display:flex;flex-direction:column;gap:8px;flex:1}
+.ver h3{font-size:22px;margin:0;display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.ver h3 b{font:400 30px/1 "Instrument Serif",Georgia,serif;white-space:nowrap}
+.ver p{margin:0;color:var(--muted);font-size:15.5px}
+.ver .go{margin-top:auto;padding-top:8px;font-weight:700;color:var(--shop)}
+.ver.lead{border:2px solid var(--shop)}
 </style>
 </head>
 <body class="j">
@@ -132,6 +145,13 @@
     </div>
     <p class="cap"><span>This is the real page, live. Scroll inside it.</span><a id="capLink" href="/" target="_blank" rel="noopener">Open it full screen ↗</a></p>
   </div>
+</div></section>
+
+<section id="versions" style="padding-top:0" hidden><div class="shell">
+  <p class="eyebrow rv">Three versions, all built</p>
+  <h2 class="rv" id="versH">Pick the one that fits.</h2>
+  <p class="sub rv" id="versSub">Each one is a real, working site made for your business. Open them on your phone and tap around.</p>
+  <div class="vers" id="vers"></div>
 </div></section>
 
 <section id="tour-s" style="padding-top:0"><div class="shell">
@@ -214,6 +234,7 @@ var TRADES={
   "lawn & landscaping":{who:"homeowners",moment:"Homeowners compare a couple of lawn companies online before they pick one for the season.",tour:["Tap-to-call on every screen","so a homeowner comparing crews reaches you first."]},
   "painting":{who:"homeowners",moment:"People hiring a painter look you up first, because they're letting you into their home.",tour:["Tap-to-call on every screen","so a homeowner ready to paint reaches you in one tap."]},
   "house cleaning":{who:"families",moment:"People hiring a cleaner want to see a real business before they hand over a key.",tour:["Tap-to-call on every screen","so a busy family reaches you in one tap."]},
+  "paintless dent repair":{who:"drivers",moment:"After a hailstorm or a parking-lot ding, people search on their phone and call the shop that looks like it knows what it's doing.",tour:["Tap-to-call on every screen","so a driver with a fresh ding reaches you in one tap."]},
   "ice cream & treats":{who:"customers",moment:"People check hours and the menu on their phone before they drive over.",tour:["Tap-to-call on every screen","so a party order is one tap away."]}
 };
 function tradeInfo(t){return TRADES[(t||"").toLowerCase()]||{who:"customers",moment:"Even when someone hears your name from a friend, they look you up before they call.",tour:["Tap-to-call on every screen","so anyone who finds you reaches you in one tap."]}}
@@ -240,7 +261,7 @@ function render(shop){
     $("closeH").textContent="Let's put "+name+" online today.";
   }
   if(by&&by!=="Nolan"){$("aboutH").textContent=by+" and Nolan Day, Morton.";$("aboutP").textContent=by+" works with Nolan Day Studio, which builds websites for local businesses around Central Illinois. You deal with us directly, by text or email, with answers the same day. No call center and no long contract.";}
-  $("whyP").textContent=info.moment+" Today, "+(name||"your business")+" has no real page to land on. This gives them one: who you are, what you do"+(town?", that you're in "+town:"")+", and a button that calls you.";
+  $("whyP").textContent=shop.why?info.moment+" "+shop.why:info.moment+" Today, "+(name||"your business")+" has no real page to land on. This gives them one: who you are, what you do"+(town?", that you're in "+town:"")+", and a button that calls you.";
   /* The tour: four stops, named for what the visitor gets. */
   var services=(shop.services||[]).slice(0,3).join(", ");
   var stops=[
@@ -259,8 +280,19 @@ function render(shop){
     var ul=el("ul","ticks");p.includes.forEach(function(t){ul.appendChild(el("li",null,t))});c.appendChild(ul);
     var a=el("a","btn "+(lead?"shop":"ink"),id==="starter"?"Start for $0 today":"Own it for $300");a.href=NDS.link("/yes/",{plan:id,src:"meet"});c.appendChild(a);
     box.appendChild(c)});
-  var more=$("more");more.textContent="";["signature","immersive"].forEach(function(id){var p=NDS.PLANS[id],a=el("a");a.href=p.demo;a.target="_blank";a.rel="noopener";
-    var t=el("span");t.appendChild(el("b",null,"Want something bigger? "+p.name));t.appendChild(el("small",null,p.line));a.appendChild(t);a.appendChild(el("b",null,p.short));more.appendChild(a)});
+  var S=shop.samples||{};
+  var more=$("more");more.textContent="";["signature","immersive"].forEach(function(id){var p=NDS.PLANS[id],a=el("a");a.href=S[id]||p.demo;a.target="_blank";a.rel="noopener";
+    var t=el("span");t.appendChild(el("b",null,(S[id]?"Built for you too: ":"Want something bigger? ")+p.name));t.appendChild(el("small",null,p.line));a.appendChild(t);a.appendChild(el("b",null,p.short));more.appendChild(a)});
+  /* All the versions built for this shop, when there is more than one. */
+  if(S.essential&&(S.signature||S.immersive)){var vb=$("vers");vb.textContent="";var th=shop.thumbs||{};
+    [["essential","Starter Site","$300","The clean, fast version: one page that answers every question and gets the call. Or $0 down and $99 a month with hosting and changes included.","starter"],
+     ["signature","Signature","$750","Art-directed: a live light-board hero that bends as you touch it, a before-and-after slider and a booking picker.","signature"],
+     ["immersive","Immersive","from $1,250","The showpiece: a 3D hood you can drop hail on, turn under the lights and repair with a slider.","immersive"]].forEach(function(v,i){
+      if(!S[v[0]])return;var a=el("a","ver rv"+(i===0?" lead":""));a.href=S[v[0]];a.target="_blank";a.rel="noopener";
+      var sh=el("div","shot");if(th[v[0]])sh.style.backgroundImage="url("+th[v[0]]+")";sh.appendChild(el("span",null,["Version 1","Version 2","Version 3"][i]));a.appendChild(sh);
+      var tx=el("div","tx"),h3=el("h3");h3.appendChild(el("span",null,v[1]));h3.appendChild(el("b",null,v[2]));tx.appendChild(h3);tx.appendChild(el("p",null,v[3]));tx.appendChild(el("span","go","Open it ↗"));a.appendChild(tx);vb.appendChild(a)});
+    $("versions").hidden=false;var h1=$("h1");h1.textContent="";h1.appendChild(document.createTextNode("Three websites I built for "));h1.appendChild(el("em",null,(shop.short||name)+"."));$("versH").textContent="Three versions of "+(shop.short||name)+". Pick one.";
+    $("lede").textContent="I built three versions of your site before asking for anything, so you can judge them yourself. Tap through them on your phone. Whichever you like can be live the same day you say yes, and you pay only after you approve it.";}
   /* Every yes button carries the shop and the plan. */
   ["topYes","heroYes","closeYes","dockYes"].forEach(function(id){$(id).href=NDS.link("/yes/",{plan:picked,src:"meet"})});
   $("proposalLink").href=NDS.link("/proposal/",{plan:picked});

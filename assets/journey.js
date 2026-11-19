@@ -99,8 +99,8 @@
   }
 
   /* Who sent this link: ?by=Nolan (a partner's first name works too). Shown as the person, never invented. */
-  function sender() { var b = firstName(params().get("by")); return b || "Nolan"; }
-  function contactName() { return firstName(params().get("n")); }
+  function sender() { var b = firstName(params().get("by")); b = b ? b.charAt(0).toUpperCase() + b.slice(1).toLowerCase() : ""; return b || "Nolan"; }
+  function contactName() { var n = firstName(params().get("n")); return n ? n.charAt(0).toUpperCase() + n.slice(1) : ""; }
 
   /* Visit counter shared with the previews (abacus, free, no cookies). Keys stay under 60 characters.
      Skipped for the team's own devices (#nc once) and for robots. */
