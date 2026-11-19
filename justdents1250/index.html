@@ -42,6 +42,7 @@ input[type=range]{accent-color:var(--y);width:150px}
 .act{border:0;background:var(--y);color:#15130F;font:700 13px Inter,sans-serif;padding:9px 14px;border-radius:99px;cursor:pointer;min-height:36px}
 .act.sec{background:#ffffff1a;color:var(--ink)}
 .hint{position:absolute;right:clamp(16px,4vw,48px);top:clamp(110px,16vh,170px);z-index:5;font-size:12px;color:var(--mut);background:#0e0e12aa;border:1px solid var(--line);border-radius:99px;padding:7px 12px;pointer-events:none;transition:opacity .6s}
+.scene.day{background:radial-gradient(120% 80% at 50% 0%,#8a8f99,#3a3d44 45%,#121316 80%)}
 .fallback{position:absolute;inset:0;display:none;place-items:center;text-align:center;color:var(--mut);padding:24px}
 .noGL .fallback{display:grid}.noGL #c,.noGL .dock,.noGL .hint{display:none}
 section{padding:clamp(64px,9vw,120px) clamp(16px,5vw,64px);max-width:1200px;margin:0 auto}
@@ -73,6 +74,7 @@ h2{font:900 clamp(34px,4.8vw,62px)/.95 Archivo,sans-serif;font-stretch:108%;text
 form{display:grid;gap:12px}
 form label{display:grid;gap:6px;font-size:13px;color:var(--mut)}
 input:not([type=range]),select{font:16px Inter,sans-serif;background:#0e0e12;border:1px solid var(--line);color:var(--ink);border-radius:12px;padding:12px 14px;width:100%}
+.ph{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.ph .up{display:inline-flex;flex-direction:row;align-items:center;gap:8px;border:1px dashed #ffffff40;border-radius:12px;padding:10px 14px;cursor:pointer;font-weight:600;color:var(--ink);min-height:44px}.ph .up:hover{border-color:var(--y)}.ph input{position:absolute;width:1px;height:1px;opacity:0}.ph img{width:58px;height:58px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
 .ok{background:#231c08;border:1px solid #6b5420;border-radius:14px;padding:14px;color:#f3dc9c}
 .visit{display:grid;gap:14px}.visit div{border-top:1px solid var(--y);padding-top:12px}.visit b{display:block;font:800 18px Archivo,sans-serif;text-transform:uppercase}.visit span{color:var(--mut)}
 footer{border-top:1px solid var(--line);padding:28px clamp(16px,5vw,64px) 40px;color:var(--dim);font-size:13px;text-align:center;line-height:1.7}
@@ -81,9 +83,10 @@ footer{border-top:1px solid var(--line);padding:28px clamp(16px,5vw,64px) 40px;c
 @media (max-width:860px){.demo .lg,nav .lg{display:none}.panel .lab,.panel label{display:none}.panel{padding:6px 8px;flex:none;flex-wrap:nowrap}.seg button{padding:7px 10px;font-size:12px}.dock{gap:6px;flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;scrollbar-width:none;-webkit-mask:linear-gradient(90deg,#000 86%,#0000);bottom:12px}.dock::-webkit-scrollbar{display:none}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.split,.cards{grid-template-columns:minmax(0,1fr)}nav .links a:not(.pillbtn){display:none}nav .pillbtn{padding:9px 14px;font-size:13px}.logo small{display:none}.hint{display:none}.hcopy{top:96px}input[type=range]{width:110px}}
 @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
 </style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"AutoBodyShop","name":"Just Dents of Illinois, Inc.","description":"Paintless dent repair in Morton, Illinois: hail damage, door dings, dents and creases, and dealer lot work.","telephone":"+1-309-266-6677","address":{"@type":"PostalAddress","streetAddress":"832 N Main St","addressLocality":"Morton","addressRegion":"IL","postalCode":"61550","addressCountry":"US"},"areaServed":["Morton","Washington","East Peoria","Peoria","Pekin","Tremont","Deer Creek","Mackinaw","Groveland","Eureka","Goodfield","Metamora","Germantown Hills"],"aggregateRating":{"@type":"AggregateRating","ratingValue":"5.0","reviewCount":"16"},"makesOffer":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Paintless dent repair"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Hail damage repair"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Door ding repair"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Dealer and lot dent service"}}]}</script>
 </head>
 <body>
-<div class="demo">Immersive sample made for Just Dents of Illinois by Nolan Day Studio<span class="lg">. Not the official site</span>. <a href="https://nday27.github.io/meet/?s=just-dents-of-illinois-inc-morton">See plans →</a></div>
+<div class="demo"><b>Immersive sample, $1,250</b><span class="lg">: a 3D hood you can hail, inspect and repair. Made for Just Dents by Nolan Day Studio</span>. <a href="https://nday27.github.io/meet/?s=just-dents-of-illinois-inc-morton">See all 3 →</a></div>
 <nav><a class="logo" href="#"><svg viewBox="0 0 52 38" aria-hidden="true"><ellipse cx="26" cy="19" rx="24.5" ry="17.5" fill="#F5B301" stroke="#E0382B" stroke-width="2.6"/><text x="26" y="17.5" font-family="Archivo,Arial" font-weight="900" font-size="11.5" text-anchor="middle" fill="#15130F" transform="rotate(-6 26 19)">Just</text><text x="27" y="28.5" font-family="Archivo,Arial" font-weight="900" font-size="11.5" text-anchor="middle" fill="#15130F" transform="rotate(-6 26 19)">Dents</text></svg><span>Just Dents<small>of Illinois · Morton</small></span></a><div class="links"><a href="#how">How it works</a><a href="#claim">Hail claims</a><a href="#reviews">Reviews</a><a class="pillbtn" href="#book" style="margin-left:22px">Book<span class="lg"> a hail check</span></a></div></nav>
 
 <header class="scene" id="top">
@@ -100,6 +103,7 @@ footer{border-top:1px solid var(--line);padding:28px clamp(16px,5vw,64px) 40px;c
   <div class="dock" role="group" aria-label="Scene controls">
     <div class="panel"><label for="fix">Repair</label><input type="range" id="fix" min="0" max="100" step="1" value="0"><span class="out" id="fout">0%</span><button class="act" type="button" id="auto">Fix it</button></div>
     <div class="panel"><span class="lab">Hail</span><div class="seg" id="hail"><button aria-pressed="false" data-v="1">Pea</button><button aria-pressed="true" data-v="2">Quarter</button><button aria-pressed="false" data-v="3">Golf ball</button></div><button class="act sec" type="button" id="storm">Storm again</button></div>
+    <div class="panel"><span class="lab">Light</span><div class="seg" id="view"><button aria-pressed="true" data-v="board">Light board</button><button aria-pressed="false" data-v="day">Daylight</button></div></div>
     <div class="panel"><span class="lab">Paint</span><div class="seg" id="paint"><button aria-pressed="true" data-v="#a3121a"><i class="sw" style="background:#a3121a"></i>Red</button><button aria-pressed="false" data-v="#0b0b0d"><i class="sw" style="background:#0b0b0d"></i>Black</button><button aria-pressed="false" data-v="#b9bec4"><i class="sw" style="background:#b9bec4"></i>Silver</button><button aria-pressed="false" data-v="#173a78"><i class="sw" style="background:#173a78"></i>Blue</button></div></div>
   </div>
 </header>
@@ -107,7 +111,7 @@ footer{border-top:1px solid var(--line);padding:28px clamp(16px,5vw,64px) 40px;c
 <section id="how" class="rv">
   <span class="k">How it works</span>
   <h2>Pushed out from behind. <i>Never painted.</i></h2>
-  <p class="sub">A striped light board is a real dent repair tool. Every dent bends its reflection. Kurt works the metal from underneath until the lines run straight, so the factory paint never gets touched.</p>
+  <p class="sub">A striped light board is a real dent repair tool. In daylight a shallow hail dent can hide; under the board every one bends the reflection. Flip between the two up top and see. Kurt works the metal from underneath until the lines run straight, so the factory paint never gets touched.</p>
   <div class="stats"><div class="stat"><b>5.0</b><span>Google rating</span></div><div class="stat"><b>16</b><span>Google reviews</span></div><div class="stat"><b>1999</b><span>Just Dents founded</span></div><div class="stat"><b>0</b><span>Coats of paint</span></div></div>
 </section>
 
@@ -122,9 +126,11 @@ footer{border-top:1px solid var(--line);padding:28px clamp(16px,5vw,64px) 40px;c
       <div class="crow"><span>Hail size</span><b id="cs">Quarter</b></div>
       <div class="crow"><span>Repair method</span><b>Paintless, from behind</b></div>
       <div class="crow"><span>Factory paint</span><b>Kept</b></div>
+      <div class="crow"><span>Inspection light</span><b id="cv">Light board: every dent shows</b></div>
       <div class="meter"><i id="cm"></i></div>
       <div class="big"><span>Repaired</span><b id="cp">0%</b></div>
       <p class="note">A demo of the 3D model on this page. A real hail check is done in person, panel by panel, by Kurt.</p>
+      <button class="pillbtn ghost" type="button" id="copyc" style="margin-top:6px">Copy this summary</button>
     </div>
     <ol class="steps">
       <li><b>01</b><div><h4>Hail check under the lights</h4><span>The whole car, every panel, roof and hood, so nothing gets missed.</span></div></li>
@@ -148,7 +154,7 @@ footer{border-top:1px solid var(--line);padding:28px clamp(16px,5vw,64px) 40px;c
   <span class="k">Book a hail check</span>
   <h2>Bring it to <i>North Main.</i></h2>
   <div class="split">
-    <form id="tf"><label>Your name<input required name="n" autocomplete="name"></label><label>Phone<input required name="p" type="tel" autocomplete="tel"></label><label>Year, make and model<input name="c" placeholder="2019 Jeep Cherokee"></label><label>What happened?<select name="s"><option>Hail damage</option><option>Door ding</option><option>Dent or crease</option><option>Dealer or lot work</option></select></label><button class="pillbtn" type="submit" style="justify-self:start">Request a hail check</button><div class="ok" id="tok" hidden>Request ready. In this preview nothing is sent. On the live site it goes straight to Kurt.</div></form>
+    <form id="tf"><label>Your name<input required name="n" autocomplete="name"></label><label>Phone<input required name="p" type="tel" autocomplete="tel"></label><label>Year, make and model<input name="c" placeholder="2019 Jeep Cherokee"></label><label>What happened?<select name="s"><option>Hail damage</option><option>Door ding</option><option>Dent or crease</option><option>Dealer or lot work</option></select></label><div class="ph" id="ph"><label class="up"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h3l2-3h6l2 3h3v12H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Add photos of the damage<input type="file" id="phin" accept="image/*" multiple></label></div><button class="pillbtn" type="submit" style="justify-self:start">Request a hail check</button><div class="ok" id="tok" hidden>Request ready. In this preview nothing is sent. On the live site it goes straight to Kurt.</div></form>
     <div class="visit"><div><b>Where</b><span><a href="https://www.google.com/maps/search/?api=1&amp;query=Just+Dents+of+Illinois+832+N+Main+St+Morton+IL+61550" target="_blank" rel="noopener">832 N Main St</a>, Morton, IL 61550</span></div><div><b>Call</b><span><a href="tel:+13092666677">(309) 266-6677</a> · ask for Kurt</span></div><div><b>Insurance</b><span>Hail claim photos and paperwork, handled.</span></div></div>
   </div>
 </section>
@@ -170,6 +176,11 @@ footer{border-top:1px solid var(--line);padding:28px clamp(16px,5vw,64px) 40px;c
   function seg(id,cb){var w=document.getElementById(id);w.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;w.querySelectorAll("button").forEach(function(x){x.setAttribute("aria-pressed",x===b)});cb(b.dataset.v)})}
   seg("hail",function(v){S.hail=+v;dispatchEvent(new Event("hoodstorm"))});
   seg("paint",function(v){S.paint=v;dispatchEvent(new Event("hoodpaint"))});
+  seg("view",function(v){S.view=v;document.getElementById("cv").textContent=v==="day"?"Daylight: shallow dents hide":"Light board: every dent shows";dispatchEvent(new Event("hoodview"))});
+  document.getElementById("copyc").addEventListener("click",function(){var t="Hood inspection (Just Dents sample)\nDents found: "+S.dents+"\nHail size: "+names[S.hail]+"\nRepaired: "+Math.round(S.fix)+"%\nMethod: paintless, from behind. Factory paint kept.";
+    var done=function(){var b=document.getElementById("copyc");b.textContent="Copied";setTimeout(function(){b.textContent="Copy this summary"},1600)};
+    if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(done,done);else done()});
+  var phin=document.getElementById("phin"),ph=document.getElementById("ph");phin.addEventListener("change",function(){ph.querySelectorAll("img").forEach(function(i){URL.revokeObjectURL(i.src);i.remove()});Array.prototype.slice.call(phin.files||[],0,4).forEach(function(f){if(!/^image\//.test(f.type))return;var im=document.createElement("img");im.alt="Your photo";im.src=URL.createObjectURL(f);ph.appendChild(im)})});
   document.getElementById("storm").addEventListener("click",function(){dispatchEvent(new Event("hoodstorm"))});
   document.getElementById("fix").addEventListener("input",function(e){S.fix=+e.target.value;S.anim=false;card();dispatchEvent(new Event("hoodfix"))});
   document.getElementById("auto").addEventListener("click",function(){dispatchEvent(new Event("hoodauto"))});

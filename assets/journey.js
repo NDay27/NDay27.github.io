@@ -11,8 +11,8 @@
     town: "Morton, Illinois",
     email: "hanbackj1@gmail.com",
     // Payment handles. Fill these in once and every pay button on every page appears. Blank hides them.
-    venmo: "",
-    cashapp: "",
+    venmo: "@NolanDay1",
+    cashapp: "$NolanDay2",
     // Nolan Day Studio's own Google review link, once the Google Business Profile is verified. Blank hides it.
     reviewUrl: ""
   };

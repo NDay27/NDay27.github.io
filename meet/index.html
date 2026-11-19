@@ -29,6 +29,15 @@
 .switch{display:inline-flex;background:#ffffff14;border:1px solid #ffffff22;border-radius:999px;padding:4px;gap:4px;margin-bottom:18px}
 .switch button{border:0;background:transparent;color:#ffffffc0;font:600 14px Figtree,sans-serif;padding:8px 14px;border-radius:999px;cursor:pointer;min-height:36px}
 .switch button[aria-pressed="true"]{background:#fff;color:var(--shop-deep)}
+.planbar{display:flex;flex-direction:column;align-items:flex-start;gap:8px;margin:0 0 14px;width:100%}
+.planbar[hidden]{display:none}
+.planbar small{font:600 12px Figtree,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#ffffffa8}
+.planbar .seg{display:flex;width:100%;max-width:420px;background:#00000038;border:1px solid #ffffff2a;border-radius:14px;padding:4px;gap:4px}
+.planbar button{flex:1;border:0;background:transparent;color:#ffffffd0;font:600 13px/1.15 Figtree,sans-serif;padding:8px 6px;border-radius:10px;cursor:pointer;min-height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.planbar button b{font-size:15px;font-weight:800}
+.planbar button span{font-size:11px;opacity:.8;font-weight:600}
+.planbar button[aria-pressed="true"]{background:#fff;color:var(--shop-deep);box-shadow:0 4px 14px #0003}
+.planbar button:focus-visible,.switch button:focus-visible{outline:2px solid #fff;outline-offset:2px}
 .devices{position:relative;display:grid;place-items:center;min-height:clamp(420px,52vw,560px)}
 .phone{width:min(300px,78vw);aspect-ratio:300/620;border-radius:44px;background:#0b0d10;padding:11px;box-shadow:0 40px 80px -30px #000c,0 0 0 1px #ffffff1f inset;position:relative;transition:transform .6s var(--ease),opacity .4s}
 .phone::before{content:"";position:absolute;top:18px;left:50%;transform:translateX(-50%);width:84px;height:22px;border-radius:12px;background:#0b0d10;z-index:2}
@@ -120,6 +129,23 @@
 .ver p{margin:0;color:var(--muted);font-size:15.5px}
 .ver .go{margin-top:auto;padding-top:8px;font-weight:700;color:var(--shop)}
 .ver.lead{border:2px solid var(--shop)}
+.ver ul{list-style:none;padding:0;margin:6px 0 0;display:grid;gap:7px;font-size:15px}
+.ver li{display:grid;grid-template-columns:18px 1fr;gap:8px;align-items:start}
+.ver li::before{content:"";width:8px;height:8px;margin-top:8px;border-radius:50%;background:var(--shop)}
+.ver li.plus::before{background:transparent;box-shadow:inset 0 0 0 2px var(--muted)}
+.ver li b{font-weight:700}
+.cmp{margin-top:34px;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:var(--card)}
+.cmp table{width:100%;border-collapse:collapse;font-size:15px}
+.cmp th,.cmp td{padding:13px 14px;text-align:center;border-bottom:1px solid var(--line)}
+.cmp th:first-child,.cmp td:first-child{text-align:left}
+.cmp thead th{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);vertical-align:bottom}
+.cmp thead th b{display:block;color:var(--ink);font:400 24px/1.1 "Instrument Serif",Georgia,serif;letter-spacing:0;text-transform:none}
+.cmp tbody tr:last-child td{border-bottom:0}
+.cmp .y{color:var(--shop);font-weight:800}.cmp .n{color:var(--muted)}
+@media (max-width:640px){.cmp th,.cmp td{padding:11px 8px;font-size:13.5px}.cmp thead th b{font-size:19px}}
+.future{display:grid;gap:14px;margin-top:22px}
+@media (min-width:860px){.future{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.future div{border-top:2px solid var(--shop);padding-top:12px}.future b{display:block}.future span{color:var(--muted);font-size:15.5px}
 </style>
 </head>
 <body class="j">
@@ -138,6 +164,7 @@
     <ul class="meta"><li>Built for phones first</li><li>Live the same day</li><li>Pay after you approve</li></ul>
   </div>
   <div class="stage" id="stage" data-view="phone">
+    <div class="planbar" id="planbar" hidden><small>See each plan on your site</small><div class="seg" role="group" aria-label="Show this plan" id="planSeg"></div></div>
     <div class="switch" role="group" aria-label="Show the site on"><button type="button" aria-pressed="true" data-v="phone">Phone</button><button type="button" aria-pressed="false" data-v="desk">Computer</button></div>
     <div class="devices">
       <div class="phone"><div class="screen" id="scrPhone"><div class="loading">Loading your site…</div></div></div>
@@ -152,6 +179,12 @@
   <h2 class="rv" id="versH">Pick the one that fits.</h2>
   <p class="sub rv" id="versSub">Each one is a real, working site made for your business. Open them on your phone and tap around.</p>
   <div class="vers" id="vers"></div>
+  <div class="cmp rv" id="cmp"></div>
+  <div class="future rv">
+    <div><b>Yours to keep</b><span>Your words, photos and reviews are yours on every plan, and they carry over if you move up later.</span></div>
+    <div><b>Ready for Google</b><span>Every version has your business details built in the way search engines read them, and loads fast on a phone.</span></div>
+    <div><b>Room to grow</b><span>Add a page, a service or a new photo whenever you want. The site is built so new pieces slot in without starting over.</span></div>
+  </div>
 </div></section>
 
 <section id="tour-s" style="padding-top:0"><div class="shell">
@@ -284,23 +317,44 @@ function render(shop){
   var more=$("more");more.textContent="";["signature","immersive"].forEach(function(id){var p=NDS.PLANS[id],a=el("a");a.href=S[id]||p.demo;a.target="_blank";a.rel="noopener";
     var t=el("span");t.appendChild(el("b",null,(S[id]?"Built for you too: ":"Want something bigger? ")+p.name));t.appendChild(el("small",null,p.line));a.appendChild(t);a.appendChild(el("b",null,p.short));more.appendChild(a)});
   /* All the versions built for this shop, when there is more than one. */
-  if(S.essential&&(S.signature||S.immersive)){var vb=$("vers");vb.textContent="";var th=shop.thumbs||{};
+  if(S.essential&&(S.signature||S.immersive)){var vb=$("vers");vb.textContent="";var th=shop.thumbs||{},TL=shop.tools||{};
+    var FEAT={essential:["One fast page, up to 5 sections","Tap-to-call bar on every screen",(TL.essential||"A smart tool for your trade"),"Your Google reviews, your towns on a map, a request form","Set up for Google search, live the same day"],
+      signature:["Everything in Starter, up to 7 sections","Custom look and type made for your shop",(TL.signature||"A motion piece made for your business"),"Before-and-after slider for your job photos","Booking requests with photos of the damage","Two rounds of changes"],
+      immersive:["Everything in Signature","A real-time 3D centerpiece: "+(TL.immersive||"built for your business"),"Light board and daylight views","A live inspection card that reads the 3D model","Built to be the site people remember and share"]};
     [["essential","Starter Site","$300","The clean, fast version: one page that answers every question and gets the call. Or $0 down and $99 a month with hosting and changes included.","starter"],
      ["signature","Signature","$750","Art-directed: a live light-board hero that bends as you touch it, a before-and-after slider and a booking picker.","signature"],
      ["immersive","Immersive","from $1,250","The showpiece: a 3D hood you can drop hail on, turn under the lights and repair with a slider.","immersive"]].forEach(function(v,i){
       if(!S[v[0]])return;var a=el("a","ver rv"+(i===0?" lead":""));a.href=S[v[0]];a.target="_blank";a.rel="noopener";
       var sh=el("div","shot");if(th[v[0]])sh.style.backgroundImage="url("+th[v[0]]+")";sh.appendChild(el("span",null,["Version 1","Version 2","Version 3"][i]));a.appendChild(sh);
-      var tx=el("div","tx"),h3=el("h3");h3.appendChild(el("span",null,v[1]));h3.appendChild(el("b",null,v[2]));tx.appendChild(h3);tx.appendChild(el("p",null,v[3]));tx.appendChild(el("span","go","Open it ↗"));a.appendChild(tx);vb.appendChild(a)});
+      var tx=el("div","tx"),h3=el("h3");h3.appendChild(el("span",null,v[1]));h3.appendChild(el("b",null,v[2]));tx.appendChild(h3);tx.appendChild(el("p",null,v[3]));
+      var ul=el("ul");(FEAT[v[0]]||[]).forEach(function(f,k){var li=el("li",k===0&&i>0?"plus":null);li.textContent=f;ul.appendChild(li)});tx.appendChild(ul);
+      tx.appendChild(el("span","go","Open it ↗"));a.appendChild(tx);vb.appendChild(a)});
+    /* Side-by-side: what each level adds. */
+    var rows=[["Built for phones first, tap-to-call on every screen",1,1,1],["Your Google reviews, a map of your towns and a request form",1,1,1],["A smart tool for your trade"+(TL.essential?" ("+TL.essential.toLowerCase()+")":""),1,1,1],["Business details set up for Google search",1,1,1],["Live the same day you approve it",1,1,1],
+      ["Custom look and type made for your shop, not a template",0,1,1],["A motion piece made for your business"+(TL.signature?" ("+TL.signature.toLowerCase()+")":""),0,1,1],["Before-and-after slider for your own job photos",0,1,1],["Booking requests with photos of the damage",0,1,1],
+      ["A real-time 3D centerpiece"+(TL.immersive?" ("+TL.immersive.toLowerCase()+")":""),0,0,1],["Tools wired to the 3D model (a live inspection card)",0,0,1],["Rounds of changes included",'1 (any time on $99/mo)','2','2'],["Sections",'up to 5','up to 7','up to 7']];
+    var t=el("table"),th=el("thead"),tr=el("tr");tr.appendChild(el("th",null,"What you get"));[["Starter","$300"],["Signature","$750"],["Immersive","$1,250+"]].forEach(function(c){var x=el("th");x.appendChild(el("b",null,c[1]));x.appendChild(document.createTextNode(c[0]));tr.appendChild(x)});th.appendChild(tr);t.appendChild(th);
+    var tb=el("tbody");rows.forEach(function(r){var tr=el("tr");tr.appendChild(el("td",null,r[0]));for(var k=1;k<4;k++){var v=r[k],td=el("td",typeof v==="number"?(v?"y":"n"):null,typeof v==="number"?(v?"✓":"–"):v);if(typeof v==="number")td.setAttribute("aria-label",v?"Included":"Not included");tr.appendChild(td)}tb.appendChild(tr)});t.appendChild(tb);
+    var cmp=$("cmp");cmp.textContent="";cmp.appendChild(t);
     $("versions").hidden=false;var h1=$("h1");h1.textContent="";h1.appendChild(document.createTextNode("Three websites I built for "));h1.appendChild(el("em",null,(shop.short||name)+"."));$("versH").textContent="Three versions of "+(shop.short||name)+". Pick one.";
     $("lede").textContent="I built three versions of your site before asking for anything, so you can judge them yourself. Tap through them on your phone. Whichever you like can be live the same day you say yes, and you pay only after you approve it.";}
   /* Every yes button carries the shop and the plan. */
   ["topYes","heroYes","closeYes","dockYes"].forEach(function(id){$(id).href=NDS.link("/yes/",{plan:picked,src:"meet"})});
   $("proposalLink").href=NDS.link("/proposal/",{plan:picked});
-  if(shop.url){$("openFull").href=shop.url;$("capLink").href=shop.url;
-    var fitP=mount($("scrPhone"),shop.url,390),fitD=null;
+  if(shop.url){var cur=shop.url;$("openFull").href=cur;$("capLink").href=cur;
+    var fitP=mount($("scrPhone"),cur,390),fitD=null;
+    function show(src){cur=src;$("openFull").href=src;$("capLink").href=src;
+      ["scrPhone","scrDesk"].forEach(function(id){var f=$(id).querySelector("iframe");if(f&&f.getAttribute("src")!==src){f.src=src}})}
+    /* Plan bar: switch the live preview between every version built for this shop. */
+    var PB=[["essential","$300","Starter"],["signature","$750","Signature"],["immersive","$1,250","Immersive"]].filter(function(v){return S[v[0]]});
+    if(PB.length>1){var seg=$("planSeg");seg.textContent="";
+      PB.forEach(function(v,i){var b=el("button");b.type="button";b.dataset.src=i===0&&S.essential?shop.url:S[v[0]];b.setAttribute("aria-pressed",String(i===0));
+        b.appendChild(el("b",null,v[1]));b.appendChild(el("span",null,v[2]));
+        b.addEventListener("click",function(){seg.querySelectorAll("button").forEach(function(x){x.setAttribute("aria-pressed",String(x===b))});show(b.dataset.src)});seg.appendChild(b)});
+      $("planbar").hidden=false}
     document.querySelectorAll(".switch button").forEach(function(b){b.addEventListener("click",function(){
       $("stage").dataset.view=b.dataset.v;document.querySelectorAll(".switch button").forEach(function(x){x.setAttribute("aria-pressed",String(x===b))});
-      if(b.dataset.v==="desk"&&!fitD)fitD=mount($("scrDesk"),shop.url,1280);else if(fitD)fitD();fitP()})});
+      if(b.dataset.v==="desk"&&!fitD)fitD=mount($("scrDesk"),cur,1280);else if(fitD)fitD();fitP()})});
   } else {
     /* No preview (a warm lead before its site is built): say so plainly instead of showing an empty phone. */
     $("stage").querySelector(".devices").innerHTML='<div style="text-align:center;max-width:32ch"><p style="font:400 30px/1.1 \'Instrument Serif\',serif;margin:0 0 10px">Your site is being built.</p><p style="opacity:.75;margin:0">Nolan will text you the link to it today. Everything below is what you get.</p></div>';

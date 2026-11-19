@@ -26,7 +26,12 @@ const barM=new THREE.MeshBasicMaterial({color:new THREE.Color(5,4.8,4.4)});
 for(let i=0;i<9;i++){const b=new THREE.Mesh(new THREE.BoxGeometry(16,.08,.6),barM);b.position.set(0,7,-8+i*2);env.add(b)}
 const warm=new THREE.Mesh(new THREE.PlaneGeometry(30,4),new THREE.MeshBasicMaterial({color:new THREE.Color(1.6,1.05,.15)}));warm.position.set(0,2,-19);env.add(warm);
 const side=new THREE.Mesh(new THREE.PlaneGeometry(4,10),new THREE.MeshBasicMaterial({color:new THREE.Color(.9,.9,1)}));side.position.set(19,3,0);side.rotation.y=-Math.PI/2;env.add(side);
-const pm=new THREE.PMREMGenerator(R);scene.environment=pm.fromScene(env,.02).texture;
+const pm=new THREE.PMREMGenerator(R);const envBoard=pm.fromScene(env,.02).texture;
+// daylight: an open sky with soft sun, where shallow hail dents are hard to see
+const day=new THREE.Scene();day.add(new THREE.Mesh(new THREE.SphereGeometry(30,32,16),new THREE.ShaderMaterial({side:THREE.BackSide,depthWrite:false,
+  vertexShader:"varying vec3 v;void main(){v=normalize(position);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}",
+  fragmentShader:"varying vec3 v;void main(){float t=clamp(v.y*.5+.5,0.,1.);vec3 c=mix(vec3(.42,.40,.36),vec3(1.1,1.18,1.3),smoothstep(.35,.9,t));c+=vec3(2.2,1.9,1.4)*pow(max(dot(v,normalize(vec3(.4,.8,-.4))),0.),48.);gl_FragColor=vec4(c,1.);}"})));
+const envDay=pm.fromScene(day,.06).texture;scene.environment=envBoard;
 
 // ---------- the car front: one sculpted surface (hood, fenders rolling down, front fascia) with panel seams ----------
 const W=7.2,H=4.8,SX=small?220:320,SY=small?146:212;
@@ -79,6 +84,7 @@ function storm(){ice.forEach(s=>scene.remove(s.m));ice=[];dentH.fill(0);dents=0;
 addEventListener("hoodstorm",storm);
 addEventListener("hoodpaint",()=>{paint.color.set(S.paint)});
 addEventListener("hoodfix",()=>{dirty=true});
+addEventListener("hoodview",()=>{const d=S.view==="day";scene.environment=d?envDay:envBoard;board.material.opacity=d?.25:1;board.material.transparent=d;host.classList.toggle("day",d)});
 addEventListener("hoodauto",()=>{if(S.fix>=100)storm();S.anim=true;S.a0=performance.now();S.f0=S.fix});
 
 // ---------- frame ----------
