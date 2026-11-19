@@ -466,7 +466,10 @@ function resize() {
   R.setSize(w, h, false); cam.aspect = w / h;
   cam.fov = w / h < 0.8 ? 56 : (small ? 50 : 38);
   /* Tall phone frames: shift the picture up so the station fills the frame instead of empty night sky. */
-  if (w / h < 1.05) cam.setViewOffset(w, h, 0, Math.round(h * 0.17), w, h); else cam.clearViewOffset();
+  if (w / h < 1.05) cam.setViewOffset(w, h, 0, Math.round(h * 0.17), w, h);
+  /* Wide screens: nudge the station right so the headline on the left sits on open sky, not on the canopy. */
+  else if (w >= 960) cam.setViewOffset(w, h, -Math.round(w * 0.11), 0, w, h);
+  else cam.clearViewOffset();
   cam.updateProjectionMatrix();
   if (composer) { composer.setSize(w, h); if (bloom) bloom.resolution.set(w / 2, h / 2); }
 }
