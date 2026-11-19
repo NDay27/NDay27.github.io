@@ -4,6 +4,7 @@
 import * as THREE from "three";
 import {OrbitControls} from "three/addons/controls/OrbitControls.js";
 import {RGBELoader} from "three/addons/loaders/RGBELoader.js";
+import {GroundProjectedSkybox} from "three/addons/objects/GroundProjectedSkybox.js";
 
 const S=window.HOOD;
 const canvas=document.getElementById("c"),host=document.querySelector(".scene");
@@ -11,10 +12,10 @@ const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
 const small=innerWidth<760||matchMedia("(pointer: coarse)").matches;
 let R;try{R=new THREE.WebGLRenderer({canvas,antialias:!small,alpha:true,powerPreference:"high-performance"})}catch(e){host.classList.add("noGL");throw e}
 R.setPixelRatio(Math.min(devicePixelRatio,small?1.5:2));
-R.toneMapping=THREE.ACESFilmicToneMapping;R.toneMappingExposure=1.05;
+R.toneMapping=THREE.ACESFilmicToneMapping;R.localClippingEnabled=true;const CLIP=[new THREE.Plane(new THREE.Vector3(0,1,0),2.42)];R.toneMappingExposure=1.05;
 
 const scene=new THREE.Scene();
-const cam=new THREE.PerspectiveCamera(34,1,.1,200);
+const cam=new THREE.PerspectiveCamera(34,1,.1,600);
 const ctl=new OrbitControls(cam,canvas);ctl.enableDamping=true;ctl.dampingFactor=.07;ctl.enablePan=false;
 ctl.minPolarAngle=Math.PI*.16;ctl.maxPolarAngle=Math.PI*.44;ctl.minAzimuthAngle=-1.05;ctl.maxAzimuthAngle=1.05;
 ctl.autoRotate=!reduce;ctl.autoRotateSpeed=.35;
@@ -37,7 +38,12 @@ let envDay=pm.fromScene(day,.06).texture,envShop=null,bgShop=null,bgDay=null;sce
 // real lighting: a CC0 auto-shop HDRI for the room and its fluorescent tubes, a CC0 street HDRI for daylight
 const here=new URL(".",import.meta.url).href,hdr=new RGBELoader();
 function asEnv(t){t.mapping=THREE.EquirectangularReflectionMapping;return t}
-function setBg(){const v=S.view||"board";const bg=v==="day"?bgDay:bgShop;scene.background=bg||null;scene.backgroundBlurriness=v==="day"?.2:.24;scene.backgroundIntensity=v==="board"?.3:v==="day"?.85:.75}
+const SKY={shop:{h:4.2,r:70},day:{h:4.2,r:90}};let sky=null;
+function makeSky(t){const k=new GroundProjectedSkybox(t,{height:4.2,radius:70});
+  k.material.fragmentShader=k.material.fragmentShader.replace("camPos.y -= height;","camPos.y -= height + floorY;").replace("uniform float height;","uniform float height;uniform float floorY;uniform float dim;").replace("gl_FragColor = vec4( outcolor, 1.0 );","gl_FragColor = vec4( outcolor*dim, 1.0 );");
+  k.material.uniforms.floorY={value:-2.75};k.material.uniforms.dim={value:1};k.scale.setScalar(120);k.renderOrder=-1;scene.add(k);return k}
+function setBg(){const v=S.view||"board";const bg=v==="day"?(bgDay||bgShop):bgShop;if(!bg){scene.background=null;return}
+  if(!sky)sky=makeSky(bg);sky.material.uniforms.map.value=bg;const c=SKY[v==="day"&&bgDay?"day":"shop"];sky.height=c.h;sky.radius=c.r;sky.material.uniforms.dim.value=v==="board"?.28:v==="day"?.95:.85;scene.background=null}
 hdr.loadAsync(here+"env/autoshop_01_1k.hdr").then(t=>{bgShop=asEnv(t);envShop=pm.fromEquirectangular(t).texture;
   const sm=t.clone();sm.mapping=THREE.UVMapping;sm.needsUpdate=true;shopSphere.material.map=sm;shopSphere.material.visible=true;shopSphere.material.needsUpdate=true;
   envBoard=pm.fromScene(env,.02).texture;
@@ -59,7 +65,7 @@ function crown(x,y){const lx=Math.abs(x);let z=-.3*(x/2.8)**2-.15*((y+.3)/2)**2;
   if(y>1.9)z+=.6*(y-1.9)**2;return z}
 for(let i=0;i<N;i++){const x=pos.getX(i),y=pos.getY(i)-.3;XS[i]=x;YS[i]=y;base[i]=crown(x,y);pos.setXYZ(i,x,y,base[i])}
 geo.computeVertexNormals();
-const paint=new THREE.MeshPhysicalMaterial({color:S.paint,metalness:.5,roughness:.36,clearcoat:1,clearcoatRoughness:.02,envMapIntensity:1.25});
+const paint=new THREE.MeshPhysicalMaterial({color:S.paint,metalness:.5,roughness:.36,clearcoat:1,clearcoatRoughness:.02,envMapIntensity:1.25,clippingPlanes:CLIP});
 const hood=new THREE.Mesh(geo,paint);hood.rotation.x=-Math.PI/2;scene.add(hood);
 const bodyM=paint;
 // cabin behind the hood: painted pillars and roof with the windshield set into them, so it reads as a car
@@ -73,9 +79,39 @@ const shell=new THREE.Mesh(cabGeo(0,1.4,0),paint);shell.rotation.x=-Math.PI/2;sc
 const glass=new THREE.MeshPhysicalMaterial({color:0x07090c,metalness:.2,roughness:.03,clearcoat:1,clearcoatRoughness:.01,envMapIntensity:1.8});
 const shield=new THREE.Mesh(cabGeo(.03,.94,.2),glass);shield.rotation.x=-Math.PI/2;scene.add(shield);
 const cowl=new THREE.Mesh(new THREE.BoxGeometry(4.5,.06,.16),new THREE.MeshStandardMaterial({color:0x0b0b0c,roughness:.6}));cowl.position.set(0,Z0+.05,-2.2);scene.add(cowl);
+
+// ---------- the rest of the car: body behind the hood, side and rear glass, end cap, wheels, lights, grille ----------
+const G=-2.75;// shop floor height (world y)
+const BY0=2.1,BY1=7.6;// body runs from the cowl back to the tail (hood-local y)
+function part(geo,mat){const m=new THREE.Mesh(geo,mat);hood.add(m);return m}
+{const g=new THREE.PlaneGeometry(7.2,BY1-BY0,90,20),a=g.attributes.position;for(let i=0;i<a.count;i++){const x=a.getX(i),y=a.getY(i)+(BY0+BY1)/2;a.setXYZ(i,x,y,crown(x,BY0)+.002)}g.computeVertexNormals();part(g,paint)}
+const glassS=new THREE.MeshPhysicalMaterial({color:0x07090c,metalness:.2,roughness:.04,clearcoat:1,clearcoatRoughness:.02,envMapIntensity:1.7,side:THREE.DoubleSide});
+function rearPt(u,v){const [x0,y0,z0]=cab(0,1.4,0);const hw=1.96+v*.6;return[u*hw,y0+v*1.75,(z0-.26*((u*hw/2.7)**2))-v*1.55]}
+{const g=new THREE.PlaneGeometry(1,1,20,6),a=g.attributes.position;for(let i=0;i<a.count;i++){const u=a.getX(i)*2,v=a.getY(i)+.5;a.setXYZ(i,...rearPt(u,v))}g.computeVertexNormals();part(g,glassS)}
+for(const sg of[-1,1]){const n=30,pts=[],idx=[];
+  for(let k=0;k<=n;k++){const t=k/n*1.4;const [x,y,z]=cab(sg,t,0);pts.push(x,y,z,x,y,crown(x,BY0)+.01)}
+  for(let k=0;k<=12;k++){const [x,y,z]=rearPt(sg,k/12);pts.push(x,y,z,x,y,crown(x,BY0)+.01)}
+  const m=(pts.length/6)-1;for(let k=0;k<m;k++){const a=k*2;idx.push(a,a+1,a+2,a+1,a+3,a+2)}
+  const g=new THREE.BufferGeometry();g.setAttribute("position",new THREE.Float32BufferAttribute(pts,3));g.setIndex(idx);g.computeVertexNormals();part(g,glassS)}
+{const sh=new THREE.Shape();sh.moveTo(-3.6,G-.0);for(let x=-3.6;x<=3.6001;x+=.15)sh.lineTo(x,Math.max(crown(x,BY0),G));sh.lineTo(3.6,G);sh.closePath();
+  const cap=new THREE.Mesh(new THREE.ShapeGeometry(sh),new THREE.MeshPhysicalMaterial({color:0x15100f,roughness:.5,side:THREE.DoubleSide}));cap.rotation.x=Math.PI/2;cap.position.y=BY1;hood.add(cap)}
+const tireM=new THREE.MeshStandardMaterial({color:0x101010,roughness:.88}),rimM=new THREE.MeshStandardMaterial({color:0xb9bcc0,metalness:1,roughness:.22});
+for(const wy of[-.95,5.95])for(const sg of[-1,1]){const w=new THREE.Group();
+  const t=new THREE.Mesh(new THREE.CylinderGeometry(.92,.92,.78,40),tireM);t.rotation.z=Math.PI/2;w.add(t);
+  const r=new THREE.Mesh(new THREE.CylinderGeometry(.6,.6,.84,28),rimM);r.rotation.z=Math.PI/2;w.add(r);
+  for(let k=0;k<5;k++){const sp=new THREE.Mesh(new THREE.BoxGeometry(.06,.9,.12),rimM);sp.position.x=sg*.41;sp.rotation.x=k/5*Math.PI*2;w.add(sp)}
+  w.position.set(sg*3.12,G+.92,-wy);w.rotation.x=0;scene.add(w)}
+function onSurface(mesh,x,y,lift){const e=.02,z=crown(x,y);const nx=-(crown(x+e,y)-crown(x-e,y))/(2*e),ny=-(crown(x,y+e)-crown(x,y-e))/(2*e);
+  const n=new THREE.Vector3(nx,ny,1).normalize();mesh.position.set(x,y,z+lift);mesh.lookAt(mesh.position.clone().add(n));hood.add(mesh);return mesh}
+const lampM=new THREE.MeshPhysicalMaterial({color:0x9aa3ad,emissive:0xdfeaff,emissiveIntensity:.4,metalness:.9,roughness:.06,clearcoat:1});
+function rr(w,h,r){const sh=new THREE.Shape();sh.moveTo(-w/2+r,-h/2);sh.lineTo(w/2-r,-h/2);sh.quadraticCurveTo(w/2,-h/2,w/2,-h/2+r);sh.lineTo(w/2,h/2-r);sh.quadraticCurveTo(w/2,h/2,w/2-r,h/2);sh.lineTo(-w/2+r,h/2);sh.quadraticCurveTo(-w/2,h/2,-w/2,h/2-r);sh.lineTo(-w/2,-h/2+r);sh.quadraticCurveTo(-w/2,-h/2,-w/2+r,-h/2);return new THREE.ShapeGeometry(sh,6)}
+for(const sg of[-1,1]){const l=new THREE.Mesh(rr(1.05,.26,.12),lampM);onSurface(l,sg*2.3,-2.12,.015);l.rotateZ(sg*.08)}
+const trimM=new THREE.MeshStandardMaterial({color:0x0c0c0d,metalness:.4,roughness:.45});
+onSurface(new THREE.Mesh(rr(2.6,.34,.14),trimM),0,-2.36,.015);
+onSurface(new THREE.Mesh(rr(5.4,.36,.18),trimM),0,-2.52,.015);
 // soft contact shadow
 const sc=document.createElement("canvas");sc.width=sc.height=128;const sx=sc.getContext("2d"),gr=sx.createRadialGradient(64,64,4,64,64,64);gr.addColorStop(0,"rgba(0,0,0,.8)");gr.addColorStop(1,"rgba(0,0,0,0)");sx.fillStyle=gr;sx.fillRect(0,0,128,128);
-const shadow=new THREE.Mesh(new THREE.PlaneGeometry(11,8),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(sc),transparent:true,depthWrite:false}));shadow.rotation.x=-Math.PI/2;shadow.position.y=-2.4;scene.add(shadow);
+const shadow=new THREE.Mesh(new THREE.PlaneGeometry(11,8),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(sc),transparent:true,depthWrite:false}));shadow.rotation.x=-Math.PI/2;shadow.position.y=-2.73;shadow.scale.set(1.05,1.8,1);shadow.position.z=-2.4;scene.add(shadow);
 
 // the light board itself, hanging above the hood
 const bc=document.createElement("canvas");bc.width=512;bc.height=256;const bx=bc.getContext("2d");bx.fillStyle="#0d0c0a";bx.fillRect(0,0,512,256);
@@ -115,7 +151,7 @@ addEventListener("hoodauto",()=>{if(S.fix>=100)storm();S.anim=true;S.a0=performa
 // ---------- frame ----------
 function fit(){const w=host.clientWidth,h=host.clientHeight;R.setSize(w,h,false);cam.aspect=w/h;
   const narrow=w/h<1;cam.fov=narrow?46:34;cam.updateProjectionMatrix();
-  board.visible=pole.visible=false;const dist=narrow?16.5:12.5;cam.position.set(narrow?0:1.6,dist*(narrow?.6:.5),dist);ctl.target.set(narrow?0:-1.9,narrow?2.6:-.25,.2);ctl.update()}
+  board.visible=pole.visible=false;const dist=narrow?19:16;cam.position.set(narrow?0:3.4,dist*(narrow?.55:.5),dist);ctl.target.set(narrow?0:-2.7,narrow?1.2:-1.1,-1.6);ctl.update()}
 addEventListener("resize",fit);fit();
 let vis=true;new IntersectionObserver(e=>{vis=e[0].isIntersecting}).observe(host);
 let last=performance.now(),sent=0;
