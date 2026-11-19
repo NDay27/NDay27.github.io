@@ -56,7 +56,7 @@ export async function start(HB) {
     if (intro < 1) { intro = Math.min(1, intro + dt / 2.6); const k = 1 - Math.pow(1 - intro, 3); off.multiplyScalar(1 + .22 * (1 - k)); off.y += 2.5 * (1 - k); }
     cam.position.copy(tgt).add(off); ctl.target.copy(tgt); cam.lookAt(tgt);
     // frame the subject: right of the captions on desktop, above them on a phone
-    const ox = phone ? 0 : -w * (w > 1100 ? .15 : .1), oy = phone ? h * (s.cfg > .5 ? .2 : s.i === 0 ? .17 - .05 * s.t : .12) : 0, key = w + "," + h + "," + ox.toFixed(0) + "," + oy.toFixed(0);
+    const ox = phone ? 0 : -w * (w > 1100 ? .15 : .1), oy = phone ? h * (s.cfg > .5 ? .2 : s.i === 0 ? .22 - .1 * s.t : .12) : 0, key = w + "," + h + "," + ox.toFixed(0) + "," + oy.toFixed(0);
     if (Math.abs(f - fov) > .01 || key !== vo) { fov = f; vo = key; cam.fov = f; cam.setViewOffset(w, h, ox, oy, w, h); cam.updateProjectionMatrix(); }
   });
   world.size(); world.setTodNow(HB.get().tod); house.setProgress(HB.get().p);
