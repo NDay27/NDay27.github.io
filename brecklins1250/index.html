@@ -615,7 +615,7 @@ html.lenis,html.lenis body{height:auto}.lenis.lenis-smooth{scroll-behavior:auto!
     daysBox.appendChild(b)})(i)}
   function times(){
     timesBox.textContent="";
-    if(!sel.day){var p=document.createElement("p");p.style.cssText="margin:0;color:#A3A098;font-size:15px";p.textContent="Pick a day first.";timesBox.appendChild(p);return}
+    if(!sel.day){var p=document.createElement("p");p.style.cssText="margin:0;color:#A3A098;font-size:15px;grid-column:1/-1";p.textContent="Pick a day first.";timesBox.appendChild(p);return}
     var hh=H[sel.day.wd],start=firstSlot(hh,sel.day.i);
     for(var m=start;m<=hh[1]-60;m+=60){(function(m){var b=document.createElement("button");b.type="button";b.className="chip";b.setAttribute("aria-pressed","false");b.textContent=fmt(m);
       b.addEventListener("click",function(){press(timesBox,b);sel.time=fmt(m);setT("time",sel.time)});timesBox.appendChild(b)})(m)}

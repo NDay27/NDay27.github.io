@@ -90,6 +90,7 @@
 .more a{flex-wrap:wrap}
 .more small{display:block;color:var(--muted);font-size:14px}
 .more b{white-space:nowrap}
+.more a.built{border-style:solid;background:var(--card);align-items:flex-start}.more .hl{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:5px;font-size:14px;color:var(--ink)}.more .hl li{position:relative;padding-left:16px}.more .hl li:before{content:"";position:absolute;left:0;top:.6em;width:6px;height:6px;border-radius:50%;background:var(--shop)}
 /* Timeline */
 .today{display:grid;gap:0;margin-top:30px;position:relative}
 .today li{list-style:none;display:grid;grid-template-columns:92px 1fr;gap:16px;padding:18px 0;border-top:1px solid var(--line)}
@@ -153,7 +154,9 @@
 .cmp thead th b{display:block;color:var(--ink);font:400 24px/1.1 "Instrument Serif",Georgia,serif;letter-spacing:0;text-transform:none}
 .cmp tbody tr:last-child td{border-bottom:0}
 .cmp .y{color:var(--shop);font-weight:800}.cmp .n{color:var(--muted)}
-@media (max-width:640px){.cmp th,.cmp td{padding:11px 8px;font-size:13.5px}.cmp thead th b{font-size:19px}}
+@media (max-width:640px){.cmp{overflow:clip}.cmp table,.cmp thead,.cmp tbody{display:block}.cmp tr{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--line)}.cmp tbody tr:last-child{border-bottom:0}
+.cmp th,.cmp td{padding:11px 8px;font-size:13.5px;border-bottom:0}.cmp thead{position:sticky;top:0;z-index:2;background:var(--card);box-shadow:0 1px 0 var(--line),0 10px 18px -16px #0005}.cmp thead th{padding:12px 6px 10px;font-size:11px}.cmp thead th b{font-size:20px}.cmp thead th:first-child{display:none}
+.cmp tbody td:first-child{grid-column:1/-1;padding:13px 16px 3px;font-size:14.5px;font-weight:600;color:var(--ink);text-wrap:pretty}.cmp tbody td:not(:first-child){padding:3px 6px 13px;font-variant-numeric:tabular-nums}.cmp .y,.cmp .n{font-size:17px}}
 .future{display:grid;gap:14px;margin-top:22px}
 @media (min-width:860px){.future{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .future div{border-top:2px solid var(--shop);padding-top:12px}.future b{display:block}.future span{color:var(--muted);font-size:15.5px}
@@ -327,7 +330,7 @@ function render(shop){
     box.appendChild(c)});
   var S=shop.samples||{};
   var more=$("more");more.textContent="";["signature","immersive"].forEach(function(id){var p=NDS.PLANS[id],a=el("a");a.href=S[id]||p.demo;a.target="_blank";a.rel="noopener";
-    var t=el("span");t.appendChild(el("b",null,(S[id]?"Built for you too: ":"Want something bigger? ")+p.name));t.appendChild(el("small",null,p.line));a.appendChild(t);a.appendChild(el("b",null,p.short));more.appendChild(a)});
+    var t=el("span");t.appendChild(el("b",null,(S[id]?"Built for you too: ":"Want something bigger? ")+p.name));t.appendChild(el("small",null,p.line));var vf=S[id]&&shop.versions&&shop.versions[id]&&shop.versions[id].features;if(Array.isArray(vf)){var hl=el("ul","hl");vf.filter(function(f){return !/^Everything in/i.test(f)}).slice(0,3).forEach(function(f){hl.appendChild(el("li",null,f))});t.appendChild(hl);a.classList.add("built")}a.appendChild(t);a.appendChild(el("b",null,p.short));more.appendChild(a)});
   /* All the versions built for this shop, when there is more than one. */
   if(S.essential&&(S.signature||S.immersive)){var vb=$("vers");vb.textContent="";var th=shop.thumbs||{},TL=shop.tools||{};
     /* Neutral defaults; a shop's preview JSON can replace them with its own "versions" and "compare". */
