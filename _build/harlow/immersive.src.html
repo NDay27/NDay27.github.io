@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Harlow Building Co. · Watch your home get built</title>
+<meta name="description" content="Custom homes around Morton and Peoria. Scroll to watch a Harlow home go up from day one, design your own exterior in 3D, and book a free site walk. Sample site by Nolan Day Studio.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0d1620">
+<meta property="og:title" content="Harlow Building Co. · Immersive plan demo">
+<meta property="og:description" content="A $1,250 Immersive site by Nolan Day Studio: a live 3D home that builds itself as you scroll, for a made-up Central Illinois builder.">
+<meta property="og:image" content="https://nday27.github.io/harlow/img/og-immersive.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2314212e'/%3E%3Cpath d='M6 15 16 7l10 8' fill='none' stroke='%23efb321' stroke-width='2.4' stroke-linejoin='round' stroke-linecap='round'/%3E%3Cpath d='M10 15v10M22 15v10M10 19h12' fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..500&family=Schibsted+Grotesk:wght@400..700&display=swap">
+<link rel="preload" as="image" href="../img/hero-1200.webp" imagesrcset="../img/hero-1200.webp 1200w, ../img/hero-2400.webp 2400w" imagesizes="100vw">
+<link rel="stylesheet" href="../assets/harlow.css">
+<script>document.documentElement.classList.add("js")</script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/","@pmndrs/assets/":"https://cdn.jsdelivr.net/npm/@pmndrs/assets@1.7.0/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"GeneralContractor","name":"Harlow Building Co. (sample)","description":"Made-up home builder used as a website demo by Nolan Day Studio.","telephone":"+1-309-555-0148","areaServed":["Morton IL","Peoria IL","Washington IL","Pekin IL","Eureka IL","Tremont IL"],"address":{"@type":"PostalAddress","addressLocality":"Morton","addressRegion":"IL","addressCountry":"US"}}</script>
+<style>
+:root{--gut:clamp(18px,4.2vw,48px);--max:1240px;--night:#0b141d}
+body{background:var(--night)}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gut)}
+section{scroll-margin-top:calc(var(--bar) + 70px)}
+
+/* header: glass over the film, settles on paper after it */
+.top{position:fixed;left:0;right:0;top:var(--bar);z-index:90;color:#fff;transition:background-color .35s,color .35s,box-shadow .35s}
+.top.solid{background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:saturate(1.4) blur(12px);-webkit-backdrop-filter:saturate(1.4) blur(12px);color:var(--ink);box-shadow:0 1px 0 var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:74px;gap:18px}
+.top nav{display:flex;gap:30px;font-size:15px;font-weight:500}
+.top nav a{text-decoration:none;opacity:.8;transition:opacity .2s}
+.top nav a:hover{opacity:1}
+.top .call{min-height:44px;padding:0 18px;font-size:15px;background:#ffffff1f;color:inherit;border:1px solid #ffffff40;backdrop-filter:blur(6px)}
+.top.solid .call{background:var(--navy);color:#fff;border-color:var(--navy)}
+@media (max-width:980px){.top nav{display:none}}
+@media (max-width:520px){.top .call .n{display:none}.top .call{width:44px;padding:0}}
+
+/* ---------- the film: one live 3D scene pinned behind the story ---------- */
+.film{position:relative;background:var(--night);color:#fff}
+.scene{position:sticky;top:0;height:100vh;height:100svh;margin-bottom:-100vh;margin-bottom:-100svh;overflow:hidden;z-index:0;background:#1a2430}
+@supports (height:100svh){.scene{margin-bottom:-100svh}}
+.scene canvas{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity 1.2s var(--ease);touch-action:pan-y}
+.film.live .scene canvas{opacity:1}
+.poster{position:absolute;inset:0}
+.poster img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .7s var(--ease)}
+.poster img.on{opacity:1}
+.film.live .poster{opacity:0;transition:opacity 1.2s var(--ease) .2s}
+.shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,#0b141dd9 0%,#0b141d8c 30%,#0b141d00 58%),linear-gradient(0deg,#0b141d99,#0b141d00 30%);transition:opacity .6s}
+@media (max-width:760px){.shade{background:linear-gradient(0deg,#0b141df0 0%,#0b141db0 34%,#0b141d00 62%),linear-gradient(180deg,#0b141d80,#0b141d00 22%)}}
+.load{position:absolute;right:var(--gut);bottom:calc(22px + env(safe-area-inset-bottom));font-size:13px;color:#c9d3dc;display:flex;align-items:center;gap:8px;transition:opacity .5s}
+.load i{width:14px;height:14px;border-radius:50%;border:2px solid #ffffff40;border-top-color:var(--pencil);animation:spin .9s linear infinite}
+@keyframes spin{to{transform:rotate(1turn)}}
+.film.live .load,.film.nogl .load{opacity:0;pointer-events:none}
+
+/* week counter + stage rail, pinned with the scene */
+.hud{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .5s var(--ease)}
+.film.story .hud{opacity:1}
+.wkc{position:absolute;right:var(--gut);top:calc(var(--bar) + 104px);text-align:right;text-shadow:0 2px 18px #0008}
+.wkc small{display:block;font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--pencil2)}
+.wkc b{display:block;font:500 clamp(52px,5.4vw,80px)/.9 var(--serif);letter-spacing:-.03em;font-variant-numeric:lining-nums}
+.wkc span{font-size:14px;color:#cbd5de}
+.rail{position:absolute;right:var(--gut);bottom:calc(30px + env(safe-area-inset-bottom));display:flex;gap:6px;list-style:none;margin:0;padding:0;width:min(360px,40vw)}
+.rail li{flex:1;height:4px;border-radius:4px;background:#ffffff2e;overflow:hidden}
+.rail li i{display:block;height:100%;width:100%;background:var(--pencil);transform:scaleX(0);transform-origin:left}
+@media (max-width:760px){.wkc{top:calc(var(--bar) + 78px)}.wkc b{font-size:56px}.rail{left:var(--gut);right:var(--gut);width:auto;top:calc(var(--bar) + 66px);bottom:auto}.wkc{top:calc(var(--bar) + 84px)}}
+
+.beats{position:relative;z-index:2}
+.beat{min-height:100vh;min-height:100svh;display:flex;align-items:center}
+.beat .wrap{width:100%}
+.opener{align-items:flex-end;padding-bottom:clamp(48px,9vh,110px)}
+.opener h1{font-size:clamp(46px,7.4vw,108px);letter-spacing:-.03em;max-width:8.6em;line-height:.98}
+.opener h1 em{font-style:italic;font-weight:400;color:var(--pencil2)}
+.opener .lede{margin-top:22px;font-size:clamp(17px,1.5vw,20px);max-width:30em;color:#dbe3ea}
+.opener .acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.opener .acts .line{color:#fff;border-color:#ffffff59}
+.opener .acts .line:hover{background:#ffffff14}
+.cue{display:inline-flex;align-items:center;gap:12px;margin-top:38px;font-size:14px;color:#c4ced7;text-decoration:none}
+.cue span{width:26px;height:42px;border-radius:14px;border:1.5px solid #ffffff73;position:relative}
+.cue span::after{content:"";position:absolute;left:50%;top:8px;width:4px;height:8px;margin-left:-2px;border-radius:2px;background:var(--pencil);animation:cue 1.8s var(--ease) infinite}
+@keyframes cue{0%{transform:translateY(0);opacity:1}70%{transform:translateY(12px);opacity:0}100%{opacity:0}}
+
+.step{pointer-events:none}
+.step .sc{pointer-events:auto;max-width:430px;padding:26px 28px 28px;border-radius:16px;background:#0b141dc7;border:1px solid #ffffff1a;backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2);
+  box-shadow:0 30px 60px -30px #000c;opacity:.18;transform:translateY(24px);transition:opacity .6s var(--ease),transform .8s var(--ease)}
+.step.on .sc{opacity:1;transform:none}
+.step .w{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--pencil2)}
+.step h2{font-size:clamp(30px,3.4vw,44px);margin-top:10px;letter-spacing:-.02em}
+.step p{margin-top:12px;color:#cdd6de;font-size:16.5px}
+.step ul{margin:16px 0 0;padding:0;list-style:none;display:grid;gap:8px;font-size:15px;color:#e3e9ee}
+.step li{display:flex;gap:10px;align-items:flex-start}
+.step li svg{width:18px;height:18px;flex:none;color:var(--pencil);margin-top:3px}
+@media (max-width:760px){.step{align-items:flex-end;padding-bottom:calc(28px + env(safe-area-inset-bottom))}.step .sc{max-width:none;padding:22px 22px 24px}}
+
+/* ---------- design yours ---------- */
+.cfgb{min-height:100vh;min-height:100svh;align-items:flex-start;padding:calc(var(--bar) + 88px) 0 40px}
+.cfg{position:relative;max-width:440px;padding:26px 26px 24px;border-radius:18px;background:#0b141de6;border:1px solid #ffffff1f;backdrop-filter:blur(16px) saturate(1.2);-webkit-backdrop-filter:blur(16px) saturate(1.2);box-shadow:0 40px 80px -30px #000e}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--pencil2)}
+.cfg h2{font-size:clamp(34px,3.6vw,48px);margin-top:8px;letter-spacing:-.02em}
+.cfg .sub{margin-top:8px;color:#c4ced7;font-size:15.5px}
+.opt{margin-top:16px}
+.opt .k{display:flex;justify-content:space-between;align-items:baseline;font-size:13.5px;font-weight:600;color:#e6ebef}
+.opt .k output{font-weight:500;color:#9fb0be}
+.sw{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.sw button{width:38px;height:38px;border-radius:50%;border:0;padding:0;cursor:pointer;background:var(--c);box-shadow:inset 0 0 0 1px #ffffff40,0 0 0 2px #0b141d,0 0 0 2px #ffffff00;transition:box-shadow .25s var(--ease),transform .15s var(--ease)}
+.sw button:hover{transform:scale(1.06)}
+.sw button[aria-pressed="true"]{box-shadow:inset 0 0 0 1px #ffffff40,0 0 0 3px #0b141d,0 0 0 5px var(--pencil)}
+.seg{display:flex;gap:4px;padding:4px;border-radius:999px;background:#ffffff12;margin-top:10px}
+.seg button{flex:1;min-height:38px;border:0;border-radius:999px;background:transparent;color:#c9d3dc;font-size:14px;font-weight:600;cursor:pointer;transition:background-color .2s,color .2s}
+.seg button[aria-pressed="true"]{background:#fff;color:var(--navy)}
+.tog{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:18px;padding-top:16px;border-top:1px solid #ffffff1a;font-size:14.5px;font-weight:600}
+.tog small{display:block;font-weight:500;color:#9fb0be;font-size:13px}
+.switch{position:relative;width:52px;height:30px;border-radius:999px;border:0;background:#ffffff2e;cursor:pointer;flex:none;transition:background-color .25s}
+.switch::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:transform .3s var(--ease)}
+.switch[aria-checked="true"]{background:var(--pencil)}
+.switch[aria-checked="true"]::after{transform:translateX(22px)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}
+.two .switch{margin-top:12px}
+@media (min-width:761px){.cfg{max-height:calc(100svh - var(--bar) - 104px);overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#ffffff33 transparent}}
+.cfgf{margin-top:4px}
+@media (min-width:761px){.cfgf{position:sticky;bottom:-24px;margin:0 -26px -24px;padding:6px 26px 18px;background:linear-gradient(#0b141d00,#0b141d 16px)}}
+.brk summary{margin-top:8px;font-size:13px;color:#9fb0be;cursor:pointer;list-style:none;text-decoration:underline;text-underline-offset:3px}
+.brk summary::-webkit-details-marker{display:none}
+.brk:not([open]) ul{display:none}
+#homes{background:var(--paper);color:var(--ink)}
+.price{margin-top:14px;padding:16px 18px;border-radius:12px;background:#ffffff0f;border:1px solid #ffffff14}
+.price .row{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.price .row span{font-size:13.5px;color:#aebcc8}
+.price .big{font:500 clamp(32px,3vw,40px)/1 var(--serif);letter-spacing:-.02em}
+.price ul{list-style:none;margin:10px 0 0;padding:10px 0 0;border-top:1px solid #ffffff14;display:grid;gap:4px;font-size:13.5px;color:#c4ced7}
+.price li{display:flex;justify-content:space-between;gap:10px}
+.cfg .acts{display:flex;gap:10px;margin-top:16px}
+.cfg .acts .gold{flex:1}
+.cfg .acts .line{color:#fff;border-color:#ffffff4d;padding:0 16px}
+.cfg .fine{margin-top:12px;font-size:12.5px;color:#8fa0ae;min-height:1.4em}
+.turn{position:fixed;right:var(--gut);bottom:calc(28px + env(safe-area-inset-bottom));display:flex;gap:8px;opacity:0;pointer-events:none;transition:opacity .4s;z-index:3}
+.film.cfgon .turn{opacity:1;pointer-events:auto}
+.turn button{width:50px;height:50px;border-radius:50%;border:1px solid #ffffff40;background:#0b141db3;color:#fff;cursor:pointer;display:grid;place-items:center;backdrop-filter:blur(8px)}
+.turn button svg{width:20px;height:20px}
+.turn .hint{align-self:center;margin-right:6px;font-size:13px;color:#c9d3dc;text-shadow:0 1px 8px #000}
+@media (max-width:760px){
+  .cfgb{align-items:flex-end;padding:52svh 0 calc(20px + env(safe-area-inset-bottom))}
+  .cfg{max-width:none;padding:22px 20px 20px}
+  .turn{top:calc(var(--bar) + 84px);bottom:auto}
+  .turn .hint{display:none}
+}
+
+/* ---------- Friday update ---------- */
+.sec{padding:clamp(72px,10vw,140px) 0}
+.sec h2{font-size:clamp(36px,5vw,64px);letter-spacing:-.025em}
+.intro{margin-top:16px;color:var(--muted);font-size:clamp(17px,1.4vw,19px);max-width:34em}
+.head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px 48px;margin-bottom:clamp(30px,4vw,52px)}
+.dark{background:var(--navy);color:#e8ecef}
+.dark h2{color:#fff}.dark .intro{color:#aebbc6}
+.paper{background:var(--paper);color:var(--ink)}
+.fri{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,6vw,90px);align-items:start}
+.fri .pts{margin:30px 0 0;padding:0;list-style:none;display:grid;gap:18px}
+.fri .pts li{display:grid;grid-template-columns:40px 1fr;gap:14px}
+.fri .pts b{display:block;font-weight:600}
+.fri .pts span{color:var(--muted);font-size:15.5px}
+.fri .pts i{width:40px;height:40px;border-radius:50%;background:var(--white);border:1px solid var(--line);display:grid;place-items:center;font:600 15px/1 var(--sans);font-style:normal;color:var(--blue)}
+.mail{background:var(--white);border-radius:16px;box-shadow:0 50px 100px -50px #14212e80,0 0 0 1px var(--line);overflow:hidden}
+.mail .mh{display:flex;align-items:center;gap:12px;padding:16px 22px;border-bottom:1px solid var(--line);font-size:14px}
+.mail .av{width:38px;height:38px;border-radius:50%;background:var(--navy);color:var(--pencil);display:grid;place-items:center;flex:none}
+.mail .av svg{width:22px;height:22px}
+.mail .mh b{display:block}
+.mail .mh span{color:var(--muted);font-size:13px}
+.mail .mh time{margin-left:auto;color:var(--muted);font-size:13px;white-space:nowrap}
+.mail .mb{padding:24px 24px 26px}
+.mail h3{font-size:clamp(26px,2.6vw,34px)}
+.mail .pr{margin-top:16px}
+.mail .pr .row{display:flex;justify-content:space-between;font-size:14px;font-weight:600}
+.mail .pr .row span{color:var(--muted);font-weight:500}
+.bar{height:10px;border-radius:999px;background:var(--paper2);margin-top:8px;overflow:hidden}
+.bar i{display:block;height:100%;width:41%;border-radius:999px;background:linear-gradient(90deg,var(--blue),#4c82b6);transform-origin:left;transition:transform 1.4s var(--ease)}
+.js .mail:not(.seen) .bar i{transform:scaleX(0)}
+.ph{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:20px}
+.ph figure{margin:0;border-radius:8px;overflow:hidden;aspect-ratio:3/2;background:var(--paper2);position:relative}
+.ph img{width:100%;height:100%;object-fit:cover}
+.ph figcaption{position:absolute;left:8px;bottom:6px;font-size:11.5px;font-weight:600;color:#fff;text-shadow:0 1px 6px #000}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:22px}
+.cols h4{margin:0 0 8px;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.cols ul{margin:0;padding:0;list-style:none;display:grid;gap:7px;font-size:15px}
+.cols li{display:flex;gap:9px}
+.cols li svg{width:17px;height:17px;flex:none;margin-top:4px}
+.done svg{color:#3c8a5a}.next svg{color:var(--blue)}
+.draws{margin-top:22px;border-top:1px solid var(--line)}
+.draws h4{margin:18px 0 8px;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.draws table{width:100%;border-collapse:collapse;font-size:14.5px}
+.draws td{padding:8px 0;border-bottom:1px solid #e6e8e2}
+.draws td:last-child{text-align:right}
+.st{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px}
+.st.paid{background:#e3f0e7;color:#2a6b43}.st.due{background:#fdf0cf;color:#7a5a06}.st.up{background:var(--paper2);color:var(--muted)}
+.sig{margin-top:20px;font:italic 400 19px/1.4 var(--serif);color:var(--ink)}
+.sig small{display:block;font:400 13.5px/1.5 var(--sans);color:var(--muted);font-style:normal;margin-top:2px}
+@media (max-width:900px){.fri{grid-template-columns:1fr}}
+@media (max-width:520px){.cols{grid-template-columns:1fr}.mail .mb{padding:20px 18px 22px}.mail .mh{padding:14px 16px}.ph{grid-template-columns:1fr 1fr}.ph figure:nth-child(3){display:none}}
+
+.lbl{font-size:14px;font-weight:600;margin:26px 0 10px;display:flex;justify-content:space-between;gap:12px}
+.lbl:first-child{margin-top:0}
+{{SIG_CSS}}
+.cbar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:100;display:none;gap:8px;padding:8px;border-radius:999px;background:var(--navy);box-shadow:0 18px 40px -12px #000a;transform:translateY(140%);transition:transform .45s var(--ease)}
+.cbar.on{transform:none}
+.cbar .btn{flex:1;min-height:46px;font-size:15px}
+.cbar .btn.line{color:#fff;border-color:#ffffff40}
+@media (max-width:760px){.cbar{display:flex}footer.foot{padding-bottom:calc(96px + env(safe-area-inset-bottom))}}
+@media (prefers-reduced-motion:reduce){.cue span::after,.load i{animation:none}.step .sc{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="hb-bar" role="region" aria-label="Sample site notice">
+  <p class="note"><b>Sample site</b><span class="long"> by Nolan Day Studio. Harlow Building Co. is made up, and so are its prices.</span> <a href="../">See all 3 plans</a></p>
+  <nav class="hb-plans" aria-label="Plan versions"><a href="../essential/"><span class="nm">Essential</span><span>$300</span></a><a href="../signature/"><span class="nm">Signature</span><span>$750</span></a><a href="./" aria-current="page"><span class="nm">Immersive</span><span>$1,250</span></a></nav>
+</div>
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="logo" href="#main" aria-label="Harlow Building Co., home">{{LOGO}}<span class="wm"><b>Harlow</b><small>Building Co.</small></span></a>
+    <nav aria-label="Sections"><a href="#build">Watch it built</a><a href="#design">Design yours</a><a href="#friday">Fridays</a><a href="#homes">Homes</a><a href="#reviews">Reviews</a></nav>
+    <a class="btn call" href="tel:+13095550148" aria-label="Call (309) 555-0148">{{PHONE_ICON}}<span class="n tnum">(309) 555-0148</span></a>
+  </div>
+</header>
+
+<main id="main">
+<div class="film" id="film">
+  <div class="scene" aria-hidden="true">
+    <div class="poster" id="poster">
+      <img class="on" data-k="hero" src="../img/hero-1200.webp" srcset="../img/hero-1200.webp 1200w, ../img/hero-2400.webp 2400w" sizes="(max-width:760px) 260vw, 100vw" alt="" width="2400" height="1350" fetchpriority="high">
+      <img data-k="st-1" data-src="../img/st-1-1200.webp" alt=""><img data-k="st-2" data-src="../img/st-2-1200.webp" alt=""><img data-k="st-3" data-src="../img/st-3-1200.webp" alt="">
+      <img data-k="st-4" data-src="../img/st-4-1200.webp" alt=""><img data-k="st-5" data-src="../img/st-5-1200.webp" alt=""><img data-k="st-6" data-src="../img/st-6-1200.webp" alt="">
+      <img data-k="night" data-src="../img/pj-navy-1600.webp" alt=""><img data-k="fin-white" data-src="../img/fin-white-1200.webp" alt=""><img data-k="fin-navy" data-src="../img/fin-navy-1200.webp" alt="">
+      <img data-k="fin-sage" data-src="../img/fin-sage-1200.webp" alt=""><img data-k="fin-charcoal" data-src="../img/fin-charcoal-1200.webp" alt="">
+    </div>
+    <canvas id="c"></canvas>
+    <div class="shade" id="shade"></div>
+    <div class="hud"><div class="wkc"><small id="wkL">Week</small><b id="wkN">0</b><span id="wkOf">of 34</span></div><ol class="rail" id="rail"><li><i></i></li><li><i></i></li><li><i></i></li><li><i></i></li><li><i></i></li><li><i></i></li><li><i></i></li></ol></div>
+    <p class="load" id="load"><i></i>Loading the 3D house</p>
+  </div>
+  <div class="turn" id="turn"><span class="hint" id="turnHint">Drag the house to turn it</span><button type="button" id="tl" aria-label="Turn the house left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.6"/><path d="M4 4v4h4"/></svg></button><button type="button" id="tr" aria-label="Turn the house right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6"/><path d="M20 4v4h-4"/></svg></button></div>
+
+  <div class="beats">
+    <section class="beat opener" id="hero" data-p="1" data-tod=".56" data-cam="hero" data-img="hero" aria-labelledby="h1">
+      <div class="wrap">
+        <h1 id="h1">Watch your home <em>get built.</em></h1>
+        <p class="lede">Custom homes around Morton and Peoria. Scroll, and a real Harlow plan goes from stakes in the dirt to porch lights on. Then make it yours.</p>
+        <div class="acts"><a class="btn gold" href="#walk">Book a free site walk</a><a class="btn line" href="#design">Design yours in 3D</a></div>
+        <a class="cue" href="#build"><span></span>Scroll to start at day one</a>
+      </div>
+    </section>
+
+    <section class="beat step" id="build" data-p=".02" data-tod=".3" data-cam="day1" data-img="st-1" aria-labelledby="s1">
+      <div class="wrap"><div class="sc"><span class="w">Day 1</span><h2 id="s1">Stakes in the ground</h2><p>We walk the lot with you, then stake the corners so you can stand where the kitchen sink will be.</p></div></div>
+    </section>
+    <section class="beat step" data-p=".15" data-tod=".32" data-cam="found" data-img="st-1" aria-labelledby="s2">
+      <div class="wrap"><div class="sc"><span class="w">Weeks 1 to 3</span><h2 id="s2">Footings and foundation</h2><p>Dig, pour footings, set the walls. Nothing goes up until the base is square to within a quarter inch.</p>
+        <ul><li>{{CHECK}}Soil and footing inspection, passed</li><li>{{CHECK}}Foundation walls cured 7 days</li></ul></div></div>
+    </section>
+    <section class="beat step" data-p=".36" data-tod=".34" data-cam="walls" data-img="st-2" aria-labelledby="s3">
+      <div class="wrap"><div class="sc"><span class="w">Weeks 4 to 6</span><h2 id="s3">Floor deck and first walls</h2><p>Joists, subfloor, then walls at 16 inches on center with real headers over every opening. You can walk your rooms by week six.</p></div></div>
+    </section>
+    <section class="beat step" data-p=".575" data-tod=".36" data-cam="frame" data-img="st-3" aria-labelledby="s4">
+      <div class="wrap"><div class="sc"><span class="w">Weeks 7 to 9</span><h2 id="s4">Second floor and rafters</h2><p>Upstairs walls, then rafters to the ridge. This is the week most families come out for pictures.</p></div></div>
+    </section>
+    <section class="beat step" data-p=".705" data-tod=".38" data-cam="dry" data-img="st-4" aria-labelledby="s5">
+      <div class="wrap"><div class="sc"><span class="w">Weeks 10 to 12</span><h2 id="s5">Dried in</h2><p>Sheathing, house wrap, roof deck and windows. Once it's dried in, the weather stops being a schedule problem.</p>
+        <ul><li>{{CHECK}}Framing inspection, passed</li><li>{{CHECK}}Windows set and flashed</li></ul></div></div>
+    </section>
+    <section class="beat step" data-p=".88" data-tod=".44" data-cam="side" data-img="st-5" aria-labelledby="s6">
+      <div class="wrap"><div class="sc"><span class="w">Weeks 13 to 18</span><h2 id="s6">Siding, roof and porch</h2><p>Board-and-batten, standing-seam metal and the timber porch outside, while the inside crews run wiring, plumbing and drywall.</p></div></div>
+    </section>
+    <section class="beat step" data-p="1" data-tod=".58" data-cam="keys" data-img="st-6" aria-labelledby="s7">
+      <div class="wrap"><div class="sc"><span class="w">Weeks 19 to 34</span><h2 id="s7">Finishes, then the keys</h2><p>Cabinets, floors, paint, sod and the final walkthrough. We fix the punch list before you sign off, not after.</p></div></div>
+    </section>
+    <section class="beat step" data-p="1" data-tod=".93" data-cam="night" data-img="night" aria-labelledby="s8">
+      <div class="wrap"><div class="sc"><span class="w">Move-in night</span><h2 id="s8">Porch lights on.</h2><p>Same plan, same crew, start to finish. And a 2-year workmanship warranty from the day you move in.</p></div></div>
+    </section>
+
+    <section class="beat cfgb" id="design" data-p="1" data-tod="cfg" data-cam="cfg" data-img="cfg" aria-labelledby="h-cfg">
+      <div class="wrap">
+        <div class="cfg" id="cfg" data-lenis-prevent>
+          <span class="eyebrow">Design yours</span>
+          <h2 id="h-cfg">Make it yours.</h2>
+          <p class="sub">Same plan, your colors. Turn the house, switch on the porch lights, then send it to us.</p>
+          <div class="opt"><div class="k" id="k-siding">Siding <output id="o-siding">Classic white</output></div><div class="sw" role="group" aria-labelledby="k-siding" data-o="siding">
+            <button type="button" data-v="white" style="--c:#f1efe8" aria-label="Classic white"></button><button type="button" data-v="sage" style="--c:#a9b8a0" aria-label="Prairie sage"></button><button type="button" data-v="navy" style="--c:#2c3e55" aria-label="Harbor navy"></button><button type="button" data-v="charcoal" style="--c:#3b3e42" aria-label="Iron charcoal"></button><button type="button" data-v="clay" style="--c:#c9b39a" aria-label="Clay"></button></div></div>
+          <div class="two"><div class="opt"><div class="k" id="k-roof">Roof <output id="o-roof">Matte black</output></div><div class="sw" role="group" aria-labelledby="k-roof" data-o="roof">
+            <button type="button" data-v="black" style="--c:#2e3135" aria-label="Matte black"></button><button type="button" data-v="weathered" style="--c:#6f7378" aria-label="Weathered gray"></button><button type="button" data-v="brown" style="--c:#5a4636" aria-label="Dark bronze"></button></div></div>
+          <div class="opt"><div class="k" id="k-trim">Trim <output id="o-trim">Black</output></div><div class="sw" role="group" aria-labelledby="k-trim" data-o="trim">
+            <button type="button" data-v="black" style="--c:#1b1d20" aria-label="Black"></button><button type="button" data-v="white" style="--c:#f2f1ec" aria-label="White"></button><button type="button" data-v="bronze" style="--c:#4a3b2c" aria-label="Bronze"></button></div></div></div>
+          <div class="two"><div class="opt"><div class="k" id="k-door">Door <output id="o-door">Fir</output></div><div class="sw" role="group" aria-labelledby="k-door" data-o="door">
+            <button type="button" data-v="fir" style="--c:linear-gradient(135deg,#c79a70,#9c6f49)" aria-label="Fir"></button><button type="button" data-v="black" style="--c:#1f2226" aria-label="Black"></button><button type="button" data-v="red" style="--c:#8e2f2a" aria-label="Barn red"></button><button type="button" data-v="sage" style="--c:#7d8f73" aria-label="Sage"></button></div></div><div class="opt"><div class="k" id="k-porch">Timber porch</div><button class="switch" type="button" role="switch" id="porch" aria-checked="true" aria-labelledby="k-porch"></button></div></div>
+          <div class="opt"><div class="k" id="k-light">Light</div><div class="seg" role="group" aria-labelledby="k-light" id="light"><button type="button" data-t=".3">Morning</button><button type="button" data-t=".56">Golden hour</button><button type="button" data-t=".93">Night</button></div></div>
+          <div class="opt"><div class="k" id="k-size">Size</div><div class="seg" role="group" aria-labelledby="k-size" id="sizes"><button type="button" data-s="1900">1,900 sq ft</button><button type="button" data-s="2400">2,400 sq ft</button><button type="button" data-s="3000">3,000 sq ft</button></div></div>
+          
+          <div class="cfgf"><div class="price" aria-live="polite"><div class="row"><span>The Morton, as shown</span><span id="pSize">2,400 sq ft</span></div><div class="row" style="margin-top:6px"><b class="big" id="pTotal">$0</b><span>starting price</span></div><details class="brk"><summary>See the breakdown</summary><ul id="pList"></ul></details></div>
+          <div class="acts"><a class="btn gold" href="#walk" id="sendCfg">Send this design</a><button class="btn line" type="button" id="share" aria-label="Copy a link to this design">Copy link</button></div>
+          <p class="fine" id="fine" role="status">Sample prices for a made-up builder. Your site shows your real ones.</p></div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<section class="sec paper" id="friday" aria-labelledby="h-fri">
+  <div class="wrap fri">
+    <div>
+      <span class="eyebrow" style="color:var(--blue)">While we build</span>
+      <h2 id="h-fri" style="margin-top:10px">Every Friday, this lands in your inbox.</h2>
+      <p class="intro">You never have to chase us. Each week you get the photos, what got done, what's next, and exactly where the money stands.</p>
+      <ol class="pts">
+        <li><i>1</i><div><b>Photos from the site</b><span>Taken by your project lead, not a stock gallery.</span></div></li>
+        <li><i>2</i><div><b>Done and next, in plain English</b><span>Plus any choice we need from you, with a date.</span></div></li>
+        <li><i>3</i><div><b>Payments tied to progress</b><span>You pay as stages pass inspection, never ahead of the work.</span></div></li>
+      </ol>
+    </div>
+    <article class="mail" id="mail" aria-label="Sample Friday update email">
+      <div class="mh"><span class="av">{{LOGO}}</span><div><b>Jake at Harlow</b><span>Friday update to Dana and Chris K.</span></div><time>Fri 4:12 PM</time></div>
+      <div class="mb">
+        <h3>Week 14 of 34: siding is going up.</h3>
+        <div class="pr"><div class="row">The Morton farmhouse <span>41% complete, on schedule</span></div><div class="bar"><i></i></div></div>
+        <div class="ph">
+          <figure><img src="../img/st-4-800.webp" alt="The house dried in with wrap and windows" loading="lazy" width="800" height="533"><figcaption>Monday</figcaption></figure>
+          <figure><img src="../img/st-5-800.webp" alt="Siding and porch posts going up" loading="lazy" width="800" height="533"><figcaption>Thursday</figcaption></figure>
+          <figure><img src="../img/pj-porch-800.webp" alt="Porch timbers and the fir front door" loading="lazy" width="800" height="500"><figcaption>Porch timbers</figcaption></figure>
+        </div>
+        <div class="cols">
+          <div class="done"><h4>Done this week</h4><ul><li>{{CHECK}}Roof panels on, ridge cap set</li><li>{{CHECK}}Front and left side sided</li><li>{{CHECK}}Porch posts set on new footings</li></ul></div>
+          <div class="next"><h4>Next week</h4><ul><li>{{CHECK}}Finish siding, start trim</li><li>{{CHECK}}Rough electrical inspection, Tue</li><li>{{CHECK}}Pick your tile by Dec 4</li></ul></div>
+        </div>
+        <div class="draws"><h4>Payments</h4>
+          <table><tbody>
+            <tr><td>Deposit at signing</td><td><span class="st paid">Paid</span></td></tr>
+            <tr><td>Foundation complete</td><td><span class="st paid">Paid</span></td></tr>
+            <tr><td>Framing passed</td><td><span class="st paid">Paid</span></td></tr>
+            <tr><td>Dried in</td><td><span class="st due">Due Dec 4</span></td></tr>
+            <tr><td>Drywall and finishes</td><td><span class="st up">Upcoming</span></td></tr>
+          </tbody></table>
+        </div>
+        <p class="sig">Have a good weekend.<small>Jake, your project lead. Call or text (309) 555-0148.</small></p>
+      </div>
+    </article>
+  </div>
+</section>
+
+{{SIG_HOMES}}
+
+{{SIG_REVIEWS}}
+
+{{SIG_WALK}}
+
+<script src="../assets/bar.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
+<script src="imm.js" defer></script>
+</body>
+</html>

@@ -102,7 +102,7 @@ def svg_file(name, out, k=.7, color='#14212e', label='', wash='#f3c64e'):
 
 def build(src, dst, extra):
     html = open(os.path.join(SRC, src)).read()
-    for k, v in {**ICON, **extra}.items():
+    for k, v in list(extra.items()) + list(ICON.items()):
         html = html.replace('{{' + k + '}}', v)
     left = re.findall(r'{{[A-Z_]+}}', html)
     if left:
@@ -123,6 +123,20 @@ if __name__ == '__main__':
     build('signature.src.html', os.path.join(ROOT, 'harlow/signature/index.html'), {
         'HERO_DRAW': drawing('hero-draw', animate=True, full=True, sw=1.15),
         'STAGE_IMGS': stage,
+        'PLUS': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>',
+        'XICON': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>',
+    })
+
+    sig = open(os.path.join(SRC, 'signature.src.html')).read()
+    def cut(a, b, incl_b=False):
+        i = sig.index(a); j = sig.index(b, i)
+        return sig[i:j + (len(b) if incl_b else 0)]
+    css = cut('/* portfolio */', '/* finish picker */') + cut('/* reviews + faq */', '.cbar{')
+    homes = cut('<section class="sec" id="homes"', '</dialog>', True).replace('Every project here started as a drawing like the one above. Tap one for the details.', 'Every project here started on a Harlow plan. Tap one for the details.')
+    reviews = cut('<section class="sec" id="reviews"', '</section>', True)
+    walk = cut('<section class="sec dark" id="walk"', '<script', False).rstrip()
+    build('immersive.src.html', os.path.join(ROOT, 'harlow/immersive/index.html'), {
+        'SIG_CSS': css, 'SIG_HOMES': homes, 'SIG_REVIEWS': reviews, 'SIG_WALK': walk,
         'PLUS': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>',
         'XICON': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>',
     })
