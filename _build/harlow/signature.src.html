@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Harlow Building Co. · Custom homes from drawing to front door</title>
+<meta name="description" content="Custom homes, additions and remodels around Morton and Peoria. See the homes, pick your exterior, price your project and book a site walk. Sample site by Nolan Day Studio.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#14212e">
+<meta property="og:title" content="Harlow Building Co. · Signature plan demo">
+<meta property="og:description" content="A $750 Signature site by Nolan Day Studio, for a made-up Central Illinois home builder.">
+<meta property="og:image" content="https://nday27.github.io/harlow/img/og-signature.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2314212e'/%3E%3Cpath d='M6 15 16 7l10 8' fill='none' stroke='%23efb321' stroke-width='2.4' stroke-linejoin='round'/%3E%3Cpath d='M9 15v11M23 15v11M9 19.5h14' stroke='%23fff' stroke-width='2.6'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..500&family=Schibsted+Grotesk:wght@400..700&display=swap">
+<link rel="preload" as="image" href="../img/hero-1200.webp" imagesrcset="../img/hero-1200.webp 1200w, ../img/hero-2400.webp 2400w" imagesizes="100vw">
+<link rel="stylesheet" href="../assets/harlow.css">
+<script>document.documentElement.classList.add("js")</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"GeneralContractor","name":"Harlow Building Co. (sample)","description":"Made-up home builder used as a website demo by Nolan Day Studio.","telephone":"+1-309-555-0148","areaServed":["Morton IL","Peoria IL","Washington IL","Pekin IL","Eureka IL","Tremont IL"],"address":{"@type":"PostalAddress","addressLocality":"Morton","addressRegion":"IL","addressCountry":"US"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"61"}}</script>
+<style>
+:root{--gut:clamp(18px,4.2vw,48px);--max:1240px;--bp:#173352}
+body{background:var(--paper)}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gut)}
+section{scroll-margin-top:calc(var(--bar) + 70px)}
+
+/* header floats over the hero, then settles */
+.top{position:fixed;left:0;right:0;top:var(--bar);z-index:90;color:#fff;transition:background-color .35s,color .35s,box-shadow .35s}
+.top.solid{background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:saturate(1.4) blur(12px);-webkit-backdrop-filter:saturate(1.4) blur(12px);color:var(--ink);box-shadow:0 1px 0 var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:74px;gap:18px}
+.top nav{display:flex;gap:30px;font-size:15px;font-weight:500}
+.top nav a{text-decoration:none;opacity:.8;transition:opacity .2s}
+.top nav a:hover{opacity:1}
+.top .call{min-height:44px;padding:0 18px;font-size:15px;background:#ffffff1f;color:inherit;border:1px solid #ffffff40;backdrop-filter:blur(6px)}
+.top.solid .call{background:var(--navy);color:#fff;border-color:var(--navy)}
+@media (max-width:980px){.top nav{display:none}}
+@media (max-width:520px){.top .call .n{display:none}.top .call{width:44px;padding:0}}
+
+/* hero: the drawing and the finished house, one divider apart */
+.hero{--x:54%;position:relative;height:calc(100svh - var(--bar));min-height:600px;max-height:980px;overflow:hidden;background:var(--bp);color:#fff;isolation:isolate;touch-action:pan-y}
+.stage{position:absolute;top:0;height:100%;aspect-ratio:16/9;left:50%;transform:translateX(-58%);min-width:100%}
+@supports not (aspect-ratio:16/9){.stage{width:177.78vh}}
+.stage img,.stage svg{position:absolute;inset:0;width:100%;height:100%}
+.stage img{object-fit:cover}
+.js .hero{--x:0%}
+.bp{position:absolute;inset:0;clip-path:inset(0 0 0 var(--x,0%));-webkit-clip-path:inset(0 0 0 var(--x,0%));background:var(--bp)}
+.bp::before{content:"";position:absolute;inset:0;background-image:linear-gradient(#ffffff0d 1px,transparent 1px),linear-gradient(90deg,#ffffff0d 1px,transparent 1px);background-size:26px 26px}
+.bp svg{color:#e9f1fa}
+.bp .l-batten,.bp .l-seam{opacity:.35}
+.bp .wash{opacity:.0}
+.scrim{position:absolute;inset:0;background:linear-gradient(90deg,#0b1520d9 0%,#0b152099 32%,#0b152000 62%),linear-gradient(0deg,#0b1520a6 0%,#0b152000 34%);pointer-events:none}
+.divider{position:absolute;top:0;bottom:0;left:var(--x,100%);width:0;z-index:3}
+.divider::before{content:"";position:absolute;top:0;bottom:0;left:-1px;width:2px;background:var(--pencil);box-shadow:0 0 24px #efb32180}
+.handle{position:absolute;top:58%;left:0;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;background:var(--pencil);color:var(--navy);border:0;display:grid;place-items:center;cursor:ew-resize;box-shadow:0 10px 30px -8px #000a;touch-action:none;transition:transform .2s var(--ease)}
+.handle:active{transform:translate(-50%,-50%) scale(.94)}
+.handle svg{width:24px;height:24px}
+.tag{position:absolute;bottom:calc(28px + env(safe-area-inset-bottom));z-index:3;font-size:13px;font-weight:600;padding:7px 12px;border-radius:999px;background:#0b1520b3;color:#fff;backdrop-filter:blur(6px);pointer-events:none;transition:opacity .3s}
+.tag.tl{right:calc(100% - var(--x,100%) + 14px)}
+.tag.tr{left:calc(var(--x,100%) + 14px)}
+.hero .copy{position:relative;z-index:4;height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:clamp(40px,8vh,92px);pointer-events:none}
+.hero .copy>*{pointer-events:auto;max-width:620px}
+.hero h1{font-size:clamp(46px,7vw,96px);line-height:.98;letter-spacing:-.03em;font-weight:500;text-shadow:0 2px 30px #0b152066}
+.hero h1 em{font-style:italic;font-weight:400}
+.hero .lede{margin-top:20px;font-size:clamp(17px,1.5vw,20px);color:#dbe3ea;max-width:30em}
+.hero .acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.hero .btn.line{color:#fff;border-color:#ffffff66;background:#0b152033;backdrop-filter:blur(4px)}
+.hero .btn.line:hover{background:#ffffff1a}
+@media (max-width:760px){.stage{transform:translateX(-63%)}.scrim{background:linear-gradient(0deg,#0b1520f2 0%,#0b1520b3 42%,#0b152000 70%)}.hero .copy{justify-content:flex-end}.handle{top:28%}.tag{bottom:auto;top:calc(28% + 40px)}}
+@media (prefers-reduced-motion:no-preference){.js .bp path{stroke-dasharray:1;stroke-dashoffset:1}.js .hero.go .bp path{animation:pen var(--d,1.4s) var(--ease) var(--w,0s) forwards}.js .bp .l-batten,.js .bp .l-seam{stroke-dasharray:none;opacity:0}.js .hero.go .bp .l-batten,.js .hero.go .bp .l-seam{animation:inkin .8s ease var(--w) forwards}}
+@keyframes pen{to{stroke-dashoffset:0}}
+@keyframes inkin{to{opacity:.35}}
+
+/* section scaffolding */
+.sec{padding:clamp(72px,10vw,140px) 0}
+.sec h2{font-size:clamp(36px,5vw,64px);letter-spacing:-.025em}
+.intro{margin-top:16px;color:var(--muted);font-size:clamp(17px,1.4vw,19px);max-width:34em}
+.head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px 48px;margin-bottom:clamp(30px,4vw,52px)}
+.dark{background:var(--navy);color:#e8ecef}
+.dark h2{color:#fff}.dark .intro{color:#aebbc6}
+
+/* proof strip */
+.proof{border-bottom:1px solid var(--line);background:var(--white)}
+.proof .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.proof .wrap>div{padding:26px 22px;border-left:1px solid var(--line)}
+.proof .wrap>div:first-child{border-left:0;padding-left:0}
+.proof b{display:block;font:500 clamp(28px,3vw,40px)/1 var(--serif);letter-spacing:-.02em;font-variant-numeric:lining-nums}
+.proof span{display:block;margin-top:8px;font-size:14px;color:var(--muted)}
+@media (max-width:760px){.proof .wrap{grid-template-columns:1fr 1fr}.proof .wrap>div:nth-child(3){border-left:0;padding-left:0}.proof .wrap>div:nth-child(n+3){border-top:1px solid var(--line)}}
+
+/* portfolio */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{min-height:40px;padding:0 16px;border-radius:999px;border:1px solid var(--line);background:var(--white);font-size:15px;font-weight:500;cursor:pointer;transition:background-color .2s,border-color .2s,color .2s}
+.chip:hover{border-color:#9aa5ad}
+.chip[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.chip:active{transform:scale(.97)}
+.gal{display:grid;grid-template-columns:repeat(6,1fr);gap:clamp(12px,1.6vw,20px)}
+.pj{grid-column:span 2;position:relative;margin:0;border-radius:6px;overflow:hidden;background:#dfe2dc;cursor:pointer;border:0;padding:0;text-align:left;color:#fff;aspect-ratio:4/3.1}
+.pj.big{grid-column:span 4;grid-row:span 2;aspect-ratio:auto}
+.pj.wide{grid-column:span 3}
+.pj img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.1s var(--ease)}
+.pj:hover img{transform:scale(1.035)}
+.pj::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#0b1520cc,#0b152000 52%)}
+.pj .cap{position:absolute;left:18px;right:18px;bottom:16px;z-index:2}
+.pj .cap b{display:block;font:500 clamp(20px,1.8vw,26px)/1.15 var(--serif)}
+.pj .cap span{display:block;font-size:14px;color:#d2dbe3;margin-top:4px}
+.pj .open{position:absolute;top:14px;right:14px;z-index:2;width:38px;height:38px;border-radius:50%;background:#ffffffe6;color:var(--navy);display:grid;place-items:center;transition:transform .3s var(--ease)}
+.pj:hover .open{transform:rotate(90deg)}
+.pj .open svg{width:16px;height:16px}
+.pj[hidden]{display:none}
+.gal.filtered .pj{grid-column:span 2;grid-row:auto;aspect-ratio:4/3.1}
+.rnote{margin-top:16px;font-size:13.5px;color:var(--muted)}
+@media (max-width:860px){.gal{grid-template-columns:1fr 1fr}.pj,.pj.wide,.gal.filtered .pj{grid-column:span 1}.pj.big{grid-column:span 2;grid-row:auto;aspect-ratio:4/3}}
+@media (max-width:520px){.gal{grid-template-columns:1fr}.pj,.pj.big,.pj.wide,.gal.filtered .pj{grid-column:span 1;aspect-ratio:4/3}}
+
+/* project drawer */
+dialog.dr{padding:0;border:0;margin:0 0 0 auto;height:100%;max-height:100%;width:min(640px,100%);max-width:100%;background:var(--paper);color:var(--ink);box-shadow:-30px 0 80px #0006}
+dialog.dr::backdrop{background:#0b1520a6;backdrop-filter:blur(3px)}
+dialog.dr[open]{animation:slidein .5s var(--ease)}
+@keyframes slidein{from{transform:translateX(40px);opacity:0}}
+.dr .in{height:100%;overflow:auto;overscroll-behavior:contain}
+.dr .im{aspect-ratio:16/10;background:#dfe2dc}
+.dr .im img{width:100%;height:100%;object-fit:cover}
+.dr .body{padding:28px clamp(20px,4vw,40px) 40px}
+.dr h3{font-size:clamp(30px,4vw,40px)}
+.dr .meta{display:grid;grid-template-columns:1fr 1fr;gap:0;margin:22px 0;border-top:1px solid var(--line)}
+.dr .meta div{padding:14px 0;border-bottom:1px solid var(--line)}
+.dr .meta dt{font-size:13px;color:var(--muted)}
+.dr .meta dd{margin:2px 0 0;font-weight:600}
+.dr .q{font:400 21px/1.45 var(--serif);margin:24px 0 8px}
+.dr .who{font-size:14px;color:var(--muted)}
+.dr .x{position:absolute;top:14px;right:14px;width:44px;height:44px;border-radius:50%;border:0;background:#ffffffe6;color:var(--navy);display:grid;place-items:center;cursor:pointer;z-index:2;box-shadow:0 6px 20px #0003}
+.dr .x svg{width:18px;height:18px}
+.dr .acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+
+/* finish picker */
+.fin{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:clamp(24px,4vw,56px);align-items:center}
+.fin .frame{position:relative;aspect-ratio:16/10;border-radius:6px;overflow:hidden;background:#273443}
+.fin .frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .7s var(--ease)}
+.fin .frame img.on{opacity:1}
+.sw{list-style:none;margin:28px 0 0;padding:0;display:grid;gap:10px}
+.sw button{width:100%;display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:14px;padding:10px 14px 10px 10px;border-radius:12px;border:1px solid #ffffff1f;background:#ffffff08;color:#fff;cursor:pointer;text-align:left;transition:background-color .2s,border-color .2s}
+.sw button:hover{background:#ffffff12}
+.sw button[aria-pressed="true"]{border-color:var(--pencil);background:#efb3211a}
+.sw .chipc{width:44px;height:44px;border-radius:8px;box-shadow:inset 0 0 0 1px #ffffff2e;position:relative;overflow:hidden}
+.sw .chipc::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,#0000 0 9px,#00000018 9px 11px)}
+.sw b{display:block;font-weight:600}
+.sw small{display:block;color:#9fb0bf;font-size:13.5px}
+.sw .t{font-size:13px;color:#9fb0bf}
+.fin .spec{margin-top:18px;font-size:14px;color:#9fb0bf}
+@media (max-width:860px){.fin{grid-template-columns:1fr}}
+
+/* build stages: sticky picture, steps scroll past */
+.stages{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(28px,5vw,72px)}
+.stick{position:sticky;top:calc(var(--bar) + 96px);align-self:start}
+.stick .frame{position:relative;aspect-ratio:3/2;border-radius:6px;overflow:hidden;background:#d9ddd6}
+.stick .frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .6s var(--ease)}
+.stick .frame img.on{opacity:1}
+.prog{display:flex;gap:6px;margin-top:16px}
+.prog i{flex:1;height:4px;border-radius:2px;background:var(--line);overflow:hidden;position:relative}
+.prog i::after{content:"";position:absolute;inset:0;background:var(--navy);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+.prog i.on::after{transform:none}
+.wk{font-size:14px;color:var(--muted);margin-top:12px}
+.steps{list-style:none;margin:0;padding:0}
+.steps li{min-height:62vh;display:flex;flex-direction:column;justify-content:center;padding:24px 0;border-top:1px solid var(--line);opacity:.35;transition:opacity .4s}
+.steps li.on{opacity:1}
+.steps .w{font-size:14px;font-weight:600;color:var(--blue)}
+.steps h3{font-size:clamp(28px,3vw,38px);margin-top:8px}
+.steps p{margin-top:12px;color:var(--muted);font-size:17px;max-width:30em}
+.steps .mimg{display:none}
+@media (max-width:860px){.stages{grid-template-columns:1fr}.stick{display:none}.steps li{min-height:0;opacity:1;padding:28px 0}.steps .mimg{display:block;aspect-ratio:3/2;border-radius:6px;overflow:hidden;margin-bottom:18px;background:#d9ddd6}.steps .mimg img{width:100%;height:100%;object-fit:cover}}
+
+/* estimator */
+.est{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:0;border-radius:14px;overflow:hidden;background:var(--white);border:1px solid var(--line);box-shadow:0 40px 80px -50px #14212e55}
+.est .ctl{padding:clamp(22px,3.4vw,44px)}
+.est .out{padding:clamp(22px,3.4vw,44px);background:var(--navy);color:#fff;display:flex;flex-direction:column}
+.lbl{font-size:14px;font-weight:600;margin:26px 0 10px;display:flex;justify-content:space-between;gap:12px}
+.lbl:first-child{margin-top:0}
+.lbl output{font-weight:600;color:var(--blue)}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{min-height:42px;padding:0 15px;border-radius:999px;border:1px solid var(--line);background:#fff;cursor:pointer;font-size:15px;font-weight:500;transition:background-color .2s,color .2s,border-color .2s}
+.seg button[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.seg button:active{transform:scale(.97)}
+input[type=range]{width:100%;accent-color:var(--navy);height:28px}
+.est .out .k{font-size:14px;color:#a9b8c5}
+.big{font:500 clamp(40px,5vw,62px)/1 var(--serif);letter-spacing:-.02em;margin-top:8px;font-variant-numeric:lining-nums}
+.big small{font-size:.5em;color:#a9b8c5;margin:0 .2em}
+.est .rows{margin:22px 0 0;padding:0;list-style:none;border-top:1px solid #ffffff1c}
+.est .rows li{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid #ffffff1c;font-size:15px}
+.est .rows li span:last-child{font-weight:600}
+.est .out .btn{margin-top:auto}
+.est .out .fine{font-size:12.5px;color:#8fa0ae;margin:14px 0 18px}
+@media (max-width:860px){.est{grid-template-columns:1fr}}
+
+/* reviews + faq */
+.rv{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:clamp(28px,5vw,72px)}
+.score b{font:500 clamp(70px,9vw,120px)/1 var(--serif);letter-spacing:-.03em;display:block}
+.score .stars{display:flex;gap:3px;color:var(--pencil);margin-top:10px}
+.score .stars svg{width:22px;height:22px}
+.score p{margin-top:10px;color:var(--muted)}
+.rlist{display:grid;gap:0}
+.r{margin:0;padding:26px 0;border-top:1px solid var(--line)}
+.r:first-child{border-top:1.5px solid var(--navy)}
+.r .t{display:inline-block;font-size:12.5px;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--paper2);color:var(--ink)}
+.r p{font:400 clamp(19px,1.6vw,22px)/1.45 var(--serif);margin-top:12px}
+.r footer{margin-top:12px;font-size:14px;color:var(--muted)}
+.r footer b{color:var(--ink)}
+.faq{margin-top:clamp(56px,7vw,90px);display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:clamp(28px,5vw,72px)}
+.faq h2{font-size:clamp(30px,3.6vw,44px)}
+details{border-top:1px solid var(--line)}
+details:last-child{border-bottom:1px solid var(--line)}
+summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 0;font:500 20px/1.3 var(--serif)}
+summary::-webkit-details-marker{display:none}
+summary i{width:28px;height:28px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;flex:none;transition:transform .3s var(--ease),background-color .2s}
+summary i svg{width:12px;height:12px}
+details[open] summary i{transform:rotate(45deg);background:var(--pencil);border-color:var(--pencil)}
+details p{padding:0 0 22px;color:var(--muted);max-width:40em}
+@media (max-width:860px){.rv,.faq{grid-template-columns:1fr}}
+
+/* booking */
+.book{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(28px,5vw,72px)}
+.card{background:var(--white);color:var(--ink);border-radius:14px;padding:clamp(20px,3vw,34px);box-shadow:0 40px 80px -40px #000a}
+.days{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.day{min-height:62px;border-radius:10px;border:1px solid var(--line);background:#fff;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.15;transition:background-color .2s,border-color .2s,color .2s}
+.day small{font-size:12px;color:var(--muted)}
+.day b{font-size:19px;font-variant-numeric:tabular-nums}
+.day[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.day[aria-pressed="true"] small{color:#c1ccd6}
+.day:active{transform:scale(.97)}
+.times{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.time{min-height:44px;border-radius:999px;border:1px solid var(--line);background:#fff;cursor:pointer;font-weight:500}
+.time[aria-pressed="true"]{background:var(--pencil);border-color:var(--pencil);color:var(--navy);font-weight:700}
+.time:disabled{opacity:.35;text-decoration:line-through;cursor:not-allowed}
+.fl{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px}
+.fld{display:flex;flex-direction:column;gap:6px}
+.fld.full{grid-column:1/-1}
+.fld label{font-size:14px;font-weight:600}
+.fld input,.fld textarea{min-height:48px;padding:12px 14px;border-radius:8px;border:1px solid #c9cfc7;background:#fff;font-size:16px}
+.fld textarea{min-height:90px;resize:vertical}
+.fld input:focus,.fld textarea:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px #efb32155}
+.fld.bad input{border-color:#a2321f}
+.err{display:none;font-size:13px;color:#a2321f}
+.fld.bad .err{display:block}
+.card .send{width:100%;margin-top:18px}
+.card .sum{margin-top:12px;font-size:14px;color:var(--muted);text-align:center;min-height:1.5em}
+.okp{display:none}
+.card.sent .form{display:none}.card.sent .okp{display:block}
+.okp .ok{width:52px;height:52px;border-radius:50%;background:var(--pencil);color:var(--navy);display:grid;place-items:center}
+.okp .ok svg{width:24px;height:24px}
+.okp h3{font-size:32px;margin-top:16px}
+.okp p{margin-top:10px;color:var(--muted)}
+.okp .acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.book .dl{margin-top:30px;display:grid;gap:18px}
+.book .dl>div{display:grid;grid-template-columns:110px 1fr;gap:14px;padding-bottom:18px;border-bottom:1px solid #ffffff1c}
+.book dt{font-size:13px;color:#8e9daa}.book dd{margin:0}
+.book dd a{font-weight:600;text-decoration:none}
+@media (max-width:900px){.book{grid-template-columns:1fr}}
+@media (max-width:520px){.fl{grid-template-columns:1fr}.times{grid-template-columns:1fr 1fr}.days{grid-template-columns:repeat(5,minmax(0,1fr))}.day{min-height:56px}}
+
+footer.foot{background:#0b141d;color:#93a2af;font-size:14px;padding:36px 0 calc(36px + env(safe-area-inset-bottom))}
+footer.foot .wrap{display:flex;flex-wrap:wrap;gap:16px 28px;justify-content:space-between;align-items:center}
+footer.foot .logo{color:#fff}
+footer.foot a{color:#d6dde3}
+.cbar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:100;display:none;gap:8px;padding:8px;border-radius:999px;background:var(--navy);box-shadow:0 18px 40px -12px #000a;transform:translateY(140%);transition:transform .45s var(--ease)}
+.cbar.on{transform:none}
+.cbar .btn{flex:1;min-height:46px;font-size:15px}
+.cbar .btn.line{color:#fff;border-color:#ffffff40}
+@media (max-width:760px){.cbar{display:flex}footer.foot{padding-bottom:calc(96px + env(safe-area-inset-bottom))}}
+.rv-in{opacity:0;transform:translateY(18px)}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="hb-bar" role="region" aria-label="Sample site notice">
+  <p class="note"><b>Sample site</b><span class="long"> by Nolan Day Studio. Harlow Building Co. is made up, and so are its prices.</span> <a href="../">See all 3 plans</a></p>
+  <nav class="hb-plans" aria-label="Plan versions"><a href="../essential/"><span class="nm">Essential</span><span>$300</span></a><a href="./" aria-current="page"><span class="nm">Signature</span><span>$750</span></a><a href="../immersive/"><span class="nm">Immersive</span><span>$1,250</span></a></nav>
+</div>
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="logo" href="#main" aria-label="Harlow Building Co., home">{{LOGO}}<span class="wm"><b>Harlow</b><small>Building Co.</small></span></a>
+    <nav aria-label="Sections"><a href="#homes">Homes</a><a href="#exterior">Exteriors</a><a href="#stages">How we build</a><a href="#price">Pricing</a><a href="#reviews">Reviews</a></nav>
+    <a class="btn call" href="tel:+13095550148" aria-label="Call (309) 555-0148">{{PHONE_ICON}}<span class="n tnum">(309) 555-0148</span></a>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero" id="hero" aria-labelledby="h1">
+  <div class="stage" aria-hidden="true">
+    <img src="../img/hero-1200.webp" srcset="../img/hero-1200.webp 1200w, ../img/hero-2400.webp 2400w" sizes="(max-width:760px) 260vw, 120vw" alt="" width="2400" height="1350" fetchpriority="high">
+  </div>
+  <div class="bp" id="bp" aria-hidden="true"><div class="stage">{{HERO_DRAW}}</div></div>
+  <div class="scrim"></div>
+  <div class="divider" id="div"><button class="handle" id="handle" type="button" role="slider" aria-label="Compare the drawing with the finished house" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6-6 6 6 6M15 6l6 6-6 6"/></svg></button></div>
+  <span class="tag tl" aria-hidden="true">Finished</span><span class="tag tr" aria-hidden="true">Drawing</span>
+  <div class="wrap copy">
+    <h1 id="h1">From the drawing <em>to your front door.</em></h1>
+    <p class="lede">Custom homes, additions and remodels around Morton and Peoria. One crew, one fixed price, and a Friday update every week until you get the keys.</p>
+    <div class="acts"><a class="btn gold" href="#walk">Book a free site walk</a><a class="btn line" href="#homes">See the homes</a></div>
+  </div>
+</section>
+
+<div class="proof" aria-label="Harlow at a glance">
+  <div class="wrap"><div><b>4.9</b><span>from 61 Google reviews</span></div><div><b>140+</b><span>homes and additions built</span></div><div><b>7 days</b><span>from site walk to fixed price</span></div><div><b>2 years</b><span>workmanship warranty</span></div></div>
+</div>
+
+<section class="sec" id="homes" aria-labelledby="h-homes">
+  <div class="wrap">
+    <div class="head"><div><h2 id="h-homes">Homes we've built</h2><p class="intro">Every project here started as a drawing like the one above. Tap one for the details.</p></div>
+      <div class="chips" role="group" aria-label="Filter projects"><button class="chip" aria-pressed="true" data-f="all">All</button><button class="chip" aria-pressed="false" data-f="home">New homes</button><button class="chip" aria-pressed="false" data-f="add">Additions</button><button class="chip" aria-pressed="false" data-f="porch">Porches</button></div></div>
+    <div class="gal" id="gal">
+      <button class="pj big" data-k="home" data-i="0"><img src="../img/hero-1200.webp" alt="White board-and-batten farmhouse with a timber porch at golden hour" loading="lazy" width="1200" height="675"><span class="open" aria-hidden="true">{{PLUS}}</span><span class="cap"><b>The Morton farmhouse</b><span>New home, 2,400 sq ft</span></span></button>
+      <button class="pj" data-k="home" data-i="1"><img src="../img/pj-navy-800.webp" alt="Navy farmhouse with white trim and lit windows at dusk" loading="lazy" width="800" height="500"><span class="open" aria-hidden="true">{{PLUS}}</span><span class="cap"><b>Harbor navy</b><span>New home in Washington</span></span></button>
+      <button class="pj" data-k="home" data-i="2"><img src="../img/pj-sage-800.webp" alt="Sage green farmhouse with white trim on a sunny day" loading="lazy" width="800" height="500"><span class="open" aria-hidden="true">{{PLUS}}</span><span class="cap"><b>Prairie sage</b><span>New home in Eureka</span></span></button>
+      <button class="pj wide" data-k="add" data-i="3"><img src="../img/pj-charcoal-800.webp" alt="Charcoal house from the back yard with a wide glass slider" loading="lazy" width="800" height="500"><span class="open" aria-hidden="true">{{PLUS}}</span><span class="cap"><b>Charcoal kitchen bump-out</b><span>Addition in Tremont</span></span></button>
+      <button class="pj wide" data-k="porch" data-i="4"><img src="../img/pj-porch-800.webp" alt="Covered porch with cedar timber posts and a wood door" loading="lazy" width="800" height="500"><span class="open" aria-hidden="true">{{PLUS}}</span><span class="cap"><b>Cedar timber porch</b><span>Porch in Germantown Hills</span></span></button>
+    </div>
+    <p class="rnote">Images are renderings from Harlow's design files. On your site, these are photos of your own jobs.</p>
+  </div>
+</section>
+
+<dialog class="dr" id="dr" aria-labelledby="dr-h">
+  <div class="in">
+    <button class="x" type="button" id="dr-x" aria-label="Close project">{{XICON}}</button>
+    <div class="im"><img id="dr-img" src="" alt=""></div>
+    <div class="body">
+      <h3 id="dr-h"></h3>
+      <dl class="meta"><div><dt>Town</dt><dd id="dr-town"></dd></div><div><dt>Size</dt><dd id="dr-size"></dd></div><div><dt>Built in</dt><dd id="dr-time"></dd></div><div><dt>Scope</dt><dd id="dr-scope"></dd></div></dl>
+      <p id="dr-txt" style="color:var(--muted)"></p>
+      <p class="q" id="dr-q"></p><p class="who" id="dr-who"></p>
+      <div class="acts"><a class="btn solid" href="#walk" id="dr-go">Start a project like this</a><button class="btn line" type="button" id="dr-next">Next project</button></div>
+    </div>
+  </div>
+</dialog>
+
+<section class="sec dark" id="exterior" aria-labelledby="h-ext">
+  <div class="wrap fin">
+    <div class="frame" id="finFrame">
+      <img class="on" src="../img/fin-white-1200.webp" alt="The farmhouse in Classic white with black trim" width="1200" height="750" loading="lazy">
+      <img src="../img/fin-navy-1200.webp" alt="The farmhouse in Harbor navy with white trim" width="1200" height="750" loading="lazy">
+      <img src="../img/fin-sage-1200.webp" alt="The farmhouse in Prairie sage with white trim" width="1200" height="750" loading="lazy">
+      <img src="../img/fin-charcoal-1200.webp" alt="The farmhouse in Iron charcoal with black trim" width="1200" height="750" loading="lazy">
+    </div>
+    <div>
+      <h2 id="h-ext">Pick your exterior</h2>
+      <p class="intro">Four of the color schemes our clients choose most, on the same house. Tap one to see it.</p>
+      <ul class="sw" id="sw">
+        <li><button aria-pressed="true" data-i="0"><span class="chipc" style="background:#ecebe5"></span><span><b>Classic white</b><small>Black trim, fir front door</small></span><span class="t">Most picked</span></button></li>
+        <li><button aria-pressed="false" data-i="1"><span class="chipc" style="background:#2c3e55"></span><span><b>Harbor navy</b><small>White trim, fir front door</small></span><span class="t"></span></button></li>
+        <li><button aria-pressed="false" data-i="2"><span class="chipc" style="background:#a9b8a0"></span><span><b>Prairie sage</b><small>White trim, fir front door</small></span><span class="t"></span></button></li>
+        <li><button aria-pressed="false" data-i="3"><span class="chipc" style="background:#3b3e42"></span><span><b>Iron charcoal</b><small>Black trim, black front door</small></span><span class="t"></span></button></li>
+      </ul>
+      <p class="spec">Board-and-batten siding, standing-seam metal roof and black-frame windows come standard. Colors cost the same.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="stages" aria-labelledby="h-st">
+  <div class="wrap">
+    <div class="head"><div><h2 id="h-st">How we build a home</h2><p class="intro">The same house, start to finish. This is what you'll see in your Friday updates.</p></div></div>
+    <div class="stages">
+      <div class="stick" aria-hidden="true">
+        <div class="frame" id="stFrame">{{STAGE_IMGS}}</div>
+        <div class="prog" id="prog"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <p class="wk" id="wk">Weeks 1 to 3</p>
+      </div>
+      <ol class="steps" id="steps">
+        <li data-i="0"><div class="mimg"><img src="../img/st-1-800.webp" alt="Concrete foundation walls on a cleared lot with string lines" loading="lazy" width="800" height="533"></div><span class="w">Weeks 1 to 3</span><h3>Footings and foundation</h3><p>We stake the corners with you, dig, pour footings and set the foundation walls. Nothing goes up until the base is square to within a quarter inch.</p></li>
+        <li data-i="1"><div class="mimg"><img src="../img/st-2-800.webp" alt="First-floor wall framing going up on the deck" loading="lazy" width="800" height="533"></div><span class="w">Weeks 4 to 6</span><h3>Floor deck and first walls</h3><p>Joists, subfloor, then walls at 16 inches on center with real headers over every opening. You can walk your rooms by week six.</p></li>
+        <li data-i="2"><div class="mimg"><img src="../img/st-3-800.webp" alt="Two floors framed with roof rafters in place" loading="lazy" width="800" height="533"></div><span class="w">Weeks 7 to 9</span><h3>Second floor and roof framing</h3><p>The second floor goes up, then rafters and the ridge. This is the week most families come out for pictures.</p></li>
+        <li data-i="3"><div class="mimg"><img src="../img/st-4-800.webp" alt="House sheathed and wrapped with the roof decked" loading="lazy" width="800" height="533"></div><span class="w">Weeks 10 to 12</span><h3>Dried in</h3><p>Sheathing, house wrap, roof deck and windows. Once it's dried in, weather stops being a schedule problem.</p></li>
+        <li data-i="4"><div class="mimg"><img src="../img/st-5-800.webp" alt="Siding going on and the porch framed" loading="lazy" width="800" height="533"></div><span class="w">Weeks 13 to 18</span><h3>Siding, roof and porch</h3><p>Board-and-batten, standing-seam metal and the timber porch, while the inside crews run wiring, plumbing and drywall.</p></li>
+        <li data-i="5"><div class="mimg"><img src="../img/st-6-800.webp" alt="The finished farmhouse at golden hour with lights on" loading="lazy" width="800" height="533"></div><span class="w">Weeks 19 to 34</span><h3>Finishes, then the keys</h3><p>Cabinets, floors, paint, landscaping and the final walkthrough. We fix the punch list before you sign off, not after.</p></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="price" aria-labelledby="h-price" style="padding-top:0">
+  <div class="wrap">
+    <div class="head"><div><h2 id="h-price">Price your project</h2><p class="intro">A real starting range in ten seconds. Your fixed price comes after a free site walk.</p></div></div>
+    <div class="est">
+      <div class="ctl">
+        <div class="lbl" id="l-job">What are you building?</div>
+        <div class="seg" role="group" aria-labelledby="l-job" id="job"><button aria-pressed="true" data-j="home">New home</button><button aria-pressed="false" data-j="add">Addition</button><button aria-pressed="false" data-j="kit">Kitchen</button><button aria-pressed="false" data-j="base">Basement</button><button aria-pressed="false" data-j="porch">Porch</button></div>
+        <label class="lbl" for="size"><span>Size</span><output id="sizeOut" for="size">2,400 sq ft</output></label>
+        <input type="range" id="size" min="1200" max="4500" step="50" value="2400">
+        <div class="lbl" id="l-fin">Finish level</div>
+        <div class="seg" role="group" aria-labelledby="l-fin" id="finish"><button aria-pressed="false" data-l="0">Standard</button><button aria-pressed="true" data-l="1">Upgraded</button><button aria-pressed="false" data-l="2">Premium</button></div>
+        <p id="finNote" style="margin-top:12px;font-size:14.5px;color:var(--muted)">Quartz counters, LVP floors, painted cabinets.</p>
+      </div>
+      <div class="out" aria-live="polite">
+        <span class="k">Starting range</span>
+        <div class="big" id="range">$540k<small>to</small>$610k</div>
+        <ul class="rows"><li><span>Typical timeline</span><span id="rTime">7 to 9 months</span></li><li><span>Price per sq ft</span><span id="rPer">$225 to $255</span></li><li><span>Deposit at signing</span><span id="rDep">10%</span></li></ul>
+        <p class="fine">Sample numbers for a made-up builder. Your site uses your own pricing.</p>
+        <a class="btn gold" href="#walk" id="sendEst">Send this to Harlow</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="reviews" aria-labelledby="h-rv" style="background:var(--white);border-top:1px solid var(--line)">
+  <div class="wrap">
+    <div class="rv">
+      <div class="score"><h2 id="h-rv" class="sr">Reviews</h2><b>4.9</b><div class="stars" aria-label="4.9 out of 5 stars">{{STARS}}</div><p>61 Google reviews, all from Central Illinois homeowners.</p></div>
+      <div class="rlist">
+        <blockquote class="r"><span class="t">New home</span><p>They gave us one price in the first week and never moved it. We moved in two days early.</p><footer><b>Dana K.</b>, Morton</footer></blockquote>
+        <blockquote class="r"><span class="t">Addition</span><p>Every Friday we got photos and a list of what was next. I never once had to chase anybody.</p><footer><b>Mike and Ellen R.</b>, Washington</footer></blockquote>
+        <blockquote class="r"><span class="t">Porch</span><p>The porch came out better than the drawing, and the crew swept up every single day.</p><footer><b>Sharon T.</b>, Eureka</footer></blockquote>
+      </div>
+    </div>
+    <div class="faq">
+      <h2>Questions people ask first</h2>
+      <div>
+        <details><summary>Do you build on my lot, or do I need to buy one of yours?<i>{{PLUS}}</i></summary><p>Either. Most of our homes go on land the family already owns. If you're still looking, we'll walk lots with you before you buy and tell you what the site will cost to build on.</p></details>
+        <details><summary>Can I bring my own plans?<i>{{PLUS}}</i></summary><p>Yes. We price your architect's plans as drawn, or our designer can draw a plan with you. Either way you get one fixed price before anything starts.</p></details>
+        <details><summary>What happens if I want to change something mid-build?<i>{{PLUS}}</i></summary><p>You get a written change order with the price and any schedule impact. Nothing changes until you sign it, so the final bill never surprises you.</p></details>
+        <details><summary>How do payments work?<i>{{PLUS}}</i></summary><p>10% at signing, then draws tied to finished stages: foundation, framing, dried in, drywall and final. Most families pay through their construction loan.</p></details>
+        <details><summary>How far do you travel?<i>{{PLUS}}</i></summary><p>About 30 miles from Morton: Peoria, East Peoria, Washington, Pekin, Tremont, Eureka, Germantown Hills, Metamora and the towns in between.</p></details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec dark" id="walk" aria-labelledby="h-walk">
+  <div class="wrap book">
+    <div>
+      <h2 id="h-walk">Book a free site walk</h2>
+      <p class="intro">Pick a day and a time. Jake or Tom meets you on site, measures, and you get a fixed price within seven days.</p>
+      <dl class="dl"><div><dt>Call or text</dt><dd><a href="tel:+13095550148" class="tnum">(309) 555-0148</a></dd></div><div><dt>Office</dt><dd>Morton, Illinois<br>Monday to Friday, 7 AM to 5 PM</dd></div><div><dt>Site walks</dt><dd>About an hour, free, no obligation</dd></div></dl>
+    </div>
+    <div class="card" id="card">
+      <div class="form">
+        <div class="lbl" id="l-day" style="margin-top:0">Pick a day</div>
+        <div class="days" id="days" role="group" aria-labelledby="l-day"></div>
+        <div class="lbl" id="l-time">Pick a time</div>
+        <div class="times" id="times" role="group" aria-labelledby="l-time"></div>
+        <div class="lbl">Your details</div>
+        <div class="fl">
+          <div class="fld"><label for="b-name">Name</label><input id="b-name" autocomplete="name"><span class="err">Add your name.</span></div>
+          <div class="fld"><label for="b-phone">Phone</label><input id="b-phone" type="tel" inputmode="tel" autocomplete="tel"><span class="err">Add a phone number with area code.</span></div>
+          <div class="fld full"><label for="b-note">The project <span style="font-weight:400;color:var(--muted)">(optional)</span></label><textarea id="b-note" placeholder="Address or town, and what you'd like to build."></textarea></div>
+        </div>
+        <button class="btn solid send" type="button" id="bookBtn">Book my site walk</button>
+        <p class="sum" id="sum">Pick a day and a time above.</p>
+      </div>
+      <div class="okp" role="status" aria-live="polite" tabindex="-1" id="okp">
+        <div class="ok">{{CHECK}}</div>
+        <h3>You're booked, <span id="okName"></span>.</h3>
+        <p id="okWhen"></p>
+        <p>On a live site Harlow gets this instantly and texts you to confirm. This is a sample, so nothing was sent.</p>
+        <div class="acts"><button class="btn gold" type="button" id="ics">Add to my calendar</button><button class="btn line" type="button" id="rebook">Change time</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <a class="logo" href="#main">{{LOGO}}<span class="wm"><b>Harlow</b><small>Building Co.</small></span></a>
+    <span>Morton, Illinois. <a href="tel:+13095550148" class="tnum">(309) 555-0148</a></span>
+    <span>Sample site by <a href="https://nday27.github.io/">Nolan Day Studio</a></span>
+  </div>
+</footer>
+<div class="cbar" id="cbar"><a class="btn gold" href="tel:+13095550148">{{PHONE_ICON}}Call now</a><a class="btn line" href="#walk">Book a walk</a></div>
+
+<script src="../assets/bar.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
+<script src="sig.js" defer></script>
+<script>/*nds-count*/(function(){try{var ls=function(){try{return localStorage.getItem("nds_nc")}catch(e){return null}};if(location.hash==="#nc"){try{localStorage.setItem("nds_nc","1")}catch(e){}}if(navigator.webdriver||ls())return;var p=location.pathname.replace(/index\.html$/,"").replace(/^\/+|\/+$/g,"");var k=p?(p.indexOf("p/")===0?p.split("/").pop():p.replace(/[^A-Za-z0-9]+/g,"-")):"home";k=k.slice(0,60);if(k.length<3)k="pg-"+k;fetch("https://abacus.jasoncameron.dev/hit/ndstudio/"+k,{keepalive:true}).catch(function(){})}catch(e){}})();</script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+[
+ {"name":"hero","w":2400,"h":1350,"q":"p=1&tod=.56&cam=-14,2.0,25&tgt=-1.5,4.4,2&fov=36"},
+ {"name":"hero-draw","w":1600,"h":900,"svg":1,"q":"p=1&tod=.56&cam=-14,2.0,25&tgt=-1.5,4.4,2&fov=36"},
+ {"name":"elev-draw","w":1600,"h":900,"svg":1,"q":"p=1&tod=.3&cam=3.5,4.9,80&tgt=3.5,4.9,0&fov=10.5"},
+ {"name":"wing-draw","w":1600,"h":1000,"svg":1,"q":"p=1&tod=.56&cam=24,3,16&tgt=4,3.5,0&fov=34&zmax=12"},
+ {"name":"porch-draw","w":1600,"h":1000,"svg":1,"q":"p=1&tod=.56&cam=-2.5,1.6,12&tgt=0.5,2.6,4.5&fov=42"},
+ {"name":"fin-white","w":1600,"h":1000,"q":"p=1&tod=.45&cam=-9,2.2,26&tgt=1,4.2,2&fov=32&siding=white&trim=black"},
+ {"name":"fin-navy","w":1600,"h":1000,"q":"p=1&tod=.45&cam=-9,2.2,26&tgt=1,4.2,2&fov=32&siding=navy&trim=white"},
+ {"name":"fin-sage","w":1600,"h":1000,"q":"p=1&tod=.45&cam=-9,2.2,26&tgt=1,4.2,2&fov=32&siding=sage&trim=white"},
+ {"name":"fin-charcoal","w":1600,"h":1000,"q":"p=1&tod=.45&cam=-9,2.2,26&tgt=1,4.2,2&fov=32&siding=charcoal&trim=black&door=black"},
+ {"name":"st-1","w":1200,"h":800,"q":"p=.12&tod=.3&cam=-16,9,22&tgt=2.5,3.2,0&fov=34"},
+ {"name":"st-2","w":1200,"h":800,"q":"p=.31&tod=.3&cam=-16,9,22&tgt=2.5,3.2,0&fov=34"},
+ {"name":"st-3","w":1200,"h":800,"q":"p=.575&tod=.3&cam=-16,9,22&tgt=2.5,3.2,0&fov=34"},
+ {"name":"st-4","w":1200,"h":800,"q":"p=.705&tod=.3&cam=-16,9,22&tgt=2.5,3.2,0&fov=34"},
+ {"name":"st-5","w":1200,"h":800,"q":"p=.83&tod=.4&cam=-16,9,22&tgt=2.5,3.2,0&fov=34"},
+ {"name":"st-6","w":1200,"h":800,"q":"p=1&tod=.6&cam=-16,9,22&tgt=2.5,3.2,0&fov=34"},
+ {"name":"pj-navy","w":1600,"h":1000,"q":"p=1&tod=.84&cam=22,2.6,19&tgt=3,3.8,0&fov=36&siding=navy&trim=white"},
+ {"name":"pj-sage","w":1600,"h":1000,"q":"p=1&tod=.3&cam=-22,2.5,10&tgt=1,4,0&fov=40&siding=sage&trim=white&roof=weathered"},
+ {"name":"pj-charcoal","w":1600,"h":1000,"q":"p=1&tod=.55&cam=10,2.4,-24&tgt=3,4,0&fov=38&siding=charcoal&trim=black&door=black"},
+ {"name":"pj-porch","w":1600,"h":1000,"q":"p=1&tod=.62&cam=-2.5,1.6,12&tgt=0.5,2.6,4.5&fov=42"}
+]
