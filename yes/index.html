@@ -100,6 +100,8 @@ var price=num("price",10000),mo=num("mo",2000);
 var OPTS=[["starter"],["own"],["signature"],["immersive"],["unsure"]];
 var picked=NDS.planFromParam()||(q.get("plan")||"").toLowerCase()==="unsure"&&"unsure"||"starter";
 var showBig=picked==="signature"||picked==="immersive";
+/* Someone who tapped "Pick Signature" or "Pick Immersive" sees that plan first, already ticked. */
+if(showBig)OPTS.sort(function(a,b){return (b[0]===picked)-(a[0]===picked)});
 OPTS.forEach(function(o){var id=o[0],p=NDS.PLANS[id];
   if((id==="signature"||id==="immersive")&&!showBig)return;
   var lab=document.createElement("label");lab.className="opt";
