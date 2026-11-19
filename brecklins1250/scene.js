@@ -105,11 +105,11 @@ function slatTex() {
 }
 
 /* ---------- sky ---------- */
-const skyU = {top: {value: new THREE.Color(0x061026)}, bot: {value: new THREE.Color(0x29467a)}};
+const skyU = {top: {value: new THREE.Color(0x061026)}, bot: {value: new THREE.Color(0x29467a)}, st: {value: 1}};
 const sky = new THREE.Mesh(new THREE.SphereGeometry(200, 32, 16), new THREE.ShaderMaterial({
   side: THREE.BackSide, depthWrite: false, uniforms: skyU,
   vertexShader: "varying vec3 v;void main(){v=normalize(position);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}",
-  fragmentShader: "uniform vec3 top;uniform vec3 bot;varying vec3 v;void main(){float t=smoothstep(-.05,.55,v.y);gl_FragColor=vec4(mix(bot,top,t),1.);}"
+  fragmentShader: "uniform vec3 top;uniform vec3 bot;uniform float st;varying vec3 v;float h(vec3 p){return fract(sin(dot(p,vec3(12.9898,78.233,45.164)))*43758.5453);}void main(){float t=smoothstep(-.05,.55,v.y);vec3 c=mix(bot,top,t);c+=vec3(1.,.5,.22)*.22*st*exp(-abs(v.y-.03)*14.);vec3 q=floor(v*520.);float s=step(.9965,h(q))*smoothstep(.1,.45,v.y)*st*(.55+.45*h(q+1.));c+=vec3(s);gl_FragColor=vec4(c,1.);}"
 }));
 scene.add(sky);
 scene.fog = new THREE.Fog(0x162a4f, 45, 120);
@@ -181,9 +181,9 @@ const pumpTex = new THREE.CanvasTexture(pumpCv); pumpTex.colorSpace = THREE.SRGB
 function drawPump(g, note) {
   pumpCx.fillStyle = "#06101f"; pumpCx.fillRect(0, 0, 256, 200);
   pumpCx.fillStyle = "#7fd6ff"; pumpCx.textAlign = "center";
-  pumpCx.font = '700 26px "Instrument Sans", sans-serif'; pumpCx.fillText(note, 128, 46);
+  pumpCx.font = '700 26px "Barlow", sans-serif'; pumpCx.fillText(note, 128, 46);
   pumpCx.font = '800 88px "Big Shoulders Display", sans-serif'; pumpCx.fillText(g.toFixed(2), 128, 140);
-  pumpCx.font = '600 22px "Instrument Sans", sans-serif'; pumpCx.fillText("GALLONS", 128, 182);
+  pumpCx.font = '600 22px "Barlow", sans-serif'; pumpCx.fillText("GALLONS", 128, 182);
   pumpTex.needsUpdate = true;
 }
 drawPump(0, "FULL SERVICE");
@@ -303,6 +303,7 @@ function applyLook(t) {
   hemi.intensity = k.hemi; moon.intensity = k.moon; moon.color.set(k.moonC);
   R.toneMappingExposure = k.exp;
   const g = k.glow;
+  skyU.st.value = Math.max(0, (g - 0.2) / 0.8);
   canopyLight.intensity = 70 * g; fill1.intensity = fill2.intensity = 10 * g; storeGlow.intensity = 8 * g;
   mat.glow.emissiveIntensity = 0.5 + 1.5 * g; mat.store.emissiveIntensity = 0.25 + 0.6 * g;
   fasciaMat.emissiveIntensity = 0.15 + 0.5 * g;
