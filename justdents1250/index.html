@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Just Dents of Illinois · Immersive sample by Nolan Day Studio</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="Immersive sample site for Just Dents of Illinois, paintless dent repair in Morton, IL: a 3D hood you can hail and repair. Made by Nolan Day Studio.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cellipse cx='16' cy='16' rx='15' ry='11' fill='%23F5B301' stroke='%23D62D20' stroke-width='2'/%3E%3Ctext x='16' y='21' font-family='Arial' font-weight='900' font-size='13' text-anchor='middle' fill='%2315130F'%3EJD%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+:root{--ink:#f4f1ea;--mut:#bdb7ab;--dim:#878175;--bg:#09090b;--card:#131317;--line:#ffffff17;--y:#F5B301;--red:#E0382B}
+*{box-sizing:border-box}html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif;overflow-x:hidden}
+a{color:inherit}
+.demo{position:relative;z-index:30;background:var(--y);color:#15130F;font-size:13px;text-align:center;padding:8px 12px;font-weight:600;line-height:1.45}.demo a{font-weight:800}
+nav{position:absolute;top:var(--bt,36px);left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px clamp(16px,4vw,48px)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font:800 18px/1 Archivo,sans-serif;font-stretch:118%;text-transform:uppercase}
+.logo svg{width:46px;height:34px;flex:none;text-transform:none}
+.logo small{display:block;font:600 10.5px Inter,sans-serif;letter-spacing:.2em;color:var(--mut);margin-top:3px}
+nav .links a{margin-left:22px;text-decoration:none;font-size:14px;color:var(--mut)}nav .links a:hover{color:var(--ink)}nav .links a.pillbtn{color:#15130F}
+.pillbtn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--y);color:#15130F;font-weight:700;font-size:14px;text-decoration:none;padding:12px 18px;border-radius:99px;border:0;cursor:pointer;min-height:44px;font-family:Inter,sans-serif}
+.ghost{background:#ffffff14;color:var(--ink);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.scene{position:relative;height:min(calc(100svh - var(--bt,36px)),920px);min-height:640px;overflow:hidden;background:radial-gradient(120% 80% at 50% 0%,#2a2416,#121114 45%,#060607 80%)}
+#c{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:pan-y;cursor:grab}
+#c:active{cursor:grabbing}
+.veil{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,#09090bcc 0%,#09090b00 50%),linear-gradient(180deg,#09090b99 0%,#09090b00 26%,#09090b00 64%,#09090b 100%)}
+.hcopy{position:absolute;left:clamp(16px,5vw,64px);right:16px;top:clamp(100px,15vh,170px);max-width:560px;z-index:5;pointer-events:none}
+.kicker{display:inline-block;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--y);font-weight:600;margin-bottom:10px}
+h1{font:900 clamp(42px,min(7.4vw,10.5vh),96px)/.9 Archivo,sans-serif;font-stretch:110%;text-transform:uppercase;margin:0 0 16px;text-shadow:0 4px 30px #000a}h1 i{font-style:normal;color:var(--y)}
+.lede{font-size:clamp(16px,1.6vw,19px);color:#e6e1d6;text-shadow:0 2px 16px #000;max-width:450px;margin:0 0 22px}
+.hcta{display:flex;gap:10px;flex-wrap:wrap;pointer-events:auto}
+.dock{position:absolute;left:50%;bottom:clamp(14px,4vh,34px);transform:translateX(-50%);z-index:6;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;width:min(1040px,calc(100% - 24px))}
+.panel{background:#0e0e12cc;border:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-radius:18px;padding:10px 12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.panel .lab,.panel label{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);font-weight:600;margin-right:2px}
+.seg{display:flex;background:#ffffff0d;border-radius:99px;padding:3px}
+.seg button{border:0;background:transparent;color:var(--mut);font:600 13px Inter,sans-serif;padding:8px 13px;border-radius:99px;cursor:pointer;transition:.25s;min-height:36px;display:inline-flex;align-items:center;gap:6px}
+.seg button[aria-pressed=true]{background:var(--ink);color:#121216}
+.sw{width:12px;height:12px;border-radius:50%;display:inline-block;box-shadow:0 0 0 1px #ffffff40 inset}
+input[type=range]{accent-color:var(--y);width:150px}
+.out{font:600 14px Inter;min-width:46px}
+.act{border:0;background:var(--y);color:#15130F;font:700 13px Inter,sans-serif;padding:9px 14px;border-radius:99px;cursor:pointer;min-height:36px}
+.act.sec{background:#ffffff1a;color:var(--ink)}
+.hint{position:absolute;right:clamp(16px,4vw,48px);top:clamp(110px,16vh,170px);z-index:5;font-size:12px;color:var(--mut);background:#0e0e12aa;border:1px solid var(--line);border-radius:99px;padding:7px 12px;pointer-events:none;transition:opacity .6s}
+.fallback{position:absolute;inset:0;display:none;place-items:center;text-align:center;color:var(--mut);padding:24px}
+.noGL .fallback{display:grid}.noGL #c,.noGL .dock,.noGL .hint{display:none}
+section{padding:clamp(64px,9vw,120px) clamp(16px,5vw,64px);max-width:1200px;margin:0 auto}
+.k{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--y);font-weight:600}
+h2{font:900 clamp(34px,4.8vw,62px)/.95 Archivo,sans-serif;font-stretch:108%;text-transform:uppercase;margin:10px 0 16px}h2 i{font-style:normal;color:var(--y)}
+.sub{color:var(--mut);max-width:620px;margin:0}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:34px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px}
+.stat b{display:block;font:900 40px/1 Archivo,sans-serif;font-stretch:110%;color:var(--ink)}.stat span{color:var(--dim);font-size:14px}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start;margin-top:34px}
+.claim{background:linear-gradient(160deg,#1c1a14,#111114);border:1px solid var(--line);border-radius:22px;padding:24px}
+.claim h3{font:800 26px Archivo,sans-serif;font-stretch:106%;margin:0 0 6px;text-transform:uppercase}
+.crow{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px dashed var(--line);color:var(--mut);font-size:15px}
+.crow b{color:var(--ink);text-align:right}
+.meter{height:10px;border-radius:99px;background:#ffffff12;margin-top:18px;overflow:hidden}.meter i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--red),var(--y));transition:width .2s}
+.big{display:flex;justify-content:space-between;align-items:baseline;margin-top:12px}.big b{font:900 44px Archivo,sans-serif;color:var(--y)}
+.note{font-size:12.5px;color:var(--dim);margin-top:10px}
+.steps{list-style:none;padding:0;margin:0;display:grid;gap:16px}
+.steps li{display:grid;grid-template-columns:44px 1fr;gap:12px}.steps b{font:900 26px Archivo,sans-serif;color:var(--y)}.steps h4{margin:0 0 2px;font-size:18px}.steps span{color:var(--mut);font-size:15px}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:34px}
+.card{position:relative;border-radius:22px;overflow:hidden;min-height:320px;border:1px solid var(--line);padding:22px;display:flex;flex-direction:column;justify-content:flex-end;transform-style:preserve-3d;transition:transform .3s;margin:0}
+.card blockquote{margin:0 0 12px;font:500 19px/1.45 Inter,sans-serif;position:relative}.card figcaption{color:#e7e1d4;font-size:14px;position:relative}
+.card::before{content:"";position:absolute;inset:0;opacity:.9}
+.c1::before{background:radial-gradient(90% 70% at 30% 10%,#f5b301,#8a4b0b 48%,#1d1208)}
+.c2::before{background:radial-gradient(90% 70% at 70% 10%,#e0382b,#6e1711 48%,#1a0907)}
+.c3::before{background:radial-gradient(90% 70% at 50% 10%,#9fb3c8,#3b4a5c 48%,#0f1318)}
+.card::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 120%,#000d,transparent 70%)}
+.card .glyph{position:absolute;top:22px;left:22px;font-size:15px;letter-spacing:3px;color:#fff;z-index:1}
+form{display:grid;gap:12px}
+form label{display:grid;gap:6px;font-size:13px;color:var(--mut)}
+input:not([type=range]),select{font:16px Inter,sans-serif;background:#0e0e12;border:1px solid var(--line);color:var(--ink);border-radius:12px;padding:12px 14px;width:100%}
+.ok{background:#231c08;border:1px solid #6b5420;border-radius:14px;padding:14px;color:#f3dc9c}
+.visit{display:grid;gap:14px}.visit div{border-top:1px solid var(--y);padding-top:12px}.visit b{display:block;font:800 18px Archivo,sans-serif;text-transform:uppercase}.visit span{color:var(--mut)}
+footer{border-top:1px solid var(--line);padding:28px clamp(16px,5vw,64px) 40px;color:var(--dim);font-size:13px;text-align:center;line-height:1.7}
+.rv{opacity:0;transform:translateY(24px);transition:opacity .8s,transform .8s}.rv.in{opacity:1;transform:none}
+:focus-visible{outline:2px solid var(--y);outline-offset:3px}
+@media (max-width:860px){.demo .lg,nav .lg{display:none}.panel .lab,.panel label{display:none}.panel{padding:6px 8px;flex:none;flex-wrap:nowrap}.seg button{padding:7px 10px;font-size:12px}.dock{gap:6px;flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;scrollbar-width:none;-webkit-mask:linear-gradient(90deg,#000 86%,#0000);bottom:12px}.dock::-webkit-scrollbar{display:none}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.split,.cards{grid-template-columns:minmax(0,1fr)}nav .links a:not(.pillbtn){display:none}nav .pillbtn{padding:9px 14px;font-size:13px}.logo small{display:none}.hint{display:none}.hcopy{top:96px}input[type=range]{width:110px}}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="demo">Immersive sample made for Just Dents of Illinois by Nolan Day Studio<span class="lg">. Not the official site</span>. <a href="https://nday27.github.io/meet/?s=just-dents-of-illinois-inc-morton">See plans →</a></div>
+<nav><a class="logo" href="#"><svg viewBox="0 0 52 38" aria-hidden="true"><ellipse cx="26" cy="19" rx="24.5" ry="17.5" fill="#F5B301" stroke="#E0382B" stroke-width="2.6"/><text x="26" y="17.5" font-family="Archivo,Arial" font-weight="900" font-size="11.5" text-anchor="middle" fill="#15130F" transform="rotate(-6 26 19)">Just</text><text x="27" y="28.5" font-family="Archivo,Arial" font-weight="900" font-size="11.5" text-anchor="middle" fill="#15130F" transform="rotate(-6 26 19)">Dents</text></svg><span>Just Dents<small>of Illinois · Morton</small></span></a><div class="links"><a href="#how">How it works</a><a href="#claim">Hail claims</a><a href="#reviews">Reviews</a><a class="pillbtn" href="#book" style="margin-left:22px">Book<span class="lg"> a hail check</span></a></div></nav>
+
+<header class="scene" id="top">
+  <canvas id="c" aria-label="Interactive 3D car hood under a dent repair light board. Drag to turn it. Use the controls to drop hail, change the paint color and slide the repair from dented to fixed."></canvas>
+  <div class="fallback"><div><b style="font:900 30px Archivo,sans-serif;color:#fff;text-transform:uppercase">Just Dents of Illinois</b><br>The 3D preview isn't available on this device. Everything below still works.</div></div>
+  <div class="veil"></div>
+  <div class="hcopy">
+    <span class="kicker">Paintless dent repair · Morton, IL</span>
+    <h1>Hail hit. <i>Watch it leave.</i></h1>
+    <p class="lede">This hood just took a storm. Turn it under the light board, then slide the repair and watch every dent come out without a drop of paint.</p>
+    <div class="hcta"><a class="pillbtn" href="#book">Book a hail check</a><a class="pillbtn ghost" href="tel:+13092666677">(309) 266-6677</a></div>
+  </div>
+  <div class="hint" id="hint">Drag to turn the hood</div>
+  <div class="dock" role="group" aria-label="Scene controls">
+    <div class="panel"><label for="fix">Repair</label><input type="range" id="fix" min="0" max="100" step="1" value="0"><span class="out" id="fout">0%</span><button class="act" type="button" id="auto">Fix it</button></div>
+    <div class="panel"><span class="lab">Hail</span><div class="seg" id="hail"><button aria-pressed="false" data-v="1">Pea</button><button aria-pressed="true" data-v="2">Quarter</button><button aria-pressed="false" data-v="3">Golf ball</button></div><button class="act sec" type="button" id="storm">Storm again</button></div>
+    <div class="panel"><span class="lab">Paint</span><div class="seg" id="paint"><button aria-pressed="true" data-v="#a3121a"><i class="sw" style="background:#a3121a"></i>Red</button><button aria-pressed="false" data-v="#0b0b0d"><i class="sw" style="background:#0b0b0d"></i>Black</button><button aria-pressed="false" data-v="#b9bec4"><i class="sw" style="background:#b9bec4"></i>Silver</button><button aria-pressed="false" data-v="#173a78"><i class="sw" style="background:#173a78"></i>Blue</button></div></div>
+  </div>
+</header>
+
+<section id="how" class="rv">
+  <span class="k">How it works</span>
+  <h2>Pushed out from behind. <i>Never painted.</i></h2>
+  <p class="sub">A striped light board is a real dent repair tool. Every dent bends its reflection. Kurt works the metal from underneath until the lines run straight, so the factory paint never gets touched.</p>
+  <div class="stats"><div class="stat"><b>5.0</b><span>Google rating</span></div><div class="stat"><b>16</b><span>Google reviews</span></div><div class="stat"><b>1999</b><span>Just Dents founded</span></div><div class="stat"><b>0</b><span>Coats of paint</span></div></div>
+</section>
+
+<section id="claim" class="rv">
+  <span class="k">Hail claims</span>
+  <h2>Your hail check, <i>live.</i></h2>
+  <p class="sub">This card reads the 3D hood at the top. Drop more hail or slide the repair up there and the numbers here follow.</p>
+  <div class="split">
+    <div class="claim" aria-live="polite">
+      <h3>Hood inspection</h3>
+      <div class="crow"><span>Dents found under the lights</span><b id="cn">0</b></div>
+      <div class="crow"><span>Hail size</span><b id="cs">Quarter</b></div>
+      <div class="crow"><span>Repair method</span><b>Paintless, from behind</b></div>
+      <div class="crow"><span>Factory paint</span><b>Kept</b></div>
+      <div class="meter"><i id="cm"></i></div>
+      <div class="big"><span>Repaired</span><b id="cp">0%</b></div>
+      <p class="note">A demo of the 3D model on this page. A real hail check is done in person, panel by panel, by Kurt.</p>
+    </div>
+    <ol class="steps">
+      <li><b>01</b><div><h4>Hail check under the lights</h4><span>The whole car, every panel, roof and hood, so nothing gets missed.</span></div></li>
+      <li><b>02</b><div><h4>Photos and paperwork to your insurer</h4><span>The pictures and claim paperwork handled for you.</span></div></li>
+      <li><b>03</b><div><h4>Dents out, paint untouched</h4><span>Worked out one by one from behind. No filler and no color to match.</span></div></li>
+    </ol>
+  </div>
+</section>
+
+<section id="reviews" class="rv">
+  <span class="k">Reviews</span>
+  <h2>5.0 stars. <i>16 reviews.</i></h2>
+  <div class="cards">
+    <figure class="card c1" data-tilt><span class="glyph" aria-label="5 stars">★★★★★</span><blockquote>“Excellent work. Amazing how the hood looks now after all the hail damage that happened.”</blockquote><figcaption>Greg T. · Google review</figcaption></figure>
+    <figure class="card c2" data-tilt><span class="glyph" aria-label="5 stars">★★★★★</span><blockquote>“Was a ‘walk in’ customer and got in immediately. 3 or 4 dents in the roof are now completely gone.”</blockquote><figcaption>Brian · Google review</figcaption></figure>
+    <figure class="card c3" data-tilt><span class="glyph" aria-label="5 stars">★★★★★</span><blockquote>“Great experience, very kind and professional.”</blockquote><figcaption>Jeffory W. · Google review</figcaption></figure>
+  </div>
+</section>
+
+<section id="book" class="rv">
+  <span class="k">Book a hail check</span>
+  <h2>Bring it to <i>North Main.</i></h2>
+  <div class="split">
+    <form id="tf"><label>Your name<input required name="n" autocomplete="name"></label><label>Phone<input required name="p" type="tel" autocomplete="tel"></label><label>Year, make and model<input name="c" placeholder="2019 Jeep Cherokee"></label><label>What happened?<select name="s"><option>Hail damage</option><option>Door ding</option><option>Dent or crease</option><option>Dealer or lot work</option></select></label><button class="pillbtn" type="submit" style="justify-self:start">Request a hail check</button><div class="ok" id="tok" hidden>Request ready. In this preview nothing is sent. On the live site it goes straight to Kurt.</div></form>
+    <div class="visit"><div><b>Where</b><span><a href="https://www.google.com/maps/search/?api=1&amp;query=Just+Dents+of+Illinois+832+N+Main+St+Morton+IL+61550" target="_blank" rel="noopener">832 N Main St</a>, Morton, IL 61550</span></div><div><b>Call</b><span><a href="tel:+13092666677">(309) 266-6677</a> · ask for Kurt</span></div><div><b>Insurance</b><span>Hail claim photos and paperwork, handled.</span></div></div>
+  </div>
+</section>
+
+<footer>© Just Dents of Illinois, Inc. · 832 N Main St, Morton, IL 61550 · (309) 266-6677<br>Immersive sample made by <a href="https://nday27.github.io/">Nolan Day Studio</a>. The 3D hood is built in code for this page, with no stock photos. Not the business's official site. Reviews are quoted from Google.</footer>
+
+<script>
+(function(){
+  var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var db=document.querySelector(".demo");function bt(){document.documentElement.style.setProperty("--bt",db.offsetHeight+"px")}addEventListener("resize",bt);bt();
+  var io=("IntersectionObserver" in window)?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})},{threshold:.12}):null;
+  document.querySelectorAll(".rv").forEach(function(el){io?io.observe(el):el.classList.add("in")});
+  if(!reduce)document.querySelectorAll("[data-tilt]").forEach(function(c){c.addEventListener("pointermove",function(e){var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform="perspective(700px) rotateY("+(x*10)+"deg) rotateX("+(-y*10)+"deg)"});c.addEventListener("pointerleave",function(){c.style.transform=""})});
+  document.getElementById("tf").addEventListener("submit",function(e){e.preventDefault();document.getElementById("tok").hidden=false});
+  // shared state: the 3D scene and the claim card both read window.HOOD
+  var S=window.HOOD={fix:0,hail:2,paint:"#a3121a",dents:0},names={1:"Pea",2:"Quarter",3:"Golf ball"};
+  function card(){document.getElementById("cn").textContent=S.dents;document.getElementById("cs").textContent=names[S.hail];document.getElementById("cp").textContent=Math.round(S.fix)+"%";document.getElementById("cm").style.width=S.fix+"%";document.getElementById("fout").textContent=Math.round(S.fix)+"%";document.getElementById("fix").value=Math.round(S.fix)}
+  window.addEventListener("hoodstate",card);
+  function seg(id,cb){var w=document.getElementById(id);w.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;w.querySelectorAll("button").forEach(function(x){x.setAttribute("aria-pressed",x===b)});cb(b.dataset.v)})}
+  seg("hail",function(v){S.hail=+v;dispatchEvent(new Event("hoodstorm"))});
+  seg("paint",function(v){S.paint=v;dispatchEvent(new Event("hoodpaint"))});
+  document.getElementById("storm").addEventListener("click",function(){dispatchEvent(new Event("hoodstorm"))});
+  document.getElementById("fix").addEventListener("input",function(e){S.fix=+e.target.value;S.anim=false;card();dispatchEvent(new Event("hoodfix"))});
+  document.getElementById("auto").addEventListener("click",function(){dispatchEvent(new Event("hoodauto"))});
+  card();
+})();
+</script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script type="module">
+import("./scene.js").catch(()=>{document.querySelector(".scene").classList.add("noGL")});
+</script>
+<script>/*nds-count*/(function(){try{var ls=function(){try{return localStorage.getItem("nds_nc")}catch(e){return null}};if(location.hash==="#nc"){try{localStorage.setItem("nds_nc","1")}catch(e){}}if(navigator.webdriver||ls())return;var p=location.pathname.replace(/index\.html$/,"").replace(/^\/+|\/+$/g,"");var k=p?(p.indexOf("p/")===0?p.split("/").pop():p.replace(/[^A-Za-z0-9]+/g,"-")):"home";k=k.slice(0,60);if(k.length<3)k="pg-"+k;fetch("https://abacus.jasoncameron.dev/hit/ndstudio/"+k,{keepalive:true}).catch(function(){})}catch(e){}})();</script>
+</body>
+</html>
