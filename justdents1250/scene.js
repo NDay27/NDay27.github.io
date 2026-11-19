@@ -1,8 +1,9 @@
 // Just Dents of Illinois: real-time 3D hood for the Immersive sample.
-// Everything is built in code for this page: the hood, the hail, the light board and the reflections.
+// The hood, the hail and the light board are built in code for this page. The shop and street lighting are
+// free CC0 HDRIs from Poly Haven (Autoshop 01 and Wide Street 01), served from this folder.
 import * as THREE from "three";
 import {OrbitControls} from "three/addons/controls/OrbitControls.js";
-import {RoundedBoxGeometry} from "three/addons/geometries/RoundedBoxGeometry.js";
+import {RGBELoader} from "three/addons/loaders/RGBELoader.js";
 
 const S=window.HOOD;
 const canvas=document.getElementById("c"),host=document.querySelector(".scene");
@@ -26,12 +27,22 @@ const barM=new THREE.MeshBasicMaterial({color:new THREE.Color(5,4.8,4.4)});
 for(let i=0;i<9;i++){const b=new THREE.Mesh(new THREE.BoxGeometry(16,.08,.6),barM);b.position.set(0,7,-8+i*2);env.add(b)}
 const warm=new THREE.Mesh(new THREE.PlaneGeometry(30,4),new THREE.MeshBasicMaterial({color:new THREE.Color(1.6,1.05,.15)}));warm.position.set(0,2,-19);env.add(warm);
 const side=new THREE.Mesh(new THREE.PlaneGeometry(4,10),new THREE.MeshBasicMaterial({color:new THREE.Color(.9,.9,1)}));side.position.set(19,3,0);side.rotation.y=-Math.PI/2;env.add(side);
-const pm=new THREE.PMREMGenerator(R);const envBoard=pm.fromScene(env,.02).texture;
+const shopSphere=new THREE.Mesh(new THREE.SphereGeometry(18,48,24),new THREE.MeshBasicMaterial({side:THREE.BackSide,color:new THREE.Color(.16,.16,.16),visible:false}));env.add(shopSphere);
+const pm=new THREE.PMREMGenerator(R);let envBoard=pm.fromScene(env,.02).texture;
 // daylight: an open sky with soft sun, where shallow hail dents are hard to see
 const day=new THREE.Scene();day.add(new THREE.Mesh(new THREE.SphereGeometry(30,32,16),new THREE.ShaderMaterial({side:THREE.BackSide,depthWrite:false,
   vertexShader:"varying vec3 v;void main(){v=normalize(position);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}",
   fragmentShader:"varying vec3 v;void main(){float t=clamp(v.y*.5+.5,0.,1.);vec3 c=mix(vec3(.42,.40,.36),vec3(1.1,1.18,1.3),smoothstep(.35,.9,t));c+=vec3(2.2,1.9,1.4)*pow(max(dot(v,normalize(vec3(.4,.8,-.4))),0.),48.);gl_FragColor=vec4(c,1.);}"})));
-const envDay=pm.fromScene(day,.06).texture;scene.environment=envBoard;
+let envDay=pm.fromScene(day,.06).texture,envShop=null,bgShop=null,bgDay=null;scene.environment=envBoard;
+// real lighting: a CC0 auto-shop HDRI for the room and its fluorescent tubes, a CC0 street HDRI for daylight
+const here=new URL(".",import.meta.url).href,hdr=new RGBELoader();
+function asEnv(t){t.mapping=THREE.EquirectangularReflectionMapping;return t}
+function setBg(){const v=S.view||"board";const bg=v==="day"?bgDay:bgShop;scene.background=bg||null;scene.backgroundBlurriness=v==="day"?.2:.24;scene.backgroundIntensity=v==="board"?.3:v==="day"?.85:.75}
+hdr.loadAsync(here+"env/autoshop_01_1k.hdr").then(t=>{bgShop=asEnv(t);envShop=pm.fromEquirectangular(t).texture;
+  const sm=t.clone();sm.mapping=THREE.UVMapping;sm.needsUpdate=true;shopSphere.material.map=sm;shopSphere.material.visible=true;shopSphere.material.needsUpdate=true;
+  envBoard=pm.fromScene(env,.02).texture;
+  applyView();host.classList.add("hdr")}).catch(()=>{});
+function loadDay(){if(bgDay||loadDay.p)return;loadDay.p=hdr.loadAsync(here+"env/wide_street_01_1k.hdr").then(t=>{bgDay=asEnv(t);envDay=pm.fromEquirectangular(t).texture;applyView()}).catch(()=>{})}
 
 // ---------- the car front: one sculpted surface (hood, fenders rolling down, front fascia) with panel seams ----------
 const W=7.2,H=4.8,SX=small?220:320,SY=small?146:212;
@@ -51,6 +62,17 @@ geo.computeVertexNormals();
 const paint=new THREE.MeshPhysicalMaterial({color:S.paint,metalness:.5,roughness:.36,clearcoat:1,clearcoatRoughness:.02,envMapIntensity:1.25});
 const hood=new THREE.Mesh(geo,paint);hood.rotation.x=-Math.PI/2;scene.add(hood);
 const bodyM=paint;
+// cabin behind the hood: painted pillars and roof with the windshield set into them, so it reads as a car
+const Z0=crown(0,2.1)+.02;
+function cab(u,t,inset){// u: -1..1 across, t: 0..1.4 from cowl up the glass (0..1) and onto the roof (1..1.4)
+  const rise=Math.min(t,1),roof=Math.max(t-1,0);const hw=2.62-.62*rise-.1*roof-inset;const x=u*hw;
+  const y=2.16+rise*2.05+roof*1.7,z=Z0+rise*1.6+roof*.12-.26*((x/2.7)**2)+inset*.04;return[x,y,z]}
+function cabGeo(t0,t1,inset){const g=new THREE.PlaneGeometry(1,1,28,14),a=g.attributes.position;
+  for(let i=0;i<a.count;i++){const u=a.getX(i)*2,v=a.getY(i)+.5;const [x,y,z]=cab(u,t0+(t1-t0)*v,inset);a.setXYZ(i,x,y,z)}g.computeVertexNormals();return g}
+const shell=new THREE.Mesh(cabGeo(0,1.4,0),paint);shell.rotation.x=-Math.PI/2;scene.add(shell);
+const glass=new THREE.MeshPhysicalMaterial({color:0x07090c,metalness:.2,roughness:.03,clearcoat:1,clearcoatRoughness:.01,envMapIntensity:1.8});
+const shield=new THREE.Mesh(cabGeo(.03,.94,.2),glass);shield.rotation.x=-Math.PI/2;scene.add(shield);
+const cowl=new THREE.Mesh(new THREE.BoxGeometry(4.5,.06,.16),new THREE.MeshStandardMaterial({color:0x0b0b0c,roughness:.6}));cowl.position.set(0,Z0+.05,-2.2);scene.add(cowl);
 // soft contact shadow
 const sc=document.createElement("canvas");sc.width=sc.height=128;const sx=sc.getContext("2d"),gr=sx.createRadialGradient(64,64,4,64,64,64);gr.addColorStop(0,"rgba(0,0,0,.8)");gr.addColorStop(1,"rgba(0,0,0,0)");sx.fillStyle=gr;sx.fillRect(0,0,128,128);
 const shadow=new THREE.Mesh(new THREE.PlaneGeometry(11,8),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(sc),transparent:true,depthWrite:false}));shadow.rotation.x=-Math.PI/2;shadow.position.y=-2.4;scene.add(shadow);
@@ -84,13 +106,16 @@ function storm(){ice.forEach(s=>scene.remove(s.m));ice=[];dentH.fill(0);dents=0;
 addEventListener("hoodstorm",storm);
 addEventListener("hoodpaint",()=>{paint.color.set(S.paint)});
 addEventListener("hoodfix",()=>{dirty=true});
-addEventListener("hoodview",()=>{const d=S.view==="day";scene.environment=d?envDay:envBoard;board.material.opacity=d?.25:1;board.material.transparent=d;host.classList.toggle("day",d)});
+function applyView(){const v=S.view||"board",d=v==="day";if(d)loadDay();
+  scene.environment=d?envDay:v==="shop"?(envShop||envBoard):envBoard;board.material.opacity=v==="board"?1:.2;board.material.transparent=v!=="board";
+  host.classList.toggle("day",d);setBg()}
+addEventListener("hoodview",applyView);
 addEventListener("hoodauto",()=>{if(S.fix>=100)storm();S.anim=true;S.a0=performance.now();S.f0=S.fix});
 
 // ---------- frame ----------
 function fit(){const w=host.clientWidth,h=host.clientHeight;R.setSize(w,h,false);cam.aspect=w/h;
   const narrow=w/h<1;cam.fov=narrow?46:34;cam.updateProjectionMatrix();
-  board.visible=pole.visible=!narrow;const dist=narrow?16.5:12.5;cam.position.set(narrow?0:1.6,dist*.6,dist);ctl.target.set(narrow?0:-1.9,narrow?2.6:-.25,.2);ctl.update()}
+  board.visible=pole.visible=false;const dist=narrow?16.5:12.5;cam.position.set(narrow?0:1.6,dist*(narrow?.6:.5),dist);ctl.target.set(narrow?0:-1.9,narrow?2.6:-.25,.2);ctl.update()}
 addEventListener("resize",fit);fit();
 let vis=true;new IntersectionObserver(e=>{vis=e[0].isIntersecting}).observe(host);
 let last=performance.now(),sent=0;
