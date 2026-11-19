@@ -174,6 +174,21 @@ function island(x, full) {
   return g;
 }
 island(-2.6, true); island(2.6, false);
+// the pump screen facing the car lane shows the gallons while the tank is filled by hand
+const pumpCv = document.createElement("canvas"); pumpCv.width = 256; pumpCv.height = 200;
+const pumpCx = pumpCv.getContext("2d");
+const pumpTex = new THREE.CanvasTexture(pumpCv); pumpTex.colorSpace = THREE.SRGBColorSpace;
+function drawPump(g, note) {
+  pumpCx.fillStyle = "#06101f"; pumpCx.fillRect(0, 0, 256, 200);
+  pumpCx.fillStyle = "#7fd6ff"; pumpCx.textAlign = "center";
+  pumpCx.font = '700 26px "Instrument Sans", sans-serif'; pumpCx.fillText(note, 128, 46);
+  pumpCx.font = '800 88px "Big Shoulders Display", sans-serif'; pumpCx.fillText(g.toFixed(2), 128, 140);
+  pumpCx.font = '600 22px "Instrument Sans", sans-serif'; pumpCx.fillText("GALLONS", 128, 182);
+  pumpTex.needsUpdate = true;
+}
+drawPump(0, "FULL SERVICE");
+const pumpScreen = new THREE.Mesh(new THREE.PlaneGeometry(0.44, 0.34), new THREE.MeshStandardMaterial({map: pumpTex, emissive: 0xffffff, emissiveMap: pumpTex, emissiveIntensity: 0.9}));
+pumpScreen.position.set(-2.6 + 0.475, 0.25 + 1.12, 1.2); pumpScreen.rotation.y = Math.PI / 2; scene.add(pumpScreen);
 
 /* ---------- the building: store and two service bays ---------- */
 const BX = 8; // the building sits to the right of the canopy so the bays stay in view
@@ -228,6 +243,25 @@ box(9, 5.5, 7, M(0x7d4b3c, {roughness: 0.95}), -24, 2.75, -20); box(10, 4, 7, M(
   box(1.4, 0.12, 0.3, mat.steel, x + (x < 0 ? 0.6 : -0.6), 6, 10.2);
   box(0.5, 0.08, 0.3, mat.glow, x + (x < 0 ? 1.1 : -1.1), 5.94, 10.2, scene, false);
 });
+
+/* ---------- the attendant who comes out to pump the gas ---------- */
+const att = new THREE.Group(); scene.add(att);
+const shirt = M(0x10213f, {roughness: 0.8}), skin = M(0xd9a27e, {roughness: 0.7});
+const torso = new THREE.Mesh(new THREE.CapsuleGeometry(0.21, 0.5, 4, 10), shirt); torso.position.y = 1.12; torso.castShadow = true; att.add(torso);
+const headM = new THREE.Mesh(new THREE.SphereGeometry(0.15, 16, 12), skin); headM.position.y = 1.62; headM.castShadow = true; att.add(headM);
+const capM = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.16, 0.07, 16), mat.red); capM.position.y = 1.73; att.add(capM);
+const brim = box(0.16, 0.02, 0.14, mat.red, 0, 1.71, 0.13, att, false);
+const legs = [-0.09, 0.09].map(x => { const g = new THREE.BoxGeometry(0.13, 0.72, 0.15); g.translate(0, -0.36, 0); const l = new THREE.Mesh(g, M(0x2b2f36)); l.position.set(x, 0.8, 0); l.castShadow = true; att.add(l); return l; });
+const arms = [-0.27, 0.27].map(x => { const g = new THREE.BoxGeometry(0.1, 0.55, 0.12); g.translate(0, -0.27, 0); const a = new THREE.Mesh(g, shirt); a.position.set(x, 1.4, 0); att.add(a); return a; });
+const ATT_PATH = new THREE.CatmullRomCurve3([V3(BX - 5, BZ + 0.7), V3(BX - 5.5, -7.5), V3(-1.2, -5), V3(-1.48, -2.2), V3(-1.48, 2.1)]);
+function V3(x, z) { return new THREE.Vector3(x, 0, z); }
+let attWalk = null, attIdle = 0;
+function placeAtt(u, back) {
+  const p = ATT_PATH.getPointAt(u), tn = ATT_PATH.getTangentAt(u);
+  att.position.copy(p); const lk = p.clone().add(back ? tn.negate() : tn); att.lookAt(lk);
+}
+placeAtt(0, false); att.visible = false;
+function walkAtt(out, dur, done) { att.visible = true; attWalk = {out, t: 0, dur: reduce ? 0.01 : dur, done}; }
 
 /* ---------- the car ---------- */
 const car = new THREE.Group(); scene.add(car);
@@ -308,11 +342,21 @@ const ui = {
 };
 function say(t) { if (ui.status) ui.status.textContent = t; }
 function busy(b) { lastDrag = -99; [ui.pump, ui.bay].forEach(x => x && (x.disabled = b)); }
+let fueling = null;
+function fillUp() {
+  busy(true); say("Here comes the attendant…");
+  walkAtt(true, 3.2, () => {
+    att.lookAt(car.position.x, 0, att.position.z); say("Filling it up by hand. You stay in the car.");
+    fueling = {t: 0, gal: 9 + Math.round(Math.random() * 60) / 10, done: () => {
+      say("Filled up. That's full service at Brecklin's."); busy(false); walkAtt(false, 3.2, () => { att.visible = false; });
+    }};
+  });
+}
 function toPump() {
   if (carMoving) return;
-  if (carState === "pump") { say("Parked at the full-service pump. Someone comes out to fill it."); return; }
+  if (carState === "pump") { fillUp(); return; }
   busy(true);
-  if (carState === "road") { say("Pulling in off Walnut Street…"); go(PATHS.arrive, 4.2, false, () => { carState = "pump"; say("At the full-service pump. Stay in the car; they fill it for you."); busy(false); }); }
+  if (carState === "road") { say("Pulling in off Walnut Street…"); go(PATHS.arrive, 4.2, false, () => { carState = "pump"; fillUp(); }); }
   else if (carState === "bay") {
     liftTarget = 0; say("Lowering the lift…");
     waitLift(() => { say("Backing out of the bay…"); go(PATHS.bay, 3.6, true, () => { carState = "pump"; doorOpen.target = 0; say("Back at the pump and ready to go."); busy(false); }); });
@@ -404,11 +448,43 @@ function frame() {
     cam.lookAt(controls.target);
   }
   if (controls.enabled) controls.update();
+  if (attWalk) {
+    attWalk.t = Math.min(1, attWalk.t + dt / attWalk.dur);
+    const u = attWalk.out ? attWalk.t : 1 - attWalk.t; placeAtt(u, !attWalk.out);
+    const sw = Math.sin(t0 * 9) * 0.5; legs[0].rotation.x = sw; legs[1].rotation.x = -sw; arms[0].rotation.x = -sw * 0.8; arms[1].rotation.x = sw * 0.8;
+    att.position.y = Math.abs(Math.sin(t0 * 9)) * 0.04;
+    if (attWalk.t >= 1) { const d = attWalk.done; attWalk = null; legs.forEach(l => l.rotation.x = 0); arms.forEach(a => a.rotation.x = 0); att.position.y = 0; d && d(); }
+  }
+  if (fueling) {
+    fueling.t = Math.min(1, fueling.t + dt / (reduce ? 0.01 : 3.4));
+    arms[1].rotation.x = -1.1;
+    if (Math.floor(fueling.t * 40) !== fueling.last) { fueling.last = Math.floor(fueling.t * 40); drawPump(fueling.gal * fueling.t, "PUMPING"); }
+    if (fueling.t >= 1) { const d = fueling.done; drawPump(fueling.gal, "THANK YOU"); arms[1].rotation.x = 0; fueling = null; d && d(); }
+  }
+  placeLabels();
   composer ? composer.render() : R.render(scene, cam);
 }
 controls.addEventListener("start", () => { dragging = true; host.classList.add("touched"); });
 controls.addEventListener("end", () => { dragging = false; lastDrag = t0; });
 
+/* ---------- labels you can tap in the scene ---------- */
+const HS = [
+  {t: "Full-service pump", p: new THREE.Vector3(-2.6, 3.6, 2.4), act: () => toPump()},
+  {t: "Service bays", p: new THREE.Vector3(BX + 6, BH + 1.1, BZ), act: () => toBay()},
+  {t: "Counter and fuel", p: new THREE.Vector3(BX - 5, BH + 1.1, BZ), act: () => { const v = document.getElementById("visit"); v && v.scrollIntoView({behavior: reduce ? "auto" : "smooth"}); }}
+].map(h => { const b = document.createElement("button"); b.type = "button"; b.className = "hs"; b.innerHTML = "<i></i>"; b.appendChild(document.createTextNode(h.t)); b.addEventListener("click", h.act); host.appendChild(b); h.el = b; return h; });
+const hcopy = document.querySelector(".hcopy"), pv = new THREE.Vector3();
+function placeLabels() {
+  const cw = canvas.clientWidth, ch = canvas.clientHeight, ox = canvas.offsetLeft, oy = canvas.offsetTop;
+  const hr = hcopy && getComputedStyle(hcopy).position === "absolute" ? {l: hcopy.offsetLeft, t: hcopy.offsetTop, r: hcopy.offsetLeft + hcopy.offsetWidth, b: hcopy.offsetTop + hcopy.offsetHeight} : null;
+  HS.forEach(h => {
+    pv.copy(h.p).project(cam);
+    const x = ox + (pv.x + 1) / 2 * cw, y = oy + (1 - pv.y) / 2 * ch;
+    const off = pv.z > 1 || x < ox + 40 || x > ox + cw - 40 || y < oy + 20 || y > oy + ch - 70 || (hr && x > hr.l - 20 && x < hr.r + 60 && y > hr.t - 20 && y < hr.b + 20);
+    h.el.style.opacity = off ? "0" : "1"; h.el.style.pointerEvents = off ? "none" : "auto"; h.el.tabIndex = off ? -1 : 0;
+    h.el.style.transform = "translate(" + Math.round(x) + "px," + Math.round(y) + "px) translate(-50%,-100%)";
+  });
+}
 host.classList.add("ready");
 frame();
 // the car pulls in on its own once the page has settled
