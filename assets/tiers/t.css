@@ -297,4 +297,11 @@ textarea{resize:vertical}
 .il .bot{animation:bot 8s ease-in-out infinite}@keyframes bot{0%,100%{transform:translate(80px,330px)}50%{transform:translate(400px,360px)}}
 .il .spark{animation:tw 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}.il .s1{animation-delay:-.6s}.il .s2{animation-delay:-1.2s}.il .s3{animation-delay:-1.8s}@keyframes tw{0%,100%{transform:scale(.2);opacity:0}50%{transform:scale(1);opacity:1}}
 .il .bob{animation:bob 3s ease-in-out infinite}@keyframes bob{50%{transform:translateY(-8px)}}
+.ill .as{stroke:var(--acc)}
+.il .pole{animation:pole 2.4s linear infinite}@keyframes pole{to{transform:translateY(24px)}}
+.il .steam{animation:steam 3s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}.il .st1{animation-delay:-1s}.il .st2{animation-delay:-2s}@keyframes steam{0%{transform:translateY(8px) scaleY(.6);opacity:0}40%{opacity:.9}100%{transform:translateY(-18px) scaleY(1.1);opacity:0}}
+.il .wag{animation:wag .9s ease-in-out infinite;transform-box:fill-box;transform-origin:0 100%}@keyframes wag{50%{transform:rotate(-24deg)}}
+.il .flash{opacity:0;animation:flash 4s ease-out infinite}@keyframes flash{0%,86%{opacity:0}88%{opacity:.95}100%{opacity:0}}
+.il .sway.s0,.il .sway.s1,.il .sway.s2{transform-box:fill-box;transform-origin:50% 100%;animation-duration:3.6s}.il .sway.s1{animation-delay:-1.2s}.il .sway.s2{animation-delay:-2.4s}
+@media (prefers-reduced-motion:reduce){.il .pole,.il .steam,.il .wag,.il .flash{animation:none}}
 @media(prefers-reduced-motion:reduce){.il *,.fc{animation:none!important}}

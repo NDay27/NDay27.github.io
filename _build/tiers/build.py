@@ -27,6 +27,7 @@ BASE = "/p/2e8e4a/"
 SITE = "https://nday27.github.io"
 VER = "20261120"
 E = html.escape
+import tiercopy_mix as _mx  # noqa: E402  (mixed business types)
 
 TRADE_LABEL = {"auto": "Auto Repair", "truck": "Auto Repair", "transmission": "Auto Repair", "radiator": "Auto Repair",
   "muffler": "Auto Repair", "brake": "Auto Repair", "autobody": "Auto Body", "autoglass": "Auto Glass", "tree": "Tree Service",
@@ -282,7 +283,7 @@ ART = {
 
 
 def cta_for(g):
-    return "Plan a visit" if g == "auto" else "Start an order" if g == "sweets" else "Get a quote"
+    return _mx.CTA.get(g) or ("Plan a visit" if g == "auto" else "Start an order" if g == "sweets" else "Get a quote")
 
 
 def art(g, i):
@@ -332,7 +333,7 @@ def body_750(shop, tier):
 <section class="sec motion"><div class="w"><p class="ey rv">{E(tools[1])}</p><h2 class="rv">{E(mt[0])}</h2><p class="lead rv">{E(mt[1])}</p><div class="mp rv" id="mp" data-g="{g}"></div></div></section>
 <section class="sec"><div class="w"><p class="ey rv">What we do</p><h2 class="rv">The work, spelled out.</h2><ol class="svc">{svc}</ol></div></section>
 {marquee}
-<section class="sec plan" id="plan"><div class="w two"><div><p class="ey rv">{'Plan a visit' if g == 'auto' else 'Start an order' if g == 'sweets' else 'Get a quote'}</p><h2 class="rv">Tell us once. We'll call you back.</h2>
+<section class="sec plan" id="plan"><div class="w two"><div><p class="ey rv">{cta_for(g)}</p><h2 class="rv">Tell us once. We'll call you back.</h2>
 <form class="planner rv" data-planner><fieldset><legend>{E(v['ask'])}</legend><div class="chips" data-k="job">{jobs}</div></fieldset>
 <fieldset><legend>When?</legend><div class="chips" data-k="when">{when}</div></fieldset>
 <div class="row"><label>Name<input name="n" autocomplete="name"></label><label>Phone<input name="p" type="tel" autocomplete="tel"></label></div>
@@ -367,6 +368,10 @@ def signature(shop, tier):
     return out + count_script(f"t{tier}-{shop['slug']}") + "</body></html>"
 
 
+# Mixed business types (Nov 20 2026).
+TRADE_LABEL.update(_mx.TRADE_LABEL); MOTION_TITLE.update(_mx.MOTION_TITLE); ART.update(_mx.ART)
+
+
 # ---------- pitch room JSON ----------
 
 TRY_1250 = {"auto": "Tap \"Raise the lift\" and \"Pop the hood\" on the 3D car up top, then switch to Night.",
@@ -376,6 +381,7 @@ TRY_1250 = {"auto": "Tap \"Raise the lift\" and \"Pop the hood\" on the 3D car u
             "painting": "Tap the color buttons to repaint the 3D house, then switch to Night.",
             "cleaning": "Tap \"Clean it\" and watch the room get cleaned, then switch to Night.",
             "sweets": "Tap the add button to stack the 3D treat, then switch to Night."}
+TRY_1250.update(_mx.TRY_1250)
 
 def meet_json(shop):
     v, g = V[shop["v"]], shop["group"]
