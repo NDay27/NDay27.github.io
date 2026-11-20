@@ -21,6 +21,7 @@
 <meta property="og:image:alt" content="Nolan Day Studio: websites from $300, free preview first">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<script>(function(d){try{if(!matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("mo");setTimeout(function(){if(!window.NDS3)d.classList.remove("mo")},4000)}}catch(e){}})(document.documentElement)</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@500;600&display=swap">
@@ -418,9 +419,9 @@ footer a{color:var(--ink-2);display:inline-flex;align-items:center;min-height:44
 .dock .btn{min-height:46px;padding:0 16px;font-size:15px;white-space:nowrap}
 @media (min-width:860px){.dock{display:none}}
 
-.rv{transition:opacity .7s var(--ease),transform .7s var(--ease)}
-.rv.pre{opacity:0;transform:translateY(18px)}
 </style>
+<link rel="stylesheet" href="assets/storefront/v3.css">
+<script src="assets/storefront/v3.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -429,24 +430,26 @@ footer a{color:var(--ink-2);display:inline-flex;align-items:center;min-height:44
   <nav class="wrap" aria-label="Main">
     <a class="brand" href="#top" aria-label="Nolan Day Studio, home"><span class="mk" aria-hidden="true">N</span>Nolan Day <small>Studio · Morton, IL</small></a>
     <div class="links">
+      <a href="#showroom">Showroom</a>
       <a href="#how">How it works</a>
-      <a href="#plans">Prices &amp; samples</a>
-      <a href="#deal">The deal</a>
+      <a href="#plans">Prices</a>
+      <a href="#after">After you say yes</a>
       <a href="#faq">FAQ</a>
       <a class="btn sm" href="#start">Free preview</a>
     </div>
   </nav>
+  <span class="readbar" id="readbar" aria-hidden="true"></span>
 </header>
 
 <main id="main">
 <div id="top" class="hero">
   <div class="wrap">
     <div>
-      <span class="kicker"><span class="live" aria-hidden="true"></span>Web design in Morton, IL · taking new projects</span>
-      <h1>See your new website <span class="u">before you pay<svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 15C70 5 160 3 297 9" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg></span> a dime.</h1>
-      <p class="lede">I build websites for Central Illinois shops and trades. Try it here: type your business name and watch a mock-up appear. Then I build the real one <b>free</b>, and you pay only if you approve it. <b>From $300</b>, or <b>$0 down and $99 a month</b>.</p>
+      <span class="kicker" data-h="0"><span class="live" aria-hidden="true"></span>Web design in Morton, IL · taking new projects</span>
+      <h1><span class="ln"><span>See your</span></span> <span class="ln"><span>new website</span></span> <span class="ln"><span class="u">before you pay<svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M3 15C70 5 160 3 297 9" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg></span></span> <span class="ln"><span>a dime.</span></span></h1>
+      <p class="lede" data-h="5">I build websites for Central Illinois shops and trades. Try it here: type your business name and watch a mock-up appear. Then I build the real one <b>free</b>, and you pay only if you approve it. <b>From $300</b>, or <b>$0 down and $99 a month</b>.</p>
 
-      <form class="builder" id="builder" aria-labelledby="b-h" autocomplete="off" novalidate>
+      <form class="builder" data-h="6" id="builder" aria-labelledby="b-h" autocomplete="off" novalidate>
         <div class="bh"><b id="b-h">Your instant mock-up</b><span>Updates as you type</span></div>
         <div class="fields">
           <div class="f full"><label for="b-name">Business name</label><input id="b-name" maxlength="48" placeholder="e.g. Riverside Auto Repair" autocomplete="organization"></div>
@@ -469,8 +472,27 @@ footer a{color:var(--ink-2);display:inline-flex;align-items:center;min-height:44
       </form>
     </div>
 
-    <div class="stagewrap">
-      <div class="stagebg" id="stagebg" aria-hidden="true"></div>
+    <div class="stagewrap" id="stage">
+      <div class="stagebg" id="stagebg" aria-hidden="true">
+        <svg class="topo" viewBox="0 0 500 600" preserveAspectRatio="xMidYMid slice" focusable="false">
+          <defs><pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2"/></pattern></defs>
+          <rect class="dotgrid" width="500" height="600" fill="url(#dots)"/>
+          <g class="contours" fill="none" stroke-linecap="round">
+            <path pathLength="1" d="M-20 120C60 90 120 150 210 128S360 70 520 104"/>
+            <path pathLength="1" d="M-20 168C70 140 140 196 230 172S370 118 520 150"/>
+            <path pathLength="1" d="M-20 222C80 196 150 248 250 222S380 170 520 204"/>
+            <path pathLength="1" d="M-20 400C90 372 170 430 260 404S390 350 520 380"/>
+            <path pathLength="1" d="M-20 452C70 430 160 480 250 458S400 404 520 436"/>
+            <path pathLength="1" d="M-20 506C80 486 170 530 270 510S400 462 520 492"/>
+          </g>
+          <g class="sun"><circle cx="400" cy="120" r="62"/><circle cx="400" cy="120" r="92" fill="none" stroke-dasharray="2 9"/></g>
+          <g class="crop" fill="none"><path d="M18 40V18h22M482 40V18h-22M18 560v22h22M482 560v22h-22"/></g>
+        </svg>
+      </div>
+      <div class="callout c1" aria-hidden="true"><i class="pin"></i><span class="cl-k">First screen</span><b>Call and quote, right up top</b></div>
+      <div class="callout c2" aria-hidden="true"><i class="pin"></i><span class="cl-k">Services</span><b>One tap per service</b></div>
+      <div class="callout c3" aria-hidden="true"><i class="pin"></i><span class="cl-k">Bottom bar</span><b>Call, text, directions: always on screen</b></div>
+      <div class="rig" id="rig">
       <div class="phone" id="phone" role="img" aria-label="Phone showing your instant mock-up"><div class="scr">
         <div class="ms" id="ms" data-look="clean">
           <div class="m-top"><span class="m-name" data-b="name">Your Business</span><span class="m-call">Call</span></div>
@@ -489,46 +511,98 @@ footer a{color:var(--ink-2);display:inline-flex;align-items:center;min-height:44
         </div>
         <div class="mbar" id="msbar" data-look="clean"><span>Call</span><span>Text</span><span>Directions</span></div>
       </div></div>
+      </div>
       <p class="stagecap"><b>Scroll inside the phone.</b> This is the Essential layout every plan starts from.</p>
     </div>
   </div>
 </div>
 
 <div class="proof" aria-label="Facts about the studio">
-  <ul>
-    <li><span class="n">1,000+</span><span class="l">free preview sites built for local businesses so far</span></li>
-    <li><span class="n">$0</span><span class="l">to see your preview. You pay only after you approve it</span></li>
-    <li><span class="n">3</span><span class="l">fixed prices, written down before any work starts</span></li>
-    <li><span class="n">1</span><span class="l">person you deal with, start to finish: me, in Morton</span></li>
+  <ul data-stagger>
+    <li data-r><span class="n" data-count="1000" data-suffix="+">1,000+</span><span class="l">free preview sites built for local businesses so far</span></li>
+    <li data-r><span class="n" data-count="0" data-prefix="$">$0</span><span class="l">to see your preview. You pay only after you approve it</span></li>
+    <li data-r><span class="n" data-count="3">3</span><span class="l">fixed prices, written down before any work starts</span></li>
+    <li data-r><span class="n" data-count="1">1</span><span class="l">person you deal with, start to finish: me, in Morton</span></li>
   </ul>
+  <div class="towns" aria-label="Towns I build for">
+    <div class="towns-in"><span>Building for shops and trades in</span><b>Morton</b><b>Peoria</b><b>East Peoria</b><b>Pekin</b><b>Washington</b><b>Tremont</b><b>Eureka</b><b>Bloomington-Normal</b><b>Chillicothe</b><b>Canton</b><b>Galesburg</b><span>and by email across the US</span></div>
+  </div>
 </div>
 
-<section id="how" class="rv pre" aria-labelledby="how-h">
+<section id="showroom" class="night" aria-labelledby="sh-h">
+  <div class="night-bg" aria-hidden="true"></div>
   <div class="wrap">
-    <div class="k">How it works</div>
-    <h2 class="h2" id="how-h">You see it first. You pay last.</h2>
-    <p class="sub">No sales calls, no deposit, no contract to read. Here's the whole process.</p>
-    <ol class="steps">
-      <li><h3>Tell me about your business</h3><p>Your name, town and what you do. A minute on this page, or an email.</p><span class="when">About 1 minute</span></li>
-      <li><h3>Get your free preview</h3><p>I build a working version of your site and send you the link to try on your own phone.</p><span class="when">Usually the same day</span></li>
-      <li><h3>Ask for changes</h3><p>Different photos, wording, colors or services. Your plan's rounds of changes are included.</p><span class="when">You decide</span></li>
-      <li><h3>Approve, go live, then pay</h3><p>Once you say it's right, it goes live on free hosting and I send a Venmo, Cash App or check request.</p><span class="when">Nothing up front</span></li>
+    <div class="sh-head" data-stagger>
+      <div class="k" data-r><span class="ix">01</span>The showroom</div>
+      <h2 class="h2" id="sh-h" data-r>Don't take my word for it. <em>Try the work.</em></h2>
+      <p class="sub" data-r>Real, working sample sites, loaded right here. Pick a plan and a business, flip between phone and laptop, then scroll and tap inside. Every business in the showroom is made up.</p>
+    </div>
+    <div class="sh" id="sh" data-r="up">
+      <div class="sh-side">
+        <div class="sh-plans" role="group" aria-label="Pick a plan">
+          <span class="sh-ind" aria-hidden="true"></span>
+          <button type="button" data-plan="essential" aria-pressed="true">Essential<b>$300</b></button>
+          <button type="button" data-plan="signature" aria-pressed="false">Signature<b>$750</b></button>
+          <button type="button" data-plan="immersive" aria-pressed="false">Immersive<b>$1,250</b></button>
+        </div>
+        <p class="sh-blurb" id="shBlurb">One phone-first page that gets people to call. Up to 5 sections, 1 round of changes. Or $0 down and $99 a month.</p>
+        <div class="sh-lk" id="shLk">Made-up sample businesses</div>
+        <div class="sh-list" id="shList" role="group" aria-labelledby="shLk"></div>
+        <a class="sh-more" href="harlow/">See one made-up builder at all three plans <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5"/></svg></a>
+        <div class="sh-cta">
+          <a class="btn" id="shPick" href="#start" data-pick="Essential">Choose Essential</a>
+          <a class="sh-open" id="shOpen" href="demos/essential/" target="_blank" rel="noopener">Open full screen <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 4H4v12h12v-4M11 3h6v6M17 3l-8 8"/></svg></a>
+        </div>
+      </div>
+      <div class="sh-stage" id="shStage" data-view="phone">
+        <div class="sh-bar">
+          <p class="sh-now" id="shNow" aria-live="polite"><i aria-hidden="true"></i><b>Prairie Line Lawn Co.</b><span>Made-up sample · Essential</span></p>
+          <div class="sh-views" role="group" aria-label="Device">
+            <button type="button" data-view="phone" aria-pressed="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="6" y="2" width="8" height="16" rx="2"/><path d="M9 15h2"/></svg>Phone</button>
+            <button type="button" data-view="desk" aria-pressed="false"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="4" width="14" height="9" rx="1.5"/><path d="M1 16h18"/></svg>Laptop</button>
+          </div>
+        </div>
+        <div class="sh-dev">
+          <div class="sh-phone"><div class="sh-status" aria-hidden="true"><span>9:41</span><i></i></div><div class="sh-scr" id="shPhone"><div class="sh-load" aria-hidden="true"><span></span><span></span><span></span><em>Loading sample</em></div></div></div>
+          <div class="sh-lap"><div class="sh-lid"><div class="sh-chrome" aria-hidden="true"><i></i><i></i><i></i><span id="shUrl">sample site</span></div><div class="sh-scr" id="shDesk"><div class="sh-load" aria-hidden="true"><span></span><span></span><span></span><em>Loading sample</em></div></div></div><div class="sh-base" aria-hidden="true"></div></div>
+        </div>
+        <p class="sh-note">Samples for made-up businesses. Their names, prices, reviews and photos are invented to show the layout. Your site uses your real details.</p>
+      </div>
+    </div>
+    <noscript><p class="sub">Open a sample: <a href="demos/essential/">Essential</a> · <a href="demos/signature/">Signature</a> · <a href="demos/immersive/">Immersive</a> · <a href="harlow/">Harlow Building Co., all three plans</a></p></noscript>
+  </div>
+</section>
+
+<section id="how" aria-labelledby="how-h">
+  <div class="wrap">
+    <div data-stagger>
+    <div class="k" data-r><span class="ix">02</span>How it works</div>
+    <h2 class="h2" id="how-h" data-r>You see it first. You pay last.</h2>
+    <p class="sub" data-r>No sales calls, no deposit, no contract to read. Here's the whole process.</p>
+    </div>
+    <ol class="steps" data-stagger>
+      <li data-r><svg class="ill" viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect class="s1" pathLength="1" x="10" y="8" width="44" height="48" rx="8"/><path class="s2" pathLength="1" d="M19 22h26M19 32h18M19 42h10"/><circle class="fill" cx="46" cy="44" r="7"/><path class="s3" pathLength="1" d="M43 44l2 2 4-4"/></svg><h3>Tell me about your business</h3><p>Your name, town and what you do. A minute on this page, or an email.</p><span class="when">About 1 minute</span></li>
+      <li data-r><svg class="ill" viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect class="s1" pathLength="1" x="18" y="6" width="28" height="52" rx="7"/><path class="s2" pathLength="1" d="M25 18h14M25 25h9"/><rect class="fill" x="24" y="31" width="16" height="11" rx="3"/><path class="s3" pathLength="1" d="M52 14l4-4M54 22h5M8 30H3M10 20l-4-4"/></svg><h3>Get your free preview</h3><p>I build a working version of your site and send you the link to try on your own phone.</p><span class="when">Usually the same day</span></li>
+      <li data-r><svg class="ill" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path class="s1" pathLength="1" d="M8 14a6 6 0 016-6h26a6 6 0 016 6v12a6 6 0 01-6 6H22l-8 7v-7a6 6 0 01-6-6z"/><path class="fill" d="M26 34h28a5 5 0 015 5v10a5 5 0 01-5 5h-2v6l-7-6H26a5 5 0 01-5-5V39a5 5 0 015-5z"/><path class="s2" pathLength="1" d="M15 16h22M15 23h14"/><path class="s3 on-fill" pathLength="1" d="M33 44l4 4 8-8"/></svg><h3>Ask for changes</h3><p>Different photos, wording, colors or services. Your plan's rounds of changes are included.</p><span class="when">You decide</span></li>
+      <li data-r><svg class="ill" viewBox="0 0 64 64" fill="none" aria-hidden="true"><circle class="s1" pathLength="1" cx="32" cy="32" r="22"/><circle class="fill" cx="32" cy="32" r="14"/><path class="s3" pathLength="1" d="M25 32l5 5 9-10"/><path class="s2" pathLength="1" d="M32 2v5M32 57v5M2 32h5M57 32h5"/></svg><h3>Approve, go live, then pay</h3><p>Once you say it's right, it goes live on free hosting and I send a Venmo, Cash App or check request.</p><span class="when">Nothing up front</span></li>
     </ol>
   </div>
 </section>
 
-<section class="alt rv pre" aria-labelledby="ba-h">
+<section class="alt" aria-labelledby="ba-h">
   <div class="wrap">
-    <div class="k">Why it matters</div>
-    <h2 class="h2" id="ba-h">People look you up on their phone before they call.</h2>
-    <p class="sub">When the first thing they find is a directory listing or an old page, they keep scrolling. Here's the difference a clear site makes.</p>
-    <div class="ba">
-      <figure>
+    <div data-stagger>
+    <div class="k" data-r><span class="ix">03</span>Why it matters</div>
+    <h2 class="h2" id="ba-h" data-r>People look you up on their phone before they call.</h2>
+    <p class="sub" data-r>When the first thing they find is a directory listing or an old page, they keep scrolling. Here's the difference a clear site makes.</p>
+    </div>
+    <div class="ba" data-stagger>
+      <figure data-r>
         <span class="tag"><i></i>Typical small-business page</span>
         <div class="mock-old" aria-hidden="true"><div class="t">Welcome to our website!!</div>We are a family owned lawn company serving the area since 2009. Please call for pricing. We do mowing and more.<div class="lk">Click here for services · Contact us</div></div>
         <ul><li>No service area or starting prices up front</li><li>Phone number buried in a paragraph</li><li>Hard to read on a phone</li></ul>
       </figure>
-      <figure class="good">
+      <figure class="good" data-r>
         <span class="tag"><i></i>The same business, rebuilt</span>
         <div class="mock-new" aria-hidden="true"><div class="t">Straight lines. <em>Every week.</em></div><p>Mowing and cleanups in Morton, Washington and Tremont. Starting prices up front.</p><div class="r"><span>Call now</span><span>Get a quote</span></div></div>
         <ul><li>Town, services and prices on the first screen</li><li>Call and quote buttons that stay on screen</li><li>Built for phones first</li></ul>
@@ -538,13 +612,15 @@ footer a{color:var(--ink-2);display:inline-flex;align-items:center;min-height:44
   </div>
 </section>
 
-<section id="plans" class="rv pre" aria-labelledby="plans-h">
+<section id="plans" aria-labelledby="plans-h">
   <div class="wrap">
-    <div class="k">Prices &amp; live samples</div>
-    <h2 class="h2" id="plans-h">Three plans. Fixed prices. Try each one.</h2>
-    <p class="sub">Every plan is a one-time price in USD with free hosting. Tap "Try the sample" to use a working demo built for a made-up business.</p>
-    <div class="plans">
-      <article class="plan hot" data-plan="Essential">
+    <div data-stagger>
+    <div class="k" data-r><span class="ix">04</span>Prices</div>
+    <h2 class="h2" id="plans-h" data-r>Three plans. Fixed prices. Try each one.</h2>
+    <p class="sub" data-r>Every plan is a one-time price in USD with free hosting. "Try it here" opens a working demo, built for a made-up business, in the showroom above.</p>
+    </div>
+    <div class="plans" data-stagger>
+      <article class="plan hot" data-plan="Essential" data-r>
         <span class="badge">Easiest start</span>
         <a class="shot" href="demos/essential/" tabindex="-1" aria-hidden="true"><img src="img/demo-essential.webp" alt="" loading="lazy" decoding="async" width="800" height="500"><span class="demo">SAMPLE · PRAIRIE LINE LAWN CO.</span></a>
         <div class="in">
@@ -554,9 +630,9 @@ footer a{color:var(--ink-2);display:inline-flex;align-items:center;min-height:44
           <p class="mo">Or <b>$0 down, $99 a month</b> as a Starter Site, with hosting and small edits handled. Cancel any time.</p>
           <ul><li>One phone-first page, up to 5 sections</li><li>Tap-to-call bar that never scrolls away</li><li>Your services, area, hours and a quote button</li><li>Set up for Google search in your town</li><li>1 round of changes</li></ul>
         </div>
-        <div class="act"><a class="btn ghost" href="demos/essential/">Try the sample</a><a class="btn" href="#start" data-pick="Essential">Choose</a></div>
+        <div class="act"><a class="btn ghost" href="demos/essential/" data-show="demos/essential/">Try it here</a><a class="btn" href="#start" data-pick="Essential">Choose</a></div>
       </article>
-      <article class="plan" data-plan="Signature">
+      <article class="plan" data-plan="Signature" data-r>
         <span class="badge">Custom design</span>
         <a class="shot" href="demos/signature/" tabindex="-1" aria-hidden="true"><img src="img/demo-signature.webp" alt="" loading="lazy" decoding="async" width="800" height="500"><span class="demo">SAMPLE · EMBER &amp; RYE</span></a>
         <div class="in">
@@ -565,9 +641,9 @@ footer a{color:var(--ink-2);display:inline-flex;align-items:center;min-height:44
           <div class="price"><b>$750</b><small>one-time</small></div>
           <ul><li>A custom look made for you, up to 7 sections</li><li>Photo gallery and a tabbed menu or price list</li><li>Straight into your booking or ordering app</li><li>Everything in Essential</li><li>2 rounds of changes</li></ul>
         </div>
-        <div class="act"><a class="btn ghost" href="demos/signature/">Try the sample</a><a class="btn" href="#start" data-pick="Signature">Choose</a></div>
+        <div class="act"><a class="btn ghost" href="demos/signature/" data-show="demos/signature/">Try it here</a><a class="btn" href="#start" data-pick="Signature">Choose</a></div>
       </article>
-      <article class="plan" data-plan="Immersive">
+      <article class="plan" data-plan="Immersive" data-r>
         <span class="badge">3D</span>
         <a class="shot" href="demos/immersive/" tabindex="-1" aria-hidden="true"><img src="img/demo-immersive.webp" alt="" loading="lazy" decoding="async" width="800" height="500"><span class="demo">SAMPLE · WILLOW CREEK BARN</span></a>
         <div class="in">
@@ -576,12 +652,12 @@ footer a{color:var(--ink-2);display:inline-flex;align-items:center;min-height:44
           <div class="price"><b>$1,250</b><small>to $1,500, one-time</small></div>
           <ul><li>A modeled 3D scene of your space that visitors can turn and explore</li><li>Modeled from your photos or floor plan: a stylized interpretation, not a measured replica</li><li>$1,500 gets three connected scenes</li><li>Everything in Signature</li><li>2 rounds of changes</li></ul>
         </div>
-        <div class="act"><a class="btn ghost" href="demos/immersive/">Try the sample</a><a class="btn" href="#start" data-pick="Immersive">Choose</a></div>
+        <div class="act"><a class="btn ghost" href="demos/immersive/" data-show="demos/immersive/">Try it here</a><a class="btn" href="#start" data-pick="Immersive">Choose</a></div>
       </article>
     </div>
-    <nav class="morelinks" aria-label="More sample sites by business type"><span>More samples:</span><a href="samples/prairie-lawn-co/">Lawn care</a><a href="samples/maple-street-cleaning/">Cleaning</a><a href="samples/riverbend-mobile-detail/">Auto detailing</a><a href="samples/oak-ridge-builders/">Builder</a><a href="samples/juniper-hair-studio/">Hair salon</a><a href="samples/main-street-diner/">Diner</a></nav>
+    <nav class="morelinks" aria-label="More sample sites by business type"><span>More samples:</span><a href="samples/prairie-lawn-co/" data-show="samples/prairie-lawn-co/">Lawn care</a><a href="samples/maple-street-cleaning/" data-show="samples/maple-street-cleaning/">Cleaning</a><a href="samples/riverbend-mobile-detail/" data-show="samples/riverbend-mobile-detail/">Auto detailing</a><a href="samples/oak-ridge-builders/" data-show="samples/oak-ridge-builders/">Builder</a><a href="samples/juniper-hair-studio/" data-show="samples/juniper-hair-studio/">Hair salon</a><a href="samples/main-street-diner/" data-show="samples/main-street-diner/">Diner</a><a href="harlow/">Home builder, all three plans</a></nav>
 
-    <div class="tblw" tabindex="0" role="region" aria-label="Plan comparison table">
+    <div class="tblw" tabindex="0" role="region" aria-label="Plan comparison table" data-r>
       <table>
         <caption>Compare the plans</caption>
         <thead><tr><th scope="col"><span class="sr">Feature</span></th><th scope="col">Essential</th><th scope="col">Signature</th><th scope="col">Immersive</th></tr></thead>
@@ -599,46 +675,156 @@ footer a{color:var(--ink-2);display:inline-flex;align-items:center;min-height:44
       </table>
     </div>
 
-    <div class="extras">
-      <div class="ex" id="gbp">
-        <span class="tg">Already have a website?</span>
-        <h3>Google Business Profile fix-up</h3>
-        <div class="p">$149 <small>one-time</small></div>
-        <p>Many customers see your Google listing before your website. I check the listing you already own, tell you what I'd fix, then fix it once you say yes.</p>
-        <ul><li>Hours, categories, service area, services and description corrected</li><li>Photos organized, plus a list of what to add</li><li>A review link and QR code to hand every customer</li><li>You add me as a manager. You always stay the owner.</li></ul>
-        <div class="row" style="margin-top:6px"><a class="btn ghost sm" href="#start" data-pick="Google listing fix-up">Ask about a fix-up</a></div>
-      </div>
-      <div class="ex">
-        <span class="tg">After launch · optional</span>
-        <h3>Care plans</h3>
-        <p>If you'd like me to keep looking after your site and Google listing. Never required. 3-month minimum, then month to month.</p>
-        <div class="care">
-          <div><div class="hd"><b>Keep It Running</b><span>$49/mo</span></div><p>Kept online with an uptime check, 1 small text or photo edit a month (48-hour turnaround), and a yearly domain renewal reminder.</p></div>
-          <div><div class="hd"><b>Get Found</b><span>$99/mo</span></div><p>Everything in Keep It Running, plus 4 Google posts a month, drafted replies for up to 10 reviews a month (you approve and post), a review-request kit and a 1-page monthly report.</p></div>
-          <div><div class="hd"><b>Grow</b><span>$149/mo</span></div><p>Everything in Get Found, with 8 Google posts a month and a page refresh every quarter.</p></div>
-        </div>
-      </div>
-    </div>
-    <p class="cap">No one honest can guarantee rankings, reviews or calls, so I don't. I never write, buy or filter reviews. Samples use made-up businesses, not clients.</p>
+    <p class="cap">Samples use made-up businesses, not clients. Want something none of these covers? Ask, and I'll quote it in writing first.</p>
   </div>
 </section>
 
-<section id="deal" class="alt rv pre" aria-labelledby="deal-h">
+<section id="after" class="tl-sec alt" aria-labelledby="after-h">
+  <div class="wrap">
+    <div data-stagger>
+    <div class="k" data-r><span class="ix">05</span>After you say yes</div>
+    <h2 class="h2" id="after-h" data-r>What happens after you say yes.</h2>
+    <p class="sub" data-r>No handoff to a stranger and no surprise invoices. Here's your first month, and what comes after it if you want it.</p>
+    </div>
+    <div class="tlw" id="tlw">
+    <div class="tl-rail" id="tlRail" aria-hidden="true"><span class="tl-fill" id="tlFill"></span></div>
+    <ol class="tline" id="tline" data-stagger>
+      <li class="tn" data-r>
+        <span class="tn-dot" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+        <span class="tn-when">Day 0</span>
+        <h3>You approve it</h3>
+        <p>You tell me the preview is right. The plan, sections and price are already in writing, so nothing changes now.</p>
+      </li>
+      <li class="tn" data-r>
+        <span class="tn-dot" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg></span>
+        <span class="tn-when">Same day</span>
+        <h3>It goes live, then you pay</h3>
+        <p>Essential and Starter sites go live the day you say yes, on free hosting. Then I send one Venmo, Cash App or check request. Signature and Immersive launch dates are set in writing before you pay.</p>
+      </li>
+      <li class="tn" data-r>
+        <span class="tn-dot" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="M9 15h6"/></svg></span>
+        <span class="tn-when">Days 1 to 30</span>
+        <h3>Free small edits</h3>
+        <p>New hours, a changed price, a better photo: small text edits are free for 30 days after launch. Want your own .com? I quote the registrar price first, usually $15 to $20 a year.</p>
+      </li>
+      <li class="tn" data-r>
+        <span class="tn-dot" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l7.5 3v5.5c0 4.6-3.2 8.2-7.5 9.5-4.3-1.3-7.5-4.9-7.5-9.5V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span>
+        <span class="tn-when">Month 2 on · optional</span>
+        <h3>Care, only if you want it</h3>
+        <p>The site is yours either way. If you'd like me to keep looking after it and your Google listing, care plans start at $49 a month.</p>
+        <a class="tl" href="#extras">Compare care plans</a>
+      </li>
+    </ol>
+    </div>
+  </div>
+</section>
+
+<section id="extras" aria-labelledby="extras-h">
+  <div class="wrap">
+    <div data-stagger>
+    <div class="k" data-r><span class="ix">06</span>Fix-up &amp; care</div>
+    <h2 class="h2" id="extras-h" data-r>Two extras, with real price tags.</h2>
+    <p class="sub" data-r>A one-time fix-up for the Google listing you already have, and optional monthly care after launch. Neither one is ever required.</p>
+    </div>
+
+    <article class="prod" id="gbp" data-r>
+      <div class="prod-art" aria-hidden="true">
+        <svg viewBox="0 0 420 320" fill="none" focusable="false">
+          <rect class="pa-card" x="40" y="22" width="300" height="276" rx="20"/>
+          <rect class="pa-map" x="40" y="22" width="300" height="86" rx="20"/>
+          <rect class="pa-map2" x="40" y="80" width="300" height="28"/>
+          <path class="pa-road" d="M40 92C110 70 170 104 230 76S310 52 340 60"/>
+          <path class="pa-road" d="M150 22c10 30-6 58 6 86"/>
+          <g class="pa-pin"><path d="M190 40c-12 0-20 8.8-20 19.5 0 14 20 30.5 20 30.5s20-16.5 20-30.5C210 48.8 202 40 190 40z"/><circle cx="190" cy="59" r="7"/></g>
+          <rect class="pa-bar strong" x="64" y="128" width="170" height="14" rx="7"/>
+          <rect class="pa-bar" x="64" y="152" width="110" height="9" rx="4.5"/>
+          <g class="pa-row r1"><circle cx="72" cy="186" r="8"/><rect class="pa-bar" x="90" y="181" width="120" height="10" rx="5"/><path class="pa-ok" pathLength="1" d="M300 180l5 5 9-10"/></g>
+          <g class="pa-row r2"><rect class="pa-chip" x="64" y="208" width="62" height="22" rx="11"/><rect class="pa-chip" x="132" y="208" width="78" height="22" rx="11"/><rect class="pa-chip" x="216" y="208" width="50" height="22" rx="11"/><path class="pa-ok" pathLength="1" d="M300 214l5 5 9-10"/></g>
+          <g class="pa-row r3"><rect class="pa-ph" x="64" y="242" width="52" height="40" rx="8"/><rect class="pa-ph" x="122" y="242" width="52" height="40" rx="8"/><rect class="pa-ph" x="180" y="242" width="52" height="40" rx="8"/><path class="pa-ok" pathLength="1" d="M300 256l5 5 9-10"/></g>
+          <g class="pa-qr"><rect x="318" y="196" width="84" height="84" rx="12"/><path d="M332 210h18v18h-18zM370 210h18v18h-18zM332 248h18v18h-18zM360 240h6v6h-6zM372 250h6v6h-6zM382 238h6v6h-6zM362 262h6v6h-6zM380 264h8v6h-8z"/></g>
+        </svg>
+      </div>
+      <div class="prod-body">
+        <span class="prod-tag">Already have a website? · One-time</span>
+        <h3>Google Business Profile fix-up</h3>
+        <div class="prod-price"><b>$149</b><span>one-time, no subscription</span></div>
+        <p>Many customers see your Google listing before your website. I check the listing you already own, tell you what I'd fix, then fix it once you say yes.</p>
+        <ul class="ticks">
+          <li>Hours, categories, service area, services and description corrected</li>
+          <li>Photos organized, plus a list of what to add</li>
+          <li>A review link and QR code to hand every customer</li>
+          <li>You add me as a manager. You always stay the owner.</li>
+        </ul>
+        <div class="row" style="margin-top:6px"><a class="btn" href="#start" data-pick="Google listing fix-up">Ask about a fix-up</a></div>
+      </div>
+    </article>
+
+    <div class="care-head" data-r>
+      <h3>Care plans <span>after launch · optional</span></h3>
+      <p>3-month minimum, then month to month. Never required, and the site stays yours without one.</p>
+    </div>
+    <div class="cplans" id="cplans" data-stagger>
+      <article class="cplan" data-col="1" data-r>
+        <span class="cp-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg></span>
+        <h4>Keep It Running</h4>
+        <div class="cp-price"><b>$49</b><span>/mo</span></div>
+        <p>For owners who just want it to keep working and stay current.</p>
+        <button class="btn ghost sm" type="button" data-care="Keep It Running ($49/mo)">Ask about this plan</button>
+      </article>
+      <article class="cplan feat" data-col="2" data-r>
+        <span class="cp-flag">Adds Google upkeep</span>
+        <span class="cp-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/></svg></span>
+        <h4>Get Found</h4>
+        <div class="cp-price"><b>$99</b><span>/mo</span></div>
+        <p>Everything in Keep It Running, plus regular Google posts and review help.</p>
+        <button class="btn sm" type="button" data-care="Get Found ($99/mo)">Ask about this plan</button>
+      </article>
+      <article class="cplan" data-col="3" data-r>
+        <span class="cp-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V11M10 19V7M16 19v-5M22 19H2"/><path d="M14 5l3-2 3 2"/></svg></span>
+        <h4>Grow</h4>
+        <div class="cp-price"><b>$149</b><span>/mo</span></div>
+        <p>Everything in Get Found, with twice the posts and a page refresh every quarter.</p>
+        <button class="btn ghost sm" type="button" data-care="Grow ($149/mo)">Ask about this plan</button>
+      </article>
+    </div>
+    <div class="tblw cmp" tabindex="0" role="region" aria-label="Care plan comparison" data-r>
+      <table id="cmp">
+        <caption>What each care plan includes</caption>
+        <thead><tr><th scope="col"><span class="sr">Included</span></th><th scope="col" data-col="1">Keep It Running<small>$49/mo</small></th><th scope="col" data-col="2">Get Found<small>$99/mo</small></th><th scope="col" data-col="3">Grow<small>$149/mo</small></th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Kept online, with an uptime check</th><td data-col="1"><span class="yes"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 10.5l3 3 7-7.5"/></svg><span class="sr">Included</span></span></td><td data-col="2"><span class="yes"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 10.5l3 3 7-7.5"/></svg><span class="sr">Included</span></span></td><td data-col="3"><span class="yes"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 10.5l3 3 7-7.5"/></svg><span class="sr">Included</span></span></td></tr>
+          <tr><th scope="row">Small text or photo edit (48-hour turnaround)</th><td data-col="1">1 a month</td><td data-col="2">1 a month</td><td data-col="3">1 a month</td></tr>
+          <tr><th scope="row">Yearly domain renewal reminder</th><td data-col="1"><span class="yes"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 10.5l3 3 7-7.5"/></svg><span class="sr">Included</span></span></td><td data-col="2"><span class="yes"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 10.5l3 3 7-7.5"/></svg><span class="sr">Included</span></span></td><td data-col="3"><span class="yes"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 10.5l3 3 7-7.5"/></svg><span class="sr">Included</span></span></td></tr>
+          <tr><th scope="row">Google posts</th><td data-col="1"><span class="no" aria-label="Not included">–</span></td><td data-col="2">4 a month</td><td data-col="3">8 a month</td></tr>
+          <tr><th scope="row">Drafted review replies (you approve and post)</th><td data-col="1"><span class="no" aria-label="Not included">–</span></td><td data-col="2">Up to 10 a month</td><td data-col="3">Up to 10 a month</td></tr>
+          <tr><th scope="row">Review-request kit</th><td data-col="1"><span class="no" aria-label="Not included">–</span></td><td data-col="2"><span class="yes"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 10.5l3 3 7-7.5"/></svg><span class="sr">Included</span></span></td><td data-col="3"><span class="yes"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 10.5l3 3 7-7.5"/></svg><span class="sr">Included</span></span></td></tr>
+          <tr><th scope="row">1-page monthly report</th><td data-col="1"><span class="no" aria-label="Not included">–</span></td><td data-col="2"><span class="yes"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 10.5l3 3 7-7.5"/></svg><span class="sr">Included</span></span></td><td data-col="3"><span class="yes"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 10.5l3 3 7-7.5"/></svg><span class="sr">Included</span></span></td></tr>
+          <tr><th scope="row">Page refresh every quarter</th><td data-col="1"><span class="no" aria-label="Not included">–</span></td><td data-col="2"><span class="no" aria-label="Not included">–</span></td><td data-col="3"><span class="yes"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 10.5l3 3 7-7.5"/></svg><span class="sr">Included</span></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="cap">No one honest can guarantee rankings, reviews or calls, so I don't. I never write, buy or filter reviews.</p>
+  </div>
+</section>
+
+<section id="deal" class="alt" aria-labelledby="deal-h">
   <div class="wrap">
     <div class="deal">
       <div>
-        <div class="k">The deal, in plain words</div>
-        <h2 class="h2" id="deal-h">No risk on your side of the counter.</h2>
-        <ul class="promises">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><div><b>You see it before you pay</b><span>The preview is free. If you don't like it, you owe nothing.</span></div></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 3h10l4 4v14H3V3h4z"/><path d="M7 14h10M7 18h6"/></svg><div><b>Price in writing first</b><span>Your plan, sections and price are written down before I start. No hourly billing.</span></div></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg><div><b>It's yours</b><span>You own your content and domain, and you can ask for the site files.</span></div></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg><div><b>No contract on the monthly option</b><span>The $99 Starter Site can be cancelled any time.</span></div></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l3 6.5 7 .8-5.2 4.8 1.5 7L12 17.5 5.7 21l1.5-7L2 9.3l7-.8z"/></svg><div><b>No fake anything</b><span>No fake reviews, no ranking promises, no made-up results on your site or mine.</span></div></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 10-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><div><b>Local, and reachable</b><span>I'm in Morton. Ask me anything by email before you decide.</span></div></li>
+        <div data-stagger>
+        <div class="k" data-r><span class="ix">07</span>The deal, in plain words</div>
+        <h2 class="h2" id="deal-h" data-r>No risk on your side of the counter.</h2>
+        </div>
+        <ul class="promises" data-stagger>
+          <li data-r><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><div><b>You see it before you pay</b><span>The preview is free. If you don't like it, you owe nothing.</span></div></li>
+          <li data-r><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 3h10l4 4v14H3V3h4z"/><path d="M7 14h10M7 18h6"/></svg><div><b>Price in writing first</b><span>Your plan, sections and price are written down before I start. No hourly billing.</span></div></li>
+          <li data-r><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg><div><b>It's yours</b><span>You own your content and domain, and you can ask for the site files.</span></div></li>
+          <li data-r><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg><div><b>No contract on the monthly option</b><span>The $99 Starter Site can be cancelled any time.</span></div></li>
+          <li data-r><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l3 6.5 7 .8-5.2 4.8 1.5 7L12 17.5 5.7 21l1.5-7L2 9.3l7-.8z"/></svg><div><b>No fake anything</b><span>No fake reviews, no ranking promises, no made-up results on your site or mine.</span></div></li>
+          <li data-r><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 10-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><div><b>Local, and reachable</b><span>I'm in Morton. Ask me anything by email before you decide.</span></div></li>
         </ul>
       </div>
-      <aside class="me" aria-labelledby="me-h">
+      <aside class="me" aria-labelledby="me-h" data-r>
         <div class="av" aria-hidden="true">ND</div>
         <div class="mk2">Who builds it</div>
         <h3 id="me-h">Nolan Day, Morton, Illinois.</h3>
@@ -654,16 +840,16 @@ footer a{color:var(--ink-2);display:inline-flex;align-items:center;min-height:44
   </div>
 </section>
 
-<section id="start" class="rv pre" aria-labelledby="start-h">
+<section id="start" aria-labelledby="start-h">
   <div class="wrap req">
     <div class="side">
-      <div class="k">Free preview</div>
+      <div class="k"><span class="ix">08</span>Free preview</div>
       <h2 class="h2" id="start-h">Get your real site built, free.</h2>
       <p class="sub">Takes about a minute. Your request opens as an email from your own account, so nothing is sent until you press send.</p>
       <ul><li>A preview built for your business, usually the same day</li><li>You pay only if you approve the final version</li><li>From $300, or $0 down and $99 a month</li></ul>
       <p class="alt-contact">Rather just email? Write to <a href="mailto:hanbackj1@gmail.com?subject=Website%20preview%20request">hanbackj1@gmail.com</a> with your business name and town.</p>
     </div>
-    <div class="flow" id="flow">
+    <div class="flow" id="flow" data-r>
       <div class="prog" aria-hidden="true"><span class="on"></span><span></span><span></span></div>
       <p class="sr" id="steplive" role="status" aria-live="polite">Step 1 of 3</p>
       <div class="pane on" data-p="0"><h3 tabindex="-1">What kind of business is it?</h3><div class="chips" id="chips"></div></div>
@@ -689,10 +875,12 @@ footer a{color:var(--ink-2);display:inline-flex;align-items:center;min-height:44
   </div>
 </section>
 
-<section id="faq" class="alt rv pre" aria-labelledby="faq-h">
+<section id="faq" class="alt" aria-labelledby="faq-h">
   <div class="wrap">
-    <div class="k">Questions owners ask</div>
-    <h2 class="h2" id="faq-h">Straight answers.</h2>
+    <div data-stagger>
+    <div class="k" data-r><span class="ix">09</span>Questions owners ask</div>
+    <h2 class="h2" id="faq-h" data-r>Straight answers.</h2>
+    </div>
     <div class="faq">
       <details><summary>Do I pay up front?</summary><p>No. First we agree the scope in writing, then you see a free preview. You pay only after you approve the final version, by Venmo, Cash App or check.</p></details>
       <details><summary>Can I pay monthly instead?</summary><p>Yes. The Starter Site is $0 down and $99 a month: a one-page site with tap-to-call, a Google listing fix-up, and hosting and small edits handled for you. Cancel any time. Or pay $300 once for the Essential site and own it outright.</p></details>
@@ -710,9 +898,10 @@ footer a{color:var(--ink-2);display:inline-flex;align-items:center;min-height:44
   </div>
 </section>
 
-<div class="close rv pre">
+<div class="close">
   <div class="wrap">
-    <div class="box">
+    <div class="box" data-r="scale">
+      <svg class="box-art" viewBox="0 0 600 300" preserveAspectRatio="xMaxYMid slice" aria-hidden="true" focusable="false"><g fill="none" stroke-linecap="round"><path pathLength="1" d="M120 300C220 240 260 150 380 120S560 60 640 20"/><path pathLength="1" d="M180 300C270 250 320 180 420 156S580 104 640 80"/><path pathLength="1" d="M240 300C320 262 370 214 460 196S600 160 640 150"/><path pathLength="1" d="M300 300C370 276 420 246 500 236S610 220 640 220"/></g></svg>
       <h2>See your site before you spend a dollar.</h2>
       <p>Tell me your business name and town. I'll build a preview you can try on your phone, and you pay only if you approve it.</p>
       <div class="row" style="margin-top:0"><a class="btn" href="#start">Get my free preview</a><a class="btn ink" href="#top">Try the instant mock-up</a></div>
@@ -818,21 +1007,24 @@ footer a{color:var(--ink-2);display:inline-flex;align-items:center;min-height:44
   document.querySelectorAll(".plan[data-plan]").forEach(function(c){var k=c.dataset.plan;PLANCARD[k]=[k,c.querySelector(".price b").textContent.trim(),c.querySelector(".for").textContent.trim(),[]]});
   var qs=new URLSearchParams(location.search);
   var src=(qs.get("src")||"").replace(/[^\w .\-]/g,"").slice(0,60);
-  var pick="other",plan=null,chips=$("chips"),live=$("steplive");
+  var pick="other",plan=null,care=null,chips=$("chips"),live=$("steplive");
   function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
   function go(n,focus){document.querySelectorAll(".pane").forEach(function(p){p.classList.toggle("on",+p.dataset.p===n)});document.querySelectorAll(".prog span").forEach(function(s,i){s.classList.toggle("on",i<=n)});live.textContent="Step "+(n+1)+" of 3";
     if(focus){var h=document.querySelector('.pane[data-p="'+n+'"] h3, .pane[data-p="'+n+'"] h4');if(h){h.setAttribute("tabindex","-1");h.focus({preventScroll:true})}}}
   function showForm(){$("f").hidden=false;$("done").hidden=true;$("cps").textContent=""}
   function recInfo(){return plan?PLANCARD[plan]:REC[pick]}
-  function rec(k,focus){pick=k;plan=null;var t=REC[k];showForm();
+  function rec(k,focus){pick=k;plan=null;care=null;var t=REC[k];showForm();
     var mo=t[0]==="Essential"?'<p class="mo">Or $0 down and $99 a month as a Starter Site, cancel any time.</p>':"";
     $("rec").innerHTML='<div><div class="rp">Recommended for you</div><h4 tabindex="-1">'+esc(t[0])+'</h4><div class="big">'+esc(t[1])+'</div></div><div><p class="why">'+esc(t[2])+'</p><ul>'+t[3].map(function(x){return"<li>"+esc(x)+"</li>"}).join("")+'</ul>'+mo+'</div>';
     $("p2h").textContent=k==="gbp"?"Your listing fix-up request":"Your preview request";go(1,focus)}
   TR.map(function(t){return[t.id,t.label,t.ic]}).concat([["gbp","Google listing fix-up","pin"]]).forEach(function(x){var b=document.createElement("button");b.type="button";b.innerHTML='<span class="em" aria-hidden="true">'+IC[x[2]]+'</span>';b.appendChild(document.createTextNode(x[1]));b.addEventListener("click",function(){rec(x[0],true)});chips.appendChild(b)});
   function jumpToForm(){go(2,true);$("flow").scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"})}
-  function pickPlan(k){plan=k;showForm();$("p2h").textContent="Your preview request · "+k+" ("+PLANCARD[k][1]+")"}
+  function pickPlan(k){plan=k;care=null;showForm();$("p2h").textContent="Your preview request · "+k+" ("+PLANCARD[k][1]+")"}
   document.querySelectorAll("[data-pick]").forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();var k=a.dataset.pick;
     if(k==="Google listing fix-up"){rec("gbp",false)}else{pickPlan(k)}jumpToForm()})});
+  /* care plans: ask about one, after launch */
+  document.querySelectorAll("[data-care]").forEach(function(b){b.addEventListener("click",function(){care=b.dataset.care;plan=null;pick="other";showForm();
+    $("p2h").textContent="Ask about care · "+care;var n=$("nt");if(!n.value||/^I'd like to ask about the /.test(n.value))n.value="I'd like to ask about the "+care+" care plan.";jumpToForm()})});
   var qp=qs.get("plan");if(qp){qp=qp.charAt(0).toUpperCase()+qp.slice(1).toLowerCase();if(PLANCARD[qp]){pickPlan(qp);go(2,false)}}
   /* the mock-up's button carries what they typed into the request */
   $("builder").addEventListener("submit",function(e){e.preventDefault();var c=cur();rec(c.t.id,false);if($("b-name").value.trim())$("bn").value=c.name;if($("b-town").value.trim())$("tw").value=c.town+", IL";var n=$("nt");if(!n.value)n.value="Liked the "+look+" look in the instant mock-up.";jumpToForm()});
@@ -842,10 +1034,11 @@ footer a{color:var(--ink-2);display:inline-flex;align-items:center;min-height:44
   document.querySelectorAll("[data-back]").forEach(function(b){b.addEventListener("click",function(){go(+b.dataset.back,true)})});
   $("f").addEventListener("submit",function(e){e.preventDefault();var v=function(id){return $(id).value.trim()};
     var bad=["bn","tw"].filter(function(id){return !v(id)})[0];if(bad){var fld=$(bad);fld.setCustomValidity("Please enter your "+(bad==="bn"?"business name":"town and state")+".");fld.reportValidity();fld.focus();return}
-    var t=recInfo(),isG=!plan&&pick==="gbp",biz=v("bn");$("pvnext").hidden=isG;
-    var lines=["Hi Nolan,","",isG?"I'd like help with my Google Business Profile.":"I'd like a free website preview.","Business: "+biz+" ("+v("tw")+")"];
-    if(!plan)lines.push("Type: "+LABEL[pick]);
-    lines.push((plan?"Picked plan: ":isG?"Service: ":"Plan leaning: ")+t[0]+" ("+t[1]+")");
+    var t=recInfo(),isG=!plan&&!care&&pick==="gbp",biz=v("bn");$("pvnext").hidden=isG||!!care;
+    var lines=["Hi Nolan,","",care?"I have a question about your care plans.":isG?"I'd like help with my Google Business Profile.":"I'd like a free website preview.","Business: "+biz+" ("+v("tw")+")"];
+    if(care)lines.push("Care plan: "+care);
+    else{if(!plan)lines.push("Type: "+LABEL[pick]);
+    lines.push((plan?"Picked plan: ":isG?"Service: ":"Plan leaning: ")+t[0]+" ("+t[1]+")");}
     if(v("ph"))lines.push("Text me at: "+v("ph"));
     if(v("ws"))lines.push("Current site or Facebook: "+v("ws"));
     lines.push("Notes: "+(v("nt")||"none"));
@@ -853,15 +1046,13 @@ footer a{color:var(--ink-2);display:inline-flex;align-items:center;min-height:44
     if(src)lines.push("Link source: "+src);
     lines.push("","Thanks!");
     var m=lines.join("\n");$("msg").textContent=m;
-    var sj=encodeURIComponent((isG?"Profile fix-up request: ":"Free preview request: ")+biz),bd=encodeURIComponent(m),to="hanbackj1@gmail.com";
+    var sj=encodeURIComponent((care?"Care plan question: ":isG?"Profile fix-up request: ":"Free preview request: ")+biz),bd=encodeURIComponent(m),to="hanbackj1@gmail.com";
     $("mail").href="mailto:"+to+"?subject="+sj+"&body="+bd;$("m-g").href="https://mail.google.com/mail/?view=cm&fs=1&to="+to+"&su="+sj+"&body="+bd;$("m-o").href="https://outlook.live.com/mail/0/deeplink/compose?to="+to+"&subject="+sj+"&body="+bd;$("m-y").href="https://compose.mail.yahoo.com/?to="+to+"&subject="+sj+"&body="+bd;
     $("f").hidden=true;$("done").hidden=false;$("mail").focus()});
   $("cp").addEventListener("click",function(){var s=$("cps"),m=$("msg");function selm(){var r=document.createRange();r.selectNodeContents(m);getSelection().removeAllRanges();getSelection().addRange(r);s.textContent="Selected. Press Ctrl+C, or long-press to copy."}
     if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(m.textContent).then(function(){s.textContent="Copied. Paste it into an email to hanbackj1@gmail.com"},selm);else selm()});
 
-  /* reveal on scroll, nav border, phone dock */
-  var rv=[].slice.call(document.querySelectorAll(".rv"));
-  if("IntersectionObserver" in window&&!reduce){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.remove("pre");io.unobserve(e.target)}})},{threshold:.05});rv.forEach(function(el){io.observe(el)});setTimeout(function(){rv.forEach(function(el){el.classList.remove("pre")})},2500)}else rv.forEach(function(el){el.classList.remove("pre")});
+  /* nav border, phone dock (reveals live in assets/storefront/v3.js) */
   var topbar=$("topbar");addEventListener("scroll",function(){topbar.classList.toggle("scrolled",scrollY>8)},{passive:true});
   var dock=$("dock");
   if(dock&&"IntersectionObserver" in window){var inHero=true,inStart=false;
