@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Welcome Aboard · Nolan Day Studio</title>
+<meta name="description" content="You said yes. What happens next, what to send, how to add Nolan to your Google listing, your domain options and when you pay.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#16181A">
+<link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/journey.css">
+<link rel="stylesheet" href="/after/after.css">
+<style>
+/* ---------- hero: the welcome kit, unpacking itself ---------- */
+.kit{padding:clamp(14px,2vw,22px);min-height:clamp(380px,40vw,520px);display:grid;align-content:center}
+.kit svg{width:100%;height:auto;display:block;overflow:visible}
+.kit .it{opacity:0;transform:translate(0,70px) scale(.85);transform-box:fill-box;transform-origin:center;animation:pop 1s var(--ease) forwards;animation-delay:calc(var(--i) * 140ms + 500ms)}
+@keyframes pop{to{opacity:1;transform:none}}
+.kit .fl{animation:bob 7s ease-in-out infinite;animation-delay:calc(var(--i) * -1.3s)}
+.kit .lbl{font:600 11px var(--mono);letter-spacing:.08em;fill:#ffffffa8;text-transform:uppercase}
+.kit .paper{fill:#fbfaf7}
+.kit .ink{fill:#16181a}
+.kit .acc{fill:var(--shop)}
+.kit .stk{fill:none;stroke:#16181a;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.kit .stk-acc{fill:none;stroke:var(--shop);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.kit .soft{fill:#e9e5dc}
+.kit .kraft{fill:#c99b62}.kit .kraft2{fill:#b5844c}.kit .kraft3{fill:#a5743f}
+.kit .hand{transform-box:view-box;transform-origin:262px 101px;animation:spin 12s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.kit .ring{fill:none;stroke:var(--shop);stroke-width:2;stroke-dasharray:4 6;transform-box:fill-box;transform-origin:center;animation:spin 30s linear infinite}
+@media (prefers-reduced-motion:reduce){.kit .it{opacity:1;transform:none;animation:none}.kit .fl,.kit .hand,.kit .ring{animation:none}}
+
+/* ---------- timeline + plan card ---------- */
+.next2{display:grid;gap:clamp(28px,4vw,56px)}
+@media (min-width:980px){.next2{grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);align-items:start}.glance{position:sticky;top:90px}}
+.flow li.now b::after{content:"You are here";margin-left:10px;vertical-align:3px;font:600 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;background:var(--shop);color:var(--shop-ink);padding:4px 8px;border-radius:99px;white-space:nowrap}
+.glance{border-radius:26px;background:var(--card);border:1px solid var(--line);overflow:hidden}
+.glance .hd{padding:22px 24px;background:var(--ink);color:var(--bg)}
+.glance .hd small{font:600 11.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;opacity:.7}
+.glance .hd b{display:block;font:400 34px/1.05 "Instrument Serif",Georgia,serif;margin-top:8px}
+.glance .hd span{display:block;opacity:.75;font-size:15px;margin-top:4px}
+.glance dl{margin:0;padding:8px 24px 20px;display:grid}
+.glance dl div{display:grid;grid-template-columns:110px 1fr;gap:12px;padding:12px 0;border-bottom:1px dashed var(--line)}
+.glance dl div:last-child{border-bottom:0}
+.glance dt{font:600 12px/1.6 var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.glance dd{margin:0;font-size:15.5px}
+
+/* ---------- checklist ---------- */
+.ckhead{display:flex;flex-wrap:wrap;gap:20px 32px;align-items:center;justify-content:space-between;margin-bottom:28px}
+.ring2{display:flex;align-items:center;gap:16px}
+.ring2 svg{width:76px;height:76px;transform:rotate(-90deg)}
+.ring2 circle{fill:none;stroke-width:8}
+.ring2 .bg{stroke:var(--line)}
+.ring2 .fg{stroke:var(--shop);stroke-linecap:round;stroke-dasharray:226.2;stroke-dashoffset:226.2;transition:stroke-dashoffset .7s var(--ease)}
+.ring2 b{display:block;font:400 34px/1 "Instrument Serif",Georgia,serif}
+.ring2 span{color:var(--muted);font-size:14.5px}
+.j .checks{display:grid;gap:12px;padding:0;margin:0}
+@media (min-width:720px){.checks{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1080px){.checks{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.j .ck{position:relative;display:flex;flex-direction:column;gap:6px;padding:20px 20px 18px;border-radius:20px;background:var(--card);border:1px solid var(--line);cursor:pointer;margin:0;font-weight:400;transition:border-color .25s,background .25s,transform .35s var(--ease),box-shadow .35s var(--ease)}
+.ck:hover{transform:translateY(-3px);box-shadow:0 22px 40px -30px #0007}
+.ck input{position:absolute;opacity:0;width:1px;height:1px;min-height:0}
+.ck .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.ck .ico{margin:0}
+.ck .box{width:28px;height:28px;border-radius:9px;border:2px solid var(--line);display:grid;place-items:center;transition:.25s var(--ease)}
+.ck .box svg{width:16px;height:16px;fill:none;stroke:var(--shop-ink);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;opacity:0;transform:scale(.5);transition:.25s var(--ease)}
+.ck b{font-size:17.5px}
+.ck span.h{color:var(--muted);font-size:15px;line-height:1.5}
+.ck:has(input:checked){border-color:var(--shop);background:color-mix(in srgb,var(--shop) 6%,var(--card))}
+.ck:has(input:checked) .box{background:var(--shop);border-color:var(--shop)}
+.ck:has(input:checked) .box svg{opacity:1;transform:none}
+.ck:has(input:focus-visible){outline:2px solid var(--accent);outline-offset:3px}
+@media (max-width:719px){.j .ck{padding:18px 64px 18px 18px}.j .ck .top{position:absolute;top:16px;right:16px;margin:0}.j .ck .ico{display:none}}
+.ck .opt{position:absolute;top:22px;right:58px;font:600 10.5px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+
+/* ---------- Google manager steps + mock ---------- */
+.gbp{display:grid;gap:clamp(24px,4vw,48px);align-items:start}
+@media (min-width:980px){.gbp{grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr)}}
+.gsteps{list-style:none;padding:0;margin:0;display:grid;gap:8px;counter-reset:g}
+.gsteps button{all:unset;box-sizing:border-box;display:grid;grid-template-columns:40px 1fr;gap:12px;align-items:start;width:100%;padding:14px 16px;border-radius:16px;border:1px solid transparent;cursor:pointer;transition:background .25s,border-color .25s;min-height:44px}
+.gsteps button:hover{background:color-mix(in srgb,var(--card) 70%,transparent)}
+.gsteps button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.gsteps button[aria-current="step"]{background:var(--card);border-color:var(--line);box-shadow:0 16px 30px -26px #0006}
+.gsteps i{counter-increment:g;width:32px;height:32px;border-radius:10px;display:grid;place-items:center;font:600 13px/1 var(--mono);font-style:normal;background:var(--line);color:var(--ink);transition:.25s}
+.gsteps i::before{content:counter(g)}
+.gsteps button[aria-current="step"] i{background:var(--shop);color:var(--shop-ink)}
+.gsteps button>span>b{display:block;font-size:16.5px}
+.gsteps button>span>span{display:block;color:var(--muted);font-size:15px}
+.gsteps button>span>span b{color:var(--ink)}
+.gsteps code{font:600 14px var(--mono);background:color-mix(in srgb,var(--shop) 10%,var(--card));color:var(--ink);padding:2px 6px;border-radius:6px;word-break:break-all}
+.mock{position:relative;border-radius:24px;background:#e9e7e2;padding:12px;box-shadow:0 40px 80px -50px #0009}
+.mock .chrome{display:flex;align-items:center;gap:6px;padding:4px 6px 12px}
+.mock .chrome i{width:10px;height:10px;border-radius:50%;background:#c9c5bd}
+.mock .chrome span{margin-left:8px;flex:1;font:500 12.5px/1 var(--mono);color:#55595f;background:#f7f6f3;border-radius:99px;padding:8px 14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.scr{position:relative;height:340px;border-radius:14px;background:#fff;overflow:hidden;color:#202124;font-family:Figtree,system-ui,sans-serif}
+.sc{position:absolute;inset:0;padding:22px;opacity:0;transform:translateY(12px);transition:opacity .45s var(--ease),transform .45s var(--ease);pointer-events:none}
+.sc.on{opacity:1;transform:none}
+.gbar{height:10px;border-radius:99px;background:#eceae6}
+.pcard{border:1px solid #e3e1dc;border-radius:14px;padding:18px;display:grid;gap:10px;position:relative}
+.pcard h4{margin:0;font-size:20px;font-weight:700;padding-right:56px}
+.kebab{position:absolute;top:14px;right:14px;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-size:22px;line-height:1;color:#3c4043}
+.hl{position:relative;z-index:1}
+.hl::after{content:"";position:absolute;inset:-5px;border-radius:12px;border:2.5px solid var(--shop);box-shadow:0 0 0 6px color-mix(in srgb,var(--shop) 18%,transparent);animation:hlp 1.6s ease-in-out infinite}
+.kebab.hl::after{border-radius:50%}
+@keyframes hlp{0%,100%{opacity:1}50%{opacity:.45}}
+.menu{position:absolute;top:70px;right:26px;width:min(250px,80%);background:#fff;border-radius:12px;box-shadow:0 12px 34px -8px #0004,0 0 0 1px #0000000f;padding:8px 0}
+.menu div{padding:12px 16px;font-size:14.5px}
+.menu div.g{padding:15px 16px}
+.menu div.g .gbar{width:70%}
+.panel h5{margin:0 0 14px;font-size:17px;font-weight:700}
+.prow{display:flex;justify-content:space-between;align-items:center;padding:14px 4px;border-bottom:1px solid #eeece8;font-size:15px}
+.prow .gbar{width:46%}
+.addb{display:inline-flex;align-items:center;gap:8px;font-weight:700;color:var(--shop);font-size:15px;padding:8px 12px;border-radius:10px}
+.addb svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.user{display:flex;align-items:center;gap:12px;padding:14px 4px;border-top:1px solid #eeece8;margin-top:14px;font-size:14.5px}
+.user .av{width:34px;height:34px;border-radius:50%;background:#dcd8cf;flex:none}
+.user small{display:block;color:#5f6368}
+.dlg{position:absolute;inset:22px;border-radius:16px;background:#fff;box-shadow:0 20px 50px -14px #0005,0 0 0 1px #00000012;padding:20px;display:grid;gap:12px;align-content:start}
+.dlg h5{margin:0;font-size:17px}
+.fld{border:1.5px solid #c7c4be;border-radius:8px;padding:10px 12px;font-size:14.5px;position:relative}
+.fld small{position:absolute;top:-9px;left:10px;background:#fff;padding:0 4px;font-size:11.5px;color:#5f6368}
+.fld .typed{font-family:var(--mono);font-size:13.5px;white-space:nowrap;overflow:hidden;display:block;max-width:100%}
+.sc.on .typed{animation:type 1.6s steps(19) .3s both}
+@keyframes type{from{max-width:0}to{max-width:100%}}
+.dlg .acts{display:flex;justify-content:flex-end;gap:10px;margin-top:4px}
+.dlg .acts span{padding:9px 16px;border-radius:99px;font-weight:700;font-size:14.5px}
+.dlg .inv{background:var(--shop);color:var(--shop-ink)}
+.mock .cap2{font-size:13px;color:#55595f;padding:12px 6px 2px;margin:0}
+.gnote{margin-top:22px;display:grid;gap:12px}
+@media (prefers-reduced-motion:reduce){.sc{transition:none}.hl::after{animation:none}.sc.on .typed{animation:none}}
+@media (max-width:420px){.scr{height:320px}.sc{padding:16px}.dlg{inset:14px;padding:16px}}
+
+/* ---------- domain options ---------- */
+.dom .tile{display:flex;flex-direction:column;gap:12px}
+.dom .url{display:flex;align-items:center;gap:8px;border-radius:12px;background:var(--bg);border:1px solid var(--line);padding:10px 12px;font:500 13.5px/1 var(--mono);color:var(--muted);overflow:hidden}
+.dom .url svg{width:14px;height:14px;flex:none;fill:none;stroke:var(--good);stroke-width:2.2}
+.dom .url b{color:var(--ink);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dom .cost{font:400 40px/1 "Instrument Serif",Georgia,serif}
+.dom .cost small{font:500 15px Figtree,sans-serif;color:var(--muted)}
+.dom h3{font-size:20px}
+.dom p{font-size:15.5px}
+
+/* ---------- pay ---------- */
+.pays{display:grid;gap:12px}
+@media (min-width:760px){.pays{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.pay{border-radius:20px;padding:22px;background:color-mix(in srgb,var(--bg) 8%,transparent);border:1px solid color-mix(in srgb,var(--bg) 18%,transparent)}
+.pay small{font:600 11.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;opacity:.7}
+.pay b{display:block;font:400 32px/1.1 "Instrument Serif",Georgia,serif;margin:8px 0 4px;color:var(--bg);word-break:break-word}
+.payrules{display:grid;gap:14px;margin-top:28px}
+@media (min-width:860px){.payrules{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.payrules div{border-top:2px solid var(--shop);padding-top:12px}
+.payrules b{display:block;color:var(--bg)}
+
+/* ---------- send ---------- */
+.sendwrap{display:grid;gap:clamp(24px,4vw,48px)}
+@media (min-width:980px){.sendwrap{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);align-items:start}}
+.formcard{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:clamp(20px,3vw,32px)}
+.formcard .row2{display:grid;gap:0 14px}
+@media (min-width:620px){.formcard .row2{grid-template-columns:1fr 1fr}}
+.attach{display:flex;gap:12px;align-items:flex-start;margin-top:18px;padding:14px 16px;border-radius:14px;background:color-mix(in srgb,var(--shop) 8%,var(--card));border:1px dashed color-mix(in srgb,var(--shop) 45%,var(--line));font-size:15px}
+.attach svg{width:22px;height:22px;flex:none;fill:none;stroke:var(--shop);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;margin-top:2px}
+.sumlist{margin:16px 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px}
+.sumlist li{font-size:13.5px;padding:5px 10px;border-radius:99px;border:1px solid var(--line);color:var(--muted)}
+.sumlist li.y{border-color:color-mix(in srgb,var(--good) 50%,transparent);color:var(--ink);background:color-mix(in srgb,var(--good) 10%,var(--card))}
+</style>
+</head>
+<body class="j">
+<header class="topbar"><div class="shell">
+  <a class="mark" href="/"><i>N</i><span>Nolan Day Studio <small id="forWho">· welcome</small></span></a>
+  <a class="btn shop sm" href="#send">Send my details</a>
+</div></header>
+
+<main>
+<!-- HERO -->
+<section class="a-hero"><div class="shell">
+  <div>
+    <p class="lead-in up" style="--i:0" id="hello">You said yes. Thank you.</p>
+    <h1 class="up" style="--i:1;font-size:clamp(42px,5.8vw,76px)" id="h1">Welcome aboard. Let's get <span data-shop>your business</span> <em>online.</em></h1>
+    <p class="sub up" style="--i:2">This page is your whole plan from here: what happens next, the few things I need from you, how to add me to your Google listing, your domain options and when you pay. Most of it takes one email.</p>
+    <div class="ctas up" style="--i:3"><a class="btn shop" href="#checklist">See what to send</a><a class="btn ghost" href="#next">What happens next</a></div>
+    <ul class="dots up" style="--i:4"><li>Nothing goes live until you approve it</li><li>You pay after it's live</li></ul>
+  </div>
+  <div class="art kit up" style="--i:2" role="img" aria-label="Illustration: a welcome kit opening, with the things your site needs floating out: your logo, photos, hours, services, service area and domain.">
+    <div class="grid-bg"></div>
+    <svg viewBox="0 0 560 470" aria-hidden="true">
+      <!-- photos -->
+      <g class="it" style="--i:1"><g class="fl" style="--i:1">
+        <g transform="rotate(-9 95 170)"><rect class="paper" x="38" y="104" width="116" height="134" rx="6"/><rect x="48" y="114" width="96" height="88" rx="3" fill="#2a3340"/><path d="M48 186 l26 -24 20 16 18 -14 32 22 v16 h-96z" class="acc" opacity=".9"/><circle cx="124" cy="134" r="9" fill="#f4c17a"/><rect class="soft" x="48" y="212" width="56" height="7" rx="3"/></g>
+        <g transform="rotate(6 140 190)"><rect class="paper" x="92" y="130" width="104" height="120" rx="6"/><rect x="101" y="139" width="86" height="78" rx="3" fill="#3b4a3c"/><path d="M101 205 l22 -18 18 12 22 -20 24 20 v18 h-86z" fill="#9cc58a"/><rect class="soft" x="101" y="227" width="48" height="7" rx="3"/></g>
+        <text class="lbl" x="70" y="282">Photos</text>
+      </g></g>
+      <!-- logo -->
+      <g class="it" style="--i:0"><g class="fl" style="--i:0">
+        <circle cx="236" cy="86" r="50" class="paper"/><circle cx="236" cy="86" r="41" class="ink"/><circle cx="236" cy="86" r="35" fill="none" stroke="var(--shop)" stroke-width="1.5" stroke-dasharray="2 4"/>
+        <text x="236" y="102" text-anchor="middle" fill="#fbfaf7" font-family="Instrument Serif, Georgia, serif" font-size="46" data-shop-init>Y</text>
+        <text class="lbl" x="236" y="160" text-anchor="middle">Logo</text>
+      </g></g>
+      <!-- clock -->
+      <g class="it" style="--i:2"><g class="fl" style="--i:2">
+        <rect class="paper" x="306" y="52" width="104" height="104" rx="22" transform="rotate(5 358 104)"/>
+        <circle cx="358" cy="101" r="34" fill="none" class="stk" style="stroke-width:3"/>
+        <g class="stk" style="stroke-width:2.5"><path d="M358 73v6M358 123v6M330 101h6M380 101h6"/></g>
+        <path d="M358 101 V84" class="stk" style="stroke-width:3.5"/>
+        <g class="hand" style="transform-origin:358px 101px"><path d="M358 101 L378 101" class="stk-acc" style="stroke-width:3"/></g>
+        <circle cx="358" cy="101" r="4" class="acc"/>
+        <text class="lbl" x="358" y="186" text-anchor="middle">Hours</text>
+      </g></g>
+      <!-- services list -->
+      <g class="it" style="--i:3"><g class="fl" style="--i:3">
+        <rect class="paper" x="420" y="150" width="122" height="142" rx="12" transform="rotate(7 481 221)"/>
+        <g transform="rotate(7 481 221)">
+          <rect class="ink" x="436" y="168" width="64" height="9" rx="4"/>
+          <g><path d="M437 196 l5 5 9 -10" class="stk-acc"/><rect class="soft" x="458" y="192" width="68" height="8" rx="4"/></g>
+          <g><path d="M437 220 l5 5 9 -10" class="stk-acc"/><rect class="soft" x="458" y="216" width="56" height="8" rx="4"/></g>
+          <g><path d="M437 244 l5 5 9 -10" class="stk-acc"/><rect class="soft" x="458" y="240" width="62" height="8" rx="4"/></g>
+          <g><path d="M437 268 l5 5 9 -10" class="stk-acc"/><rect class="soft" x="458" y="264" width="44" height="8" rx="4"/></g>
+        </g>
+        <text class="lbl" x="478" y="326" text-anchor="middle">Services</text>
+      </g></g>
+      <!-- service area -->
+      <g class="it" style="--i:4"><g class="fl" style="--i:4">
+        <rect x="26" y="318" width="132" height="102" rx="12" fill="#2a3340" stroke="#ffffff22"/>
+        <g stroke="#ffffff1f" stroke-width="1"><path d="M26 352h132M26 386h132M70 318v102M114 318v102"/></g>
+        <path d="M34 404 C70 380 90 396 120 362 S150 340 158 336" stroke="#ffffff40" stroke-width="3" fill="none"/>
+        <circle class="ring" cx="92" cy="368" r="34"/>
+        <path d="M92 382 s-14 -12 -14 -22 a14 14 0 0 1 28 0 c0 10 -14 22 -14 22z" class="acc"/><circle cx="92" cy="360" r="5" fill="#fbfaf7"/>
+        <text class="lbl" x="92" y="448" text-anchor="middle">Service area</text>
+      </g></g>
+      <!-- domain tag -->
+      <g class="it" style="--i:5"><g class="fl" style="--i:5">
+        <g transform="rotate(-6 470 380)"><path d="M398 356 h126 a10 10 0 0 1 10 10 v28 a10 10 0 0 1 -10 10 h-126 l-20 -24z" class="paper"/><circle cx="398" cy="380" r="5" fill="#2a3340"/>
+        <text x="458" y="386" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" font-weight="600" class="ink">your-shop.com</text></g>
+        <path d="M398 380 C380 360 360 352 352 330" stroke="#ffffff55" stroke-width="1.5" fill="none" stroke-dasharray="3 4"/>
+        <text class="lbl" x="466" y="438" text-anchor="middle">Domain</text>
+      </g></g>
+      <!-- the box -->
+      <g>
+        <path d="M188 330 L280 306 L372 330 L280 356z" class="kraft3"/>
+        <path d="M188 330 L280 356 L280 452 L188 424z" class="kraft"/>
+        <path d="M372 330 L280 356 L280 452 L372 424z" class="kraft2"/>
+        <path d="M188 330 L150 292 L242 268 L280 306z" class="kraft" opacity=".95"/>
+        <path d="M372 330 L410 292 L318 268 L280 306z" class="kraft2" opacity=".95"/>
+        <path d="M216 384 l40 11" stroke="#00000030" stroke-width="5" stroke-linecap="round"/>
+        <text x="234" y="414" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#00000055" transform="rotate(16 234 414)">WELCOME KIT</text>
+      </g>
+    </svg>
+    <div class="art-cap"><span>Illustration</span><span>What your site needs</span></div>
+  </div>
+</div></section>
+
+<!-- WHAT HAPPENS NEXT -->
+<section id="next" class="tight" style="padding-top:0"><div class="shell next2">
+  <div>
+    <p class="kick rv"><b>01</b>What happens next</p>
+    <h2 class="big rv">From yes to live, <em>step by step.</em></h2>
+    <p class="sec-sub rv" style="margin-bottom:34px">On the Starter plan this usually all happens the same day you send your details. Bigger sites take a few days.</p>
+    <ol class="flow">
+      <li><span class="n">01</span><div><span class="when">Today</span><b>You said yes</b><span class="t">I text you back to confirm the plan and the price in writing, so we both have it.</span></div></li>
+      <li class="now"><span class="n">02</span><div><span class="when">Today</span><b>You send your details</b><span class="t">Logo, photos, hours, services, the towns you cover and your domain choice. The checklist is right below. Whatever you have is fine; I fill the gaps.</span></div></li>
+      <li><span class="n">03</span><div><span class="when" id="whenPreview">Same day on Starter · 2 to 3 days on Signature and Immersive</span><b>I send you the finished preview</b><span class="t">A private link with your real details in it. Look it over on your phone.</span></div></li>
+      <li><span class="n">04</span><div><span class="when">Your call</span><b>You ask for changes</b><span class="t" id="rounds">1 round of changes on Starter, 2 on Signature and Immersive. Just text or email what to change.</span></div></li>
+      <li><span class="n">05</span><div><span class="when">When you say so</span><b>You approve it, and it goes live</b><span class="t">Reply "approve". I put it live, point your Google listing at it and connect your domain if you have one.</span></div></li>
+      <li><span class="n">06</span><div><span class="when">After it's live</span><b>You pay</b><span class="t">I send a request for the exact amount. Venmo, Cash App or a check.</span></div></li>
+      <li><span class="n">07</span><div><span class="when">First 30 days</span><b>Free small edits</b><span class="t">Text changes like hours, prices or a phone number are free for 30 days after launch.</span></div></li>
+    </ol>
+  </div>
+  <aside class="glance rv" aria-label="Your plan at a glance">
+    <div class="hd"><small>Your plan</small><b id="gPlan">Your new website</b><span id="gPrice">Price as agreed in writing</span></div>
+    <dl>
+      <div><dt>You pay</dt><dd>Only after it's live and you've approved it</dd></div>
+      <div><dt>How</dt><dd>Venmo, Cash App or a check made out to Nolan Day</dd></div>
+      <div><dt>Changes</dt><dd id="gRounds">Included rounds before launch, then free small text edits for 30 days</dd></div>
+      <div><dt>Domain</dt><dd>Optional. The registrar's price, usually $15 to $20 a year, quoted before you pay</dd></div>
+      <div><dt>Questions</dt><dd><a href="mailto:hanbackj1@gmail.com">hanbackj1@gmail.com</a>, or reply to my text</dd></div>
+    </dl>
+  </aside>
+</div></section>
+
+<!-- CHECKLIST -->
+<section id="checklist" class="tight"><div class="shell">
+  <div class="ckhead">
+    <div><p class="kick rv"><b>02</b>What to send me</p><h2 class="big rv">Eight things. <em>Tick them off.</em></h2><p class="sec-sub rv">Tick each one as you get it together. Your ticks stay on this phone, and they go into the email at the bottom so I know what's coming.</p></div>
+    <div class="ring2 rv" aria-live="polite"><svg viewBox="0 0 80 80" aria-hidden="true"><circle class="bg" cx="40" cy="40" r="36"/><circle class="fg" id="ringFg" cx="40" cy="40" r="36"/></svg><div><b id="ckCount">0 of 8</b><span>ready</span></div></div>
+  </div>
+  <div class="checks" data-stagger id="checks">
+    <label class="ck"><input type="checkbox" value="logo"><span class="top"><span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M9 15V9l6 6V9"/></svg></span><span class="box"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></span><b>Logo</b><span class="h">The file if you have it, or a clear photo of your sign or truck door. No logo? I make a clean one from your name at no charge.</span></label>
+    <label class="ck"><input type="checkbox" value="photos"><span class="top"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M21 16l-5-5-8 8"/></svg></span><span class="box"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></span><b>Photos</b><span class="h">5 to 15 of your real work, your shop or truck, you and your crew. Straight off your phone is perfect.</span></label>
+    <label class="ck"><input type="checkbox" value="hours"><span class="top"><span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span><span class="box"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></span><b>Hours</b><span class="h">Your regular hours, any seasonal changes, and whether you take emergency or weekend calls.</span></label>
+    <label class="ck"><input type="checkbox" value="services"><span class="top"><span class="ico"><svg viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2"/></svg></span><span class="box"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></span><b>Service list</b><span class="h">What you do, in your own words. Add a starting price only if you want prices shown.</span></label>
+    <label class="ck"><input type="checkbox" value="area"><span class="top"><span class="ico"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span><span class="box"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></span><b>Service area</b><span class="h">The towns you cover, or how far you're willing to drive.</span></label>
+    <label class="ck"><input type="checkbox" value="contact"><span class="top"><span class="ico"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1z"/></svg></span><span class="box"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></span><b>Phone and email</b><span class="h">The number customers should call or text, and where quote requests should go.</span></label>
+    <label class="ck"><input type="checkbox" value="domain"><span class="top"><span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.5 2.6 3.5 5.5 3.5 8.5s-1 5.9-3.5 8.5c-2.5-2.6-3.5-5.5-3.5-8.5s1-5.9 3.5-8.5z"/></svg></span><span class="box"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></span><b>Domain choice</b><span class="h">Free link for now, a new .com, or one you already own. <a href="#domain">See the options</a>.</span></label>
+    <label class="ck"><input type="checkbox" value="google"><span class="opt">Optional</span><span class="top"><span class="ico"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M18 8v6M15 11h6"/></svg></span><span class="box"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></span><b>Google listing access</b><span class="h">Add me as a manager so I can point your listing at the new site. <a href="#google">One minute, steps below</a>.</span></label>
+  </div>
+</div></section>
+
+<!-- GOOGLE -->
+<section id="google"><div class="shell gbp">
+  <div>
+    <p class="kick rv"><b>03</b>Your Google listing</p>
+    <h2 class="big rv">Add me as a manager. <em>You stay the owner.</em></h2>
+    <p class="sec-sub rv" style="margin-bottom:22px">This lets me put your new website on your Google Business Profile and keep your details right. You never share a password, and you can remove me any time from the same screen. Easiest on a computer.</p>
+    <ol class="gsteps rv" id="gsteps">
+      <li><button type="button" data-s="0" aria-current="step"><i></i><span><b>Open your profile</b><span>Go to <code>business.google.com</code> and sign in with the Google account that owns your listing.</span></span></button></li>
+      <li><button type="button" data-s="1"><i></i><span><b>Open the More menu</b><span>Tap the three dots, then <b>Business Profile settings</b>.</span></span></button></li>
+      <li><button type="button" data-s="2"><i></i><span><b>Choose People and access</b><span>It lists everyone who can manage the listing.</span></span></button></li>
+      <li><button type="button" data-s="3"><i></i><span><b>Tap Add</b><span>The add-person button at the top left.</span></span></button></li>
+      <li><button type="button" data-s="4"><i></i><span><b>Invite me as a Manager</b><span>Type <code>hanbackj1@gmail.com</code>, set Access to <b>Manager</b>, and tap <b>Invite</b>. I accept from my email.</span></span></button></li>
+    </ol>
+  </div>
+  <div class="rv">
+    <div class="mock" id="mock" data-seen>
+      <div class="chrome"><i></i><i></i><i></i><span>business.google.com</span></div>
+      <div class="scr">
+        <div class="sc on" data-sc="0">
+          <div class="pcard hl"><h4 data-shop>Your Business</h4><div class="gbar" style="width:55%"></div><div class="gbar" style="width:72%"></div><div class="gbar" style="width:40%"></div><span class="kebab">⋮</span></div>
+          <div style="display:grid;gap:10px;margin-top:22px"><div class="gbar" style="width:90%"></div><div class="gbar" style="width:76%"></div><div class="gbar" style="width:84%"></div></div>
+        </div>
+        <div class="sc" data-sc="1">
+          <div class="pcard"><h4 data-shop>Your Business</h4><div class="gbar" style="width:55%"></div><div class="gbar" style="width:72%"></div><div class="gbar" style="width:40%"></div><span class="kebab hl">⋮</span></div>
+          <div class="menu"><div class="g"><div class="gbar"></div></div><div class="g"><div class="gbar" style="width:55%"></div></div><div class="hl">Business Profile settings</div><div class="g"><div class="gbar" style="width:62%"></div></div></div>
+        </div>
+        <div class="sc panel" data-sc="2">
+          <h5>Business Profile settings</h5>
+          <div class="prow hl"><span>People and access</span><span aria-hidden="true">›</span></div>
+          <div class="prow"><div class="gbar"></div><span aria-hidden="true">›</span></div>
+          <div class="prow"><div class="gbar" style="width:38%"></div><span aria-hidden="true">›</span></div>
+          <div class="prow"><div class="gbar" style="width:52%"></div><span aria-hidden="true">›</span></div>
+        </div>
+        <div class="sc panel" data-sc="3">
+          <h5>People and access</h5>
+          <span class="addb hl"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M18 8v6M15 11h6"/></svg>Add</span>
+          <div class="user"><span class="av"></span><span><b>You</b><small>Primary owner</small></span></div>
+        </div>
+        <div class="sc" data-sc="4">
+          <div class="dlg">
+            <h5>Add new user</h5>
+            <div class="fld"><small>Name or email</small><span class="typed">hanbackj1@gmail.com</span></div>
+            <div class="fld hl"><small>Access</small>Manager ▾</div>
+            <div class="acts"><span>Cancel</span><span class="inv">Invite</span></div>
+          </div>
+        </div>
+      </div>
+      <p class="cap2">Simplified drawing. Google changes its screens now and then, so yours may look a little different. Steps checked against <a href="https://support.google.com/business/answer/3403100" target="_blank" rel="noopener">Google's own help page</a>, November 2026.</p>
+    </div>
+  </div>
+  <div class="gnote tiles c2" data-stagger style="grid-column:1/-1">
+    <div class="tile"><h3>What a manager can and can't do</h3><p>Managers can edit your details, add photos and posts, and reply to reviews. They can't remove owners, add other people or delete the profile. That stays with you.</p></div>
+    <div class="tile"><h3>Can't find your listing?</h3><p>It may be under a different Google account, or someone else may control it. Tell me what you see. Sorting it out is the $149 Google profile fix-up, only if you want it.</p></div>
+  </div>
+</div></section>
+
+<!-- DOMAIN -->
+<section id="domain" class="tight"><div class="shell">
+  <div class="head2 split"><div><p class="kick rv"><b>04</b>Your web address</p><h2 class="big rv">Three ways to do it. <em>All fine.</em></h2></div><p class="sec-sub rv">A domain is just the address people type, like yourshop.com. Your site works either way, and you can add one later without starting over.</p></div>
+  <div class="tiles c3 dom" data-stagger>
+    <div class="tile lift"><div class="url"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><b>nday27.github.io/your-shop</b></div><div class="cost">$0</div><h3>Start with the free link</h3><p>Live today on free hosting. Good to start with, and you can switch to your own address any time.</p></div>
+    <div class="tile lift"><div class="url"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><b>yourshop.com</b></div><div class="cost">$15 to $20 <small>a year, usually</small></div><h3>Get a new .com</h3><p>I find a few good names that are free to take. You pick one. It's registered in your name so it belongs to you, at the registrar's price, quoted before you pay. I set it all up.</p></div>
+    <div class="tile lift"><div class="url"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><b>the-one-you-have.com</b></div><div class="cost">$0 <small>extra</small></div><h3>Use one you already own</h3><p>Tell me where it's registered (GoDaddy, Squarespace, Namecheap or anywhere else). I send you the exact settings to change, or we do it together on a screen share. You never send me a password.</p></div>
+  </div>
+</div></section>
+
+<!-- PAY -->
+<section id="pay" style="padding:clamp(24px,4vw,48px) 0"><div class="band" style="padding:clamp(40px,7vw,88px) 0"><div class="shell">
+  <div class="head2 split"><div><p class="kick rv"><b>05</b>Paying</p><h2 class="big rv">You pay once it's live. <em>Not before.</em></h2></div><p class="sec-sub rv" id="payLine">After you approve the finished site and it's live, I send you a request for the exact amount we agreed. You just tap approve, or mail a check.</p></div>
+  <div class="pays" data-stagger>
+    <div class="pay"><small>Venmo</small><b>@NolanDay1</b><span>A request comes from me, for the exact amount.</span></div>
+    <div class="pay"><small>Cash App</small><b>$NolanDay2</b><span>Same thing, if you'd rather use Cash App.</span></div>
+    <div class="pay"><small>Check</small><b>Nolan Day</b><span>Made out to Nolan Day. I'll text you the mailing address.</span></div>
+  </div>
+  <div class="payrules" data-stagger>
+    <div><b>One-time plans</b><span>One payment for the agreed price, after launch. That's it.</span></div>
+    <div><b>$0 down, $99 a month</b><span>The first month after launch, then the same date each month. Cancel any time with a text.</span></div>
+    <div><b>Domain, if you want one</b><span>The registrar's price, paid by you or paid back at cost. Always quoted first.</span></div>
+  </div>
+</div></div></section>
+
+<!-- SEND -->
+<section id="send" class="tight"><div class="shell sendwrap">
+  <div>
+    <p class="kick rv"><b>06</b>Send it over</p>
+    <h2 class="big rv">One email <em>and you're done.</em></h2>
+    <p class="sec-sub rv">Fill in what you know, tap send, and attach your logo and photos to the same email. I reply the same day.</p>
+    <p class="fine rv" style="margin-top:18px">Prefer a guided form with your preview's details already filled in? <a data-keep="/start/" href="/start/">Use the 4-step form</a>. Too many photos for one email? Text them, or send a Google Photos or Drive share link.</p>
+  </div>
+  <form class="formcard rv" id="wForm" onsubmit="return false" novalidate>
+    <div class="row2">
+      <div><label for="biz" style="margin-top:0">Business name</label><input id="biz" autocomplete="organization"></div>
+      <div><label for="who" style="margin-top:0">Your name</label><input id="who" autocomplete="name"></div>
+    </div>
+    <label for="phone">Best number to text you</label><input id="phone" type="tel" inputmode="tel" autocomplete="tel">
+    <label id="domL">Your web address</label>
+    <div class="chips" role="radiogroup" aria-labelledby="domL">
+      <label><input type="radio" name="dom" value="Free link for now" checked><i></i>Free link for now</label>
+      <label><input type="radio" name="dom" value="I want a new .com"><i></i>New .com</label>
+      <label><input type="radio" name="dom" value="I already own one"><i></i>I have one</label>
+    </div>
+    <input id="domName" placeholder="Which one? e.g. smithautorepair.com" style="margin-top:10px" hidden aria-label="Your domain name">
+    <label for="notes">Hours, services, towns, anything else <span class="hint">(optional, or put it in the email)</span></label>
+    <textarea id="notes" rows="4" placeholder="Mon to Fri 7 to 5. We do brakes, tires, oil changes. Morton, Washington, Pekin..."></textarea>
+    <ul class="sumlist" id="sum" aria-label="Checklist status"></ul>
+    <div class="attach"><svg viewBox="0 0 24 24"><path d="M20 11.5l-8.2 8.2a5 5 0 0 1-7.1-7.1l8.5-8.5a3.3 3.3 0 0 1 4.7 4.7l-8.5 8.5a1.7 1.7 0 0 1-2.4-2.4l7.9-7.9"/></svg><span><b>Attach your logo and photos</b> to the email before you tap send. Nothing is sent until you send it.</span></div>
+    <div class="sendrow"><a class="btn shop" id="send2" href="mailto:hanbackj1@gmail.com">Send my details</a><button class="btn ghost" type="button" id="copy">Copy message</button></div>
+    <p class="fine" style="margin:12px 0 0">No email app? Use <a id="m-g" target="_blank" rel="noopener" href="https://mail.google.com/">Gmail</a> or <a id="m-o" target="_blank" rel="noopener" href="https://outlook.live.com/">Outlook</a>, or text it all to me.</p>
+    <div class="okbox" id="done" role="status" aria-live="polite" hidden></div>
+  </form>
+</div></section>
+
+<!-- FAQ -->
+<section class="tight"><div class="shell">
+  <div class="head2"><p class="kick rv"><b>07</b>Quick answers</p><h2 class="big rv">Before you ask.</h2></div>
+  <div class="faq two" data-stagger>
+    <details><summary>I don't have good photos. Is that a problem?</summary><p>No. Phone photos of real jobs beat stock photos every time, and I crop and brighten them. If you have none yet, I use clean illustrations until you do.</p></details>
+    <details><summary>Do I pay anything before it's live?</summary><p>No. The only thing that could come first is a domain, if you want one and buy it yourself, at the registrar's price.</p></details>
+    <details><summary>What if I forget something on the list?</summary><p>Send what you have. I fill the gaps with what's on your preview and your Google listing, and you check everything before it goes live.</p></details>
+    <details><summary>Can I change things after it's live?</summary><p>Yes. Small text edits are free for 30 days after launch. After that, changes are quoted first, or covered by a <a data-keep="/care/" href="/care/">care plan</a> if you pick one.</p></details>
+  </div>
+</div></section>
+
+<section class="closer"><div class="shell">
+  <h2 class="big rv">Thanks for trusting me <em>with this.</em></h2>
+  <p class="sec-sub rv">I'll keep you posted at every step. Anything at all, email <a href="mailto:hanbackj1@gmail.com">hanbackj1@gmail.com</a> or reply to my text.</p>
+  <div class="ctas rv"><a class="btn shop" href="#send">Send my details</a><a class="btn ghost" href="#checklist">Back to the checklist</a></div>
+</div></section>
+</main>
+
+<footer class="foot"><div class="shell"><span>© 2026 Nolan Day Studio · Morton, Illinois</span><nav aria-label="More"><a href="/">Home</a><a data-keep="/care/" href="/care/">Care plans</a><a href="mailto:hanbackj1@gmail.com">hanbackj1@gmail.com</a></nav></div></footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="/assets/journey.js"></script>
+<script src="/after/after.js"></script>
+<script>
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id)};
+var q=NDS.params(),shop={slug:""};
+var LABELS={logo:"Logo",photos:"Photos",hours:"Hours",services:"Service list",area:"Service area",contact:"Phone and email",domain:"Domain choice",google:"Google manager access"};
+
+/* ---- plan at a glance (?plan=starter|own|signature|immersive, optional &price= for a quoted price) ---- */
+var pid=NDS.planFromParam(),P=pid&&NDS.PLANS[pid];
+var price=parseInt(q.get("price"),10);if(!(isFinite(price)&&price>=0&&price<=10000))price=null;
+if(P){$("gPlan").textContent=P.name;
+  $("gPrice").textContent=price!=null?NDS.money(price)+" as agreed":(P.monthly?(P.setup?NDS.money(P.setup)+" + ":"$0 down, ")+"$"+P.monthly+" a month":NDS.money(P.setup)+" one time");
+  var big=pid==="signature"||pid==="immersive";
+  $("whenPreview").textContent=big?"2 to 3 days after your details":"Same day you send your details";
+  $("rounds").textContent=(big?"2 rounds":pid==="own"?"1 round":"Changes whenever you ask")+" of changes before it goes live. Just text or email what to change.";
+  $("gRounds").textContent=(big?"2 rounds before launch":pid==="own"?"1 round before launch":"Whenever you ask, as part of your monthly plan")+(pid==="starter"?"":", then free small text edits for 30 days");
+  if(pid==="starter")$("payLine").textContent="After you approve the finished site and it's live, I send the first $99 request. Then the same date each month. Cancel any time with a text.";
+}
+
+/* ---- checklist with a progress ring, kept on this device per shop ---- */
+var boxes=Array.prototype.slice.call(document.querySelectorAll("#checks input"));
+function key(){return "nds_welcome_"+(shop.slug||"x")}
+function ticked(){return boxes.filter(function(b){return b.checked}).map(function(b){return b.value})}
+function paint(){var n=ticked().length;$("ckCount").textContent=n+" of "+boxes.length;
+  $("ringFg").style.strokeDashoffset=(226.2*(1-n/boxes.length)).toFixed(1);
+  var s=$("sum");s.textContent="";boxes.forEach(function(b){var li=document.createElement("li");li.className=b.checked?"y":"";li.textContent=(b.checked?"✓ ":"")+LABELS[b.value];s.appendChild(li)})}
+boxes.forEach(function(b){b.addEventListener("change",function(){AFTER.store.set(key(),ticked());paint();refresh()})});
+function loadTicks(){var t=AFTER.store.get(key());if(Array.isArray(t))boxes.forEach(function(b){b.checked=t.indexOf(b.value)>=0});paint()}
+
+/* ---- Google steps: the drawing follows the step list, and plays itself once seen ---- */
+var gBtns=Array.prototype.slice.call(document.querySelectorAll("#gsteps button")),scenes=document.querySelectorAll(".sc"),cur=0,timer=null,user=false;
+function show(i){cur=i;scenes.forEach(function(s){s.classList.toggle("on",+s.dataset.sc===i)});gBtns.forEach(function(b){if(+b.dataset.s===i)b.setAttribute("aria-current","step");else b.removeAttribute("aria-current")})}
+gBtns.forEach(function(b){b.addEventListener("click",function(){user=true;clearInterval(timer);show(+b.dataset.s)})});
+$("mock").addEventListener("seen",function(){if(AFTER.reduce||user)return;timer=setInterval(function(){if(user){clearInterval(timer);return}show((cur+1)%scenes.length)},3400)});
+
+/* ---- the email ---- */
+document.querySelectorAll("input[name=dom]").forEach(function(r){r.addEventListener("change",function(){$("domName").hidden=r.value!=="I already own one"||!r.checked})});
+function dom(){var r=document.querySelector("input[name=dom]:checked");return r?r.value:""}
+function subject(){return "My details for the website: "+($("biz").value.trim()||"my business")}
+function body(){var t=ticked(),L=["Here are my details for the website. My logo and photos are attached.","","Business: "+$("biz").value.trim(),"My name: "+$("who").value.trim(),"Text me at: "+$("phone").value.trim(),"Web address: "+dom()+($("domName").value.trim()?" ("+$("domName").value.trim()+")":"")];
+  if(P)L.push("Plan: "+P.name);
+  L.push("","Ready: "+(t.length?t.map(function(k){return LABELS[k]}).join(", "):"(still gathering)"));
+  var miss=boxes.filter(function(b){return !b.checked}).map(function(b){return LABELS[b.value]});if(miss.length)L.push("Still coming: "+miss.join(", "));
+  if($("notes").value.trim())L.push("",$("notes").value.trim());
+  L.push("","NDS-WELCOME "+JSON.stringify({s:shop.slug||"",plan:pid||"",ready:t,dom:dom()}));return L.join("\n")}
+var refresh=AFTER.mailer({send:"send2",copy:"copy",gmail:"m-g",outlook:"m-o"},subject,body,function(how){var d=$("done");d.hidden=false;d.textContent="";var b=document.createElement("b");b.textContent=how==="copy"?"Copied.":"Your email is ready.";d.appendChild(b);
+  d.appendChild(document.createTextNode(how==="copy"?" Paste it into an email to "+NDS.STUDIO.email+" and attach your photos, or text it to me.":" Remember to attach your logo and photos before you send. Didn't open? Tap Copy message."))});
+$("wForm").addEventListener("input",refresh);$("wForm").addEventListener("change",refresh);
+$("send2").addEventListener("click",function(e){if(!$("biz").value.trim()){e.preventDefault();$("biz").focus();AFTER.toast("Add your business name first")}});
+
+$("biz").value=NDS.clean(q.get("biz"));var who=NDS.contactName();if(who)$("who").value=who;
+loadTicks();refresh();
+AFTER.personalize().then(function(s){shop=s;loadTicks();
+  if(s.name){$("biz").value=s.name;$("forWho").textContent="· welcome, "+(s.short||s.name);$("hello").textContent=who?"Thank you, "+who+". You said yes.":"You said yes. Thank you.";document.title="Welcome, "+(s.short||s.name)+" · Nolan Day Studio"}
+  else if(who)$("hello").textContent="Thank you, "+who+". You said yes.";
+  refresh();NDS.count("w-",s.slug);
+});
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your Site Is Live · Nolan Day Studio</title>
+<meta name="description" content="Your new website is live. What you own, how to ask for a change, your 30 days of free edits, and what comes next.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#16181A">
+<link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/journey.css">
+<link rel="stylesheet" href="/after/after.css">
+<style>
+#confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:60}
+.status{display:inline-flex;align-items:center;gap:10px;padding:8px 14px 8px 12px;border-radius:99px;background:var(--card);border:1px solid var(--line);font-size:14.5px;margin-bottom:18px;max-width:100%}
+.status>span:not(.pulse){white-space:nowrap}
+.status b{font-family:var(--mono);font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.status .pulse{background:var(--good)}.status .pulse::after{border-color:var(--good)}
+
+/* device stage */
+.stage2{padding:clamp(18px,3vw,34px) clamp(14px,3vw,34px) clamp(22px,3vw,30px);display:grid;grid-template-columns:minmax(0,1fr);gap:16px}
+.devs,.lap,.lid{min-width:0}
+.devs{position:relative;padding-bottom:clamp(30px,6vw,60px)}
+.lap{position:relative;margin-right:clamp(40px,9vw,110px)}
+.lap .lid{border-radius:16px 16px 6px 6px;background:#0b0d10;padding:9px;box-shadow:0 40px 80px -30px #000c}
+.lap .bar{display:flex;align-items:center;gap:6px;padding:2px 4px 9px}
+.lap .bar i{width:8px;height:8px;border-radius:50%;background:#2b2f36}
+.lap .bar span{margin-left:8px;flex:1;display:flex;align-items:center;gap:6px;font:500 11.5px/1 var(--mono);color:#aab0b8;background:#1b1f25;border-radius:99px;padding:6px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.lap .bar svg{width:11px;height:11px;flex:none;fill:none;stroke:#3ddc84;stroke-width:2.4}
+.vp{position:relative;overflow:hidden;border-radius:5px;background:#fff;aspect-ratio:16/10}
+.vp iframe{position:absolute;top:0;left:0;border:0;transform-origin:0 0;pointer-events:none}
+.lap .base{height:12px;margin:0 -5%;border-radius:0 0 12px 12px;background:linear-gradient(#c9ccd1,#8f949b)}
+.ph{position:absolute;right:0;bottom:0;width:clamp(118px,24%,170px);aspect-ratio:9/19;border-radius:26px;background:#0b0d10;padding:7px;box-shadow:0 30px 60px -20px #000e,0 0 0 1px #ffffff1c inset}
+.ph .vp{aspect-ratio:auto;height:100%;border-radius:20px}
+.livebadge{position:absolute;left:clamp(-6px,-1vw,0px);top:-14px;z-index:3;display:flex;align-items:center;gap:8px;background:#fff;color:#111;font:700 12.5px/1 var(--mono);letter-spacing:.12em;padding:9px 14px 9px 12px;border-radius:99px;box-shadow:0 14px 30px -12px #000a;transform:rotate(-4deg)}
+.livebadge .pulse{background:#e5484d}.livebadge .pulse::after{border-color:#e5484d}
+.stage2 .art-cap{align-items:center}
+.stage2 .art-cap a{color:#fff;display:inline-flex;align-items:center;min-height:44px;padding:0 4px;text-underline-offset:3px}
+
+/* own */
+.own .tile{min-height:100%}
+.own .tile b.big{display:block;font:400 30px/1.05 "Instrument Serif",Georgia,serif;margin-bottom:8px}
+
+/* 30 days */
+.window{display:grid;gap:clamp(24px,4vw,56px);align-items:center}
+@media (min-width:980px){.window{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}}
+.days{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:clamp(20px,3vw,32px)}
+.days .big3{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.days .big3 b{font:400 clamp(76px,10vw,120px)/.85 "Instrument Serif",Georgia,serif;letter-spacing:-.03em;color:var(--shop)}
+.days .big3 span{font-size:18px;color:var(--muted)}
+.track{display:grid;grid-template-columns:repeat(30,1fr);gap:3px;margin:24px 0 10px}
+.track i{height:34px;border-radius:5px;background:var(--line);transform:scaleY(.35);transform-origin:bottom;transition:transform .6s var(--ease),background .6s;transition-delay:calc(var(--i,0) * 22ms)}
+.track.in i{transform:none}
+.track.in i.used{background:color-mix(in srgb,var(--ink) 28%,var(--line))}
+.track.in i.left{background:var(--shop)}
+.track.in i.today{background:var(--ink);box-shadow:0 0 0 2px var(--card),0 0 0 4px var(--ink)}
+.trk-lbl{display:flex;justify-content:space-between;font:600 12px/1 var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.04em;gap:10px}
+.small2{display:grid;gap:14px;margin-top:22px}
+@media (min-width:620px){.small2{grid-template-columns:1fr 1fr}}
+.small2 h4{margin:0 0 8px;font-size:15px}
+.small2 .ticks,.small2 .x-list{font-size:15px;gap:8px}
+
+/* change request */
+.req{display:grid;gap:clamp(24px,4vw,48px)}
+@media (min-width:980px){.req{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);align-items:start}}
+.formcard{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:clamp(20px,3vw,32px)}
+.band .formcard{color:var(--ink)}
+.band .formcard .btn.ghost{color:var(--ink);border-color:var(--line)}
+.band .formcard a:not(.btn){color:var(--accent-text)}
+.band .formcard p{color:var(--muted)}
+.band .flow .n{background:transparent;border-color:color-mix(in srgb,var(--bg) 25%,transparent);color:color-mix(in srgb,var(--bg) 70%,transparent)}
+.band .flow.in .n{background:var(--bg);color:var(--ink);border-color:var(--bg)}
+.band .flow li::before{background:color-mix(in srgb,var(--bg) 18%,transparent)}
+.band .flow li::after{background:color-mix(in srgb,var(--shop) 50%,var(--bg))}
+.band .flow span.t{color:color-mix(in srgb,var(--bg) 70%,transparent)}
+.band .flow .when{color:color-mix(in srgb,var(--shop) 45%,var(--bg))}
+
+/* spread the word */
+.spread{display:grid;gap:14px}
+@media (min-width:980px){.spread{grid-template-columns:1.1fr 1fr 1fr;grid-template-rows:auto auto}.spread .qr{grid-row:span 2}}
+.qr{display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+.qrbox{width:100%;max-width:300px;aspect-ratio:1;border-radius:20px;background:#fff;padding:16px;border:1px solid var(--line);display:grid;place-items:center;box-shadow:0 30px 60px -44px #0008}
+.qrbox img{width:100%;height:100%;image-rendering:pixelated}
+.qr .addr{font:500 13px/1.3 var(--mono);color:var(--muted);word-break:break-all}
+.spread .tile .btn{margin-top:14px}
+
+/* care offer */
+.cplans{display:grid;gap:10px}
+@media (min-width:860px){.cplans{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.cplan{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:20px 22px;border-radius:18px;border:1px solid color-mix(in srgb,var(--bg) 18%,transparent);color:var(--bg);text-decoration:none;transition:background .25s,transform .35s var(--ease)}
+.cplan:hover{background:color-mix(in srgb,var(--bg) 7%,transparent);transform:translateY(-3px)}
+.cplan b{display:block;font-size:17px}
+.cplan span{font-size:14px;color:color-mix(in srgb,var(--bg) 65%,transparent)}
+.cplan em{font:400 38px/1 "Instrument Serif",Georgia,serif;font-style:normal;white-space:nowrap}
+.cplan em small{font:500 13px Figtree,sans-serif;opacity:.7}
+
+.thanks{display:grid;gap:14px}
+@media (min-width:860px){.thanks{grid-template-columns:1fr 1fr}}
+.thanks .tile{display:flex;flex-direction:column;gap:10px}
+.thanks .tile h3{font:400 34px/1.05 "Instrument Serif",Georgia,serif}
+.thanks .ctas{margin:8px 0 0}
+</style>
+</head>
+<body class="j">
+<canvas id="confetti" aria-hidden="true"></canvas>
+<header class="topbar"><div class="shell">
+  <a class="mark" href="/"><i>N</i><span>Nolan Day Studio <small id="forWho">· you're live</small></span></a>
+  <a class="btn shop sm" id="topOpen" href="#" target="_blank" rel="noopener">Open your site</a>
+</div></header>
+
+<main>
+<section class="a-hero"><div class="shell">
+  <div>
+    <p class="lead-in up" style="--i:0" id="hello">It's official.</p>
+    <h1 class="up" style="--i:1;font-size:clamp(46px,7vw,88px)" id="h1"><span data-shop>Your site</span> is <em>live.</em></h1>
+    <div class="up" style="--i:2"><span class="status"><span class="pulse"></span><span>Online now at</span> <b id="addr">your new address</b></span></div>
+    <p class="sub up" style="--i:2" id="lede">Your new website is on the internet and ready for customers. Below: what you own, how to ask for a change, your 30 days of free edits, and a few easy ways to get it in front of people this week.</p>
+    <div class="ctas up" style="--i:3"><a class="btn shop" id="openSite" href="#" target="_blank" rel="noopener">Open your site</a><button class="btn ghost" type="button" id="copyLink">Copy the link</button><button class="btn ghost" type="button" id="shareLink" hidden>Share it</button></div>
+  </div>
+  <div class="art stage2 up" style="--i:2">
+    <div class="grid-bg"></div>
+    <div class="devs">
+      <div class="lap"><span class="livebadge"><span class="pulse"></span>LIVE</span><div class="lid"><div class="bar"><i></i><i></i><i></i><span><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span id="barAddr">your-site</span></span></div><div class="vp" id="vpDesk"></div></div><div class="base"></div></div>
+      <div class="ph"><div class="vp" id="vpPhone"></div></div>
+    </div>
+    <div class="art-cap"><span>Your site, right now</span><a id="capOpen" href="#" target="_blank" rel="noopener">Open full screen</a></div>
+  </div>
+</div></section>
+
+<!-- OWN -->
+<section class="tight" style="padding-top:0"><div class="shell">
+  <div class="head2 split"><div><p class="kick rv"><b>01</b>What's yours</p><h2 class="big rv">It's yours. <em>All of it.</em></h2></div><p class="sec-sub rv">No lock-in, no hidden account you can't get into. Here's what belongs to you from today.</p></div>
+  <div class="tiles c4 own" data-stagger>
+    <div class="tile lift"><span class="ico"><svg viewBox="0 0 24 24"><path d="M4 5h16M4 10h16M4 15h10M4 20h7"/></svg></span><b class="big">Your words and photos</b><p>Everything on the site about your business is yours to use anywhere: flyers, Facebook, a future site.</p></div>
+    <div class="tile lift"><span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.5 2.6 3.5 5.5 3.5 8.5s-1 5.9-3.5 8.5c-2.5-2.6-3.5-5.5-3.5-8.5s1-5.9 3.5-8.5z"/></svg></span><b class="big">Your domain</b><p>If you have one, it's registered in your name. I send a reminder before it renews.</p></div>
+    <div class="tile lift"><span class="ico"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 14l2 2 4-4"/></svg></span><b class="big">The site files</b><p>Ask any time and I send you the full site as a zip, so another developer could pick it up.</p></div>
+    <div class="tile lift"><span class="ico"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span><b class="big">Your Google listing</b><p>You stay the owner. If you added me as a manager, you can remove me any time.</p></div>
+  </div>
+</div></section>
+
+<!-- 30 DAYS -->
+<section id="edits"><div class="shell window">
+  <div>
+    <p class="kick rv"><b>02</b>Free edits</p>
+    <h2 class="big rv">30 days of <em>free small edits.</em></h2>
+    <p class="sec-sub rv" id="winLine">For the first 30 days after launch, small text changes are free. Spot a typo, change your hours, swap a price: just send it.</p>
+  </div>
+  <div class="days rv">
+    <div class="big3"><b id="daysLeft" data-count="30">30</b><span id="daysLbl">days of free edits from launch</span></div>
+    <div class="track" id="track" data-seen aria-hidden="true"></div>
+    <div class="trk-lbl"><span id="tStart">Launch day</span><span id="tEnd">Day 30</span></div>
+    <div class="small2">
+      <div><h4>Free in the 30 days</h4><ul class="ticks"><li>Hours, prices, phone or email</li><li>Typos and wording</li><li>Swapping a photo you send</li></ul></div>
+      <div><h4>Quoted first</h4><ul class="x-list"><li>A new page or section</li><li>A new layout or design</li><li>New features, like a booking tool</li></ul></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- CHANGE REQUEST -->
+<section id="change" style="padding:clamp(24px,4vw,48px) 0"><div class="band" style="padding:clamp(40px,7vw,88px) 0"><div class="shell req">
+  <div>
+    <p class="kick rv"><b>03</b>Asking for a change</p>
+    <h2 class="big rv">Want something changed? <em>Just ask.</em></h2>
+    <p class="sec-sub rv" style="margin-bottom:28px">Text me, email me, or use this form. All three reach me.</p>
+    <ol class="flow">
+      <li><span class="n">01</span><div><b>Tell me what to change</b><span class="t">Where it is and what it should say. A screenshot or photo helps.</span></div></li>
+      <li><span class="n">02</span><div><b>I confirm</b><span class="t">I reply to say I've got it, and quote it first if it's more than a small edit.</span></div></li>
+      <li><span class="n">03</span><div><span class="when">Usually within 2 business days</span><b>It's done</b><span class="t">I text you when it's live so you can check it.</span></div></li>
+    </ol>
+  </div>
+  <form class="formcard rv" id="cForm" onsubmit="return false" novalidate>
+    <label for="where" style="margin-top:0">Where on the site?</label><input id="where" placeholder="Top of the page, the services list, the footer...">
+    <label for="what">What should change?</label><textarea id="what" rows="4" placeholder="Change Saturday hours to 8 to noon."></textarea>
+    <label id="whenL">How soon?</label>
+    <div class="chips" role="radiogroup" aria-labelledby="whenL">
+      <label><input type="radio" name="when" value="Whenever" checked><i></i>Whenever</label>
+      <label><input type="radio" name="when" value="This week"><i></i>This week</label>
+      <label><input type="radio" name="when" value="Soon, something is wrong"><i></i>Something's wrong</label>
+    </div>
+    <label for="cwho">Your name</label><input id="cwho" autocomplete="name">
+    <div class="sendrow"><a class="btn shop" id="cSend" href="mailto:hanbackj1@gmail.com">Send the change</a><button class="btn ghost" type="button" id="cCopy">Copy message</button></div>
+    <p class="fine" style="margin:12px 0 0">Opens your email app with it filled in. Attach a photo if it helps. No email app? Use <a id="m-g" target="_blank" rel="noopener" href="https://mail.google.com/">Gmail</a> or <a id="m-o" target="_blank" rel="noopener" href="https://outlook.live.com/">Outlook</a>.</p>
+    <div class="okbox" id="cDone" role="status" aria-live="polite" hidden></div>
+  </form>
+</div></div></section>
+
+<!-- SPREAD -->
+<section id="spread" class="tight"><div class="shell">
+  <div class="head2 split"><div><p class="kick rv"><b>04</b>This week</p><h2 class="big rv">Four easy ways <em>to get it seen.</em></h2></div><p class="sec-sub rv">A new site does the most when people can find it. None of these take more than a few minutes.</p></div>
+  <div class="spread" data-stagger>
+    <div class="tile qr"><span class="ico"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h2v2h-2zM18 18h2v2h-2zM14 18h2M18 14h2"/></svg></span><h3>Your QR code</h3><p>For the truck, the counter, invoices and flyers. Scanning it opens your site.</p><div class="qrbox"><img id="qrImg" alt="QR code that opens your website" width="268" height="268"></div><p class="addr" id="qrAddr"></p><a class="btn ink" id="qrDl" href="#" download="website-qr.png">Download the QR code</a></div>
+    <div class="tile lift"><span class="ico"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span><h3>Your Google listing</h3><p>If I'm a manager, I've already added the link. If not, open your profile, choose Edit profile, and put the address in the Website box.</p></div>
+    <div class="tile lift"><span class="ico"><svg viewBox="0 0 24 24"><path d="M7 21V10M7 10c0-4 2-7 6-7h1v4h-1c-1.5 0-2 1-2 2v1h3l-.5 4H11v7"/></svg></span><h3>Your Facebook page</h3><p>Add the address to your page's details, and pin a short post: "Our new website is up."</p></div>
+    <div class="tile lift"><span class="ico"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/></svg></span><h3>Text a few regulars</h3><p>Send it to a handful of good customers. It's the fastest way to get your first visits and reviews.</p><a class="btn ghost" id="smsBtn" href="sms:">Write the text</a></div>
+    <div class="tile lift"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg></span><h3>Everywhere you print</h3><p>Business cards, invoices, estimates, the shop door. The address works everywhere your phone number already is.</p></div>
+  </div>
+</div></section>
+
+<!-- CARE -->
+<section id="care" style="padding:clamp(24px,4vw,48px) 0"><div class="band" style="padding:clamp(40px,7vw,88px) 0"><div class="shell">
+  <div class="head2 split"><div><p class="kick rv"><b>05</b>After day 30</p><h2 class="big rv">Want me to keep <em>looking after it?</em></h2></div><p class="sec-sub rv">Totally optional. A care plan keeps the site up, your details right and your Google listing active. 3-month minimum, then month to month. Or skip it, and changes are quoted when you need them.</p></div>
+  <div class="cplans" data-stagger>
+    <a class="cplan" data-plan="keep" href="/care/"><span><b>Keep It Running</b><span>Site kept online, 1 small edit a month</span></span><em>$49<small>/mo</small></em></a>
+    <a class="cplan" data-plan="found" href="/care/"><span><b>Get Found</b><span>Plus Google posts, review replies, a monthly report</span></span><em>$99<small>/mo</small></em></a>
+    <a class="cplan" data-plan="grow" href="/care/"><span><b>Grow</b><span>Plus more posts and a quarterly refresh</span></span><em>$149<small>/mo</small></em></a>
+  </div>
+  <div class="ctas rv" style="margin-top:24px"><a class="btn paper" data-keep="/care/" href="/care/">Compare the care plans</a></div>
+</div></div></section>
+
+<!-- THANKS -->
+<section class="tight"><div class="shell">
+  <div class="head2"><p class="kick rv"><b>06</b>One last thing</p><h2 class="big rv">If you're happy, <em>two small favors.</em></h2></div>
+  <div class="thanks" data-stagger>
+    <div class="tile"><h3>Tell me how I did</h3><p>Two minutes of honest feedback, good or bad. If you like, I can share your words on my site.</p><div class="ctas"><a class="btn ink" data-keep="/review/" href="/review/">Leave a review</a></div></div>
+    <div class="tile"><h3>Know another owner? <em>$50.</em></h3><p>If you send me a business owner who needs a website and they become a paying client, I send you $50 by Venmo or Cash App. No limit.</p><div class="ctas"><a class="btn ghost" href="/refer/">How referrals work</a></div></div>
+  </div>
+</div></section>
+
+<section class="closer"><div class="shell">
+  <h2 class="big rv">Thank you for <em>trusting me with it.</em></h2>
+  <p class="sec-sub rv">Anything at all, now or a year from now: <a href="mailto:hanbackj1@gmail.com">hanbackj1@gmail.com</a>, or reply to my text.</p>
+  <div class="ctas rv"><a class="btn shop" id="openSite2" href="#" target="_blank" rel="noopener">Open your site</a><a class="btn ghost" href="#change">Ask for a change</a></div>
+</div></section>
+</main>
+
+<footer class="foot"><div class="shell"><span>© 2026 Nolan Day Studio · Morton, Illinois</span><nav aria-label="More"><a href="/">Home</a><a data-keep="/care/" href="/care/">Care plans</a><a href="/refer/">Refer a business</a></nav></div></footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="/after/qrcode.min.js"></script>
+<script src="/assets/journey.js"></script>
+<script src="/after/after.js"></script>
+<script>
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id)};
+var q=NDS.params(),shop={slug:"",name:""};
+
+/* Where the live site is. Order: ?d=<custom domain>, ?u=</path/ on this site>, else the shop's preview. */
+var HOST=/^(?=.{4,253}$)([a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,24}$/;
+var PATH=/^\/[a-z0-9][a-z0-9\/-]{0,100}\/$/;
+var dRaw=(q.get("d")||"").toLowerCase().replace(/^https?:\/\//,"").replace(/\/.*$/,"").replace(/^www\./,"");
+var uRaw=q.get("u")||"";
+var live={url:"",label:"",frame:""};
+function setLive(url,label,frame){live={url:url,label:label,frame:frame}}
+if(HOST.test(dRaw))setLive("https://"+dRaw+"/",dRaw,"https://"+dRaw+"/");
+else if(PATH.test(uRaw)&&uRaw.indexOf("..")<0)setLive(location.origin+uRaw,location.host+uRaw.replace(/\/$/,""),uRaw);
+
+/* Launch date ?on=YYYY-MM-DD drives the 30-day window */
+function parseDay(s){var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(s||"");if(!m)return null;var d=new Date(+m[1],+m[2]-1,+m[3]);return isNaN(d)?null:d}
+var on=parseDay(q.get("on"));
+var fmt=function(d){return d.toLocaleDateString("en-US",{month:"long",day:"numeric"})};
+
+function paintLinks(){
+  var u=live.url||"/";
+  ["openSite","openSite2","topOpen","capOpen"].forEach(function(id){$(id).href=u});
+  $("addr").textContent=live.label||"your new address";$("barAddr").textContent=live.label||"your-site";
+  /* QR */
+  try{var full=live.url||location.href;var qr=qrcode(0,"M");qr.addData(full);qr.make();
+    var n=qr.getModuleCount(),m=4,px=Math.floor(720/(n+m*2)),size=px*(n+m*2),c=document.createElement("canvas");c.width=c.height=size;var x=c.getContext("2d");
+    x.fillStyle="#fff";x.fillRect(0,0,size,size);x.fillStyle="#111";
+    for(var r=0;r<n;r++)for(var k=0;k<n;k++)if(qr.isDark(r,k))x.fillRect((k+m)*px,(r+m)*px,px,px);
+    var data=c.toDataURL("image/png");$("qrImg").src=data;$("qrDl").href=data;$("qrDl").download=((shop.slug||"website")+"-qr.png");$("qrAddr").textContent=full.replace(/^https?:\/\//,"")}catch(e){$("qrDl").hidden=true}
+  /* Text to regulars */
+  var msg="Hi, it's "+(NDS.contactName()||"me")+(shop.name?" from "+shop.name:"")+". We have a new website, have a look: "+(live.url||"");
+  $("smsBtn").href="sms:?&body="+encodeURIComponent(msg);
+}
+
+/* Live preview in the devices, scaled from a desktop and a phone width */
+function frame(host,w){if(!live.frame)return;var f=document.createElement("iframe");f.src=live.frame;f.title="Your site";f.loading="lazy";f.tabIndex=-1;f.setAttribute("aria-hidden","true");
+  f.style.width=w+"px";f.style.height=Math.round(w*2.2)+"px";host.appendChild(f);
+  var fit=function(){f.style.transform="scale("+(host.clientWidth/w)+")"};fit();window.addEventListener("resize",fit)}
+
+/* 30-day window */
+function paintWindow(){
+  var t=$("track");for(var i=0;i<30;i++){var e=document.createElement("i");e.style.setProperty("--i",i);t.appendChild(e)}
+  if(!on){$("daysLbl").textContent="days of free small edits, starting the day it goes live";Array.prototype.forEach.call(t.children,function(e){e.classList.add("left")});return}
+  var today=new Date();today.setHours(0,0,0,0);
+  var end=new Date(on);end.setDate(end.getDate()+30);
+  var used=Math.max(0,Math.round((today-on)/864e5)),left=Math.max(0,30-used);
+  $("daysLeft").setAttribute("data-count",left);$("daysLeft").textContent=left;
+  $("tStart").textContent="Live "+fmt(on);$("tEnd").textContent="Ends "+fmt(end);
+  if(left===0){$("daysLbl").textContent="days left. Your free edit window ended "+fmt(end)+".";$("winLine").textContent="Your 30 free days have ended. Changes are now quoted before I do them, or covered by a care plan if you have one."}
+  else $("daysLbl").textContent=(left===1?"day":"days")+" of free edits left, through "+fmt(new Date(end.getTime()-864e5));
+  Array.prototype.forEach.call(t.children,function(e,k){e.classList.add(k<used?"used":"left");if(k===used&&left>0)e.classList.add("today")});
+}
+$("track").addEventListener("seen",function(){$("track").classList.add("in");AFTER.countUp($("daysLeft"))});
+
+/* Change request email */
+function wh(){var r=document.querySelector("input[name=when]:checked");return r?r.value:"Whenever"}
+function cSub(){return "Change request: "+(shop.name||"my website")}
+function cBody(){return ["Please make this change on my website.","","Where: "+$("where").value.trim(),"Change: "+$("what").value.trim(),"How soon: "+wh(),"From: "+$("cwho").value.trim(),"","NDS-CHANGE "+JSON.stringify({s:shop.slug||"",when:wh()})].join("\n")}
+var cRefresh=AFTER.mailer({send:"cSend",copy:"cCopy",gmail:"m-g",outlook:"m-o"},cSub,cBody,function(how){var d=$("cDone");d.hidden=false;d.textContent="";var b=document.createElement("b");b.textContent=how==="copy"?"Copied.":"Your email is ready to send.";d.appendChild(b);d.appendChild(document.createTextNode(" I'll reply to confirm, usually the same day."))});
+$("cForm").addEventListener("input",cRefresh);$("cForm").addEventListener("change",cRefresh);
+$("cSend").addEventListener("click",function(e){if(!$("what").value.trim()){e.preventDefault();$("what").focus();AFTER.toast("Say what to change first")}});
+
+/* Copy / share the live link */
+$("copyLink").addEventListener("click",function(){NDS.copy(live.url||location.href).then(function(){AFTER.toast("Link copied")})});
+if(navigator.share){$("shareLink").hidden=false;$("shareLink").addEventListener("click",function(){navigator.share({title:shop.name||"Our new website",url:live.url||location.href}).catch(function(){})})}
+
+/* Care plan links keep the shop */
+document.querySelectorAll(".cplan").forEach(function(a){a.href=NDS.link("/care/",{plan:a.getAttribute("data-plan")})});
+
+/* Confetti: one short burst in the shop's color, skipped for reduced motion */
+function confetti(){
+  if(AFTER.reduce)return;var c=$("confetti"),x=c.getContext("2d"),dpr=Math.min(2,window.devicePixelRatio||1),W,H;
+  function size(){W=c.width=innerWidth*dpr;H=c.height=innerHeight*dpr}size();
+  var shopC=getComputedStyle(document.documentElement).getPropertyValue("--shop").trim()||"#2F5DFF";
+  var cols=[shopC,"#16181A","#F4C17A","#2BB673","#FBFAF7","#E5484D"],P=[];
+  for(var i=0;i<170;i++){var left=i%2===0;P.push({x:(left?.08:.92)*W,y:H*.62,vx:(left?1:-1)*(4+Math.random()*9)*dpr,vy:-(10+Math.random()*12)*dpr,g:.32*dpr,w:(6+Math.random()*6)*dpr,h:(10+Math.random()*8)*dpr,r:Math.random()*6,vr:(Math.random()-.5)*.35,c:cols[i%cols.length],o:1})}
+  var t0=performance.now();
+  (function tick(t){var el=t-t0;x.clearRect(0,0,W,H);var alive=false;
+    P.forEach(function(p){p.vx*=.985;p.vy+=p.g;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;if(el>2200)p.o=Math.max(0,p.o-.025);if(p.o>0&&p.y<H+40)alive=true;
+      x.save();x.globalAlpha=p.o;x.translate(p.x,p.y);x.rotate(p.r);x.fillStyle=p.c;x.fillRect(-p.w/2,-p.h/2,p.w,p.h*Math.abs(Math.cos(p.r*1.7)));x.restore()});
+    if(alive&&el<5000)requestAnimationFrame(tick);else c.remove()})(t0);
+}
+
+paintWindow();
+var who=NDS.contactName();if(who)$("cwho").value=who;
+AFTER.personalize().then(function(s){shop=s;
+  if(!live.url&&s.url)setLive(location.origin+s.url,location.host+s.url.replace(/\/$/,""),s.url);
+  if(s.name){$("forWho").textContent="· "+(s.short||s.name)+" is live";$("hello").textContent=who?"Congratulations, "+who+".":"It's official.";document.title=(s.short||s.name)+" is live · Nolan Day Studio"}
+  paintLinks();frame($("vpDesk"),1280);frame($("vpPhone"),390);cRefresh();NDS.count("live-",s.slug);
+  setTimeout(confetti,500);
+});
+})();
+</script>
+</body>
+</html>
