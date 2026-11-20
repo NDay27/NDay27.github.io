@@ -20,6 +20,7 @@ p{margin:0}
 .fine{font-size:13px;opacity:.7;margin-top:10px}
 .sec{padding:76px 0}
 .two{display:grid;gap:36px}
+.two>*{min-width:0}.planner .btn{white-space:normal;line-height:1.25;padding-top:12px;padding-bottom:12px;text-align:center}
 @media(min-width:900px){.two{grid-template-columns:1fr 1fr;align-items:start}.sec{padding:104px 0}}
 .rv{opacity:1}
 .js .rv{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}

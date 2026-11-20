@@ -373,7 +373,9 @@ def meet_json(shop):
     r = rating_txt(shop)
     loc = f"at {shop['addr'].split(',')[0]}" if shop.get("addr") else f"in {shop['town']}"
     wk = shop.get("wk", "none")
-    why = (("Today your Google listing links only to a Facebook page, so people searching on their phone land somewhere that doesn't show your work, your area or a quick way to reach you."
+    why = (("When we searched Google Maps we couldn't find a listing for you, so people searching on their phone have no page of yours to land on, no map pin and no tap-to-call."
+            if wk == "nf" else "Here's what a new site could look like next to the one you have now: built for phones first, with tap-to-call on every screen and a request form that works while you're on a job."
+            if wk == "own" else "Today your Google listing links only to a Facebook page, so people searching on their phone land somewhere that doesn't show your work, your area or a quick way to reach you."
             if wk == "fb" else "Today the website link on your Google listing doesn't load, so people who tap it from their phone hit a dead end."
             if wk == "dead" else "Today your Google listing shows a map pin, a phone number and an \"Add website\" button, so people searching on their phone have no page of yours to tap through to.")
            + (f" Your {r} stars from {shop['reviews']} reviews deserve somewhere to land." if r and shop["reviews"] >= 5 else ""))
@@ -422,7 +424,8 @@ def meet_json(shop):
 
 def main():
     a = sys.argv[1:]
-    shops = json.load(open(os.path.join(ROOT, "_build/tiers/shops.json")))
+    src = a[a.index("--shops") + 1] if "--shops" in a else "_build/tiers/shops.json"
+    shops = json.load(open(os.path.join(ROOT, src)))
     if "--only" in a:
         keep = set(a[a.index("--only") + 1].split(","))
         shops = [s for s in shops if s["slug"] in keep]
