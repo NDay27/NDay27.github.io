@@ -203,7 +203,7 @@ async function buildAuto() {
   let open2 = 0; const setDoor = (d, v) => { d.scale.y = 1 - v * .92; d.position.y = 4.4 - (4.4 * d.scale.y) / 2; W.shadows(); };
   setDoor(doors[0], 1); setDoor(doors[1], 0);
   // the sign: shop name, lit at night
-  const sg = await sign(D.short, D.town + ", IL", 8.4, {p: .5}); sg.position.set(-1.3, 5.3, fz + .19);
+  const sg = await sign(D.short, D.town + ", " + (D.st || "IL"), 8.4, {p: .5}); sg.position.set(-1.3, 5.3, fz + .19);
   // lift + car in bay 1
   const liftM = STD(ACC, {roughness: .45, metalness: .35});
   for (const x of [-7.5, -2.5]) { mesh(box(.42, 4.4, .42, .05), liftM, x, 2.2, fz - 4.8); mesh(box(.8, .1, .8, .02), STD(0x333333), x, .05, fz - 4.8); }
@@ -517,7 +517,7 @@ async function buildSweets() {
   const awnM = STD(0xffffff, {map: at, roughness: .95, side: THREE.DoubleSide});
   const awn = mesh(new THREE.PlaneGeometry(10, 1.6), awnM, -1.2, 3.85, fz + .72); awn.rotation.x = -PI / 2 + .55;
   const val = mesh(new THREE.PlaneGeometry(10, .32), awnM, -1.2, 3.28, fz + 1.38); val.castShadow = false;
-  const band = await sign(D.short, D.town + ", IL", 6.8, {p: .55, bg: "#1b1412"}); band.position.set(-.4, 5.35, fz + .22);
+  const band = await sign(D.short, D.town + ", " + (D.st || "IL"), 6.8, {p: .55, bg: "#1b1412"}); band.position.set(-.4, 5.35, fz + .22);
   // neighbors
   for (const [x, tone, h] of [[-11.5, [120, 112, 104], 8.4], [11.5, [176, 120, 84], 6.4]]) {
     const b = STD(0xffffff, {...withRep(TEX.brick([1, 1], tone), 1 / 2.4, 1 / 1.2), roughness: .85}); mesh(new THREE.BoxGeometry(9.8, h, 9), b, x, h / 2, fz - 4.5);
