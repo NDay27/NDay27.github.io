@@ -165,6 +165,8 @@ p{margin:0}
 .looks button i{width:14px;height:14px;border-radius:50%;display:inline-block;border:1px solid #0003}
 .looks button[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:var(--paper)}
 .builder .go{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin-top:16px}
+.only-m{display:inline-flex}.only-d{display:none}
+@media (min-width:1000px){.only-m{display:none}.only-d{display:inline-flex}}
 .builder .fine{font-size:13.5px;color:var(--muted);margin-top:12px}
 
 .stagewrap{position:relative;display:grid;justify-items:center;gap:14px}
@@ -460,7 +462,8 @@ footer a{color:var(--ink-2);display:inline-flex;align-items:center;min-height:44
         </div>
         <div class="go">
           <button class="btn" type="submit" id="b-go">Build the real one, free <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5"/></svg></button>
-          <a class="tl" href="#plans">See prices &amp; samples</a>
+          <a class="tl only-m" href="#phone">See it on the phone ↓</a>
+          <a class="tl only-d" href="#plans">See prices &amp; samples</a>
         </div>
         <p class="fine">This mock-up is made in your browser with example wording, and nothing is sent. Your free preview uses your real services, hours and photos.</p>
       </form>
@@ -468,7 +471,7 @@ footer a{color:var(--ink-2);display:inline-flex;align-items:center;min-height:44
 
     <div class="stagewrap">
       <div class="stagebg" id="stagebg" aria-hidden="true"></div>
-      <div class="phone" role="img" aria-label="Phone showing your instant mock-up"><div class="scr">
+      <div class="phone" id="phone" role="img" aria-label="Phone showing your instant mock-up"><div class="scr">
         <div class="ms" id="ms" data-look="clean">
           <div class="m-top"><span class="m-name" data-b="name">Your Business</span><span class="m-call">Call</span></div>
           <div class="m-hero">
