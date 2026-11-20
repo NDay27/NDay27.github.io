@@ -488,6 +488,9 @@ def main():
         shops = [s for s in shops if s["slug"] in keep]
     if "--limit" in a:
         shops = shops[: int(a[a.index("--limit") + 1])]
+    # the Nov 20 lead deal moved to the flagship kit (_build/flagship/make.py): never overwrite those here
+    flag = {x["slug"] for x in json.load(open(os.path.join(ROOT, "_build/flagship/shops.json")))}
+    shops = [s for s in shops if s["slug"] not in flag]
     checks = json.load(open(CHECKS_PATH)) if os.path.exists(CHECKS_PATH) else {}
     refused = []
     for s in shops:

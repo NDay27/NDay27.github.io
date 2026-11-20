@@ -1,0 +1,264 @@
+"""Shared pieces for the flagship shop samples: trade themes, copy, icons, the drawn hero sheet and shop facts.
+Facts come only from each shop's Google listing (name, town, phone, rating, review count, listing link, nearby towns).
+No prices, hours, years, licenses, guarantees or review quotes anywhere."""
+import html
+import json
+import math
+import os
+import re
+import sys
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(os.path.dirname(HERE))
+sys.path.insert(0, os.path.join(ROOT, "_build/tiers"))
+from tiercopy import V, STEPS  # noqa: E402
+
+E = html.escape
+BASE = "/p/2e8e4a/"
+SITE = "https://nday27.github.io"
+VER = "20261120"
+
+THEME = {
+ "lawn": dict(navy="#173322", navy2="#1f4430", paper="#f1f3ec", paper2="#e6eadf", white="#fbfcf8", ink="#14261b", muted="#55635a", line="#d3dacd",
+              pencil="#b5d94a", pencil2="#cde77a", blue="#3a7541", barbg="#0c1a11",
+              serif='"Fraunces",Georgia,serif', sans='"Instrument Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif',
+              fonts="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..500&family=Instrument+Sans:wght@400..700&display=swap"),
+ "tree": dict(navy="#1e2a21", navy2="#2a3a2d", paper="#f3f1ea", paper2="#e9e5d9", white="#fbfaf6", ink="#1b241d", muted="#5c6157", line="#dad6ca",
+              pencil="#e3a33b", pencil2="#f0bd63", blue="#83552a", barbg="#121a14",
+              serif='"Bricolage Grotesque",system-ui,sans-serif', sans='"Instrument Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif',
+              fonts="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Instrument+Sans:wght@400..700&display=swap"),
+ "painting": dict(navy="#172033", navy2="#22304a", paper="#f5f2ec", paper2="#ebe6dc", white="#fcfbf8", ink="#172033", muted="#596072", line="#dcd7cd",
+              pencil="#ef8a5b", pencil2="#f5a882", blue="#3d5a99", barbg="#0e1422",
+              serif='"DM Serif Display",Georgia,serif', sans='"DM Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif',
+              fonts="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400..700&display=swap"),
+}
+# tree's display face has no italic: keep the second headline line upright
+EXTRA_CSS = {"tree": ".hero h1 .l2{font-style:normal;font-weight:400}.hero h1{font-weight:700;letter-spacing:-.035em}h1,h2,h3{letter-spacing:-.025em}h2{font-weight:600!important}",
+             "lawn": "", "painting": ".hero h1{font-weight:400}h2{font-weight:400!important}"}
+
+TRADE = {"lawn": "Lawn care", "landscape": "Landscaping", "tree": "Tree service", "painter": "Painting"}
+
+COPY = {
+ "lawn": dict(svc_h="What we take care of", svc_intro="Tell us what the yard needs. If it isn't on the list, ask anyway and get a straight answer.",
+              quote_h="Get the yard on the schedule", cta="Get a lawn quote", msg_ph="Yard size, how often, anything to know about the yard.",
+              sheet=("A yard in {town}", "Front yard, after"), sheet_label="Line drawing of a farmhouse with a freshly striped front lawn",
+              shot=("lawn-after", "A freshly striped front lawn in front of a white farmhouse", "Illustration. Your real job photos go here.")),
+ "tree": dict(svc_h="What we handle", svc_intro="Tell us about the tree. If the job isn't on the list, ask anyway and get a straight answer.",
+              quote_h="Get a look at the tree", cta="Get a tree quote", msg_ph="How big it is, where it stands, and what's worrying you.",
+              sheet=("A yard in {town}", "Trim plan, front"), sheet_label="Line drawing of a big shade tree beside a house, with a trim line keeping the limbs off the roof",
+              shot=("tree-after", "A big shade tree trimmed back from a farmhouse roof", "Illustration. Your real job photos go here.")),
+ "painting": dict(svc_h="What we paint", svc_intro="Inside or out, tell us what you have in mind. If it isn't on the list, ask anyway.",
+              quote_h="Get a painting quote", cta="Get a painting quote", msg_ph="Rooms or the outside, colors you're thinking about, timing.",
+              sheet=("A house in {town}", "Exterior repaint"), sheet_label="Line drawing of a farmhouse with roller strokes of new paint across the siding",
+              shot=("paint-after", "A farmhouse freshly painted navy with white trim", "Illustration. Your real job photos go here.")),
+}
+
+_I = '<svg class="ic" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{}</svg>'
+SVC_ICON = {
+ "Mowing": '<path d="M10 40h26l4-10H16z"/><circle cx="16" cy="42" r="4"/><circle cx="34" cy="42" r="4"/><path d="M40 30 48 14"/><path d="M45 14h6"/><path d="M6 50c3-3 5-3 8 0s5 3 8 0 5-3 8 0 5 3 8 0 5-3 8 0"/>',
+ "Cleanups": '<path d="M36 8 20 40"/><path d="M12 36l12 8 4-6-12-8z"/><path d="M14 40l-4 6M18 42l-3 6M22 44l-2 6"/><path d="M40 30c5-1 8 2 7 7-5 1-8-2-7-7z"/><path d="M36 44c4-2 8 0 8 4-4 2-8 0-8-4z"/>',
+ "Lawn care": '<path d="M8 46h40"/><path d="M14 46c0-10 2-16 6-20M20 46c0-8 4-14 10-18M28 46c0-10-2-16-6-22M34 46c1-9 5-15 11-18M42 46c0-6-1-10-4-14"/><path d="M28 18c0-5 4-8 8-8 0 5-4 8-8 8z"/>',
+ "Landscaping": '<path d="M6 46h44"/><path d="M14 46v-8M14 38c-6 0-8-6-4-10 1-5 7-6 9-2 5 0 6 6 2 9-1 2-4 3-7 3z"/><path d="M36 46V30M36 30c-8 0-10-8-5-13 1-6 9-7 12-2 6 1 6 9 1 12-2 2-5 3-8 3z"/><path d="M24 46c2-3 4-3 6 0"/>',
+ "Yard projects": '<path d="M6 46h44"/><path d="M12 46l6-14h20l6 14"/><path d="M18 32l2-6h16l2 6"/><path d="M22 46v-7h12v7"/><path d="M28 18v-8M24 14h8"/>',
+ "Upkeep": '<path d="M14 42 34 22"/><path d="M42 42 22 22"/><circle cx="14" cy="44" r="5"/><circle cx="42" cy="44" r="5"/><path d="M26 18 34 8M30 18 22 8"/>',
+ "Tree removal": '<path d="M20 48h18"/><path d="M26 48V30M32 48V30"/><path d="M29 30c-10 0-14-8-9-15 1-7 11-9 15-3 8 1 9 11 3 15-3 2-6 3-9 3z"/><path d="M10 34l10 4M10 38l9 2"/><path d="M40 44l8-8"/>',
+ "Trimming and pruning": '<path d="M8 20c12 0 22 4 30 14"/><path d="M22 22c2-6 7-8 12-7M30 27c4-3 9-3 12 0"/><path d="M38 34l8 12M46 34l-8 12"/><circle cx="37" cy="47" r="3"/><circle cx="47" cy="47" r="3"/>',
+ "Storm cleanup": '<path d="M14 22a8 8 0 0 1 8-10 10 10 0 0 1 18 2 7 7 0 0 1 2 14H16a6 6 0 0 1-2-6z"/><path d="M28 30l-4 8h6l-4 8"/><path d="M8 48c8-4 18-2 26 0 6 1 10 0 14-2"/>',
+ "Interior painting": '<rect x="10" y="10" width="30" height="12" rx="2"/><path d="M40 16h6v10H25v8"/><rect x="22" y="34" width="6" height="14" rx="1.5"/>',
+ "Exterior painting": '<path d="M6 28 24 14l18 14"/><path d="M10 25v21h28V25"/><path d="M20 46V35h8v11"/><path d="M42 10l6 6-12 12-6-6z"/><path d="M30 22l-4 4"/>',
+ "Prep and repair": '<path d="M10 40 30 20l8 8-20 20H10z"/><path d="M30 20l6-6 8 8-6 6"/><path d="M16 46h28"/><path d="M42 36c3 0 5 2 5 5"/>',
+ "_more": '<path d="M10 12h36v24H24l-10 8v-8h-4z"/><path d="M20 22h16M20 28h10"/>',
+}
+GLYPH = {  # logo marks on a 32px box, drawn with the accent and the ink
+ "lawn": '<path d="M5 26h22" stroke="currentColor" stroke-width="2.6"/><path d="M8 26c0-7 1.6-11 4-14M14.5 26c0-9 2-14 5.5-17M21 26c.4-6 2.4-9.5 5-11" fill="none" stroke="var(--pencil)" stroke-width="2.6" stroke-linecap="round"/>',
+ "tree": '<path d="M16 28V17" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M16 4 7 17h18z" fill="none" stroke="var(--pencil)" stroke-width="2.6" stroke-linejoin="round"/><path d="M16 11 10 21h12z" fill="var(--pencil)"/>',
+ "painting": '<rect x="4" y="5" width="20" height="8" rx="2" fill="none" stroke="var(--pencil)" stroke-width="2.6"/><path d="M24 9h4v7H16v5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M16 21v7" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>',
+}
+IC = {
+ "PHONE_ICON": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2"/></svg>',
+ "CHECK": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>',
+ "CONTACT_ICON": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M7.5 17.5a5 5 0 0 1 9 0"/></svg>',
+ "MSG_ICON": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>',
+ "ARROW": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
+ "PIN": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>',
+ "STARS": ''.join('<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2.8 2.8 6 6.5.6-4.9 4.3 1.5 6.4L12 16.8 6.1 20.1l1.5-6.4L2.7 9.4l6.5-.6z"/></svg>' for _ in range(5)),
+ "PLUS": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>',
+}
+
+
+def theme_vars(g):
+    t = THEME[g]
+    return "".join(f"--{k}:{t[k]};" for k in ("navy", "navy2", "paper", "paper2", "white", "ink", "muted", "line", "pencil", "pencil2", "blue", "barbg", "serif", "sans"))
+
+
+def logo(g):
+    return f'<svg viewBox="0 0 32 32" aria-hidden="true">{GLYPH[g]}</svg>'
+
+
+def favicon(g):
+    t = THEME[g]
+    svg = f"<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='{t['navy']}'/>{GLYPH[g].replace('currentColor', '#fff').replace('var(--pencil)', t['pencil'])}</svg>"
+    return "data:image/svg+xml," + re.sub(r"[<>#\"]", lambda m: {"<": "%3C", ">": "%3E", "#": "%23", '"': "'"}[m.group()], svg)
+
+
+def tel(p):
+    return "+1" + re.sub(r"\D", "", p)[-10:]
+
+
+def poss(n):
+    return n + ("'" if n.endswith("s") else "'s")
+
+
+def rating_ok(s):
+    return bool(s.get("rating") and s.get("reviews") and s["rating"] >= 4.5)
+
+
+def rnum(s):
+    return f'{s["rating"]:.1f}'
+
+
+def towns(s):
+    t = [x for x in (s.get("towns") or []) if x != s["town"]]
+    return [s["town"]] + t[:8]
+
+
+# ---------- the drawn hero sheet ----------
+
+def _stripes():
+    out, i = [], 0
+    for x in range(-40, 1420, 64):
+        d = "d" if i % 2 else ""
+        out.append(f'<path class="stripe {d}" style="--w:{2.2 + i * .05:.2f}s" d="M{x} 648L{x + 64} 648L{x + 4} 760L{x - 60} 760Z"/>')
+        i += 1
+    return "".join(out)
+
+
+def _rolls():
+    out, i = [], 0
+    for x in range(104, 850, 60):
+        out.append(f'<path class="roll" stroke-width="54" pathLength="1" style="--w:{2.3 + i * .09:.2f}s;--d:.55s" d="M{x} 232V578"/>'); i += 1
+    for x in range(880, 1300, 60):
+        out.append(f'<path class="roll" stroke-width="54" pathLength="1" style="--w:{2.3 + i * .09:.2f}s;--d:.45s" d="M{x} 420V598"/>'); i += 1
+    return "".join(out)
+
+
+def _cloud(cx, cy, rx, ry, n, seed, bump=.16):
+    pts = []
+    for k in range(n):
+        a = k / n * math.tau
+        r = 1 + bump * math.sin(seed + k * 2.3) * .6
+        pts.append((cx + math.cos(a) * rx * r, cy + math.sin(a) * ry * r))
+    d = f"M{pts[0][0]:.1f} {pts[0][1]:.1f}"
+    for k in range(n):
+        a, b = pts[k], pts[(k + 1) % n]
+        mx, my = (a[0] + b[0]) / 2, (a[1] + b[1]) / 2
+        ox, oy = mx - cx, my - cy; L = math.hypot(ox, oy) or 1
+        c = (mx + ox / L * 26, my + oy / L * 26)
+        d += f"Q{c[0]:.1f} {c[1]:.1f} {b[0]:.1f} {b[1]:.1f}"
+    return d
+
+
+def _tree():
+    trunk = "M-232 640C-226 560-222 470-214 380M-178 640C-184 560-190 470-192 380M-246 640H-164"
+    limbs = ("M-214 380C-236 330-262 290-300 250M-205 384C-200 320-205 270-198 210M-192 380C-170 330-140 300-96 270"
+             "M-198 210C-210 170-230 140-250 120M-198 215C-180 170-160 140-130 118M-300 250C-330 230-350 210-362 190")
+    keep = "M-150 300C-110 260-60 225 40 196"
+    gone = "M40 196C110 176 170 168 236 172M120 182C140 150 160 132 190 120"
+    canopy = _cloud(-205, 200, 205, 170, 15, 1.3)
+    over = _cloud(205, 150, 70, 46, 7, 2.1, .1)
+    return (f'<g class="ov">'
+            f'<path class="l-wall" stroke-width="4" pathLength="1" style="--w:.3s;--d:1.2s" d="{trunk}"/>'
+            f'<path class="l-roof" stroke-width="3" pathLength="1" style="--w:.9s;--d:1.2s" d="{limbs}"/>'
+            f'<path class="l-trim" stroke-width="3.4" pathLength="1" style="--w:1.4s;--d:1.6s" d="{canopy}"/>'
+            f'<path class="l-porch" stroke-width="3" pathLength="1" style="--w:1.6s;--d:.8s" d="{keep}"/>'
+            f'<path class="gone" stroke-width="3" pathLength="1" style="--w:2.2s;--d:.8s" d="{gone}"/>'
+            f'<path class="gone" stroke-width="2.6" pathLength="1" style="--w:2.4s;--d:1s" d="{over}"/>'
+            f'<path class="trimline" stroke-width="4" style="--w:2.9s" d="M40 30V600"/>'
+            f'<g class="note" style="--w:3.1s"><text x="-205" y="690" text-anchor="middle" style="font-size:40px">Trim line keeps limbs off the roof</text></g></g>')
+
+
+def elevation(g):
+    svg = open(os.path.join(HERE, "elev.svg")).read()
+    svg = svg.replace('class="draw"', 'class="draw" role="img"', 1).replace(' aria-hidden="true"', "", 1)
+    if g == "lawn":
+        svg = re.sub(r'<g class="dim".*?</g>', "", svg, flags=re.S)
+        svg = svg.replace('viewBox="0 0 1352 713" width="1352" height="713"', 'viewBox="0 0 1352 770" width="1352" height="770"')
+        i = svg.index("<path"); svg = svg[:i] + '<clipPath id="yard"><rect x="0" y="600" width="1352" height="170"/></clipPath><g clip-path="url(#yard)">' + _stripes() + "</g>" + svg[i:]
+        svg = svg.replace("</svg>", '<g class="note" style="--w:3.2s"><text x="1340" y="745" text-anchor="end">cut, striped, edged</text></g></svg>')
+    elif g == "tree":
+        svg = re.sub(r'<g class="dim".*?</g>', "", svg, flags=re.S)
+        svg = svg.replace('viewBox="0 0 1352 713" width="1352" height="713"', 'viewBox="-400 0 1752 713" width="1752" height="713"')
+        svg = svg.replace("</svg>", _tree() + "</svg>")
+    else:
+        i = svg.index("<path"); svg = svg[:i] + _rolls() + svg[i:]
+    return svg
+
+
+# ---------- shop facts ----------
+
+def load_shops():
+    shops = json.load(open(os.path.join(ROOT, "_build/tiers/shops.json")))
+    final = json.load(open(os.path.join(HERE, "shops.json")))
+    own = {x["slug"]: x["owner"] for x in final}
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("tiers_build", os.path.join(ROOT, "_build/tiers/build.py"))
+    tb = importlib.util.module_from_spec(spec); spec.loader.exec_module(tb)
+    nice_name, short_name = tb.nice_name, tb.short_name
+    out = []
+    for s in shops:
+        if s["slug"] not in own:
+            continue
+        s = dict(s)
+        s["owner"] = own[s["slug"]]
+        s["name"] = nice_name(s["name"])
+        s["short"] = short_name(s["name"])
+        s["tel"] = tel(s["phone"])
+        out.append(s)
+    return out
+
+
+def fill(src, vals):
+    for k, v in list(vals.items()) + list(IC.items()):
+        src = src.replace("{{" + k + "}}", v)
+    left = re.findall(r"{{[A-Z0-9_]+}}", src)
+    if left:
+        raise SystemExit(f"unfilled {sorted(set(left))}")
+    return src
+
+
+def count_script(key):
+    k = re.sub(r"[^A-Za-z0-9-]", "-", key)[:60]
+    return ('<script>(function(){try{if(location.hash==="#nc")try{localStorage.setItem("nds_nc","1")}catch(e){}'
+            'var s=null;try{s=localStorage.getItem("nds_nc")}catch(e){}if(navigator.webdriver||s)return;'
+            f'fetch("https://abacus.jasoncameron.dev/hit/ndstudio/{k}",{{keepalive:true}}).catch(function(){{}})}}catch(e){{}}}})();</script>')
+
+
+def bar(s, tier):
+    u = BASE + s["slug"] + "/"
+    cur = {300: "", 750: "750/", 1250: "1250/"}
+    ac = ' aria-current="page"'
+    links = "".join(f'<a href="{u}{cur[t]}"{ac if t == tier else ""}><span class="nm">{n}</span><span>{p}</span></a>'
+                    for t, n, p in ((300, "Starter", "$300"), (750, "Signature", "$750"), (1250, "Immersive", "$1,250")))
+    return (f'<div class="hb-bar" role="region" aria-label="Sample site notice"><p class="note"><b>Sample site</b><span class="long"> for {E(s["short"])} by Nolan Day Studio.</span> '
+            f'<a href="/meet/?s={s["slug"]}">See all 3 plans</a></p><nav class="hb-plans" aria-label="Plan versions">{links}</nav></div>')
+
+
+def ldjson(s):
+    typ = "HousePainter" if s["group"] == "painting" else "HomeAndConstructionBusiness"
+    d = {"@context": "https://schema.org", "@type": typ, "name": s["name"], "telephone": s["tel"],
+         "address": {"@type": "PostalAddress", "addressLocality": s["town"], "addressRegion": "IL", "addressCountry": "US"},
+         "areaServed": [t + " IL" for t in towns(s)]}
+    return json.dumps(d, ensure_ascii=False).replace("</", "<\\/")
+
+
+def cfg(s, tier):
+    v = V[s["v"]]
+    d = {"tier": tier, "group": s["group"], "v": s["v"], "name": s["name"], "short": s["short"], "town": s["town"], "phone": s["phone"], "tel": s["tel"],
+         "jobs": v["jobs"], "when": v["when"]}
+    return json.dumps(d, ensure_ascii=False).replace("</", "<\\/")
+
+
+def fill_partial(src, vals):
+    for k, v in vals.items():
+        src = src.replace("{{" + k + "}}", v)
+    return src

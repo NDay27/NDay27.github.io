@@ -1,0 +1,182 @@
+[
+ {
+  "name": "lawn-after",
+  "w": 2400,
+  "h": 1350,
+  "q": "p=1&tod=.56&cam=-14,3.2,25&tgt=-1.5,4,2&fov=38&stripes=1"
+ },
+ {
+  "name": "lawn-before",
+  "w": 2400,
+  "h": 1350,
+  "q": "p=1&tod=.56&cam=-14,3.2,25&tgt=-1.5,4,2&fov=38&gh=5&cut=0"
+ },
+ {
+  "name": "lawn-high",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&tod=.42&cam=-12,7.5,28&tgt=1,1.2,6&fov=40&stripes=1"
+ },
+ {
+  "name": "lawn-side",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&tod=.45&cam=24,3.4,18&tgt=4,2.5,2&fov=38&stripes=1&siding=sage&trim=white"
+ },
+ {
+  "name": "lawn-dusk",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&tod=.84&cam=22,2.6,19&tgt=3,3.8,0&fov=36&stripes=1&siding=navy&trim=white"
+ },
+ {
+  "name": "lawn-back",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&tod=.55&cam=10,3,-24&tgt=3,3,0&fov=40&stripes=1&siding=charcoal&trim=black&door=black"
+ },
+ {
+  "name": "lawn-s1",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&tod=.3&cam=-16,9,24&tgt=2.5,1,4&fov=38&gh=5&cut=0&stripes=1"
+ },
+ {
+  "name": "lawn-s2",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&tod=.33&cam=-16,9,24&tgt=2.5,1,4&fov=38&gh=5&cut=.38&stripes=1"
+ },
+ {
+  "name": "lawn-s3",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&tod=.36&cam=-16,9,24&tgt=2.5,1,4&fov=38&gh=5&cut=.68&stripes=1"
+ },
+ {
+  "name": "lawn-s4",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&tod=.45&cam=-16,9,24&tgt=2.5,1,4&fov=38&stripes=1"
+ },
+ {
+  "name": "paint-after",
+  "w": 2400,
+  "h": 1350,
+  "q": "p=1&tod=.56&cam=-14,2.0,25&tgt=-1.5,4.4,2&fov=36&siding=navy&trim=white"
+ },
+ {
+  "name": "paint-before",
+  "w": 2400,
+  "h": 1350,
+  "q": "p=1&tod=.56&cam=-14,2.0,25&tgt=-1.5,4.4,2&fov=36&siding=b9b2a0&trim=8a8476&door=8a6a55"
+ },
+ {
+  "name": "paint-s1",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&tod=.3&cam=-16,7,24&tgt=2.5,3.6,0&fov=36&siding=b9b2a0&trim=8a8476&door=8a6a55"
+ },
+ {
+  "name": "paint-s2",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&tod=.33&cam=-16,7,24&tgt=2.5,3.6,0&fov=36&siding=b9b2a0&trim=white&door=8a6a55"
+ },
+ {
+  "name": "paint-s3",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&tod=.36&cam=-16,7,24&tgt=2.5,3.6,0&fov=36&siding=navy&trim=white&door=8a6a55"
+ },
+ {
+  "name": "paint-s4",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&tod=.45&cam=-16,7,24&tgt=2.5,3.6,0&fov=36&siding=navy&trim=white&door=fir"
+ },
+ {
+  "name": "tree-after",
+  "w": 2400,
+  "h": 1350,
+  "q": "p=1&tod=.56&cam=-17,2.8,31&tgt=-3.5,5.2,2&fov=40&tree=1"
+ },
+ {
+  "name": "tree-before",
+  "w": 2400,
+  "h": 1350,
+  "q": "p=1&tod=.56&cam=-17,2.8,31&tgt=-3.5,5.2,2&fov=40&tree=0"
+ },
+ {
+  "name": "tree-s1",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&tod=.3&cam=-24,6,22&tgt=-4,5,2&fov=40&tree=0"
+ },
+ {
+  "name": "tree-s2",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&tod=.36&cam=-24,6,22&tgt=-4,5,2&fov=40&tree=1"
+ },
+ {
+  "name": "tree-s3",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&tod=.42&cam=-24,6,22&tgt=-4,5,2&fov=40&tree=1&down=1"
+ },
+ {
+  "name": "tree-dusk",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&tod=.84&cam=-20,2.6,24&tgt=-3,5,2&fov=38&tree=1&siding=navy&trim=white"
+ },
+ {
+  "name": "tree-side",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&tod=.45&cam=-26,3.4,4&tgt=-6,5,2&fov=40&tree=1&siding=sage&trim=white"
+ },
+ {
+  "name": "paint-c-white",
+  "w": 1600,
+  "h": 900,
+  "q": "p=1&tod=.56&cam=-14,2.0,25&tgt=-1.5,4.4,2&fov=36&siding=white&trim=black"
+ },
+ {
+  "name": "paint-c-sage",
+  "w": 1600,
+  "h": 900,
+  "q": "p=1&tod=.56&cam=-14,2.0,25&tgt=-1.5,4.4,2&fov=36&siding=sage&trim=white"
+ },
+ {
+  "name": "paint-c-charcoal",
+  "w": 1600,
+  "h": 900,
+  "q": "p=1&tod=.56&cam=-14,2.0,25&tgt=-1.5,4.4,2&fov=36&siding=charcoal&trim=white"
+ },
+ {
+  "name": "paint-c-red",
+  "w": 1600,
+  "h": 900,
+  "q": "p=1&tod=.56&cam=-14,2.0,25&tgt=-1.5,4.4,2&fov=36&siding=7a2e26&trim=white"
+ },
+ {
+  "name": "paint-c-wheat",
+  "w": 1600,
+  "h": 900,
+  "q": "p=1&tod=.56&cam=-14,2.0,25&tgt=-1.5,4.4,2&fov=36&siding=d6c49a&trim=black"
+ },
+ {
+  "name": "paint-c-slate",
+  "w": 1600,
+  "h": 900,
+  "q": "p=1&tod=.56&cam=-14,2.0,25&tgt=-1.5,4.4,2&fov=36&siding=5d7489&trim=white"
+ },
+ {
+  "name": "paint-c-navy",
+  "w": 1600,
+  "h": 900,
+  "q": "p=1&tod=.56&cam=-14,2.0,25&tgt=-1.5,4.4,2&fov=36&siding=navy&trim=white"
+ }
+]
