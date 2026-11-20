@@ -121,3 +121,7 @@ TOOLS = {
  "cleaning": ("Text-the-team button", "Room-by-room clean picker", "a 3D room you can clean with one swipe"),
  "sweets": ("Text-the-shop button", "Order builder with a live ticket", "a 3D treat you can stack layer by layer"),
 }
+
+# Mixed business types (Nov 20 2026) live in tiercopy_mix.py.
+import tiercopy_mix as _mx  # noqa: E402
+V.update(_mx.V); STEPS.update(_mx.STEPS); LOOK.update(_mx.LOOK); STARTER.update(_mx.STARTER); TOOLS.update(_mx.TOOLS)
