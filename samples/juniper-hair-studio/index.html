@@ -2,66 +2,350 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Juniper Hair Studio | Morton, IL</title>
-<meta name="description" content="Cuts, color and styling. Book by phone in seconds.">
-<style>
-:root{--brand:#9c3d6b;--ink:#15171a;--muted:#5b6168;--bg:#fbfaf7;--card:#fff;--line:#e6e3dc}
-*{box-sizing:border-box}html{scroll-behavior:smooth}
-body{margin:0;font:17px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:var(--bg)}
-a{color:inherit}
-.preview-bar{background:#15171a;color:#fff;font-size:13px;text-align:center;padding:8px 16px}
-header{position:sticky;top:0;z-index:5;background:rgba(251,250,247,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.nav{max-width:1080px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;gap:12px}
-.logo{font-weight:800;font-size:19px;letter-spacing:-.01em;text-decoration:none}
-.btn{display:inline-block;background:var(--brand);color:#fff;text-decoration:none;font-weight:700;padding:12px 20px;border-radius:999px;white-space:nowrap}
-.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--ink)}
-.hero{max-width:1080px;margin:auto;padding:56px 16px 40px;display:grid;gap:28px}
-.eyebrow{color:var(--brand);font-weight:700;text-transform:uppercase;font-size:13px;letter-spacing:.08em;margin:0}
-h1{font-size:clamp(34px,7vw,60px);line-height:1.05;letter-spacing:-.02em;margin:8px 0 14px}
-.hero p.lead{font-size:19px;color:var(--muted);max-width:40ch;margin:0 0 22px}
-.cta{display:flex;flex-wrap:wrap;gap:12px}
-.hero-img{aspect-ratio:4/3;border-radius:20px;background:linear-gradient(135deg,var(--brand),#15171a);display:grid;place-items:center;color:#fff;opacity:.92;font-size:14px;text-align:center;padding:16px}
-section{max-width:1080px;margin:auto;padding:48px 16px}
-h2{font-size:clamp(26px,4.5vw,38px);letter-spacing:-.015em;margin:0 0 20px}
-.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
-.card h3{margin:0 0 6px;font-size:19px}.card p{margin:0;color:var(--muted)}
-.about{display:grid;gap:24px}
-.area{display:flex;flex-wrap:wrap;gap:8px;padding:0;list-style:none}
-.area li{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:15px}
-.contact{background:#15171a;color:#fff;border-radius:24px;padding:36px 22px}
-.contact a:not(.btn){color:#fff}
-.contact dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:20px 0}
-.contact dt{color:#a9afb6}.contact dd{margin:0}
-footer{text-align:center;color:var(--muted);font-size:14px;padding:28px 16px 100px}
-.callbar{position:fixed;left:12px;right:12px;bottom:12px;z-index:9;display:flex;gap:10px}
-.callbar .btn{flex:1;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.18)}
-@media(min-width:820px){.hero{grid-template-columns:1.1fr 1fr;align-items:center;padding-top:80px}.about{grid-template-columns:1fr 1fr}.callbar{display:none}footer{padding-bottom:28px}}
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Juniper Hair Studio | Sample salon site by Nolan Day Studio</title>
+<meta name="description" content="A sample hair salon website by Nolan Day Studio. Juniper Hair Studio is a made-up business; every detail on the page is a placeholder.">
+<meta name="theme-color" content="#F4EEE6">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="juniper.css">
 </head>
-<body><style>.nds-bar{position:sticky;top:0;z-index:999;display:flex;flex-wrap:nowrap;gap:8px;align-items:center;justify-content:center;padding:8px 12px;background:#16181A;color:#fff;font:600 14px/1.3 system-ui,sans-serif;text-align:center}.nds-bar a{color:#16181A;background:#fff;border-radius:99px;padding:8px 14px;font-size:13.5px;white-space:nowrap;text-decoration:none;font-weight:700;min-height:44px;display:inline-flex;align-items:center}.nds-bar span{opacity:.85;font-weight:500}</style><div class="nds-bar" role="note"><a href="../../?plan=Signature#start">Get a site like this, free preview →</a><a href="../../#work">All samples</a></div>
-<div class="preview-bar">Sample website by Nolan Day Studio. Juniper Hair Studio is a fictional business, and all details are placeholders.</div>
-<header><div class="nav"><a class="logo" href="#top">Juniper Hair Studio</a><a class="btn" href="tel:3095550100">Call (309) 555-0100</a></div></header>
-<main id="top">
-  <div class="hero">
-    <div>
-      <p class="eyebrow">Hair salon · Morton, IL</p>
-      <h1>Hair you&#x27;ll love, close to home</h1>
-      <p class="lead">Cuts, color and styling. Book by phone in seconds.</p>
-      <div class="cta"><a class="btn" href="tel:3095550100">Book an appointment</a><a class="btn ghost" href="#services">See services</a></div>
-    </div>
-    <div class="hero-img" role="img" aria-label="Photo placeholder">Your own photos go here</div>
+<body>
+<style>.nds-bar{position:relative;z-index:60;display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;justify-content:center;padding:8px 12px;background:#1D1B19;color:#F4EEE6;font:500 13.5px/1.35 Jost,system-ui,sans-serif;text-align:center}.nds-bar a{color:#1D1B19;background:#F4EEE6;border-radius:99px;padding:8px 14px;font-size:13.5px;white-space:nowrap;text-decoration:none;font-weight:600;min-height:44px;display:inline-flex;align-items:center}.nds-bar a.alt{background:transparent;color:#F4EEE6;box-shadow:inset 0 0 0 1px rgba(244,238,230,.4)}.nds-bar span{opacity:.86;flex:1 1 100%}@media(min-width:900px){.nds-bar span{flex:0 1 auto;margin-right:6px}}</style>
+<div class="nds-bar" role="note"><span>Sample website by Nolan Day Studio. Juniper Hair Studio is a made-up business; names, prices, hours and contact details are placeholders.</span><a href="../../?plan=Signature#start">Get a site like this, free preview →</a><a class="alt" href="../../#work">All samples</a></div>
+
+<header class="hd" id="hd">
+  <div class="hd-in">
+    <a class="logo" href="#top" aria-label="Juniper Hair Studio, back to top">
+      <svg class="sprig" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 37V6" /><path d="M20 12c-5-2-8-6-8-10M20 12c5-2 8-6 8-10M20 20c-6-2-10-6-11-11M20 20c6-2 10-6 11-11M20 28c-6-2-11-6-12-11M20 28c6-2 11-6 12-11"/><circle cx="13" cy="33" r="2.6"/><circle cx="27" cy="31" r="2.6"/><circle cx="22" cy="35.5" r="2.2"/></svg>
+      <span class="logo-w">Juniper</span><span class="logo-s">Hair Studio</span>
+    </a>
+    <nav class="hd-nav" aria-label="Main">
+      <a href="#menu">Services</a><a href="#shade">Color</a><a href="#team">Stylists</a><a href="#visit">Visit</a><a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn-ink hd-book" href="#book">Book a chair</a>
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="drawer" aria-label="Open menu"><i></i><i></i></button>
   </div>
-  <section id="services"><h2>Services</h2><div class="grid"><div class="card"><h3>Cuts &amp; styling</h3><p>Women&#x27;s, men&#x27;s and kids&#x27; cuts.</p></div><div class="card"><h3>Color</h3><p>All-over color, highlights and balayage.</p></div><div class="card"><h3>Treatments</h3><p>Deep conditioning and repair.</p></div><div class="card"><h3>Special occasions</h3><p>Updos for weddings and events.</p></div><div class="card"><h3>Walk-ins</h3><p>Call ahead to check today&#x27;s openings.</p></div></div></section>
-  <section class="about"><div><h2>About Juniper Hair Studio</h2><p>This is a sample layout. A real site uses the owner&#x27;s own story, photos and details, with their permission.</p></div>
-    <div><h2>Areas served</h2><ul class="area"><li>Morton</li><li>Washington</li><li>Tremont</li><li>Pekin</li><li>East Peoria</li><li>Peoria</li></ul></div></section>
-  <section id="contact"><div class="contact"><h2>Book your visit</h2>
-    <dl><dt>Phone</dt><dd><a href="tel:3095550100">(309) 555-0100</a></dd><dt>Email</dt><dd><a href="mailto:you@yourbusiness.com">you@yourbusiness.com</a></dd><dt>Hours</dt><dd>Tue–Sat, by appointment</dd></dl>
-    <a class="btn" href="tel:3095550100">Book an appointment</a></div></section>
+  <div class="drawer" id="drawer" hidden>
+    <nav aria-label="Mobile">
+      <a href="#menu"><em>01</em>Services</a><a href="#shade"><em>02</em>Color</a><a href="#team"><em>03</em>Stylists</a><a href="#book"><em>04</em>Book</a><a href="#visit"><em>05</em>Visit</a><a href="#faq"><em>06</em>FAQ</a>
+    </nav>
+    <a class="btn btn-ink" href="tel:3095550118">Call (309) 555-0118</a>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero" aria-labelledby="h1">
+    <div class="hero-copy">
+      <p class="issue" data-r><span>No. 01</span><span class="rule"></span><span>Cut · Color · Care</span></p>
+      <h1 id="h1" class="mast">
+        <span class="ln"><span class="w">Hair,</span></span>
+        <span class="ln"><span class="w it">considered.</span></span>
+      </h1>
+      <p class="lead" data-r style="--d:.5s">A small studio on a quiet street in Morton, Illinois. Precision cuts, lived-in color and an unhurried chair, one guest at a time.</p>
+      <div class="cta" data-r style="--d:.62s">
+        <a class="btn btn-ink" href="#book">Book a chair</a>
+        <a class="btn btn-line" href="#menu">See the service menu</a>
+      </div>
+      <dl class="hero-facts" data-r style="--d:.74s">
+        <div><dt>Open</dt><dd>Tue to Sat</dd></div>
+        <div><dt>Chairs</dt><dd>Three</dd></div>
+        <div><dt>Book</dt><dd>Online or by phone</dd></div>
+      </dl>
+    </div>
+    <figure class="hero-art" data-r style="--d:.2s">
+      <div class="arch">
+        <canvas id="strands" aria-hidden="true"></canvas>
+        <svg class="arch-ring" viewBox="0 0 400 560" preserveAspectRatio="none" aria-hidden="true"><path d="M8 552V200A192 192 0 0 1 392 200V552Z"/></svg>
+      </div>
+      <svg class="hero-sprig" viewBox="0 0 120 220" aria-hidden="true">
+        <path class="dr" d="M60 216C58 160 64 110 60 6"/>
+        <path class="dr" d="M61 40c-12-6-22-18-24-32M61 40c12-6 22-18 24-32M61 70c-16-6-28-20-31-38M61 70c16-6 28-20 31-38M60 104c-18-6-32-22-35-42M60 104c18-6 32-22 35-42M60 140c-18-6-33-22-36-42M60 140c18-6 33-22 36-42"/>
+        <circle class="berry" cx="38" cy="176" r="7"/><circle class="berry" cx="80" cy="168" r="6.5"/><circle class="berry" cx="64" cy="190" r="5.5"/>
+      </svg>
+      <figcaption><span>Fig. 1</span> Run a finger through it. <em>(Illustration, not a photo.)</em></figcaption>
+      <p class="vert" aria-hidden="true">Morton · Illinois</p>
+    </figure>
+  </section>
+
+  <div class="ribbon" aria-hidden="true"><div class="ribbon-t"><span>Precision cuts</span><i>✦</i><span>Lived-in color</span><i>✦</i><span>Balayage</span><i>✦</i><span>Gloss &amp; tone</span><i>✦</i><span>Blowouts</span><i>✦</i><span>Bridal &amp; events</span><i>✦</i><span>Precision cuts</span><i>✦</i><span>Lived-in color</span><i>✦</i><span>Balayage</span><i>✦</i><span>Gloss &amp; tone</span><i>✦</i><span>Blowouts</span><i>✦</i><span>Bridal &amp; events</span><i>✦</i></div></div>
+
+  <!-- MENU -->
+  <section class="sec menu" id="menu" aria-labelledby="menu-h">
+    <div class="sec-head">
+      <p class="kicker" data-r>The service menu</p>
+      <h2 id="menu-h" data-r style="--d:.08s">Everything we do, <em>priced plainly.</em></h2>
+      <p class="note" data-r style="--d:.16s"><b>Example prices.</b> Juniper is a made-up salon, so these numbers only show the layout. A real site lists the salon's own services and prices.</p>
+    </div>
+    <div class="menu-body">
+      <div class="menu-main">
+        <div class="menu-tabs" role="tablist" aria-label="Service categories" data-r>
+          <button role="tab" aria-selected="true" aria-controls="m-cut" id="t-cut">Cut &amp; style</button>
+          <button role="tab" aria-selected="false" aria-controls="m-color" id="t-color" tabindex="-1">Color</button>
+          <button role="tab" aria-selected="false" aria-controls="m-care" id="t-care" tabindex="-1">Treatments</button>
+          <button role="tab" aria-selected="false" aria-controls="m-occ" id="t-occ" tabindex="-1">Occasions</button>
+        </div>
+        <div class="menu-panels" data-r style="--d:.1s">
+          <div class="panel on" role="tabpanel" id="m-cut" aria-labelledby="t-cut">
+            <ul class="svc">
+              <li><span class="n">Signature cut</span><span class="dots"></span><span class="p">from $55</span><span class="t">60 min · consult, wash, cut and finish</span></li>
+              <li><span class="n">Short cut &amp; clean-up</span><span class="dots"></span><span class="p">from $35</span><span class="t">30 min · neck and around the ears</span></li>
+              <li><span class="n">Curl &amp; texture cut</span><span class="dots"></span><span class="p">from $70</span><span class="t">75 min · cut dry, shaped curl by curl</span></li>
+              <li><span class="n">Bang trim</span><span class="dots"></span><span class="p">$15</span><span class="t">15 min · between visits</span></li>
+              <li><span class="n">Kids' cut, 12 &amp; under</span><span class="dots"></span><span class="p">from $25</span><span class="t">30 min</span></li>
+              <li><span class="n">Blowout</span><span class="dots"></span><span class="p">from $40</span><span class="t">45 min · smooth, bouncy or waves</span></li>
+            </ul>
+          </div>
+          <div class="panel" role="tabpanel" id="m-color" aria-labelledby="t-color" hidden>
+            <ul class="svc">
+              <li><span class="n">Root touch-up</span><span class="dots"></span><span class="p">from $70</span><span class="t">90 min · up to six weeks of growth</span></li>
+              <li><span class="n">All-over color</span><span class="dots"></span><span class="p">from $95</span><span class="t">2 hr · single process, glossed</span></li>
+              <li><span class="n">Partial highlights</span><span class="dots"></span><span class="p">from $110</span><span class="t">2 hr · face frame and part line</span></li>
+              <li><span class="n">Full highlights</span><span class="dots"></span><span class="p">from $150</span><span class="t">2.5 hr</span></li>
+              <li><span class="n">Balayage</span><span class="dots"></span><span class="p">from $185</span><span class="t">3 hr · hand-painted, soft grow-out</span></li>
+              <li><span class="n">Gloss &amp; tone</span><span class="dots"></span><span class="p">from $45</span><span class="t">45 min · shine and color refresh</span></li>
+            </ul>
+          </div>
+          <div class="panel" role="tabpanel" id="m-care" aria-labelledby="t-care" hidden>
+            <ul class="svc">
+              <li><span class="n">Bond repair treatment</span><span class="dots"></span><span class="p">from $35</span><span class="t">add-on · after lightening</span></li>
+              <li><span class="n">Deep conditioning ritual</span><span class="dots"></span><span class="p">from $30</span><span class="t">add-on · steam and scalp massage</span></li>
+              <li><span class="n">Scalp detox</span><span class="dots"></span><span class="p">from $40</span><span class="t">30 min</span></li>
+              <li><span class="n">Smoothing treatment</span><span class="dots"></span><span class="p">from $200</span><span class="t">3 hr · frizz control for months</span></li>
+            </ul>
+          </div>
+          <div class="panel" role="tabpanel" id="m-occ" aria-labelledby="t-occ" hidden>
+            <ul class="svc">
+              <li><span class="n">Event updo</span><span class="dots"></span><span class="p">from $75</span><span class="t">60 min · trial recommended</span></li>
+              <li><span class="n">Bridal trial</span><span class="dots"></span><span class="p">from $85</span><span class="t">90 min · bring photos and the veil</span></li>
+              <li><span class="n">Wedding day, bride</span><span class="dots"></span><span class="p">from $150</span><span class="t">in studio or on location</span></li>
+              <li><span class="n">Wedding party, per person</span><span class="dots"></span><span class="p">from $70</span><span class="t">style and finish</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <aside class="menu-side" data-r style="--d:.16s">
+        <svg viewBox="0 0 220 220" class="shears" aria-hidden="true">
+          <g class="blade a"><path d="M114 108L190 30c5-5 11 0 7 6l-71 82"/><path d="M104 122L82 140"/><circle cx="68" cy="156" r="22"/></g>
+          <g class="blade b"><path d="M106 108L30 30c-5-5-11 0-7 6l71 82"/><path d="M116 122l22 18"/><circle cx="152" cy="156" r="22"/></g>
+          <circle cx="110" cy="114" r="5" class="pin"/>
+        </svg>
+        <p class="side-q">Not sure what to book? Start with a free fifteen-minute consult.</p>
+        <a class="btn btn-line" href="#book">Book a consult</a>
+      </aside>
+    </div>
+  </section>
+
+  <!-- SHADE STUDIO -->
+  <section class="shade" id="shade" aria-labelledby="shade-h">
+    <div class="shade-in">
+      <div class="shade-copy">
+        <p class="kicker light" data-r>Shade studio</p>
+        <h2 id="shade-h" data-r style="--d:.08s">Try a shade <em>before the chair.</em></h2>
+        <p class="shade-lead" data-r style="--d:.16s">Tap a swatch and watch the strands change. Bring the one you like to your consult and your stylist matches it in person.</p>
+        <div class="fan" role="radiogroup" aria-label="Choose a shade" id="fan" data-r style="--d:.22s"></div>
+        <div class="shade-read" aria-live="polite">
+          <p class="sr-name" id="shName">Honey balayage</p>
+          <p class="sr-svc" id="shSvc">Usually booked as balayage · about 3 hr · from $185 (example)</p>
+        </div>
+        <a class="btn btn-cream" href="#book" id="shBook">Book this look</a>
+        <p class="fine">Illustrated colors. Screens shift color, so a real consult always comes first.</p>
+      </div>
+      <div class="shade-art" data-r style="--d:.12s">
+        <div class="swatch-card">
+          <canvas id="strands2" aria-hidden="true"></canvas>
+          <div class="tag"><span id="shLevel">Level 7</span><span id="shTone">warm gold</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="sec steps" aria-labelledby="steps-h">
+    <div class="sec-head">
+      <p class="kicker" data-r>Every appointment</p>
+      <h2 id="steps-h" data-r style="--d:.08s">Four movements, <em>never rushed.</em></h2>
+    </div>
+    <div class="moves-wrap">
+      <svg class="moves-line" viewBox="0 0 1000 40" preserveAspectRatio="none" aria-hidden="true"><path id="movesPath" d="M0 20C120 2 240 38 360 20S600 2 720 20 900 38 1000 20"/></svg>
+      <ol class="moves" id="moves">
+        <li data-r><span class="num">I</span><h3>The consult</h3><p>Five quiet minutes in the chair before anything gets wet. What you want, what you don't, and how much time you give your hair each morning.</p></li>
+        <li data-r style="--d:.1s"><span class="num">II</span><h3>The wash</h3><p>A warm rinse, a slow scalp massage and products picked for your hair, not the shelf.</p></li>
+        <li data-r style="--d:.2s"><span class="num">III</span><h3>The work</h3><p>The cut or the color, done carefully, with a mirror check before anything is final.</p></li>
+        <li data-r style="--d:.3s"><span class="num">IV</span><h3>The finish</h3><p>Styled, then shown how to do it yourself at home with the tools you already own.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="sec team" id="team" aria-labelledby="team-h">
+    <div class="sec-head">
+      <p class="kicker" data-r>The chairs</p>
+      <h2 id="team-h" data-r style="--d:.08s">Three stylists. <em>Three specialties.</em></h2>
+      <p class="note" data-r style="--d:.16s"><b>Placeholders.</b> These illustrations hold the place of the real team. A real site shows each stylist's own name, photo and words, with their permission.</p>
+    </div>
+    <div class="chairs">
+      <article class="chair" data-r>
+        <div class="chair-art"><svg viewBox="0 0 240 300" aria-hidden="true"><path class="frame" d="M10 292V120a110 110 0 0 1 220 0v172z"/><g class="ic ic-shears"><path d="M124 156l50-64c4-5 10 0 6 5l-48 66"/><path d="M116 156L66 92c-4-5-10 0-6 5l48 66"/><circle cx="96" cy="200" r="18"/><circle cx="144" cy="200" r="18"/><path d="M108 186l12-23 12 23"/></g></svg></div>
+        <p class="chair-role">Chair one</p><h3>Cuts &amp; texture</h3><p class="chair-ph">Stylist's name and photo go here</p>
+      </article>
+      <article class="chair" data-r style="--d:.12s">
+        <div class="chair-art"><svg viewBox="0 0 240 300" aria-hidden="true"><path class="frame" d="M10 292V120a110 110 0 0 1 220 0v172z"/><g class="ic ic-bowl"><path d="M66 180h108c0 30-24 50-54 50s-54-20-54-50z"/><path d="M72 180c10 9 30 11 48 7s38-3 48-7"/><g class="brush"><path d="M132 172l42-76"/><path d="M170 86l16 9-7 13-16-9z"/></g></g></svg></div>
+        <p class="chair-role">Chair two</p><h3>Color &amp; balayage</h3><p class="chair-ph">Stylist's name and photo go here</p>
+      </article>
+      <article class="chair" data-r style="--d:.24s">
+        <div class="chair-art"><svg viewBox="0 0 240 300" aria-hidden="true"><path class="frame" d="M10 292V120a110 110 0 0 1 220 0v172z"/><g class="ic ic-dryer"><path d="M56 132h76a34 34 0 0 1 0 68H56a12 12 0 0 1-12-12v-44a12 12 0 0 1 12-12z"/><circle cx="132" cy="166" r="17"/><path d="M76 200l-8 56h28l7-56"/><path class="air" d="M174 150c9 0 9 7 18 7s9-7 18-7"/><path class="air" d="M174 166c9 0 9 7 18 7s9-7 18-7"/><path class="air" d="M174 182c9 0 9 7 18 7s9-7 18-7"/></g></svg></div>
+        <p class="chair-role">Chair three</p><h3>Blowouts &amp; bridal</h3><p class="chair-ph">Stylist's name and photo go here</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- BOOKING -->
+  <section class="book" id="book" aria-labelledby="book-h">
+    <div class="book-in">
+      <div class="sec-head">
+        <p class="kicker" data-r>Book a chair</p>
+        <h2 id="book-h" data-r style="--d:.08s">Pick a time <em>in under a minute.</em></h2>
+        <p class="note" data-r style="--d:.16s"><b>Sample booking flow.</b> Nothing here is sent and no appointment is made. On a real site this connects to the salon's own booking calendar or inbox.</p>
+      </div>
+      <div class="book-grid">
+        <form class="bk" id="bk" novalidate data-r>
+          <fieldset class="bk-step">
+            <legend><span>1</span>What are we doing?</legend>
+            <div class="chips" id="bkSvc">
+              <label><input type="radio" name="svc" value="Signature cut" data-len="About 60 min" checked><span>Signature cut</span></label>
+              <label><input type="radio" name="svc" value="All-over color" data-len="About 2 hr"><span>All-over color</span></label>
+              <label><input type="radio" name="svc" value="Balayage" data-len="About 3 hr"><span>Balayage</span></label>
+              <label><input type="radio" name="svc" value="Gloss & tone" data-len="About 45 min"><span>Gloss &amp; tone</span></label>
+              <label><input type="radio" name="svc" value="Blowout" data-len="About 45 min"><span>Blowout</span></label>
+              <label><input type="radio" name="svc" value="Free consult" data-len="About 15 min"><span>Free consult</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="bk-step">
+            <legend><span>2</span>With whom?</legend>
+            <div class="chips" id="bkWho">
+              <label><input type="radio" name="who" value="First available" checked><span>First available</span></label>
+              <label><input type="radio" name="who" value="Chair one"><span>Chair one</span></label>
+              <label><input type="radio" name="who" value="Chair two"><span>Chair two</span></label>
+              <label><input type="radio" name="who" value="Chair three"><span>Chair three</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="bk-step">
+            <legend><span>3</span>When?</legend>
+            <div class="days" id="bkDays"></div>
+            <div class="times" id="bkTimes"></div>
+            <p class="fine dark">Open times shown are made up for the sample.</p>
+          </fieldset>
+          <fieldset class="bk-step">
+            <legend><span>4</span>Who's coming in?</legend>
+            <div class="fields">
+              <label class="fld"><span>Name</span><input name="name" autocomplete="off" placeholder="First and last"></label>
+              <label class="fld"><span>Phone</span><input name="phone" inputmode="tel" autocomplete="off" placeholder="Your number"></label>
+            </div>
+          </fieldset>
+          <button class="btn btn-ink wide" type="submit">Request this time</button>
+          <p class="fine dark center">Sample form: pressing the button sends nothing.</p>
+        </form>
+        <aside class="ticket" aria-live="polite" id="ticket" data-r style="--d:.12s">
+          <div class="ticket-hd"><span class="logo-w sm">Juniper</span><span>Appointment request</span></div>
+          <dl>
+            <div><dt>Service</dt><dd id="tkSvc">Signature cut</dd></div>
+            <div><dt>Length</dt><dd id="tkLen">About 60 min</dd></div>
+            <div><dt>Stylist</dt><dd id="tkWho">First available</dd></div>
+            <div><dt>When</dt><dd id="tkWhen">Pick a day and time</dd></div>
+            <div><dt>Name</dt><dd id="tkName">–</dd></div>
+          </dl>
+          <div class="ticket-ft"><span>(309) 555-0118</span><span>Morton, IL</span></div>
+          <div class="ticket-done" id="tkDone" hidden>
+            <svg viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="30" r="26"/><path d="M18 31l8 8 16-18"/></svg>
+            <p class="td-h">That's how it would feel.</p>
+            <p>This is a sample, so nothing was sent and no appointment was made. On a real site the salon gets this request and confirms it.</p>
+            <button class="btn btn-line" type="button" id="tkAgain">Start over</button>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- VISIT -->
+  <section class="sec visit" id="visit" aria-labelledby="visit-h">
+    <div class="visit-copy">
+      <p class="kicker" data-r>Visit</p>
+      <h2 id="visit-h" data-r style="--d:.08s">Find the <em>green door.</em></h2>
+      <dl class="hours" data-r style="--d:.16s" id="hours">
+        <div data-day="2"><dt>Tuesday</dt><dd>9 am – 7 pm</dd></div>
+        <div data-day="3"><dt>Wednesday</dt><dd>9 am – 7 pm</dd></div>
+        <div data-day="4"><dt>Thursday</dt><dd>9 am – 8 pm</dd></div>
+        <div data-day="5"><dt>Friday</dt><dd>9 am – 6 pm</dd></div>
+        <div data-day="6"><dt>Saturday</dt><dd>8 am – 3 pm</dd></div>
+        <div data-day="0,1"><dt>Sunday &amp; Monday</dt><dd>Closed</dd></div>
+      </dl>
+      <p class="note" data-r style="--d:.2s"><b>Example hours.</b> The street address, phone and hours are placeholders for the sample.</p>
+      <div class="contact-lines" data-r style="--d:.24s">
+        <a href="tel:3095550118"><span>Call</span>(309) 555-0118</a>
+        <a href="mailto:hello@juniper.example"><span>Email</span>hello@juniper.example</a>
+        <p><span>Where</span>Street address here · Morton, Illinois</p>
+      </div>
+    </div>
+    <figure class="map" data-r style="--d:.12s">
+      <svg viewBox="0 0 520 440" role="img" aria-label="Illustrated map placeholder: a small-town street grid with a pin">
+        <rect class="m-bg" width="520" height="440" rx="6"/>
+        <g class="m-blocks">
+          <rect x="24" y="24" width="120" height="90" rx="3"/><rect x="176" y="24" width="140" height="90" rx="3"/><rect x="348" y="24" width="148" height="90" rx="3"/>
+          <rect x="24" y="146" width="120" height="114" rx="3"/><rect x="176" y="146" width="140" height="114" rx="3"/><rect x="348" y="146" width="148" height="114" rx="3"/>
+          <rect x="24" y="292" width="120" height="124" rx="3"/><rect x="176" y="292" width="140" height="124" rx="3"/>
+        </g>
+        <rect class="m-park" x="348" y="292" width="148" height="124" rx="3"/>
+        <g class="m-trees"><circle cx="374" cy="318" r="10"/><circle cx="404" cy="344" r="12"/><circle cx="446" cy="316" r="9"/><circle cx="468" cy="380" r="11"/><circle cx="386" cy="390" r="9"/><circle cx="432" cy="364" r="7"/></g>
+        <path class="m-route" d="M84 440V276h248V136"/>
+        <text x="166" y="236" class="m-lbl" transform="rotate(-90 166 236)">Main St.</text>
+        <text x="186" y="284" class="m-lbl">Jefferson St.</text>
+        <g transform="translate(332 130)"><g class="pin"><circle class="pulse" r="16"/><path d="M0-40c-11 0-19 8-19 19 0 14 19 33 19 33s19-19 19-33c0-11-8-19-19-19z"/><circle cy="-21" r="6" class="pin-dot"/></g></g>
+      </svg>
+      <figcaption>Illustrated map, not to scale. A real site shows the salon's actual location.</figcaption>
+    </figure>
+  </section>
+
+  <!-- FAQ -->
+  <section class="sec faq" id="faq" aria-labelledby="faq-h">
+    <div class="sec-head">
+      <p class="kicker" data-r>Questions</p>
+      <h2 id="faq-h" data-r style="--d:.08s">Asked often, <em>answered here.</em></h2>
+    </div>
+    <div class="qa">
+      <details data-r><summary>Do you take walk-ins?<i></i></summary><div><p>When a chair is open, yes. Call ahead and we'll tell you honestly how long the wait is.</p></div></details>
+      <details data-r style="--d:.05s"><summary>Highlights or balayage: which one do I want?<i></i></summary><div><p>Highlights are placed in foils for brighter, more even lightness. Balayage is painted by hand for a softer grow-out. Book the free consult and we'll look at your hair together.</p></div></details>
+      <details data-r style="--d:.1s"><summary>Do I need a consult before color?<i></i></summary><div><p>For a big change, yes. It's free, takes about fifteen minutes and saves surprises on the day.</p></div></details>
+      <details data-r style="--d:.15s"><summary>What if I need to cancel?<i></i></summary><div><p>Every salon sets its own cancellation policy. A real site states it here in one clear sentence.</p></div></details>
+      <details data-r style="--d:.2s"><summary>Do you cut kids' hair?<i></i></summary><div><p>Yes, any age. Mornings are usually calmest for little ones.</p></div></details>
+      <details data-r style="--d:.25s"><summary>Where do I park?<i></i></summary><div><p>A real site gives the actual parking details. For this sample: street parking out front and a small lot around the corner.</p></div></details>
+    </div>
+  </section>
+
+  <section class="closer" aria-labelledby="closer-h">
+    <canvas id="strands3" aria-hidden="true"></canvas>
+    <div class="closer-in">
+      <p class="kicker light" data-r>Ready when you are</p>
+      <h2 id="closer-h" class="closer-h" data-r style="--d:.08s">Your chair <em>is waiting.</em></h2>
+      <div class="cta center" data-r style="--d:.16s"><a class="btn btn-cream" href="#book">Book a chair</a><a class="btn btn-line light" href="tel:3095550118">Call (309) 555-0118</a></div>
+    </div>
+  </section>
 </main>
-<footer>© 2026 Juniper Hair Studio · Morton, Illinois</footer>
-<div class="callbar"><a class="btn" href="tel:3095550100">Call</a><a class="btn ghost" style="background:#fff" href="mailto:you@yourbusiness.com">Email</a></div>
+
+<footer class="ft">
+  <div class="ft-in">
+    <p class="logo-w lg">Juniper</p>
+    <p class="ft-sub">Hair Studio · Morton, Illinois</p>
+    <p class="ft-sample">A sample website by Nolan Day Studio. Juniper Hair Studio is a made-up business, and its name, prices, hours, phone and address are placeholders. <a href="../../?plan=Signature#start">Get a site like this, free preview</a> · <a href="../../#work">All samples</a></p>
+  </div>
+</footer>
+
+<div class="dock" id="dock"><a class="btn btn-ink" href="#book">Book a chair</a><a class="btn btn-line" href="tel:3095550118" aria-label="Call (309) 555-0118">Call</a></div>
+
+<script src="juniper.js"></script>
 <script>/*nds-count*/(function(){try{var ls=function(){try{return localStorage.getItem("nds_nc")}catch(e){return null}};if(location.hash==="#nc"){try{localStorage.setItem("nds_nc","1")}catch(e){}}if(navigator.webdriver||ls())return;var p=location.pathname.replace(/index\.html$/,"").replace(/^\/+|\/+$/g,"");var k=p?(p.indexOf("p/")===0?p.split("/").pop():p.replace(/[^A-Za-z0-9]+/g,"-")):"home";k=k.slice(0,60);if(k.length<3)k="pg-"+k;fetch("https://abacus.jasoncameron.dev/hit/ndstudio/"+k,{keepalive:true}).catch(function(){})}catch(e){}})();</script>
 </body>
 </html>
