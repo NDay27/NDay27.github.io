@@ -3,7 +3,7 @@
 const {chromium} = require("playwright");
 const fs = require("fs"), path = require("path");
 const ROOT = path.resolve(__dirname, "../..");
-const shops = JSON.parse(fs.readFileSync(path.join(__dirname, "shops.json")));
+const shops = JSON.parse(fs.readFileSync(process.env.SHOPS ? path.resolve(ROOT, process.env.SHOPS) : path.join(__dirname, "shops.json")));
 const only = process.argv[2] && !process.argv[2].startsWith("--") ? new Set(process.argv[2].split(",")) : null;
 const jobs = [];
 const redo = process.argv.includes("--redo");
