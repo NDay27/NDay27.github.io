@@ -2,66 +2,381 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Main Street Diner | Morton, IL</title>
-<meta name="description" content="See the menu, hours and how to order in one tap.">
-<style>
-:root{--brand:#b4441c;--ink:#15171a;--muted:#5b6168;--bg:#fbfaf7;--card:#fff;--line:#e6e3dc}
-*{box-sizing:border-box}html{scroll-behavior:smooth}
-body{margin:0;font:17px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:var(--bg)}
-a{color:inherit}
-.preview-bar{background:#15171a;color:#fff;font-size:13px;text-align:center;padding:8px 16px}
-header{position:sticky;top:0;z-index:5;background:rgba(251,250,247,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.nav{max-width:1080px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;gap:12px}
-.logo{font-weight:800;font-size:19px;letter-spacing:-.01em;text-decoration:none}
-.btn{display:inline-block;background:var(--brand);color:#fff;text-decoration:none;font-weight:700;padding:12px 20px;border-radius:999px;white-space:nowrap}
-.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--ink)}
-.hero{max-width:1080px;margin:auto;padding:56px 16px 40px;display:grid;gap:28px}
-.eyebrow{color:var(--brand);font-weight:700;text-transform:uppercase;font-size:13px;letter-spacing:.08em;margin:0}
-h1{font-size:clamp(34px,7vw,60px);line-height:1.05;letter-spacing:-.02em;margin:8px 0 14px}
-.hero p.lead{font-size:19px;color:var(--muted);max-width:40ch;margin:0 0 22px}
-.cta{display:flex;flex-wrap:wrap;gap:12px}
-.hero-img{aspect-ratio:4/3;border-radius:20px;background:linear-gradient(135deg,var(--brand),#15171a);display:grid;place-items:center;color:#fff;opacity:.92;font-size:14px;text-align:center;padding:16px}
-section{max-width:1080px;margin:auto;padding:48px 16px}
-h2{font-size:clamp(26px,4.5vw,38px);letter-spacing:-.015em;margin:0 0 20px}
-.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
-.card h3{margin:0 0 6px;font-size:19px}.card p{margin:0;color:var(--muted)}
-.about{display:grid;gap:24px}
-.area{display:flex;flex-wrap:wrap;gap:8px;padding:0;list-style:none}
-.area li{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:15px}
-.contact{background:#15171a;color:#fff;border-radius:24px;padding:36px 22px}
-.contact a:not(.btn){color:#fff}
-.contact dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:20px 0}
-.contact dt{color:#a9afb6}.contact dd{margin:0}
-footer{text-align:center;color:var(--muted);font-size:14px;padding:28px 16px 100px}
-.callbar{position:fixed;left:12px;right:12px;bottom:12px;z-index:9;display:flex;gap:10px}
-.callbar .btn{flex:1;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.18)}
-@media(min-width:820px){.hero{grid-template-columns:1.1fr 1fr;align-items:center;padding-top:80px}.about{grid-template-columns:1fr 1fr}.callbar{display:none}footer{padding-bottom:28px}}
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Main Street Diner | Sample restaurant site by Nolan Day Studio</title>
+<meta name="description" content="A sample diner website by Nolan Day Studio. Main Street Diner is a made-up business; dishes, prices, hours and contact details are placeholders.">
+<meta name="theme-color" content="#161A24">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Caveat:wght@500;700&family=Work+Sans:wght@400;500;600;700&family=Yellowtail&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="diner.css">
 </head>
-<body><style>.nds-bar{position:sticky;top:0;z-index:999;display:flex;flex-wrap:nowrap;gap:8px;align-items:center;justify-content:center;padding:8px 12px;background:#16181A;color:#fff;font:600 14px/1.3 system-ui,sans-serif;text-align:center}.nds-bar a{color:#16181A;background:#fff;border-radius:99px;padding:8px 14px;font-size:13.5px;white-space:nowrap;text-decoration:none;font-weight:700;min-height:44px;display:inline-flex;align-items:center}.nds-bar span{opacity:.85;font-weight:500}</style><div class="nds-bar" role="note"><a href="../../?plan=Signature#start">Get a site like this, free preview →</a><a href="../../#work">All samples</a></div>
-<div class="preview-bar">Sample website by Nolan Day Studio. Main Street Diner is a fictional business, and all details are placeholders.</div>
-<header><div class="nav"><a class="logo" href="#top">Main Street Diner</a><a class="btn" href="tel:3095550100">Call (309) 555-0100</a></div></header>
-<main id="top">
-  <div class="hero">
-    <div>
-      <p class="eyebrow">Restaurant · Morton, IL</p>
-      <h1>Good food, right here in town</h1>
-      <p class="lead">See the menu, hours and how to order in one tap.</p>
-      <div class="cta"><a class="btn" href="tel:3095550100">Call to order</a><a class="btn ghost" href="#services">See services</a></div>
-    </div>
-    <div class="hero-img" role="img" aria-label="Photo placeholder">Your own photos go here</div>
+<body>
+<style>.nds-bar{position:relative;z-index:60;display:flex;flex-wrap:wrap;gap:8px 6px;align-items:center;justify-content:center;padding:8px 10px;background:#F0B43C;color:#2A1E19;font:500 13.5px/1.35 "Work Sans",system-ui,sans-serif;text-align:center}.nds-bar a{color:#F6EBD5;background:#2A1E19;border-radius:99px;padding:8px 12px;font-size:13px;white-space:nowrap;text-decoration:none;font-weight:600;min-height:44px;display:inline-flex;align-items:center}.nds-bar a.alt{background:transparent;color:#2A1E19;box-shadow:inset 0 0 0 1.5px #2A1E19}.nds-bar span{flex:1 1 100%}@media(min-width:900px){.nds-bar span{flex:0 1 auto;margin-right:6px}}</style>
+<div class="nds-bar" role="note"><span>Sample website by Nolan Day Studio. Main Street Diner is a made-up business; dishes, prices, hours and contact details are placeholders.</span><a href="../../?plan=Signature#start">Get a site like this, free preview →</a><a class="alt" href="../../#work">All samples</a></div>
+
+<header class="hd" id="hd">
+  <div class="hd-in">
+    <a class="logo" href="#top" aria-label="Main Street Diner, back to top"><span class="logo-script">Main Street</span><span class="logo-slab">Diner</span></a>
+    <nav class="hd-nav" aria-label="Main"><a href="#menu">Menu</a><a href="#specials">Specials</a><a href="#ahead">Call ahead</a><a href="#hours">Hours</a><a href="#faq">FAQ</a></nav>
+    <a class="btn btn-red hd-call" href="tel:3095550142">Call (309) 555-0142</a>
   </div>
-  <section id="services"><h2>Services</h2><div class="grid"><div class="card"><h3>Menu</h3><p>Customer favorites, updated by the owner.</p></div><div class="card"><h3>Takeout</h3><p>Call ahead and pick up hot.</p></div><div class="card"><h3>Catering</h3><p>Trays for parties and events.</p></div><div class="card"><h3>Specials</h3><p>This week&#x27;s specials, easy to update.</p></div></div></section>
-  <section class="about"><div><h2>About Main Street Diner</h2><p>This is a sample layout. A real site uses the owner&#x27;s own story, photos and details, with their permission.</p></div>
-    <div><h2>Areas served</h2><ul class="area"><li>Morton</li><li>Washington</li><li>Tremont</li><li>Pekin</li><li>East Peoria</li><li>Peoria</li></ul></div></section>
-  <section id="contact"><div class="contact"><h2>Order or reserve</h2>
-    <dl><dt>Phone</dt><dd><a href="tel:3095550100">(309) 555-0100</a></dd><dt>Email</dt><dd><a href="mailto:you@yourbusiness.com">you@yourbusiness.com</a></dd><dt>Hours</dt><dd>See current hours</dd></dl>
-    <a class="btn" href="tel:3095550100">Call to order</a></div></section>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero" aria-labelledby="h1">
+    <div class="hero-in">
+      <div class="hero-copy">
+        <p class="status" id="status" data-r><i></i><span>Checking the hours…</span></p>
+        <h1 id="h1" class="hero-h"><span class="hl" data-r style="--d:.15s">Breakfast all day.</span> <span class="hl gold" data-r style="--d:.3s">Pie till it's gone.</span></h1>
+        <p class="lead" data-r style="--d:.45s">A counter, six booths and a flat-top griddle on Main Street in Morton, Illinois. Bottomless coffee, plates that come out hot and a pie case worth saving room for.</p>
+        <div class="cta" data-r style="--d:.58s">
+          <a class="btn btn-red" href="tel:3095550142">Call to order</a>
+          <a class="btn btn-cream-line" href="#menu">See the menu</a>
+        </div>
+      </div>
+      <figure class="front" data-r style="--d:.1s">
+        <svg id="storefront" viewBox="0 0 800 640" role="img" aria-label="Illustration of a small-town diner at night with a neon Main Street Diner sign, a striped awning and warm lit windows">
+          <defs>
+            <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#10131C"/><stop offset=".7" stop-color="#1C2030"/><stop offset="1" stop-color="#3A2A2A"/></linearGradient>
+            <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE3A3"/><stop offset="1" stop-color="#F2A54A"/></linearGradient>
+            <radialGradient id="lampglow"><stop offset="0" stop-color="#FFE7AE" stop-opacity=".9"/><stop offset="1" stop-color="#FFE7AE" stop-opacity="0"/></radialGradient>
+            <radialGradient id="spill" cx=".5" cy="0" r="1"><stop offset="0" stop-color="#F7B54F" stop-opacity=".45"/><stop offset="1" stop-color="#F7B54F" stop-opacity="0"/></radialGradient>
+            <pattern id="brick" width="40" height="20" patternUnits="userSpaceOnUse"><rect width="40" height="20" fill="#8A3426"/><path d="M0 0H40M0 10H40M10 0V10M30 10V20" stroke="#6E281D" stroke-width="1.4"/></pattern>
+            <pattern id="check" width="20" height="20" patternUnits="userSpaceOnUse"><rect width="20" height="20" fill="#F6EBD5"/><rect width="10" height="10" fill="#1B1E27"/><rect x="10" y="10" width="10" height="10" fill="#1B1E27"/></pattern>
+            <pattern id="stripe" width="40" height="10" patternUnits="userSpaceOnUse"><rect width="20" height="10" fill="#C8312A"/><rect x="20" width="20" height="10" fill="#F6EBD5"/></pattern>
+            <filter id="neon" x="-20%" y="-40%" width="140%" height="180%"><feGaussianBlur stdDeviation="3.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            <clipPath id="winL"><rect x="122" y="362" width="216" height="156" rx="4"/></clipPath>
+            <clipPath id="winR"><rect x="462" y="362" width="216" height="156" rx="4"/></clipPath>
+          </defs>
+          <g class="sky-l">
+            <rect width="800" height="640" fill="url(#sky)"/>
+            <g class="stars" fill="#F6EBD5"><circle cx="40" cy="40" r="1.4"/><circle cx="120" cy="22" r="1"/><circle cx="96" cy="110" r="1.6"/><circle cx="660" cy="30" r="1.2"/><circle cx="760" cy="120" r="1.5"/><circle cx="720" cy="56" r="1"/><circle cx="34" cy="160" r="1"/><circle cx="150" cy="70" r="1.2"/><circle cx="770" cy="20" r="1.1"/><circle cx="610" cy="16" r="1"/><circle cx="70" cy="200" r="1.3"/><circle cx="740" cy="170" r="1"/></g>
+            <circle cx="700" cy="78" r="44" fill="#F6EBD5" opacity=".06"/><circle cx="700" cy="78" r="22" fill="#F4E6C4"/><circle cx="709" cy="72" r="20" fill="#1C2030" opacity=".9"/>
+          </g>
+          <g class="bldg-l">
+            <rect x="0" y="230" width="96" height="340" fill="#202536"/><rect x="18" y="260" width="26" height="34" fill="#F2C46F" opacity=".5"/><rect x="58" y="260" width="26" height="34" fill="#2B3146"/><rect x="18" y="320" width="26" height="34" fill="#2B3146"/>
+            <rect x="704" y="200" width="96" height="370" fill="#202536"/><rect x="722" y="232" width="26" height="34" fill="#2B3146"/><rect x="760" y="232" width="26" height="34" fill="#F2C46F" opacity=".45"/><rect x="722" y="292" width="26" height="34" fill="#F2C46F" opacity=".3"/>
+          </g>
+          <!-- building -->
+          <rect x="92" y="176" width="616" height="390" fill="url(#brick)"/>
+          <rect x="82" y="164" width="636" height="18" fill="#EAD9B5"/><rect x="92" y="182" width="616" height="6" fill="#B79E73"/>
+          <g fill="#EAD9B5"><rect x="100" y="188" width="10" height="6"/><rect x="130" y="188" width="10" height="6"/><rect x="160" y="188" width="10" height="6"/><rect x="190" y="188" width="10" height="6"/><rect x="220" y="188" width="10" height="6"/><rect x="250" y="188" width="10" height="6"/><rect x="280" y="188" width="10" height="6"/><rect x="310" y="188" width="10" height="6"/><rect x="340" y="188" width="10" height="6"/><rect x="370" y="188" width="10" height="6"/><rect x="400" y="188" width="10" height="6"/><rect x="430" y="188" width="10" height="6"/><rect x="460" y="188" width="10" height="6"/><rect x="490" y="188" width="10" height="6"/><rect x="520" y="188" width="10" height="6"/><rect x="550" y="188" width="10" height="6"/><rect x="580" y="188" width="10" height="6"/><rect x="610" y="188" width="10" height="6"/><rect x="640" y="188" width="10" height="6"/><rect x="670" y="188" width="10" height="6"/></g>
+          <!-- upper windows -->
+          <g><rect x="146" y="212" width="88" height="70" rx="3" fill="#EAD9B5"/><rect x="152" y="218" width="76" height="58" fill="#F3C26A" opacity=".85"/><path d="M152 218h76v18c-20 8-56 8-76 0z" fill="#9B231D"/><rect x="189" y="218" width="2" height="58" fill="#EAD9B5"/></g>
+          <g><rect x="356" y="212" width="88" height="70" rx="3" fill="#EAD9B5"/><rect x="362" y="218" width="76" height="58" fill="#252A3A"/><rect x="399" y="218" width="2" height="58" fill="#EAD9B5"/></g>
+          <g><rect x="566" y="212" width="88" height="70" rx="3" fill="#EAD9B5"/><rect x="572" y="218" width="76" height="58" fill="#F3C26A" opacity=".6"/><path d="M572 218h76v18c-20 8-56 8-76 0z" fill="#9B231D"/><rect x="609" y="218" width="2" height="58" fill="#EAD9B5"/></g>
+          <!-- sign -->
+          <rect x="250" y="152" width="10" height="14" fill="#3A3F52"/><rect x="540" y="152" width="10" height="14" fill="#3A3F52"/>
+          <rect x="166" y="26" width="468" height="128" rx="22" fill="#191D29" stroke="#EAD9B5" stroke-width="4"/>
+          <g id="bulbs"></g>
+          <g class="neon-main" filter="url(#neon)"><text x="400" y="96" text-anchor="middle" class="sign-script">Main Street</text></g>
+          <g class="neon-diner" filter="url(#neon)"><text x="320" y="135" text-anchor="middle" class="sign-slab">D</text><text x="360" y="135" text-anchor="middle" class="sign-slab">I</text><text x="400" y="135" text-anchor="middle" class="sign-slab">N</text><text x="440" y="135" text-anchor="middle" class="sign-slab">E</text><text x="480" y="135" text-anchor="middle" class="sign-slab">R</text></g>
+          <!-- awning -->
+          <rect x="104" y="292" width="592" height="30" fill="url(#stripe)"/>
+          <path d="M98 292h604l-6 -10H104z" fill="#7E1C17"/>
+          <g class="scallop" fill="#C8312A"><circle cx="114" cy="342" r="10"/><circle cx="154" cy="342" r="10"/><circle cx="194" cy="342" r="10"/><circle cx="234" cy="342" r="10"/><circle cx="274" cy="342" r="10"/><circle cx="314" cy="342" r="10"/><circle cx="354" cy="342" r="10"/><circle cx="394" cy="342" r="10"/><circle cx="434" cy="342" r="10"/><circle cx="474" cy="342" r="10"/><circle cx="514" cy="342" r="10"/><circle cx="554" cy="342" r="10"/><circle cx="594" cy="342" r="10"/><circle cx="634" cy="342" r="10"/><circle cx="674" cy="342" r="10"/></g>
+          <g fill="#F6EBD5"><circle cx="134" cy="342" r="10"/><circle cx="174" cy="342" r="10"/><circle cx="214" cy="342" r="10"/><circle cx="254" cy="342" r="10"/><circle cx="294" cy="342" r="10"/><circle cx="334" cy="342" r="10"/><circle cx="374" cy="342" r="10"/><circle cx="414" cy="342" r="10"/><circle cx="454" cy="342" r="10"/><circle cx="494" cy="342" r="10"/><circle cx="534" cy="342" r="10"/><circle cx="574" cy="342" r="10"/><circle cx="614" cy="342" r="10"/><circle cx="654" cy="342" r="10"/><circle cx="686" cy="342" r="10"/></g>
+          <rect x="104" y="320" width="592" height="22" fill="#9B231D"/><text x="400" y="336" text-anchor="middle" class="valance">Breakfast · Lunch · Pie · Shakes</text>
+          <!-- storefront -->
+          <rect x="108" y="352" width="584" height="214" fill="#2A1E19"/>
+          <rect x="122" y="362" width="216" height="156" rx="4" fill="url(#glass)"/>
+          <rect x="462" y="362" width="216" height="156" rx="4" fill="url(#glass)"/>
+          <g clip-path="url(#winL)">
+            <g class="lamps">
+              <g class="lamp"><path d="M170 362v26" stroke="#2A1E19" stroke-width="2"/><path d="M160 398l10-12 10 12z" fill="#2D7A71"/><circle cx="170" cy="402" r="16" fill="url(#lampglow)"/></g>
+              <g class="lamp l2"><path d="M230 362v34" stroke="#2A1E19" stroke-width="2"/><path d="M220 406l10-12 10 12z" fill="#2D7A71"/><circle cx="230" cy="410" r="16" fill="url(#lampglow)"/></g>
+              <g class="lamp l3"><path d="M290 362v26" stroke="#2A1E19" stroke-width="2"/><path d="M280 398l10-12 10 12z" fill="#2D7A71"/><circle cx="290" cy="402" r="16" fill="url(#lampglow)"/></g>
+            </g>
+            <rect x="122" y="440" width="216" height="8" fill="#C9A06A" opacity=".7"/>
+            <rect x="122" y="448" width="216" height="32" fill="#9B231D" opacity=".85"/>
+            <g class="pie-dome"><path d="M270 440c0-18 12-30 26-30s26 12 26 30z" fill="#fff" opacity=".35"/><rect x="268" y="436" width="56" height="5" rx="2" fill="#E7D2AF"/><path d="M280 436c0-8 7-13 16-13s16 5 16 13z" fill="#C98A3E"/></g>
+            <g class="coffee"><rect x="146" y="424" width="18" height="16" rx="3" fill="#2A1E19"/><path d="M164 428c6 0 6 8 0 8" stroke="#2A1E19" stroke-width="2" fill="none"/><path class="stm" d="M152 420c-4-6 4-8 0-14" stroke="#fff" stroke-width="1.6" fill="none" opacity=".6"/><path class="stm s2" d="M159 420c-4-6 4-8 0-14" stroke="#fff" stroke-width="1.6" fill="none" opacity=".6"/></g>
+            <g fill="#2A1E19"><rect x="146" y="492" width="4" height="30"/><rect x="196" y="492" width="4" height="30"/><rect x="246" y="492" width="4" height="30"/><rect x="296" y="492" width="4" height="30"/></g>
+            <g fill="#C8312A" stroke="#2A1E19" stroke-width="2"><ellipse cx="148" cy="490" rx="14" ry="5"/><ellipse cx="198" cy="490" rx="14" ry="5"/><ellipse cx="248" cy="490" rx="14" ry="5"/><ellipse cx="298" cy="490" rx="14" ry="5"/></g>
+          </g>
+          <g clip-path="url(#winR)">
+            <g class="lamps">
+              <g class="lamp l2"><path d="M520 362v28" stroke="#2A1E19" stroke-width="2"/><path d="M510 400l10-12 10 12z" fill="#2D7A71"/><circle cx="520" cy="404" r="16" fill="url(#lampglow)"/></g>
+              <g class="lamp"><path d="M620 362v28" stroke="#2A1E19" stroke-width="2"/><path d="M610 400l10-12 10 12z" fill="#2D7A71"/><circle cx="620" cy="404" r="16" fill="url(#lampglow)"/></g>
+            </g>
+            <g fill="#9B231D"><rect x="470" y="440" width="22" height="80" rx="6"/><rect x="548" y="440" width="22" height="80" rx="6"/><rect x="580" y="440" width="22" height="80" rx="6"/><rect x="658" y="440" width="22" height="80" rx="6"/></g>
+            <g fill="#2A1E19"><rect x="492" y="464" width="56" height="6"/><rect x="517" y="470" width="6" height="50"/><rect x="602" y="464" width="56" height="6"/><rect x="627" y="470" width="6" height="50"/></g>
+            <g class="shake"><path d="M512 448l4 16h8l4-16z" fill="#F6EBD5"/><circle cx="520" cy="446" r="5" fill="#fff"/><circle cx="521" cy="441" r="2" fill="#C8312A"/><path d="M523 446l5-12" stroke="#C8312A" stroke-width="2"/></g>
+          </g>
+          <!-- door -->
+          <rect x="354" y="362" width="92" height="204" fill="#EAD9B5"/>
+          <rect x="362" y="370" width="76" height="196" fill="#9B231D"/>
+          <rect x="370" y="380" width="60" height="96" rx="4" fill="url(#glass)"/>
+          <rect x="420" y="470" width="8" height="26" rx="3" fill="#EAD9B5"/>
+          <g class="open-sign" filter="url(#neon)"><rect x="377" y="420" width="46" height="22" rx="5" fill="none" stroke="#FF5E57" stroke-width="2"/><text x="400" y="436" text-anchor="middle" class="open-txt">OPEN</text></g>
+          <rect x="122" y="522" width="216" height="40" fill="url(#check)"/><rect x="462" y="522" width="216" height="40" fill="url(#check)"/>
+          <!-- sidewalk -->
+          <rect x="0" y="566" width="800" height="74" fill="#23262F"/>
+          <rect x="0" y="566" width="800" height="5" fill="#3A3E4A"/>
+          <rect x="0" y="608" width="800" height="4" fill="#3A3E4A"/>
+          <ellipse cx="230" cy="572" rx="150" ry="26" fill="url(#spill)"/><ellipse cx="570" cy="572" rx="150" ry="26" fill="url(#spill)"/><ellipse cx="400" cy="572" rx="70" ry="20" fill="url(#spill)"/>
+          <!-- lamp post -->
+          <g class="post"><rect x="44" y="400" width="6" height="204" fill="#151821"/><rect x="38" y="596" width="18" height="10" fill="#151821"/><path d="M34 400h26l-4-22H38z" fill="#151821"/><circle cx="47" cy="392" r="40" fill="url(#lampglow)" class="post-glow"/><rect x="40" y="382" width="14" height="14" rx="3" fill="#FFE7AE"/></g>
+          <!-- a-frame board -->
+          <g class="aframe"><path d="M716 600l14-66h42l14 66" fill="#7A4E2D"/><rect x="722" y="540" width="56" height="52" rx="2" fill="#27302B"/><text x="750" y="562" text-anchor="middle" class="chalk-s">Today</text><text x="750" y="584" text-anchor="middle" class="chalk-b">PIE!</text></g>
+        </svg>
+        <figcaption>Illustration of the sample diner. A real site uses the owner's own photos.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <div class="board" aria-hidden="true"><div class="board-t">
+    <span>Bottomless coffee</span><b>★</b><span>Pork tenderloin as big as the plate</span><b>★</b><span>Biscuits &amp; gravy</span><b>★</b><span>Malts &amp; floats</span><b>★</b><span>Whole pies to go</span><b>★</b><span>Kids eat happy</span><b>★</b>
+    <span>Bottomless coffee</span><b>★</b><span>Pork tenderloin as big as the plate</span><b>★</b><span>Biscuits &amp; gravy</span><b>★</b><span>Malts &amp; floats</span><b>★</b><span>Whole pies to go</span><b>★</b><span>Kids eat happy</span><b>★</b>
+  </div></div>
+
+  <!-- MENU -->
+  <section class="menu sec" id="menu" aria-labelledby="menu-h">
+    <div class="sec-head center">
+      <p class="eyebrow" data-r>The menu</p>
+      <h2 id="menu-h" data-r style="--d:.08s">Griddle to <span class="red">table.</span></h2>
+      <p class="note" data-r style="--d:.14s"><b>Example dishes and prices.</b> Main Street Diner is made up, so this menu only shows the layout. A real site uses the diner's own menu, and the owner can update it.</p>
+    </div>
+    <div class="menu-card" data-r style="--d:.1s">
+      <div class="tabs" role="tablist" aria-label="Menu sections">
+        <button role="tab" id="t-bk" aria-controls="p-bk" aria-selected="true"><svg viewBox="0 0 48 48" aria-hidden="true" class="ti egg"><path d="M24 6c10 0 18 9 18 19s-8 17-18 17S6 35 6 25 14 6 24 6z" class="white"/><circle cx="24" cy="26" r="8" class="yolk"/></svg>Breakfast</button>
+        <button role="tab" id="t-ln" aria-controls="p-ln" aria-selected="false" tabindex="-1"><svg viewBox="0 0 48 48" aria-hidden="true" class="ti burger"><path d="M8 20c0-8 7-13 16-13s16 5 16 13z" class="bun"/><path d="M7 25h34" class="lettuce"/><rect x="8" y="27" width="32" height="6" rx="3" class="patty"/><path d="M9 37h30c0 3-3 5-6 5H15c-3 0-6-2-6-5z" class="bun"/></svg>Lunch</button>
+        <button role="tab" id="t-pie" aria-controls="p-pie" aria-selected="false" tabindex="-1"><svg viewBox="0 0 48 48" aria-hidden="true" class="ti pie"><path d="M6 30h36l-4 10H10z" class="tin"/><path d="M6 30c2-8 10-13 18-13s16 5 18 13z" class="crust"/><path d="M14 26l6-4M22 25l6-4M30 26l5-3" class="lattice"/><path d="M18 14c-3-4 3-5 0-9M26 14c-3-4 3-5 0-9" class="steam"/></svg>Pie &amp; shakes</button>
+        <button role="tab" id="t-dr" aria-controls="p-dr" aria-selected="false" tabindex="-1"><svg viewBox="0 0 48 48" aria-hidden="true" class="ti mug"><path d="M10 16h24v18a8 8 0 0 1-8 8h-8a8 8 0 0 1-8-8z" class="cup"/><path d="M34 20h3a5 5 0 0 1 0 10h-3" class="handle"/><path d="M18 11c-3-3 3-4 0-7M26 11c-3-3 3-4 0-7" class="steam"/></svg>Drinks &amp; kids</button>
+      </div>
+      <div class="panels">
+        <div class="panel on" role="tabpanel" id="p-bk" aria-labelledby="t-bk">
+          <p class="panel-sub">Served all day, every day we're open.</p>
+          <ul class="items">
+            <li><div><h3>Two-egg plate</h3><p>Eggs your way, hash browns, toast and bacon or sausage.</p></div><span class="dots"></span><b>$9.50</b></li>
+            <li><div><h3>Short stack</h3><p>Three buttermilk pancakes, whipped butter, warm syrup.</p></div><span class="dots"></span><b>$7.25</b></li>
+            <li><div><h3>Biscuits &amp; gravy</h3><p>Two split biscuits under sausage gravy. Half order $5.50.</p></div><span class="dots"></span><b>$8.75</b></li>
+            <li><div><h3>Denver omelet</h3><p>Ham, peppers, onion and cheddar, with toast.</p></div><span class="dots"></span><b>$11.00</b></li>
+            <li><div><h3>Breakfast horseshoe</h3><p>Texas toast, sausage, hash browns, two eggs, cheese sauce. A Central Illinois habit.</p></div><span class="dots"></span><b>$12.00</b></li>
+            <li><div><h3>Corned beef hash</h3><p>Crisped on the flat-top, two eggs on top.</p></div><span class="dots"></span><b>$10.50</b></li>
+          </ul>
+        </div>
+        <div class="panel" role="tabpanel" id="p-ln" aria-labelledby="t-ln" hidden>
+          <p class="panel-sub">From 10:30 am. Sandwiches come with fries or a cup of soup.</p>
+          <ul class="items">
+            <li><div><h3>Pork tenderloin sandwich</h3><p>Hand-breaded, fried golden and wider than the bun.</p></div><span class="dots"></span><b>$12.00</b></li>
+            <li><div><h3>Patty melt</h3><p>Grilled onions and Swiss on griddled rye.</p></div><span class="dots"></span><b>$11.50</b></li>
+            <li><div><h3>Hot beef &amp; mashed</h3><p>Open-faced on white bread, smothered in brown gravy.</p></div><span class="dots"></span><b>$12.50</b></li>
+            <li><div><h3>Grilled cheese &amp; tomato soup</h3><p>American and cheddar on sourdough.</p></div><span class="dots"></span><b>$9.50</b></li>
+            <li><div><h3>BLT</h3><p>Thick-cut bacon, lettuce, tomato, mayo on toast.</p></div><span class="dots"></span><b>$9.00</b></li>
+            <li><div><h3>Bowl of chili</h3><p>Cheddar and onions on top, crackers on the side.</p></div><span class="dots"></span><b>$6.50</b></li>
+          </ul>
+        </div>
+        <div class="panel" role="tabpanel" id="p-pie" aria-labelledby="t-pie" hidden>
+          <p class="panel-sub">Whatever's in the case today. When it's gone, it's gone.</p>
+          <ul class="items">
+            <li><div><h3>Slice of pie</h3><p>Apple, cherry, coconut cream or the day's special.</p></div><span class="dots"></span><b>$4.75</b></li>
+            <li><div><h3>À la mode</h3><p>A scoop of vanilla on any slice.</p></div><span class="dots"></span><b>+$1.50</b></li>
+            <li><div><h3>Whole pie to go</h3><p>Call a day ahead and we'll set one aside.</p></div><span class="dots"></span><b>$22.00</b></li>
+            <li><div><h3>Milkshake</h3><p>Vanilla, chocolate or strawberry, with the tin.</p></div><span class="dots"></span><b>$6.50</b></li>
+            <li><div><h3>Malt</h3><p>Any shake, made malted.</p></div><span class="dots"></span><b>$7.00</b></li>
+            <li><div><h3>Root beer float</h3><p>Two scoops, tall glass.</p></div><span class="dots"></span><b>$5.50</b></li>
+          </ul>
+        </div>
+        <div class="panel" role="tabpanel" id="p-dr" aria-labelledby="t-dr" hidden>
+          <p class="panel-sub">Kids' plates are for 10 and under and come with a drink.</p>
+          <ul class="items">
+            <li><div><h3>Bottomless coffee</h3><p>Regular or decaf. We'll keep it coming.</p></div><span class="dots"></span><b>$2.75</b></li>
+            <li><div><h3>Orange juice</h3><p>Small or large.</p></div><span class="dots"></span><b>$3.50</b></li>
+            <li><div><h3>Hot cocoa</h3><p>With whipped cream.</p></div><span class="dots"></span><b>$3.00</b></li>
+            <li><div><h3>Kids' silver dollars</h3><p>Six little pancakes and one strip of bacon.</p></div><span class="dots"></span><b>$5.50</b></li>
+            <li><div><h3>Kids' grilled cheese</h3><p>With fries or apple slices.</p></div><span class="dots"></span><b>$5.50</b></li>
+            <li><div><h3>Kids' chicken strips</h3><p>Three strips and fries.</p></div><span class="dots"></span><b>$6.50</b></li>
+          </ul>
+        </div>
+      </div>
+      <p class="menu-foot">Example menu · Prices are placeholders · Ask about allergens</p>
+    </div>
+  </section>
+
+  <!-- SPECIALS -->
+  <section class="specials" id="specials" aria-labelledby="sp-h">
+    <div class="sec specials-in">
+      <div class="sec-head">
+        <p class="eyebrow light" data-r>Daily specials</p>
+        <h2 id="sp-h" data-r style="--d:.08s">Written on the <span class="mint">board</span> every morning.</h2>
+        <p class="note light" data-r style="--d:.14s"><b>Example specials.</b> Today's row is circled automatically. On a real site the owner changes this board from a phone in a minute.</p>
+      </div>
+      <div class="chalk" data-r style="--d:.12s">
+        <div class="chalk-in">
+          <p class="chalk-title">Specials</p>
+          <ol class="week" id="week">
+            <li data-day="1"><span class="d">Mon</span><span class="s">Meatloaf, mashed &amp; green beans</span><span class="p">$11</span></li>
+            <li data-day="2"><span class="d">Tue</span><span class="s">Chicken &amp; noodles over mashed</span><span class="p">$11</span></li>
+            <li data-day="3"><span class="d">Wed</span><span class="s">Hot beef &amp; a slice of pie</span><span class="p">$14</span></li>
+            <li data-day="4"><span class="d">Thu</span><span class="s">Pork chop dinner, two sides</span><span class="p">$13</span></li>
+            <li data-day="5"><span class="d">Fri</span><span class="s">Fish fry, slaw &amp; rye bread</span><span class="p">$13</span></li>
+            <li data-day="6"><span class="d">Sat</span><span class="s">Biscuits &amp; gravy, all day</span><span class="p">$7</span></li>
+            <li data-day="0"><span class="d">Sun</span><span class="s">Cinnamon roll French toast</span><span class="p">$10</span></li>
+          </ol>
+          <svg class="ring" viewBox="0 0 600 70" preserveAspectRatio="none" aria-hidden="true"><path d="M30 38C20 12 160 6 300 8s270 4 280 26-130 30-290 30S12 60 34 30"/></svg>
+          <p class="pie-line"><svg viewBox="0 0 60 36" aria-hidden="true"><path d="M4 22h52l-5 10H9z"/><path d="M4 22c3-10 13-16 26-16s23 6 26 16"/><path d="M16 17l7-4M28 16l7-4M40 17l6-3"/></svg><span>In the pie case: apple, cherry &amp; coconut cream</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALL AHEAD -->
+  <section class="ahead sec" id="ahead" aria-labelledby="ah-h">
+    <div class="ahead-art">
+      <div class="mug-wrap">
+        <svg viewBox="0 0 300 320" class="mug" aria-hidden="true">
+          <defs><clipPath id="mugIn"><path d="M60 92h160v150a40 40 0 0 1-40 40h-80a40 40 0 0 1-40-40z"/></clipPath>
+          <linearGradient id="cof" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7A4A2A"/><stop offset=".12" stop-color="#4A2A17"/><stop offset="1" stop-color="#2A160C"/></linearGradient></defs>
+          <g class="steam"><path d="M110 70c-14-18 14-24 0-44"/><path d="M150 66c-14-18 14-24 0-44"/><path d="M190 70c-14-18 14-24 0-44"/></g>
+          <path d="M220 120h18a34 34 0 0 1 0 68h-18" class="handle"/>
+          <g clip-path="url(#mugIn)"><rect x="60" y="92" width="160" height="190" fill="#F6EBD5"/><g id="coffee"><rect x="56" y="92" width="168" height="200" fill="url(#cof)"/><path d="M56 96c20-8 40 8 60 0s40-8 60 0 40 8 52 0v-6H56z" fill="#8A5634"/></g></g>
+          <path d="M60 92h160v150a40 40 0 0 1-40 40h-80a40 40 0 0 1-40-40z" class="body"/>
+          <path d="M60 142h160" class="band"/><path d="M60 154h160" class="band thin"/>
+          <text x="140" y="214" text-anchor="middle" class="mug-txt">MSD</text>
+          <ellipse cx="140" cy="300" rx="110" ry="10" class="saucer"/>
+        </svg>
+        <p class="refill"><span id="refill">0</span>% full. Keep scrolling for a refill.</p>
+      </div>
+    </div>
+    <div class="ahead-copy">
+      <p class="eyebrow" data-r>Call ahead</p>
+      <h2 id="ah-h" data-r style="--d:.08s">Ready when you <span class="red">walk in.</span></h2>
+      <ol class="steps">
+        <li data-r><span class="n">1</span><div><h3>Call the counter</h3><p>Tell us what you want and when you'll swing by. <a href="tel:3095550142">(309) 555-0142</a></p></div></li>
+        <li data-r style="--d:.1s"><span class="n">2</span><div><h3>We cook it to order</h3><p>Timed so it comes off the griddle right before you get here.</p></div></li>
+        <li data-r style="--d:.2s"><span class="n">3</span><div><h3>Grab it hot</h3><p>Pay at the register and you're back on the road.</p></div></li>
+      </ol>
+      <p class="note" data-r style="--d:.3s"><b>Sample details.</b> The number is a placeholder. A real site can add online ordering if the diner wants it.</p>
+    </div>
+  </section>
+
+  <!-- HOURS + MAP -->
+  <section class="visit" id="hours" aria-labelledby="hr-h">
+    <div class="sec visit-in">
+      <div class="hours-card" data-r>
+        <div class="hc-top"><span class="hc-script">Hours</span><span class="hc-open" id="hcOpen">Open</span></div>
+        <dl id="hoursList">
+          <div data-day="1"><dt>Monday</dt><dd>6 am – 2 pm</dd></div>
+          <div data-day="2"><dt>Tuesday</dt><dd>6 am – 2 pm</dd></div>
+          <div data-day="3"><dt>Wednesday</dt><dd>6 am – 2 pm</dd></div>
+          <div data-day="4"><dt>Thursday</dt><dd>6 am – 2 pm</dd></div>
+          <div data-day="5"><dt>Friday</dt><dd>6 am – 8 pm</dd></div>
+          <div data-day="6"><dt>Saturday</dt><dd>6 am – 2 pm</dd></div>
+          <div data-day="0"><dt>Sunday</dt><dd>7 am – 1 pm</dd></div>
+        </dl>
+        <p class="hc-note">Example hours for the sample. Friday night is fish fry.</p>
+      </div>
+      <div class="find">
+        <p class="eyebrow" data-r>Find us</p>
+        <h2 id="hr-h" data-r style="--d:.08s">Right on <span class="red">Main.</span></h2>
+        <p class="find-lead" data-r style="--d:.14s">Look for the red awning and the sign you can see from the stoplight. Street parking out front, more behind the building.</p>
+        <figure class="map" data-r style="--d:.18s">
+          <svg viewBox="0 0 560 340" role="img" aria-label="Illustrated map placeholder of a small downtown with Main Street and a diner pin">
+            <rect width="560" height="340" rx="10" class="mp-bg"/>
+            <path d="M0 170H560" class="mp-road big"/><path d="M280 0V340" class="mp-road big"/>
+            <path d="M0 70H560M0 270H560M110 0V340M450 0V340" class="mp-road"/>
+            <path d="M0 170H140M268 170H560" class="mp-dash"/><path d="M280 0V60M280 146V340" class="mp-dash"/>
+            <g class="mp-blocks"><rect x="128" y="88" width="134" height="64" rx="4"/><rect x="298" y="88" width="134" height="64" rx="4"/><rect x="128" y="188" width="134" height="64" rx="4"/><rect x="18" y="88" width="74" height="64" rx="4"/><rect x="468" y="188" width="74" height="64" rx="4"/><rect x="18" y="188" width="74" height="64" rx="4"/></g>
+            <rect x="298" y="188" width="134" height="64" rx="4" class="mp-park"/>
+            <g class="tower" transform="translate(500 92)"><path d="M-12 50L-6 14M12 50L6 14M-9 34H9" /><ellipse cy="8" rx="22" ry="14"/><path d="M-22 8h44"/></g>
+            <text x="285" y="136" class="mp-lbl" transform="rotate(-90 285 136)">Main St.</text>
+            <text x="148" y="175" class="mp-lbl">Jefferson St.</text>
+            <g transform="translate(330 150)"><g class="mp-pin"><circle class="ring" r="14"/><path d="M0-46c-13 0-22 9-22 22 0 16 22 34 22 34s22-18 22-34c0-13-9-22-22-22z"/><text y="-18" text-anchor="middle" class="pin-t">MSD</text></g></g>
+          </svg>
+          <figcaption>Illustrated map, not to scale. Street address here · Morton, Illinois.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATERING / BIG ORDER -->
+  <section class="order sec" id="order" aria-labelledby="or-h">
+    <div class="sec-head center">
+      <p class="eyebrow" data-r>Big orders &amp; catering</p>
+      <h2 id="or-h" data-r style="--d:.08s">Feeding a <span class="red">crowd?</span></h2>
+      <p class="note" data-r style="--d:.14s"><b>Sample form.</b> It shows how a request would look. Nothing you type here is sent anywhere.</p>
+    </div>
+    <div class="order-grid">
+      <form class="of" id="of" novalidate data-r>
+        <div class="of-row">
+          <label class="fld"><span>Your name</span><input name="name" autocomplete="off" placeholder="First and last"></label>
+          <label class="fld"><span>Phone</span><input name="phone" inputmode="tel" autocomplete="off" placeholder="Your number"></label>
+        </div>
+        <div class="of-row">
+          <label class="fld"><span>Date</span><input name="date" type="date"></label>
+          <label class="fld"><span>How many people?</span><select name="count"><option>10 to 20</option><option>20 to 40</option><option>40 to 75</option><option>75 or more</option></select></label>
+        </div>
+        <fieldset class="picks"><legend>What sounds good?</legend>
+          <label><input type="checkbox" name="what" value="Breakfast trays" checked><span>Breakfast trays</span></label>
+          <label><input type="checkbox" name="what" value="Sandwich trays"><span>Sandwich trays</span></label>
+          <label><input type="checkbox" name="what" value="Whole pies"><span>Whole pies</span></label>
+          <label><input type="checkbox" name="what" value="Coffee to go"><span>Coffee to go</span></label>
+        </fieldset>
+        <label class="fld"><span>Anything else?</span><textarea name="notes" rows="3" placeholder="Pickup time, allergies, the occasion"></textarea></label>
+        <button class="btn btn-red wide" type="submit">Send request</button>
+        <p class="fine">Sample form: pressing the button sends nothing.</p>
+      </form>
+      <aside class="check" aria-live="polite" data-r style="--d:.12s">
+        <div class="check-hd"><span>Main Street Diner</span><span>Guest check</span></div>
+        <div class="check-no"><span>No.</span><b>0142</b><span>Table</span><b>To go</b></div>
+        <ul class="check-lines" id="chkLines"></ul>
+        <div class="check-ft"><span>Thank you!</span><span class="sm">Come hungry</span></div>
+        <div class="check-done" id="chkDone" hidden>
+          <p class="stamp">Sample</p>
+          <p class="cd-h">Order up! (Well, almost.)</p>
+          <p>This is a sample, so nothing was sent. On a real site the diner gets this request by email or text and calls you back.</p>
+          <button class="btn btn-ink" type="button" id="chkAgain">Start over</button>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq sec" id="faq" aria-labelledby="fq-h">
+    <div class="sec-head center">
+      <p class="eyebrow" data-r>Good questions</p>
+      <h2 id="fq-h" data-r style="--d:.08s">Before you <span class="red">slide into a booth.</span></h2>
+    </div>
+    <div class="qa">
+      <details data-r><summary>Do you take reservations?<i></i></summary><div><p>It's first come, first served. For groups of eight or more, call ahead and we'll push some tables together.</p></div></details>
+      <details data-r style="--d:.05s"><summary>Is breakfast really all day?<i></i></summary><div><p>Every minute we're open. Pancakes at 1:45 pm are allowed.</p></div></details>
+      <details data-r style="--d:.1s"><summary>Can I order a whole pie?<i></i></summary><div><p>Yes. Call a day ahead and we'll set one aside for pickup.</p></div></details>
+      <details data-r style="--d:.15s"><summary>Do you have gluten-free or vegetarian options?<i></i></summary><div><p>A few, and the kitchen will tell you what's in everything. A real site lists the diner's actual options here.</p></div></details>
+      <details data-r style="--d:.2s"><summary>Do you take cards?<i></i></summary><div><p>A real site states exactly which payments the diner accepts. This sample can't promise any.</p></div></details>
+      <details data-r style="--d:.25s"><summary>Is there a kids' menu?<i></i></summary><div><p>Yes, for 10 and under, and every kids' plate comes with a drink.</p></div></details>
+    </div>
+  </section>
+
+  <!-- CLOSER -->
+  <section class="closer" aria-labelledby="cl-h">
+    <div class="closer-in">
+      <svg class="closer-sign" viewBox="0 0 600 220" aria-hidden="true">
+        <defs><filter id="neon2" x="-20%" y="-50%" width="140%" height="200%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+        <rect x="10" y="10" width="580" height="200" rx="40" class="cs-frame" filter="url(#neon2)"/>
+        <text x="300" y="120" text-anchor="middle" class="cs-script" filter="url(#neon2)">Come hungry</text>
+        <path d="M120 156h360" class="cs-line" filter="url(#neon2)"/>
+      </svg>
+      <h2 id="cl-h" class="sr">Come hungry</h2>
+      <p class="closer-lead" data-r>Coffee's on at six. The booth by the window is probably open.</p>
+      <div class="cta center" data-r style="--d:.1s"><a class="btn btn-red" href="tel:3095550142">Call (309) 555-0142</a><a class="btn btn-cream-line" href="#menu">See the menu</a></div>
+    </div>
+  </section>
 </main>
-<footer>© 2026 Main Street Diner · Morton, Illinois</footer>
-<div class="callbar"><a class="btn" href="tel:3095550100">Call</a><a class="btn ghost" style="background:#fff" href="mailto:you@yourbusiness.com">Email</a></div>
+
+<footer class="ft">
+  <div class="ft-in">
+    <p class="logo big"><span class="logo-script">Main Street</span><span class="logo-slab">Diner</span></p>
+    <p class="ft-sample">A sample website by Nolan Day Studio. Main Street Diner is a made-up business, and its dishes, prices, hours, phone and address are placeholders. <a href="../../?plan=Signature#start">Get a site like this, free preview</a> · <a href="../../#work">All samples</a></p>
+  </div>
+</footer>
+
+<div class="dock" id="dock"><a class="btn btn-red" href="tel:3095550142">Call to order</a><a class="btn btn-ink" href="#menu">Menu</a></div>
+
+<script src="diner.js"></script>
 <script>/*nds-count*/(function(){try{var ls=function(){try{return localStorage.getItem("nds_nc")}catch(e){return null}};if(location.hash==="#nc"){try{localStorage.setItem("nds_nc","1")}catch(e){}}if(navigator.webdriver||ls())return;var p=location.pathname.replace(/index\.html$/,"").replace(/^\/+|\/+$/g,"");var k=p?(p.indexOf("p/")===0?p.split("/").pop():p.replace(/[^A-Za-z0-9]+/g,"-")):"home";k=k.slice(0,60);if(k.length<3)k="pg-"+k;fetch("https://abacus.jasoncameron.dev/hit/ndstudio/"+k,{keepalive:true}).catch(function(){})}catch(e){}})();</script>
 </body>
 </html>
