@@ -1,0 +1,60 @@
+/* Flagship kit for shop sample sites (lawn, painting, tree crews), built on the Harlow Building Co. flagship.
+   Each page sets its trade palette and fonts on :root; each tier adds its own art direction on top. */
+:root{
+  --navy:#14212e;--navy2:#1d2e3e;--paper:#f2f3ef;--paper2:#e8eae4;--white:#fbfbf9;--ink:#14212e;--muted:#56626d;--line:#d5d9d2;
+  --pencil:#efb321;--pencil2:#f6cc5c;--fir:#b98a62;--sage:#8fa184;--blue:#2c5a86;
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;--sans:"Schibsted Grotesk",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --bar:40px;--r:10px;--ease:cubic-bezier(.22,1,.36,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;font:400 17px/1.6 var(--sans);color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+img,svg,video,canvas{display:block;max-width:100%}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.08;letter-spacing:-.012em;margin:0;text-wrap:balance}
+p{margin:0;text-wrap:pretty}
+.tnum{font-variant-numeric:tabular-nums}
+.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:focus-visible{outline:2px solid var(--pencil);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:12px;top:-60px;z-index:200;background:var(--pencil);color:var(--navy);padding:10px 14px;border-radius:8px;font-weight:700;text-decoration:none}
+.skip:focus{top:calc(var(--bar) + 10px)}
+
+/* ---------- sample bar + plan switcher ---------- */
+.hb-bar{position:sticky;top:0;z-index:120;height:var(--bar);display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 clamp(12px,3vw,28px);
+  background:var(--barbg,#0d1620);color:#e9ecef;font:500 13px/1 var(--sans);border-bottom:1px solid #ffffff14}
+.hb-bar .note{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#b9c2cb}
+.hb-bar .note b{color:#fff;font-weight:600}
+.hb-bar .note a{color:var(--pencil2);text-underline-offset:3px}
+.hb-plans{display:flex;gap:2px;padding:3px;border-radius:999px;background:#ffffff12;flex:none}
+.hb-plans a{display:flex;align-items:center;gap:6px;height:28px;padding:0 12px;border-radius:999px;text-decoration:none;color:#c7cfd6;font-weight:600;white-space:nowrap;transition:background-color .2s,color .2s}
+.hb-plans a span{font-weight:500;color:#8d99a5;transition:color .2s}
+.hb-plans a:hover{color:#fff}
+.hb-plans a[aria-current]{background:var(--pencil);color:var(--navy)}
+.hb-plans a[aria-current] span{color:#3d3214}
+.hb-plans a:active{transform:scale(.97)}
+@media (max-width:720px){.hb-bar .note .long{display:none}.hb-plans a{padding:0 9px}.hb-plans a .nm{display:none}.hb-plans a span{color:inherit}}
+@media (max-width:380px){.hb-bar .note{display:none}.hb-bar{justify-content:center}}
+html.framed .hb-bar{display:none}
+html.framed{--bar:0px}
+
+/* ---------- logo ---------- */
+.logo{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:inherit}
+.logo svg{width:30px;height:30px;flex:none}
+.logo .wm{display:flex;flex-direction:column;line-height:1}
+.logo .wm b{font:600 clamp(18px,2.2vw,23px)/1.05 var(--serif);letter-spacing:-.01em;max-width:15em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.logo .wm small{font:600 10.5px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;margin-top:3px;opacity:.72}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 22px;border-radius:999px;border:1px solid transparent;
+  font:600 16px/1 var(--sans);text-decoration:none;cursor:pointer;transition:background-color .2s var(--ease),color .2s,border-color .2s,transform .12s var(--ease);-webkit-tap-highlight-color:transparent}
+.btn:active{transform:scale(.97)}
+.btn svg{width:18px;height:18px;flex:none}
+.btn.solid{background:var(--navy);color:#fff}
+.btn.solid:hover{background:#0c1620}
+.btn.gold{background:var(--pencil);color:var(--navy)}
+.btn.gold:hover{background:var(--pencil2)}
+.btn.line{border-color:currentColor;background:transparent}
+.btn.line:hover{background:color-mix(in srgb,currentColor 8%,transparent)}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
