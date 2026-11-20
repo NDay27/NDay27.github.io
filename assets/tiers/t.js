@@ -56,12 +56,17 @@
     var x = cv.getContext("2d"), W = 0, H = 0, dpr = Math.min(devicePixelRatio || 1, 2), P = [], t = 0, vis = true, small = innerWidth < 760, R = Math.random, sparks = [];
     function size() { var r = cv.getBoundingClientRect(); W = r.width; H = r.height; cv.width = W * dpr; cv.height = H * dpr; x.setTransform(dpr, 0, 0, dpr, 0, 0); seed(); }
     function bub(any) { var r = 6 + Math.pow(R(), 2) * (small ? 30 : 46); return { x: W * (.35 + R() * .65), y: any ? R() * H : H + r, r: r, vy: 14 + R() * 26, ph: R() * 6 }; }
+    function puff(any) { var k = any ? R() : 0; return { x0: W * (.5 + R() * .45), k: k, life: 5 + R() * 4, ph: R() * 6, r0: 18 + R() * 26 }; }
     function seed() {
       P = []; var i, n;
       if (g === "tree") { n = small ? 22 : 44; for (i = 0; i < n; i++) P.push({ x: R() * W, y: R() * H, s: 6 + R() * 10, r: R() * 6, vr: (R() - .5) * 2, vy: 18 + R() * 30, ph: R() * 6, c: [ACC, ACC2, "#6f8f3a", "#c4632b"][i % 4] }); }
       else if (g === "lawn") { n = Math.round(W / (small ? 5 : 4)); for (i = 0; i < n; i++) P.push({ x: i / n * W + R() * 4, h: 40 + Math.pow(R(), 1.6) * (small ? 110 : 190), w: 3 + R() * 4, ph: R() * 6, c: R() < .5 ? ACC2 : (R() < .5 ? ACC : "#2f6b3a") }); P.sort(function (a, b) { return b.h - a.h; }); }
       else if (g === "cleaning") { n = small ? 16 : 30; for (i = 0; i < n; i++) P.push(bub(true)); }
       else if (g === "sweets") { n = small ? 60 : 130; for (i = 0; i < n; i++) P.push({ x: R() * W, y: R() * H, l: 8 + R() * 8, r: R() * 6, vr: (R() - .5) * 3, vy: 30 + R() * 50, c: [ACC, ACC2, "#8fd3c1", "#fff4e8", "#b98ad6"][i % 5] }); }
+      else if (g === "beauty" || g === "studio") { n = small ? 26 : 54; for (i = 0; i < n; i++) P.push({ x: W * (.3 + R() * .7), y: R() * H, r: 2 + Math.pow(R(), 3) * (small ? 22 : 34), vy: 4 + R() * 10, ph: R() * 6, c: i % 3 ? ACC : ACC2 }); }
+      else if (g === "retail") { n = small ? 22 : 44; for (i = 0; i < n; i++) P.push({ x: R() * W, y: R() * H, s: 5 + R() * 7, r: R() * 6, vr: (R() - .5) * 2.4, vy: 16 + R() * 26, ph: R() * 6, c: [ACC, ACC2, "#fff3f0", ACC][i % 4] }); }
+      else if (g === "food") { n = small ? 18 : 34; for (i = 0; i < n; i++) P.push(puff(true)); }
+      else if (g === "pets") { n = small ? 14 : 26; for (i = 0; i < n; i++) P.push(bub(true)); }
     }
     function drawAuto(dt) {
       var ex = W * (small ? .8 : .58), ey = H * 1.02, i, p, px, py;
@@ -73,8 +78,47 @@
         x.strokeStyle = p.l > .5 ? "#fff3c4" : ACC2; x.globalAlpha = Math.min(1, p.l * 1.4); x.beginPath(); x.moveTo(px - p.vx * .02, py - p.vy * .02); x.lineTo(p.x, p.y); x.stroke(); }
       x.globalAlpha = 1; x.globalCompositeOperation = "source-over";
     }
+    var paws = [], pawT = 0, pawK = 0;
+    function drawMix(dt) {
+      var i;
+      if (g === "beauty" || g === "studio") {
+        if (g === "studio") { x.globalCompositeOperation = "lighter"; for (i = 0; i < 3; i++) { var ang = -.9 + i * .5 + Math.sin(t * .3 + i * 2) * .18, ox = W * (.62 + i * .14), gr0 = x.createLinearGradient(ox, 0, ox + Math.sin(ang) * H, H);
+            gr0.addColorStop(0, ACC + "40"); gr0.addColorStop(1, "#0000"); x.fillStyle = gr0; x.beginPath(); x.moveTo(ox - 8, -10); x.lineTo(ox + 8, -10); x.lineTo(ox + Math.sin(ang) * H * 1.2 + H * .22, H + 10); x.lineTo(ox + Math.sin(ang) * H * 1.2 - H * .22, H + 10); x.fill(); } x.globalCompositeOperation = "source-over"; }
+        P.forEach(function (p) { p.y -= p.vy * dt; if (p.y < -p.r * 2) { p.y = H + p.r * 2; p.x = W * (.3 + R() * .7); }
+          var a = .25 + .35 * (Math.sin(t * 1.3 + p.ph) * .5 + .5), gr = x.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
+          gr.addColorStop(0, p.c + "cc"); gr.addColorStop(.6, p.c + "44"); gr.addColorStop(1, p.c + "00"); x.globalAlpha = a; x.fillStyle = gr; x.beginPath(); x.arc(p.x, p.y, p.r, 0, 7); x.fill();
+          if (p.r < 6) { x.globalAlpha = a * 1.6; x.strokeStyle = "#fff"; x.lineWidth = 1; x.beginPath(); x.moveTo(p.x - p.r * 2, p.y); x.lineTo(p.x + p.r * 2, p.y); x.moveTo(p.x, p.y - p.r * 2); x.lineTo(p.x, p.y + p.r * 2); x.stroke(); } });
+        x.globalAlpha = 1;
+      } else if (g === "retail") P.forEach(function (p) { p.y += p.vy * dt; p.x += Math.sin(t * .7 + p.ph) * 26 * dt - 6 * dt; p.r += p.vr * dt; if (p.y > H + 20) { p.y = -20; p.x = R() * W; } if (p.x < -20) p.x = W + 20;
+          x.save(); x.translate(p.x, p.y); x.rotate(p.r); x.scale(Math.cos(t * 1.8 + p.ph) * .45 + .55, 1); x.fillStyle = p.c; x.globalAlpha = .8;
+          x.beginPath(); x.moveTo(0, -p.s); x.bezierCurveTo(p.s, -p.s * .6, p.s * .7, p.s * .6, 0, p.s); x.bezierCurveTo(-p.s * .7, p.s * .6, -p.s, -p.s * .6, 0, -p.s); x.fill(); x.restore(); });
+      else if (g === "food") { var gl = x.createRadialGradient(W * .74, H * 1.05, 0, W * .74, H * 1.05, H * .85); gl.addColorStop(0, ACC + "55"); gl.addColorStop(.5, ACC2 + "18"); gl.addColorStop(1, "#0000"); x.fillStyle = gl; x.fillRect(0, 0, W, H);
+        P.forEach(function (p, k) { p.k += dt / p.life; if (p.k >= 1) { P[k] = puff(false); return; }
+          var yy = H * (1.02 - p.k * .95), xx = p.x0 + Math.sin(p.k * 6 + p.ph + t * .4) * 30 * p.k, r = p.r0 * (1 + p.k * 2.6), a = Math.sin(p.k * Math.PI) * .13;
+          var gr = x.createRadialGradient(xx, yy, 0, xx, yy, r); gr.addColorStop(0, "rgba(255,246,236," + a + ")"); gr.addColorStop(1, "rgba(255,246,236,0)"); x.fillStyle = gr; x.beginPath(); x.arc(xx, yy, r, 0, 7); x.fill(); }); }
+      else if (g === "pets") {
+        P.forEach(function (p, k) { p.y -= p.vy * dt; var bx = p.x + Math.sin(t + p.ph) * 8; if (p.y < -p.r) P[k] = bub(false);
+          var gr = x.createRadialGradient(bx - p.r * .35, p.y - p.r * .35, p.r * .1, bx, p.y, p.r); gr.addColorStop(0, "#ffffff12"); gr.addColorStop(.85, ACC2 + "40"); gr.addColorStop(1, "#ffffff55");
+          x.fillStyle = gr; x.beginPath(); x.arc(bx, p.y, p.r, 0, 7); x.fill(); });
+        pawT += dt; if (pawT > .42) { pawT = 0; pawK++; var row = H * .82, px0 = (pawK * 46) % (W + 200) - 100; paws.push({ x: px0, y: row + (pawK % 2 ? -16 : 16), l: 3.2 }); }
+        paws.forEach(function (q) { q.l -= dt; x.globalAlpha = Math.max(0, Math.min(1, q.l / 1.5)) * .55; x.fillStyle = ACC; x.beginPath(); x.ellipse(q.x, q.y, 9, 7.5, 0, 0, 7); x.fill();
+          [[-9, -11], [-3, -15], [3, -15], [9, -11]].forEach(function (o) { x.beginPath(); x.ellipse(q.x + o[0], q.y + o[1], 3, 3.8, 0, 0, 7); x.fill(); }); });
+        paws = paws.filter(function (q) { return q.l > 0; }); x.globalAlpha = 1;
+      } else if (g === "fitness") { var y0 = H * .62, sp = (t * 220) % (W + 300); x.lineJoin = "round"; x.lineCap = "round";
+        for (var L = 0; L < 2; L++) { x.strokeStyle = L ? ACC : ACC + "40"; x.lineWidth = L ? 3 : 10; x.beginPath();
+          for (var X = 0; X <= W; X += 4) { var d = (X - sp + W + 300) % (W + 300), beat = d < 90 ? [0, -10, 28, -90, 70, -20, 0][Math.floor(d / 13)] || 0 : 0; var Y = y0 + beat * (small ? .6 : 1); if (X === 0) x.moveTo(X, Y); else x.lineTo(X, Y); }
+          x.stroke(); }
+        x.globalAlpha = .18; x.strokeStyle = ACC2; x.lineWidth = 2; for (i = 0; i < 14; i++) { var yy = (i * 53 + t * 140) % H, xx = W * (.4 + ((i * 37) % 60) / 100); x.beginPath(); x.moveTo(xx, yy); x.lineTo(xx + 90, yy); x.stroke(); } x.globalAlpha = 1; }
+      else if (g === "trades") { var gs = small ? 28 : 40; x.strokeStyle = ACC2 + "22"; x.lineWidth = 1; x.beginPath();
+        for (var gx = (t * 6) % gs; gx < W; gx += gs) { x.moveTo(gx, 0); x.lineTo(gx, H); } for (var gy = 0; gy < H; gy += gs) { x.moveTo(0, gy); x.lineTo(W, gy); } x.stroke();
+        var k = (t * .18) % 1, cx = W * (small ? .55 : .7), cy = H * .62, s = Math.min(W, H) * (small ? .32 : .42), pts = [[-1, .5], [-1, -.2], [0, -.9], [1, -.2], [1, .5], [-1, .5], [-.25, .5], [-.25, .05], [.25, .05], [.25, .5]], tot = pts.length - 1, upto = k * 1.4 * tot;
+        x.strokeStyle = ACC; x.lineWidth = 2.5; x.lineCap = "round"; x.beginPath(); x.moveTo(cx + pts[0][0] * s, cy + pts[0][1] * s);
+        for (var q = 1; q <= tot && q - 1 < upto; q++) { var f = Math.min(1, upto - (q - 1)), a0 = pts[q - 1], a1 = pts[q]; x.lineTo(cx + (a0[0] + (a1[0] - a0[0]) * f) * s, cy + (a0[1] + (a1[1] - a0[1]) * f) * s); } x.stroke();
+        x.globalAlpha = .5; x.strokeStyle = ACC2; x.lineWidth = 1; x.setLineDash([4, 6]); x.beginPath(); x.moveTo(cx - s, cy + s * .5 + 18); x.lineTo(cx + s, cy + s * .5 + 18); x.moveTo(cx - s, cy + s * .5 + 10); x.lineTo(cx - s, cy + s * .5 + 26); x.moveTo(cx + s, cy + s * .5 + 10); x.lineTo(cx + s, cy + s * .5 + 26); x.stroke(); x.setLineDash([]); x.globalAlpha = 1; }
+    }
     function draw(dt) {
       x.clearRect(0, 0, W, H);
+      if ({beauty: 1, studio: 1, retail: 1, food: 1, pets: 1, fitness: 1, trades: 1}[g]) { drawMix(dt); return; }
       if (g === "auto") drawAuto(dt);
       else if (g === "tree") P.forEach(function (p) { p.y += p.vy * dt; p.x += Math.sin(t * .8 + p.ph) * 22 * dt + 10 * dt; p.r += p.vr * dt; if (p.y > H + 20) { p.y = -20; p.x = R() * W; } if (p.x > W + 20) p.x = -20;
           x.save(); x.translate(p.x, p.y); x.rotate(p.r); x.scale(1, Math.cos(t * 1.6 + p.ph) * .5 + .6); x.fillStyle = p.c; x.globalAlpha = .85; x.beginPath(); x.ellipse(0, 0, p.s, p.s * .45, 0, 0, 7); x.fill(); x.strokeStyle = "#0003"; x.lineWidth = 1; x.beginPath(); x.moveTo(-p.s, 0); x.lineTo(p.s, 0); x.stroke(); x.restore(); });
@@ -194,6 +238,52 @@
     oil: '<svg viewBox="0 0 24 24" fill="none" stroke="#D33A2C" stroke-width="2" stroke-linejoin="round"><path d="M3 12h4l2-2h8l4-2-5 7H7l-4-2zM20 16v1"/></svg>',
     tpm: '<svg viewBox="0 0 24 24" fill="none" stroke="#E8A317" stroke-width="2"><path d="M7 5C4 8 4 16 7 19h10c3-3 3-11 0-14M12 8v5M12 15.5v.5"/></svg>'
   };
+
+  /* Mixed groups: two quick questions, a live picture and a result card. */
+  var MIXQ = {
+    beauty: { a: "What are you booking?", b: "What's the vibe?", B: ["Fresh and simple", "Something bold", "Classic", "Surprise me"],
+      art: '<svg viewBox="0 0 200 170" aria-hidden="true" style="width:100%;max-width:230px;margin:auto"><ellipse cx="100" cy="74" rx="56" ry="64" fill="#fff" stroke="#C9B48A" stroke-width="7"/><ellipse id="mr" cx="100" cy="74" rx="48" ry="56" fill="#DDEBF3" style="transition:fill .6s"/><path id="hr" d="M70 92c-4-36 10-52 30-52s34 16 30 52c-6-18-16-26-30-26s-24 8-30 26z" fill="#5B3A2E" style="transition:fill .6s,transform .6s;transform-origin:100px 70px"/><circle cx="100" cy="84" r="20" fill="#F1C9A8"/><path d="M70 150h60l-6 14H76z" fill="#2b2f36"/><g id="spk"></g></svg>',
+      pic: function (A, b) { $("#mr", this.svg).style.fill = ["#DDEBF3", "#F7D9E2", "#EFE6D2", "#E2F1E4"][b.i]; $("#hr", this.svg).style.fill = ["#5B3A2E", "#B5323C", "#2b2f36", "#C99A4A"][b.i]; $("#hr", this.svg).style.transform = "scale(" + [1, 1.12, .96, 1.06][b.i] + ")"; },
+      res: function (A, b) { return [A + ", " + b.label.toLowerCase(), "Bring a photo if you have one. " + D.short + " will confirm a time with you."]; } },
+    food: { a: "What can we get started?", b: "How many people?", B: ["Just me", "2 to 4", "5 to 10", "A big crowd"],
+      art: '<svg viewBox="0 0 200 150" aria-hidden="true" style="width:100%;max-width:240px;margin:auto"><ellipse cx="100" cy="120" rx="84" ry="18" fill="#0001"/><ellipse cx="100" cy="108" rx="80" ry="24" fill="#fff" stroke="#E7DED2" stroke-width="4"/><g id="pl"></g></svg>',
+      pic: function (A, b) { var g = $("#pl", this.svg), c = ["#F08A3C", "#F3C25B", "#8C5A3C", "#BFE3C0", "#E86A5A"], h = ""; for (var i = 0; i <= b.i; i++) h += '<ellipse cx="' + (70 + i * 20) + '" cy="' + (100 - i * 3) + '" rx="22" ry="10" fill="' + c[i % 5] + '"/>'; g.innerHTML = h + '<path d="M86 70c-6-8 6-14 0-22M100 66c-6-8 6-14 0-22M114 70c-6-8 6-14 0-22" stroke="#0002" stroke-width="3" fill="none" stroke-linecap="round"/>'; if (!reduce && g.animate) g.animate([{ transform: "translateY(-6px)", opacity: .4 }, { transform: "none", opacity: 1 }], { duration: 400 }); },
+      res: function (A, b) { return [A + " · " + b.label.toLowerCase(), "Send it over and " + D.short + " will call you back to confirm the details and the time."]; } },
+    retail: { a: "What's the occasion?", b: "Who is it for?", B: ["Her", "Him", "Family", "A friend"],
+      art: '<svg viewBox="0 0 180 160" aria-hidden="true" style="width:100%;max-width:210px;margin:auto"><ellipse cx="90" cy="150" rx="62" ry="7" fill="#0001"/><rect x="34" y="66" width="112" height="80" rx="6" id="bx" fill="#D98C9F" style="transition:fill .6s"/><rect x="28" y="52" width="124" height="22" rx="5" id="ld" fill="#C77689" style="transition:fill .6s,transform .5s cubic-bezier(.3,1.5,.5,1);transform-origin:90px 74px"/><rect x="82" y="52" width="16" height="94" fill="#fff"/><path d="M90 52c-18-26-40-16-28-2 6 6 18 2 28 2s22 4 28-2c12-14-10-24-28 2z" fill="#fff"/></svg>',
+      pic: function (A, b) { var c = [["#D98C9F", "#C77689"], ["#6E8FAE", "#5A7A99"], ["#B8C79A", "#9DB07E"], ["#F3C25B", "#DDAA3E"]][b.i]; $("#bx", this.svg).style.fill = c[0]; $("#ld", this.svg).style.fill = c[1]; $("#ld", this.svg).style.transform = "translateY(-10px) rotate(-6deg)"; },
+      res: function (A, b) { return ["A " + A.toLowerCase() + " gift for " + b.label.toLowerCase(), "Ask " + D.short + " what's in the shop right now. They can set something aside for you."]; } },
+    pets: { a: "What does your pet need?", b: "How big is your pet?", B: ["Small", "Medium", "Large", "It's a cat"],
+      art: '<svg viewBox="0 0 200 150" aria-hidden="true" style="width:100%;max-width:240px;margin:auto"><rect width="200" height="150" rx="14" fill="#E8F4FA"/><g id="dg" style="transition:transform .6s cubic-bezier(.3,1.4,.4,1);transform-origin:100px 120px"><ellipse cx="100" cy="100" rx="40" ry="24" fill="#E3A857"/><circle cx="68" cy="76" r="22" fill="#E3A857"/><path d="M52 64l-8-18 16 8zM82 62l8-18-14 8z" fill="#B5762F"/><circle cx="62" cy="74" r="3" fill="#222"/><circle cx="76" cy="74" r="3" fill="#222"/><ellipse cx="66" cy="84" rx="5" ry="3.5" fill="#222"/><rect x="76" y="110" width="9" height="20" rx="4" fill="#E3A857"/><rect x="112" y="110" width="9" height="20" rx="4" fill="#E3A857"/><path id="tl" d="M138 94c14-6 18-20 12-28" fill="none" stroke="#E3A857" stroke-width="8" stroke-linecap="round"/></g><g id="bb"></g></svg>',
+      pic: function (A, b) { $("#dg", this.svg).style.transform = "scale(" + [.72, .9, 1.1, .8][b.i] + ")"; var g = $("#bb", this.svg); g.innerHTML = ""; for (var i = 0; i < 6; i++) g.innerHTML += '<circle cx="' + (40 + Math.random() * 130) + '" cy="' + (20 + Math.random() * 60) + '" r="' + (4 + Math.random() * 6) + '" fill="#fff" stroke="#9fd3e6" stroke-width="2"/>'; },
+      res: function (A, b) { return [A + " · " + b.label.toLowerCase() + (b.i === 3 ? "" : " dog"), "Tell " + D.short + " your pet's name and anything they should know. They'll call to set a time."]; } },
+    fitness: { a: "What's the goal?", b: "Days a week you can make it", B: ["2 days", "3 days", "4 days", "5 days"], A: ["Get stronger", "Lose weight", "Feel better", "Learn something new", "Just ask a question"],
+      art: '<svg viewBox="0 0 220 90" aria-hidden="true" style="width:100%;max-width:280px;margin:auto"><g id="wk"></g></svg>',
+      pic: function (A, b) { var n = b.i + 2, on = [[1, 4], [0, 2, 4], [0, 1, 3, 4], [0, 1, 2, 3, 4]][b.i], h = ""; "MTWTFSS".split("").forEach(function (d, i) { var o = on.indexOf(i) >= 0; h += '<rect x="' + (4 + i * 30) + '" y="10" width="26" height="56" rx="7" fill="' + (o ? getComputedStyle(document.documentElement).getPropertyValue("--acc") : "#0000000f") + '"/><text x="' + (17 + i * 30) + '" y="82" text-anchor="middle" font-size="11" font-weight="700" fill="#0008">' + d + "</text>"; }); $("#wk", this.svg).innerHTML = h; return n; },
+      res: function (A, b) { return [A + ", " + b.label, "A simple start: " + b.label + " a week, every week. " + D.short + " can help you set it up on your first visit."]; } },
+    studio: { a: "What do you need?", b: "When?", B: null,
+      art: '<svg viewBox="0 0 200 140" aria-hidden="true" style="width:100%;max-width:240px;margin:auto"><rect width="200" height="140" rx="14" fill="#262632"/><path d="M20 20l40 0-20 100z" fill="#E9B44C" opacity=".18"/><path d="M180 20l-40 0 20 100z" fill="#8FB3E8" opacity=".18"/><rect x="64" y="34" width="72" height="56" rx="6" fill="#F7F6F2"/><rect id="fr" x="72" y="42" width="56" height="40" fill="#E9B44C" style="transition:fill .6s"/><path d="M60 118h80" stroke="#F7F6F2" stroke-width="4" stroke-linecap="round"/><circle id="fl" cx="100" cy="62" r="70" fill="#fff" opacity="0"/></svg>',
+      pic: function (A, b) { $("#fr", this.svg).style.fill = ["#E9B44C", "#8FB3E8", "#D98C9F", "#B8C79A"][b.i % 4]; var f = $("#fl", this.svg); if (!reduce && f.animate) f.animate([{ opacity: .9 }, { opacity: 0 }], { duration: 500 }); },
+      res: function (A, b) { return [A + " · " + b.label.toLowerCase(), "Send the details and " + D.short + " will call you back with a plan and a straight price."]; } },
+    trades: { a: "What's going on?", b: "How bad is it?", B: ["Just noticed it", "Getting worse", "Needs help now"],
+      art: '<svg class="dial" viewBox="0 0 200 130" aria-hidden="true"><path d="M20 110a80 80 0 0 1 160 0" fill="none" stroke="#0001" stroke-width="16" stroke-linecap="round"/><path id="arc" d="M20 110a80 80 0 0 1 160 0" fill="none" stroke="url(#gr2)" stroke-width="16" stroke-linecap="round" pathLength="100" stroke-dasharray="0 100" style="transition:stroke-dasharray .9s cubic-bezier(.2,.8,.2,1)"/><defs><linearGradient id="gr2"><stop offset="0" stop-color="#58B368"/><stop offset=".5" stop-color="#F5B83D"/><stop offset="1" stop-color="#E2382B"/></linearGradient></defs><g id="nd" style="transform-origin:100px 110px;transform:rotate(-90deg);transition:transform .9s cubic-bezier(.3,1.4,.4,1)"><path d="M98 110 100 40 102 110z" fill="#16181d"/></g><circle cx="100" cy="110" r="9" fill="#16181d"/><text x="22" y="128" font-size="10" font-weight="700" fill="#0008">CAN WAIT</text><text x="178" y="128" font-size="10" font-weight="700" fill="#0008" text-anchor="end">CALL NOW</text></svg>',
+      pic: function (A, b) { var u = [30, 64, 96][b.i]; $("#arc", this.svg).setAttribute("stroke-dasharray", u + " 100"); $("#nd", this.svg).style.transform = "rotate(" + (-90 + u * 1.8) + "deg)"; },
+      res: function (A, b) { return [["Worth a quote soon", "Get it looked at this week", "Call today"][b.i], (b.i === 2 ? "Small problems get expensive fast. Call " + D.short + " at " + D.phone + " and tell them what's going on." : b.i === 1 ? "It's easier and cheaper to fix before it gets worse. Send a request and " + D.short + " will call you back." : "No emergency. A good time to get a straight quote while it's on your mind.")]; } }
+  };
+  if (MIXQ[G]) {
+    var M = MIXQ[G], art0 = svg(M.art), obM = outBox(art0), stM = { a: null, b: null }; M.svg = art0;
+    var As = (M.A || D.jobs.filter(function (j) { return j !== "Something else"; })).map(function (l) { return { label: l }; });
+    var Bs = (M.B || D.when).map(function (l, i) { return { label: l, i: i }; });
+    function updM() {
+      if (stM.b) M.pic(stM.a ? stM.a.label : "", stM.b);
+      if (!stM.a || !stM.b) { obM.set("Two quick questions", "Tap an answer to each one.", G === "trades" ? 0 : null, "Or just ask " + D.short, ""); return; }
+      var r = M.res(stM.a.label, stM.b); obM.set(r[0], r[1], G === "trades" ? [30, 64, 96][stM.b.i] : null, "Add this to my request", stM.a.label);
+    }
+    var la = el("p", null, M.a), lb = el("p", null, M.b); la.style.fontWeight = lb.style.fontWeight = 700; lb.style.marginTop = "14px"; la.style.marginBottom = lb.style.marginBottom = "8px";
+    mp.appendChild(la); mp.appendChild(options(As, function (o) { stM.a = o; updM(); }));
+    mp.appendChild(lb); mp.appendChild(options(Bs, function (o) { stM.b = o; updM(); }));
+    mp.appendChild(obM.o); updM(); return;
+  }
 
   if (G === "auto") {
     var dial = svg('<svg class="dial" viewBox="0 0 200 130" aria-hidden="true"><path d="M20 110a80 80 0 0 1 160 0" fill="none" stroke="#0001" stroke-width="16" stroke-linecap="round"/><path id="arc" d="M20 110a80 80 0 0 1 160 0" fill="none" stroke="url(#gr)" stroke-width="16" stroke-linecap="round" pathLength="100" stroke-dasharray="0 100" style="transition:stroke-dasharray .9s cubic-bezier(.2,.8,.2,1)"/><defs><linearGradient id="gr"><stop offset="0" stop-color="#58B368"/><stop offset=".5" stop-color="#F5B83D"/><stop offset="1" stop-color="#E2382B"/></linearGradient></defs><g id="nd" style="transform-origin:100px 110px;transform:rotate(-90deg);transition:transform .9s cubic-bezier(.3,1.4,.4,1)"><path d="M98 110 100 40 102 110z" fill="#16181d"/></g><circle cx="100" cy="110" r="9" fill="#16181d"/><text x="22" y="128" font-size="10" font-weight="700" fill="#0008">CAN WAIT</text><text x="178" y="128" font-size="10" font-weight="700" fill="#0008" text-anchor="end">RIGHT NOW</text></svg>');
