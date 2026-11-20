@@ -20,7 +20,7 @@
   /* The offer. Starter is the one we lead with (FOCUS.md). Bigger sites keep the Studio prices. */
   var PLANS = {
     starter: { id: "starter", name: "Starter Site", short: "$0 down, $99 a month", setup: 0, monthly: 99,
-      tag: "Most pick this",
+      tag: "Easiest start",
       line: "Your site live today. Hosting, changes whenever you ask, and your Google listing pointed at it. Cancel any time.",
       includes: ["The site you just saw, finished with your photos, hours and services",
         "Live on its own link the same day you approve it",
