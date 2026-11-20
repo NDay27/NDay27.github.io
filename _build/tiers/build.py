@@ -159,7 +159,7 @@ def count_script(key):
 
 def data_json(shop, tier):
     v = V[shop["v"]]
-    d = {"tier": tier, "group": shop["group"], "v": shop["v"], "name": shop["name"], "short": shop["short"], "town": shop["town"], "st": ST(shop),
+    d = {"tier": tier, "group": shop["group"], "v": shop.get("v0", shop["v"]), "name": shop["name"], "short": shop["short"], "town": shop["town"], "st": ST(shop),
          "phone": shop["phone"], "tel": tel(shop["phone"]), "rating": shop.get("rating") or 0, "reviews": shop.get("reviews") or 0,
          "jobs": v["jobs"], "when": v["when"], "ask": v["ask"], "noun": v["noun"]}
     return '<script type="application/json" id="t-data">' + json.dumps(d, ensure_ascii=False).replace("</", "<\\/") + "</script>"
@@ -439,6 +439,46 @@ def meet_json(shop):
     return json.dumps(d, ensure_ascii=False).replace("</", "<\\/")
 
 
+# ---- Trade guard (Nov 20 2026) -------------------------------------------------------------------
+# A sample site built for the wrong trade kills the sale (R.W. Stoneworks, a masonry company, got a
+# lawn-mowing site). So no shop is built unless _build/tiers/trade_checks.json confirms its trade:
+#   "<slug>": {"v": "<variant>", "trade": "what they really do", "src": "where that was seen", "on": "YYYY-MM-DD"}
+# and the check's "v" must equal the "v" being built. The name test below also refuses a build when
+# the business name points at another trade (e.g. "Stoneworks" on a lawn site) unless the check says
+# "name_ok": true after a person or a source confirmed it.
+CHECKS_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "trade_checks.json")
+NAME_SIGNS = [(r"stone|masonry|paver|hardscap|brick|retaining", "hardscape"), (r"excavat|grading|trenching|septic", "excavation"),
+              (r"concrete|cement|flatwork", "concrete"), (r"roof", "roofing"), (r"\bfenc", "fence"), (r"\btrees?\b|stump|\barbor|forestry", "tree"),
+              (r"lawn|mow|turf", "lawn"), (r"\btow(ing)?\b|wrecker", "towing"), (r"\bbody\b|autobody|collision", "autobody"),
+              (r"glass|windshield", "autoglass"), (r"paint", "painting"), (r"plumb|rooter", "plumbing"), (r"electric", "electrical"),
+              (r"hvac|heating|cooling|furnace", "hvac"), (r"barber", "barber"), (r"groom", "petgroom"), (r"clean(?! cut| shave)|\bmaids?\b|janitor", "cleaning")]
+NAME_FITS = {  # signals a variant can carry without a conflict
+    "auto": {"autobody", "towing", "electrical", "hvac", "autoglass"}, "truck": {"autobody", "towing"}, "transmission": set(), "radiator": {"hvac"},
+    "muffler": set(), "brake": set(), "autobody": {"painting", "autoglass", "towing"}, "autoglass": set(), "towing": {"autobody"},
+    "tree": {"lawn", "excavation"}, "lawn": {"tree", "cleaning"}, "landscape": {"lawn", "tree", "hardscape", "concrete"}, "snow": {"lawn"},
+    "hardscape": {"concrete", "excavation", "lawn"}, "landinstall": {"lawn", "tree", "hardscape", "concrete", "excavation"}, "excavation": {"hardscape", "concrete", "lawn", "tree"}, "concrete": {"hardscape", "excavation"},
+    "painter": {"cleaning", "roofing"}, "houseclean": set(), "janitorial": set(), "pressurewash": {"cleaning", "painting"}, "carpetclean": {"cleaning"}, "tailor": {"cleaning"},
+    "handyman": {"painting", "cleaning", "lawn", "roofing", "fence"}, "roofing": set(), "petgroom": {"cleaning"}, "plumbing": {"cleaning", "hvac"},
+    "hvac": {"plumbing", "electrical"}, "electrical": {"hvac"}, "smallengine": {"lawn"}}
+
+
+def trade_problem(s, checks):
+    c = checks.get(s["slug"])
+    if not c:
+        return "no confirmed trade in trade_checks.json"
+    if c.get("hand_built"):
+        return "its pages were built by hand; edit them directly so this script doesn't overwrite them"
+    if c.get("v") != s["v"]:
+        return f'confirmed trade is "{c.get("v")}" ({c.get("trade")}), not "{s["v"]}"'
+    if not c.get("name_ok"):
+        n = s["name"].lower()
+        fits = NAME_FITS.get(s["v"], set()) | {s["v"], {"painter": "painting", "houseclean": "cleaning", "janitorial": "cleaning"}.get(s["v"], s["v"])}
+        clash = sorted({t for rx, t in NAME_SIGNS if re.search(rx, n)} - fits)
+        if clash:
+            return f'the name says {"/".join(clash)} but the site would be "{s["v"]}"; confirm it and set "name_ok": true'
+    return None
+
+
 def main():
     a = sys.argv[1:]
     src = a[a.index("--shops") + 1] if "--shops" in a else "_build/tiers/shops.json"
@@ -448,7 +488,27 @@ def main():
         shops = [s for s in shops if s["slug"] in keep]
     if "--limit" in a:
         shops = shops[: int(a[a.index("--limit") + 1])]
+    # the Nov 20 lead deal moved to the flagship kit (_build/flagship/make.py): never overwrite those here
+    flag = {x["slug"] for x in json.load(open(os.path.join(ROOT, "_build/flagship/shops.json")))}
+    shops = [s for s in shops if s["slug"] not in flag]
+    checks = json.load(open(CHECKS_PATH)) if os.path.exists(CHECKS_PATH) else {}
+    refused = []
     for s in shops:
+        why = trade_problem(s, checks)
+        if why:
+            refused.append((s["slug"], why))
+    if refused:
+        for slug, why in refused:
+            print(f"REFUSED {slug}: {why}", file=sys.stderr)
+        print(f"{len(refused)} shop(s) not built: confirm the real trade first (see the trade guard in build.py).", file=sys.stderr)
+        keep = {r[0] for r in refused}
+        shops = [s for s in shops if s["slug"] not in keep]
+    for s in shops:
+        if s.get("copy"):  # per-shop wording from the business's own pages, on top of its variant
+            key = f'{s["v"]}~{s["slug"]}'
+            V[key] = dict(V[s["v"]], **{k: (v if k != "services" else [tuple(x) for x in v]) for k, v in s["copy"].items() if k != "label"})
+            TRADE_LABEL[key] = s["copy"].get("label", TRADE_LABEL[s["v"]])
+            s["v0"], s["v"] = s["v"], key
         s["group"] = V[s["v"]]["group"]
         s["name"] = nice_name(s["name"])
         s["short"] = short_name(s["name"])

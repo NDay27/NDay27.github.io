@@ -1,0 +1,76 @@
+// Flagship kit, Immersive tier: the live 3D yard for lawn, tree and painting crews.
+// t1250.js turns scroll into a state (camera keys, light, trade values); this file draws it on the Harlow engine.
+import {makeWorld, reduce, small} from "../../harlow/assets/world.js";
+import {makeHouse} from "../../harlow/assets/house.js";
+import {lawn, yardTree} from "./yard.js";
+
+// camera keys: position, target, field of view (desktop)
+const K = {
+  lawn: {hero: [[-15, 2.9, 27], [-1.5, 3.8, 2], 38], high: [[-16, 9, 24], [2.5, 1, 4], 38], side: [[24, 3.4, 18], [4, 2.5, 2], 38],
+         dusk: [[22, 2.6, 19], [3, 3.8, 0], 36], cfg: [[-12, 4.2, 30], [2, 3, 3], 36]},
+  tree: {hero: [[-17, 2.8, 31], [-3.5, 5.2, 2], 40], close: [[-24, 6, 22], [-4, 5, 2], 40], side: [[-26, 3.4, 4], [-6, 5, 2], 40],
+         dusk: [[-20, 2.6, 24], [-3, 5, 2], 38], cfg: [[-19, 3.4, 30], [-3.5, 5, 2], 38]},
+  painting: {hero: [[-14, 2.0, 25], [-1.5, 4.4, 2], 36], close: [[-16, 7, 24], [2.5, 3.6, 0], 36], side: [[24, 3.4, 18], [4, 2.5, 2], 38],
+             dusk: [[22, 2.6, 19], [3, 3.8, 0], 36], cfg: [[-11.5, 2.6, 32], [2, 4.4, 1.5], 33]},
+};
+
+export async function start(HB) {
+  const g = HB.group, keys = K[g];
+  let house = null, tree = null;
+  const world = await makeWorld({
+    cam: {pos: keys.hero[0], target: keys.hero[1], minD: 1, maxD: 400, minAz: -99, maxAz: 99, maxPolar: Math.PI * .62},
+    tod: .56, ground: "lawn", grassR: 34, grassH: .15, grassW: .04, grassN: small ? 1.5 : 2.6, offset: false, fov: () => 36,
+    exclude: (x, z) => (house ? house.exclude(x, z) : false) || (tree ? tree.exclude(x, z) : false),
+  });
+  const {THREE, cam, ctl} = world;
+  house = makeHouse(world);
+  if (g === "tree") tree = yardTree(world);
+  // grass was planted before the house existed: keep only the blades outside its footprint
+  if (world.grass) { const gr = world.grass, m = new THREE.Matrix4(), c = new THREE.Color(), P = gr.userData.pos; let n = 0;
+    for (let i = 0; i < P.length; i++) { const [x, z, sc, q] = P[i]; if (house.exclude(x, z) || (tree && tree.exclude(x, z))) continue; m.compose(new THREE.Vector3(x, 0, z), q, new THREE.Vector3(1, sc, 1)); gr.setMatrixAt(n, m); gr.getColorAt(i, c); gr.setColorAt(n, c); n++; }
+    gr.count = n; gr.instanceMatrix.needsUpdate = true; if (gr.instanceColor) gr.instanceColor.needsUpdate = true; }
+  const yard = g === "lawn" ? lawn(world, {exclude: (x, z) => house.exclude(x, z)}) : null;
+  house.setFinish({siding: "white", roof: "black", trim: "black", door: "fir", porch: true});
+  house.setProgress(1);
+
+  // painting: blend siding, trim and door from faded to the chosen colors
+  const FADE = {siding: new THREE.Color(0xb9b2a0), trim: new THREE.Color(0x8a8476), door: new THREE.Color(0x8a6a55)};
+  const cA = new THREE.Color(), cB = new THREE.Color();
+  let doorFir = null, shadowKey = "";
+
+  ctl.enabled = false; ctl.autoRotate = false; ctl.enableDamping = false;
+  const pos = new THREE.Vector3(), tgt = new THREE.Vector3(), a0 = new THREE.Vector3(), a1 = new THREE.Vector3(), b0 = new THREE.Vector3(), b1 = new THREE.Vector3(), off = new THREE.Vector3();
+  const ease = t => t * t * (3 - 2 * t);
+  let intro = reduce ? 1 : 0, fov = 0, vo = "";
+  world.onTick.push((t, dt) => {
+    const s = HB.get(), P = s.v;
+    world.setTod(s.tod);
+    if (yard) yard.set({h: 5, stripes: P.stripes ?? 1, cut: P.cut ?? 1});
+    if (tree) { tree.shape(+(P.trim ?? 0).toFixed(3)); tree.down(+(P.down ?? 0).toFixed(3)); const k = (P.trim ?? 0).toFixed(2) + (P.down ?? 0).toFixed(2); if (k !== shadowKey) { shadowKey = k; world.shadows(); } }
+    if (g === "painting") {
+      house.M.siding.color.copy(FADE.siding).lerp(cB.setHex(P.color ?? 0x2c3e55), P.body ?? 0);
+      house.M.trim.color.copy(FADE.trim).lerp(cA.setHex(P.trimColor ?? 0xf2f1ec), P.trimT ?? 0);
+      const fir = (P.body ?? 0) > .5;
+      if (fir !== doorFir) { doorFir = fir; house.setFinish({door: fir ? "fir" : 0x8a6a55}); }
+    }
+    const A = keys[s.a], B = keys[s.b], e = ease(s.t);
+    a0.fromArray(A[0]); a1.fromArray(A[1]); b0.fromArray(B[0]); b1.fromArray(B[1]);
+    pos.lerpVectors(a0, b0, e); tgt.lerpVectors(a1, b1, e);
+    let f = A[2] + (B[2] - A[2]) * e;
+    const idle = reduce ? 0 : Math.sin(t * .16) * .04;
+    off.subVectors(pos, tgt).applyAxisAngle(THREE.Object3D.DEFAULT_UP, idle + (s.yaw || 0));
+    const w = world.host.clientWidth, h = world.host.clientHeight, asp = w / h, phone = asp < .8;
+    if (phone) { off.multiplyScalar(asp < .55 ? 1.42 : 1.25); f += 10; }
+    if (intro < 1) { intro = Math.min(1, intro + dt / 2.6); const k = 1 - Math.pow(1 - intro, 3); off.multiplyScalar(1 + .2 * (1 - k)); off.y += 2.2 * (1 - k); }
+    cam.position.copy(tgt).add(off); ctl.target.copy(tgt); cam.lookAt(tgt);
+    // frame the subject right of the captions on desktop, above them on a phone
+    const ox = phone ? 0 : -w * (w > 1100 ? .14 : .09), oy = phone ? h * .16 : 0, key = w + "," + h + "," + ox.toFixed(0) + "," + oy.toFixed(0);
+    if (Math.abs(f - fov) > .01 || key !== vo) { fov = f; vo = key; cam.fov = f; cam.setViewOffset(w, h, ox, oy, w, h); cam.updateProjectionMatrix(); }
+  });
+  world.size(); world.setTodNow(HB.get().tod);
+  await world.ready;
+  world.setTodNow(HB.get().tod);
+  world.start();
+  await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+  return world;
+}

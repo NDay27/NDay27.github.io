@@ -524,8 +524,8 @@
 "addr": "410 Peggy Ln, Bloomington, IL 61701",
 "rating": 4.9,
 "reviews": 36,
-"cat": "Auto repair shop",
-"v": "auto",
+"cat": "Auto body shop",
+"v": "autobody",
 "group": "auto",
 "maps": "https://www.google.com/maps/place/Kc+Autobody/data=!4m7!3m6!1s0x880b721c25e06ab7:0x681f23229e3d0f57!8m2!3d40.4829716!4d-89.0217046!16s%2Fg%2F11hy9nmysc!19sChIJt2rgJRxyC4gRVw89niIjH2g",
 "towns": [
@@ -1595,13 +1595,17 @@
 "addr": "101 S College St, Macomb, IL 61455",
 "rating": 4.8,
 "reviews": 19,
-"cat": "Auto repair shop",
-"v": "auto",
+"cat": "Auto body & paint",
+"v": "autobody",
 "group": "auto",
 "maps": "https://www.google.com/maps/place/101+Corvette+Paint+%26+Body+Shop/data=!4m7!3m6!1s0x87e0f7436a744257:0x56fb2b765f5db86a!8m2!3d40.4582697!4d-90.6618916!16s%2Fg%2F11b7ffnk1g!19sChIJV0J0akP34IcRarhdX3Yr-1Y",
 "towns": [],
 "wk": "none",
-"list": "new-408"
+"list": "new-408",
+"copy": {
+"label": "Auto Body & Paint",
+"lede": "Paint and body work in {town}, Corvettes included. Send a few details about the damage and get a straight answer."
+}
 },
 {
 "rank": 63,
@@ -2132,8 +2136,8 @@
 "addr": "111 Oliver St, North Pekin, IL 61554",
 "rating": 5,
 "reviews": 6,
-"cat": "Auto repair shop",
-"v": "auto",
+"cat": "Windshield repair",
+"v": "autoglass",
 "group": "auto",
 "maps": "https://www.google.com/maps/place/MJ%27s+Windshield+Repair/data=!4m7!3m6!1s0x880af5e1c4380fff:0x6c017e33ef0d5714!8m2!3d40.6171158!4d-89.6259241!16s%2Fg%2F11bzv1c1sk!19sChIJ_w84xOH1CogRFFcN7zN-AWw",
 "towns": [],
@@ -2168,8 +2172,8 @@
 "addr": "",
 "rating": 5,
 "reviews": 6,
-"cat": "Landscaper",
-"v": "landscape",
+"cat": "Hardscaping, masonry & excavation",
+"v": "hardscape",
 "group": "lawn",
 "maps": "https://www.google.com/maps/place/R.W.+Stoneworks/data=!4m7!3m6!1s0x6abbe28e1c8da3ed:0x11f86110b355a9b0!8m2!3d40.6464076!4d-89.494715!16s%2Fg%2F11rd2m8gbh!19sChIJ7aONHI7iu2oRsKlVsxBh-BE",
 "towns": [
@@ -3007,7 +3011,7 @@
 "addr": "Washington, IL 61571",
 "rating": 5,
 "reviews": 1,
-"cat": "Painter",
+"cat": "Painting & seamless gutters",
 "v": "painter",
 "group": "painting",
 "maps": "https://www.google.com/maps/place/A+%26+A+Paint+%26+Seamless+Gutters/data=!4m7!3m6!1s0x880a54b01aeca917:0x7e26fcef0189dbae!8m2!3d40.6941107!4d-89.4174641!16s%2Fg%2F1tdlhwjj!19sChIJF6nsGrBUCogRrtuJAe_8Jn4",
@@ -3023,7 +3027,30 @@
 "Peoria"
 ],
 "wk": "none",
-"list": "new-408"
+"list": "new-408",
+"copy": {
+"label": "Painting & Seamless Gutters",
+"services": [
+[
+"Interior painting",
+"Rooms, trim and doors with clean lines."
+],
+[
+"Exterior painting",
+"Siding, trim and the details that show from the street."
+],
+[
+"Seamless gutters",
+"New gutters made to fit the house."
+]
+],
+"jobs": [
+"Interior rooms",
+"Exterior",
+"Seamless gutters",
+"Something else"
+]
+}
 },
 {
 "rank": 128,
@@ -4120,7 +4147,7 @@
 "addr": "117 Washington Square, Washington, IL 61571",
 "rating": 5,
 "reviews": 4,
-"cat": "Candy store",
+"cat": "Caramel corn & popcorn shop",
 "v": "candy",
 "group": "sweets",
 "maps": "https://www.google.com/maps/place/Holland%E2%80%99s+Mercantile/@40.7037819,-89.4065136,17z/data=!3m1!4b1!4m6!3m5!1s0x880a550043f4f0d7:0x640c601b3d0ad3cf!8m2!3d40.7037819!4d-89.4065136!16s%2Fg%2F11w202zjfk",
@@ -4136,7 +4163,36 @@
 "Peoria"
 ],
 "wk": "none",
-"list": "new-408"
+"list": "new-408",
+"copy": {
+"label": "Caramel Corn & Treats",
+"h300": [
+"Caramel corn,",
+"made in {town}."
+],
+"lede": "Caramel corn, popcorn and treats in {town}. Stop in, or ask about gift tins and fundraiser orders.",
+"services": [
+[
+"Caramel corn and popcorn",
+"Grab a bag or fill a tin."
+],
+[
+"Gift tins",
+"Something sweet for someone you like."
+],
+[
+"Fundraisers and bulk orders",
+"Ask about popcorn for a group or a fundraiser."
+]
+],
+"jobs": [
+"Gift tin",
+"Fundraiser",
+"Bulk order",
+"Holiday order",
+"Something else"
+]
+}
 },
 {
 "rank": 176,
@@ -5308,7 +5364,7 @@
 "addr": "",
 "rating": 5,
 "reviews": 1,
-"cat": "Painting",
+"cat": "Painting & cleaning",
 "v": "painter",
 "group": "painting",
 "maps": "https://www.google.com/maps/place/TNT+Painting+%26+Cleaning/data=!4m7!3m6!1s0x880b7146e52cbed5:0xf16f5d0985831c70!8m2!3d40.5482315!4d-89.223774!16s%2Fg%2F11kgsv99hc!19sChIJ1b4s5UZxC4gRcByDhQldb_E",
@@ -5317,7 +5373,31 @@
 "Normal"
 ],
 "wk": "none",
-"list": "new-408"
+"list": "new-408",
+"copy": {
+"label": "Painting & Cleaning",
+"services": [
+[
+"Painting",
+"Inside and out, decks and garage doors too."
+],
+[
+"Construction cleanup",
+"Clean after the work is done."
+],
+[
+"House and window cleaning",
+"One-time cleans, windows, walls and ceilings."
+]
+],
+"jobs": [
+"Painting",
+"Deck staining",
+"Construction cleanup",
+"Window cleaning",
+"Something else"
+]
+}
 },
 {
 "rank": 226,
@@ -5329,7 +5409,7 @@
 "addr": "2 Caroline St, Peoria, IL 61603",
 "rating": null,
 "reviews": 0,
-"cat": "Lawn care service",
+"cat": "Lawn care, landscaping & excavating",
 "v": "lawn",
 "group": "lawn",
 "maps": "https://www.google.com/maps/place/309+Lawn+Care,+Landscaping+%26+Excavating/data=!4m7!3m6!1s0x880a59931ab00001:0x76fb14393ae87e16!8m2!3d40.7017968!4d-89.5703694!16s%2Fg%2F11pkk98g1w!19sChIJAQCwGpNZCogRFn7oOjkU-3Y",
@@ -5345,7 +5425,33 @@
 "Morton"
 ],
 "wk": "none",
-"list": "new-408"
+"list": "new-408",
+"copy": {
+"label": "Lawn Care, Landscaping & Excavating",
+"lede": "Lawn care, landscaping and excavating in {town} and nearby. Tell us about the yard or the dirt work and get a straight quote.",
+"services": [
+[
+"Mowing and lawn care",
+"Cut, trimmed and edged so the yard looks sharp."
+],
+[
+"Landscaping",
+"Beds, plantings and yard projects."
+],
+[
+"Excavating",
+"Dirt work, grading and digging done with the right equipment."
+]
+],
+"jobs": [
+"Weekly mowing",
+"Landscaping project",
+"Excavating or dirt work",
+"Cleanup",
+"Something else"
+],
+"ask": "What does the property need?"
+}
 },
 {
 "rank": 227,
@@ -6508,8 +6614,8 @@
 "addr": "24799 Spring Creek Rd, Washington, IL 61571",
 "rating": null,
 "reviews": 0,
-"cat": "Mechanic",
-"v": "auto",
+"cat": "Diesel repair",
+"v": "truck",
 "group": "auto",
 "maps": "https://www.google.com/maps/place/Bird+Dog+Diesel+Repair,+LLC/data=!4m7!3m6!1s0x880a530ac044a8e7:0xefa0114656511f82!8m2!3d40.7265624!4d-89.470293!16s%2Fg%2F11zf4306ws!19sChIJ56hEwApTCogRgh9RVkYRoO8",
 "towns": [
@@ -6524,7 +6630,25 @@
 "Peoria"
 ],
 "wk": "none",
-"list": "new-408"
+"list": "new-408",
+"copy": {
+"label": "Diesel Repair",
+"lede": "Diesel and truck repair in {town}. Tell us what the engine is doing and get a straight answer before any work starts.",
+"services": [
+[
+"Diesel engine repair",
+"Engines diagnosed and fixed right."
+],
+[
+"Truck repair",
+"Trucks that have to keep running, kept running."
+],
+[
+"Maintenance",
+"Fluids, filters and service to stay on the road."
+]
+]
+}
 },
 {
 "rank": 281,
@@ -6708,8 +6832,8 @@
 "addr": "",
 "rating": 4.3,
 "reviews": 12,
-"cat": "Landscaper",
-"v": "landscape",
+"cat": "Landscaping & construction",
+"v": "landinstall",
 "group": "lawn",
 "maps": "https://www.google.com/maps/place/L+%26+Q+Landscaping+Construction+LLC/data=!4m7!3m6!1s0x45afafa156ffdb9f:0xbe14fbb6402dc2cf!8m2!3d40.0514315!4d-89.51937!16s%2Fg%2F11x2y59gnn!19sChIJn9v_VqGvr0URz8ItQLb7FL4",
 "towns": [
@@ -6724,7 +6848,10 @@
 "Edwards"
 ],
 "wk": "none",
-"list": "new-408"
+"list": "new-408",
+"copy": {
+"label": "Landscaping & Construction"
+}
 },
 {
 "rank": 289,
@@ -7011,13 +7138,37 @@
 "addr": "1813 1000th St, Lincoln, IL 62656",
 "rating": 5,
 "reviews": 1,
-"cat": "Landscape designer",
+"cat": "Forestry & landscaping",
 "v": "landscape",
 "group": "lawn",
 "maps": "https://www.google.com/maps/place/CNS+Forestry+and+Landscaping,+LLC/data=!4m7!3m6!1s0x880b2e0f5e45ee1d:0x87355da5b07efa1d!8m2!3d40.0665099!4d-89.2561622!16s%2Fg%2F1tf08759!19sChIJHe5FXg8uC4gRHfp-sKVdNYc",
 "towns": [],
 "wk": "none",
-"list": "new-408"
+"list": "new-408",
+"copy": {
+"label": "Forestry & Landscaping",
+"services": [
+[
+"Forestry and tree work",
+"Tree work and clearing done safely."
+],
+[
+"Landscaping",
+"Design, installs and yard projects."
+],
+[
+"Upkeep",
+"Keep the property looking sharp."
+]
+],
+"jobs": [
+"Tree or forestry work",
+"Land clearing",
+"New landscaping",
+"Upkeep",
+"Something else"
+]
+}
 },
 {
 "rank": 302,
@@ -7131,7 +7282,7 @@
 "addr": "350 W 2nd St, Galesburg, IL 61401",
 "rating": 1,
 "reviews": 2,
-"cat": "Lawn care service",
+"cat": "Lawn care & small engine repair",
 "v": "lawn",
 "group": "lawn",
 "maps": "https://www.google.com/maps/place/MARKS+LAWN+CARE+AND+SMALL+ENGINE+REPAIR/data=!4m7!3m6!1s0x87e1bddfd0df24ff:0x16ad459e82873440!8m2!3d40.9373461!4d-90.3767709!16s%2Fg%2F11csb27516!19sChIJ_yTf0N-94YcRQDSHgp5FrRY",
@@ -7140,7 +7291,30 @@
 "Knoxville"
 ],
 "wk": "none",
-"list": "new-408"
+"list": "new-408",
+"copy": {
+"label": "Lawn Care & Small Engine Repair",
+"services": [
+[
+"Mowing",
+"Cut, trimmed and edged so the yard looks sharp."
+],
+[
+"Lawn care",
+"Cleanups and upkeep through the season."
+],
+[
+"Small engine repair",
+"Mowers and small engines running again."
+]
+],
+"jobs": [
+"Weekly mowing",
+"Cleanup",
+"Mower repair",
+"Something else"
+]
+}
 },
 {
 "rank": 308,
@@ -7152,8 +7326,8 @@
 "addr": "33 N 6th Ave, Canton, IL 61520",
 "rating": null,
 "reviews": 0,
-"cat": "Landscaper",
-"v": "landscape",
+"cat": "Landscaping & ponds",
+"v": "landinstall",
 "group": "lawn",
 "maps": "https://www.google.com/maps/place/Multi+Color+Landscaping/data=!4m7!3m6!1s0x87e02a2653270be7:0x9c5782610bec1bf9!8m2!3d40.5562938!4d-90.0258288!16s%2Fg%2F126243plp!19sChIJ5wsnUyYq4IcR-RvsC2GCV5w",
 "towns": [
@@ -7167,7 +7341,30 @@
 "Elmwood"
 ],
 "wk": "none",
-"list": "new-408"
+"list": "new-408",
+"copy": {
+"label": "Landscaping & Ponds",
+"services": [
+[
+"Landscape design",
+"Design and installs for the whole yard."
+],
+[
+"Ponds and water features",
+"Ponds and water features built in."
+],
+[
+"Plantings",
+"Beds, trees and the finished look."
+]
+],
+"jobs": [
+"New landscaping",
+"Pond or water feature",
+"Plantings",
+"Something else"
+]
+}
 },
 {
 "rank": 309,
@@ -7798,8 +7995,8 @@
 "addr": "1178 E Chestnut St, Canton, IL 61520",
 "rating": 1,
 "reviews": 1,
-"cat": "Landscape designer",
-"v": "landscape",
+"cat": "Trim carpentry & hardscape",
+"v": "hardscape",
 "group": "lawn",
 "maps": "https://www.google.com/maps/place/Walker+Trim+Carpentry+and+hardscape+experts/data=!4m7!3m6!1s0x87e02b3c8facea0f:0x9db529b959ef988!8m2!3d40.5569558!4d-90.0179009!16s%2Fg%2F11ngjqgr2l!19sChIJD-qsjzwr4IcRiPmelZtS2wk",
 "towns": [
@@ -7813,7 +8010,31 @@
 "Elmwood"
 ],
 "wk": "none",
-"list": "new-408"
+"list": "new-408",
+"copy": {
+"label": "Trim Carpentry & Hardscape",
+"services": [
+[
+"Trim carpentry",
+"Trim, crown molding, doors and custom woodwork."
+],
+[
+"Decks and pergolas",
+"Outdoor builds made to last."
+],
+[
+"Hardscape",
+"Patios, stone work and outdoor kitchens."
+]
+],
+"jobs": [
+"Trim work",
+"Deck or pergola",
+"Patio or stone work",
+"Outdoor kitchen",
+"Something else"
+]
+}
 },
 {
 "rank": 336,
@@ -8921,7 +9142,7 @@
 "addr": "",
 "rating": 5,
 "reviews": 1,
-"cat": "Landscaper",
+"cat": "Tree service & landscaping",
 "v": "landscape",
 "group": "lawn",
 "maps": "https://www.google.com/maps/place/Hughes+Tree+%26+Landscaping/data=!4m7!3m6!1s0xa5300932281cb4cf:0x601463d035e60232!8m2!3d40.0514315!4d-89.51937!16s%2Fg%2F11kb1cbzzw!19sChIJz7QcKDIJMKURMgLmNdBjFGA",
@@ -8937,7 +9158,31 @@
 "Morton"
 ],
 "wk": "none",
-"list": "new-408"
+"list": "new-408",
+"copy": {
+"label": "Tree Service & Landscaping",
+"services": [
+[
+"Tree work",
+"Trimming, removal and cleanup done safely."
+],
+[
+"Landscaping",
+"Beds, plantings and yard projects."
+],
+[
+"Upkeep",
+"Keep the yard looking sharp."
+]
+],
+"jobs": [
+"Tree work",
+"New landscaping",
+"Beds and plantings",
+"Cleanup",
+"Something else"
+]
+}
 },
 {
 "rank": 388,
@@ -9519,8 +9764,8 @@
 "addr": "28037 US-6, Annawan, IL 61234",
 "rating": 5,
 "reviews": 2,
-"cat": "Landscaper",
-"v": "landscape",
+"cat": "Landscape contractor",
+"v": "landinstall",
 "group": "lawn",
 "maps": "https://www.google.com/maps/place/Johnson+Landscaping+Services/data=!4m7!3m6!1s0x8809fbaef1ef907f:0x43dfb67d504f3841!8m2!3d41.394218!4d-89.894111!16s%2Fg%2F1vqmjyzc!19sChIJf5Dv8a77CYgRQThPUH2230M",
 "towns": [],
@@ -10303,8 +10548,8 @@
 "addr": "N5665 Frontage Rd, Plymouth, WI 53073",
 "rating": 4.7,
 "reviews": 109,
-"cat": "Car repair and maintenance service",
-"v": "auto",
+"cat": "Auto & truck body shop",
+"v": "autobody",
 "group": "auto",
 "maps": "https://www.google.com/maps/search/?api=1&query=BD+Auto+%26+Truck+Body+Inc+N5665+Frontage+Rd%2C+Plymouth%2C+WI+53073",
 "towns": [
@@ -10313,7 +10558,32 @@
 "Sheboygan"
 ],
 "wk": "none",
-"list": "nationwide-1"
+"list": "nationwide-1",
+"copy": {
+"label": "Auto & Truck Body",
+"lede": "Auto and truck body work in {town}. Send a few details about the damage and get a straight answer.",
+"services": [
+[
+"Body repair and paint",
+"Collision damage fixed and painted to match."
+],
+[
+"Truck bodies",
+"Work on truck bodies that have to keep running."
+],
+[
+"Towing",
+"Ask about towing when it can't be driven."
+]
+],
+"jobs": [
+"Accident damage",
+"Paint work",
+"Truck body",
+"Towing",
+"Something else"
+]
+}
 },
 {
 "rank": 454,
@@ -14101,7 +14371,7 @@
 "addr": "18 Sharon St, Shelby, OH 44875",
 "rating": 5,
 "reviews": 26,
-"cat": "Lawn care service",
+"cat": "Lawn care, handyman & cleaning",
 "v": "lawn",
 "group": "lawn",
 "maps": "https://www.google.com/maps/search/?api=1&query=Moore%27s+Lawncare%2FHandy-man%2FCleaning+Services+18+Sharon+St%2C+Shelby%2C+OH+44875",
@@ -14113,7 +14383,30 @@
 "New London"
 ],
 "wk": "none",
-"list": "nationwide-2"
+"list": "nationwide-2",
+"copy": {
+"label": "Lawn Care, Handyman & Cleaning",
+"services": [
+[
+"Lawn care",
+"Mowing and upkeep that keeps the yard sharp."
+],
+[
+"Handyman jobs",
+"Repairs and the to-do list."
+],
+[
+"Cleaning",
+"Cleaning done right."
+]
+],
+"jobs": [
+"Lawn care",
+"Handyman job",
+"Cleaning",
+"Something else"
+]
+}
 },
 {
 "rank": 624,
@@ -14466,7 +14759,7 @@
 "addr": "1928 W Evans St, Florence, SC 29501",
 "rating": 4.9,
 "reviews": 514,
-"cat": "Men's clothing store",
+"cat": "Men's suits & formal wear",
 "v": "boutique",
 "group": "retail",
 "maps": "https://www.google.com/maps/search/?api=1&query=Suit+Expo+1928+W+Evans+St%2C+Florence%2C+SC+29501",
@@ -14477,7 +14770,36 @@
 "Olanta"
 ],
 "wk": "none",
-"list": "mixed-1"
+"list": "mixed-1",
+"copy": {
+"label": "Men's Suits & Formal Wear",
+"h300": [
+"Sharp suits.",
+"Right fit."
+],
+"lede": "Men's suits and formal wear in {town}. Stop in, or call to ask about sizes and alterations.",
+"services": [
+[
+"Suits",
+"Suits and dress clothes for every occasion."
+],
+[
+"Shoes and ties",
+"Finish the look."
+],
+[
+"Alterations",
+"Fitted right before you walk out."
+]
+],
+"jobs": [
+"Suit",
+"Wedding or event",
+"Alterations",
+"Something else"
+],
+"ask": "What's the occasion?"
+}
 },
 {
 "rank": 640,
@@ -14733,7 +15055,7 @@
 "addr": "1639 Lexington Cir, Valdosta, GA 31602",
 "rating": 4.4,
 "reviews": 14,
-"cat": "Painting",
+"cat": "Painting & pressure washing",
 "v": "painter",
 "group": "painting",
 "maps": "https://www.google.com/maps/search/?api=1&query=Four+Eyes+%26+A+Brush+Painting+and+Pressure+washing+1639+Lexington+Cir%2C+Valdosta%2C+GA+31602",
@@ -14744,7 +15066,31 @@
 "Lake Park"
 ],
 "wk": "none",
-"list": "mixed-1"
+"list": "mixed-1",
+"copy": {
+"label": "Painting & Pressure Washing",
+"services": [
+[
+"Interior painting",
+"Rooms, trim and doors with clean lines."
+],
+[
+"Exterior painting",
+"Siding, trim and the details that show from the street."
+],
+[
+"Pressure washing",
+"House, driveway and deck cleaned up like new."
+]
+],
+"jobs": [
+"Interior rooms",
+"Exterior",
+"Pressure washing",
+"Trim and doors",
+"Something else"
+]
+}
 },
 {
 "rank": 651,
@@ -15169,7 +15515,7 @@
 "addr": "1909 Lincoln Ave, Saginaw, MI 48601",
 "rating": 4.5,
 "reviews": 114,
-"cat": "Plumber",
+"cat": "Drain cleaning & plumbing",
 "v": "plumbing",
 "group": "trades",
 "maps": "https://www.google.com/maps/search/?api=1&query=Root+Eaters+Plumbing+and+Drain+Cleaning+Services+llc+1909+Lincoln+Ave%2C+Saginaw%2C+MI+48601",
@@ -15182,7 +15528,35 @@
 "Midland"
 ],
 "wk": "none",
-"list": "mixed-1"
+"list": "mixed-1",
+"copy": {
+"label": "Drain Cleaning & Plumbing",
+"h300": [
+"Clogged drain?",
+"Cleared."
+],
+"services": [
+[
+"Drain cleaning",
+"Slow and stopped drains cleared."
+],
+[
+"Sewer roots",
+"Roots cut out of sewer lines."
+],
+[
+"Plumbing repairs",
+"Leaks and fixes done right."
+]
+],
+"jobs": [
+"Clogged drain",
+"Sewer backup",
+"Roots in the line",
+"Plumbing repair",
+"Something else"
+]
+}
 },
 {
 "rank": 668,
@@ -15489,7 +15863,7 @@
 "addr": "206 E Walnut St, Salina, KS 67401",
 "rating": 5,
 "reviews": 75,
-"cat": "Body piercing shop",
+"cat": "Body piercing",
 "v": "tattoo",
 "group": "beauty",
 "maps": "https://www.google.com/maps/search/?api=1&query=Piercings+By+Spencer+206+E+Walnut+St%2C+Salina%2C+KS+67401",
@@ -15498,7 +15872,40 @@
 "Lindsborg"
 ],
 "wk": "none",
-"list": "mixed-1"
+"list": "mixed-1",
+"copy": {
+"label": "Body Piercing",
+"h300": [
+"Pierced right.",
+"Done safe."
+],
+"h750": [
+"Clean work.",
+"Good jewelry."
+],
+"lede": "Body piercing in {town}. Ask about a piercing or jewelry before anything is booked.",
+"services": [
+[
+"Piercings",
+"Ear, nose and more, done clean and safe."
+],
+[
+"Jewelry",
+"Pick the right piece for a new piercing."
+],
+[
+"Questions first",
+"Ask anything before you book."
+]
+],
+"jobs": [
+"Ear piercing",
+"Nose piercing",
+"Other piercing",
+"Jewelry",
+"Something else"
+]
+}
 },
 {
 "rank": 681,
@@ -16003,7 +16410,35 @@
 "Mt Berry"
 ],
 "wk": "none",
-"list": "mixed-1"
+"list": "mixed-1",
+"copy": {
+"label": "Personal Training",
+"h300": [
+"One-on-one.",
+"Real results."
+],
+"lede": "Personal training in {town}. Tell us your goals and get a plan that fits.",
+"services": [
+[
+"Personal training",
+"One-on-one sessions built around you."
+],
+[
+"A plan",
+"A plan that fits your goals and schedule."
+],
+[
+"Get started",
+"New to training? Start with a talk."
+]
+],
+"jobs": [
+"Personal training",
+"Get started",
+"Something else"
+],
+"ask": "What are your goals?"
+}
 },
 {
 "rank": 701,
@@ -16188,7 +16623,7 @@
 "addr": "5301 County Rd West 00 N S, Kokomo, IN 46901",
 "rating": 4.7,
 "reviews": 33,
-"cat": "Kennel",
+"cat": "Pet boarding kennel",
 "v": "petcare",
 "group": "pets",
 "maps": "https://www.google.com/maps/search/?api=1&query=Mince%27s+Creatures+Boarding+Kennel+5301+County+Rd+West+00+N+S%2C+Kokomo%2C+IN+46901",
@@ -16198,7 +16633,35 @@
 "Peru"
 ],
 "wk": "none",
-"list": "mixed-1"
+"list": "mixed-1",
+"copy": {
+"label": "Pet Boarding",
+"h300": [
+"A good place",
+"to stay."
+],
+"lede": "Pet boarding in {town}. Tell us about your pet and the dates you need.",
+"services": [
+[
+"Dog boarding",
+"A safe, clean place to stay while you're away."
+],
+[
+"Pet boarding",
+"Ask about boarding for your pet."
+],
+[
+"Holiday stays",
+"Book early for the busy weeks."
+]
+],
+"jobs": [
+"Dog boarding",
+"Other pet",
+"Holiday dates",
+"Something else"
+]
+}
 },
 {
 "rank": 709,
@@ -16462,7 +16925,7 @@
 "addr": "925 E North St, Salina, KS 67401",
 "rating": 5,
 "reviews": 22,
-"cat": "Machine shop",
+"cat": "Machine shop & welding",
 "v": "welding",
 "group": "trades",
 "maps": "https://www.google.com/maps/search/?api=1&query=Hoff%27s+Machine+%26+Welding+Inc.+925+E+North+St%2C+Salina%2C+KS+67401",
@@ -16471,7 +16934,32 @@
 "Lindsborg"
 ],
 "wk": "none",
-"list": "mixed-1"
+"list": "mixed-1",
+"copy": {
+"label": "Machine Shop & Welding",
+"lede": "Machining, welding and fabrication in {town}. Tell us about the part or the job and get a straight answer.",
+"services": [
+[
+"Machining",
+"Custom parts on the lathe and mill."
+],
+[
+"Welding and fabrication",
+"Built to fit, built strong."
+],
+[
+"Repairs",
+"Broken parts and equipment fixed."
+]
+],
+"jobs": [
+"Machined part",
+"Welding",
+"Fabrication",
+"Repair",
+"Something else"
+]
+}
 },
 {
 "rank": 720,
@@ -17522,7 +18010,7 @@
 "addr": "464 Bryant Rd, Cairo, GA 39828",
 "rating": 3.8,
 "reviews": 33,
-"cat": "Plumber",
+"cat": "Plumbing, drains & septic",
 "v": "plumbing",
 "group": "trades",
 "maps": "https://www.google.com/maps/search/?api=1&query=Bywaters+Plumbing+Repair+Services+%26+Drain+Cleaning+464+Bryant+Rd%2C+Cairo%2C+GA+39828",
@@ -17530,7 +18018,31 @@
 "Cairo"
 ],
 "wk": "none",
-"list": "daily-2026-11-20"
+"list": "daily-2026-11-20",
+"copy": {
+"label": "Plumbing, Drains & Septic",
+"services": [
+[
+"Plumbing repair",
+"Leaks, clogs and broken fixtures fixed."
+],
+[
+"Drain cleaning",
+"Slow and stopped drains cleared."
+],
+[
+"Septic service",
+"Septic pumping and septic systems."
+]
+],
+"jobs": [
+"Leak",
+"Clogged drain",
+"Septic",
+"Sewer line",
+"Something else"
+]
+}
 },
 {
 "rank": 764,
@@ -17849,8 +18361,8 @@
 "addr": "101 N Hill St, Griffin, GA 30223",
 "rating": 4.7,
 "reviews": 2164,
-"cat": "Cafe",
-"v": "coffee",
+"cat": "Family restaurant",
+"v": "restaurant",
 "group": "food",
 "maps": "https://www.google.com/maps/search/?api=1&query=The+Corner+Cafe+101+N+Hill+St%2C+Griffin%2C+GA+30223",
 "towns": [
