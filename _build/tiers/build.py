@@ -25,7 +25,7 @@ import ill  # noqa: E402
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 BASE = "/p/2e8e4a/"
 SITE = "https://nday27.github.io"
-VER = "20261119"
+VER = "20261120"
 E = html.escape
 
 TRADE_LABEL = {"auto": "Auto Repair", "truck": "Auto Repair", "transmission": "Auto Repair", "radiator": "Auto Repair",
@@ -43,6 +43,17 @@ ICON = {
  "arrow": '<path d="M5 12h14M13 6l6 6-6 6"/>',
  "tag": '<path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="7.5" r="1.5"/>',
 }
+
+
+STATE_NAME = {"IL": "Illinois", "MO": "Missouri", "IN": "Indiana", "KY": "Kentucky", "OH": "Ohio", "MI": "Michigan", "WI": "Wisconsin",
+              "MN": "Minnesota", "IA": "Iowa", "KS": "Kansas", "NE": "Nebraska", "OK": "Oklahoma", "TX": "Texas", "AR": "Arkansas",
+              "LA": "Louisiana", "MS": "Mississippi", "AL": "Alabama", "TN": "Tennessee", "GA": "Georgia", "SC": "South Carolina",
+              "NC": "North Carolina", "VA": "Virginia", "PA": "Pennsylvania"}
+
+
+def ST(shop):
+    """The shop's two-letter state: shops.json carries `st` for leads outside Illinois."""
+    return shop.get("st") or "IL"
 
 
 def ic(name, size=18):
@@ -147,7 +158,7 @@ def count_script(key):
 
 def data_json(shop, tier):
     v = V[shop["v"]]
-    d = {"tier": tier, "group": shop["group"], "v": shop["v"], "name": shop["name"], "short": shop["short"], "town": shop["town"],
+    d = {"tier": tier, "group": shop["group"], "v": shop["v"], "name": shop["name"], "short": shop["short"], "town": shop["town"], "st": ST(shop),
          "phone": shop["phone"], "tel": tel(shop["phone"]), "rating": shop.get("rating") or 0, "reviews": shop.get("reviews") or 0,
          "jobs": v["jobs"], "when": v["when"], "ask": v["ask"], "noun": v["noun"]}
     return '<script type="application/json" id="t-data">' + json.dumps(d, ensure_ascii=False).replace("</", "<\\/") + "</script>"
@@ -160,7 +171,7 @@ def area_block(shop, cls):
     return f"""<section class="{cls} area" id="area"><div class="w"><p class="ey rv">Where</p><h2 class="rv">{E(shop['town'])} and the towns around it.</h2>
 <p class="lead rv">Find {E(shop['short'])} {where}. Not sure you're close enough? Call and ask.</p>
 <ul class="towns rv">{lis}</ul>
-<a class="maplink rv" href="{E(shop['maps'])}" target="_blank" rel="noopener">{ic('pin')} <span><b>Open in Google Maps</b><small>{E(shop.get('addr') or shop['town'] + ', IL')}</small></span>{ic('arrow')}</a></div></section>"""
+<a class="maplink rv" href="{E(shop['maps'])}" target="_blank" rel="noopener">{ic('pin')} <span><b>Open in Google Maps</b><small>{E(shop.get('addr') or shop['town'] + ', ' + ST(shop))}</small></span>{ic('arrow')}</a></div></section>"""
 
 
 def facts_row(shop):
@@ -169,7 +180,7 @@ def facts_row(shop):
     if r:
         out.append(f'<li>{ic("star", 16)} <b>{r}</b> on Google, {shop["reviews"]} review{"s" if shop["reviews"] != 1 else ""}</li>')
     out.append(f'<li>{ic("tag", 16)} {E(shop["cat"] or TRADE_LABEL[shop["v"]])}</li>')
-    out.append(f'<li>{ic("pin", 16)} {E(street(shop) or shop["town"])}{", " + E(shop["town"]) if street(shop) else ", IL"}</li>')
+    out.append(f'<li>{ic("pin", 16)} {E(street(shop) or shop["town"])}{", " + E(shop["town"]) if street(shop) else ", " + ST(shop)}</li>')
     return '<ul class="facts">' + "".join(out) + "</ul>"
 
 
@@ -190,7 +201,7 @@ def hcard(shop):
     stars = (f'<div class="hc-r"><b>{r}</b><span>{ic("star", 18) * 5}</span><small>{shop["reviews"]} Google review{"s" if shop["reviews"] != 1 else ""}</small></div>') if r else ""
     return (f'<aside class="hcard" aria-hidden="true"><span class="mono">{E(shop["short"][0].upper())}</span><b class="hc-n">{E(shop["short"])}</b>'
             f'<small>{E(shop["cat"] or TRADE_LABEL[shop["v"]])}</small>{stars}'
-            f'<p>{ic("pin", 16)} {E(shop.get("addr") or shop["town"] + ", IL")}</p><p>{ic("phone", 16)} {E(shop["phone"])}</p></aside>')
+            f'<p>{ic("pin", 16)} {E(shop.get("addr") or shop["town"] + ", " + ST(shop))}</p><p>{ic("phone", 16)} {E(shop["phone"])}</p></aside>')
 
 
 def ill_card(shop):
@@ -198,7 +209,7 @@ def ill_card(shop):
     chips = []
     if r:
         chips.append(f'{ic("star", 15)} <b>{r}</b> <small>{shop["reviews"]} Google review{"s" if shop["reviews"] != 1 else ""}</small>')
-    chips.append(f'{ic("pin", 15)} <b>{E(shop["town"])}, IL</b> <small>{E(shop["phone"])}</small>')
+    chips.append(f'{ic("pin", 15)} <b>{E(shop["town"])}, {ST(shop)}</b> <small>{E(shop["phone"])}</small>')
     return ill.card(shop["group"], shop["v"], shop["short"], chips)
 
 
@@ -213,13 +224,13 @@ def starter(shop, meet_json):
                   for i, (t, d) in enumerate(v["services"]))
     steps = "".join(f'<li class="rv"><b>{E(t)}</b><span>{E(d)}</span></li>' for t, d in STEPS[g])
     chips = "".join(f'<button type="button" class="chip" aria-pressed="false">{E(j)}</button>' for j in v["jobs"][:5])
-    return head(shop, f"{shop['name']} · {shop['town']}, IL", f"{TRADE_LABEL[shop['v']]} in {shop['town']}, IL. Sample website by Nolan Day Studio.",
+    return head(shop, f"{shop['name']} · {shop['town']}, {ST(shop)}", f"{TRADE_LABEL[shop['v']]} in {shop['town']}, {ST(shop)}. Sample website by Nolan Day Studio.",
                 "family=Archivo:wght@500;800;900&family=Inter:wght@400;500;600;700",
                 f'<style>:root{{--acc:{acc}}}</style>') + \
         f'<script type="application/json" id="nds-shop">{meet_json}</script>' + data_json(shop, 300) + f"""</head>
 <body class="t300 g-{g}">{banner(shop, 'Starter')}
 <header class="hd"><div class="w"><a class="brand" href="#top">{E(shop['short'])}</a><a class="btn pri sm" href="tel:{tel(shop['phone'])}">{ic('phone', 16)} {E(shop['phone'])}</a></div></header>
-<main id="top"><section class="hero"><div class="w hgrid"><div><p class="addr">{E(shop.get('addr') or shop['town'] + ', Illinois')}</p>
+<main id="top"><section class="hero"><div class="w hgrid"><div><p class="addr">{E(shop.get('addr') or shop['town'] + ', ' + STATE_NAME.get(ST(shop), ST(shop)))}</p>
 <h1>{E(h[0])} <em>{E(h[1])}</em></h1><p class="lede">{E(fmt(v['lede'], shop))}</p>
 <div class="ctas"><a class="btn pri" href="tel:{tel(shop['phone'])}">{ic('phone')} Call the {E(v['noun'])}</a><a class="btn ghost" href="{E(shop['maps'])}" target="_blank" rel="noopener">{ic('pin')} Get directions</a></div>
 {facts_row(shop)}</div>{ill_card(shop)}</div></section>
@@ -231,7 +242,7 @@ def starter(shop, meet_json):
 <section class="sec dk"><div class="w"><p class="ey rv">How it works</p><h2 class="rv">Three steps. That's it.</h2><ol class="steps">{steps}</ol></div></section>
 {area_block(shop, 'sec')}
 {form_block(shop, 'sec alt', 'Call, or send a request.')}
-</main><footer class="ft"><div class="w"><b>{E(shop['name'])}</b><span>{E(shop.get('addr') or shop['town'] + ', IL')} · <a href="tel:{tel(shop['phone'])}">{E(shop['phone'])}</a></span><small>Sample site by <a href="{SITE}/?src=preview">Nolan Day Studio</a>. Not the business's official site.</small></div></footer>
+</main><footer class="ft"><div class="w"><b>{E(shop['name'])}</b><span>{E(shop.get('addr') or shop['town'] + ', ' + ST(shop))} · <a href="tel:{tel(shop['phone'])}">{E(shop['phone'])}</a></span><small>Sample site by <a href="{SITE}/?src=preview">Nolan Day Studio</a>. Not the business's official site.</small></div></footer>
 <nav class="dock"><a class="btn dark" href="tel:{tel(shop['phone'])}">{ic('phone')} Call</a><a class="btn pri" href="{E(shop['maps'])}" target="_blank" rel="noopener">{ic('pin')} Directions</a></nav>
 <script src="/assets/tiers/t.js?v={VER}" defer></script>{count_script(shop['slug'])}</body></html>"""
 
@@ -299,14 +310,14 @@ def body_750(shop, tier):
     mono = E(shop["short"][0].upper())
     plan = "Signature" if tier == 750 else "Immersive"
     cta = cta_for(g)
-    hero = f"""<section class="hero fxh"><canvas class="fx" aria-hidden="true"></canvas><div class="w hgrid"><div><p class="kick"><i></i>{E(shop['cat'] or TRADE_LABEL[shop['v']])} · {E(shop['town'])}, IL</p>
+    hero = f"""<section class="hero fxh"><canvas class="fx" aria-hidden="true"></canvas><div class="w hgrid"><div><p class="kick"><i></i>{E(shop['cat'] or TRADE_LABEL[shop['v']])} · {E(shop['town'])}, {ST(shop)}</p>
 <h1><span>{E(h[0])}</span><em>{E(h[1])}</em></h1><p class="lede">{E(fmt(v['lede'], shop))}</p>
 <div class="ctas"><a class="btn pri" href="#plan">{E(cta)}</a><a class="btn ghost" href="tel:{tel(shop['phone'])}">{ic('phone')} {E(shop['phone'])}</a></div></div>{hcard(shop)}</div></section>"""
     if tier == 1250:
         try_it = tools[2][0].upper() + tools[2][1:]
         hero = f"""<section class="scene" data-scene="{g}" data-v="{shop['v']}"><canvas id="c" aria-label="Interactive 3D view for {E(shop['short'])}: {E(tools[2])}. Use the buttons to try it and to switch between day, golden hour and night."></canvas>
 <div class="sc-fb"><div><b>{E(shop['short'])}</b><span>{E(try_it)}. Open this page on a newer phone or computer to explore it in 3D.</span></div></div><div class="veil"></div>
-<div class="hcopy"><p class="kick"><i></i>{E(shop['cat'] or TRADE_LABEL[shop['v']])} · {E(shop['town'])}, IL</p>
+<div class="hcopy"><p class="kick"><i></i>{E(shop['cat'] or TRADE_LABEL[shop['v']])} · {E(shop['town'])}, {ST(shop)}</p>
 <h1><span>{E(h[0])}</span><em>{E(h[1])}</em></h1><p class="lede">{E(fmt(v['lede'], shop))} {E(try_it)}, right here.</p>
 <div class="ctas"><a class="btn pri" href="#plan">{E(cta)}</a><a class="btn ghost" href="tel:{tel(shop['phone'])}">{ic('phone')} <span class="hp">{E(shop['phone'])}</span><span class="hc">Call</span></a></div></div>
 <p class="sc-hint" id="scHint">Drag to look around</p>
@@ -332,7 +343,7 @@ def body_750(shop, tier):
 <div class="tk-f">Goes straight to {E(shop['phone'])}</div></aside></div></section>
 <section class="sec dk"><div class="w"><p class="ey rv">How it works</p><h2 class="rv">Three steps. That's it.</h2><ol class="steps">{steps}</ol></div></section>
 {area_block(shop, 'sec')}
-</main><footer class="ft"><div class="w"><span class="mono">{mono}</span><b>{E(shop['name'])}</b><span>{E(shop.get('addr') or shop['town'] + ', IL')} · <a href="tel:{tel(shop['phone'])}">{E(shop['phone'])}</a></span><small>Sample {plan} site by <a href="{SITE}/?src=preview">Nolan Day Studio</a>. Not the business's official site.</small></div></footer>
+</main><footer class="ft"><div class="w"><span class="mono">{mono}</span><b>{E(shop['name'])}</b><span>{E(shop.get('addr') or shop['town'] + ', ' + ST(shop))} · <a href="tel:{tel(shop['phone'])}">{E(shop['phone'])}</a></span><small>Sample {plan} site by <a href="{SITE}/?src=preview">Nolan Day Studio</a>. Not the business's official site.</small></div></footer>
 <nav class="dock"><a class="btn dark" href="tel:{tel(shop['phone'])}">{ic('phone')} Call</a><a class="btn pri" href="#plan">{E(cta)}</a></nav>"""
 
 
@@ -346,7 +357,7 @@ def signature(shop, tier):
                '"three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",'
                '"@pmndrs/assets/":"https://cdn.jsdelivr.net/npm/@pmndrs/assets@1.7.0/"}}</script>')
     plan = "Signature" if tier == 750 else "Immersive"
-    out = head(shop, f"{shop['name']} · {shop['town']}, IL ({plan} sample)", f"{TRADE_LABEL[shop['v']]} in {shop['town']}, IL. {plan} sample website by Nolan Day Studio.",
+    out = head(shop, f"{shop['name']} · {shop['town']}, {ST(shop)} ({plan} sample)", f"{TRADE_LABEL[shop['v']]} in {shop['town']}, {ST(shop)}. {plan} sample website by Nolan Day Studio.",
                f"family={L['font']}&family=Inter:wght@400;500;600;700", style) + data_json(shop, tier) + imp + "</head>\n" + body_750(shop, tier)
     out = out.replace('<main id="top">', '<div class="prog" aria-hidden="true"></div><main id="top">', 1)
     out += '\n<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>'
@@ -373,7 +384,9 @@ def meet_json(shop):
     r = rating_txt(shop)
     loc = f"at {shop['addr'].split(',')[0]}" if shop.get("addr") else f"in {shop['town']}"
     wk = shop.get("wk", "none")
-    why = (("Today your Google listing links only to a Facebook page, so people searching on their phone land somewhere that doesn't show your work, your area or a quick way to reach you."
+    why = (("When we searched Google Maps we couldn't find a listing for you, so people searching on their phone have no page of yours to land on, no map pin and no tap-to-call."
+            if wk == "nf" else "Here's what a new site could look like next to the one you have now: built for phones first, with tap-to-call on every screen and a request form that works while you're on a job."
+            if wk == "own" else "Today your Google listing links only to a Facebook page, so people searching on their phone land somewhere that doesn't show your work, your area or a quick way to reach you."
             if wk == "fb" else "Today the website link on your Google listing doesn't load, so people who tap it from their phone hit a dead end."
             if wk == "dead" else "Today your Google listing shows a map pin, a phone number and an \"Add website\" button, so people searching on their phone have no page of yours to tap through to.")
            + (f" Your {r} stars from {shop['reviews']} reviews deserve somewhere to land." if r and shop["reviews"] >= 5 else ""))
@@ -400,7 +413,7 @@ def meet_json(shop):
             ["Your shop on a map" if g == "auto" else "Your area on a map",
              f"It shows you {loc} with a Google Maps button" + (f" and the towns around {shop['town']}" if shop.get("towns") else "") + ", so first-timers find you without calling to ask."],
             ["Requests while you work", f"People who'd rather not call can leave their name, number and what they need. Those go straight to you."]]
-    d = {"slug": shop["slug"], "name": shop["name"], "short": shop["short"], "town": shop["town"], "state": "IL", "phone": shop["phone"],
+    d = {"slug": shop["slug"], "name": shop["name"], "short": shop["short"], "town": shop["town"], "state": ST(shop), "phone": shop["phone"],
          "trade": TRADE_LABEL[shop["v"]], "services": [s[0] for s in v["services"]],
          "samples": {"essential": url, "signature": url + "750/", "immersive": url + "1250/"},
          "why": why, "tools": {"essential": tools[0], "signature": tools[1], "immersive": tools[2]},
@@ -422,7 +435,8 @@ def meet_json(shop):
 
 def main():
     a = sys.argv[1:]
-    shops = json.load(open(os.path.join(ROOT, "_build/tiers/shops.json")))
+    src = a[a.index("--shops") + 1] if "--shops" in a else "_build/tiers/shops.json"
+    shops = json.load(open(os.path.join(ROOT, src)))
     if "--only" in a:
         keep = set(a[a.index("--only") + 1].split(","))
         shops = [s for s in shops if s["slug"] in keep]
