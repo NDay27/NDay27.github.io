@@ -1,0 +1,124 @@
+/* R.W. Stoneworks sample sites by Nolan Day Studio: shared brand layer for the Starter, Signature and Immersive versions.
+   Each version adds its own art direction on top; this file holds the brand, the sample bar, the plan switcher,
+   buttons, the custom cursor and the photo lightbox. */
+:root{
+  --coal:#12110f;--coal2:#1a1815;--char:#24211d;--char2:#2e2a25;
+  --sand:#f1ece3;--sand2:#e7e0d4;--white:#fbf9f5;--ink:#1d1a16;--muted:#6a6258;--line:#dcd3c5;--line-d:#ffffff1c;
+  --fire:#e59a45;--ember:#f4c17a;--glow:#ffdcae;--stone:#a9a196;--slate:#5f6a73;
+  --serif:"Fraunces",Georgia,"Times New Roman",serif;--sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --bar:40px;--ease:cubic-bezier(.22,1,.36,1);--gut:clamp(18px,4.4vw,52px);--max:1240px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;font:400 17px/1.6 var(--sans);color:var(--ink);background:var(--sand);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;overflow-x:hidden}
+img,svg,video,canvas{display:block;max-width:100%}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3{font-family:var(--serif);font-weight:450;line-height:1.04;letter-spacing:-.018em;margin:0;text-wrap:balance;font-optical-sizing:auto}
+h1 em,h2 em{font-style:italic;font-weight:350;color:var(--fire)}
+p{margin:0;text-wrap:pretty}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gut)}
+.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:focus-visible{outline:2px solid var(--fire);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:12px;top:-60px;z-index:300;background:var(--fire);color:var(--coal);padding:10px 14px;border-radius:8px;font-weight:700;text-decoration:none}
+.skip:focus{top:calc(var(--bar) + 10px)}
+.tnum{font-variant-numeric:tabular-nums}
+section{scroll-margin-top:calc(var(--bar) + 76px)}
+
+/* ---------- sample bar + plan switcher ---------- */
+.rw-bar{position:sticky;top:0;z-index:150;height:var(--bar);display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 clamp(12px,3vw,28px);
+  background:#0c0b0a;color:#e9e4dc;font:500 13px/1 var(--sans);border-bottom:1px solid #ffffff12}
+.rw-bar .note{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#b7aea2;min-width:0}
+.rw-bar .note b{color:#fff;font-weight:600}
+.rw-bar .note a{color:var(--ember);text-underline-offset:3px}
+.rw-plans{display:flex;gap:2px;padding:3px;border-radius:999px;background:#ffffff12;flex:none}
+.rw-plans a{display:flex;align-items:center;gap:6px;height:28px;padding:0 12px;border-radius:999px;text-decoration:none;color:#cfc6ba;font-weight:600;white-space:nowrap;transition:background-color .2s,color .2s}
+.rw-plans a span{font-weight:500;color:#958b7f;transition:color .2s}
+.rw-plans a:hover{color:#fff}
+.rw-plans a[aria-current]{background:var(--fire);color:var(--coal)}
+.rw-plans a[aria-current] span{color:#4a2f10}
+@media (max-width:760px){.rw-bar .note .long{display:none}.rw-plans a{padding:0 9px}.rw-plans a .nm{display:none}.rw-plans a span{color:inherit}}
+@media (max-width:400px){.rw-bar .note{display:none}.rw-bar{justify-content:center}}
+html.framed .rw-bar{display:none}
+html.framed{--bar:0px}
+
+/* ---------- logo: a stone arch with a keystone ---------- */
+.logo{display:inline-flex;align-items:center;gap:11px;text-decoration:none;color:inherit}
+.logo svg{width:34px;height:34px;flex:none}
+.logo .wm{display:flex;flex-direction:column;line-height:1}
+.logo .wm b{font:550 21px/1 var(--serif);letter-spacing:-.01em}
+.logo .wm small{font:600 10px/1 var(--sans);letter-spacing:.17em;text-transform:uppercase;margin-top:4px;opacity:.66}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px;padding:0 24px;border-radius:999px;border:1px solid transparent;
+  font:600 16px/1 var(--sans);text-decoration:none;cursor:pointer;transition:background-color .25s var(--ease),color .2s,border-color .2s,transform .15s var(--ease),box-shadow .3s;-webkit-tap-highlight-color:transparent;white-space:nowrap}
+.btn:active{transform:scale(.97)}
+.btn svg{width:18px;height:18px;flex:none}
+.btn.fire{background:var(--fire);color:var(--coal);box-shadow:0 10px 30px -12px #e59a4599}
+.btn.fire:hover{background:var(--ember);box-shadow:0 14px 40px -12px #f4c17acc}
+.btn.coal{background:var(--coal);color:#fff}
+.btn.coal:hover{background:#000}
+.btn.line{border-color:currentColor;background:transparent}
+.btn.line:hover{background:#ffffff12}
+.btn.ghost{border-color:#ffffff40;background:#ffffff0d;color:#fff;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.btn.ghost:hover{background:#ffffff1f}
+
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font:700 12.5px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--fire)}
+.eyebrow::before{content:"";width:22px;height:1.5px;background:currentColor;opacity:.8}
+
+/* ---------- phone bar (tap-to-call on every phone screen) ---------- */
+.cbar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:120;display:none;gap:8px;padding:8px;border-radius:999px;background:#12110fe8;
+  backdrop-filter:blur(14px) saturate(1.3);-webkit-backdrop-filter:blur(14px) saturate(1.3);box-shadow:0 18px 40px -12px #000c,0 0 0 1px #ffffff14;transform:translateY(140%);transition:transform .45s var(--ease)}
+.cbar.on{transform:none}
+.cbar a{flex:1;min-height:48px;padding:0 14px;font-size:15px}
+@media (max-width:760px){.cbar{display:flex}}
+
+/* ---------- reveal on scroll ---------- */
+.js .rv{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform 1s var(--ease);transition-delay:var(--d,0s)}
+.js .rv.in{opacity:1;transform:none}
+
+/* ---------- custom cursor (mouse and trackpad only) ---------- */
+#cur{display:none}
+html.cc,html.cc *{cursor:none!important}
+html.cc input:not([type=range]),html.cc textarea,html.cc select{cursor:auto!important}
+html.cc #cur{display:block;position:fixed;inset:0;pointer-events:none;z-index:2147483647;opacity:0;transition:opacity .3s}
+html.cc #cur.on{opacity:1}
+html.cc #cur.txt{opacity:0}
+#cur .cd,#cur .cr{position:absolute;left:0;top:0;will-change:transform}
+#cur .cd{width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:var(--glow);box-shadow:0 0 10px 2px #f4b968,0 0 26px 8px #e59a4540;transition:opacity .25s}
+#cur .cr{width:40px;height:40px;margin:-20px 0 0 -20px;display:grid;place-items:center;transition:width .45s var(--ease),height .45s var(--ease),margin .45s var(--ease)}
+#cur .cr::before{content:"";position:absolute;inset:0;border:1.5px solid #f4c17a99;border-radius:30%;transform:rotate(var(--rot,0deg));transition:border-radius .45s var(--ease),border-color .3s,background-color .3s,transform .6s var(--ease)}
+#cur .cr b{position:relative;font:700 10.5px/1 var(--sans);letter-spacing:.2em;text-indent:.2em;text-transform:uppercase;color:#1d1209;opacity:0;transition:opacity .2s;white-space:nowrap}
+#cur.hov .cr{width:60px;height:60px;margin:-30px 0 0 -30px}
+#cur.hov .cr::before{border-color:var(--fire);background:#e59a4524;border-radius:50%}
+#cur.lab .cr{width:86px;height:86px;margin:-43px 0 0 -43px}
+#cur.lab .cr::before{border-color:#fff6;background:#e59a45f0;border-radius:50%}
+#cur.lab .cr b{opacity:1}
+#cur.lab .cd{opacity:0}
+#cur.dn .cr{width:30px;height:30px;margin:-15px 0 0 -15px}
+#cur.dn.hov .cr{width:48px;height:48px;margin:-24px 0 0 -24px}
+#cur.dn.lab .cr{width:70px;height:70px;margin:-35px 0 0 -35px}
+#cur.lt .cd{background:#5a3613;box-shadow:none}
+#cur.lt .cr::before{border-color:#6a431c88}
+#cur.lt.hov .cr::before{border-color:#b86a1f;background:#e59a4522}
+
+/* ---------- gallery lightbox ---------- */
+.lb{position:fixed;inset:0;z-index:400;background:#0b0a09f2;display:grid;grid-template-rows:1fr auto;opacity:0;pointer-events:none;transition:opacity .35s var(--ease)}
+.lb.on{opacity:1;pointer-events:auto}
+.lb figure{margin:0;display:grid;place-items:center;padding:clamp(56px,7vw,80px) clamp(12px,5vw,80px) 10px;min-height:0}
+.lb img{max-width:100%;max-height:100%;object-fit:contain;border-radius:6px;box-shadow:0 40px 100px -30px #000;transform:scale(.96);transition:transform .5s var(--ease)}
+.lb.on img{transform:none}
+.lb figcaption{color:#cfc6ba;font-size:14.5px;text-align:center;padding:12px 20px calc(22px + env(safe-area-inset-bottom))}
+.lb figcaption b{color:#fff;font-weight:600;display:block;font:500 20px/1.3 var(--serif);margin-bottom:2px}
+.lb button{position:absolute;width:48px;height:48px;border-radius:50%;border:1px solid #ffffff30;background:#ffffff14;color:#fff;display:grid;place-items:center;cursor:pointer}
+.lb button svg{width:20px;height:20px}
+.lb .x{top:calc(14px + env(safe-area-inset-top));right:14px}
+.lb .pv{left:14px;top:50%;margin-top:-24px}.lb .nx{right:14px;top:50%;margin-top:-24px}
+@media (max-width:600px){.lb .pv,.lb .nx{top:auto;bottom:calc(70px + env(safe-area-inset-bottom))}}
+
+.foot{padding:34px 0 calc(110px + env(safe-area-inset-bottom));background:var(--coal);color:#9d958a;font-size:13.5px}
+.foot .wrap{display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-between;align-items:center}
+.foot a{color:#d8d0c4}
+@media (min-width:761px){.foot{padding-bottom:34px}}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.js .rv{opacity:1;transform:none}}
