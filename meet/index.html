@@ -307,7 +307,9 @@ function render(shop){
     $("lede").textContent=shop.url?"I made it before asking for anything, so you can judge it yourself. It already has your name, "+(town?"your town, ":"")+"your phone number and the work you do. If you like it, it can be live today, and you pay only after you approve it.":"You'll see it before you pay anything. Below is exactly what it does and what it costs. If you like it, it can be live the same day you say yes.";
     $("closeH").textContent="Let's put "+(shop.short||name)+" online today.";
   }
-  if(by&&by!=="Nolan"){$("aboutH").textContent=by+" and Nolan Day, Morton.";$("aboutP").textContent=by+" works with Nolan Day Studio, which builds websites for local businesses around Central Illinois. You deal with us directly, by text or email, with answers the same day. No call center and no long contract.";}
+  var far=shop.state&&shop.state!=="IL",area=far?"local businesses across the country":"local businesses around Central Illinois";
+  if(far){$("aboutP").textContent="I build websites for "+area+" from Morton, Illinois. You deal with me directly, by text or email, and you get answers the same day. No sales team, no call center, no long contract.";}
+  if(by&&by!=="Nolan"){$("aboutH").textContent=by+" and Nolan Day, Morton.";$("aboutP").textContent=by+" works with Nolan Day Studio, which builds websites for "+area+". You deal with us directly, by text or email, with answers the same day. No call center and no long contract.";}
   $("whyP").textContent=shop.why?info.moment+" "+shop.why:info.moment+" Today, "+(name||"your business")+" has no real page to land on. This gives them one: who you are, what you do"+(town?", that you're in "+town:"")+", and a button that calls you.";
   /* The tour: four stops, named for what the visitor gets. */
   var services=(shop.services||[]).slice(0,3).join(", ");
