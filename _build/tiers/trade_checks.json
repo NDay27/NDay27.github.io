@@ -1,0 +1,168 @@
+{
+ "101-corvette-paint-body-shop-macomb": {
+  "v": "autobody",
+  "trade": "auto body & paint (Corvette paint/body)",
+  "src": "https://naicslist.com/company-profile/101-corvette-paint-body-shop-inc-macomb-il-61455",
+  "on": "2026-11-20"
+ },
+ "309-lawn-care-landscaping-excavating-peoria": {
+  "v": "lawn",
+  "trade": "lawn care, landscaping & excavating (per business name)",
+  "src": "business name and Google category",
+  "on": "2026-11-20",
+  "name_ok": true
+ },
+ "all-around-the-house-more-inc-peoria": {
+  "v": "handyman",
+  "trade": "handyman (per recorded Google category; no web listing found)",
+  "src": "business name and Google category",
+  "on": "2026-11-20"
+ },
+ "allen-automotive-east-peoria": {
+  "v": "auto",
+  "trade": "auto parts / performance & racing equipment shop (some repair)",
+  "src": "https://www.superpages.com/east-peoria-il/auto-repair-service",
+  "on": "2026-11-20"
+ },
+ "alternative-landscapes-mapleton": {
+  "v": "landinstall",
+  "trade": "landscape design/installation & hardscaping",
+  "src": "https://alternativelandscapes.localsearch.com",
+  "on": "2026-11-20"
+ },
+ "bill-s-radiator-a-c-inc-mossville": {
+  "v": "radiator",
+  "trade": "radiator & auto A/C specialist (by name)",
+  "src": "business name and Google category",
+  "on": "2026-11-20"
+ },
+ "breez-transmissions-pekin": {
+  "v": "transmission",
+  "trade": "transmission repair (per business name)",
+  "src": "business name and Google category",
+  "on": "2026-11-20"
+ },
+ "danny-s-auto-repair-lacon": {
+  "v": "auto",
+  "trade": "auto repair (by name)",
+  "src": "business name and Google category",
+  "on": "2026-11-20"
+ },
+ "four-eyes-a-brush-painting-and-pressure-washing-valdosta-ga": {
+  "v": "painter",
+  "trade": "painting + pressure washing (name; Google says Painting)",
+  "src": "business name and Google category",
+  "on": "2026-11-20"
+ },
+ "holland-s-mercantile-washington": {
+  "v": "candy",
+  "trade": "gourmet popcorn / caramel corn specialty shop",
+  "src": "https://enjoyillinois.com/explore/listing/hollands-carmelcorn",
+  "on": "2026-11-20"
+ },
+ "home-improvements-plus-morton": {
+  "v": "handyman",
+  "trade": "home improvement contractor that also does landscaping",
+  "src": "https://www.yellowpages.com/morton-il/home-improvements",
+  "on": "2026-11-20",
+  "name_ok": true
+ },
+ "hughes-tree-landscaping-pekin": {
+  "v": "landscape",
+  "trade": "tree service + landscaping (name; Google says Landscaper)",
+  "src": "business name and Google category",
+  "on": "2026-11-20"
+ },
+ "jim-s-maintenance-peoria": {
+  "v": "landinstall",
+  "trade": "landscape install and earthwork supply",
+  "src": "https://www.homeyou.com/jims-maintenance-peoria-il",
+  "on": "2026-11-20",
+  "name_ok": true
+ },
+ "just-in-stumps-pekin": {
+  "v": "tree",
+  "trade": "stump grinding / removal (by name)",
+  "src": "business name and Google category",
+  "on": "2026-11-20"
+ },
+ "kc-autobody-bloomington": {
+  "v": "autobody",
+  "trade": "auto body (per name; Google says auto repair shop)",
+  "src": "business name and Google category",
+  "on": "2026-11-20"
+ },
+ "ken-s-tree-and-lawn-care-galesburg": {
+  "v": "tree",
+  "trade": "tree service plus lawn/landscaping",
+  "src": "https://www.superpages.com/knoxville-il/tree-pruning",
+  "on": "2026-11-20"
+ },
+ "klean-korner-normal": {
+  "v": "houseclean",
+  "trade": "residential & commercial cleaning plus maintenance/handyman",
+  "src": "https://angi.com/companylist/us/il/normal/klean-korner-reviews-8068051.htm",
+  "on": "2026-11-20"
+ },
+ "l-q-landscaping-construction-llc-east-peoria": {
+  "v": "landinstall",
+  "trade": "landscaping construction (name; Google says Landscaper)",
+  "src": "business name and Google category",
+  "on": "2026-11-20"
+ },
+ "liqui-green-lawn-tree-care-galesburg": {
+  "v": "lawn",
+  "trade": "lawn and tree care (fertilization/treatment)",
+  "src": "https://cars.superpages.com/galesburg-il/landscaping-lawn-services",
+  "on": "2026-11-20",
+  "name_ok": true
+ },
+ "mann-s-tree-service-heyworth": {
+  "v": "tree",
+  "trade": "tree service",
+  "src": "https://www.yellowpages.com/61705/tree-service",
+  "on": "2026-11-20"
+ },
+ "mj-s-windshield-repair-north-pekin": {
+  "v": "autoglass",
+  "trade": "auto glass / windshield repair (per name)",
+  "src": "business name and Google category",
+  "on": "2026-11-20"
+ },
+ "mr-quick-pick-lock-and-road-service-bloomington": {
+  "v": "locksmith",
+  "trade": "locksmith (auto, home, commercial) + roadside service",
+  "src": "https://www.homeadvisor.com/rated.MrQuickPick.64481639.html",
+  "on": "2026-11-20"
+ },
+ "s-d-tree-service-lawn-care-mackinaw": {
+  "v": "tree",
+  "trade": "tree service (Google category) + lawn care",
+  "src": "business name and Google category",
+  "on": "2026-11-20"
+ },
+ "schafer-landscaping-inc-peoria": {
+  "v": "landinstall",
+  "trade": "landscape design/install & hardscaping",
+  "src": "http://schaferlandscapinginc.localsearch.com",
+  "on": "2026-11-20"
+ },
+ "sugar-creek-landscaping-tree-service-bloomington": {
+  "v": "landscape",
+  "trade": "landscaping and tree service (per name and Google category Landscaper)",
+  "src": "business name and Google category",
+  "on": "2026-11-20"
+ },
+ "svensson-painting-wall-cvrng-bloomington": {
+  "v": "painter",
+  "trade": "painting & wallcovering (by name)",
+  "src": "business name and Google category",
+  "on": "2026-11-20"
+ },
+ "the-grease-spot-pekin": {
+  "v": "auto",
+  "trade": "quick oil change / lube shop",
+  "src": "https://www.yellowpages.com/pekin-il/auto-oil-lube",
+  "on": "2026-11-20"
+ }
+}
