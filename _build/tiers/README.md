@@ -29,7 +29,8 @@ A sample site built for the wrong trade kills the sale, so `build.py` refuses to
 The check's `v` must match the shop's `v`, and if the business name points at another trade (say "Stoneworks"
 on a lawn site) the build is refused until the check also says `"name_ok": true`. Confirm the trade from the
 business's own site or listings (Google category, Yellow Pages, Angi) before adding a check. Refused shops are
-printed as `REFUSED <slug>: <reason>` and skipped; the rest still build.
+printed as `REFUSED <slug>: <reason>` and skipped; the rest still build. A check with `"hand_built": true`
+(R.W. Stoneworks) is never rebuilt by the script, so its hand-made pages stay as they are.
 
 A shop entry can carry `"cat"` (the line shown in the hero) and `"copy"` (any of `label`, `h300`, `h750`, `h1250`,
 `lede`, `services`, `jobs`, `ask`) to word the page from the business's own pages on top of its variant.

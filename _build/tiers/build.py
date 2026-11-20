@@ -466,6 +466,8 @@ def trade_problem(s, checks):
     c = checks.get(s["slug"])
     if not c:
         return "no confirmed trade in trade_checks.json"
+    if c.get("hand_built"):
+        return "its pages were built by hand; edit them directly so this script doesn't overwrite them"
     if c.get("v") != s["v"]:
         return f'confirmed trade is "{c.get("v")}" ({c.get("trade")}), not "{s["v"]}"'
     if not c.get("name_ok"):
