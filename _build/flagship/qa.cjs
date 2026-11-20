@@ -10,14 +10,16 @@ const fs = require("fs"), path = require("path");
   let bad = 0, n = 0;
   for (const [w, h] of [[390, 844], [1280, 800]]) {
     const ctx = await b.newContext({ viewport: { width: w, height: h } });
-    const p = await ctx.newPage(); let errs = [];
-    p.on("console", m => { if (m.type() === "error") errs.push(m.text()); });
-    p.on("pageerror", e => errs.push("pageerror " + e.message));
-    p.on("response", r => { if (r.status() >= 400 && !/abacus/.test(r.url())) errs.push(r.status() + " " + r.url()); });
+    let errs = [];
     for (const slug of slugs) for (const sub of ["", "750/", "1250/?still=1", "room/"]) {
       errs = []; n++;
+      // fresh tab per page: leaving a deck with live 3D frames can stall the next navigation in headless Chromium
+      const p = await ctx.newPage();
+      p.on("console", m => { if (m.type() === "error") errs.push(m.text()); });
+      p.on("pageerror", e => errs.push("pageerror " + e.message));
+      p.on("response", r => { if (r.status() >= 400 && !/abacus/.test(r.url())) errs.push(r.status() + " " + r.url()); });
       const url = `http://localhost:8811/p/2e8e4a/${slug}/${sub}${sub.includes("?") ? "&" : "?"}x=1#nc`;
-      await p.goto(url, { waitUntil: "networkidle" }).catch(e => errs.push("goto " + e.message));
+      await p.goto(url, { waitUntil: "load" }).catch(e => errs.push("goto " + e.message));
       await p.evaluate(async () => { for (let y = 0; y < document.body.scrollHeight; y += 700) { scrollTo(0, y); await new Promise(r => setTimeout(r, 30)); } });
       await p.waitForTimeout(300);
       const r = await p.evaluate(() => ({
@@ -30,6 +32,7 @@ const fs = require("fs"), path = require("path");
       if (r.ph) prob.push(`${r.ph} placeholders`);
       if (r.anchors.length) prob.push("dead anchors " + r.anchors.join(","));
       if (prob.length) { bad++; console.log(`${w} ${slug}/${sub}: ${prob.slice(0, 5).join(" | ")}`); }
+      await p.close();
     }
     await ctx.close();
   }
