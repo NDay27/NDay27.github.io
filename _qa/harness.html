@@ -1,0 +1,35 @@
+<!doctype html><html><head><meta charset="utf-8"><title>QA</title>
+<style>body{font:13px monospace;margin:8px;background:#fff}iframe{border:1px solid #999;display:block;margin:6px 0}pre{white-space:pre-wrap;background:#eee;padding:8px}</style></head><body>
+<pre id="out">running…</pre>
+<div id="frames"></div>
+<script>
+var W=[[375,"light"],[375,"dark"],[940,"light"],[1440,"light"]],out=[],done=0;
+function log(s){out.push(s);document.getElementById("out").textContent=out.join("\n")}
+W.forEach(function(w,i){var f=document.createElement("iframe");f.width=w[0];f.height=760;f.id="f"+i;f.src="../index.html?src=qa";document.getElementById("frames").appendChild(f);
+ f.onload=function(){var d=f.contentDocument,win=f.contentWindow;if(w[1]==="dark")d.documentElement.dataset.theme="dark";
+  setTimeout(function(){d.querySelectorAll(".rv").forEach(function(e){e.classList.remove("pre")});
+   var de=d.documentElement,bad=[];d.querySelectorAll("body *").forEach(function(el){var r=el.getBoundingClientRect();if(r.width&&r.right>de.clientWidth+1&&!el.closest(".tblw")&&!el.closest(".dock")&&!el.closest(".skip"))bad.push(el.tagName.toLowerCase()+"."+(el.className||"").toString().slice(0,30)+" r="+Math.round(r.right))});
+   log(w[0]+" "+w[1]+": scrollWidth="+de.scrollWidth+" clientWidth="+de.clientWidth+" overflow="+(de.scrollWidth>de.clientWidth)+" offenders="+bad.length+(bad.length?" "+bad.slice(0,6).join(", "):""));
+   var small=[];d.querySelectorAll("a,button,input,select,textarea,summary").forEach(function(el){var r=el.getBoundingClientRect();if(r.width&&r.height&&r.height<40&&!el.closest(".seo")&&!el.closest(".ms")&&!el.closest(".skip")&&getComputedStyle(el).display!=="inline")small.push((el.textContent||el.id||el.tagName).trim().slice(0,24)+":"+Math.round(r.height))});
+   log("   small tap targets: "+(small.length?small.slice(0,8).join(" | "):"none"));
+   if(i===0){try{
+     d.getElementById("b-name").value="Riverside Auto Repair";d.getElementById("b-town").value="peoria, il";
+     var s=d.getElementById("b-trade");s.value="auto";s.dispatchEvent(new Event("change"));d.getElementById("b-name").dispatchEvent(new Event("input"));
+     setTimeout(function(){
+      log("   mockup name="+d.querySelector('[data-b=name]').textContent+" | eye="+d.querySelector('[data-b=eye]').textContent+" | head="+d.querySelector('[data-b=head]').textContent+" | area="+d.querySelector('[data-b=area]').textContent);
+      d.getElementById("b-go").click();
+      setTimeout(function(){log("   after mockup CTA: pane2 on="+d.querySelector('.pane[data-p="2"]').classList.contains("on")+" bn="+d.getElementById("bn").value+" tw="+d.getElementById("tw").value+" rec="+d.querySelector("#rec h4").textContent);
+       d.getElementById("ph").value="(309) 555-0100";d.getElementById("f").requestSubmit();
+       setTimeout(function(){log("   done visible="+!d.getElementById("done").hidden);log("   mailto="+decodeURIComponent(d.getElementById("mail").href).slice(0,420));log("   gmail ok="+(d.getElementById("m-g").href.indexOf("to=hanbackj1@gmail.com")>0));
+        // plan button path
+        d.querySelector('[data-pick="Signature"]').click();
+        setTimeout(function(){log("   Signature Choose: heading="+d.getElementById("p2h").textContent);d.getElementById("bn").value="Test Salon";d.getElementById("tw").value="Morton, IL";d.getElementById("f").requestSubmit();setTimeout(function(){log("   sig msg="+d.getElementById("msg").textContent.replace(/\n/g," / "));
+          // chip path gbp
+          d.querySelectorAll('[data-back="0"]')[0].click();var ch=[].filter.call(d.querySelectorAll("#chips button"),function(b){return /Google/.test(b.textContent)})[0];ch.click();
+          log("   gbp rec="+d.querySelector("#rec h4").textContent+" "+d.querySelector("#rec .big").textContent);
+          log("   demo links="+[].map.call(d.querySelectorAll(".plan .act a.ghost"),function(a){return a.getAttribute("href")}).join(","));
+          log("   jsonld ok="+[].every.call(d.querySelectorAll('script[type="application/ld+json"]'),function(s){try{JSON.parse(s.textContent);return true}catch(e){return false}}));
+        },300)},400)},300)},500)},300)}catch(e){log("   flow error "+e)}}
+  },900)}});
+window.onerror=function(m){log("ERR "+m)};
+</script></body></html>
