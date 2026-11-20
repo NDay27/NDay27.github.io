@@ -5,6 +5,42 @@
   "src": "https://naicslist.com/company-profile/101-corvette-paint-body-shop-inc-macomb-il-61455",
   "on": "2026-11-20"
  },
+ "11th-street-auto-service-sheboygan-wi": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "11th-street-garage-springfield": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "150-autobody-east-peoria": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "20th-street-alignment-sioux-city-ia": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "2nd-generation-barbershop-lima-oh": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "301-auto-repair-llc-mansfield-oh": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
  "309-lawn-care-landscaping-excavating-peoria": {
   "v": "lawn",
   "trade": "lawn care, landscaping & excavating (per business name)",
@@ -12,10 +48,322 @@
   "on": "2026-11-20",
   "name_ok": true
  },
+ "630-auto-joplin-mo": {
+  "v": "auto",
+  "trade": "Mechanic",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "a-1-roofing-siding-conway-sc": {
+  "v": "roofing",
+  "trade": "Roofing contractor",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "a-1-towing-bangor-me": {
+  "v": "towing",
+  "trade": "Towing service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "a-1-warren-painting-peoria": {
+  "v": "painter",
+  "trade": "residential painting",
+  "src": "https://reviews.birdeye.com/a-1-warren-painting-146729788326502",
+  "on": "2026-11-20"
+ },
+ "a-a-automotive-galesburg": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "a-a-on-site-road-service-bloomington": {
+  "v": "truck",
+  "trade": "Truck repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "a-a-paint-seamless-gutters-washington": {
+  "v": "painter",
+  "trade": "painting + seamless gutters (per name)",
+  "src": "business name and Google category",
+  "on": "2026-11-20"
+ },
+ "a-b-tree-service-west-terre-haute-in": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "a-boy-and-his-mower-morton": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "a-cleaner-finish-bloomington": {
+  "v": "houseclean",
+  "trade": "House cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "a-countryside-auto-richmond-in": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "a-e-groundforge-complete-outdoor-property-services-canton": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "a-e-lawn-and-tree-peoria": {
+  "v": "landscape",
+  "trade": "Landscaper",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "a-g-tree-services-inc-leitchfield-ky": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "a-galesburg": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "a-h-auto-service-terre-haute-in": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "a-lawncare-paducah-ky": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "a-limb-for-a-limb-llc-pekin": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "a-lock-safe-locksmith-dothan-al": {
+  "v": "locksmith",
+  "trade": "Locksmith",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "a-s-family-cleaning-bloomington": {
+  "v": "janitorial",
+  "trade": "Janitorial service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "a-to-z-automotive-rolla-mo": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "a-to-z-lawn-care-galesburg": {
+  "v": "lawn",
+  "trade": "Landscaper",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "a-to-z-radiator-air-conditioning-inc-springfield": {
+  "v": "radiator",
+  "trade": "auto radiator & automotive A/C repair",
+  "src": "https://phoenix.aws.mapquest.com/us/illinois/a-to-z-radiator-and-air-conditioning-262409940",
+  "on": "2026-11-20"
+ },
+ "a-z-muffler-west-terre-haute-in": {
+  "v": "muffler",
+  "trade": "Muffler shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "a1-stump-grinding-service-llc-knoxville": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "aa-auto-body-kokomo-in": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "abbey-s-cleaning-services-bloomington": {
+  "v": "houseclean",
+  "trade": "Cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "abbott-brothers-striping-bloomington": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "abc-stump-grinding-dunlap": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "able-appliance-repair-trout-run-pa": {
+  "v": "appliance",
+  "trade": "Small appliance repair service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "able-wood-restoration-paint-bloomington": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "absolute-stump-grinding-east-peoria": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "ace-and-fosters-lawn-care-landscaping-normal": {
+  "v": "landscape",
+  "trade": "Landscaper",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "ace-s-mobile-auto-repair-springfield": {
+  "v": "auto",
+  "trade": "Mechanic",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "advanced-stump-grinding-pekin": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "advanced-tree-service-canton": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "affordable-auto-repair-llc-sheboygan-wi": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "affordable-auto-repair-pekin": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "affordable-complete-electric-llc-pearl-ms": {
+  "v": "electrical",
+  "trade": "Electrician",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "affordable-lawn-mowing-bloomington": {
+  "v": "landscape",
+  "trade": "Landscaper",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "affordable-mowing-lincoln": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "affordable-tree-service-peoria": {
+  "v": "tree",
+  "trade": "tree service",
+  "src": "https://www.superpages.com/peoria-il/tree-pruning",
+  "on": "2026-11-20"
+ },
+ "al-s-lawn-maintenance-dixon": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "al-s-westside-services-st-cloud-mn": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "alicia-bakery-austin-mn": {
+  "v": "bakery",
+  "trade": "Bakery",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "alignment-pros-sioux-city-ia": {
+  "v": "brake",
+  "trade": "Brake shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "all-about-brides-alterations-mankato-mn": {
+  "v": "tailor",
+  "trade": "Clothing alteration service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "all-about-cleaning-bloomington": {
+  "v": "janitorial",
+  "trade": "Janitorial service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "all-about-u-auburn-me": {
+  "v": "salon",
+  "trade": "Hair salon",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "all-around-auto-care-elizabethtown-ky": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
  "all-around-the-house-more-inc-peoria": {
   "v": "handyman",
   "trade": "handyman (per recorded Google category; no web listing found)",
   "src": "business name and Google category",
+  "on": "2026-11-20"
+ },
+ "all-clear-power-washing-florence-sc": {
+  "v": "pressurewash",
+  "trade": "Pressure washing service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "all-quality-landscaping-yard-care-pekin": {
+  "v": "landscape",
+  "trade": "Landscaper",
+  "src": "Google listing category",
   "on": "2026-11-20"
  },
  "allen-automotive-east-peoria": {
@@ -24,16 +372,529 @@
   "src": "https://www.superpages.com/east-peoria-il/auto-repair-service",
   "on": "2026-11-20"
  },
+ "allshops-hardware-inc-owensboro-ky": {
+  "v": "locksmith",
+  "trade": "Locksmith",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "alpha-and-omega-painting-and-construction-jesus-is-our-foundation-jackson-mi": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "alpha-painting-plus-virginia": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "alterations-dun-right-williamsport-pa": {
+  "v": "tailor",
+  "trade": "Tailor",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
  "alternative-landscapes-mapleton": {
   "v": "landinstall",
   "trade": "landscape design/installation & hardscaping",
   "src": "https://alternativelandscapes.localsearch.com",
   "on": "2026-11-20"
  },
+ "alvey-s-automotive-paducah-ky": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "american-lawncare-morton": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "american-mall-auto-care-lima-oh": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "amigo-painting-peoria": {
+  "v": "painter",
+  "trade": "Painting",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "amigos-auto-repair-peoria": {
+  "v": "auto",
+  "trade": "general auto repair",
+  "src": "https://naicslist.com/company-profile/amigos-1-inc-peoria-il-61602",
+  "on": "2026-11-20"
+ },
+ "amigos-repair-shop-peoria": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "andrea-the-barber-washington": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "angie-s-nails-johnson-city-tn": {
+  "v": "nails",
+  "trade": "Nail salon",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "anto-s-cleaning-services-llc-bloomington": {
+  "v": "houseclean",
+  "trade": "House cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "any-color-painting-llc-utica-ky": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "anytime-automotive-mobile-mechanic-bloomington": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "anytime-stump-removal-lincoln": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "ap-home-cleaning-services-peoria": {
+  "v": "houseclean",
+  "trade": "House cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "applewood-tailors-wheat-ridge-co": {
+  "v": "tailor",
+  "trade": "Tailor",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "arbor-barber-tree-service-pekin": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20",
+  "name_ok": true
+ },
+ "arborists-advantage-tree-services-galesburg": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "arends-lawn-services-germantown-hills": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "arlon-s-garage-east-peoria": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "arnold-auto-body-sedalia-mo": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "art-nails-spa-monroe-la": {
+  "v": "nails",
+  "trade": "Nail salon",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "art-pearson-auto-services-kewanee": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "artisan-tattoo-eau-claire-wi": {
+  "v": "tattoo",
+  "trade": "Tattoo shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "artistic-answers-bloomington": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "asbury-lawncare-knoxville": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "at-ease-cleaning-co-llc-bloomington": {
+  "v": "houseclean",
+  "trade": "House cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "auto-body-alternative-normal": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "auto-body-trim-design-peoria": {
+  "v": "autobody",
+  "trade": "auto body repair & painting",
+  "src": "https://www.claimspages.com/providers/auto-body-trim-and-design-3096370860/",
+  "on": "2026-11-20"
+ },
+ "auto-craft-springfield": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "auto-dynamics-inc-dubuque-ia": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "auto-repair-plus-sedalia-mo": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "auto-rescue-road-services-bloomington": {
+  "v": "auto",
+  "trade": "auto repair + roadside service + truck repair",
+  "src": "https://www.yellowpages.com/bloomington-il/auto-repair-service",
+  "on": "2026-11-20",
+  "name_ok": true
+ },
+ "auto-top-shop-altoona-wi": {
+  "v": "upholstery",
+  "trade": "Auto upholsterer",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "automotive-electric-of-kewanee-kewanee": {
+  "v": "auto",
+  "trade": "auto repair (likely auto-electrical specialty)",
+  "src": "https://reviews.birdeye.com/d/auto-repair/kewanee-il",
+  "on": "2026-11-20"
+ },
+ "autotouch-pekin": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "aver-eez-auto-worx-peoria": {
+  "v": "auto",
+  "trade": "Mechanic",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "ayers-tree-service-east-peoria": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "b-b-transmission-sedalia-mo": {
+  "v": "transmission",
+  "trade": "Transmission shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "b-d-lawn-tree-care-eureka": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "b-e-stump-grinding-llc-pekin": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "b-g-tree-service-peoria": {
+  "v": "tree",
+  "trade": "tree service",
+  "src": "https://bgtreeserviceil.localsearch.com",
+  "on": "2026-11-20"
+ },
+ "b-j-seaman-tree-service-chillicothe": {
+  "v": "tree",
+  "trade": "tree service (+ lawn maintenance)",
+  "src": "https://www.yellowpages.com/princeville-il/lawn-maintenance",
+  "on": "2026-11-20"
+ },
+ "b-m-transmission-peoria-heights": {
+  "v": "transmission",
+  "trade": "Transmission shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "b-r-automotive-peoria": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "b-w-tree-service-inc-morton": {
+  "v": "tree",
+  "trade": "tree service",
+  "src": "https://www.b-wtree.com/about-us",
+  "on": "2026-11-20"
+ },
+ "baldridge-painting-company-llc-russia-oh": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "bandits-tree-service-geneseo": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "battle-creek-diesel-auto-battle-creek-mi": {
+  "v": "auto",
+  "trade": "Diesel engine repair service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "bc-outdoor-solutions-galesburg": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "bd-auto-truck-body-inc-plymouth-wi": {
+  "v": "autobody",
+  "trade": "auto & truck body shop (plus towing/salvage)",
+  "src": "https://www.claimspages.com/providers/b-d-auto-and-truck-body-9208935252/",
+  "on": "2026-11-20",
+  "name_ok": true
+ },
+ "beal-s-garage-adair": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "beautifully-baked-galesburg": {
+  "v": "bakery",
+  "trade": "Bakery",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "becker-s-kerr-mc-gee-services-oklahoma-city-ok": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "becker-tree-service-llc-colfax": {
+  "v": "tree",
+  "trade": "tree service",
+  "src": "https://angi.com/companylist/us/il/colfax/becker-tree-svc-reviews-5546378.htm",
+  "on": "2026-11-20"
+ },
+ "bell-s-transmissions-sheffield": {
+  "v": "transmission",
+  "trade": "Transmission shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "benassi-roofing-pekin": {
+  "v": "roofing",
+  "trade": "Roofing contractor",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "bennett-son-automotive-springfield": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "big-dog-automotive-pekin": {
+  "v": "auto",
+  "trade": "general auto repair (family-owned)",
+  "src": "https://www.loc8nearme.com/illinois/pekin/auto-repair/",
+  "on": "2026-11-20"
+ },
+ "bill-burden-paint-body-shop-owensboro-ky": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "bill-s-auto-body-springfield": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "bill-s-full-service-bloomington": {
+  "v": "auto",
+  "trade": "Car repair and maintenance service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "bill-s-janitorial-services-galesburg": {
+  "v": "janitorial",
+  "trade": "Janitorial service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
  "bill-s-radiator-a-c-inc-mossville": {
   "v": "radiator",
-  "trade": "radiator & auto A/C specialist (by name)",
+  "trade": "auto radiator & A/C shop",
+  "src": "https://www.yellowpages.com/peoria-il/radiators-automotive-sales-service",
+  "on": "2026-11-20"
+ },
+ "bills-painting-services-galesburg": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "billy-s-auto-repair-inc-kokomo-in": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "bird-dog-diesel-repair-llc-washington": {
+  "v": "truck",
+  "trade": "diesel repair (per name; not otherwise confirmed)",
   "src": "business name and Google category",
+  "on": "2026-11-20"
+ },
+ "black-brothers-electric-and-security-systems-inc-valdosta-ga": {
+  "v": "electrical",
+  "trade": "Electrician",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "blair-g-b-cleaning-washington": {
+  "v": "houseclean",
+  "trade": "Cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "blanton-s-automotive-mansfield-oh": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "bloom-n-branch-bloomington": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "bloomington-automotive-repair-bloomington": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "blue-line-forestry-peoria": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "bob-s-dairy-dream-east-peoria": {
+  "v": "icecream",
+  "trade": "Ice cream shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "bobby-s-tree-services-geneseo": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "bodyworks-family-fitness-24-7-valdosta-ga": {
+  "v": "gym",
+  "trade": "Physical fitness program",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "bolen-lawn-care-pekin": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "bonao-s-barber-shop-fitchburg-ma": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "bond-s-residential-painting-morton": {
+  "v": "painter",
+  "trade": "Painting",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "boomer-s-muffler-brake-galesburg": {
+  "v": "muffler",
+  "trade": "Muffler shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "bowling-lawn-care-snow-removal-galesburg": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "brad-s-auto-body-roanoke": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "brad-s-auto-repair-and-alignment-mason-city-ia": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "branch-out-tree-stump-removal-macomb": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
   "on": "2026-11-20"
  },
  "breez-transmissions-pekin": {
@@ -42,22 +903,1451 @@
   "src": "business name and Google category",
   "on": "2026-11-20"
  },
+ "brian-bragg-landscape-construction-peoria": {
+  "v": "landinstall",
+  "trade": "landscape construction & design",
+  "src": "https://www.yellowpages.com/peoria-il/mip/brian-bragg-landscape-construction-463832604",
+  "on": "2026-11-20"
+ },
+ "britton-hacke-photography-sioux-city-ia": {
+  "v": "photo",
+  "trade": "Photographer",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "broman-towing-and-recovery-monroe-la": {
+  "v": "towing",
+  "trade": "Towing service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "brook-s-automotive-tremont": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "brothers-in-lawn-bloomington": {
+  "v": "landscape",
+  "trade": "Landscaper",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "brothersnlawns-canton": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "brush-automotive-peoria": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "bt-cleaning-llc-bloomington": {
+  "v": "janitorial",
+  "trade": "Janitorial service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "buck-s-tree-service-landscaping-peoria": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "bucks-tree-service-peoria": {
+  "v": "tree",
+  "trade": "tree service",
+  "src": "https://www.superpages.com/nationwide/bpp/bucks-tree-service-577852410",
+  "on": "2026-11-20"
+ },
+ "budo-traditional-karate-owensboro-ky": {
+  "v": "martial",
+  "trade": "Martial arts school",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "buds-the-lock-shop-saginaw-mi": {
+  "v": "locksmith",
+  "trade": "Locksmith",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "buford-racing-transmissions-bloomington": {
+  "v": "auto",
+  "trade": "Car repair and maintenance service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "bull-s-tree-services-and-logging-canton": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "burns-stump-removal-silvis": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "bushell-p-w-peoria": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "buskirk-tree-services-peoria": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "busy-bees-daycare-and-preschool-kokomo-in": {
+  "v": "daycare",
+  "trade": "Day care center",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "busy-bees-lawn-landscaping-pekin": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "butter-bakery-washington": {
+  "v": "bakery",
+  "trade": "Bakery",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "byop-auto-service-bowling-green-ky": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "bywaters-plumbing-repair-services-drain-cleaning-cairo-ga": {
+  "v": "plumbing",
+  "trade": "plumbing repair & drain cleaning plus septic services (since 2001)",
+  "src": "https://www.septic.com/septic-services/georgia/cairo/bywaters-plumbing-repair-service/",
+  "on": "2026-11-20"
+ },
+ "c-d-land-and-property-management-servies-germantwn-hls": {
+  "v": "landscape",
+  "trade": "Landscaper",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "c-d-lawncare-peoria": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "c-g-services-lincoln": {
+  "v": "landscape",
+  "trade": "Landscaper",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "c-h-a-d-s-canton": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "c-s-painting-pekin": {
+  "v": "painter",
+  "trade": "Painting",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "cakes-by-tracy-and-denise-pontiac": {
+  "v": "cake",
+  "trade": "Cake shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "caliber-coatings-plus-llc-washington": {
+  "v": "painter",
+  "trade": "Painting",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "callahan-painting-pekin": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "calvary-cleaning-llc-washington": {
+  "v": "houseclean",
+  "trade": "House cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "camo-s-lawn-landscape-tree-services-llc-metamora": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "campos-garden-777-alhambra-ca": {
+  "v": "landscape",
+  "trade": "Landscaper",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "campos-muffler-brakes-peoria": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "cancino-automotive-repair-sioux-city-ia": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "cannon-s-concrete-llc-salem-ky": {
+  "v": "concrete",
+  "trade": "Concrete contractor",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "capital-tree-service-and-landscape-cape-girardeau-mo": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "car-guys-autoworks-springfield": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "cardie-s-landscaping-monmouth": {
+  "v": "landscape",
+  "trade": "landscape contractor & designer",
+  "src": "https://www.yellowpages.com/monmouth-il/landscape-contractors",
+  "on": "2026-11-20"
+ },
+ "care-for-charity-lawn-services-morton": {
+  "v": "lawn",
+  "trade": "lawn maintenance",
+  "src": "https://www.yellowpages.com/morton-il/lawn-mowing",
+  "on": "2026-11-20"
+ },
+ "carius-creamery-morton": {
+  "v": "icecream",
+  "trade": "Ice cream shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "carls-automotive-minonk": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "carma-s-cake-s-east-peoria": {
+  "v": "cake",
+  "trade": "Cake shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "carmelo-duarte-handyman-kewanee": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "carmichael-exhaust-custom-terre-haute-in": {
+  "v": "muffler",
+  "trade": "Muffler shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "carroll-s-concrete-pumping-llc-conover-nc": {
+  "v": "concrete",
+  "trade": "Concrete contractor",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "cars-galesburg": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "cash-s-ladies-apparel-dothan-al": {
+  "v": "boutique",
+  "trade": "Women's clothing store",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "central-automotive-radiator-sandusky-oh": {
+  "v": "auto",
+  "trade": "Auto air conditioning service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "central-barber-shop-tupelo-ms": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "central-illinois-road-services-bloomington": {
+  "v": "truck",
+  "trade": "Truck repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "chacons-lawn-care-llc-dixon": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "chamberlain-tile-co-sioux-city-ia": {
+  "v": "flooring",
+  "trade": "Tile contractor",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "charity-thrift-store-inc-valdosta-ga": {
+  "v": "thrift",
+  "trade": "Thrift store",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "charlie-s-auto-repair-mason-city-ia": {
+  "v": "auto",
+  "trade": "Car repair and maintenance service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "chase-s-tree-solutions-llc-hughesville-mo": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "chicago-tire-sioux-city-ia": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "chris-ihrig-lawn-care-and-snow-removal-llc-maquoketa-ia": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "christopher-s-automotive-richmond-in": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "city-tire-kokomo-in": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "classy-quanna-s-precious-cleaning-services-east-peoria": {
+  "v": "janitorial",
+  "trade": "Janitorial service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "clean-shave-barber-shop-beaufort-sc": {
+  "v": "barber",
+  "trade": "barber shop",
+  "src": "https://startpage.mapquest.com/us/south-carolina/clean-shave-barber-shop-373312083",
+  "on": "2026-11-20"
+ },
+ "clean-solutions-normal": {
+  "v": "houseclean",
+  "trade": "cleaning & restoration: house cleaning, fire/water damage restoration, carpet cleaning",
+  "src": "https://www.yellowpages.com/normal-il/mip/clean-solutions-504708618",
+  "on": "2026-11-20"
+ },
+ "clean-spaces-good-vibes-llc-chillicothe": {
+  "v": "houseclean",
+  "trade": "House cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "clippers-holly-hill-fl": {
+  "v": "salon",
+  "trade": "Hair salon",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "clouse-landscaping-llc-terre-haute-in": {
+  "v": "landscape",
+  "trade": "landscaping (installs)",
+  "src": "https://reviews.birdeye.com/clouse-landscaping-llc-168232094958309",
+  "on": "2026-11-20"
+ },
+ "cns-forestry-and-landscaping-llc-lincoln": {
+  "v": "landscape",
+  "trade": "forestry + landscaping",
+  "src": "https://naicslist.com/company-profile/cns-forestry-landscaping-llc-lincoln-il-62656",
+  "on": "2026-11-20",
+  "name_ok": true
+ },
+ "coastal-innovation-professional-painting-muskegon-mi": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "coffman-s-body-shop-cedar-falls-ia": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "cohenour-s-garage-pontiac": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "collision-craft-springfield": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "collision-pros-llc-st-james-mo": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "colorful-closet-boutique-kokomo-in": {
+  "v": "boutique",
+  "trade": "Women's clothing store",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "compassionate-crumbs-normal": {
+  "v": "bakery",
+  "trade": "Bakery",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "complete-auto-care-saginaw-mi": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "complete-lawn-care-lincoln": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "conley-s-auto-world-bartonville": {
+  "v": "auto",
+  "trade": "used car dealer that also does auto repair (43 yrs)",
+  "src": "https://www.yellowpages.com/bartonville-il/mip/conleys-auto-world-3766168",
+  "on": "2026-11-20"
+ },
+ "conrads-auto-repair-and-roadside-repair-services-terre-haute-in": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "cook-sons-autobody-pekin": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "corky-s-car-care-waterloo-ia": {
+  "v": "auto",
+  "trade": "Car repair and maintenance service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "corrick-automotive-pekin": {
+  "v": "auto",
+  "trade": "general auto repair",
+  "src": "https://www.superpages.com/pekin-il/auto-repair-service",
+  "on": "2026-11-20"
+ },
+ "coulter-s-360-services-llc-galesburg": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "country-landscape-lawn-service-inc-mackinaw": {
+  "v": "landscape",
+  "trade": "landscaping",
+  "src": "https://naicslist.com/company-profile/country-landscape-and-lawn-service-inc-mackinaw-il-61755",
+  "on": "2026-11-20"
+ },
+ "county-line-diesel-service-llc-chillicothe": {
+  "v": "truck",
+  "trade": "Truck repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "county-line-mini-mall-cafe-forest-va": {
+  "v": "restaurant",
+  "trade": "Restaurant",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "courson-services-llc-dba-courson-snowplowing-lawn-care-galesburg": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "cranberry-country-towing-recovery-llc-camp-douglas-wi": {
+  "v": "towing",
+  "trade": "Towing service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "creative-curbing-tremont": {
+  "v": "concrete",
+  "trade": "decorative concrete landscape curbing",
+  "src": "https://www.homeadvisor.com/rated.CreativeCurbingLLP.119124367.html",
+  "on": "2026-11-20"
+ },
+ "critter-cleaners-grooming-pekin": {
+  "v": "petgroom",
+  "trade": "pet grooming",
+  "src": "https://www.yellowpages.com/mapleton-il/pet-grooming",
+  "on": "2026-11-20"
+ },
+ "crump-heating-and-air-valdosta-ga": {
+  "v": "hvac",
+  "trade": "Air conditioning contractor",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "cti-solutions-inc-morton": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "curbside-clips-mobile-grooming-pet-spaw-grand-island-ne": {
+  "v": "petgroom",
+  "trade": "Pet groomer",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "cut-all-tree-service-bushnell": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "cuttin-it-close-lawncare-inc-peoria": {
+  "v": "lawn",
+  "trade": "lawn care (per recorded Google category + name)",
+  "src": "",
+  "on": "2026-11-20"
+ },
+ "cutting-edge-lawn-care-ottawa": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "cutting-edge-lawn-care-peoria-il-peoria": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "d-j-auto-repair-st-cloud-mn": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "d-j-s-tire-auto-services-inc-bartonville": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "d-k-repair-mankato-mn": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "dad-s-complete-car-care-lima-oh": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "dad-s-place-macomb": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "daily-grind-stump-removal-llc-peoria": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "dale-s-lawn-service-chillicothe": {
+  "v": "lawn",
+  "trade": "lawn maintenance",
+  "src": "https://www.superpages.com/chillicothe-il/lawn-maintenance",
+  "on": "2026-11-20"
+ },
+ "dale-s-tree-service-llc-muskegon-mi": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
  "danny-s-auto-repair-lacon": {
   "v": "auto",
-  "trade": "auto repair (by name)",
-  "src": "business name and Google category",
+  "trade": "general auto repair",
+  "src": "https://www.yellowpages.com/lacon-il/auto-repair-service",
+  "on": "2026-11-20"
+ },
+ "dano-s-garage-pekin": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "daugherty-undercoating-shop-springfield": {
+  "v": "auto",
+  "trade": "Car repair and maintenance service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "dave-call-painting-finishes-normal": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "dave-s-auto-body-springfield": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "dave-s-carpet-upholstery-cleaning-service-lima-oh": {
+  "v": "carpetclean",
+  "trade": "Carpet cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "dave-s-glass-trim-peoria": {
+  "v": "autoglass",
+  "trade": "Auto glass shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "david-s-lawn-care-service-bloomington": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "dc-auto-pro-service-repair-llc-durango-co": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "dc-painting-illinois-galesburg": {
+  "v": "painter",
+  "trade": "Painting",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "dcm-landscaping-pontiac": {
+  "v": "landscape",
+  "trade": "Landscaper",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "de-rosa-s-auto-body-springfield": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "defiant-construction-maintenance-llc-macomb": {
+  "v": "painter",
+  "trade": "Painting",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "delgado-brothers-roofing-douglas-ga": {
+  "v": "roofing",
+  "trade": "Roofing contractor",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "demaio-s-repair-dubuque-ia": {
+  "v": "auto",
+  "trade": "Car repair and maintenance service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "denver-s-customs-llc-30-years-experience-joplin-mo": {
+  "v": "muffler",
+  "trade": "Muffler shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "derringer-auto-care-springfield": {
+  "v": "muffler",
+  "trade": "Muffler shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "devore-landscaping-masonry-inc-lexington": {
+  "v": "landinstall",
+  "trade": "landscaping & masonry",
+  "src": "https://www.lexingtonil.gov/business-directory-database/devore-landscaping-amp-masonry",
+  "on": "2026-11-20"
+ },
+ "diamond-auto-service-and-hand-car-wash-peoria": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "diamonds-body-shop-inc-evansdale-ia": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "dillon-automotive-east-peoria": {
+  "v": "auto",
+  "trade": "auto repair (general mechanical; one listing says auto & marine parts and repair)",
+  "src": "https://www.superpages.com/east-peoria-il/auto-repair-service",
+  "on": "2026-11-20"
+ },
+ "discount-mufflers-brakes-saginaw-mi": {
+  "v": "muffler",
+  "trade": "Muffler shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "djs-automotive-battle-creek-mi": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "dmz-s-trees-canton": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "docs-mobile-welding-fabrication-muskogee-ok": {
+  "v": "welding",
+  "trade": "mobile & shop welding",
+  "src": "https://www.yellowpages.com/muskogee-ok/mip/docs-mobile-welding-552359450",
+  "on": "2026-11-20"
+ },
+ "doghouse-autoworks-llc-janesville-wi": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "don-carvey-painting-pekin": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "don-heath-upholstery-rome-ga": {
+  "v": "upholstery",
+  "trade": "Upholstery shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "don-s-auto-air-radiator-zanesville-oh": {
+  "v": "radiator",
+  "trade": "auto A/C, heating & radiator repair",
+  "src": "https://www.mapquest.com/us/ohio/dons-auto-air-radiator-5666521",
+  "on": "2026-11-20"
+ },
+ "doolittle-diesel-repair-rolla-mo": {
+  "v": "auto",
+  "trade": "Diesel engine repair service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "dow-building-jonesboro-ar": {
+  "v": "janitorial",
+  "trade": "Janitorial service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "dpn-cleaning-services-east-peoria": {
+  "v": "houseclean",
+  "trade": "House cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "duchess-funnel-cakes-bloomington": {
+  "v": "bakery",
+  "trade": "Bakery",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "duvall-s-automotive-lincoln": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "dyer-s-cleaning-service-new-castle-in": {
+  "v": "houseclean",
+  "trade": "House cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "eccles-auto-repair-llc-marion-in": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "eco-clean-galesburg": {
+  "v": "houseclean",
+  "trade": "House cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "economy-auto-body-inc-peoria": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "efird-s-automotive-services-joplin-mo": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "el-paso-automotive-el-paso": {
+  "v": "auto",
+  "trade": "auto repair + auto/truck body shop",
+  "src": "https://www.yellowpages.com/el-paso-il/auto-repair-service",
+  "on": "2026-11-20"
+ },
+ "el-sobrante-town-garage-el-sobrante-ca": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "elizabethton-used-appliance-elizabethton-tn": {
+  "v": "appliance",
+  "trade": "Used appliance store",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "ellis-painting-eureka": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "elvira-s-hair-styling-williamsport-pa": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "enjcleaning-canton": {
+  "v": "houseclean",
+  "trade": "House cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "ensley-s-radiator-repair-shop-kewanee": {
+  "v": "radiator",
+  "trade": "Auto radiator repair service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "epic-tree-service-galesburg": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "ernie-ball-auto-body-unlimited-springfield": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "ernie-s-dairy-dream-peoria": {
+  "v": "icecream",
+  "trade": "Ice cream shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "evans-repair-shop-bloomington": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "express-cut-flower-mound-tx": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "extreme-accessories-rolla-mo": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "extreme-painting-professionals-bloomington": {
+  "v": "painter",
+  "trade": "painting contractor (residential and commercial)",
+  "src": "https://www.homeadvisor.com/rated.ExtremePainting.76310475.html",
+  "on": "2026-11-20"
+ },
+ "faichney-auto-body-custom-paint-pekin": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "family-owned-lawn-care-services-llc-riverton": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "farmington-road-auto-body-peoria": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "felgar-s-lawn-care-landscape-avon": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "fender-menders-paint-body-durango-co": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "ffejs-auto-care-lima-oh": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "findlay-quality-collision-llc-findlay-oh": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "first-choice-auto-repair-and-tire-service-terre-haute-in": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "first-street-auto-body-springfield": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "fitzpatrick-painting-decorating-peoria": {
+  "v": "painter",
+  "trade": "painting & decorating contractor",
+  "src": "https://www.yellowpages.com/peoria-il/painting-contractors",
+  "on": "2026-11-20"
+ },
+ "flavor-freeze-galesburg": {
+  "v": "icecream",
+  "trade": "Ice cream shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "floyd-cline-s-garage-bowling-green-ky": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "flynn-s-automotive-pekin": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "forman-s-garage-industry": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "foster-s-garage-jackson-mi": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "four-brothers-lawn-care-services-llc-salina-ks": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
   "on": "2026-11-20"
  },
  "four-eyes-a-brush-painting-and-pressure-washing-valdosta-ga": {
   "v": "painter",
-  "trade": "painting + pressure washing (name; Google says Painting)",
+  "trade": "painting + pressure washing (by name; Google: Painting)",
   "src": "business name and Google category",
+  "on": "2026-11-20"
+ },
+ "four-seasons-tree-landscaping-service-bloomington": {
+  "v": "tree",
+  "trade": "tree care firm with certified arborist (80+ yrs), plus landscaping",
+  "src": "https://angi.com/companylist/us/il/bloomington/four-seasons-tree-and-landscaping-service-reviews-5546089.htm",
+  "on": "2026-11-20"
+ },
+ "frame-aligners-inc-south-sioux-city-ne": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "frank-s-automotive-peoria": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "fred-s-garage-macomb": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "freedom-painting-bloomington": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "french-sons-bay-city-mi": {
+  "v": "concrete",
+  "trade": "Concrete contractor",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "fresh-start-lawn-care-peoria": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "frobish-painting-pontiac": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "front-page-joplin-mo": {
+  "v": "boutique",
+  "trade": "women's clothing boutique",
+  "src": "https://www.yellowpages.com/joplin-mo/womens-clothing",
+  "on": "2026-11-20"
+ },
+ "g-and-w-towing-rome-ga": {
+  "v": "towing",
+  "trade": "Towing service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "g-v-lawn-care-galesburg": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "galesburg-quality-cars-exhaust-galesburg": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "galesburg-tree-service-emergency-pekin": {
+  "v": "tree",
+  "trade": "tree service",
+  "src": "https://www.yellowpages.com/pekin-il/tree-service?page=2",
+  "on": "2026-11-20"
+ },
+ "galva-auto-repair-galva": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "garage-elements-spring-bay": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "gasper-s-auto-clinic-inc-sheboygan-wi": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "gene-s-auto-service-jackson-mo": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "george-son-terre-haute-in": {
+  "v": "brake",
+  "trade": "Brake shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "george-young-sons-peoria": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "getz-landscaping-water-gardens-eureka": {
+  "v": "landscape",
+  "trade": "Landscaper",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "gideon-s-tire-auto-joplin-mo": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "gill-automotive-washington": {
+  "v": "auto",
+  "trade": "Car repair and maintenance service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "glen-s-autobody-peoria": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "glenn-s-radiator-auto-service-inc-galesburg": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "gomer-auto-llc-lima-oh": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "grand-view-cleaning-peoria": {
+  "v": "houseclean",
+  "trade": "House cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "grass-is-always-greener-lawn-care-services-schofield-wi": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "gray-matter-cooling-llc-johnson-city-tn": {
+  "v": "hvac",
+  "trade": "HVAC contractor",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "great-lakes-mobile-mechanic-muskegon-mi": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "green-light-diesel-performance-services-llc-zanesville-oh": {
+  "v": "truck",
+  "trade": "Truck repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "green-planet-cleaning-llc-madison-wi": {
+  "v": "houseclean",
+  "trade": "House cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "green-thumb-green-finger-enterprises-llc-pekin": {
+  "v": "landscape",
+  "trade": "landscaping / landscape design (Google: Landscape designer)",
+  "src": "https://reviews.birdeye.com/green-thumb-166410153131287",
+  "on": "2026-11-20"
+ },
+ "gregg-s-small-engine-repair-danville-pa": {
+  "v": "smallengine",
+  "trade": "Lawn mower repair service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "grimm-electric-inc-morton": {
+  "v": "electrical",
+  "trade": "Electrician",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "grind-autoworks-muncie-in": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "grissom-upholstery-webb-city-mo": {
+  "v": "upholstery",
+  "trade": "Upholstery shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "gromek-tree-service-kokomo-in": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "gross-body-frame-alignment-st-cloud-mn": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "grosso-s-garage-bloomington": {
+  "v": "brake",
+  "trade": "Brake shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "guy-s-welding-automotive-jonesboro-ar": {
+  "v": "welding",
+  "trade": "Welder",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "h-r-professional-east-peoria": {
+  "v": "houseclean",
+  "trade": "Cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "haager-s-auto-truck-service-richmond-in": {
+  "v": "auto",
+  "trade": "Car repair and maintenance service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "hamms-septic-tree-service-chillicothe": {
+  "v": "tree",
+  "trade": "tree service + septic",
+  "src": "https://www.superpages.com/chillicothe-il/tree-pruning",
+  "on": "2026-11-20"
+ },
+ "hank-s-service-mankato-mn": {
+  "v": "smallengine",
+  "trade": "Small engine repair service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "hardin-county-tree-service-l-l-c-elizabethtown-ky": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "harold-lewis-auto-services-elizabethtown-ky": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "haros-auto-service-bloomington": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "harris-auto-body-jackson-mo": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "hartnell-automotive-normal": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "haven-s-automotive-bushnell": {
+  "v": "muffler",
+  "trade": "Muffler shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "hawkinsmow-go-washington": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "haye-s-affordable-painting-cuba": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "headley-sons-painting-canton": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "hefziba-barbershop-beaufort-sc": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "hensley-lawn-care-galesburg": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "hertland-tree-services-inc-glasford": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "hi-tech-collision-rolla-mo": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "hickory-antiques-mall-inc-hickory-nc": {
+  "v": "thrift",
+  "trade": "Antique store",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "hicks-auto-llc-zanesville-oh": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "hicks-repair-tyler-tx": {
+  "v": "smallengine",
+  "trade": "Lawn mower repair service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "high-quality-lawn-care-outdoor-maintenance-west-peoria": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "hoban-landscaping-llc-north-olmsted-oh": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "hodel-precision-mowing-morton": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "hoff-s-machine-welding-inc-salina-ks": {
+  "v": "welding",
+  "trade": "machine shop + welding",
+  "src": "https://naicslist.com/company-profile/hoffs-machine-welding-inc-salina-ks-67401",
   "on": "2026-11-20"
  },
  "holland-s-mercantile-washington": {
   "v": "candy",
   "trade": "gourmet popcorn / caramel corn specialty shop",
   "src": "https://enjoyillinois.com/explore/listing/hollands-carmelcorn",
+  "on": "2026-11-20"
+ },
+ "holley-automotive-battle-creek-mi": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "hollinshead-auto-body-springfield": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
   "on": "2026-11-20"
  },
  "home-improvements-plus-morton": {
@@ -67,10 +2357,250 @@
   "on": "2026-11-20",
   "name_ok": true
  },
+ "hoovs-lawncare-greentown-in": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "house-of-ink-johnson-city-tn": {
+  "v": "tattoo",
+  "trade": "Tattoo shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "hughes-body-shop-ada-oh": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
  "hughes-tree-landscaping-pekin": {
   "v": "landscape",
-  "trade": "tree service + landscaping (name; Google says Landscaper)",
+  "trade": "tree service + landscaping (by name; Google: Landscaper)",
   "src": "business name and Google category",
+  "on": "2026-11-20"
+ },
+ "illini-transmission-service-springfield": {
+  "v": "transmission",
+  "trade": "Transmission shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "illinois-boys-llc-east-peoria": {
+  "v": "houseclean",
+  "trade": "House cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "im-im-services-llc-bloomington": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "import-autowerks-waterloo-ia": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "in-n-out-auto-springfield": {
+  "v": "auto",
+  "trade": "Mechanic",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "inkeep-s-muffler-king-muncie-in": {
+  "v": "muffler",
+  "trade": "Muffler shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "integrity-automotive-springfield": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "interstate-truck-trailer-repair-llc-rolla-mo": {
+  "v": "truck",
+  "trade": "Truck repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "irwin-s-transmission-springfield": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "j-and-b-locksmith-llc-grand-blanc-mi": {
+  "v": "locksmith",
+  "trade": "Locksmith",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "j-b-large-sons-painting-jacksonville": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "j-c-mechanical-repair-scappoose-or": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "j-d-s-countryside-auto-body-janesville-wi": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "j-j-garage-24hr-towing-taylorsville-nc": {
+  "v": "towing",
+  "trade": "Towing service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "j-j-heating-air-conditioning-quitman-ga": {
+  "v": "hvac",
+  "trade": "Air conditioning contractor",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "j-j-lawn-care-galesburg": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "j-l-tree-service-pekin": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "j-m-auto-and-tire-colchester": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "j-m-automotive-and-diesel-repair-springfield": {
+  "v": "auto",
+  "trade": "Car repair and maintenance service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "j-m-automotive-diesel-lincoln": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "j-o-automotive-llc-janesville-wi": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "j-p-painting-morton": {
+  "v": "painter",
+  "trade": "painting contractor",
+  "src": "https://www.homeadvisor.com/rated.JPPaintingLLC.127710528.html",
+  "on": "2026-11-20"
+ },
+ "j-r-painting-peoria": {
+  "v": "painter",
+  "trade": "Painting",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "j-r-refrigeration-service-parts-llc-union-city-nj": {
+  "v": "hvac",
+  "trade": "Air conditioning repair service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "jack-hudson-handyman-peoria": {
+  "v": "handyman",
+  "trade": "Handyman/Handywoman/Handyperson",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "jacks-garage-peoria": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "jake-s-lawn-service-lawn-mowing-lawn-care-east-peoria": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "janssen-s-tire-auto-services-fairbury": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "jarrell-s-auto-repair-kokomo-in": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "jas-sparkle-cleaning-llc-bloomington": {
+  "v": "houseclean",
+  "trade": "House cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "jdc-plastering-and-painting-inc-metamora": {
+  "v": "painter",
+  "trade": "plastering & painting contractor",
+  "src": "https://www.yellowpages.com/metamora-il/painting-contractors",
+  "on": "2026-11-20"
+ },
+ "jelinek-tree-service-llc-twin-lake-mi": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "jen-s-cleaning-south-zanesville-oh": {
+  "v": "houseclean",
+  "trade": "House cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "jesse-crowe-arborist-tree-service-lima-oh": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "jim-paluska-plumbing-morton": {
+  "v": "plumbing",
+  "trade": "Plumber",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "jim-s-autobody-refinishing-peoria": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "jim-s-automotive-pekin": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
   "on": "2026-11-20"
  },
  "jim-s-maintenance-peoria": {
@@ -80,10 +2610,178 @@
   "on": "2026-11-20",
   "name_ok": true
  },
+ "jim-s-transmission-creve-coeur": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "jimenez-roofing-llc-west-monroe-la": {
+  "v": "roofing",
+  "trade": "Roofing contractor",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "jk-painting-bowling-green-ky": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "jlr-automotive-inc-springfield": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "jm-painting-and-drywall-bloomington": {
+  "v": "painter",
+  "trade": "Painting",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "jmchomeangels-kewanee": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "jocelyn-s-foothill-grooming-auburn-ca": {
+  "v": "petgroom",
+  "trade": "Pet groomer",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "joe-johns-bardolph": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "john-s-automotive-repair-shop-peoria": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "john-s-small-engine-repair-salvage-reeds-mo": {
+  "v": "smallengine",
+  "trade": "Lawn mower repair service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "john-s-tree-service-pekin": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "johnson-landscaping-services-annawan": {
+  "v": "landinstall",
+  "trade": "landscape contractor: installs, retaining walls, design",
+  "src": "https://www.yellowpages.com/annawan-il/mip/johnson-landscaping-service-22457568",
+  "on": "2026-11-20"
+ },
+ "johnston-landscaping-yates-city": {
+  "v": "landscape",
+  "trade": "landscaping & lawn services",
+  "src": "https://www.yellowpages.com/yates-city-il/landscape-contractors",
+  "on": "2026-11-20"
+ },
+ "jorgensen-s-landscaping-llc-bloomington": {
+  "v": "landscape",
+  "trade": "landscaping (per recorded Google category Landscaper)",
+  "src": "",
+  "on": "2026-11-20"
+ },
+ "jose-a-buzzi-de-chavez-painting-peoria": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "jr-s-lawn-care-normal": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "jt-s-lawn-care-washington": {
+  "v": "lawn",
+  "trade": "lawn care (by business name)",
+  "src": "",
+  "on": "2026-11-20"
+ },
+ "julson-s-auto-services-eau-claire-wi": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "junior-s-full-service-garage-macomb": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "just-a-mow-lawn-care-creve-coeur": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "just-donuts-llc-canton": {
+  "v": "donut",
+  "trade": "Donut shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
  "just-in-stumps-pekin": {
   "v": "tree",
-  "trade": "stump grinding / removal (by name)",
-  "src": "business name and Google category",
+  "trade": "stump grinding / tree service",
+  "src": "https://www.yellowpages.com/pekin-il/landscape-contractors",
+  "on": "2026-11-20"
+ },
+ "jw-repairs-llc-findlay-oh": {
+  "v": "truck",
+  "trade": "Truck repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "k-b-automotive-mansfield-oh": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "k-g-truck-repair-inc-goodfield": {
+  "v": "truck",
+  "trade": "Truck repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "k-j-s-residential-cleaning-services-kewanee": {
+  "v": "houseclean",
+  "trade": "House cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "k-z-auto-body-emden": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "kahuna-roofing-construction-peoria": {
+  "v": "roofing",
+  "trade": "Roofing contractor",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "katybugs-cleaning-services-macomb": {
+  "v": "houseclean",
+  "trade": "House cleaning service",
+  "src": "Google listing category",
   "on": "2026-11-20"
  },
  "kc-autobody-bloomington": {
@@ -92,10 +2790,46 @@
   "src": "business name and Google category",
   "on": "2026-11-20"
  },
+ "kelly-matthews-auto-body-springfield": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "ken-s-general-repair-inc-saginaw-mi": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
  "ken-s-tree-and-lawn-care-galesburg": {
   "v": "tree",
   "trade": "tree service plus lawn/landscaping",
   "src": "https://www.superpages.com/knoxville-il/tree-pruning",
+  "on": "2026-11-20"
+ },
+ "kermode-performance-and-repair-galesburg": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "kim-s-floor-decor-west-monroe-la": {
+  "v": "flooring",
+  "trade": "Flooring store",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "king-automotive-peoria-heights": {
+  "v": "auto",
+  "trade": "general auto repair & brake repair (56 yrs in business)",
+  "src": "https://www.yellowpages.com/peoria-heights-il/mip/king-automotive-2531091",
+  "on": "2026-11-20"
+ },
+ "kirgan-property-solutions-llc-galesburg": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
   "on": "2026-11-20"
  },
  "klean-korner-normal": {
@@ -104,10 +2838,136 @@
   "src": "https://angi.com/companylist/us/il/normal/klean-korner-reviews-8068051.htm",
   "on": "2026-11-20"
  },
+ "kma-truck-auto-kokomo-in": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "kurt-gehn-landscaping-snow-geneseo": {
+  "v": "landscape",
+  "trade": "landscape contractor & designer + snow removal",
+  "src": "https://www.yellowpages.com/geneseo-il/mip/gehn-kurt-landscaping-snow-removal-550111",
+  "on": "2026-11-20"
+ },
+ "l-f-auto-repair-wausau-wi": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
  "l-q-landscaping-construction-llc-east-peoria": {
   "v": "landinstall",
   "trade": "landscaping construction (name; Google says Landscaper)",
   "src": "business name and Google category",
+  "on": "2026-11-20"
+ },
+ "laforge-automotive-service-and-tires-inc-lincoln": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "lagroon-auto-service-inc-salina-ks": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "lamco-outdoor-services-llc-kewanee": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "land-of-lincoln-lawn-care-lincoln": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "langley-automobile-industrial-rpr-springfield": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "lavish-hair-studio-owensboro-ky": {
+  "v": "salon",
+  "trade": "Hair salon",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "lawrence-landscapes-galesburg": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "layne-tree-experts-llc-terre-haute-in": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "lea-s-truck-service-llc-sedalia-mo": {
+  "v": "truck",
+  "trade": "Truck repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "legacy-roots-lawn-care-llc-lincoln": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "lehman-tree-care-owensboro-ky": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "leveque-s-clean-cut-trees-pekin": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "lewis-automotive-springfield": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "lewis-lawn-care-llc-galesburg": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "lifted-tree-service-normal": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "lim-s-ice-cream-llc-galesburg": {
+  "v": "icecream",
+  "trade": "Ice cream shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "limoges-lawn-care-abingdon": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "lincoln-lawns-kewanee": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
   "on": "2026-11-20"
  },
  "liqui-green-lawn-tree-care-galesburg": {
@@ -117,10 +2977,334 @@
   "on": "2026-11-20",
   "name_ok": true
  },
+ "littles-lawn-care-kewanee": {
+  "v": "landscape",
+  "trade": "Landscaper",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "lj-s-mowing-lowpoint": {
+  "v": "lawn",
+  "trade": "lawn mowing & property services",
+  "src": "https://naicslist.com/company-profile/ljs-mowing-services-llc-lowpoint-il-61545",
+  "on": "2026-11-20"
+ },
+ "lk-repair-inc-carlock": {
+  "v": "truck",
+  "trade": "Truck repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "loft-towing-llc-eau-claire-wi": {
+  "v": "towing",
+  "trade": "Towing service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "logan-county-airframe-engine-llc-lincoln": {
+  "v": "auto",
+  "trade": "Mechanic",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "lons-tire-auto-clinic-springfield": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "love-care-and-creative-painting-llc-macomb": {
+  "v": "painter",
+  "trade": "Painting",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "loves-autobody-bloomington": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "low-cut-lawn-service-macomb": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "loyless-donuts-circle-west-dothan-al": {
+  "v": "bakery",
+  "trade": "Bakery",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "ludwig-painting-bloomington": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "luschious-painting-morton": {
+  "v": "painter",
+  "trade": "painting contractor",
+  "src": "https://mms.mortonchamber.org/mortonchamber/mp_luschiouspaint",
+  "on": "2026-11-20"
+ },
+ "luxurious-lawn-care-snow-removal-lincoln": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "lzt-stump-grinders-sparland": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "m-j-auto-services-saginaw-mi": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "macomb-auto-repair-macomb": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "magic-brooms-cleaning-service-east-peoria": {
+  "v": "houseclean",
+  "trade": "House cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "maid-master-east-peoria": {
+  "v": "houseclean",
+  "trade": "House cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "maids-extraordinaire-inc-johnson-city-tn": {
+  "v": "houseclean",
+  "trade": "House cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "mailes-tree-service-joplin-mo": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "main-street-tire-and-auto-bloomington": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "maloney-s-tree-service-michigan-center-mi": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
  "mann-s-tree-service-heyworth": {
   "v": "tree",
   "trade": "tree service",
   "src": "https://www.yellowpages.com/61705/tree-service",
+  "on": "2026-11-20"
+ },
+ "marcs-auto-sandusky-oh": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "marion-lifetime-mufflers-marion-in": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "mark-s-automotive-bartonville": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "mark-s-hannibal-mo": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "mark-s-mowing-more-sioux-city-ia": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "markeisandrewssuperiorservicesllc-normal": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "marks-lawn-care-and-small-engine-repair-galesburg": {
+  "v": "lawn",
+  "trade": "lawn care + small engine repair (per name)",
+  "src": "business name and Google category",
+  "on": "2026-11-20"
+ },
+ "martin-s-lawn-mower-repair-service-flint-tx": {
+  "v": "smallengine",
+  "trade": "Small engine repair service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "marty-s-body-shop-owensboro-ky": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "matt-s-lawn-maintenance-janesville-wi": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "max-auto-repair-and-services-peoria": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "mc-quinn-auto-services-inc-springfield": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "mccann-floors-inc-janesville-wi": {
+  "v": "flooring",
+  "trade": "Flooring store",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "mccords-auto-kokomo-kokomo-in": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "mcelderry-automotive-salina-ks": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "mcewen-towing-llc-newport-me": {
+  "v": "towing",
+  "trade": "Towing service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "meacham-automotive-lincoln": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "mechanical-advantage-dubuque-ia": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "meeker-eric-bloomington": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "meredith-garage-macomb": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "merfeld-brothers-automotive-dubuque-ia": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "meyer-and-sons-plumbing-morton": {
+  "v": "plumbing",
+  "trade": "Plumber",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "mgr-s-profesional-cleaning-service-bloomington": {
+  "v": "houseclean",
+  "trade": "House cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "michel-s-small-engine-service-mankato-mn": {
+  "v": "smallengine",
+  "trade": "Small engine repair service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "mid-town-automart-and-tire-springfield": {
+  "v": "auto",
+  "trade": "Mechanic",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "midwest-auto-service-springfield": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "midwest-property-tree-s-more-lincoln": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "mike-s-auto-repair-joplin-mo": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "mike-s-transmission-waynesville": {
+  "v": "transmission",
+  "trade": "Transmission shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "millennium-auto-and-transmission-repair-paducah-ky": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "mince-s-creatures-boarding-kennel-kokomo-in": {
+  "v": "petcare",
+  "trade": "pet boarding kennel",
+  "src": "https://www.yellowpages.com/kokomo-in/mip/minces-creatures-22180334",
+  "on": "2026-11-20"
+ },
+ "mirocha-s-auto-service-kewanee": {
+  "v": "auto",
+  "trade": "Car repair and maintenance service",
+  "src": "Google listing category",
   "on": "2026-11-20"
  },
  "mj-s-windshield-repair-north-pekin": {
@@ -129,16 +3313,942 @@
   "src": "business name and Google category",
   "on": "2026-11-20"
  },
+ "modern-garage-mankato-mn": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "molina-tree-service-north-mankato-mn": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "mona-s-frybread-marana-az": {
+  "v": "restaurant",
+  "trade": "Restaurant",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "monarch-auto-services-saginaw-mi": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "mooney-lawn-services-bloomington": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "moore-s-lawncare-handy-man-cleaning-services-shelby-oh": {
+  "v": "lawn",
+  "trade": "lawn care, handyman and cleaning (per name)",
+  "src": "business name and Google category",
+  "on": "2026-11-20",
+  "name_ok": true
+ },
+ "moore-s-motorworks-pekin": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "morris-tree-service-llc-creve-coeur": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "morton-truck-trailer-repair-morton": {
+  "v": "truck",
+  "trade": "Truck repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "mountain-view-kitchen-fountain-hills-az": {
+  "v": "restaurant",
+  "trade": "Restaurant",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "mourning-wood-llc-kewanee": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "mouser-s-auto-service-kokomo-in": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
  "mr-quick-pick-lock-and-road-service-bloomington": {
   "v": "locksmith",
   "trade": "locksmith (auto, home, commercial) + roadside service",
   "src": "https://www.homeadvisor.com/rated.MrQuickPick.64481639.html",
   "on": "2026-11-20"
  },
+ "mrk-enterprises-amesbury-ma": {
+  "v": "smallengine",
+  "trade": "Small engine repair service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "multi-color-landscaping-canton": {
+  "v": "landinstall",
+  "trade": "landscaping & ponds (landscape contractor/designer)",
+  "src": "https://www.yellowpages.com/canton-il/mip/multi-color-landscaping-ponds-473005453",
+  "on": "2026-11-20"
+ },
+ "my-mechanic-auto-repair-llc-mt-horeb-wi": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "mytee-muffler-shop-peoria": {
+  "v": "muffler",
+  "trade": "muffler & exhaust shop",
+  "src": "https://www.mapquest.com/us/illinois/mytee-muffler-shop-7869157",
+  "on": "2026-11-20"
+ },
+ "n-t-automotive-repair-joplin-mo": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "naramore-s-exhaust-systems-inc-creve-coeur": {
+  "v": "muffler",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "nates-auto-repair-waterloo-ia": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "neff-auto-metamora": {
+  "v": "auto",
+  "trade": "Mechanic",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "neighborly-cleaning-east-peoria": {
+  "v": "houseclean",
+  "trade": "House cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "neisen-lawn-landscape-bloomington": {
+  "v": "landscape",
+  "trade": "lawn & landscape contractor",
+  "src": "https://www.yellowpages.com/bloomington-il/landscape-contractors",
+  "on": "2026-11-20"
+ },
+ "new-generation-auto-care-springfield": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "new-generation-painting-services-peoria": {
+  "v": "painter",
+  "trade": "Painting",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "new-horizon-landscape-germantown-hills": {
+  "v": "landinstall",
+  "trade": "landscape design-build + hardscaping (likely match)",
+  "src": "https://www.homeadvisor.com/rated.NewHorizonLandscapeand.65552691.html",
+  "on": "2026-11-20"
+ },
+ "new-life-landscape-and-lawncare-llc-chillicothe": {
+  "v": "landscape",
+  "trade": "lawn care & landscaping (probable)",
+  "src": "https://www.homeadvisor.com/rated.NewLifeLandscaping.107170790.html",
+  "on": "2026-11-20"
+ },
+ "newton-antiques-collectibles-newton-nc": {
+  "v": "thrift",
+  "trade": "Antique store",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "next-level-painting-cabinet-refinishing-llc-vassar-mi": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "nick-tee-tee-tree-service-peoria": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "no-limitz-painting-macomb": {
+  "v": "painter",
+  "trade": "Painting",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "nord-cleaning-services-inc-bloomington": {
+  "v": "janitorial",
+  "trade": "Janitorial service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "nori-s-ham-corned-beef-restaurant-saginaw-saginaw-mi": {
+  "v": "restaurant",
+  "trade": "Restaurant",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "norm-s-auto-repair-macomb": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "normal-valley-landscaping-hudson": {
+  "v": "landscape",
+  "trade": "Landscaper",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "northside-auto-body-industry": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "northside-cycle-auto-llc-richmond-in": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "northside-landscaping-normal": {
+  "v": "landscape",
+  "trade": "Landscaper",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "o-a-lawn-care-metamora": {
+  "v": "landscape",
+  "trade": "Landscaper",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "o-donoghue-s-radiator-shop-lincoln": {
+  "v": "radiator",
+  "trade": "Auto radiator repair service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "oak-grove-landscaping-washington": {
+  "v": "landinstall",
+  "trade": "landscape contractor/design, also excavating per Google",
+  "src": "https://www.yellowpages.com/washington-il/landscape-contractors",
+  "on": "2026-11-20"
+ },
+ "olson-auto-body-paint-wausau-wi": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "olson-tree-services-galesburg": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "on-the-spot-carpet-cleaning-pittsburg-ks": {
+  "v": "carpetclean",
+  "trade": "Carpet cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "one-call-does-it-all-peoria": {
+  "v": "painter",
+  "trade": "painting + cleaning contractor (multi-service)",
+  "src": "https://www.yellowpages.com/peoria-il/mip/one-call-does-it-all-464560371",
+  "on": "2026-11-20"
+ },
+ "ortiz-paint-and-body-corp-peoria": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "p-t-peppers-lawn-care-rock-falls": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "pablo-s-ice-cream-house-peoria": {
+  "v": "icecream",
+  "trade": "Ice cream shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "paducah-transmission-auto-repair-paducah-ky": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "pages-diesel-automotive-marion-in": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "paige-towing-recovery-big-spring-tx": {
+  "v": "towing",
+  "trade": "Towing service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "paint-pros-of-peoria-peoria": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "palmer-truck-trailer-repair-salina-ks": {
+  "v": "truck",
+  "trade": "Truck repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "parson-s-automotive-rolla-mo": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "pat-s-landscape-services-kewanee": {
+  "v": "landscape",
+  "trade": "landscape contractor",
+  "src": "https://www.yellowpages.com/kewanee-il/landscape-contractors",
+  "on": "2026-11-20"
+ },
+ "patricia-house-cleaning-peoria": {
+  "v": "houseclean",
+  "trade": "Cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "paul-s-auto-garage-springfield": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "paul-s-transmission-service-inc-canton": {
+  "v": "transmission",
+  "trade": "transmission repair shop",
+  "src": "https://www.yellowpages.com/canton-il/auto-repair-service",
+  "on": "2026-11-20"
+ },
+ "pdk-tree-lawn-services-fairbury": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "peaceful-healing-lima-oh": {
+  "v": "massage",
+  "trade": "Massage therapist",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "pedrito-auto-repair-llc-springfield": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "pekin-alignment-auto-body-pekin": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "pekin-pro-grounds-pekin": {
+  "v": "landscape",
+  "trade": "Landscaper",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "peoria-maid-right-peoria": {
+  "v": "houseclean",
+  "trade": "House cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "peoria-painting-decking-hanna-city": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "peoria-s-best-cleaning-services-peoria": {
+  "v": "houseclean",
+  "trade": "House cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "perfect-nails-new-owner-bloomfield-hills-mi": {
+  "v": "nails",
+  "trade": "Nail salon",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "performance-automotive-pekin": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "performance-stump-grinding-pekin": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "pet-palace-metamora": {
+  "v": "petgroom",
+  "trade": "Pet groomer",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "peter-s-landscaping-chillicothe": {
+  "v": "landscape",
+  "trade": "Landscaper",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "phil-s-upholstery-shop-lynchburg-va": {
+  "v": "upholstery",
+  "trade": "Upholstery shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "phillips-sons-tree-service-metamora": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "piercings-by-spencer-salina-ks": {
+  "v": "tattoo",
+  "trade": "body piercing (by name and Google category)",
+  "src": "business name and Google category",
+  "on": "2026-11-20"
+ },
+ "pike-s-peak-tree-trimming-removal-richmond-in": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "pines-and-paws-chandler-tx": {
+  "v": "petgroom",
+  "trade": "Pet groomer",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "platinum-mowing-chillicothe": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "pontiac-glass-co-pontiac": {
+  "v": "autoglass",
+  "trade": "Auto glass shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "poodle-patch-pet-shop-tyler-tx": {
+  "v": "petgroom",
+  "trade": "Pet groomer",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "precision-collision-chillicothe": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "precision-property-services-chillicothe": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "precision-transmission-service-of-dubuque-inc-dubuque-ia": {
+  "v": "transmission",
+  "trade": "Transmission shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "prehoda-s-repairs-springfield": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "premier-view-landscaping-l-l-c-peoria": {
+  "v": "landscape",
+  "trade": "Landscaper",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "prestige-cleaning-residential-services-washington": {
+  "v": "houseclean",
+  "trade": "House cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "priority-view-painting-and-remodeling-inc-professional-interior-and-exterior-house-painting-peoria": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "pro-auto-macomb": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "pro-care-automotive-dubuque-ia": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "pro-class-auto-body-macomb": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "pro-fades-barbershop-marathon-fl": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "pro-finish-inc-elizabethtown-ky": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "pro-windshields-peoria": {
+  "v": "autoglass",
+  "trade": "auto glass / windshield repair & replacement",
+  "src": "https://www.yellowpages.com/peoria-il/mip/pro-windshields-461583917",
+  "on": "2026-11-20"
+ },
+ "procision-auto-body-peoria": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "puckett-s-mechanical-service-marion-in": {
+  "v": "truck",
+  "trade": "Truck repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "quick-wrench-lube-east-peoria": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "r-ketchum-painting-normal": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "r-l-truck-repair-lincoln": {
+  "v": "truck",
+  "trade": "Truck repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "r-marit-painting-inc-peoria": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "r-p-auto-repair-pekin": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "r-r-heating-ac-llc-beverly-ma": {
+  "v": "hvac",
+  "trade": "Air conditioning contractor",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "r-r-landscaping-llc-mosinee-wi": {
+  "v": "landscape",
+  "trade": "landscaper",
+  "src": "https://pro.porch.com/mosinee-wi/landscapers/cp",
+  "on": "2026-11-20"
+ },
+ "r-s-stump-grinding-and-odd-jobs-mora-mn": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "rainbow-donuts-fountain-hills-az": {
+  "v": "bakery",
+  "trade": "Bakery",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "randy-s-glass-auto-service-llc-paducah-ky": {
+  "v": "autoglass",
+  "trade": "Auto glass shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "ray-and-tony-s-barber-shop-holly-hill-fl": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "ray-s-auto-services-knoxville": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "ray-s-family-automotive-repair-in-normal-normal": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "ray-s-family-automotive-repair-pekin": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "razor-zone-salon-eureka": {
+  "v": "salon",
+  "trade": "Beauty salon",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "rc-lawncare-landscaping-llc-galesburg": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "rdr-stump-grinding-metamora": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "redmond-pro-painting-llc-peoria": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "reliable-glass-auto-services-kewanee": {
+  "v": "autoglass",
+  "trade": "Auto glass shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "reneau-painting-plus-peoria": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "renegade-auto-repair-sedalia-mo": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "renew-massage-therapy-llc-carlisle-ia": {
+  "v": "massage",
+  "trade": "Massage therapist",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "repair-s-unlimited-inc-smithfield": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "restoration-roofing-solutions-sedalia-mo": {
+  "v": "roofing",
+  "trade": "Roofing contractor",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "revive-painting-llc-peoria": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "reyes-cleaning-solutions-llc-east-peoria": {
+  "v": "houseclean",
+  "trade": "House cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "rg-lawn-works-galesburg": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "richard-s-affordable-repair-cape-girardeau-mo": {
+  "v": "auto",
+  "trade": "Mechanic",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "richno-exhaust-auto-service-springfield": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "ricky-s-automotive-springfield": {
+  "v": "brake",
+  "trade": "Brake shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "riley-lawn-care-snowplowing-galesburg": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "robert-rusch-inc-sheboygan-wi": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "robin-tree-service-pekin": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "robinhood-muffler-muskegon-mi": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "rocket-lawn-care-llc-london-mills": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "rockhold-painting-and-decorating-peoria": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "rod-s-repair-eau-claire-wi": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "room-2-grow-learning-academy-llc-valdosta-ga": {
+  "v": "daycare",
+  "trade": "Day care center",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "room-by-room-painting-pekin": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "root-eaters-plumbing-and-drain-cleaning-services-llc-saginaw-mi": {
+  "v": "plumbing",
+  "trade": "plumber focused on drain cleaning (per name and Google)",
+  "src": "business name and Google category",
+  "on": "2026-11-20"
+ },
+ "rowland-heating-air-morton": {
+  "v": "hvac",
+  "trade": "HVAC heating and cooling",
+  "src": "https://www.experience.com/reviews/rowland-22907127",
+  "on": "2026-11-20"
+ },
+ "rpm-automotive-muskegon-mi": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "rrs-landscaping-concrete-canton": {
+  "v": "concrete",
+  "trade": "concrete & landscape contractor",
+  "src": "https://www.yellowpages.com/canton-il/concrete-contractors",
+  "on": "2026-11-20",
+  "name_ok": true
+ },
+ "rusty-auto-services-springfield": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "rusty-s-auto-service-springfield-mi": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "ryan-sand-blasting-painting-wyoming": {
+  "v": "painter",
+  "trade": "sandblasting & painting contractor",
+  "src": "https://www.yellowpages.com/wyoming-il/mip/ryan-sand-blasting-painting-28005618",
+  "on": "2026-11-20"
+ },
+ "ryno-painting-manito": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
  "s-d-tree-service-lawn-care-mackinaw": {
   "v": "tree",
-  "trade": "tree service (Google category) + lawn care",
-  "src": "business name and Google category",
+  "trade": "tree service + lawn care",
+  "src": "https://cars.superpages.com/mackinaw-il/tree-service",
+  "on": "2026-11-20"
+ },
+ "s-l-repair-galesburg": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "s-s-auto-repair-shop-hannibal-mo": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "s-s-automotive-repair-canton": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "s-s-automotive-small-car-engine-repair-lincoln": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "s-s-custom-llc-terre-haute-in": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "s-w-auto-repair-bushnell": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "safe-lock-key-company-rome-ga": {
+  "v": "locksmith",
+  "trade": "Locksmith",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "safety-lane-auto-services-hannibal-mo": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "salmon-s-tree-service-terre-haute-in": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "salon-305-washington": {
+  "v": "salon",
+  "trade": "Hair salon",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "sander-s-radiator-battery-co-bowling-green-ky": {
+  "v": "auto",
+  "trade": "Car repair and maintenance service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "sandrock-auto-body-pekin": {
+  "v": "autobody",
+  "trade": "auto body and collision repair",
+  "src": "https://www.superpages.com/pekin-il/auto-alignment-frames",
+  "on": "2026-11-20"
+ },
+ "sangamon-diesel-services-springfield": {
+  "v": "truck",
+  "trade": "Truck repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "satterwhites-auto-marine-upholstery-lynchburg-va": {
+  "v": "upholstery",
+  "trade": "Upholstery shop",
+  "src": "Google listing category",
   "on": "2026-11-20"
  },
  "schafer-landscaping-inc-peoria": {
@@ -147,22 +4257,941 @@
   "src": "http://schaferlandscapinginc.localsearch.com",
   "on": "2026-11-20"
  },
+ "schenk-painting-bloomington": {
+  "v": "painter",
+  "trade": "painting contractor",
+  "src": "https://www.yellowpages.com/bloomington-il/painting-contractors",
+  "on": "2026-11-20"
+ },
+ "schneider-s-auto-kewanee": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "schneiders-muffler-sioux-city-ia": {
+  "v": "muffler",
+  "trade": "Muffler shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "schwartz-s-lawn-care-services-llc-rochester": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "scotty-s-auto-service-mason-city-ia": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "scramble-brazilian-jiu-jitsu-and-wrestling-rome-ga": {
+  "v": "martial",
+  "trade": "Martial arts school",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "second-shift-autowerks-llc-st-cloud-mn": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "sellen-repair-springfield-mi": {
+  "v": "truck",
+  "trade": "Truck repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "service-1st-lawn-care-morton": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "sewn-together-mo-joplin-mo": {
+  "v": "tailor",
+  "trade": "Clothing alteration service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "sharps-small-engines-brookland-ar": {
+  "v": "smallengine",
+  "trade": "Small engine repair service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "sheley-s-repair-lincoln": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "shere-s-construction-handyman-joplin-mo": {
+  "v": "handyman",
+  "trade": "Handyman/Handywoman/Handyperson",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "shinn-s-lawn-service-galesburg": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "shirley-design-huntington-beach-ca": {
+  "v": "welding",
+  "trade": "Welder",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "shuford-s-towing-auto-care-hildebran-nc": {
+  "v": "towing",
+  "trade": "Towing service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "sierra-painting-llc-janesville-wi": {
+  "v": "painter",
+  "trade": "Painting",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "skaggs-lawn-care-washington": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "smart-auto-repair-janesville-wi": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "smith-s-automotive-restoration-peoria": {
+  "v": "autobody",
+  "trade": "antique & classic car restoration / auto body",
+  "src": "https://www.yellowpages.com/peoria-il/automobile-restoration-antique-classic",
+  "on": "2026-11-20"
+ },
+ "smoke-valley-tree-services-marion-in": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "snider-s-alignment-services-cape-girardeau-mo": {
+  "v": "brake",
+  "trade": "Brake shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "sns-bakery-co-pekin": {
+  "v": "bakery",
+  "trade": "Bakery",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "snyders-trees-galesburg": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "sonnek-s-body-shop-mankato-mn": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "sooner-auto-truck-repair-midwest-city-ok": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "sos-automotive-joplin-mo": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "south-grand-tires-and-repair-springfield": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "sparkie-s-auto-custom-knoxville": {
+  "v": "auto",
+  "trade": "Car repair and maintenance service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "speed-lube-10-minute-oil-pekin": {
+  "v": "auto",
+  "trade": "quick oil change / lube shop",
+  "src": "https://www.yellowpages.com/pekin-il/auto-repair-service",
+  "on": "2026-11-20"
+ },
+ "speedy-enterprises-tree-service-east-peoria": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "speedy-pete-s-richmond-in": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "spicer-painting-lima-oh": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "splash-of-art-painting-services-peoria": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "sprinter-xpress-llc-sedalia-mo": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "srt-services-bloomington": {
+  "v": "snow",
+  "trade": "Snow removal service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "starkey-outdoor-solutions-normal": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "steffens-landscaping-lincoln": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "steve-s-bug-clinic-st-cloud-mn": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "steve-s-smith-allen-storage-galesburg": {
+  "v": "transmission",
+  "trade": "Transmission shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "steve-s-tree-landscaping-hudson": {
+  "v": "tree",
+  "trade": "tree service + landscaping",
+  "src": "https://www.yellowpages.com/hudson-il/mip/steves-tree-landscaping-579799951",
+  "on": "2026-11-20"
+ },
+ "stewart-property-services-normal": {
+  "v": "landscape",
+  "trade": "Landscaper",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "straight-edge-paints-macomb": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "stump-eez-grinding-service-clinton": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "stylz-hair-nail-salon-saginaw-mi": {
+  "v": "salon",
+  "trade": "Beauty salon",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
  "sugar-creek-landscaping-tree-service-bloomington": {
   "v": "landscape",
   "trade": "landscaping and tree service (per name and Google category Landscaper)",
   "src": "business name and Google category",
   "on": "2026-11-20"
  },
+ "suit-expo-florence-sc": {
+  "v": "boutique",
+  "trade": "men's suit & formal wear store",
+  "src": "https://visitflo.com/eat/p/suit-expo-64b6cfdf8e104e6748c8fdbc",
+  "on": "2026-11-20"
+ },
+ "sunshine-owensboro-ky": {
+  "v": "carpetclean",
+  "trade": "Carpet cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "superior-autobody-refinishing-inc-peoria": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "supreme-automotive-mechanics-mufflers-paducah-ky": {
+  "v": "muffler",
+  "trade": "Muffler shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "supreme-cleaning-pekin": {
+  "v": "houseclean",
+  "trade": "House cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "surfaces-custom-flooring-design-tyler-tx": {
+  "v": "flooring",
+  "trade": "Flooring store",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
  "svensson-painting-wall-cvrng-bloomington": {
   "v": "painter",
-  "trade": "painting & wallcovering (by name)",
-  "src": "business name and Google category",
+  "trade": "painting & wallcovering contractor",
+  "src": "https://www.yellowpages.com/bloomington-il/painting-contractors",
+  "on": "2026-11-20"
+ },
+ "sweet-side-by-krystal-bloomington": {
+  "v": "bakery",
+  "trade": "Bakery",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "swings-garage-pekin": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "t-a-automotive-stanford": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "t-d-auto-repair-el-sobrante-ca": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "t-j-lawn-care-and-home-services-pawnee": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "t-t-auto-repair-towing-west-monroe-la": {
+  "v": "towing",
+  "trade": "Towing service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "tank-s-auto-body-l-l-c-kewanee": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "tc-landscaping-snow-abingdon": {
+  "v": "landscape",
+  "trade": "Landscaper",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "temple-auto-care-collision-zanesville-oh": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "tendermaid-sandwich-shop-austin-mn": {
+  "v": "restaurant",
+  "trade": "tiny loose-meat sandwich shop (Maid-Rite style)",
+  "src": "https://www.onlyinyourstate.com/?p=2612689",
+  "on": "2026-11-20"
+ },
+ "teresa-s-upholstery-alterations-llc-flint-tx": {
+  "v": "upholstery",
+  "trade": "Upholstery shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "terra-firma-landscape-desing-bloomington": {
+  "v": "landinstall",
+  "trade": "landscape contractor & designer",
+  "src": "https://www.yellowpages.com/bloomington-il/mip/terra-firma-landscape-desing-463839364",
+  "on": "2026-11-20"
+ },
+ "tevoert-auto-bloomington": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "tharp-s-stump-removal-galesburg": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "the-autobarn-bushnell": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "the-baking-guy-bloomington": {
+  "v": "bakery",
+  "trade": "Bakery",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "the-corner-cafe-griffin-ga": {
+  "v": "restaurant",
+  "trade": "family restaurant (breakfast, lunch, dinner)",
+  "src": "https://exploregeorgia.org/griffin/food-drink/cafes-coffeehouses-tea-rooms/the-corner-cafe",
+  "on": "2026-11-20"
+ },
+ "the-correct-lawncare-company-peoria": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "the-daily-scoop-peoria-heights": {
+  "v": "icecream",
+  "trade": "Ice cream shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "the-engine-doctors-nelsons-auto-motive-lincoln": {
+  "v": "auto",
+  "trade": "Mechanic",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "the-full-scoop-colchester": {
+  "v": "icecream",
+  "trade": "Ice cream shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "the-gravel-pit-pekin": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
   "on": "2026-11-20"
  },
  "the-grease-spot-pekin": {
   "v": "auto",
   "trade": "quick oil change / lube shop",
   "src": "https://www.yellowpages.com/pekin-il/auto-oil-lube",
+  "on": "2026-11-20"
+ },
+ "the-hodge-podge-in-the-village-rome-ga": {
+  "v": "thrift",
+  "trade": "Antique store",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "the-pawlor-luxury-grooming-johnson-city-tn": {
+  "v": "petgroom",
+  "trade": "Pet groomer",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "the-royal-treatment-painting-decorating-bloomington": {
+  "v": "painter",
+  "trade": "residential painting and decorating",
+  "src": "https://angi.com/companylist/us/il/bloomington/the-royal-treatment-llc-painting-and-decorating-reviews-5546295.htm",
+  "on": "2026-11-20"
+ },
+ "the-tree-surgeon-peoria": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "the-ware-s-cookie-shack-east-peoria": {
+  "v": "bakery",
+  "trade": "Bakery",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "thieves-market-florence-sc": {
+  "v": "thrift",
+  "trade": "Antique store",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "thomas-collision-paducah-ky": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "thomas-tree-services-owensboro-ky": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "thompson-land-improvement-knoxville": {
+  "v": "landinstall",
+  "trade": "landscape contractor; 'land improvement' suggests grading/land clearing",
+  "src": "https://www.yellowpages.com/knoxville-il/landscape-contractors",
+  "on": "2026-11-20"
+ },
+ "thrifty-muffler-automotive-kokomo-in": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "tim-s-auto-repair-mansfield-oh": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "tiny-s-triangle-service-ellis-auto-llc-pekin": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "tip-top-tree-sedalia-mo": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "tlc-pet-grooming-tyler-tx": {
+  "v": "petgroom",
+  "trade": "Pet groomer",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "tnt-auto-services-marion-in": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "tnt-painting-cleaning-bloomington": {
+  "v": "painter",
+  "trade": "painting + cleaning",
+  "src": "https://www.homeadvisor.com/rated.TNTCleaningPaintin.125202682.html",
+  "on": "2026-11-20"
+ },
+ "tnt-tree-service-stump-grinding-bloomington": {
+  "v": "tree",
+  "trade": "tree service",
+  "src": "https://cars.superpages.com/bloomington-il/bpp/tnt-tree-service-stump-grinding-463836651",
+  "on": "2026-11-20"
+ },
+ "toby-s-lawn-care-macomb": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "toby-tree-silvis": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "tom-s-muffler-auto-repair-cape-girardeau-mo": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "tomlinson-motor-services-inc-lima-oh": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "tommy-s-auto-shop-bloomington": {
+  "v": "auto",
+  "trade": "Car repair and maintenance service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "tony-s-upholstery-tyler-tx": {
+  "v": "upholstery",
+  "trade": "Upholstery shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "tonys-services-salina-ks": {
+  "v": "appliance",
+  "trade": "Appliance store",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "top-notch-auto-bloomington": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "top-notch-tree-service-inc-marshalltown-ia": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "top-to-bottom-tree-care-marion-in": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "torq-d-performance-repair-joplin-mo": {
+  "v": "truck",
+  "trade": "Truck repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "total-lawn-perfection-normal": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "trego-s-auto-body-springfield": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "tri-county-painting-sandblasting-pekin": {
+  "v": "painter",
+  "trade": "painting + sandblasting",
+  "src": "https://www.yellowpages.com/pekin-il/sandblasting",
+  "on": "2026-11-20"
+ },
+ "tri-county-painting-sndblstg-pekin": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "trimp-s-auto-care-scappoose-or": {
+  "v": "auto",
+  "trade": "Car repair and maintenance service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "triple-a-hydroseed-normal": {
+  "v": "lawn",
+  "trade": "hydroseeding / landscape contractor",
+  "src": "https://www.yellowpages.com/normal-il/landscape-contractors",
+  "on": "2026-11-20"
+ },
+ "triple-j-s-janitorial-service-llc-peoria": {
+  "v": "janitorial",
+  "trade": "Janitorial service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "true-vine-tree-care-lonsdale-mn": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "tucker-glass-shop-south-sioux-city-ne": {
+  "v": "autoglass",
+  "trade": "Auto glass shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "tucks-auto-care-bowling-green-ky": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "tutor-s-appliance-service-saltillo-ms": {
+  "v": "appliance",
+  "trade": "Appliance repair service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "twin-city-tire-service-bloomington": {
+  "v": "auto",
+  "trade": "Mechanic",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "twin-grove-tree-specialists-llc-bloomington": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "ulrich-lawn-care-inc-washburn": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "unsicker-automotive-morton": {
+  "v": "auto",
+  "trade": "general auto repair",
+  "src": "https://www.yellowpages.com/morton-il/auto-repair-service",
+  "on": "2026-11-20"
+ },
+ "uppole-s-lawn-care-east-peoria": {
+  "v": "lawn",
+  "trade": "lawn care",
+  "src": "https://www.yellowpages.com/east-peoria-il/mip/uppoles-lawn-care-9915045",
+  "on": "2026-11-20"
+ },
+ "usa-car-care-jackson-mi": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "usa-towing-solutions-lincolnton-nc": {
+  "v": "towing",
+  "trade": "Towing service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "vazquez-auto-tire-inc-normal": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "vern-s-auto-repair-springfield": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "vertical-edge-services-kewanee": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "virg-s-auto-repair-salina-ks": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "vlahos-bros-llc-morton": {
+  "v": "landscape",
+  "trade": "Landscape designer",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "walden-automotive-bloomington": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "walker-trim-carpentry-and-hardscape-experts-canton": {
+  "v": "hardscape",
+  "trade": "trim carpentry & outdoor hardscape/patios (likely 'Walker Custom Trim and Outdoor Patio')",
+  "src": "https://www.networx.com/c.walker-custom-trim",
+  "on": "2026-11-20"
+ },
+ "wall-nuts-painting-pekin": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "walt-s-auto-repair-towing-sandusky-oh": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "walt-s-garage-pekin": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "weaver-automotive-colchester": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "welborn-painting-drywall-llc-dubuque-ia": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "welby-frampton-s-bakery-peoria": {
+  "v": "bakery",
+  "trade": "Bakery",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "wenninger-automotive-morton": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "wernsman-lawn-landscapes-metamora": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "west-michigan-automotive-saginaw-mi": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "whether-the-weather-lawn-care-peoria": {
+  "v": "landscape",
+  "trade": "lawn care and landscaping with some hardscape",
+  "src": "https://www.homeadvisor.com/rated.WhethertheWeatherLawn.99374884.html",
+  "on": "2026-11-20"
+ },
+ "whistle-tree-service-pekin": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "whitmore-s-garage-ipava": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "wildwood-tree-service-llc-prairie-du-chien-wi": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "williams-auto-repair-fairbury": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "wilson-tree-service-snow-removal-peoria": {
+  "v": "snow",
+  "trade": "Snow removal service",
+  "src": "Google listing category",
+  "on": "2026-11-20",
+  "name_ok": true
+ },
+ "wingate-body-shop-inc-findlay-oh": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "winkler-s-auto-repair-galesburg": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "wolfe-radiator-works-inc-zanesville-oh": {
+  "v": "radiator",
+  "trade": "Auto radiator repair service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "wonderland-daycare-jonesboro-ar": {
+  "v": "daycare",
+  "trade": "Child care agency",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "woods-painting-remodeling-washington": {
+  "v": "painter",
+  "trade": "painting + remodeling",
+  "src": "https://www.yellowpages.com/washington-il/painting-contractors",
+  "on": "2026-11-20"
+ },
+ "wright-personal-fitness-rome-ga": {
+  "v": "gym",
+  "trade": "personal trainer (per Google category)",
+  "src": "business name and Google category",
+  "on": "2026-11-20"
+ },
+ "yolanda-s-place-kokomo-in": {
+  "v": "restaurant",
+  "trade": "soul food restaurant",
+  "src": "https://thekokomopost.squarespace.com/articles/local-restaurant-relocates-to-former-pho-location",
+  "on": "2026-11-20"
+ },
+ "yong-s-alterations-cleaners-arvada-co": {
+  "v": "tailor",
+  "trade": "Clothing alteration service",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "young-s-automotive-pekin": {
+  "v": "auto",
+  "trade": "auto repair shop (incl. engine rebuilding & transmission)",
+  "src": "https://www.yellowpages.com/pekin-il/mip/youngs-automotive-5017638",
+  "on": "2026-11-20"
+ },
+ "zaabs-automotive-and-tire-bloomington": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "zaharion-s-automotive-battle-creek-mi": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-20"
+ },
+ "zehr-tree-service-deer-creek": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
   "on": "2026-11-20"
  }
 }

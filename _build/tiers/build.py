@@ -451,13 +451,13 @@ NAME_SIGNS = [(r"stone|masonry|paver|hardscap|brick|retaining", "hardscape"), (r
               (r"concrete|cement|flatwork", "concrete"), (r"roof", "roofing"), (r"\bfenc", "fence"), (r"\btrees?\b|stump|\barbor|forestry", "tree"),
               (r"lawn|mow|turf", "lawn"), (r"\btow(ing)?\b|wrecker", "towing"), (r"\bbody\b|autobody|collision", "autobody"),
               (r"glass|windshield", "autoglass"), (r"paint", "painting"), (r"plumb|rooter", "plumbing"), (r"electric", "electrical"),
-              (r"hvac|heating|cooling|furnace", "hvac"), (r"barber", "barber"), (r"groom", "petgroom"), (r"clean(?! cut)|maid|janitor", "cleaning")]
+              (r"hvac|heating|cooling|furnace", "hvac"), (r"barber", "barber"), (r"groom", "petgroom"), (r"clean(?! cut| shave)|\bmaids?\b|janitor", "cleaning")]
 NAME_FITS = {  # signals a variant can carry without a conflict
     "auto": {"autobody", "towing", "electrical", "hvac", "autoglass"}, "truck": {"autobody", "towing"}, "transmission": set(), "radiator": {"hvac"},
     "muffler": set(), "brake": set(), "autobody": {"painting", "autoglass", "towing"}, "autoglass": set(), "towing": {"autobody"},
     "tree": {"lawn", "excavation"}, "lawn": {"tree", "cleaning"}, "landscape": {"lawn", "tree", "hardscape", "concrete"}, "snow": {"lawn"},
-    "hardscape": {"concrete", "excavation", "lawn"}, "excavation": {"hardscape", "concrete", "lawn", "tree"}, "concrete": {"hardscape", "excavation"},
-    "painter": {"cleaning", "roofing"}, "houseclean": set(), "janitorial": set(), "pressurewash": {"cleaning", "painting"}, "carpetclean": set(),
+    "hardscape": {"concrete", "excavation", "lawn"}, "landinstall": {"lawn", "tree", "hardscape", "concrete", "excavation"}, "excavation": {"hardscape", "concrete", "lawn", "tree"}, "concrete": {"hardscape", "excavation"},
+    "painter": {"cleaning", "roofing"}, "houseclean": set(), "janitorial": set(), "pressurewash": {"cleaning", "painting"}, "carpetclean": {"cleaning"}, "tailor": {"cleaning"},
     "handyman": {"painting", "cleaning", "lawn", "roofing", "fence"}, "roofing": set(), "petgroom": {"cleaning"}, "plumbing": {"cleaning", "hvac"},
     "hvac": {"plumbing", "electrical"}, "electrical": {"hvac"}, "smallengine": {"lawn"}}
 

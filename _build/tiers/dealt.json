@@ -657,8 +657,8 @@
   "name": "Home Improvements Plus",
   "town": "Morton",
   "phone": "(309) 264-0968",
-  "cat": "Landscaper",
-  "v": "landscape",
+  "cat": "Home improvement & landscaping",
+  "v": "handyman",
   "maps": "https://www.google.com/maps/search/?api=1&query=Home+Improvements+Plus+Morton%2C+IL",
   "towns": [
    "Morton",
@@ -676,7 +676,32 @@
   "stage": "calling",
   "gstatus": "nf",
   "rating": null,
-  "reviews": 0
+  "reviews": 0,
+  "copy": {
+   "label": "Home Improvement",
+   "lede": "Home improvements and landscaping in {town} and nearby. Tell us about the project and get a straight quote.",
+   "services": [
+    [
+     "Home improvements",
+     "Updates and projects around the house."
+    ],
+    [
+     "Repairs",
+     "The fixes that keep a house in shape."
+    ],
+    [
+     "Landscaping",
+     "Yard projects when the outside needs work too."
+    ]
+   ],
+   "jobs": [
+    "Home improvement",
+    "Repair",
+    "Landscaping",
+    "A list of things",
+    "Something else"
+   ]
+  }
  },
  {
   "slug": "j-p-painting-morton",
@@ -1145,7 +1170,7 @@
   "name": "The Grease Spot",
   "town": "Pekin",
   "phone": "(309) 347-7768",
-  "cat": "Auto repair shop",
+  "cat": "Oil change & lube",
   "v": "auto",
   "maps": "https://www.google.com/maps/search/?api=1&query=The+Grease+Spot+Pekin%2C+IL",
   "towns": [
@@ -1164,7 +1189,36 @@
   "stage": "calling",
   "gstatus": "nf",
   "rating": null,
-  "reviews": 0
+  "reviews": 0,
+  "copy": {
+   "label": "Oil Change & Lube",
+   "h300": [
+    "In and out,",
+    "oil changed."
+   ],
+   "lede": "Oil changes and quick maintenance in {town}. Stop in or tell us what the car needs.",
+   "services": [
+    [
+     "Oil changes",
+     "In and out without the long wait."
+    ],
+    [
+     "Lube and fluids",
+     "Grease, fluids and filters checked and topped off."
+    ],
+    [
+     "Quick maintenance",
+     "Wipers, bulbs and the small stuff."
+    ]
+   ],
+   "jobs": [
+    "Oil change",
+    "Fluids",
+    "Filters or wipers",
+    "Something else"
+   ],
+   "ask": "What does the car need?"
+  }
  },
  {
   "slug": "the-royal-treatment-painting-decorating-bloomington",
