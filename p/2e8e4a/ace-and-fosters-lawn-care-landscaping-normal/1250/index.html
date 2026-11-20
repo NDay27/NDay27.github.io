@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="/f/assets/kit.css?v=20261120">
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/","@pmndrs/assets/":"https://cdn.jsdelivr.net/npm/@pmndrs/assets@1.7.0/"}}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "HomeAndConstructionBusiness", "name": "Ace and Fosters Lawn Care & Landscaping", "telephone": "+13093104906", "address": {"@type": "PostalAddress", "addressLocality": "Normal", "addressRegion": "IL", "addressCountry": "US"}, "areaServed": ["Normal IL", "Bloomington IL"]}</script>
-<script type="application/json" id="cfg">{"tier": 1250, "group": "lawn", "v": "landscape", "name": "Ace and Fosters Lawn Care & Landscaping", "short": "Ace and Fosters Lawn Care", "town": "Normal", "phone": "(309) 310-4906", "tel": "+13093104906", "jobs": ["New landscaping", "Beds and plantings", "Cleanup", "Upkeep", "Something else"], "when": ["As soon as possible", "In the next two weeks", "This season", "Just getting a quote"]}</script>
+<script type="application/json" id="cfg">{"tier": 1250, "group": "lawn", "v": "landscape", "name": "Ace and Fosters Lawn Care & Landscaping", "short": "Ace and Fosters Lawn Care", "town": "Normal", "st": "IL", "phone": "(309) 310-4906", "tel": "+13093104906", "jobs": ["New landscaping", "Beds and plantings", "Cleanup", "Upkeep", "Something else"], "when": ["As soon as possible", "In the next two weeks", "This season", "Just getting a quote"]}</script>
 <style>
 :root{--navy:#173322;--navy2:#1f4430;--paper:#f1f3ec;--paper2:#e6eadf;--white:#fbfcf8;--ink:#14261b;--muted:#55635a;--line:#d3dacd;--pencil:#b5d94a;--pencil2:#cde77a;--blue:#3a7541;--barbg:#0c1a11;--serif:"Fraunces",Georgia,serif;--sans:"Instrument Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--gut:clamp(18px,4.2vw,48px);--max:1240px}
 body{background:var(--paper)}
@@ -251,7 +251,7 @@ html.framed .cbar{bottom:12px}
 .scene .stills img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--pos,50% 50%);opacity:0;transition:opacity .9s var(--ease)}
 .scene .stills img.on{opacity:1}
 .scene.live .stills{opacity:0;transition:opacity 1.2s var(--ease) .2s;pointer-events:none}
-.scene::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,color-mix(in srgb,var(--navy) 70%,transparent) 0,#0000 46%),linear-gradient(180deg,#0000 70%,color-mix(in srgb,var(--navy) 60%,transparent))}
+.scene::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,color-mix(in srgb,var(--navy) 74%,transparent) 0,color-mix(in srgb,var(--navy) 46%,transparent) 36%,#0000 70%),linear-gradient(180deg,#0000 70%,color-mix(in srgb,var(--navy) 60%,transparent))}
 .beats{position:relative;z-index:1;margin-top:-100svh}
 .beat{min-height:100svh;display:flex;align-items:center;padding:calc(var(--bar) + 90px) 0 64px}
 .beat .wrap{width:100%}
@@ -260,8 +260,8 @@ html.framed .cbar{bottom:12px}
 .cap h2{font-size:clamp(30px,3.6vw,48px);margin-top:12px;letter-spacing:-.02em;line-height:1.02}
 .cap p{margin-top:12px;color:#ffffffc8;font-size:17px}
 .beat.hero0{align-items:flex-end;padding-bottom:clamp(40px,8vh,96px)}
-.hero0 h1{font-size:clamp(46px,7vw,100px);line-height:.95;letter-spacing:-.03em;max-width:9em;font-weight:500;text-shadow:0 2px 30px #0006}
-.hero0 h1 em{font-style:italic;color:var(--pencil2)}
+.hero0 h1{font-size:clamp(46px,7vw,100px);line-height:.95;letter-spacing:-.03em;max-width:9em;font-weight:500;text-shadow:0 2px 30px #0008,0 1px 2px #0005}
+.hero0 h1 em{display:block;font-style:italic;color:var(--pencil2)}
 .hero0 .lede{margin-top:20px;font-size:clamp(17px,1.5vw,20px);color:#ffffffd6;max-width:30em;text-shadow:0 1px 16px #0008}
 .hero0 .acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
 .hero0 .btn.line{color:#fff}
@@ -284,7 +284,7 @@ html.framed .cbar{bottom:12px}
 .panel .fine{margin-top:18px;font-size:13px;color:#ffffff9c}
 .illo3d{position:absolute;right:var(--gut);bottom:16px;z-index:2;font-size:12px;color:#ffffffa0}
 @media (max-width:760px){
-  .scene::after{background:linear-gradient(180deg,#0000 35%,color-mix(in srgb,var(--navy) 85%,transparent) 100%)}
+  .scene::after{background:linear-gradient(180deg,#0000 28%,color-mix(in srgb,var(--navy) 58%,transparent) 56%,color-mix(in srgb,var(--navy) 90%,transparent) 100%)}
   .beat{align-items:flex-end;padding-bottom:28px}
   .cap{max-width:none;padding:20px}
   .cap h2{font-size:28px}

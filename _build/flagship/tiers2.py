@@ -110,7 +110,7 @@ def tool(s):
                 f'<div class="months" id="months" role="group" aria-label="Month">{btns}</div><script type="application/json" id="monthData">{data}</script></div>'
                 f'<div class="card rv" id="moCard" data-check=\'{IC["CHECK"]}\' aria-live="polite"><p class="eyebrow" style="color:var(--muted)">In your yard</p><p class="mo" style="margin-top:10px">March</p><ul></ul>'
                 f'<button class="btn solid" type="button" id="moAdd" data-job="Spring cleanup">Ask about spring cleanup</button>'
-                f'<p class="note">A general guide for Central Illinois yards. {E(s["short"])} will tell you what yours needs.</p></div></div>')
+                f'<p class="note">A general guide for {"Central Illinois" if kit.st(s) == "IL" else kit.state(s)} yards. {E(s["short"])} will tell you what yours needs.</p></div></div>')
     if g == "tree":
         q = [("size", "How tall is it?", [("small", "Under 20 ft"), ("mid", "20 to 40 ft"), ("big", "Over 40 ft")]),
              ("near", "How close to the house?", [("touching", "Touching it"), ("close", "Within 10 ft"), ("clear", "Farther away")]),

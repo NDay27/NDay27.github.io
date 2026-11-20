@@ -18,7 +18,7 @@ CSS = """
 .scene .stills img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--pos,50% 50%);opacity:0;transition:opacity .9s var(--ease)}
 .scene .stills img.on{opacity:1}
 .scene.live .stills{opacity:0;transition:opacity 1.2s var(--ease) .2s;pointer-events:none}
-.scene::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,color-mix(in srgb,var(--navy) 70%,transparent) 0,#0000 46%),linear-gradient(180deg,#0000 70%,color-mix(in srgb,var(--navy) 60%,transparent))}
+.scene::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,color-mix(in srgb,var(--navy) 74%,transparent) 0,color-mix(in srgb,var(--navy) 46%,transparent) 36%,#0000 70%),linear-gradient(180deg,#0000 70%,color-mix(in srgb,var(--navy) 60%,transparent))}
 .beats{position:relative;z-index:1;margin-top:-100svh}
 .beat{min-height:100svh;display:flex;align-items:center;padding:calc(var(--bar) + 90px) 0 64px}
 .beat .wrap{width:100%}
@@ -27,8 +27,8 @@ CSS = """
 .cap h2{font-size:clamp(30px,3.6vw,48px);margin-top:12px;letter-spacing:-.02em;line-height:1.02}
 .cap p{margin-top:12px;color:#ffffffc8;font-size:17px}
 .beat.hero0{align-items:flex-end;padding-bottom:clamp(40px,8vh,96px)}
-.hero0 h1{font-size:clamp(46px,7vw,100px);line-height:.95;letter-spacing:-.03em;max-width:9em;font-weight:500;text-shadow:0 2px 30px #0006}
-.hero0 h1 em{font-style:italic;color:var(--pencil2)}
+.hero0 h1{font-size:clamp(46px,7vw,100px);line-height:.95;letter-spacing:-.03em;max-width:9em;font-weight:500;text-shadow:0 2px 30px #0008,0 1px 2px #0005}
+.hero0 h1 em{display:block;font-style:italic;color:var(--pencil2)}
 .hero0 .lede{margin-top:20px;font-size:clamp(17px,1.5vw,20px);color:#ffffffd6;max-width:30em;text-shadow:0 1px 16px #0008}
 .hero0 .acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
 .hero0 .btn.line{color:#fff}
@@ -51,7 +51,7 @@ CSS = """
 .panel .fine{margin-top:18px;font-size:13px;color:#ffffff9c}
 .illo3d{position:absolute;right:var(--gut);bottom:16px;z-index:2;font-size:12px;color:#ffffffa0}
 @media (max-width:760px){
-  .scene::after{background:linear-gradient(180deg,#0000 35%,color-mix(in srgb,var(--navy) 85%,transparent) 100%)}
+  .scene::after{background:linear-gradient(180deg,#0000 28%,color-mix(in srgb,var(--navy) 58%,transparent) 56%,color-mix(in srgb,var(--navy) 90%,transparent) 100%)}
   .beat{align-items:flex-end;padding-bottom:28px}
   .cap{max-width:none;padding:20px}
   .cap h2{font-size:28px}

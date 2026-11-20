@@ -101,6 +101,21 @@ def favicon(g):
     return "data:image/svg+xml," + re.sub(r"[<>#\"]", lambda m: {"<": "%3C", ">": "%3E", "#": "%23", '"': "'"}[m.group()], svg)
 
 
+STATE_NAME = {"IL": "Illinois", "MO": "Missouri", "IN": "Indiana", "KY": "Kentucky", "OH": "Ohio", "MI": "Michigan", "WI": "Wisconsin",
+              "MN": "Minnesota", "IA": "Iowa", "KS": "Kansas", "NE": "Nebraska", "OK": "Oklahoma", "TX": "Texas", "AR": "Arkansas",
+              "LA": "Louisiana", "MS": "Mississippi", "AL": "Alabama", "TN": "Tennessee", "GA": "Georgia", "SC": "South Carolina",
+              "NC": "North Carolina", "VA": "Virginia", "PA": "Pennsylvania"}
+
+
+def st(s):
+    """Two-letter state; shops.json carries `st` only for leads outside Illinois."""
+    return s.get("st") or "IL"
+
+
+def state(s):
+    return STATE_NAME.get(st(s), st(s))
+
+
 def tel(p):
     return "+1" + re.sub(r"\D", "", p)[-10:]
 
@@ -246,14 +261,14 @@ def bar(s, tier):
 def ldjson(s):
     typ = "HousePainter" if s["group"] == "painting" else "HomeAndConstructionBusiness"
     d = {"@context": "https://schema.org", "@type": typ, "name": s["name"], "telephone": s["tel"],
-         "address": {"@type": "PostalAddress", "addressLocality": s["town"], "addressRegion": "IL", "addressCountry": "US"},
-         "areaServed": [t + " IL" for t in towns(s)]}
+         "address": {"@type": "PostalAddress", "addressLocality": s["town"], "addressRegion": st(s), "addressCountry": "US"},
+         "areaServed": [t + " " + st(s) for t in towns(s)]}
     return json.dumps(d, ensure_ascii=False).replace("</", "<\\/")
 
 
 def cfg(s, tier):
     v = V[s["v"]]
-    d = {"tier": tier, "group": s["group"], "v": s["v"], "name": s["name"], "short": s["short"], "town": s["town"], "phone": s["phone"], "tel": s["tel"],
+    d = {"tier": tier, "group": s["group"], "v": s["v"], "name": s["name"], "short": s["short"], "town": s["town"], "st": st(s), "phone": s["phone"], "tel": s["tel"],
          "jobs": v["jobs"], "when": v["when"]}
     return json.dumps(d, ensure_ascii=False).replace("</", "<\\/")
 

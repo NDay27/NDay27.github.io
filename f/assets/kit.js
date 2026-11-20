@@ -63,7 +63,7 @@
   // save-to-contacts card
   var vc = $("#vcard");
   if (vc) vc.addEventListener("click", function () {
-    var v = "BEGIN:VCARD\nVERSION:3.0\nFN:" + C.name + "\nORG:" + C.name + "\nTEL;TYPE=WORK,VOICE:" + C.tel + "\nADR;TYPE=WORK:;;;" + C.town + ";IL;;USA\nNOTE:Sample contact from a Nolan Day Studio preview site.\nEND:VCARD";
+    var v = "BEGIN:VCARD\nVERSION:3.0\nFN:" + C.name + "\nORG:" + C.name + "\nTEL;TYPE=WORK,VOICE:" + C.tel + "\nADR;TYPE=WORK:;;;" + C.town + ";" + (C.st || "IL") + ";;USA\nNOTE:Sample contact from a Nolan Day Studio preview site.\nEND:VCARD";
     var a = D.createElement("a"); a.href = URL.createObjectURL(new Blob([v], {type: "text/vcard"})); a.download = (C.short || "contact").replace(/[^A-Za-z0-9]+/g, "-") + ".vcf"; D.body.appendChild(a); a.click(); a.remove();
   });
 

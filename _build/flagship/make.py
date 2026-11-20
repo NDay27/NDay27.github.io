@@ -45,8 +45,8 @@ def convert(src):
 def base_vals(s, tier):
     g = s["group"]; v = V[s["v"]]; t = THEME[g]
     return {
-        "NAME": E(s["name"]), "SHORT": E(s["short"]), "SHORT_POSS": E(kit.poss(s["short"])), "TOWN": E(s["town"]),
-        "TRADE": TRADE[s["v"]], "PHONE": s["phone"], "TEL": s["tel"], "MAPS": E(s.get("maps") or f"https://www.google.com/maps/search/{s['name']} {s['town']} IL"),
+        "NAME": E(s["name"]), "SHORT": E(s["short"]), "SHORT_POSS": E(kit.poss(s["short"])), "TOWN": E(s["town"]), "ST": kit.st(s), "STATE": kit.state(s),
+        "TRADE": TRADE[s["v"]], "PHONE": s["phone"], "TEL": s["tel"], "MAPS": E(s.get("maps") or f"https://www.google.com/maps/search/{s['name']} {s['town']} {kit.st(s)}"),
         "THEME": kit.theme_vars(g), "EXTRA_CSS": kit.EXTRA_CSS[g], "PAPER": t["paper"], "FONTS": t["fonts"], "FAVICON": kit.favicon(g), "VER": VER,
         "LOGO": kit.logo(g), "BAR": kit.bar(s, tier), "LDJSON": kit.ldjson(s), "CFG": kit.cfg(s, tier),
         "OG": f"{SITE}{BASE}{s['slug']}/shots/v{tier}.jpg",
@@ -62,7 +62,7 @@ def base_vals(s, tier):
 
 def facts(s):
     ck = kit.IC["CHECK"]; tw = kit.towns(s)
-    out = [f"{s['town']} and {len(tw) - 1} nearby towns" if len(tw) > 2 else f"Based in {s['town']}, Illinois",
+    out = [f"{s['town']} and {len(tw) - 1} nearby towns" if len(tw) > 2 else f"Based in {s['town']}, {kit.state(s)}",
            f"Call or text {s['phone']}",
            f"Rated {kit.rnum(s)} on Google" if kit.rating_ok(s) else "Find us on Google Maps",
            "Quote request in about a minute"]
