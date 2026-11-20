@@ -1,5 +1,5 @@
 """Sample-site copy for the mixed business types (Nov 20 2026): beauty, food, retail, pets, fitness, studio, trades,
-plus carpet cleaning (cleaning group) and towing (auto group).
+plus carpet cleaning (cleaning group). Towing uses the trades group.
 
 Same shape as tiercopy.V. Copy says only what's true of any shop of that kind: no years in business, licenses,
 prices, awards or hours, because the sample sites are built from the Google listing alone.
@@ -179,7 +179,7 @@ V = {
    "Carpet cleaning in {town} and nearby. Tell us about the rooms and get a straight quote.",
    [("Carpet cleaning", "Deep cleaning for the whole house or one room."), ("Spots and stains", "Pets, spills and high-traffic paths."), ("Upholstery", "Sofas and chairs cleaned too.")],
    ["Whole house", "A few rooms", "Stains", "Upholstery", "Something else"], HOME_WHEN, "homeowners", "What needs cleaning?"),
- "towing": _v("auto", "crew", ["Stuck?", "We're on the way."], ["Call us.", "We'll come to you."], ["Hooked up.", "Hauled home."],
+ "towing": _v("trades", "crew", ["Stuck?", "We're on the way."], ["Call us.", "We'll come to you."], ["Hooked up.", "Hauled home."],
    "Towing and roadside help in {town} and nearby. Call and tell us where you are.",
    [("Towing", "Cars and trucks taken where they need to go."), ("Roadside help", "Jump starts, lockouts and flat tires."), ("Hauling", "Ask about moving a vehicle.")],
    ["Tow", "Jump start", "Lockout", "Flat tire", "Something else"], FAST_WHEN, "drivers", "Where are you and what happened?"),

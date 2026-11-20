@@ -789,7 +789,7 @@ async function buildTrades() {
   const go = button("Start the job", b => { if (done) return; done = true; b.textContent = "On the way"; tween(26, 7.4, 2600, z => { v.car.position.z = z; v.wheels.forEach(w => w.rotation.z -= .08); W.shadows(); }, easeIO); setTimeout(() => { jobFx(); b.textContent = "Job done"; b.classList.add("hot"); }, reduce ? 0 : 2700); });
 }
 const TRADE_NAME = {roofing: "Roofing", plumbing: "Plumbing", electrical: "Electrical", hvac: "Heating & Air", handyman: "Handyman", flooring: "Flooring", fence: "Fencing",
-  concrete: "Concrete", pressurewash: "Pressure Washing", welding: "Welding", appliance: "Appliance Repair", locksmith: "Locksmith", smallengine: "Small Engines"};
+  concrete: "Concrete", pressurewash: "Pressure Washing", welding: "Welding", appliance: "Appliance Repair", locksmith: "Locksmith", smallengine: "Small Engines", towing: "Towing"};
 
 // ---------------------------------------------------------------- run
 const builders = {auto: buildAuto, tree: buildTree, lawn: buildLawn, painting: buildPainting, cleaning: buildCleaning, sweets: buildSweets,
