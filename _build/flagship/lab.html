@@ -9,7 +9,7 @@
 // Usage: lab.html?p=1&[drive=wash|concrete&fix=0..1&truck=Name&tc=hex&ink=hex]&tod=.55&cam=x,y,z&tgt=x,y,z&fov=30&siding=white&roof=black&trim=black&door=fir&porch=1
 import {makeWorld} from "../../harlow/assets/world.js";
 import {makeHouse} from "../../harlow/assets/house.js";
-import {lawn, yardTree, flatwork, workTruck} from "../../f/assets/yard.js";
+import {lawn, yardTree, flatwork, workTruck, acUnit} from "../../f/assets/yard.js";
 const q = new URLSearchParams(location.search), num = (k, d) => q.has(k) ? +q.get(k) : d, vec = (k, d) => q.has(k) ? q.get(k).split(",").map(Number) : d;
 await document.fonts.load("700 40px Newsreader"); await document.fonts.load("700 40px 'Schibsted Grotesk'");
 let house, tree0 = null;
@@ -26,6 +26,7 @@ const hx = v => v && /^[0-9a-f]{6}$/i.test(v) ? parseInt(v, 16) : v;
 house.setFinish({siding: hx(q.get("siding")) || "white", roof: hx(q.get("roof")) || "black", trim: hx(q.get("trim")) || "black", door: q.get("door") || "fir", porch: q.get("porch") !== "0"});
 house.setProgress(num("p", 1));
 if (q.has("drive")) flatwork(world, {kind: q.get("drive")}).set({fix: num("fix", 0)});
+if (q.has("ac")) acUnit(world).set({fix: num("ac", 0)});
 if (q.has("truck")) await workTruck(world, {sign: q.get("truck"), x: num("tx", 9.5), z: num("tz", 21.5), ry: num("tr", 0), font: "Schibsted Grotesk", color: q.has("tc") ? parseInt(q.get("tc"), 16) : undefined, ink: q.get("ink") ? "#" + q.get("ink") : undefined});
 world.ctl.autoRotate = false; world.ctl.enableDamping = false; world.setQuality(2);
 world.size(); world.setTodNow(num("tod", .5));

@@ -75,7 +75,7 @@ def rows(s):
     jobs = v["jobs"]
     for i, (h, p) in enumerate(v["services"]):
         job = jobs[i] if i < len(jobs) - 1 else jobs[0]
-        out.append(f'<div class="row rv">{kit._I.format(kit.SVC_ICON.get(h, kit.SVC_ICON["_more"]))}<div><h3>{E(h)}</h3></div><p>{E(p)}</p>'
+        out.append(f'<div class="row rv">{kit._I.format(kit.svc_icon(s["group"], h))}<div><h3>{E(h)}</h3></div><p>{E(p)}</p>'
                    f'<a class="btn line ask" href="#quote" data-job="{E(job)}">Ask about this {kit.IC["ARROW"]}</a></div>')
     out.append(f'<div class="row rv">{kit._I.format(kit.SVC_ICON["_more"])}<div><h3>Something else?</h3></div><p>Ask anyway. If it isn\'t a fit, {E(s["short"])} will tell you straight.</p>'
                f'<a class="btn line ask" href="#quote" data-job="Something else">Ask about it {kit.IC["ARROW"]}</a></div>')

@@ -86,6 +86,7 @@ def short_name(n):
 
 
 SMALL = {"AND": "and", "OF": "of", "THE": "the", "IN": "in", "FOR": "for", "A": "A"}
+KEEP_CAPS = {"HVAC", "HVACR", "PLLC"}  # trade initialisms that read wrong in title case
 
 
 def nice_name(n):
@@ -93,7 +94,7 @@ def nice_name(n):
     out = []
     for i, w in enumerate(n.split()):
         bare = re.sub(r"[^A-Za-z]", "", w)
-        if bare.isupper() and len(bare) > 1 and not re.search(r"[A-Za-z]\.[A-Za-z]", w):
+        if bare.isupper() and len(bare) > 1 and bare not in KEEP_CAPS and not re.search(r"[A-Za-z]\.[A-Za-z]", w):
             if w == "THE" and not i:
                 w = "The"
             elif w in SMALL and i:

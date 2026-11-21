@@ -2,7 +2,7 @@
 // t1250.js turns scroll into a state (camera keys, light, trade values); this file draws it on the Harlow engine.
 import {makeWorld, reduce, small} from "../../harlow/assets/world.js";
 import {makeHouse} from "../../harlow/assets/house.js";
-import {lawn, yardTree, flatwork, workTruck} from "./yard.js";
+import {lawn, yardTree, flatwork, workTruck, acUnit} from "./yard.js";
 
 // camera keys: position, target, field of view (desktop)
 const K = {
@@ -29,7 +29,10 @@ const WORD = {bakery: "Bakery", cake: "Cakes", donut: "Donuts", salon: "Hair", b
               thrift: "Thrift", boutique: "Boutique", petgroom: "Grooming", tailor: "Tailor", upholstery: "Upholstery"};
 for (const g in STORE) K[g] = SK;
 K.concrete = {...K.wash, hero: [[1.2, 2.9, 31.5], [8.6, .9, 12], 40]};
-const HOME = {wash: "wash", concrete: "concrete"};
+// heating and cooling: the outdoor unit beside the house is the subject, the crew's truck at the curb
+K.hvac = {hero: [[-11.4, 1.5, 6.2], [-7.2, 1.0, -.3], 40], close: [[-10.2, 1.3, 3.4], [-7.3, .75, -.3], 40], dusk: [[-17, 3.2, 50], [-4, 1.6, 6], 34],
+          cfg: [[-11.8, 1.7, 6.6], [-7.2, .9, -.3], 42]};
+const HOME = {wash: "wash", concrete: "concrete", hvac: "ac"};
 
 // The camera rig every trade shares: blend between two keys, drift a little, frame the subject clear of the captions.
 function makeRig(world, keys, HB) {
@@ -136,9 +139,9 @@ export async function start(HB) {
   // home services: the drive overlay, the crew's truck, and (washing) grime on the siding
   let drive = null; const hcur = {fix: 0, house: 0}, GRIME = {siding: new THREE.Color(0xa9a68f), trim: new THREE.Color(0x6f6d60)}, CLEAN = {};
   if (HOME[g]) {
-    drive = flatwork(world, {kind: HOME[g]});
+    drive = HOME[g] === "ac" ? acUnit(world) : flatwork(world, {kind: HOME[g]});
     const font = getComputedStyle(document.documentElement).getPropertyValue("--serif").split(",")[0].trim() || "sans-serif";
-    await workTruck(world, {sign: HB.name || "", font, x: -1.5, z: 35.4, ry: Math.PI / 2});
+    await workTruck(world, {sign: HB.name || "", font, x: HOME[g] === "ac" ? -11 : -1.5, z: 35.4, ry: Math.PI / 2});
     CLEAN.siding = house.M.siding.color.clone(); CLEAN.trim = house.M.trim.color.clone();
   }
   let hfirst = true;

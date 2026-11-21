@@ -162,7 +162,7 @@ def services(s):
         job = v["jobs"][i] if i < len(v["jobs"]) - 1 else v["jobs"][0]
         im, alt = SVC_IMG[g][i]
         fig = (pic(g, im, alt) if im else
-               f'<div style="width:100%;height:100%;display:grid;place-items:center;background:linear-gradient(135deg,#f3e2d3,#e9d5c9 50%,#d9dde8);color:var(--navy)">{kit._I.format(kit.SVC_ICON.get(h, kit.SVC_ICON["_more"])).replace("class=\"ic\"", "style=\"width:96px;height:96px\"")}</div>')
+               f'<div style="width:100%;height:100%;display:grid;place-items:center;background:linear-gradient(135deg,#f3e2d3,#e9d5c9 50%,#d9dde8);color:var(--navy)">{kit._I.format(kit.svc_icon(g, h)).replace("class=\"ic\"", "style=\"width:96px;height:96px\"")}</div>')
         out.append(f'<div class="sv rv"><span class="no">0{i + 1}</span><div><h3>{E(h)}</h3></div><div><p>{E(p)}</p>'
                    f'<a class="btn line ask" href="#plan" data-job="{E(job)}">Ask about this {IC["ARROW"]}</a></div><figure>{fig}</figure></div>')
     return "".join(out)

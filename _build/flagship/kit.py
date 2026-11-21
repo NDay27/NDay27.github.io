@@ -278,7 +278,7 @@ def elevation(g, s=None):
         svg = svg.replace("</svg>", _tree() + "</svg>")
     elif g in HOMES:
         svg = re.sub(r'<g class="dim".*?</g>', "", svg, flags=re.S)
-        note = {"wash": "siding and drive, washed", "concrete": "new drive, poured and jointed"}[g]
+        note = {"wash": "siding and drive, washed", "concrete": "new drive, poured and jointed", "hvac": "new unit on the pad, lines to the wall"}[g]
         svg = svg.replace("</svg>", f'<g class="note" style="--w:3.2s"><text x="1340" y="700" text-anchor="end">{note}</text></g></svg>')
     else:
         i = svg.index("<path"); svg = svg[:i] + _rolls() + svg[i:]
@@ -384,6 +384,11 @@ SVC_ICON.update(home.SVC_ICON)
 for _g, _c in home.EXTRA_CSS.items():
     EXTRA_CSS[_g] = (EXTRA_CSS["auto"] if _c is None else _c) + home.QUIZ_CSS
 HOMES = tuple(home.GROUPS)
+
+
+def svc_icon(g, h):
+    """Service icon, group-specific first (two trades can both list "Repairs")."""
+    return SVC_ICON.get((g, h)) or SVC_ICON.get(h, SVC_ICON["_more"])
 QUIZ = STORES + HOMES  # groups whose Signature tool is the two-question quiz
 KIT_V_EXTRA.update(home.KIT_V)
 NAME_OUT_EXTRA.update(home.NAME_OUT)
