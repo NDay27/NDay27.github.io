@@ -410,14 +410,21 @@ export async function makeStore(world, {kind = "bakery", sign = "Bakery", font =
     box(.9, .5, .6, trim, 2.0, .85, -.85); for (let k = 0; k < 4; k++) box(.4, .07, .3, mat(garm[k + 2], .85), 2.0, 1.14 + k * .07, -.85);
     cyl(.07, .05, .3, mat(0xf2efe8, .3), 2.3, 1.25, -.8, P, 14);
   } else if (kind === "antique") {
+    const oldPaint = (c, asp) => { const W = 256, H = Math.round(256 / asp), cv = document.createElement("canvas"); cv.width = W; cv.height = H; const g = cv.getContext("2d"), col = new THREE.Color(c);
+      const sky = g.createLinearGradient(0, 0, 0, H); sky.addColorStop(0, "#c9b98a"); sky.addColorStop(.55, "#e6d6a8"); sky.addColorStop(1, "#8a7a52"); g.fillStyle = sky; g.fillRect(0, 0, W, H);
+      g.fillStyle = "#" + col.clone().multiplyScalar(.75).getHexString(); g.beginPath(); g.moveTo(0, H * .62); for (let x = 0; x <= W; x += 16) g.lineTo(x, H * (.58 + .07 * Math.sin(x / 37 + c % 7))); g.lineTo(W, H); g.lineTo(0, H); g.fill();
+      g.fillStyle = "#" + col.clone().multiplyScalar(.45).getHexString(); g.beginPath(); g.moveTo(0, H * .78); for (let x = 0; x <= W; x += 16) g.lineTo(x, H * (.76 + .05 * Math.sin(x / 23 + c % 5))); g.lineTo(W, H); g.lineTo(0, H); g.fill();
+      for (let i = 0; i < 3; i++) { const x = W * (.2 + .3 * i + .05 * (c % 3)), y = H * .6; g.fillStyle = "#3f4a2e"; g.beginPath(); g.ellipse(x, y - H * .08, W * .05, H * .1, 0, 0, 6.3); g.fill(); g.fillRect(x - 2, y - H * .02, 4, H * .08); }
+      const v = g.createRadialGradient(W / 2, H / 2, Math.min(W, H) * .25, W / 2, H / 2, Math.max(W, H) * .7); v.addColorStop(0, "rgba(60,40,10,0)"); v.addColorStop(1, "rgba(40,25,8,.65)"); g.fillStyle = v; g.fillRect(0, 0, W, H);
+      const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; return t; };
     // a grandfather clock, a china hutch, a rocking chair, a trunk, a gramophone in the window and framed pictures
     const walnut = mat(0x4a2e1c, .45), oak = mat(0x8a5a32, .5), china = mat(0xf3efe6, .25), BZ = IZ1 + .3;
-    const clock = new THREE.Group(); clock.position.set(2.7, 0, BZ); P.add(clock);
+    const clock = new THREE.Group(); clock.position.set(-.95, 0, BZ + .02); P.add(clock);
     box(.62, .3, .42, walnut, 0, .15, 0, clock); box(.5, 1.3, .34, walnut, 0, .95, 0, clock); box(.6, .62, .4, walnut, 0, 1.91, 0, clock); box(.66, .1, .44, walnut, 0, 2.27, 0, clock);
     const face = add(new THREE.CylinderGeometry(.2, .2, .02, 28), china, 0, 1.92, .21, clock); face.rotation.x = Math.PI / 2; box(.01, .14, .01, dark, 0, 1.97, .225, clock); box(.1, .01, .01, dark, .04, 1.92, .225, clock);
     box(.3, .9, .01, glass, 0, .95, .175, clock).castShadow = false; cyl(.008, .008, .62, brass, 0, 1.1, .1, clock, 6); cyl(.08, .08, .02, brass, 0, .78, .1, clock, 18).rotation.x = Math.PI / 2;
-    const hutch = new THREE.Group(); hutch.position.set(-2.2, 0, BZ); P.add(hutch);
-    box(1.6, .9, .5, oak, 0, .45, 0, hutch); box(1.5, 1.1, .32, oak, 0, 1.45, -.08, hutch); box(1.66, .08, .5, oak, 0, 2.04, -.05, hutch);
+    const hutch = new THREE.Group(); hutch.position.set(-2.3, 0, BZ); P.add(hutch);
+    box(1.6, .9, .5, oak, 0, .45, 0, hutch); box(1.5, 1.1, .03, oak, 0, 1.45, -.225, hutch); for (const x of [-.74, .74]) box(.05, 1.1, .32, oak, x, 1.45, -.08, hutch); box(1.66, .08, .5, oak, 0, 2.04, -.05, hutch);
     for (const y of [1.2, 1.58]) box(1.42, .03, .28, oak, 0, y, -.06, hutch);
     for (const y of [1.22, 1.6]) for (let i = 0; i < 5; i++) { const pl = add(new THREE.CylinderGeometry(.11, .11, .015, 22), mat([0xf3efe6, 0xdde6ef, 0xf1e2c8][i % 3], .25), -.56 + i * .28, y + .13, -.14, hutch); pl.rotation.x = Math.PI / 2 - .2; }
     for (const x of [-.36, .36]) cyl(.02, .02, .04, brass, x, .7, .26, hutch, 8);
@@ -439,8 +446,8 @@ export async function makeStore(world, {kind = "bakery", sign = "Bakery", font =
     cyl(.05, .07, .3, brass, .75, .91, -4.1, P, 12); const shade = add(new THREE.ConeGeometry(.24, .2, 24, 1, true), glow(0xe9a35a, 1.4), .75, 1.16, -4.1, P); shade.castShadow = false; lamp(.75, 1.05, -4.1, .8, 4, 0xffcf8a);
     for (const [x, z] of [[1.1, -3.85], [1.2, -4.15]]) { cyl(.05, .035, .06, china, x, .79, z, P, 14); cyl(.08, .08, .01, china, x, .765, z, P, 18); }
     // framed pictures on the side wall and a shelf of crocks
-    for (const [z, y, w, h, c] of [[-3.0, 2.3, .7, .9, 0x6f7f5a], [-4.2, 2.5, .9, .6, 0x8a6a4a], [-5.4, 2.2, .6, .8, 0x4f6a7a], [-6.5, 2.45, .8, .6, 0xa0784a]]) { box(.05, h + .1, w + .1, mat(0xb08a4a, .4, .5), -IW / 2 + .14, y, z); box(.02, h, w, mat(c, .9), -IW / 2 + .17, y, z); }
-    const sh = shelf(.4, BZ, 2.0, [1.6, 2.1]); for (const y of [1.62, 2.12]) for (let i = 0; i < 6; i++) cyl(.08, .07, .2 + (i % 2) * .06, mat([0xd8cbb0, 0x7a5a3a, 0x9aa6a8][i % 3], .7), -.65 + i * .26, y + .12, 0, sh, 14);
+    for (const [z, y, w, h, c] of [[-3.0, 2.3, .7, .9, 0x6f7f5a], [-4.2, 2.5, .9, .6, 0x8a6a4a], [-5.4, 2.2, .6, .8, 0x4f6a7a], [-6.5, 2.45, .8, .6, 0xa0784a]]) { box(.05, h + .1, w + .1, mat(0xb08a4a, .4, .5), -IW / 2 + .14, y, z); const pic = add(new THREE.PlaneGeometry(w, h), new THREE.MeshStandardMaterial({map: oldPaint(c, w / h), roughness: .85, envMapIntensity: .3}), -IW / 2 + .175, y, z, P); pic.rotation.y = Math.PI / 2; pic.castShadow = false; }
+    const sh = shelf(.65, BZ, 1.8, [1.6, 2.1]); for (const y of [1.62, 2.12]) for (let i = 0; i < 6; i++) cyl(.08, .07, .2 + (i % 2) * .06, mat([0xd8cbb0, 0x7a5a3a, 0x9aa6a8][i % 3], .7), -.65 + i * .26, y + .12, 0, sh, 14);
     // window: a gramophone on a little table
     box(.7, .7, .5, walnut, -2.2, .35, -1.0); const gr = new THREE.Group(); gr.position.set(-2.2, .7, -1.0); P.add(gr); box(.4, .18, .4, walnut, 0, .09, 0, gr); cyl(.16, .16, .01, dark, 0, .19, 0, gr, 24);
     const horn = add(new THREE.CylinderGeometry(.3, .02, .55, 24, 1, true), mat(0xb8893a, .3, .8), .08, .55, .1, gr); horn.material.side = THREE.DoubleSide; horn.rotation.set(-.6, 0, -.5); cyl(.012, .012, .3, brass, .04, .3, .02, gr, 6);
