@@ -1211,5 +1211,65 @@
   "w": 1600,
   "h": 1000,
   "q": "p=1&truck=Plumbing&tx=-6&tz=35.4&tr=1.5708&tod=0.3&cam=-6.6,1.6,22.6&tgt=-3.2,.05,18.2&fov=40&pipe=1"
+ },
+ {
+  "name": "handy-before",
+  "w": 2400,
+  "h": 1350,
+  "q": "p=1&truck=Handyman&tx=1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-5.2,2.0,15&tgt=-1.4,2.0,6.4&fov=42&hm=0&ox=0.13"
+ },
+ {
+  "name": "handy-after",
+  "w": 2400,
+  "h": 1350,
+  "q": "p=1&truck=Handyman&tx=1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-5.2,2.0,15&tgt=-1.4,2.0,6.4&fov=42&hm=1&ox=0.13"
+ },
+ {
+  "name": "handy-s1",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Handyman&tx=1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-3.6,1.6,12.6&tgt=-1.0,1.7,6.4&fov=44&hm=0"
+ },
+ {
+  "name": "handy-s2",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Handyman&tx=1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-3.6,1.6,12.6&tgt=-1.0,1.7,6.4&fov=44&hm=.5"
+ },
+ {
+  "name": "handy-s3",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Handyman&tx=1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-1.6,1.2,10&tgt=0,.4,6.8&fov=40&hm=.72"
+ },
+ {
+  "name": "handy-s4",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Handyman&tx=1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-7,1.7,46&tgt=-1,1.6,22&fov=40&hm=1"
+ },
+ {
+  "name": "handy-dusk",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Handyman&tx=1.5&tz=35.4&tr=1.5708&tod=0.84&cam=-7,1.7,46&tgt=-1,1.6,22&fov=40&hm=1"
+ },
+ {
+  "name": "handy-gutter",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Handyman&tx=1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-3.6,1.6,12.6&tgt=-1.0,1.7,6.4&fov=44&hm=.3"
+ },
+ {
+  "name": "handy-steps",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Handyman&tx=1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-1.6,1.2,10&tgt=0,.4,6.8&fov=40&hm=1"
+ },
+ {
+  "name": "handy-street",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Handyman&tx=1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-7,1.7,46&tgt=-1,1.6,22&fov=40&hm=0"
  }
 ]

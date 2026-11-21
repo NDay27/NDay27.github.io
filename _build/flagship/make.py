@@ -70,6 +70,11 @@ def facts(s):
     return "".join(f"<li>{ck}{E(x)}</li>" for x in out)
 
 
+def NOWRAP(h):
+    """Keep "to-do" on one line in the handyman headline (it broke as "to- / do")."""
+    return h.replace('">That to-do list? <span', '">That <span style="white-space:nowrap">to-do</span> list? <span')
+
+
 def rows(s):
     v = V[s["v"]]; out = []
     jobs = v["jobs"]
@@ -134,7 +139,7 @@ def main():
         import room
         import store
         import tiers2
-        fix = store.wording if s["group"] in kit.STORES else (lambda h: h)
+        fix = store.wording if s["group"] in kit.STORES else NOWRAP if s["group"] == "handy" else (lambda h: h)
         os.makedirs(os.path.join(d, "room"), exist_ok=True)
         open(os.path.join(d, "index.html"), "w").write(fix(page300(s, meet)))
         open(os.path.join(d, "room", "index.html"), "w").write(fix(room.page(s, meet)))
