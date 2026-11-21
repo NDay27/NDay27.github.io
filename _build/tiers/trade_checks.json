@@ -5791,5 +5791,995 @@
   "src": "Google listing category",
   "on": "2026-11-21",
   "name_ok": true
+ },
+ "gfactor-property-improvements-peoria": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "sunshine-tree-service-maintenance-chillicothe": {
+  "v": "tree",
+  "trade": "Arborist service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "blunier-farms-excavating-paint-eureka": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "williams-auto-repair-auto-body-canton": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "b-w-harn-landscaping-peoria-heights": {
+  "v": "landscape",
+  "trade": "Landscaper",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "rebellion-paint-siding-yates-city": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "aaron-shepherd-tree-trimming-and-power-washing-galesburg": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "kimble-paint-power-washing-macomb": {
+  "v": "painter",
+  "trade": "Painting",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "ferguson-landscape-construction-llc-abingdon": {
+  "v": "landscape",
+  "trade": "Landscaper",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "el-patron-mexican-grill-bar-austin-mn": {
+  "v": "restaurant",
+  "trade": "Mexican restaurant",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "tasty-donuts-griffin-griffin-ga": {
+  "v": "donut",
+  "trade": "Donut shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "shiraz-goodland-ks": {
+  "v": "restaurant",
+  "trade": "American restaurant",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "original-rainbow-donuts-cafe-scottsdale-az": {
+  "v": "donut",
+  "trade": "Donut shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "the-bricks-by-maria-llc-goodland-ks": {
+  "v": "restaurant",
+  "trade": "American restaurant",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "built-to-last-automotive-services-durango-co": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "grinder-s-deli-austin-mn": {
+  "v": "restaurant",
+  "trade": "Deli",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "sun-baked-food-4-the-soul-fountain-hills-az": {
+  "v": "restaurant",
+  "trade": "American restaurant",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "the-dog-house-bar-grill-mt-horeb-wi": {
+  "v": "restaurant",
+  "trade": "Bar & grill",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "marcel-s-auburn-me": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "o-p-nails-st-marys-oh": {
+  "v": "nails",
+  "trade": "Nail salon",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "gray-s-automotive-oklahoma-city-ok": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "jackson-s-automotive-camp-hill-pa": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "paintway-to-heaven-llc-youngsville-nc": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "columbia-county-auto-repair-scappoose-saint-helens-warren-or": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "new-wave-salon-belfast-me": {
+  "v": "salon",
+  "trade": "Beauty salon",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "s-s-barber-shop-beaufort-sc": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "the-cottage-pet-grooming-travelers-rest-sc": {
+  "v": "petgroom",
+  "trade": "Pet groomer",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "bb-s-salon-barbershop-belpre-oh": {
+  "v": "salon",
+  "trade": "Beauty salon",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "chrisjayden-auto-repair-oklahoma-city-ok": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "the-rec-room-goodland-ks": {
+  "v": "restaurant",
+  "trade": "Restaurant",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "amy-s-pet-grooming-travelers-rest-sc": {
+  "v": "petgroom",
+  "trade": "Pet groomer",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "roger-s-haircutters-lewiston-me": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "main-street-auto-west-newbury-ma": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "t-j-landscaping-llc-gaffney-sc": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "on-stage-and-company-rock-springs-wy": {
+  "v": "salon",
+  "trade": "Hair salon",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "mid-valley-lawn-care-millersburg-or": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "barbosa-s-barbershop-daytona-beach-daytona-beach-fl": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "escada-hair-studio-lewiston-me": {
+  "v": "salon",
+  "trade": "Hair salon",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "urban-edge-auburn-me": {
+  "v": "salon",
+  "trade": "Hair salon",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "hairapy-by-kaycee-k-rock-springs-wy": {
+  "v": "salon",
+  "trade": "Beauty salon",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "sweatt-s-shop-formally-trenton-auto-repair-trenton-tn": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "level-up-barbershop-west-chester-township-oh": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "the-hair-place-st-marys-oh": {
+  "v": "salon",
+  "trade": "Beauty salon",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "karen-s-tracks-to-beauty-logansport-in": {
+  "v": "salon",
+  "trade": "Beauty salon",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "great-eco-lawn-care-raleigh-nc": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "kat-tails-pet-grooming-auburn-ca": {
+  "v": "petgroom",
+  "trade": "Pet groomer",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "dick-francoms-barbershop-green-river-wy": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "b-b-thrift-store-wellsville-pa": {
+  "v": "thrift",
+  "trade": "Second hand store",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "vert-life-llc-durham-nc": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "shear-talent-country-style-morrill-me": {
+  "v": "salon",
+  "trade": "Hair salon",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "freddy-s-garage-seminole-tx": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "green-fusion-landcare-llc-st-petersburg-fl": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "j-c-auto-repair-seminole-tx": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "vision-body-works-seminole-tx": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "precision-hair-studio-daytona-beach-fl": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "the-magic-touch-auto-repair-durango-co": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "sweeney-braz-s-barbershop-salon-green-river-wy": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "martin-s-body-shop-wrecker-service-seminole-tx": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "cliff-s-hair-styling-salon-belfast-me": {
+  "v": "salon",
+  "trade": "Beauty salon",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "dish-hair-salon-belfast-me": {
+  "v": "salon",
+  "trade": "Beauty salon",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "colima-auto-repair-san-pablo-ca": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "underground-salon-rock-springs-wy": {
+  "v": "salon",
+  "trade": "Hair salon",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "a-lopez-yard-maintenance-llc-salem-or": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "rosser-s-lawn-care-llc-lillington-nc": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "vaughn-auto-repair-trenton-tn": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "fernando-s-body-shop-seminole-tx": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "st-marys-barbershop-st-marys-oh": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "grindstone-lawn-care-berea-oh": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "grove-side-thrift-store-eustis-fl": {
+  "v": "thrift",
+  "trade": "Thrift store",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "jazzmine-rose-canine-spa-travelers-rest-sc": {
+  "v": "petgroom",
+  "trade": "Pet groomer",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "jose-s-lawn-service-albany-or": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "steinys-repair-llc-mt-horeb-wi": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "kj-s-hair-salon-llc-st-marys-oh": {
+  "v": "salon",
+  "trade": "Hair salon",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "premium-lawncare-llc-angier-nc": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "upper-echelon-port-royal-sc": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "lola-s-kloset-boutique-llc-cincinnati-oh": {
+  "v": "boutique",
+  "trade": "Boutique",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "sorted-boutiques-baxter-mn": {
+  "v": "boutique",
+  "trade": "Women's clothing store",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "no-mow-weeds-lawncare-llc-ozark-al": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "greenzone-landscaping-llc-enterprise-al": {
+  "v": "landscape",
+  "trade": "Landscaper",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "a-1-pet-grooming-metairie-la": {
+  "v": "petgroom",
+  "trade": "Pet groomer",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "braught-landscaping-services-llc-albany-or": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "always-best-lawn-care-millbrook-al": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "j-l-lawncare-service-dothan-al": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "nolde-s-auto-repair-and-machine-shop-plymouth-pa": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "luisiana-tree-services-llc-shelton-wa": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "victory-auto-body-repair-paint-south-san-francisco-ca": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "snw-autoworks-south-san-francisco-ca": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "x-o-nails-butler-nj": {
+  "v": "nails",
+  "trade": "Nail salon",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "94-west-salon-oakland-nj": {
+  "v": "salon",
+  "trade": "Beauty salon",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "lu-custom-tailor-riverdale-md": {
+  "v": "tailor",
+  "trade": "Tailor",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "strom-tree-service-grand-forks-nd": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "romans-tailoring-inc-greenvale-ny": {
+  "v": "tailor",
+  "trade": "Tailor",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "g-o-auto-body-and-repair-south-san-francisco-ca": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "benito-tailoring-roslyn-ny": {
+  "v": "tailor",
+  "trade": "Tailor",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "kurt-s-affordable-lawn-care-llc-prineville-or": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "texas-kountry-kitchen-dayton-tx": {
+  "v": "restaurant",
+  "trade": "Family restaurant",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "senor-beef-parlier-ca": {
+  "v": "restaurant",
+  "trade": "Hamburger restaurant",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "bonao-tires-auto-repair-wilkes-barre-pa": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "all-in-garage-hardeeville-sc": {
+  "v": "auto",
+  "trade": "Car repair and maintenance service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "mt-orab-barber-shop-mt-orab-oh": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "jason-s-auto-body-hardeeville-sc": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "the-sticky-icky-barbeque-co-sanger-ca": {
+  "v": "restaurant",
+  "trade": "Barbecue restaurant",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "yoly-s-hair-salon-american-fork-ut": {
+  "v": "salon",
+  "trade": "Beauty salon",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "dawn-donuts-dayton-tx": {
+  "v": "donut",
+  "trade": "Donut shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "r-k-repair-services-inc-hardeeville-sc": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "everyday-cut-and-tan-mt-orab-oh": {
+  "v": "salon",
+  "trade": "Beauty salon",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "nick-s-automobile-repair-elmira-ny": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "elvis-barbershop-norwich-ct": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "modern-nails-new-modern-nails-ringwood-nj": {
+  "v": "nails",
+  "trade": "Nail salon",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "db-automotive-kingston-pa": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "jb-nail-bar-riverdale-nj": {
+  "v": "nails",
+  "trade": "Nail salon",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "service-world-unlimited-moosic-pa": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "hamilton-s-body-shop-liberty-township-oh": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "affordable-automotive-service-inc-kirtland-oh": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "east-stokes-thrift-store-walnut-cove-nc": {
+  "v": "thrift",
+  "trade": "Thrift store",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "wagner-s-auto-service-kingston-pa": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "lalonde-s-autobody-elmira-heights-ny": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "millville-motors-inc-hamilton-oh": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "maryanski-s-tree-service-prineville-or": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "daye-lily-beauty-bar-boutique-mt-orab-oh": {
+  "v": "salon",
+  "trade": "Beauty salon",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "the-tree-guy-stump-removal-tree-storm-prevention-tree-trimming-in-tacoma-wa-tacoma-wa": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "creative-upholstery-orange-tx": {
+  "v": "upholstery",
+  "trade": "Upholstery shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "serenity-salon-and-day-spa-hartwell-ga": {
+  "v": "salon",
+  "trade": "Hair salon",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "davis-brothers-auto-body-eaton-rapids-mi": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "steve-s-body-shop-elmira-ny": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "falcon-auto-body-repair-hamilton-oh": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "jack-s-auto-paint-edwardsville-pa": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "jnsq-salon-american-fork-ut": {
+  "v": "salon",
+  "trade": "Beauty salon",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "t-k-auto-body-hamilton-oh": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "loveline-designs-new-carrollton-md": {
+  "v": "tailor",
+  "trade": "Tailor",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "lewis-collision-refinishing-hamilton-oh": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "reber-auto-body-repair-inc-west-chester-township-oh": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "keen-landscaping-and-maintenance-willow-spring-nc": {
+  "v": "landscape",
+  "trade": "Landscaper",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "country-critters-grooming-kimberly-id": {
+  "v": "petgroom",
+  "trade": "Pet groomer",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "cp-gillaspie-hauling-tree-service-centralia-wa": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "lv-spa-nails-ringwood-nj": {
+  "v": "nails",
+  "trade": "Nail salon",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "toledo-landscape-maintenance-prineville-or": {
+  "v": "landscape",
+  "trade": "Landscaper",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "giraldi-auto-repair-service-fairfield-oh": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "just-teazin-salon-blakely-ga": {
+  "v": "salon",
+  "trade": "Beauty salon",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "frank-hille-custom-upholstering-collingswood-nj": {
+  "v": "upholstery",
+  "trade": "Upholstery shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "sanchez-tree-services-company-lacey-wa": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "nash-tree-removal-stump-grinding-llc-spanaway-wa": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "biggslawncare-trenton-tn": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "chandler-upholstery-haddon-township-nj": {
+  "v": "upholstery",
+  "trade": "Upholstery shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "shook-s-tree-service-and-removal-llc-roy-wa": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "bellizzimo-s-barber-shop-roosevelt-ut": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "aaron-s-tree-service-millington-tn": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "tailor-gm-fashion-art-glen-cove-ny": {
+  "v": "tailor",
+  "trade": "Custom tailor",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "w-a-thompson-tree-crane-services-memphis-tn": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "joel-s-tree-services-memphis-tn": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "mcgraw-auto-repair-and-paint-hardeeville-sc": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "cgs-snow-sanding-grand-forks-nd": {
+  "v": "landscape",
+  "trade": "Landscaper",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "andrew-s-lawncare-landscaping-peoria": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "asian-body-works-peoria": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "hoerdemann-s-landscaping-peoria": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "jc-landscape-maintenance-washington": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "johanson-land-care-peoria": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "p-town-maintenance-peoria-heights": {
+  "v": "lawn",
+  "trade": "Lawn care service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "triple-e-painting-service-bloomington": {
+  "v": "painter",
+  "trade": "Painter",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "elia-s-cleaning-services-atlanta-ga": {
+  "v": "houseclean",
+  "trade": "House cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "blessed-cleaning-st-charles-mo": {
+  "v": "houseclean",
+  "trade": "House cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "mo-s-marvelous-cleaning-company-union-city-ga": {
+  "v": "houseclean",
+  "trade": "House cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "crisp-cleaning-co-holland-mi": {
+  "v": "houseclean",
+  "trade": "House cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "southern-dixie-cleaning-service-moreland-ga": {
+  "v": "houseclean",
+  "trade": "House cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "town-country-services-greenland-nh-greenland-nh": {
+  "v": "janitorial",
+  "trade": "Janitorial service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
  }
 }

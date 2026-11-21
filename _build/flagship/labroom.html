@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>Room render lab</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@112,800&display=swap">
+<style>html,body{margin:0;height:100%;background:#000}.scene{position:fixed;inset:0}canvas{display:block;width:100%;height:100%}</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/","@pmndrs/assets/":"https://cdn.jsdelivr.net/npm/@pmndrs/assets@1.7.0/"}}</script>
+</head><body><div class="scene"><canvas id="c"></canvas></div>
+<script type="module">
+// Usage: labroom.html?tod=.3&cam=x,y,z&tgt=x,y,z&fov=44&fix=0..1[&card=Name&ox=.13]
+import {makeWorld} from "../../harlow/assets/world.js";
+import {makeRoom} from "../../f/assets/room.js";
+const q = new URLSearchParams(location.search), num = (k, d) => q.has(k) ? +q.get(k) : d, vec = (k, d) => q.has(k) ? q.get(k).split(",").map(Number) : d;
+await document.fonts.load("800 40px Archivo");
+const world = await makeWorld({cam: {pos: vec("cam", [2.4, 1.6, 1.2]), target: vec("tgt", [-.8, .85, -2.8]), minD: .5, maxD: 200, minAz: -9, maxAz: 9, maxPolar: Math.PI * .6}, offset: false, fov: () => num("fov", 44), tod: num("tod", .3), ground: "lawn", grassR: 30, grassH: .15, grassW: .04, grassN: .6,
+  exclude: (x, z) => x > -3.8 && x < 3.8 && z > -5.2 && z < 3});
+const G = makeRoom(world, {card: q.get("card") || "", font: "Archivo", kind: q.get("kind") || "home"});
+G.set({fix: num("fix", 0)});
+world.ctl.autoRotate = false; world.ctl.enableDamping = false; world.setQuality(2);
+world.size(); world.setTodNow(num("tod", .3));
+await world.ready; world.setTodNow(num("tod", .3)); world.shadows();
+if (q.has("ox")) { const w = world.host.clientWidth, h = world.host.clientHeight; world.cam.setViewOffset(w, h, -num("ox", 0) * w, 0, w, h); world.cam.updateProjectionMatrix(); }
+for (let i = 0; i < 4; i++) { world.grade.uniforms.t.value = i; world.renderOnce(); await new Promise(r => requestAnimationFrame(r)); } window.__done = true;
+</script></body></html>

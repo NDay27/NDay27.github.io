@@ -2,7 +2,7 @@
 // t1250.js turns scroll into a state (camera keys, light, trade values); this file draws it on the Harlow engine.
 import {makeWorld, reduce, small} from "../../harlow/assets/world.js";
 import {makeHouse} from "../../harlow/assets/house.js";
-import {lawn, yardTree, flatwork, workTruck, acUnit, yardLine, fixList} from "./yard.js";
+import {lawn, yardTree, flatwork, workTruck, acUnit, yardLine, fixList, stumpGrind} from "./yard.js";
 
 // camera keys: position, target, field of view (desktop)
 const K = {
@@ -24,9 +24,9 @@ const K = {
 // main-street storefronts share one set of keys; the walk inside runs straight through the open door
 const SK = {hero: [[-9, 2.3, 17.5], [.8, 3.5, 0], 36], front: [[-4.6, 2.4, 11.5], [.6, 2.7, 0], 40], door: [[0, 1.6, 5.5], [0, 1.5, -2], 40],
             inside: [[0, 1.6, -3.4], [-.4, 1.2, -7.2], 50], dusk: [[.6, 2.0, 16], [.4, 3.0, 0], 36], cfg: [[-6.5, 2.2, 13.5], [.6, 2.6, 0], 38]};
-const STORE = {bakery: "bakery", salon: "salon", barber: "barber", nails: "nails", eat: "eat", shop: "shop", groom: "groom", tailor: "sew", uphol: "sew"};
+const STORE = {bakery: "bakery", salon: "salon", barber: "barber", nails: "nails", eat: "eat", shop: "shop", groom: "groom", tailor: "sew", uphol: "sew", scoop: "scoop"};
 const WORD = {bakery: "Bakery", cake: "Cakes", donut: "Donuts", salon: "Hair", barber: "Barber", nails: "Nails", restaurant: "Eat",
-              thrift: "Thrift", boutique: "Boutique", petgroom: "Grooming", tailor: "Tailor", upholstery: "Upholstery"};
+              thrift: "Thrift", boutique: "Boutique", petgroom: "Grooming", tailor: "Tailor", upholstery: "Upholstery", icecream: "Ice Cream"};
 for (const g in STORE) K[g] = SK;
 K.concrete = {...K.wash, hero: [[1.2, 2.9, 31.5], [8.6, .9, 12], 40]};
 // heating and cooling: the outdoor unit beside the house is the subject, the crew's truck at the curb
@@ -38,7 +38,10 @@ K.plumb = {hero: [[-7.4, 1.9, 24.6], [-3.0, .2, 17.6], 40], close: [[-6.2, 1.4, 
 // handyman: a to-do list on the porch (gutter, top step) and the mailbox at the curb
 K.handy = {hero: [[-5.2, 2.0, 15], [-1.4, 2.0, 6.4], 42], close: [[-3.6, 1.6, 12.6], [-1.0, 1.7, 6.4], 44], street: [[-7, 1.7, 46], [-1, 1.6, 22], 40],
            dusk: [[-7, 1.7, 46], [-1, 1.6, 22], 40], cfg: [[-5.6, 2.1, 15.6], [-1.4, 1.9, 6.4], 44]};
-const HOME = {wash: "wash", concrete: "concrete", hvac: "ac", plumb: "pipe", handy: "list"};
+// stump grinding: an old stump in the side yard, ground out and grown back in
+K.stump = {hero: [[-15.2, 1.9, 9.6], [-10.6, .6, 2.9], 40], close: [[-14.4, 1.5, 7.8], [-10.9, .4, 2.9], 40], dusk: [[-19, 2.6, 14], [-8, 1.6, 2], 40],
+           cfg: [[-15, 1.8, 9.2], [-10.8, .5, 2.9], 42]};
+const HOME = {wash: "wash", concrete: "concrete", hvac: "ac", plumb: "pipe", handy: "list", stump: "stump"};
 
 // The camera rig every trade shares: blend between two keys, drift a little, frame the subject clear of the captions.
 function makeRig(world, keys, HB) {
@@ -122,7 +125,38 @@ async function startStore(HB) {
   return world;
 }
 
+// house cleaning: inside a living room, swept clean from left to right
+K.clean = {hero: [[2.4, 1.6, 1.4], [-.8, .85, -2.8], 46], close: [[2.4, 1.6, 1.4], [-.8, .85, -2.8], 46], floor: [[2.2, .9, .4], [-.6, .05, -2.0], 46],
+           dusk: [[2.4, 1.6, 1.4], [-.8, .85, -2.8], 46], cfg: [[1.6, 1.4, .4], [-.7, .7, -2.7], 46]};
+K.office = K.clean;  // janitorial: the same room, fitted out as an office
+async function startRoom(HB) {
+  const keys = K[HB.group] || K.clean, {makeRoom} = await import("./room.js");
+  const world = await makeWorld({
+    cam: {pos: keys.hero[0], target: keys.hero[1], minD: .5, maxD: 200, minAz: -99, maxAz: 99, maxPolar: Math.PI * .62},
+    tod: .3, ground: "lawn", grassR: 30, grassH: .15, grassW: .04, grassN: small ? .3 : .6, offset: false, fov: () => 46, exclude: (x, z) => x > -3.8 && x < 3.8 && z > -5.2 && z < 3,
+  });
+  const font = getComputedStyle(document.documentElement).getPropertyValue("--serif").split(",")[0].trim() || "sans-serif";
+  const R = makeRoom(world, {card: HB.name || "", font, kind: HB.group === "office" ? "office" : "home"});
+  const rig = makeRig(world, keys, HB), cur = {fix: 0};
+  let first = true;
+  world.onTick.push((t, dt) => {
+    const s = HB.get(), P = s.v;
+    world.setTod(s.tod);
+    const k = first || reduce ? 1 : Math.min(1, dt * 4.5); first = false;
+    const to = P.fix ?? cur.fix; cur.fix += (to - cur.fix) * k; if (Math.abs(to - cur.fix) < .002) cur.fix = to;
+    R.set({fix: cur.fix});
+    rig(t, dt, s);
+  });
+  world.size(); world.setTodNow(HB.get().tod);
+  await world.ready;
+  world.setTodNow(HB.get().tod);
+  world.start();
+  await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+  return world;
+}
+
 export async function start(HB) {
+  if (HB.group === "clean" || HB.group === "office") return startRoom(HB);
   if (STORE[HB.group]) return startStore(HB);
   if (HB.group === "auto" || HB.group === "body") return startAuto(HB);
   const g = HB.group, keys = K[g];
@@ -135,7 +169,7 @@ export async function start(HB) {
   const {THREE, cam, ctl} = world;
   house = makeHouse(world);
   if (g === "tree") tree = yardTree(world);
-  const line = HOME[g] === "pipe" ? yardLine(world) : null;
+  const line = HOME[g] === "pipe" ? yardLine(world) : HOME[g] === "stump" ? stumpGrind(world) : null;
   // grass was planted before the house existed: keep only the blades outside its footprint
   if (world.grass) { const gr = world.grass, m = new THREE.Matrix4(), c = new THREE.Color(), P = gr.userData.pos; let n = 0;
     for (let i = 0; i < P.length; i++) { const [x, z, sc, q] = P[i]; if (house.exclude(x, z) || (tree && tree.exclude(x, z)) || (line && line.exclude(x, z))) continue; m.compose(new THREE.Vector3(x, 0, z), q, new THREE.Vector3(1, sc, 1)); gr.setMatrixAt(n, m); gr.getColorAt(i, c); gr.setColorAt(n, c); n++; }

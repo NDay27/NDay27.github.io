@@ -257,6 +257,9 @@ def sign_text(svg, name):
 
 
 def elevation(g, s=None):
+    if g == "office":  # a cleaning team's client: an office block on main street
+        svg = open(os.path.join(HERE, "elev-store.svg")).read().replace("Awning out, door open", "Every desk, every floor")
+        return sign_text(svg, "Offices")
     if g in STORES:
         svg = open(os.path.join(HERE, "elev-store.svg")).read()
         return sign_text(svg, s["short"] if s else store.GROUPS[g]["sign"])
@@ -278,7 +281,7 @@ def elevation(g, s=None):
         svg = svg.replace("</svg>", _tree() + "</svg>")
     elif g in HOMES:
         svg = re.sub(r'<g class="dim".*?</g>', "", svg, flags=re.S)
-        note = {"wash": "siding and drive, washed", "concrete": "new drive, poured and jointed", "hvac": "new unit on the pad, lines to the wall", "plumb": "water line dug, fixed and sodded", "handy": "gutter up, new step, list done"}[g]
+        note = {"wash": "siding and drive, washed", "concrete": "new drive, poured and jointed", "hvac": "new unit on the pad, lines to the wall", "plumb": "water line dug, fixed and sodded", "handy": "gutter up, new step, list done", "clean": "every room, top to bottom", "stump": "stump out, grass back", "office": "every desk, every floor"}[g]
         svg = svg.replace("</svg>", f'<g class="note" style="--w:3.2s"><text x="1340" y="700" text-anchor="end">{note}</text></g></svg>')
     else:
         i = svg.index("<path"); svg = svg[:i] + _rolls() + svg[i:]
@@ -293,6 +296,7 @@ def load_shops():
     shops += json.load(open(os.path.join(ROOT, "_build/tiers/dealt.json")))
     final = json.load(open(os.path.join(HERE, "shops.json")))
     own = {x["slug"]: x["owner"] for x in final}
+    vov = {x["slug"]: x["v"] for x in final if x.get("v")}
     import importlib.util
     spec = importlib.util.spec_from_file_location("tiers_build", os.path.join(ROOT, "_build/tiers/build.py"))
     tb = importlib.util.module_from_spec(spec); spec.loader.exec_module(tb)
@@ -303,6 +307,7 @@ def load_shops():
             continue
         s = dict(s)
         s["owner"] = own[s["slug"]]
+        s["v"] = vov.get(s["slug"], s["v"])  # e.g. a stump grinder listed as a tree service gets the stump variant
         s["name"] = nice_name(s["name"])
         s["short"] = short_name(s["name"])
         s["tel"] = tel(s["phone"])
@@ -379,6 +384,7 @@ NAME_OUT_EXTRA = dict(store.NAME_OUT)
 
 # ---------- home-service groups on the Harlow house (home.py) ----------
 import home  # noqa: E402
+V.update(home.V_NEW)
 THEME.update(home.THEME); COPY.update(home.COPY); GLYPH.update(home.GLYPH); TRADE.update(home.TRADE); KGROUP.update(home.KGROUP); STEPS.update(home.STEPS)
 SVC_ICON.update(home.SVC_ICON)
 for _g, _c in home.EXTRA_CSS.items():

@@ -9,14 +9,14 @@
 // Usage: lab.html?p=1&[drive=wash|concrete&fix=0..1&truck=Name&tc=hex&ink=hex]&tod=.55&cam=x,y,z&tgt=x,y,z&fov=30&siding=white&roof=black&trim=black&door=fir&porch=1
 import {makeWorld} from "../../harlow/assets/world.js";
 import {makeHouse} from "../../harlow/assets/house.js";
-import {lawn, yardTree, flatwork, workTruck, acUnit, yardLine, fixList} from "../../f/assets/yard.js";
+import {lawn, yardTree, flatwork, workTruck, acUnit, yardLine, fixList, stumpGrind} from "../../f/assets/yard.js";
 const q = new URLSearchParams(location.search), num = (k, d) => q.has(k) ? +q.get(k) : d, vec = (k, d) => q.has(k) ? q.get(k).split(",").map(Number) : d;
 await document.fonts.load("700 40px Newsreader"); await document.fonts.load("700 40px 'Schibsted Grotesk'");
 let house, tree0 = null;
 const world = await makeWorld({cam: {pos: vec("cam", [-14, 7, 26]), target: vec("tgt", [2, 3.6, 0]), minD: 1, maxD: 200, minAz: -9, maxAz: 9, maxPolar: Math.PI * .6}, offset: false, fov: () => num("fov", 30), tod: num("tod", .5), ground: "lawn", grassR: 34, grassH: .15, grassW: .04, grassN: 2.6,
   exclude: (x, z) => (house ? house.exclude(x, z) : false) || (tree0 ? tree0.exclude(x, z) : false)});
 house = makeHouse(world);
-const line = q.has("pipe") ? yardLine(world) : null;
+const line = q.has("pipe") ? yardLine(world) : q.has("stump") ? stumpGrind(world) : null;
 // grass was planted before the house existed; replant around the footprint
 if (world.grass) { const g = world.grass, m = new world.THREE.Matrix4(), c = new world.THREE.Color(); let n = 0; const P = g.userData.pos;
   for (let i = 0; i < P.length; i++) { const [x, z, sc, qq] = P[i]; if (house.exclude(x, z) || (line && line.exclude(x, z))) continue; m.compose(new world.THREE.Vector3(x, 0, z), qq, new world.THREE.Vector3(1, sc, 1)); g.setMatrixAt(n, m); g.getColorAt(i, c); g.setColorAt(n, c); n++; }
@@ -28,7 +28,7 @@ house.setFinish({siding: hx(q.get("siding")) || "white", roof: hx(q.get("roof"))
 house.setProgress(num("p", 1));
 if (q.has("drive")) flatwork(world, {kind: q.get("drive")}).set({fix: num("fix", 0)});
 if (q.has("ac")) acUnit(world).set({fix: num("ac", 0)});
-if (line) line.set({fix: num("pipe", 0)});
+if (line) line.set({fix: num("pipe", num("stump", 0))});
 if (q.has("hm")) fixList(world).set({fix: num("hm", 0)});
 if (q.has("truck")) await workTruck(world, {sign: q.get("truck"), x: num("tx", 9.5), z: num("tz", 21.5), ry: num("tr", 0), font: "Schibsted Grotesk", color: q.has("tc") ? parseInt(q.get("tc"), 16) : undefined, ink: q.get("ink") ? "#" + q.get("ink") : undefined});
 world.ctl.autoRotate = false; world.ctl.enableDamping = false; world.setQuality(2);

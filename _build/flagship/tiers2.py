@@ -125,7 +125,7 @@ for _g in store.GROUPS:
 import home  # noqa: E402
 for _g in home.GROUPS:
     G[_g] = _g; HERO[_g] = home.hero(_g); SVC_IMG[_g] = home.svc_img(_g); STAGES[_g] = home.stages(_g)
-    VISIT[_g] = home.VISIT[_g]; VISIT_INTRO[_g] = home.VISIT_INTRO; TOOL_NAV[_g] = home.TOOL[_g][0]
+    VISIT[_g] = home.VISIT[_g]; VISIT_INTRO[_g] = home.VISIT_INTRO_G.get(_g, home.VISIT_INTRO); TOOL_NAV[_g] = home.TOOL[_g][0]
 
 
 def quiz(s):
