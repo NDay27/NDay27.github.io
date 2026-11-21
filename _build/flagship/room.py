@@ -45,7 +45,7 @@ def page(s, meet):
     rows = "".join(f'<tr><th scope="row">{E(r[0])}</th>' + "".join(
         f'<td{" class=" + chr(34) + ("col3 " if i == 2 else "") + ("no" if c == 0 else "") + chr(34) if (i == 2 or c == 0) else ""}>{"Yes" if c == 1 else "No" if c == 0 else E(str(c))}</td>' for i, c in enumerate(r[1:])) + "</tr>"
         for r in d["compare"])
-    rating = (f" and its {d['rating']} stars from {d['reviews']} Google reviews" if d.get("rating") else "")
+    rating = (f" and its {d['rating']} stars from {d['reviews']} Google review{'' if str(d['reviews']) == '1' else 's'}" if d.get("rating") else "")
     body = f"""<body>
 <header class="chrome">
   <a class="brand" href="https://nday27.github.io/" aria-label="Nolan Day Studio"><img src="/img/favicon.svg" alt="" width="30" height="30"><span><b>Nolan Day Studio</b></span></a>

@@ -17,6 +17,7 @@ export const KIND = {
   eat:    {trim: 0x23412f, awn: AWN.green, wall: 0xe8dfcf, floor: "check", sign: ["#23412f", "#f3ead7"], icon: "plate"},
   shop:   {trim: 0x24365e, awn: AWN.navy, wall: 0xf0e9dd, floor: "wood", sign: ["#24365e", "#f4f0e6"], icon: "bag"},
   groom:  {trim: 0x2f7f86, awn: AWN.teal, wall: 0xeef0e8, floor: "tile", sign: ["#f2f5f4", "#235f65"], icon: "paw"},
+  scoop:  {trim: 0xf4efe4, awn: AWN.teal, wall: 0xfbefe6, wain: 0x7fc4b4, floor: "check", sign: ["#f6efe4", "#2f7f86"], icon: "cone"},
   sew:    {trim: 0x5a3550, awn: AWN.plum, wall: 0xefe7df, floor: "wood", sign: ["#5a3550", "#f6eee6"], icon: "needle"},
 };
 KIND.tailor = KIND.sew; KIND.uphol = KIND.sew;
@@ -30,6 +31,7 @@ const ICON = {
   plate: ["M28 44a14 14 0 1 0 0-28 14 14 0 0 0 0 28z", "M28 36a6 6 0 1 0 0-12 6 6 0 0 0 0 12z", "M8 14v12a3 3 0 0 0 6 0V14M11 26v18", "M46 14c-4 4-4 12 0 14v16"],
   bag: ["M14 20h28l-2 28H16z", "M22 24v-8a6 6 0 0 1 12 0v8"],
   paw: ["M28 46c-8 0-12-4-10-9s6-7 10-7 8 2 10 7-2 9-10 9z", "M16 28a4 5 0 1 0 0-.1", "M40 28a4 5 0 1 0 0-.1", "M23 20a4 5 0 1 0 0-.1", "M33 20a4 5 0 1 0 0-.1"],
+  cone: ["M18 26h20L28 50z", "M18 26a10 10 0 0 1 20 0", "M22 16a7 7 0 0 1 12 0", "M22 32l10 8M34 32l-8 10"],
   needle: ["M14 42 40 16", "M40 16c3-3 6-2 6 1s-3 4-6 1", "M12 30c6-6 12 0 18-4s8-10 14-10"],
 };
 
@@ -303,6 +305,38 @@ export async function makeStore(world, {kind = "bakery", sign = "Bakery", font =
     for (let k = 0; k < 3; k++) cyl(.3 - k * .07, .3 - k * .07, .2, mat(0xf8f3ea, .5), 2.0, 1.2 + k * .2, -.85, P, 28);
     add(new THREE.SphereGeometry(.05, 10, 8), mat(0xd9879a, .4), 2.0, 1.75, -.85, P);
     plant(3.0, -7.6, 1.2);
+  } else if (kind === "scoop") {
+    // the dipping cabinet: tubs of ice cream under slanted glass, cones stacked on top, sundaes in the window
+    const CX = -.4, CZ = -4.4, CW = 4.4, Y0 = .97, chrome = mat(0xd9dcdf, .25, .7);
+    box(CW, .92, .82, trim, CX, .46, CZ); for (let i = 0; i < 9; i++) box(.03, .7, .02, mat(0x7fc4b4, .5), CX - CW / 2 + .25 + i * .49, .46, CZ + .42);
+    box(CW + .06, .05, .86, chrome, CX, .945, CZ);
+    const gl = add(new THREE.BoxGeometry(CW - .1, .02, .62), glass, CX, Y0 + .3, CZ + .1, P); gl.rotation.x = -.75; gl.castShadow = false;
+    box(CW - .06, .04, .34, chrome, CX, Y0 + .52, CZ - .24); for (const x of [CX - CW / 2 + .04, CX + CW / 2 - .04]) box(.04, .5, .8, chrome, x, Y0 + .25, CZ);
+    lamp(CX, Y0 + .45, CZ + .1, .5, 3, 0xfff6ea);
+    const flav = [0xf6efe0, 0x5a3426, 0xf2a7b8, 0xa8dcc0, 0xf2d27a, 0x9bb7ee, 0xe0b787, 0xc94a5a, 0xf6efe0, 0x8a5a3c, 0xf7c6d8, 0x7ccf9a, 0xf5e08a, 0xd88a5a, 0xb6a1e0, 0xf3ece0];
+    for (let row = 0; row < 2; row++) for (let i = 0; i < 8; i++) { const x = CX - CW / 2 + .33 + i * .53, z = CZ - .18 + row * .3, c = flav[row * 8 + i];
+      cyl(.13, .13, .12, steel, x, Y0 + .06, z, P, 20);
+      const top = add(new THREE.SphereGeometry(.125, 16, 8, 0, Math.PI * 2, 0, Math.PI / 2), mat(c, .75), x, Y0 + .11, z, P); top.scale.y = .42;
+      for (let k = 0; k < 3; k++) add(new THREE.SphereGeometry(.035, 8, 6), mat(c, .75), x + Math.cos(k * 2.1 + i) * .06, Y0 + .145, z + Math.sin(k * 2.1 + i) * .06, P).scale.y = .6; }
+    // cone towers and a register on the top ledge
+    for (const x of [CX - 1.5, CX - 1.25]) { cyl(.055, .055, .3, glass, x, Y0 + .69, CZ - .24, P, 16).castShadow = false; cyl(.06, .06, .02, chrome, x, Y0 + .55, CZ - .24, P, 16);
+      for (let k = 0; k < 4; k++) { const c = add(new THREE.ConeGeometry(.05, .17, 14, 1, true), mat(0xd9a066, .8), x, Y0 + .66 + k * .04, CZ - .24, P); c.rotation.x = Math.PI; } }
+    box(.4, .25, .3, dark, CX + CW / 2 - .35, Y0 + .67, CZ - .24);
+    // back wall: the flavor board, sundae glasses and waffle-cone jars on a shelf
+    box(2.4, 1.1, .04, new THREE.MeshStandardMaterial({map: boardTex(), roughness: .9}), -1.0, 2.7, IZ1 + .03);
+    const sh = shelf(1.5, IZ1 + .25, 1.8, [1.3, 1.8]);
+    for (let i = 0; i < 4; i++) { const x = -.6 + i * .4; cyl(.09, .05, .2, glass, x, 1.42, 0, sh, 16).castShadow = false; for (let k = 0; k < 2; k++) add(new THREE.SphereGeometry(.07, 12, 8), mat(flav[i * 3 + k], .7), x, 1.52 + k * .09, 0, sh); add(new THREE.SphereGeometry(.025, 8, 6), mat(0xb3241c, .3), x, 1.7, 0, sh); }
+    for (let i = 0; i < 3; i++) { cyl(.11, .11, .3, glass, -.5 + i * .5, 1.97, 0, sh, 16).castShadow = false; for (let k = 0; k < 4; k++) { const c = add(new THREE.ConeGeometry(.05, .2, 12, 1, true), mat(0xc98a4a, .8), -.5 + i * .5, 1.98 + k * .03, 0, sh); c.rotation.x = Math.PI; } }
+    // window: a giant three-scoop cone left, a big sundae right, and two little tables
+    box(.9, .5, .6, trim, -2.2, .85, -.85); { const g = new THREE.Group(); g.position.set(-2.2, 1.1, -.85); P.add(g); const cn = add(new THREE.ConeGeometry(.17, .62, 20), mat(0xd9a066, .8), 0, .31, 0, g); cn.rotation.x = Math.PI;
+      for (const [y, c] of [[.66, 0xf6efe0], [.88, 0xa8dcc0], [1.08, 0xf2a7b8]]) add(new THREE.SphereGeometry(.17, 18, 12), mat(c, .7), 0, y, 0, g); add(new THREE.SphereGeometry(.04, 10, 8), mat(0xb3241c, .3), 0, 1.27, 0, g); }
+    box(.8, .5, .5, trim, 2.1, .85, -.85); cyl(.22, .1, .3, glass, 2.1, 1.25, -.85, P, 20).castShadow = false; cyl(.12, .12, .02, glass, 2.1, 1.1, -.85, P, 16);
+    for (const [dx, c] of [[-.08, 0xa8dcc0], [.09, 0xf2a7b8], [0, 0xf6efe0]]) add(new THREE.SphereGeometry(.11, 14, 10), mat(c, .7), 2.1 + dx, 1.42 + (dx === 0 ? .1 : 0), -.85, P);
+    add(new THREE.SphereGeometry(.035, 10, 8), mat(0xb3241c, .3), 2.1, 1.66, -.85, P);
+    const table = (x, z) => { cyl(.3, .3, .03, mat(0xf6f2ea, .3), x, .74, z, P, 24); cyl(.03, .03, .72, chrome, x, .37, z, P, 8); cyl(.2, .2, .03, chrome, x, .015, z, P, 16);
+      for (const a of [Math.PI / 2, -Math.PI / 2]) chairB(x + Math.sin(a) * .52, z + Math.cos(a) * .52, a + Math.PI, 0x2f7f86); };
+    table(-1.9, -2.1); table(-1.9, -3.3);
+    plant(3.0, -6.6, 1.1);
   } else if (kind === "salon" || kind === "barber") {
     const bar = kind === "barber", chairC = bar ? 0x7a1f1f : 0x1b1c1f;
     const mirror = mirror_();

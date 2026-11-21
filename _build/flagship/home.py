@@ -12,6 +12,9 @@ GROUPS = {
  "hvac": dict(vs=["hvac"], drive=None, noun="heating and cooling crew", truck="Heating & Air"),
  "plumb": dict(vs=["plumbing"], drive=None, noun="plumbing crew", truck="Plumbing"),
  "handy": dict(vs=["handyman"], drive=None, noun="handyman", truck="Handyman"),
+ "clean": dict(vs=["houseclean"], drive=None, noun="cleaning team", truck="House Cleaning"),
+ "stump": dict(vs=["stump"], drive=None, noun="stump grinding crew", truck="Stump Grinding"),
+ "office": dict(vs=["janitorial"], drive=None, noun="cleaning team", truck="Janitorial"),
 }
 KGROUP = {v: g for g, d in GROUPS.items() for v in d["vs"]}
 KIT_V = dict(KGROUP)
@@ -21,22 +24,42 @@ NAME_OUT = {
  "concrete": r"pump|ranch|land serv|handyman|asphalt|excavat|precast|supply|ready.?mix|^(?!.*concrete).*construct",
  "hvac": r"commercial|industrial|refrigerat|supply|wholesale|distribut|radiator|auto|truck|duct clean|chimney|appliance",
  "plumb": r"commercial|industrial|supply|wholesale|distribut|septic|well drill|irrigat|pool|porta|fire sprinkler",
+ "clean": r"commercial|janitor|office|carpet|window|pressure|power wash|restoration|duct|chimney|pool|maid supply|supply",
  "handy": r"excavat|digging|well|metal|insulation|roofing|gates?\b|concrete|property manag|fenc",
+ "stump": r"$^",
+ "office": r"carpet|window|pressure|power wash|restoration|duct|chimney|pool|supply|house|home|maid|residential",
 }
-TRADE = {"pressurewash": "Pressure washing", "concrete": "Concrete contractor", "hvac": "Heating and air conditioning", "plumbing": "Plumber", "handyman": "Handyman"}
-SCHEMA = {"pressurewash": "HomeAndConstructionBusiness", "concrete": "HomeAndConstructionBusiness", "hvac": "HVACBusiness", "plumbing": "Plumber", "handyman": "HomeAndConstructionBusiness"}
+TRADE = {"pressurewash": "Pressure washing", "concrete": "Concrete contractor", "hvac": "Heating and air conditioning", "plumbing": "Plumber", "handyman": "Handyman", "houseclean": "House cleaning service", "stump": "Stump grinding", "janitorial": "Janitorial service"}
+SCHEMA = {"pressurewash": "HomeAndConstructionBusiness", "concrete": "HomeAndConstructionBusiness", "hvac": "HVACBusiness", "plumbing": "Plumber", "handyman": "HomeAndConstructionBusiness", "houseclean": "LocalBusiness", "stump": "HomeAndConstructionBusiness", "janitorial": "LocalBusiness"}
 OVERRIDE = {}
+# stump grinders are tree-service leads on Google; pick.py moves the ones with "stump" in the name onto their own variant
+V_NEW = {"stump": dict(group="tree", noun="crew", h300=["Stumps gone.", "Lawn back."], h750=["Grind it out.", "Mow right over."],
+                       h1250=["Down to the dirt.", "Gone for good."],
+                       lede="Stump grinding in {town} and nearby. Tell us about the stump and get a straight answer on what it takes.",
+                       services=[("Stump grinding", "Old stumps ground down so you can mow right over the spot."),
+                                 ("More than one stump", "One stump or a whole row, done in the same visit."),
+                                 ("Surface roots", "Roots that trip the mower, ground down along with the stump.")],
+                       jobs=["One stump", "A few stumps", "Surface roots", "Something else"],
+                       when=["As soon as possible", "In the next two weeks", "This season", "Just getting a quote"],
+                       who="homeowners", ask="What needs grinding?")}
+TRADE_LABEL = {"stump": "Stump Grinding"}
 
 THEME = {
  "wash": _t("#0f2e3a", "#16404f", "#f3f7f7", "#e5eeee", "#0d2630", "#55686d", "#d2dfdf", "#3fb6c6", "#86d6e0", "#1d7d8c", "#081c24", "brico", "dmsans"),
  "concrete": _t("#22252a", "#2f3339", "#f4f3f0", "#e9e7e2", "#1d2024", "#5f6268", "#d9d6cf", "#e07a2e", "#f0a465", "#4a5a6e", "#131518", "archivo", "plex"),
+ "clean": _t("#173b3a", "#1f4c4a", "#f6f8f6", "#e7efec", "#122e2d", "#5b6f6c", "#d3e2de", "#e0735a", "#f0a593", "#2f8f7a", "#0c2423", "fraunces", "dmsans"),
  "handy": _t("#2a2320", "#3a302b", "#f6f2ec", "#ece5da", "#241d19", "#6a5f56", "#ddd3c5", "#e8a33a", "#f3c57a", "#3f6e5a", "#18120f", "brico", "dmsans"),
  "plumb": _t("#0e2a47", "#163a5f", "#f3f6f8", "#e3eaf0", "#0c2036", "#53657a", "#d0dbe5", "#1f8fe0", "#6cb9f0", "#e0563a", "#071a2e", "archivo", "dmsans"),
+ "stump": _t("#2a2a1e", "#38382a", "#f5f3ec", "#e9e6da", "#22221a", "#64645a", "#d9d5c6", "#e8762c", "#f3a46e", "#5d7a3a", "#16160f", "brico", "dmsans"),
+ "office": _t("#1a2a3f", "#233752", "#f4f6f8", "#e4e9ef", "#141f2e", "#58657a", "#d3dae4", "#2fb38f", "#7fd6bc", "#d9774f", "#0d1624", "archivo", "dmsans"),
  "hvac": _t("#132640", "#1c3558", "#f4f6f9", "#e5eaf1", "#101c2e", "#566377", "#d3dbe6", "#e4583c", "#f39079", "#2f72b8", "#0a1526", "jost", "dmsans"),
 }
 EXTRA_CSS = {"wash": ".hero h1 .l2{font-style:normal}.hero h1{font-weight:700;letter-spacing:-.035em}h2{font-weight:600!important}.hero0 h1 em{font-style:normal}",
              "concrete": None,
              "plumb": None,
+             "clean": None,
+             "office": ".hero h1 .l2{font-style:normal}.hero h1{font-weight:700;letter-spacing:-.03em}h2{font-weight:600!important}.hero0 h1 em{font-style:normal}",
+             "stump": ".hero h1 .l2{font-style:normal}.hero h1{font-weight:700;letter-spacing:-.035em}h2{font-weight:600!important}.hero0 h1 em{font-style:normal}",
              "handy": ".hero h1 .l2{font-style:normal}.hero h1{font-weight:700;letter-spacing:-.035em}h2{font-weight:600!important}.hero0 h1 em{font-style:normal}",
              "hvac": ".hero h1 .l2{font-style:normal}.hero h1{font-weight:600;letter-spacing:-.025em}.hero0 h1 em{font-style:normal}h2{font-weight:600!important}"}
 
@@ -51,6 +74,21 @@ COPY["hvac"] = dict(svc_h="What we work on", svc_intro="Heating, cooling and the
                    sheet=("A house in {town}", "Old unit out, new unit in"),
                    sheet_label="Line drawing of a two-storey farmhouse with a porch and a garage wing",
                    shot=("hvac-after", "A farmhouse with a new outdoor air conditioning unit on a clean pad beside the side wall", "Illustration. Your real job photos go here."))
+COPY["clean"] = dict(svc_h="How we clean", svc_intro="Regular visits, deep cleans and move-outs. If it isn't on the list, ask anyway.",
+                    quote_h="Get a cleaning quote", cta="Get a cleaning quote", msg_ph="How many bedrooms and bathrooms, the kind of clean, and how often.",
+                    sheet=("A home in {town}", "Every room, spotless"),
+                    sheet_label="Line drawing of a two-storey farmhouse with a porch and a garage wing",
+                    shot=("clean-after", "A bright, tidy living room with a shining wood floor, pillows on the sofa and fresh flowers on the table", "Illustration. Your real photos go here."))
+COPY["office"] = dict(svc_h="What we clean", svc_intro="Offices, break rooms and restrooms, on a schedule that fits your hours. If it isn't on the list, ask anyway.",
+                     quote_h="Get a cleaning quote", cta="Get a cleaning quote", msg_ph="What kind of space, roughly how big, and how often you'd like it cleaned.",
+                     sheet=("A workplace in {town}", "Every desk, every floor"),
+                     sheet_label="Line drawing of a two-storey brick office building on main street with a striped awning and a big front window",
+                     shot=("office-after", "A tidy office with clear desks, a wiped whiteboard and fresh vacuum lines in the carpet", "Illustration. Your real photos go here."))
+COPY["stump"] = dict(svc_h="What we grind", svc_intro="Old stumps, rows of them and the roots that come with them. If it isn't on the list, ask anyway.",
+                    quote_h="Get a stump quote", cta="Get a stump quote", msg_ph="How many stumps, roughly how wide across, and where they are in the yard.",
+                    sheet=("A yard in {town}", "Stump out, grass back"),
+                    sheet_label="Line drawing of a two-storey farmhouse with a porch and a garage wing",
+                    shot=("stump-after", "A side yard beside a white farmhouse with fresh new grass where an old stump used to be", "Illustration. Your real job photos go here."))
 COPY["handy"] = dict(svc_h="What's on the list", svc_intro="Repairs, installs and the projects that keep getting pushed back. If it isn't on the list, ask anyway.",
                     quote_h="Send your list", cta="Send your list", msg_ph="What needs doing, a rough size for each thing, and when works for a visit.",
                     sheet=("A house in {town}", "The to-do list, done"),
@@ -71,6 +109,9 @@ COPY["concrete"].update(sheet=("A driveway in {town}", "Old slab out, new slab i
 STEPS = {
  "wash": [("Tell us what needs washing", "The house, the drive, a deck or all three."), ("Get a straight quote", "Know the price before anyone starts."), ("Watch it come clean", "Bright again, and the mess rinsed away.")],
  "concrete": [("Tell us about the project", "What's there now, the size and what you want."), ("Get a straight quote", "Know the plan and the price before work starts."), ("Poured and finished", "Formed, poured, finished and left clean.")],
+ "clean": [("Tell us about your home", "Rooms, the kind of clean and how often."), ("Get a straight quote", "Know the price before the first visit."), ("Come home to clean", "Every room done, top to bottom.")],
+ "office": [("Tell us about the space", "What kind of space, how big and how often."), ("Get a straight quote", "Know the price before the first visit."), ("Walk in to clean", "Desks wiped, bins out, floors done.")],
+ "stump": [("Tell us about the stump", "How many, roughly how wide, and where."), ("Get a straight quote", "Know the price before the grinder shows up."), ("Gone for good", "Ground out, chips raked and ready for grass.")],
  "handy": [("Send the list", "One thing or ten. A photo of each helps."), ("Get a straight quote", "Know the price before work starts."), ("Crossed off", "Done right, and cleaned up after.")],
  "plumb": [("Tell us what's going on", "A leak, a clog, no hot water or something new."), ("Get a straight answer", "Know what it needs and the price before work starts."), ("Fixed and cleaned up", "Running right, with the mess cleaned up.")],
  "hvac": [("Tell us what it's doing", "No heat, no cooling, an odd noise or just a tune-up."), ("Get a straight answer", "Know the options and the price before work starts."), ("Comfortable again", "Running right, with the mess cleaned up.")],
@@ -79,6 +120,9 @@ STEPS = {
 GLYPH = {
  "wash": _G.format("M6 22h8l3-4h6", "currentColor") + _G.format("M23 18l5-3M23 18l6 0M23 18l5 3", "var(--pencil)") + _G.format("M6 22v4h8", "currentColor"),
  "concrete": _G.format("M5 24h22v4H5z", "currentColor") + _G.format("M9 24l4-8h6l4 8M13 16v-6h6v6", "var(--pencil)"),
+ "clean": _G.format("M10 27l6-14h4l-2 14", "currentColor") + _G.format("M22 8l1.5 3.5L27 13l-3.5 1.5L22 18l-1.5-3.5L17 13l3.5-1.5z", "var(--pencil)"),
+ "office": _G.format("M6 24h20M9 24v4M23 24v4M10 24v-8h12v8", "currentColor") + _G.format("M24 6l1.5 3.5L29 11l-3.5 1.5L24 16l-1.5-3.5L19 11l3.5-1.5z", "var(--pencil)"),
+ "stump": _G.format("M8 26h16M10 26l1-8h10l1 8", "currentColor") + _G.format("M14 18c0-3 2-5 4-5s4 2 4 5M24 9l2-3M27 12l3-1", "var(--pencil)"),
  "handy": _G.format("M8 26l12-12M17 11l4 4", "currentColor") + _G.format("M20 6l6 6-3 3-6-6z", "var(--pencil)"),
  "plumb": _G.format("M5 12h10v8h12", "currentColor") + _G.format("M24 24c0 2 1.5 3.5 3 3.5S30 26 30 24c0-2-3-6-3-6s-3 4-3 6z", "var(--pencil)"),
  "hvac": _G.format("M6 6h20v20H6z", "currentColor") + _G.format("M16 16V9M16 16l6 4M16 16l-6 4", "var(--pencil)"),
@@ -91,18 +135,29 @@ _J = {
  "slab": '<path d="M8 36l20-10 20 10-20 10z"/><path d="M8 36v4l20 10 20-10v-4"/><path d="M18 31l20 10M38 31 18 41"/>',
  "patio": '<path d="M8 24h40v20H8z"/><path d="M8 34h40M21 24v20M35 24v20"/>',
  "crack": '<path d="M8 12h40v34H8z"/><path d="M14 18l8 7-3 6 9 5-2 6"/><path d="M34 16l-4 8 7 4"/>',
+ "spray": '<path d="M20 22h14v26H20z"/><path d="M22 22l2-8h8l-4 8"/><path d="M32 14h8l-4 4"/><path d="M42 10l3-2M43 15h4M42 20l3 2"/>',
+ "sparkle": '<path d="M28 8l4 12 12 4-12 4-4 12-4-12-12-4 12-4z"/><path d="M44 36l1.5 4.5L50 42l-4.5 1.5L44 48l-1.5-4.5L38 42l4.5-1.5z"/>',
+ "boxes": '<path d="M8 26h18v20H8zM26 30h18v16H26z"/><path d="M14 18h18v8H14z"/><path d="M8 32h18M26 36h18"/><path d="M40 14l6 6-6 6"/>',
  "drill": '<path d="M10 18h24v10H10z"/><path d="M34 21h10M44 23h4"/><path d="M16 28l-3 18h10l2-18"/><path d="M14 22h8"/>',
  "plan": '<path d="M10 10h28l8 8v28H10z"/><path d="M38 10v8h8"/><path d="M17 24h22M17 31h22M17 38h14"/><path d="M14 24h0M14 31h0M14 38h0"/>',
  "heater": '<rect x="18" y="8" width="20" height="40" rx="6"/><path d="M22 8V5M34 8V5"/><path d="M28 34c-3 0-5-2-5-5 0-3 3-5 3-8 3 2 6 5 6 8 0 3-2 5-4 5z"/><path d="M18 42h20"/>',
  "faucet": '<path d="M10 24h20a6 6 0 0 1 6 6v4"/><path d="M10 20v8M24 16v8M18 16h12"/><path d="M36 40c0 2-1.5 4-3 4s-3-2-3-4 3-5 3-5 3 3 3 5z"/><path d="M6 48h44"/>',
  "flame": '<path d="M28 48c-9 0-14-6-14-13 0-8 7-12 8-20 6 4 7 9 6 13 2-2 4-4 4-8 5 4 10 9 10 15 0 7-5 13-14 13z"/><path d="M28 48c-3 0-6-2-6-6 0-3 3-5 4-9 3 2 6 5 6 9s-2 6-4 6z"/>',
  "snow": '<path d="M28 8v40M11 18l34 20M11 38l34-20"/><path d="M23 10l5 5 5-5M23 46l5-5 5 5M10 24l7-2-2-7M46 32l-7 2 2 7M10 32l7 2-2 7M46 24l-7-2 2-7"/>',
+ "stump": '<path d="M14 46h28"/><path d="M17 46l2-18h18l2 18"/><ellipse cx="28" cy="28" rx="9" ry="3"/><path d="M12 46l-4 3M44 46l4 3"/>',
+ "stumps": '<path d="M6 46h44"/><path d="M9 46l1-10h10l1 10M27 46l1-14h12l1 14"/><ellipse cx="15" cy="36" rx="5" ry="2"/><ellipse cx="34" cy="32" rx="6" ry="2"/>',
+ "roots": '<path d="M8 22h40"/><path d="M28 22c0 8-6 10-12 14M28 22c2 7 8 9 14 12M28 22v20M20 28c-4 0-8 2-10 4M36 28c4 1 7 3 9 6"/>',
+ "desk": '<path d="M6 34h44M10 34v14M46 34v14"/><path d="M18 12h20v14H18z"/><path d="M28 26v8M22 34h12"/>',
+ "calendar": '<path d="M10 14h36v32H10z"/><path d="M10 22h36M18 8v10M38 8v10"/><path d="M19 34l5 5 10-10"/>',
  "gauge": '<path d="M10 38a18 18 0 1 1 36 0"/><path d="M28 38l9-11"/><circle cx="28" cy="38" r="3"/><path d="M14 30l3 1M18 22l2 2M28 18v3M38 22l-2 2M42 30l-3 1"/><path d="M12 44h32"/>',
 }
 SVC_ICON = {"House washing": _J["house"], "Driveways and walks": _J["drive"], "Decks and fences": _J["deck"],
             "Driveways": _J["slab"], "Patios and walks": _J["patio"], ("concrete", "Repairs"): _J["crack"],
             "Heating": _J["flame"], "Cooling": _J["snow"], "Tune-ups": _J["gauge"],
-            "Water heaters": _J["heater"], "New fixtures": _J["faucet"], "Installs": _J["drill"], "Projects": _J["plan"]}
+            "Water heaters": _J["heater"], "New fixtures": _J["faucet"], "Installs": _J["drill"], "Projects": _J["plan"],
+            "Regular cleaning": _J["spray"], "Deep cleaning": _J["sparkle"], "Move-in and move-out": _J["boxes"],
+            "Office cleaning": _J["desk"], "Regular service": _J["calendar"],
+            "Stump grinding": _J["stump"], "More than one stump": _J["stumps"], "Surface roots": _J["roots"]}
 
 # ---------- Signature and Immersive ----------
 _HERO = {
@@ -110,6 +165,12 @@ _HERO = {
           "The same farmhouse washed bright white with a clean driveway, the crew's pickup at the curb", "60% 50%"),
  "concrete": ("concrete-before", "concrete-after", "A farmhouse driveway cracked and broken, with weeds in the cracks",
               "The same driveway replaced with a new, bright concrete slab, the crew's pickup at the curb", "60% 50%"),
+ "office": ("office-before", "office-after", "An office at the end of the day: a bin spilling over, papers on the carpet, a scribbled whiteboard and dust",
+            "The same office ready for the morning: clear desks, a wiped whiteboard and fresh vacuum lines in the carpet", "62% 50%"),
+ "clean": ("clean-before", "clean-after", "A living room with laundry on the sofa, toys and papers on the floor, dust and a smudged window",
+           "The same living room clean and bright, the floor shining, pillows on the sofa and fresh flowers on the table", "62% 50%"),
+ "stump": ("stump-before", "stump-after", "An old tree stump with roots and suckers in a side yard beside a farmhouse",
+           "The same spot ground out and grown back in with fresh new grass", "60% 55%"),
  "handy": ("handy-before", "handy-after", "A farmhouse porch with a gutter hanging loose off the roof edge and a cracked top step",
            "The same porch with the gutter back up and a downspout, and a new top step", "60% 40%"),
  "plumb": ("plumb-before", "plumb-after", "A soggy front lawn with water pooling up over a broken water line",
@@ -126,6 +187,9 @@ def hero(g):
 _SVC = {
  "wash": [("wash-house", "Farmhouse siding washed bright white"), ("wash-drive", "A driveway washed clean down to bright concrete"), ("wash-porch", "A clean porch deck and front steps")],
  "concrete": [("concrete-drive", "A new concrete driveway leading up to a garage"), ("concrete-walk", "A clean concrete front walk to the porch"), ("concrete-cracks", "A cracked, stained driveway before the work")],
+ "clean": [("clean-sofa", "A tidy sofa with pillows and a folded throw in front of a clear window"), ("clean-table", "Fresh flowers and a folded card on a clean coffee table"), ("clean-floor", "A wood floor wiped to a shine")],
+ "office": [("office-desk", "A clean desk by the window with a monitor, a small plant and a neat stack of papers"), ("office-board", "A wiped whiteboard and a water cooler in a tidy office"), ("office-floor", "Office carpet vacuumed in fresh, even lines")],
+ "stump": [("stump-grind", "A stump grinder's cutter wheel chewing an old stump down into chips"), ("stump-yard", "A white farmhouse side yard with a clear, open lawn"), ("stump-old", "An old stump with roots, suckers and mushrooms before the work")],
  "handy": [("handy-gutter", "A porch gutter hanging loose with a ladder against the post"), ("handy-steps", "Porch steps with a fresh new top tread"), ("handy-street", "A white farmhouse with a straight mailbox at the curb")],
  "plumb": [("plumb-pipe", "A new blue water line coupled into the old one in an open trench"), ("plumb-house", "A white farmhouse with the crew's truck at the curb"), ("plumb-new", "A neat strip of fresh sod across the front lawn")],
  "hvac": [("hvac-house", "A white farmhouse with warm lights in the windows at dusk"), ("hvac-unit", "A new outdoor air conditioning unit on a clean pad"), ("hvac-old", "A worn, rusty outdoor unit before the service call")],
@@ -145,6 +209,18 @@ _STAGES = {
               ("concrete-s2", "Pouring", "Old slab out, new slab in", "Formed up straight, then poured from the garage out."),
               ("concrete-s3", "Finishing", "Smooth and even", "Floated, edged and jointed so it cracks where it should, not where it wants."),
               ("concrete-s4", "Done", "A drive that lasts", "Clean edges, even joints and a bright new surface.")],
+ "clean": [("clean-s1", "Before", "Life happened", "Laundry on the sofa, toys on the rug, dust on the floor and a smudged window."),
+           ("clean-s2", "Halfway", "Room by room", "Picked up, dusted and wiped down as the team works across the room."),
+           ("clean-s3", "Floors", "Floors that shine", "Dust and footprints gone, and the wood floor back to a glow."),
+           ("clean-s4", "Done", "Come home to clean", "Pillows set, the throw folded and fresh flowers on the table.")],
+ "office": [("office-s1", "Before", "End of the day", "A bin spilling over, papers on the carpet, cups on the desks and a scribbled whiteboard."),
+            ("office-s2", "Halfway", "Desk by desk", "Bins emptied, papers picked up and desks wiped as the team works across the room."),
+            ("office-s3", "Floors", "Fresh lines in the carpet", "Vacuumed wall to wall, with the dust and crumbs gone."),
+            ("office-s4", "Done", "Ready for the morning", "Clear desks, a clean whiteboard and an office people are glad to walk into.")],
+ "stump": [("stump-s1", "Before", "In the way for years", "Roots that catch the mower, suckers sprouting and mushrooms at the base."),
+           ("stump-s2", "Grinding", "Chewed down into chips", "The cutter wheel works back and forth until the stump is gone."),
+           ("stump-s3", "Cleanup", "Chips raked out", "The hole filled and leveled with fresh soil."),
+           ("stump-s4", "Done", "Grass where the stump was", "Mow right over the spot like it was never there.")],
  "handy": [("handy-s1", "Before", "The list keeps growing", "A gutter hanging off the porch, a cracked step and a mailbox leaning at the curb."),
            ("handy-s2", "First", "Gutter back up", "Hung straight and tight, with a downspout to carry the water away."),
            ("handy-s3", "Next", "A new top step", "The cracked board out and a solid new tread in."),
@@ -164,8 +240,9 @@ def stages(g):
     return _STAGES[g]
 
 
-VISIT = {"wash": "From grimy to bright", "concrete": "From cracked to brand new", "hvac": "From worn out to brand new", "plumb": "From soggy lawn to fixed", "handy": "From to-do list to done"}
+VISIT = {"wash": "From grimy to bright", "concrete": "From cracked to brand new", "hvac": "From worn out to brand new", "plumb": "From soggy lawn to fixed", "handy": "From to-do list to done", "clean": "From lived-in to spotless", "stump": "From stump to grass", "office": "From end of day to ready for the morning"}
 VISIT_INTRO = "Shown on the same house, from before to done."
+VISIT_INTRO_G = {"clean": "Shown in the same room, from before to done.", "office": "Shown in the same office, from before to done."}
 
 TOOL = {
  "wash": ("Wash planner", "What needs a wash?", "Pick what needs cleaning and how bad it is, and know what to mention when you ask.",
@@ -179,6 +256,24 @@ TOOL = {
                                               ("broken", "Broken and crumbling", "When it's coming apart, tearing out and pouring new is usually the answer."),
                                               ("new", "Nothing there yet", "A new slab starts with the size and what it'll carry. Have rough measurements ready.")],
               "Rough measurements and a few photos help most.", "A quick guide, not a quote. The crew will tell you what it really needs."),
+ "clean": ("Clean planner", "What kind of clean?", "Pick the kind of clean and the size of your home, and know what to mention for a straight quote.",
+           "How big is the home?", [("s", "1 to 2 bedrooms", "Mention how many bathrooms and any pets."),
+                                    ("m", "3 bedrooms", "Mention bathrooms, pets and any rooms to skip."),
+                                    ("l", "4 or more bedrooms", "Mention bathrooms, pets and how often you'd like visits."),
+                                    ("x", "Not a house", "Apartment, office or rental? Say which, with the rough size.")],
+           "The number of bedrooms and bathrooms gets you a straight quote fastest.", "A quick guide, not a quote. The team will tell you what it really takes."),
+ "office": ("Space planner", "What kind of space?", "Pick the kind of space and how big it is, and know what to mention for a straight quote.",
+            "How big is the space?", [("s", "A small office", "A few desks and a restroom. Mention how often you'd like visits."),
+                                      ("m", "A full floor or suite", "Mention the rough square footage, restrooms and any kitchen or break room."),
+                                      ("l", "A whole building", "Mention floors, restrooms and the hours the building is empty."),
+                                      ("x", "Not an office", "Store, clinic, church or something else? Say which, with the rough size.")],
+            "The rough size and how often you'd like cleaning gets you a straight quote fastest.", "A quick guide, not a quote. The team will tell you what it really takes."),
+ "stump": ("Stump check", "What needs grinding?", "Pick how many stumps and how big, and know what to mention for a straight quote.",
+           "How big across?", [("small", "Smaller than a dinner plate", "Usually quick. Mention how many there are."),
+                                ("mid", "About a foot to two feet", "The most common size. A photo with something for scale helps."),
+                                ("big", "Bigger than two feet", "Big stumps take longer. Mention how close it is to the house, a fence or a driveway."),
+                                ("idk", "Not sure", "No problem. A photo from a few steps back tells the crew a lot.")],
+           "A photo of each stump helps get a straight quote.", "A quick guide, not a quote. The crew will tell you what it really takes."),
  "handy": ("Job sizer", "What's on the list?", "Pick the kind of job and how big the list is, and know what to send so you get a straight quote.",
            "How big is the list?", [("one", "Just one thing", "A quick visit. A photo of it helps get a straight quote."),
                                     ("few", "A few small things", "Put them in one visit. A short list with photos saves time."),
@@ -202,19 +297,31 @@ TOOL = {
 READY = {
  "wash": "What needs washing, roughly how big it is, and a photo or two of the worst spots.",
  "concrete": "What the project is, rough measurements, and a few photos of what's there now.",
+ "clean": "How many bedrooms and bathrooms, any pets, the kind of clean and how often you'd like it.",
+ "office": "What kind of space, the rough square footage, how many restrooms, and how often you'd like it cleaned.",
+ "stump": "How many stumps, roughly how wide each one is, and a photo from a few steps back.",
  "handy": "A list of what needs doing, a photo of each thing, and rough sizes where it matters.",
  "plumb": "What's going on, where in the house, and a photo of the problem if you can.",
  "hvac": "What the system is doing, roughly how old it is, and a photo of the label on the outdoor unit if you can.",
 }
 
-TOOLS = {g: ("Text-the-crew button", f"Before-and-after slider and a {TOOL[g][0].lower()}",
-             "a live 3D house where you " + {"wash": "wash the drive yourself", "concrete": "pour the new drive yourself", "hvac": "swap in the new unit yourself", "plumb": "dig down and fix the line yourself", "handy": "work through the list yourself"}[g]) for g in GROUPS}
+TOOLS = {g: ("Text-the-team button" if g in ("clean", "office") else "Text-the-crew button", f"Before-and-after slider and a {TOOL[g][0].lower()}",
+             ("a live 3D room where you " if g == "clean" else "a live 3D office where you " if g == "office" else "a live 3D house where you ") + {"wash": "wash the drive yourself", "concrete": "pour the new drive yourself", "hvac": "swap in the new unit yourself", "plumb": "dig down and fix the line yourself", "handy": "work through the list yourself", "clean": "tidy it up yourself", "stump": "grind the stump out yourself", "office": "clean it up yourself"}[g]) for g in GROUPS}
 TRY = {"wash": ("Tap a choice under \"Rather text than call?\" and watch the text write itself.",
                 "Drag the slider on the top picture from grimy to clean, then try the wash planner.",
                 "Scroll to watch the siding and the drive come clean, then drag the wand down the drive yourself."),
        "concrete": ("Tap a choice under \"Rather text than call?\" and watch the text write itself.",
                     "Drag the slider on the top picture from cracked to new, then try the slab check.",
                     "Scroll to watch the old drive go and the new slab go in, then pour it yourself."),
+       "clean": ("Tap a choice under \"Rather text than call?\" and watch the text write itself.",
+                 "Drag the slider on the top picture from lived-in to spotless, then try the clean planner.",
+                 "Scroll to watch the room come clean, then sweep it clean yourself."),
+       "office": ("Tap a choice under \"Rather text than call?\" and watch the text write itself.",
+                  "Drag the slider on the top picture from end of day to ready, then try the space planner.",
+                  "Scroll to watch the office come clean, then clean it up yourself."),
+       "stump": ("Tap a choice under \"Rather text than call?\" and watch the text write itself.",
+                 "Drag the slider on the top picture from stump to grass, then try the stump check.",
+                 "Scroll to watch the grinder chew the stump down, then grind it out yourself."),
        "handy": ("Tap a choice under \"Rather text than call?\" and watch the text write itself.",
                  "Drag the slider on the top picture from before to done, then try the job sizer.",
                  "Scroll to watch the list get crossed off, then work through it yourself."),
@@ -236,6 +343,27 @@ def beats(g):
                 ("hero", .3, {"house": 1, "fix": 1}, None, "wash-after", ("03 · Done", s4[2], s4[3])),
                 ("dusk", .84, {"house": 1, "fix": 1}, None, "wash-dusk", ("04 · Evening", "Still bright at dusk", "The kind of house people slow down to look at.")),
                 ("cfg", .3, {}, None, "wash-after", "cfg")]
+    if g == "clean":
+        return [("hero", .3, {"fix": 0}, None, "clean-before", None),
+                ("close", .3, {"fix": 0}, {"fix": .5}, "clean-s2", ("01 · " + s2[1], s2[2], "Keep scrolling and watch the room come clean from one side to the other.")),
+                ("floor", .3, {"fix": .5}, {"fix": .95}, "clean-s3", ("02 · " + s3[1], s3[2], s3[3])),
+                ("hero", .3, {"fix": .95}, {"fix": 1}, "clean-after", ("03 · Done", s4[2], s4[3])),
+                ("dusk", .84, {"fix": 1}, None, "clean-dusk", ("04 · Evening", "Lamp on, feet up", "The kind of room you want to come home to.")),
+                ("cfg", .3, {}, None, "clean-after", "cfg")]
+    if g == "office":
+        return [("hero", .3, {"fix": 0}, None, "office-before", None),
+                ("close", .3, {"fix": 0}, {"fix": .5}, "office-s2", ("01 · " + s2[1], s2[2], "Keep scrolling and watch the office come clean from one side to the other.")),
+                ("floor", .3, {"fix": .5}, {"fix": .95}, "office-s3", ("02 · " + s3[1], s3[2], s3[3])),
+                ("hero", .3, {"fix": .95}, {"fix": 1}, "office-after", ("03 · Done", s4[2], s4[3])),
+                ("dusk", .84, {"fix": 1}, None, "office-dusk", ("04 · After hours", "Done after everyone leaves", "Cleaned after hours, so the morning starts fresh.")),
+                ("cfg", .3, {}, None, "office-after", "cfg")]
+    if g == "stump":
+        return [("hero", .45, {"fix": 0}, None, "stump-before", None),
+                ("close", .45, {"fix": 0}, {"fix": .6}, "stump-s2", ("01 · " + s2[1], s2[2], "Keep scrolling and watch the grinder chew the stump down into chips.")),
+                ("close", .45, {"fix": .6}, {"fix": .86}, "stump-s3", ("02 · " + s3[1], s3[2], s3[3])),
+                ("hero", .45, {"fix": .86}, {"fix": 1}, "stump-after", ("03 · Done", s4[2], s4[3])),
+                ("dusk", .84, {"fix": 1}, None, "stump-dusk", ("04 · Evening", "Room to breathe", "An open side yard and nothing left to trip over.")),
+                ("cfg", .45, {}, None, "stump-after", "cfg")]
     if g == "handy":
         return [("hero", .3, {"fix": 0}, None, "handy-before", None),
                 ("close", .3, {"fix": 0}, {"fix": .5}, "handy-s2", ("01 · " + s2[1], s2[2], "Keep scrolling and watch the gutter go back up where it belongs.")),
@@ -270,6 +398,12 @@ def controls(g):
         return ('<div class="ctl"><label for="u-fix">Wash the drive <span>drag</span></label><input id="u-fix" type="range" min="0" max="100" value="100" data-set="fix"></div>'
                 '<div class="ctl"><div class="lab">Siding</div><div class="seg" role="group" aria-label="Siding"><button type="button" aria-pressed="false" data-set="house" data-v="0">Before</button>'
                 '<button type="button" aria-pressed="true" data-set="house" data-v="1">Washed</button></div></div>'), "Your turn: wash it yourself", {"house": 1, "fix": 1, "tod": .3}
+    if g == "clean":
+        return ('<div class="ctl"><label for="u-fix">Clean the room <span>drag</span></label><input id="u-fix" type="range" min="0" max="100" value="100" data-set="fix"></div>'), "Your turn: clean it yourself", {"fix": 1, "tod": .3}
+    if g == "office":
+        return ('<div class="ctl"><label for="u-fix">Clean the office <span>drag</span></label><input id="u-fix" type="range" min="0" max="100" value="100" data-set="fix"></div>'), "Your turn: clean it yourself", {"fix": 1, "tod": .3}
+    if g == "stump":
+        return ('<div class="ctl"><label for="u-fix">Grind the stump <span>drag</span></label><input id="u-fix" type="range" min="0" max="100" value="100" data-set="fix"></div>'), "Your turn: grind it out", {"fix": 1, "tod": .45}
     if g == "handy":
         return ('<div class="ctl"><label for="u-fix">Work through the list <span>drag</span></label><input id="u-fix" type="range" min="0" max="100" value="100" data-set="fix"></div>'), "Your turn: cross it off", {"fix": 1, "tod": .3}
     if g == "plumb":
@@ -287,7 +421,10 @@ CAM = {"hero": ("-4,2.8,44", "7.5,1.8,12", 36), "close": ("4.2,1.5,27", "9.6,.3,
        "side": ("-15,2.4,13", "-5,2.0,-.5", 40),
        "yard": ("-7.4,1.9,24.6", "-3.0,.2,17.6", 40), "yardc": ("-6.6,1.6,22.6", "-3.2,.05,18.2", 40), "curb": ("-12,2.8,46", "-3,1.2,14", 36),
        "porch": ("-3.6,1.6,12.6", "-1.0,1.7,6.4", 44), "porchw": ("-5.2,2.0,15", "-1.4,2.0,6.4", 42), "street": ("-7,1.7,46", "-1,1.6,22", 40),
-       "steps": ("-1.6,1.2,10", "0,.4,6.8", 40)}
+       "steps": ("-1.6,1.2,10", "0,.4,6.8", 40),
+       "stumph": ("-15.2,1.9,9.6", "-10.6,.6,2.9", 40), "stumpc": ("-14.4,1.5,7.8", "-10.9,.4,2.9", 40), "stumpw": ("-19,2.6,14", "-8,1.6,2", 40),
+       "room": ("2.4,1.6,1.4", "-.8,.85,-2.8", 46), "roomc": ("1.3,1.25,-.6", "-.7,.5,-2.6", 44), "floorc": ("2.2,.9,.4", "-.6,.05,-2.0", 46), "win": ("1.0,1.5,-1.2", "-.7,1.1,-4.4", 44),
+       "board": ("1.2,1.5,-.4", "-2.6,1.2,-2.4", 46)}
 _DIRTY = "siding=a9a68f&trim=6f6d60"
 
 
@@ -304,6 +441,30 @@ def renders(g):
                 r("s3", 1200, 800, "close", .3, "fix=.5"), r("s4", 1200, 800, "close", .3, "fix=1"),
                 r("dusk", 1600, 1000, "dusk", .84, "fix=1"), r("house", 1600, 1000, "house", .3, "fix=1"),
                 r("drive", 1600, 1000, "close", .3, "fix=1"), r("porch", 1600, 1000, "porch", .3, "fix=1")]
+    if g == "office":
+        def ro(name, w, h, cam, tod, fx, ox=0):
+            c, t, f = CAM[cam]
+            return {"name": f"office-{name}", "w": w, "h": h, "lab": "labroom", "q": f"kind=office&tod={tod}&cam={c}&tgt={t}&fov={f}&fix={fx}" + (f"&ox={ox}" if ox else "")}
+        return [ro("before", 2400, 1350, "room", .3, 0, .13), ro("after", 2400, 1350, "room", .3, 1, .13),
+                ro("s1", 1200, 800, "roomc", .3, 0), ro("s2", 1200, 800, "room", .3, .5),
+                ro("s3", 1200, 800, "floorc", .3, 1), ro("s4", 1200, 800, "roomc", .3, 1),
+                ro("dusk", 1600, 1000, "room", .84, 1), ro("desk", 1600, 1000, "win", .3, 1),
+                ro("board", 1600, 1000, "board", .3, 1), ro("floor", 1600, 1000, "floorc", .3, 1)]
+    if g == "clean":
+        def rr(name, w, h, cam, tod, fx, ox=0):
+            c, t, f = CAM[cam]
+            return {"name": f"clean-{name}", "w": w, "h": h, "lab": "labroom", "q": f"tod={tod}&cam={c}&tgt={t}&fov={f}&fix={fx}" + (f"&ox={ox}" if ox else "")}
+        return [rr("before", 2400, 1350, "room", .3, 0, .13), rr("after", 2400, 1350, "room", .3, 1, .13),
+                rr("s1", 1200, 800, "roomc", .3, 0), rr("s2", 1200, 800, "room", .3, .5),
+                rr("s3", 1200, 800, "floorc", .3, 1), rr("s4", 1200, 800, "roomc", .3, 1),
+                rr("dusk", 1600, 1000, "room", .84, 1), rr("sofa", 1600, 1000, "win", .3, 1),
+                rr("table", 1600, 1000, "roomc", .3, 1), rr("floor", 1600, 1000, "floorc", .3, 1)]
+    if g == "stump":
+        return [r("before", 2400, 1350, "stumph", .45, "stump=0", .13), r("after", 2400, 1350, "stumph", .45, "stump=1", .13),
+                r("s1", 1200, 800, "stumpc", .45, "stump=0"), r("s2", 1200, 800, "stumpc", .45, "stump=.42"),
+                r("s3", 1200, 800, "stumpc", .45, "stump=.84"), r("s4", 1200, 800, "stumpc", .45, "stump=1"),
+                r("dusk", 1600, 1000, "stumpw", .84, "stump=1"), r("grind", 1600, 1000, "stumpc", .45, "stump=.3"),
+                r("yard", 1600, 1000, "stumpw", .45, "stump=1"), r("old", 1600, 1000, "stumpc", .45, "stump=0")]
     if g == "handy":
         return [r("before", 2400, 1350, "porchw", .3, "hm=0", .13), r("after", 2400, 1350, "porchw", .3, "hm=1", .13),
                 r("s1", 1200, 800, "porch", .3, "hm=0"), r("s2", 1200, 800, "porch", .3, "hm=.5"),

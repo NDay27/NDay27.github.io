@@ -309,3 +309,89 @@ export function fixList(world) {
   set({fix: 0});
   return {root, set};
 }
+
+// stumpGrind(world): an old cut stump in the side yard, ground out by a stump grinder. set({fix}): the grinder rolls in (.04-.2),
+// its cutter wheel chews the stump and roots down into a pile of chips (.2-.62), the grinder backs away (.62-.74), the chips are
+// raked into fresh soil (.72-.86) and new grass comes up over the spot (.86-1). exclude(x, z) keeps lawn blades off the spot.
+export function stumpGrind(world, {x = -11.5, z = 3.2} = {}) {
+  const root = new THREE.Group(); root.position.set(x, 0, z); world.scene.add(root);
+  const mat = (c, ro = .8, m = 0, o = {}) => new THREE.MeshStandardMaterial({color: c, roughness: ro, metalness: m, envMapIntensity: .5, ...o});
+  const add = (geo, m, px, py, pz, parent = root) => { const o = new THREE.Mesh(geo, m); o.position.set(px, py, pz); o.castShadow = o.receiveShadow = true; parent.add(o); return o; };
+  let seed = 11; const r = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const ss = (a, b, t) => { const k = Math.min(1, Math.max(0, (t - a) / (b - a))); return k * k * (3 - 2 * k); };
+  const tex = (w, h, draw) => { const cv = document.createElement("canvas"); cv.width = w; cv.height = h; draw(cv.getContext("2d"), w, h); const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t; };
+  // ---------- the stump: weathered bark, a grey cut face with rings and checks, roots into the lawn, suckers and mushrooms ----------
+  const barkT = tex(256, 128, (g, w, h) => { g.fillStyle = "#6b5d4f"; g.fillRect(0, 0, w, h);
+    for (let i = 0; i < 70; i++) { const px = r() * w; g.fillStyle = `rgba(${r() < .5 ? "22,18,14" : "120,108,92"},${.25 + r() * .35})`; g.fillRect(px, 0, 1.5 + r() * 4, h); }
+    for (let i = 0; i < 30; i++) { g.fillStyle = "rgba(108,122,70,.35)"; g.beginPath(); g.ellipse(r() * w, h * (.55 + r() * .45), 6 + r() * 14, 3 + r() * 6, 0, 0, 7); g.fill(); } });
+  barkT.wrapS = THREE.RepeatWrapping; barkT.repeat.set(3, 1);
+  const ringT = tex(512, 512, (g, w, h) => { const c = w / 2; g.fillStyle = "#9c8a70"; g.fillRect(0, 0, w, h);
+    for (let k = 1; k < 34; k++) { g.strokeStyle = `rgba(78,60,40,${.25 + (k % 3) * .12})`; g.lineWidth = 1.5 + (k % 4); g.beginPath();
+      for (let i = 0; i <= 48; i++) { const a = i / 48 * Math.PI * 2, rr = k * 7.2 * (1 + .04 * Math.sin(a * 3 + k)); g.lineTo(c + 12 + Math.cos(a) * rr, c - 8 + Math.sin(a) * rr); } g.stroke(); }
+    const gr = g.createRadialGradient(c, c, 120, c, c, 256); gr.addColorStop(0, "rgba(130,124,114,0)"); gr.addColorStop(1, "rgba(118,112,104,.85)"); g.fillStyle = gr; g.fillRect(0, 0, w, h);
+    g.strokeStyle = "rgba(40,30,22,.8)"; g.lineWidth = 3; for (let i = 0; i < 6; i++) { const a = r() * 6.28, r0 = 40 + r() * 80; g.beginPath(); g.moveTo(c + Math.cos(a) * r0, c + Math.sin(a) * r0); g.lineTo(c + Math.cos(a + .05) * 250, c + Math.sin(a + .05) * 250); g.stroke(); } });
+  const barkM = mat(0xffffff, .95, 0, {map: barkT});
+  const stump = new THREE.Group(); root.add(stump);
+  add(new THREE.CylinderGeometry(.6, .74, .52, 22, 1, true), barkM, 0, .26, 0, stump);
+  const face = add(new THREE.CircleGeometry(.6, 32), mat(0xffffff, .95, 0, {map: ringT}), 0, .52, 0, stump); face.rotation.set(-Math.PI / 2 + .05, 0, r() * 6);
+  const roots = new THREE.Group(); root.add(roots);
+  for (let i = 0; i < 5; i++) { const a = i / 5 * Math.PI * 2 + r() * .6, len = .45 + r() * .4, g = new THREE.Group(); g.rotation.y = -a; roots.add(g);
+    const c = add(new THREE.CylinderGeometry(.02, .15, len, 9), barkM, .5 + len / 2, .0, 0, g); c.rotation.z = Math.PI / 2 + .22; c.scale.z = .55; }
+  const leafM = mat(0x5c8a34, .7, 0, {side: THREE.DoubleSide});
+  for (const [a, n] of [[.6, 7], [2.6, 5], [4.4, 6]]) for (let i = 0; i < n; i++) {
+    const l = add(new THREE.SphereGeometry(.07, 7, 5), leafM, Math.cos(a) * .55 + (r() - .5) * .16, .55 + r() * .28, Math.sin(a) * .55 + (r() - .5) * .16, stump); l.scale.set(1, .35, .6); l.rotation.set(r(), r() * 3, r()); }
+  for (const [a, s] of [[1.4, 1], [1.7, .7], [5.3, .85]]) { const mx = Math.cos(a) * .8, mz = Math.sin(a) * .8;
+    add(new THREE.CylinderGeometry(.018 * s, .024 * s, .09 * s, 8), mat(0xe9e2d0, .8), mx, .045 * s, mz, stump);
+    add(new THREE.SphereGeometry(.06 * s, 12, 6, 0, Math.PI * 2, 0, Math.PI / 2), mat(0xb4683a, .6), mx, .085 * s, mz, stump).scale.y = .6; }
+  // ---------- chips, soil and new grass ----------
+  const chipT = tex(512, 512, (g, w, h) => { g.fillStyle = "#7a5a3c"; g.fillRect(0, 0, w, h);
+    for (let i = 0; i < 2600; i++) { g.save(); g.translate(r() * w, r() * h); g.rotate(r() * 6.28); g.fillStyle = ["#c7a274", "#a9824f", "#5a3f28", "#d9bf94", "#8c6a44"][i % 5]; g.fillRect(-4 - r() * 5, -1.5, 8 + r() * 10, 2.5 + r() * 2); g.restore(); } });
+  chipT.wrapS = chipT.wrapT = THREE.RepeatWrapping; chipT.repeat.set(2, 2);
+  const pile = add(new THREE.SphereGeometry(1, 28, 12, 0, Math.PI * 2, 0, Math.PI / 2), mat(0xffffff, 1, 0, {map: chipT}), 0, 0, 0);
+  { const p = pile.geometry.attributes.position; for (let i = 0; i < p.count; i++) { const X = p.getX(i), Z = p.getZ(i), k = 1 + .08 * Math.sin(X * 9) * Math.sin(Z * 7); p.setXYZ(i, X * k, p.getY(i) * k, Z * k); } pile.geometry.computeVertexNormals(); }
+  const soilT = tex(512, 512, (g, w, h) => { const gr = g.createRadialGradient(256, 256, 150, 256, 256, 256); gr.addColorStop(0, "rgba(70,52,36,1)"); gr.addColorStop(.85, "rgba(82,64,44,.9)"); gr.addColorStop(1, "rgba(82,64,44,0)"); g.fillStyle = gr; g.fillRect(0, 0, w, h);
+    for (let i = 0; i < 1400; i++) { const a = r() * 6.28, rr = Math.sqrt(r()) * 230; g.fillStyle = ["rgba(40,28,18,.6)", "rgba(150,120,84,.5)", "rgba(196,170,126,.5)"][i % 3]; g.fillRect(256 + Math.cos(a) * rr, 256 + Math.sin(a) * rr, 2 + r() * 3, 2 + r() * 2); } });
+  const soilM = mat(0xffffff, 1, 0, {map: soilT, transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2});
+  const soil = add(new THREE.CircleGeometry(1.5, 40), soilM, 0, .012, 0); soil.rotation.x = -Math.PI / 2; soil.castShadow = false; soil.renderOrder = 2;
+  const N = 1300, blade = new THREE.PlaneGeometry(.045, .15); blade.translate(0, .075, 0); { const bp = blade.attributes.position; for (let i = 0; i < bp.count; i++) if (bp.getY(i) > .1) bp.setX(i, bp.getX(i) * .08); }
+  const sprouts = new THREE.InstancedMesh(blade, mat(0x6fa53a, .8, 0, {side: THREE.DoubleSide}), N); sprouts.castShadow = false; sprouts.receiveShadow = true; root.add(sprouts);
+  const SP = []; for (let i = 0; i < N; i++) { const a = r() * 6.28, rr = Math.sqrt(r()) * 1.42; SP.push([Math.cos(a) * rr, Math.sin(a) * rr, r() * 6.28, (.55 + r() * .6) * (rr > 1.1 ? .75 : 1), r()]); sprouts.setColorAt(i, new THREE.Color().setHSL(.22 + r() * .04, .42, .3 + r() * .14)); }
+  const M4 = new THREE.Matrix4(), Q = new THREE.Quaternion(), E3 = new THREE.Euler(), V3 = new THREE.Vector3(), S3 = new THREE.Vector3();
+  // ---------- the stump grinder: orange body, engine, two wheels, handlebars and a toothed cutter wheel on a swinging boom ----------
+  const orange = mat(0xe36d1b, .45, .2), dark = mat(0x26282b, .6, .3), steel = mat(0xb9bcbf, .3, .85), rubber = mat(0x1a1a1a, .9);
+  const gr = new THREE.Group(); root.add(gr);
+  add(new THREE.BoxGeometry(.62, .34, 1.0), orange, 0, .42, .2, gr);
+  add(new THREE.BoxGeometry(.42, .34, .44), dark, 0, .76, .38, gr); add(new THREE.CylinderGeometry(.05, .05, .2, 10), steel, .14, 1.0, .5, gr);
+  for (const sx of [-1, 1]) { const w = add(new THREE.CylinderGeometry(.24, .24, .14, 22), rubber, sx * .4, .24, .45, gr); w.rotation.z = Math.PI / 2; const hub = add(new THREE.CylinderGeometry(.1, .1, .15, 14), steel, sx * .4, .24, .45, gr); hub.rotation.z = Math.PI / 2; }
+  for (const sx of [-1, 1]) { const h = add(new THREE.CylinderGeometry(.022, .022, .76, 8), dark, sx * .2, .8, .96, gr); h.rotation.x = .83; }
+  { const h = add(new THREE.CylinderGeometry(.026, .026, .5, 8), dark, 0, 1.06, 1.24, gr); h.rotation.z = Math.PI / 2; }
+  const boom = new THREE.Group(); boom.position.set(0, .5, -.25); gr.add(boom);
+  add(new THREE.BoxGeometry(.16, .14, 1.0), orange, 0, 0, -.45, boom);
+  const wheel = new THREE.Group(); wheel.position.set(.12, -.05, -.95); boom.add(wheel);
+  { const d = add(new THREE.CylinderGeometry(.3, .3, .05, 28), steel, 0, 0, 0, wheel); d.rotation.z = Math.PI / 2;
+    for (let i = 0; i < 12; i++) { const a = i / 12 * Math.PI * 2, t = add(new THREE.BoxGeometry(.08, .07, .05), dark, 0, Math.cos(a) * .32, Math.sin(a) * .32, wheel); t.rotation.x = -a; } }
+  { const gd = add(new THREE.CylinderGeometry(.36, .36, .14, 24, 1, true, 0, Math.PI), orange, .12, -.02, -.95, boom); gd.rotation.set(0, 0, Math.PI / 2); gd.material = orange.clone(); gd.material.side = THREE.DoubleSide; }
+  // flying chips while it cuts
+  const chips = []; const chipM = mat(0xc7a274, .9);
+  for (let i = 0; i < 36; i++) { const c = add(new THREE.BoxGeometry(.05, .012, .03), chipM, 0, 0, 0); c.castShadow = false; chips.push([c, r() * 6.28, .8 + r() * .9, r(), r() * 6.28]); }
+  let fix = -1, tt = 0, cutting = false;
+  const spray = (time) => { const wp = new THREE.Vector3(); wheel.getWorldPosition(wp); root.worldToLocal(wp);
+    for (const [c, a, v, ph, sp] of chips) { if (!cutting) { c.visible = false; continue; } const p = (time * 1.6 + ph) % 1; c.visible = true;
+      c.position.set(wp.x + Math.cos(a) * v * p * .9, wp.y + 1.6 * p - 2.2 * p * p, wp.z + Math.abs(Math.sin(a)) * v * p * .9 + .15); c.rotation.set(sp + time * 9, sp, time * 7); } };
+  world.onTick.push((t, dt) => { tt += dt; if (!cutting) return; wheel.rotation.x -= dt * 22; spray(tt); });
+  const set = ({fix: f = 0} = {}) => { if (Math.abs(f - fix) < 1e-4) return; fix = f;
+    const g = ss(.2, .62, f), rake = ss(.72, .86, f), grow = ss(.86, 1, f);
+    stump.visible = g < .98; stump.scale.set(1, Math.max(.02, 1 - g), 1); roots.visible = g < .9; roots.scale.set(1 - g * .5, Math.max(.05, 1 - g * 1.1), 1 - g * .5);
+    const vol = Math.min(1, g * 1.15) * (1 - rake); pile.visible = vol > .02; pile.scale.set(.5 + .9 * Math.sqrt(Math.max(vol, .01)), .5 * vol + .02, .5 + .9 * Math.sqrt(Math.max(vol, .01)));
+    soil.visible = g > .3 && grow < .99; soilM.opacity = Math.min(1, (g - .3) * 3) * (1 - grow);
+    const n = grow > .01 ? N : 0; sprouts.count = n;
+    for (let i = 0; i < n; i++) { const [px, pz, ry, h, d] = SP[i]; const k = Math.min(1, Math.max(0, grow * 1.6 - d * .6)); Q.setFromEuler(E3.set((d - .5) * .4, ry, 0)); M4.compose(V3.set(px, 0, pz), Q, S3.set(1, Math.max(.001, k * h), 1)); sprouts.setMatrixAt(i, M4); }
+    sprouts.instanceMatrix.needsUpdate = true; if (sprouts.instanceColor) sprouts.instanceColor.needsUpdate = true;
+    const inn = ss(.04, .2, f), out = ss(.62, .74, f); gr.visible = f > .04 && f < .74;
+    gr.position.set(.1, 0, 1.45 + (1 - inn) * 5 + out * 5); gr.rotation.y = out * .5;
+    boom.rotation.x = .1 - Math.min(1, g * 1.2) * .1; boom.rotation.y = Math.sin(g * Math.PI * 5) * .3 * (g > 0 && g < 1 ? 1 : 0);
+    wheel.position.y = -.05 - g * .45 + .15 * (1 - inn);
+    cutting = f > .2 && f < .62; wheel.rotation.x = -f * 60; spray(f * 23); };
+  set({fix: 0});
+  return {root, set, exclude: (px, pz) => Math.hypot(px - x, pz - z) < 1.45};
+}

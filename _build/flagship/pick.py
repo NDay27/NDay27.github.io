@@ -26,15 +26,24 @@ KIT_V = {"lawn": "lawn", "landscape": "lawn", "tree": "tree", "painter": "painti
 KIT_V.update(getattr(kit, "KIT_V_EXTRA", {}))
 # names where the group's story would be wrong (a mobile mechanic has no shop; a stump grinder doesn't trim trees)
 NAME_OUT = {
- "auto": r"diesel|mobile|\btires?\b|alignment|custom|racing|undercoat|storage|road service|on site|truck|trailer|tow|wrecker|marine|\brv\b|motorcycle|cycle|small engine|mower|airframe|aircraft|accessor|sprinter",
+ "auto": r"diesel|\bmobile\b|\btires?\b|alignment|custom|racing|undercoat|storage|road service|on site|truck|trailer|\btow|wrecker|marine|\brv\b|motorcycle|cycle|small engine|mower|airframe|aircraft|accessor|sprinter",
  "lawn": r"stump|grind|handyman|construct|excavat|snow|concrete|paver|stone|masonry|fenc|pool|irrigat|sprinkler|tree",
  "tree": r"stump|grind|handyman|construct|excavat|property improve|landscap|lawn",
  "body": r"glass|windshield|tint|wrap|detail|upholst|mobile|marine|motorcycle|\brv\b",
  "painting": r"handyman|construct|excavat|farms|sandblast|sndblst|auto|body|gutter|clean|roof|floor|drywall",
 }
 NAME_OUT.update(getattr(kit, "NAME_OUT_EXTRA", {}))
+STUMP_V = ("tree", "lawn")
 # checked by hand: the name trips a filter but the kit story fits (Buck's is a tree crew that also landscapes)
-KEEP = {"buck-s-tree-service-landscaping-peoria"}
+KEEP = {"buck-s-tree-service-landscaping-peoria",
+        # Nov 21: Google lists these as car repair shops; the diesel/truck/tire/alignment word in the name is extra work, the car story still fits
+        "j-m-automotive-diesel-lincoln", "pages-diesel-automotive-marion-in", "j-m-automotive-and-diesel-repair-springfield", "kma-truck-auto-kokomo-in",
+        "haager-s-auto-truck-service-richmond-in", "sooner-auto-truck-repair-midwest-city-ok", "palmetto-truck-car-services-hardeeville-sc",
+        "walt-s-auto-repair-towing-sandusky-oh", "bonao-tires-auto-repair-wilkes-barre-pa", "brad-s-auto-repair-and-alignment-mason-city-ia",
+        # nail salons named "& Spa", salons/barbers that also do nails or styling, family restaurants named Kitchen
+        "art-nails-spa-monroe-la", "a-j-elite-nails-spa-branson-mo", "rio-nails-and-spa-cedar-city-ut", "gallery-nail-spa-bloomingdale-nj", "yg-nail-spa-oakland-nj",
+        "lv-spa-nails-ringwood-nj", "serenity-salon-and-day-spa-hartwell-ga", "stylz-hair-nail-salon-saginaw-mi", "sweeney-braz-s-barbershop-salon-green-river-wy",
+        "elvira-s-hair-styling-williamsport-pa", "mountain-view-kitchen-fountain-hills-az", "texas-kountry-kitchen-dayton-tx"}
 
 
 def candidates():
@@ -46,12 +55,16 @@ def candidates():
     for s in tiers + dealt:
         if s["slug"] in done or s.get("copy"):
             continue
-        if s.get("gstatus") == "closed" or s.get("wk") == "own":
+        if s.get("gstatus") in ("closed", "temp") or s.get("wk") == "own":
             continue
         g = KIT_V.get(s["v"])
         if not g:
             continue
         if tb.trade_problem(s, checks):
+            continue
+        # a tree or lawn lead whose name says stump grinding gets the stump kit (its own variant, see home.V_NEW)
+        if s["v"] in STUMP_V and re.search(r"stump", s["name"].lower()) and kit.st(s) != "CA":
+            out.append(("stump", dict(s, kv="stump")))
             continue
         if s["slug"] not in KEEP and re.search(NAME_OUT.get(g, r"$^"), s["name"].lower()):
             continue
@@ -74,7 +87,7 @@ def main():
         seen = {x["slug"] for x in cur}
         for g, s in picks:
             if s["slug"] not in seen:
-                cur.append({"slug": s["slug"], "owner": "nolan", "src": ["Google listing category (trade check)"]})
+                cur.append({"slug": s["slug"], "owner": "nolan", "src": ["Google listing category (trade check)"], **({"v": s["kv"]} if s.get("kv") else {})})
         json.dump(cur, open(f, "w"), indent=1, ensure_ascii=False)
         print("added to", f)
 
