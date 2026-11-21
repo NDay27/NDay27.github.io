@@ -5735,5 +5735,61 @@
   "trade": "Plumber",
   "src": "Google listing category",
   "on": "2026-11-21"
+ },
+ "assemblit-pro-new-britain-ct": {
+  "v": "handyman",
+  "trade": "Handyman",
+  "src": "Google listing category",
+  "on": "2026-11-21",
+  "name_ok": true
+ },
+ "rizzo-door-repair-handyman-remodeling-eden-prairie-mn": {
+  "v": "handyman",
+  "trade": "Handyman",
+  "src": "Google listing category",
+  "on": "2026-11-21",
+  "name_ok": true
+ },
+ "precision-home-solutions-spokane-wa": {
+  "v": "handyman",
+  "trade": "Handyman",
+  "src": "Google listing category",
+  "on": "2026-11-21",
+  "name_ok": true
+ },
+ "marcelo-ruiz-handyman-landscaping-service-santa-cruz-ca": {
+  "v": "handyman",
+  "trade": "Handyman",
+  "src": "Google listing category",
+  "on": "2026-11-21",
+  "name_ok": true
+ },
+ "friends-and-family-handymen-bunceton-mo": {
+  "v": "handyman",
+  "trade": "Handyman",
+  "src": "Google listing category",
+  "on": "2026-11-21",
+  "name_ok": true
+ },
+ "steves-helpful-handyman-la-feria-tx": {
+  "v": "handyman",
+  "trade": "Handyman",
+  "src": "Google listing category",
+  "on": "2026-11-21",
+  "name_ok": true
+ },
+ "double-a-home-improvements-clearfield-ut": {
+  "v": "handyman",
+  "trade": "Handyman",
+  "src": "Google listing category",
+  "on": "2026-11-21",
+  "name_ok": true
+ },
+ "pulver-s-handyman-services-clearfield-ut": {
+  "v": "handyman",
+  "trade": "Handyman",
+  "src": "Google listing category",
+  "on": "2026-11-21",
+  "name_ok": true
  }
 }

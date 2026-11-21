@@ -266,3 +266,46 @@ export function yardLine(world, {x = -3.4, z0 = 15.5, z1 = 20.5, leak = 18.1} = 
   set({fix: 0});
   return {root, set, exclude: (px, pz) => Math.abs(px - x) < .5 && pz > z0 - .2 && pz < z1 + .2};
 }
+
+// fixList(world): a handyman's list on the Harlow house. set({fix}) works through it in order:
+// the porch gutter hanging loose (fixed by .5, with a downspout), the cracked top step (new tread by .7),
+// and the mailbox leaning at the curb (straight by .9). A ladder and a toolbox show up while the work is on.
+export function fixList(world) {
+  const root = new THREE.Group(); world.scene.add(root);
+  const std = (c, ro = .6, o = {}) => new THREE.MeshStandardMaterial({color: c, roughness: ro, envMapIntensity: .5, ...o});
+  const box = (w, h, d, m) => { const o = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m); o.castShadow = o.receiveShadow = true; return o; };
+  const ss = (a, b, t) => { const k = Math.min(1, Math.max(0, (t - a) / (b - a))); return k * k * (3 - 2 * k); };
+  // gutter along the porch roof's front edge: a pivot at the right end so the left run can hang down
+  const gM = std(0xe9e8e3, .35, {metalness: .3}), gy = 3.86, gz = 7.08, x0 = -5.36, x1 = 5.36;
+  const gut = (len) => { const g = new THREE.Group(); const b = box(len, .03, .13, gM); b.position.y = -.05; g.add(b);
+    const f = box(len, .12, .02, gM); f.position.set(0, 0, .065); g.add(f); const k = box(len, .08, .02, gM); k.position.set(0, -.02, -.065); g.add(k); return g; };
+  const right = gut(x1 - .2); right.position.set((x1 + .2) / 2, gy, gz); root.add(right);
+  const leftP = new THREE.Group(); leftP.position.set(.2, gy, gz); root.add(leftP);
+  const left = gut(.2 - x0); left.position.x = -(.2 - x0) / 2; leftP.add(left);
+  const spout = new THREE.Group(); root.add(spout); spout.position.set(x0 + .06, 0, gz - .02);
+  { const p = box(.07, gy - .2, .07, gM); p.position.y = (gy - .2) / 2 + .2; spout.add(p); const e = box(.07, .07, .3, gM); e.position.set(0, .2, .12); spout.add(e); const s = box(.3, .03, .4, std(0x9a978f, .9)); s.position.set(0, .015, .4); spout.add(s); }
+  // top porch step: a cracked, sunken board, then a fresh tread
+  const oldW = std(0x857a6c, .95), newW = std(0xc9a06d, .55);
+  const crackA = box(1.1, .03, .34, oldW), crackB = box(1.1, .03, .34, oldW); crackA.position.set(-.56, .455, 6.77); crackB.position.set(.62, .4, 6.8); crackB.rotation.set(.16, .1, -.24);
+  const gap = box(.2, .012, .34, std(0x15120e, 1)); gap.position.set(.02, .447, 6.77); root.add(gap); root.add(crackA, crackB);
+  const tread = box(2.22, .035, .36, newW); tread.position.set(0, .458, 6.77); root.add(tread);
+  // ladder against the left porch post, toolbox on the walk
+  const ladder = new THREE.Group(); root.add(ladder); const lM = std(0xb9bec4, .35, {metalness: .6});
+  { for (const dx of [-.22, .22]) { const r = box(.05, 4.1, .07, lM); r.position.set(dx, 2.05, 0); ladder.add(r); }
+    for (let i = 0; i < 12; i++) { const r = box(.44, .035, .035, lM); r.position.set(0, .3 + i * .32, 0); ladder.add(r); } }
+  ladder.position.set(-4.3, 0, 7.55); ladder.rotation.x = -.2;
+  const tool = new THREE.Group(); root.add(tool);
+  { const b = box(.5, .22, .22, std(0xc8382a, .45)); b.position.y = .13; tool.add(b); const h = box(.32, .04, .04, std(0x222426, .5)); h.position.y = .28; tool.add(h); }
+  tool.position.set(.95, .02, 9.2); tool.rotation.y = .4;
+  // the mailbox the house already has at the curb
+  let mail = null; world.scene.traverse(o => { if (!mail && o.isGroup && Math.abs(o.position.x + 2.4) < .01 && Math.abs(o.position.z - 30.4) < .01) mail = o; });
+  let last = -1;
+  const set = ({fix: f = 0} = {}) => { if (Math.abs(f - last) < 1e-4) return; last = f;
+    const g = ss(.15, .45, f), s = ss(.45, .68, f), m = ss(.7, .9, f);
+    leftP.rotation.z = (1 - g) * .42; left.rotation.x = (1 - g) * .5; spout.visible = g > .98;
+    crackA.visible = crackB.visible = gap.visible = s < .5; tread.visible = s >= .5; tread.position.y = .458 + (1 - s) * .25;
+    ladder.visible = f > .08 && f < .55; tool.visible = f > .05 && f < .95;
+    if (mail) { mail.rotation.z = (1 - m) * .34; mail.rotation.y = (1 - m) * .3; } };
+  set({fix: 0});
+  return {root, set};
+}
