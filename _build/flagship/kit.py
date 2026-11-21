@@ -13,6 +13,10 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, os.path.join(ROOT, "_build/tiers"))
 from tiercopy import V, STEPS  # noqa: E402
 
+STEPS = dict(STEPS, body=[("Call or send a few photos", "Tell us the year, make and model, and show where it got hit."),
+                          ("Get a straight answer", "Know what the repair takes before any work starts."),
+                          ("Drive it home fixed", "Straightened, painted to match and ready to go.")])
+
 E = html.escape
 BASE = "/p/2e8e4a/"
 SITE = "https://nday27.github.io"
@@ -31,6 +35,10 @@ THEME = {
               pencil="#ef8a5b", pencil2="#f5a882", blue="#3d5a99", barbg="#0e1422",
               serif='"DM Serif Display",Georgia,serif', sans='"DM Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif',
               fonts="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400..700&display=swap"),
+ "body": dict(navy="#121519", navy2="#1f242b", paper="#f2f1ee", paper2="#e7e5e0", white="#fbfbf9", ink="#121519", muted="#5b6068", line="#d8d6d0",
+              pencil="#ff6a3d", pencil2="#ff9a77", blue="#2d6cdf", barbg="#0a0c0f",
+              serif='"Archivo",system-ui,sans-serif', sans='"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif',
+              fonts="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"),
  "auto": dict(navy="#15181c", navy2="#22272e", paper="#f2f2ef", paper2="#e6e6e1", white="#fbfbf9", ink="#15181c", muted="#5a6067", line="#d6d6d0",
               pencil="#f2b632", pencil2="#f7cb66", blue="#b3261c", barbg="#0b0d10",
               serif='"Archivo",system-ui,sans-serif', sans='"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif',
@@ -44,7 +52,16 @@ EXTRA_CSS = {"tree": ".hero h1 .l2{font-style:normal;font-weight:400}.hero h1{fo
                      ".hero:has(.sheet) h1{font-size:clamp(42px,4vw,56px)}.hero0 h1{font-size:clamp(40px,5.4vw,84px)!important}.hero h1,.hero0 h1{overflow-wrap:break-word}.draw .sign{color:var(--navy)}[hidden]{display:none!important}.draw .l-trim,.draw .l-tire{color:var(--blue)}.draw .l-porch{color:#1d58b8}.dash button{display:grid;justify-items:center;gap:8px;padding:14px 8px!important;min-height:92px!important;font-size:13.5px!important;line-height:1.15}"
                      ".dash{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:26px}.dash svg{width:34px;height:34px;color:#c98a00}.dash button[aria-pressed=true] svg{color:var(--pencil)}"}
 
-TRADE = {"lawn": "Lawn care", "landscape": "Landscaping", "tree": "Tree service", "painter": "Painting",
+# kit groups that differ from the tier templates' groups (an auto body shop gets its own kit, not the repair shop's)
+KGROUP = {"autobody": "body"}
+SHOPS = ("auto", "body")  # groups that are a shop people drive to, not a crew that comes out
+
+
+def group_of(v):
+    return KGROUP.get(v, V[v]["group"])
+
+
+TRADE = {"autobody": "Auto body", "lawn": "Lawn care", "landscape": "Landscaping", "tree": "Tree service", "painter": "Painting",
          "auto": "Auto repair", "transmission": "Transmission shop", "radiator": "Radiator shop", "muffler": "Muffler and exhaust", "brake": "Brake shop"}
 
 COPY = {
@@ -60,6 +77,10 @@ COPY = {
               quote_h="Get a painting quote", cta="Get a painting quote", msg_ph="Rooms or the outside, colors you're thinking about, timing.",
               sheet=("A house in {town}", "Exterior repaint"), sheet_label="Line drawing of a farmhouse with roller strokes of new paint across the siding",
               shot=("paint-after", "A farmhouse freshly painted navy with white trim", "Illustration. Your real job photos go here.")),
+ "body": dict(svc_h="What we fix", svc_intro="Tell us what happened to it. If the job isn't on the list, ask anyway and get a straight answer.",
+              quote_h="Get the damage looked at", cta="Get a body quote", msg_ph="Year, make and model, and where the damage is. Photos help.",
+              sheet=("A shop in {town}", "Bay 1, body work"), sheet_label="Line drawing of a two-bay brick body shop with a pickup raised in bay one",
+              shot=("body-after", "A red pickup with fresh, glossy paint in front of a brick body shop", "Illustration. Your real shop photos go here.")),
  "auto": dict(svc_h="What we fix", svc_intro="Tell us what it's doing. If the job isn't on the list, ask anyway and get a straight answer.",
               quote_h="Get it on the schedule", cta="Get a repair quote", msg_ph="Year, make and model, and what it's doing.",
               sheet=("A shop in {town}", "Bay 1, up on the lift"), sheet_label="Line drawing of a two-bay brick repair shop with a pickup raised on the lift in bay one",
@@ -92,12 +113,16 @@ SVC_ICON = {
  "Mufflers": '<rect x="14" y="18" width="26" height="18" rx="9"/><path d="M4 27h10M40 27h8"/><path d="M48 23v8"/><path d="M22 18v18M32 18v18"/>',
  "Exhaust systems": '<path d="M6 34h14l6-10h10l4 6h10"/><rect x="24" y="20" width="14" height="10" rx="5" transform="rotate(0)"/><path d="M50 26v8"/><path d="M12 34v6M30 30v8"/>',
  "Brakes": '<circle cx="28" cy="28" r="17"/><circle cx="28" cy="28" r="6"/><path d="M28 14v3M28 39v3M14 28h3M39 28h3"/><path d="M40 12a22 22 0 0 1 6 12"/>',
+ "Collision repair": '<path d="M6 38h6l4-10h18l8 8h6v8H6z"/><circle cx="16" cy="44" r="4"/><circle cx="40" cy="44" r="4"/><path d="M44 30l4-6M47 34l6-2M42 26l1-7"/>',
+ "Dents and scratches": '<path d="M8 40c6-2 10-8 20-8s14 6 20 8"/><path d="M8 46h40"/><path d="M14 22l12-6M18 26l14-7M24 28l10-5"/>',
+ "Paint": '<path d="M14 18h16v10H14z"/><path d="M30 21h6l4-4M22 28v6h-4v12h8V34"/><path d="M42 12c1 2 1 3 0 4M46 10c2 3 2 6 0 9M38 14c0 1 0 2-1 3"/>',
  "_more": '<path d="M10 12h36v24H24l-10 8v-8h-4z"/><path d="M20 22h16M20 28h10"/>',
 }
 GLYPH = {  # logo marks on a 32px box, drawn with the accent and the ink
  "lawn": '<path d="M5 26h22" stroke="currentColor" stroke-width="2.6"/><path d="M8 26c0-7 1.6-11 4-14M14.5 26c0-9 2-14 5.5-17M21 26c.4-6 2.4-9.5 5-11" fill="none" stroke="var(--pencil)" stroke-width="2.6" stroke-linecap="round"/>',
  "tree": '<path d="M16 28V17" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M16 4 7 17h18z" fill="none" stroke="var(--pencil)" stroke-width="2.6" stroke-linejoin="round"/><path d="M16 11 10 21h12z" fill="var(--pencil)"/>',
  "painting": '<rect x="4" y="5" width="20" height="8" rx="2" fill="none" stroke="var(--pencil)" stroke-width="2.6"/><path d="M24 9h4v7H16v5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M16 21v7" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>',
+ "body": '<path d="M5 12h12v8H5z" fill="none" stroke="var(--pencil)" stroke-width="2.4" stroke-linejoin="round"/><path d="M17 15h5l3-3M11 20v4H8v5h6v-5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><path d="M27 8c1 1.5 1 3 0 4.5M30 6c1.6 2.6 1.6 5.4 0 8" fill="none" stroke="var(--pencil)" stroke-width="2" stroke-linecap="round"/>',
  "auto": '<path d="M24 5a7.5 7.5 0 0 0-9.2 9.8L4.6 25a3.2 3.2 0 0 0 4.5 4.5l10.2-10.2A7.5 7.5 0 0 0 29 10l-5 5-4.2-.8-.8-4.2z" fill="none" stroke="var(--pencil)" stroke-width="2.4" stroke-linejoin="round"/><circle cx="7" cy="27" r="1.2" fill="currentColor"/>',
 }
 IC = {
@@ -232,8 +257,14 @@ def sign_text(svg, name):
 
 
 def elevation(g, s=None):
-    if g == "auto":
-        return sign_text(open(os.path.join(HERE, "elev-auto.svg")).read(), s["short"] if s else "Auto Repair")
+    if g in STORES:
+        svg = open(os.path.join(HERE, "elev-store.svg")).read()
+        return sign_text(svg, s["short"] if s else store.GROUPS[g]["sign"])
+    if g in SHOPS:
+        svg = open(os.path.join(HERE, "elev-auto.svg")).read()
+        if g == "body":
+            svg = svg.replace("Bay 1: up on the lift", "Bay 1: body work")
+        return sign_text(svg, s["short"] if s else "Auto Repair")
     svg = open(os.path.join(HERE, "elev.svg")).read()
     svg = svg.replace('class="draw"', 'class="draw" role="img"', 1).replace(' aria-hidden="true"', "", 1)
     if g == "lawn":
@@ -254,6 +285,8 @@ def elevation(g, s=None):
 
 def load_shops():
     shops = json.load(open(os.path.join(ROOT, "_build/tiers/shops.json")))
+    # dealt HQ leads (in calling/interested) live in their own file; they get the kit too
+    shops += json.load(open(os.path.join(ROOT, "_build/tiers/dealt.json")))
     final = json.load(open(os.path.join(HERE, "shops.json")))
     own = {x["slug"]: x["owner"] for x in final}
     import importlib.util
@@ -300,7 +333,7 @@ def bar(s, tier):
 
 
 def ldjson(s):
-    typ = {"painting": "HousePainter", "auto": "AutoRepair"}.get(s["group"], "HomeAndConstructionBusiness")
+    typ = store.SCHEMA.get(s["v"]) or {"painting": "HousePainter", "auto": "AutoRepair", "body": "AutoBodyShop"}.get(s["group"], "HomeAndConstructionBusiness")
     d = {"@context": "https://schema.org", "@type": typ, "name": s["name"], "telephone": s["tel"],
          "address": {"@type": "PostalAddress", "addressLocality": s["town"], "addressRegion": st(s), "addressCountry": "US"},
          "areaServed": [t + " " + st(s) for t in towns(s)]}
@@ -318,3 +351,24 @@ def fill_partial(src, vals):
     for k, v in vals.items():
         src = src.replace("{{" + k + "}}", v)
     return src
+
+EXTRA_CSS["body"] = EXTRA_CSS["auto"] + (
+    ".car{position:relative;margin-top:22px;border:1px solid var(--line);border-radius:18px;background:var(--white);padding:14px 10px 6px}"
+    ".car svg{display:block;width:100%;height:auto;color:var(--muted)}.car .zone{fill:var(--pencil);opacity:0;transition:opacity .25s}.car .zone.on{opacity:.38}"
+    ".car .hs{position:absolute;transform:translate(-50%,-50%);min-height:36px;padding:0 12px;border-radius:999px;border:1px solid var(--line);background:var(--white);font:600 13px/1 var(--sans);cursor:pointer;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;box-shadow:0 6px 16px -8px #0004}"
+    ".car .hs i{width:8px;height:8px;border-radius:50%;background:var(--pencil)}.car .hs[aria-pressed=true]{background:var(--navy);border-color:var(--navy);color:#fff}"
+    "@media (max-width:520px){.car .hs{font-size:12px;padding:0 9px;min-height:32px}}")
+
+
+# ---------- storefront groups (store.py) ----------
+import store  # noqa: E402
+THEME.update(store.THEME); COPY.update(store.COPY); GLYPH.update(store.GLYPH); TRADE.update(store.TRADE); KGROUP.update(store.KGROUP); STEPS.update(store.STEPS)
+SVC_ICON.update(store.SVC_ICON)
+for _g, _c in store.EXTRA_CSS.items():
+    EXTRA_CSS[_g] = (EXTRA_CSS["auto"] if _c is None else _c) + store.QUIZ_CSS
+for _v, _o in store.OVERRIDE.items():
+    V[_v].update(_o)
+STORES = tuple(store.GROUPS)
+SHOPS = SHOPS + STORES
+KIT_V_EXTRA = store.KIT_V
+NAME_OUT_EXTRA = store.NAME_OUT

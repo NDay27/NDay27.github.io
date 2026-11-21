@@ -88,6 +88,30 @@ def beats(s):
         ctl = ('<div class="ctl"><label for="u-trim">Trim the tree <span>drag</span></label><input id="u-trim" type="range" min="0" max="100" value="100" data-set="trim"></div>'
                '<div class="ctl"><div class="lab">Or take it down</div><div class="seg" role="group" aria-label="Tree"><button type="button" aria-pressed="true" data-set="down" data-v="0">Keep the tree</button><button type="button" aria-pressed="false" data-set="down" data-v="1" data-img="' + src(g, "tree-s3", True) + '">Take it down</button></div></div>')
         ttl = "Your turn: trim it or take it down"
+    elif g == "body":
+        B = [("hero", .3, {"pos": 1, "fix": 0}, None, "body-before", None),
+             ("close", .3, {"pos": 1, "fix": 0}, None, "body-s1", ("01 · Drop-off", "A real look at the damage", "The crumpled corner, the bent bumper and the scrape down the side, all looked at up close before any work starts.")),
+             ("bay", .3, {"pos": 0, "fix": 0}, {"pos": 0, "fix": .55}, "body-s3", ("02 · Body work", "Pulled straight, then primed", "Keep scrolling and watch the dent come out and the primer go on.")),
+             ("bay", .3, {"pos": 0, "fix": .55}, {"pos": 0, "fix": 1}, "body-s4", ("03 · Paint", "Matched and blended", "Paint mixed to match, then clear coat, so the repair disappears.")),
+             ("dusk", .84, {"pos": 0, "fix": 1}, {"pos": 1, "fix": 1}, "body-dusk", ("04 · Pick-up", "Like it never happened", "Out of the bay, polished up and parked out front, ready when you are.")),
+             ("cfg", .3, {}, None, "body-front", "cfg")]
+        user = {"pos": 1, "fix": 1, "color": 0xb3241c, "tod": .3}
+        sw = "".join(f'<button type="button" aria-pressed="{"true" if i == 0 else "false"}" data-set="color" data-v="#{h[1:]}" data-label="{E(n)}" style="--c:{h}"><i></i>{E(n)}</button>'
+                     for i, (n, h) in enumerate([("Red", "#b3241c"), ("White", "#e9e9e4"), ("Blue", "#1f4f8f"), ("Black", "#16181b"), ("Silver", "#a9afb5"), ("Green", "#2f5a44")]))
+        ctl = ('<div class="ctl"><label for="u-fix">Fix the damage <span>drag</span></label><input id="u-fix" type="range" min="0" max="100" value="100" data-set="fix"></div>'
+               f'<div class="ctl"><div class="lab">Paint <span id="cfgName">Red</span></div><div class="seg" role="group" aria-label="Paint color">{sw}</div></div>')
+        ttl = "Your turn: fix it yourself"
+    elif g in kit.STORES:
+        import store
+        B = store.beats(g)
+        dn = store.AWN_DEFAULT[g]; dh = dict(store.AWNINGS)[dn]
+        user = {"open": 1, "lights": 1, "awning": 1, "door": 0, "color": int(dh[1:], 16), "tod": .14}
+        sw = "".join(f'<button type="button" aria-pressed="{"true" if n == dn else "false"}" data-set="color" data-v="#{h[1:]}" data-label="{E(n)}" style="--c:{h}"><i></i>{E(n)}</button>' for n, h in store.AWNINGS)
+        ctl = ('<div class="ctl"><label for="u-awn">Roll out the awning <span>drag</span></label><input id="u-awn" type="range" min="0" max="100" value="100" data-set="awning"></div>'
+               '<div class="ctl"><div class="lab">Sign</div><div class="seg" role="group" aria-label="Sign"><button type="button" aria-pressed="true" data-set="open" data-v="1">Open</button><button type="button" aria-pressed="false" data-set="open" data-v="0">Closed</button></div></div>'
+               '<div class="ctl"><div class="lab">Lights</div><div class="seg" role="group" aria-label="Lights"><button type="button" aria-pressed="true" data-set="lights" data-v="1">On</button><button type="button" aria-pressed="false" data-set="lights" data-v="0">Off</button></div></div>'
+               f'<div class="ctl"><div class="lab">Awning <span id="cfgName">{E(dn)}</span></div><div class="seg" role="group" aria-label="Awning color">{sw}</div></div>')
+        ttl = "Your turn: open up the shop"
     elif g == "auto":
         B = [("hero", .3, {"lift": 0, "wheels": 1, "hood": 0, "pos": 0}, None, "auto-hero", None),
              ("bay", .3, {"lift": 0, "wheels": 1, "hood": 0, "pos": 0}, {"lift": 1, "wheels": 1, "hood": 0, "pos": 0}, "auto-s2", ("01 · A real look", "Up on the lift", "Keep scrolling and watch it go up, so the problem gets found and not guessed at.")),
@@ -117,7 +141,7 @@ def beats(s):
         ctl = (f'<div class="ctl"><div class="lab">Siding <span id="cfgName">Navy</span></div><div class="seg" role="group" aria-label="Siding color">{sw}</div></div>'
                '<div class="ctl"><div class="lab">Trim</div><div class="seg" role="group" aria-label="Trim color"><button type="button" aria-pressed="true" data-set="trimColor" data-v="#f2f1ec">White</button><button type="button" aria-pressed="false" data-set="trimColor" data-v="#1b1d20">Black</button></div></div>')
         ttl = "Your turn: pick the color"
-    tod = ('<div class="ctl"><div class="lab">Light</div><div class="seg" role="group" aria-label="Time of day"><button type="button" aria-pressed="true" data-set="tod" data-v="' + (".3" if g == "auto" else ".56") + '">Day</button>'
+    tod = ('<div class="ctl"><div class="lab">Light</div><div class="seg" role="group" aria-label="Time of day"><button type="button" aria-pressed="true" data-set="tod" data-v="' + (".14" if g in kit.STORES else ".3" if g in kit.SHOPS else ".56") + '">Day</button>'
            '<button type="button" aria-pressed="false" data-set="tod" data-v=".84">Dusk</button></div></div>')
     out, stills = [], []
     for i, (cam, td, fr, to, still, cap) in enumerate(B):

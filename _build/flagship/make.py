@@ -20,7 +20,8 @@ import kit  # noqa: E402
 from kit import E, V, STEPS, BASE, SITE, VER, COPY, THEME, TRADE  # noqa: E402
 
 ROOT = kit.ROOT
-GROUP_IMG = {"lawn": "lawn", "tree": "tree", "painting": "paint", "auto": "auto"}
+GROUP_IMG = {"lawn": "lawn", "tree": "tree", "painting": "paint", "auto": "auto", "body": "body"}
+GROUP_IMG.update({g: g for g in kit.STORES})
 
 
 def img(g, name, w):
@@ -111,7 +112,7 @@ def page300(s, meet):
         "SHOT_ALT": c["shot"][1], "SHOT_CAP": c["shot"][2],
     })
     src = open(os.path.join(HERE, "t300.src.html")).read()
-    if g == "auto":
+    if g in kit.SHOPS:
         src = src.replace(">Crew<", ">Shop<")
     return kit.fill(src, vals)
 
@@ -126,7 +127,7 @@ def main():
         shops = [s for s in shops if s["slug"] in keep]
     import meetdata
     for s in shops:
-        s["group"] = V[s["v"]]["group"]
+        s["group"] = kit.group_of(s["v"])
         d = os.path.join(ROOT, "p/2e8e4a", s["slug"])
         os.makedirs(os.path.join(d, "750"), exist_ok=True); os.makedirs(os.path.join(d, "1250"), exist_ok=True)
         meet = meetdata.meet(s)

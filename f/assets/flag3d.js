@@ -12,9 +12,19 @@ const K = {
          dusk: [[-20, 2.6, 24], [-3, 5, 2], 38], cfg: [[-19, 3.4, 30], [-3.5, 5, 2], 38]},
   painting: {hero: [[-14, 2.0, 25], [-1.5, 4.4, 2], 36], close: [[-16, 7, 24], [2.5, 3.6, 0], 36], side: [[24, 3.4, 18], [4, 2.5, 2], 38],
              dusk: [[22, 2.6, 19], [3, 3.8, 0], 36], cfg: [[-11.5, 2.6, 32], [2, 4.4, 1.5], 33]},
+  body: {hero: [[-7.6, 1.5, 14.6], [-2.7, 1.0, 10.3], 34], close: [[-7.2, 1.5, 13.6], [-3.2, .8, 10.5], 34], bay: [[-5.0, 1.6, 5.5], [-2.8, 1.0, -2.5], 34],
+         dusk: [[-11, 1.8, 19], [0, 2.4, 3], 36], cfg: [[-8.4, 1.9, 15.2], [-2.6, .9, 9.9], 36]},
   auto: {hero: [[-13, 3.4, 23], [1, 2.6, 0], 34], bay: [[-6.5, 2.2, 9], [-2.4, 1.9, -3.5], 40], dusk: [[-11, 1.8, 19], [0, 2.4, 3], 36],
          cfg: [[-7.4, 2.5, 10.5], [-2.2, 2.0, -3.2], 40]},
 };
+
+// main-street storefronts share one set of keys; the walk inside runs straight through the open door
+const SK = {hero: [[-9, 2.3, 17.5], [.8, 3.5, 0], 36], front: [[-4.6, 2.4, 11.5], [.6, 2.7, 0], 40], door: [[0, 1.6, 5.5], [0, 1.5, -2], 40],
+            inside: [[0, 1.6, -3.4], [-.4, 1.2, -7.2], 50], dusk: [[.6, 2.0, 16], [.4, 3.0, 0], 36], cfg: [[-6.5, 2.2, 13.5], [.6, 2.6, 0], 38]};
+const STORE = {bakery: "bakery", salon: "salon", barber: "barber", nails: "nails", eat: "eat", shop: "shop", groom: "groom", tailor: "sew", uphol: "sew"};
+const WORD = {bakery: "Bakery", cake: "Cakes", donut: "Donuts", salon: "Hair", barber: "Barber", nails: "Nails", restaurant: "Eat",
+              thrift: "Thrift", boutique: "Boutique", petgroom: "Grooming", tailor: "Tailor", upholstery: "Upholstery"};
+for (const g in STORE) K[g] = SK;
 
 // The camera rig every trade shares: blend between two keys, drift a little, frame the subject clear of the captions.
 function makeRig(world, keys, HB) {
@@ -42,15 +52,15 @@ function makeRig(world, keys, HB) {
 
 // Auto shops: a two-bay garage with the shop's own name on the sign and a pickup that goes up on the lift.
 async function startAuto(HB) {
-  const keys = K.auto, {makeGarage} = await import("./garage.js");
+  const body = HB.group === "body", keys = K[HB.group], {makeGarage} = await import("./garage.js");
   const lot = (x, z) => (x > -7.2 && x < 11 && z > -11.5 && z < 6) || (z > -.6 && z < 30.6 && x > -30.4 && x < 34.4);
   const world = await makeWorld({
     cam: {pos: keys.hero[0], target: keys.hero[1], minD: 1, maxD: 400, minAz: -99, maxAz: 99, maxPolar: Math.PI * .62},
     tod: .3, ground: "lawn", grassR: 44, grassH: .15, grassW: .04, grassN: small ? .9 : 1.6, offset: false, fov: () => 36, exclude: lot,
   });
   const font = getComputedStyle(document.documentElement).getPropertyValue("--serif").split(",")[0].trim() || "sans-serif";
-  const G = await makeGarage(world, {sign: HB.name || "Auto Repair", font});
-  const rig = makeRig(world, keys, HB), cur = {lift: 0, wheels: 1, hood: 0, pos: 0};
+  const G = await makeGarage(world, {sign: HB.name || (body ? "Auto Body" : "Auto Repair"), font, kind: body ? "body" : "auto"});
+  const rig = makeRig(world, keys, HB), cur = body ? {lift: 0, wheels: 1, hood: 0, pos: 1, fix: 0} : {lift: 0, wheels: 1, hood: 0, pos: 0};
   let first = true;
   world.onTick.push((t, dt) => {
     const s = HB.get(), P = s.v;
@@ -60,7 +70,34 @@ async function startAuto(HB) {
     for (const n in cur) { const to = P[n] ?? cur[n]; cur[n] += (to - cur[n]) * k; if (Math.abs(to - cur[n]) < .002) cur[n] = to; }
     // the truck only leaves once it is back together and on the floor
     const pos = cur.lift > .04 || cur.wheels < .96 ? 0 : cur.pos;
-    G.set({door: 1, door2: 0, lift: cur.lift, wheels: cur.wheels, hood: cur.hood, pos, color: P.color});
+    G.set({door: 1, door2: 0, lift: cur.lift, wheels: cur.wheels, hood: cur.hood, pos, color: P.color, fix: body ? cur.fix : undefined});
+    rig(t, dt, s);
+  });
+  world.size(); world.setTodNow(HB.get().tod);
+  await world.ready;
+  world.setTodNow(HB.get().tod);
+  world.start();
+  await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+  return world;
+}
+
+// Storefronts: the shop's own name on the sign band, its trade on the window, an interior dressed for the trade.
+async function startStore(HB) {
+  const keys = K[HB.group], {makeStore} = await import("./storefront.js");
+  const world = await makeWorld({
+    cam: {pos: keys.hero[0], target: keys.hero[1], minD: 1, maxD: 400, minAz: -99, maxAz: 99, maxPolar: Math.PI * .62},
+    tod: .62, ground: "lawn", grassR: 30, grassH: .15, grassW: .04, grassN: .12, offset: false, fov: () => 36, exclude: (x, z) => z > -11 && z < 40,
+  });
+  const font = getComputedStyle(document.documentElement).getPropertyValue("--serif").split(",")[0].trim() || "sans-serif";
+  const S = await makeStore(world, {kind: STORE[HB.group], sign: HB.name || "Open", font, word: WORD[HB.v] || ""});
+  const rig = makeRig(world, keys, HB), cur = {open: 0, lights: 0, awning: 0, door: 0};
+  let first = true;
+  world.onTick.push((t, dt) => {
+    const s = HB.get(), P = s.v;
+    world.setTod(s.tod);
+    const k = first || reduce ? 1 : Math.min(1, dt * 4.5); first = false;
+    for (const n in cur) { const to = P[n] ?? cur[n]; cur[n] += (to - cur[n]) * k; if (Math.abs(to - cur[n]) < .002) cur[n] = to; }
+    S.set({open: cur.open, lights: cur.lights, awning: cur.awning, door: cur.door, color: P.color});
     rig(t, dt, s);
   });
   world.size(); world.setTodNow(HB.get().tod);
@@ -72,7 +109,8 @@ async function startAuto(HB) {
 }
 
 export async function start(HB) {
-  if (HB.group === "auto") return startAuto(HB);
+  if (STORE[HB.group]) return startStore(HB);
+  if (HB.group === "auto" || HB.group === "body") return startAuto(HB);
   const g = HB.group, keys = K[g];
   let house = null, tree = null;
   const world = await makeWorld({
