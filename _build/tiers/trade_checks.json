@@ -5200,5 +5200,245 @@
   "trade": "Tree service",
   "src": "Google listing category",
   "on": "2026-11-20"
+ },
+ "el-pueblito-mexican-restaurant-chanute-ks": {
+  "v": "restaurant",
+  "trade": "Mexican restaurant",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "el-rincon-azteca-mexican-restaurant-chanute-ks": {
+  "v": "restaurant",
+  "trade": "Mexican restaurant",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "a-j-elite-nails-spa-branson-mo": {
+  "v": "nails",
+  "trade": "Nail salon",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "bingo-donuts-fresno-ca": {
+  "v": "donut",
+  "trade": "Donut shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "coco-nail-lounge-branson-mo": {
+  "v": "nails",
+  "trade": "Nail salon",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "the-hangout-chanute-ks": {
+  "v": "restaurant",
+  "trade": "Bar & grill",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "coldwater-towing-recovery-llc-quincy-mi": {
+  "v": "towing",
+  "trade": "Towing service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "pro-works-autobody-elmira-heights-ny": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "rio-nails-and-spa-cedar-city-ut": {
+  "v": "nails",
+  "trade": "Nail salon",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "new-sunny-nails-oakland-nj": {
+  "v": "nails",
+  "trade": "Nail salon",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "rice-auto-body-hamilton-oh": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "daisy-nails-pompton-lakes-nj": {
+  "v": "nails",
+  "trade": "Nail salon",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "the-gritty-pearl-dayton-tx": {
+  "v": "thrift",
+  "trade": "Antique store",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "countryside-towing-and-recovery-charlotte-mi": {
+  "v": "towing",
+  "trade": "Towing service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "by-shear-design-salon-and-spa-suites-hollister-mo": {
+  "v": "salon",
+  "trade": "Hair salon",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "tip-n-toe-salon-hollister-ca": {
+  "v": "nails",
+  "trade": "Nail salon",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "wag-n-tongue-twin-falls-id": {
+  "v": "petgroom",
+  "trade": "Pet groomer",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "american-muffler-kingston-pa": {
+  "v": "muffler",
+  "trade": "Muffler shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "callejas-cakes-kerman-ca": {
+  "v": "bakery",
+  "trade": "Bakery",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "mystic-paws-grooming-twin-falls-id": {
+  "v": "petgroom",
+  "trade": "Pet groomer",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "panaderia-bakery-zimapan-3-crosby-tx": {
+  "v": "bakery",
+  "trade": "Bakery",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "platinum-cuts-barber-shop-norwich-ct": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "esther-s-alteration-riverdale-md": {
+  "v": "tailor",
+  "trade": "Tailor",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "windswept-kennels-jerome-id": {
+  "v": "petgroom",
+  "trade": "Pet groomer",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "mrs-bscatering-clifton-heights-pa": {
+  "v": "restaurant",
+  "trade": "Restaurant",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "baca-service-company-truth-or-consequences-nm": {
+  "v": "hvac",
+  "trade": "Air conditioning contractor",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "al-s-custom-tailoring-hyattsville-md": {
+  "v": "tailor",
+  "trade": "Tailor",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "bluffton-auto-body-bluffton-sc": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "sam-mobile-auto-mechanic-san-bruno-ca": {
+  "v": "auto",
+  "trade": "Mechanic",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "eden-salon-and-nails-pompton-lakes-nj": {
+  "v": "nails",
+  "trade": "Nail salon",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "aloha-nail-salon-haskell-nj": {
+  "v": "nails",
+  "trade": "Nail salon",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "hall-s-auto-service-wilkes-barre-pa": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "gallery-nail-spa-bloomingdale-nj": {
+  "v": "nails",
+  "trade": "Nail salon",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "mario-s-custom-tailoring-huntington-ny": {
+  "v": "tailor",
+  "trade": "Tailor",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "palmetto-truck-car-services-hardeeville-sc": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "kismet-fine-jewelry-decatur-ga": {
+  "v": "jewelry",
+  "trade": "Jewelry store",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "yg-nail-spa-oakland-nj": {
+  "v": "nails",
+  "trade": "Nail salon",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "you-dirty-dog-twin-falls-id": {
+  "v": "petgroom",
+  "trade": "Pet groomer",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "shiva-auto-repair-south-san-francisco-ca": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "south-hill-tree-services-spanaway-wa": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
  }
 }
