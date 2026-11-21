@@ -276,6 +276,10 @@ def elevation(g, s=None):
         svg = re.sub(r'<g class="dim".*?</g>', "", svg, flags=re.S)
         svg = svg.replace('viewBox="0 0 1352 713" width="1352" height="713"', 'viewBox="-400 0 1752 713" width="1752" height="713"')
         svg = svg.replace("</svg>", _tree() + "</svg>")
+    elif g in HOMES:
+        svg = re.sub(r'<g class="dim".*?</g>', "", svg, flags=re.S)
+        note = {"wash": "siding and drive, washed", "concrete": "new drive, poured and jointed"}[g]
+        svg = svg.replace("</svg>", f'<g class="note" style="--w:3.2s"><text x="1340" y="700" text-anchor="end">{note}</text></g></svg>')
     else:
         i = svg.index("<path"); svg = svg[:i] + _rolls() + svg[i:]
     return svg
@@ -333,7 +337,7 @@ def bar(s, tier):
 
 
 def ldjson(s):
-    typ = store.SCHEMA.get(s["v"]) or {"painting": "HousePainter", "auto": "AutoRepair", "body": "AutoBodyShop"}.get(s["group"], "HomeAndConstructionBusiness")
+    typ = store.SCHEMA.get(s["v"]) or home.SCHEMA.get(s["v"]) or {"painting": "HousePainter", "auto": "AutoRepair", "body": "AutoBodyShop"}.get(s["group"], "HomeAndConstructionBusiness")
     d = {"@context": "https://schema.org", "@type": typ, "name": s["name"], "telephone": s["tel"],
          "address": {"@type": "PostalAddress", "addressLocality": s["town"], "addressRegion": st(s), "addressCountry": "US"},
          "areaServed": [t + " " + st(s) for t in towns(s)]}
@@ -370,5 +374,16 @@ for _v, _o in store.OVERRIDE.items():
     V[_v].update(_o)
 STORES = tuple(store.GROUPS)
 SHOPS = SHOPS + STORES
-KIT_V_EXTRA = store.KIT_V
-NAME_OUT_EXTRA = store.NAME_OUT
+KIT_V_EXTRA = dict(store.KIT_V)
+NAME_OUT_EXTRA = dict(store.NAME_OUT)
+
+# ---------- home-service groups on the Harlow house (home.py) ----------
+import home  # noqa: E402
+THEME.update(home.THEME); COPY.update(home.COPY); GLYPH.update(home.GLYPH); TRADE.update(home.TRADE); KGROUP.update(home.KGROUP); STEPS.update(home.STEPS)
+SVC_ICON.update(home.SVC_ICON)
+for _g, _c in home.EXTRA_CSS.items():
+    EXTRA_CSS[_g] = (EXTRA_CSS["auto"] if _c is None else _c) + home.QUIZ_CSS
+HOMES = tuple(home.GROUPS)
+QUIZ = STORES + HOMES  # groups whose Signature tool is the two-question quiz
+KIT_V_EXTRA.update(home.KIT_V)
+NAME_OUT_EXTRA.update(home.NAME_OUT)

@@ -36,6 +36,8 @@ TRY = {
 
 import store  # noqa: E402
 TOOLS.update(store.TOOLS); TRY.update(store.TRY)
+import home  # noqa: E402
+TOOLS.update(home.TOOLS); TRY.update(home.TRY)
 
 
 def meet(s):

@@ -112,6 +112,9 @@ def beats(s):
                '<div class="ctl"><div class="lab">Lights</div><div class="seg" role="group" aria-label="Lights"><button type="button" aria-pressed="true" data-set="lights" data-v="1">On</button><button type="button" aria-pressed="false" data-set="lights" data-v="0">Off</button></div></div>'
                f'<div class="ctl"><div class="lab">Awning <span id="cfgName">{E(dn)}</span></div><div class="seg" role="group" aria-label="Awning color">{sw}</div></div>')
         ttl = "Your turn: open up the shop"
+    elif g in kit.HOMES:
+        import home
+        B = home.beats(g); ctl, ttl, user = home.controls(g)
     elif g == "auto":
         B = [("hero", .3, {"lift": 0, "wheels": 1, "hood": 0, "pos": 0}, None, "auto-hero", None),
              ("bay", .3, {"lift": 0, "wheels": 1, "hood": 0, "pos": 0}, {"lift": 1, "wheels": 1, "hood": 0, "pos": 0}, "auto-s2", ("01 · A real look", "Up on the lift", "Keep scrolling and watch it go up, so the problem gets found and not guessed at.")),
@@ -141,7 +144,7 @@ def beats(s):
         ctl = (f'<div class="ctl"><div class="lab">Siding <span id="cfgName">Navy</span></div><div class="seg" role="group" aria-label="Siding color">{sw}</div></div>'
                '<div class="ctl"><div class="lab">Trim</div><div class="seg" role="group" aria-label="Trim color"><button type="button" aria-pressed="true" data-set="trimColor" data-v="#f2f1ec">White</button><button type="button" aria-pressed="false" data-set="trimColor" data-v="#1b1d20">Black</button></div></div>')
         ttl = "Your turn: pick the color"
-    tod = ('<div class="ctl"><div class="lab">Light</div><div class="seg" role="group" aria-label="Time of day"><button type="button" aria-pressed="true" data-set="tod" data-v="' + (".14" if g in kit.STORES else ".3" if g in kit.SHOPS else ".56") + '">Day</button>'
+    tod = ('<div class="ctl"><div class="lab">Light</div><div class="seg" role="group" aria-label="Time of day"><button type="button" aria-pressed="true" data-set="tod" data-v="' + (".14" if g in kit.STORES else ".3" if g in kit.SHOPS or g in kit.HOMES else ".56") + '">Day</button>'
            '<button type="button" aria-pressed="false" data-set="tod" data-v=".84">Dusk</button></div></div>')
     out, stills = [], []
     for i, (cam, td, fr, to, still, cap) in enumerate(B):

@@ -21,7 +21,7 @@ from kit import E, V, STEPS, BASE, SITE, VER, COPY, THEME, TRADE  # noqa: E402
 
 ROOT = kit.ROOT
 GROUP_IMG = {"lawn": "lawn", "tree": "tree", "painting": "paint", "auto": "auto", "body": "body"}
-GROUP_IMG.update({g: g for g in kit.STORES})
+GROUP_IMG.update({g: g for g in kit.STORES + kit.HOMES})
 
 
 def img(g, name, w):
