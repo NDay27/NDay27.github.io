@@ -487,3 +487,58 @@ export async function towJob(world, {sign = "", font, x = 0, z = 35.4, ry = Math
   set({fix: 0});
   return {root: G, set, get fix() { return fixT; }};
 }
+
+// mowerFix(world): a riding mower that won't run, in the driveway: hood up, a flat front tire, an old plug, a clogged filter and a
+// dull blade laid out on a tarp. set({fix}): the tire comes back up (.05-.3), the parts go in and the tarp clears (.3-.6),
+// the hood closes (.6-.7), then the mower drives off the drive onto the lawn (.72-1).
+export function mowerFix(world, {x = 9.6, z = 22} = {}) {
+  const root = new THREE.Group(); root.position.set(x, 0, z); world.scene.add(root);
+  const M = new THREE.Group(); root.add(M);
+  const mat = (c, ro = .6, m = 0, o = {}) => new THREE.MeshStandardMaterial({color: c, roughness: ro, metalness: m, envMapIntensity: .6, ...o});
+  const add = (geo, m, px, py, pz, parent) => { const o = new THREE.Mesh(geo, m); o.position.set(px, py, pz); o.castShadow = o.receiveShadow = true; parent.add(o); return o; };
+  const box = (w, h, d, m, px, py, pz, parent) => add(new THREE.BoxGeometry(w, h, d), m, px, py, pz, parent);
+  const ss = (a, b, t) => { const k = Math.min(1, Math.max(0, (t - a) / (b - a))); return k * k * (3 - 2 * k); };
+  const paint = new THREE.MeshPhysicalMaterial({color: 0xb8231a, metalness: .2, roughness: .38, clearcoat: .6, clearcoatRoughness: .15, envMapIntensity: .6});
+  const blk = mat(0x1a1b1d, .7), rub = mat(0x121314, .92), steel = mat(0x8d9298, .45, .8), grey = mat(0x4a4d52, .6, .4), cream = mat(0xe8e1cf, .6);
+  // the mower (front toward +z): deck, rear body and fenders, seat, steering, wheels
+  box(1.12, .1, .62, grey, 0, .2, .05, M); box(1.16, .05, .66, steel, 0, .26, .05, M);
+  box(.98, .3, .95, paint, 0, .52, -.42, M); box(1.1, .06, .5, paint, 0, .7, -.55, M); box(.6, .18, .6, blk, 0, .4, .25, M);
+  box(.5, .1, .45, blk, 0, .78, -.42, M); const back = box(.5, .38, .08, blk, 0, .98, -.66, M); back.rotation.x = -.18;
+  const col = add(new THREE.CylinderGeometry(.03, .03, .55, 8), blk, 0, .82, .12, M); col.rotation.x = -.5;
+  const sw = add(new THREE.TorusGeometry(.17, .025, 8, 24), blk, 0, 1.06, .02, M); sw.rotation.x = Math.PI / 2 - .5;
+  const wheel = (wx, wz, r, w) => { const g = new THREE.Group(); g.position.set(wx, r, wz); M.add(g);
+    const t = add(new THREE.CylinderGeometry(r, r, w, 22), rub, 0, 0, 0, g); t.rotation.z = Math.PI / 2;
+    const h = add(new THREE.CylinderGeometry(r * .55, r * .55, w + .01, 16), cream, 0, 0, 0, g); h.rotation.z = Math.PI / 2; return g; };
+  box(.84, .06, .07, blk, 0, .2, .72, M); box(.1, .14, .5, blk, 0, .28, .5, M); wheel(.56, -.55, .3, .24); wheel(-.56, -.55, .3, .24); const fl = wheel(.42, .72, .18, .13); wheel(-.42, .72, .18, .13);
+  // engine under a hood that tilts forward
+  box(.46, .3, .4, grey, 0, .55, .62, M); const filt = add(new THREE.CylinderGeometry(.1, .1, .08, 16), mat(0x2a2a2a, .8), .08, .75, .6, M);
+  const filterTop = add(new THREE.CylinderGeometry(.09, .09, .02, 16), mat(0x6b5a3a, .95), .08, .8, .6, M);
+  const plugWire = add(new THREE.CylinderGeometry(.012, .012, .3, 6), mat(0x2f2f2f, .6), -.15, .72, .55, M); plugWire.rotation.z = 1.2;
+  const HP = new THREE.Group(); HP.position.set(0, .44, 1.0); M.add(HP);
+  box(.7, .36, .78, mat(0xb8231a, .5, .15), 0, .2, -.4, HP); box(.5, .2, .03, blk, 0, .18, .005, HP);
+  for (let i = 0; i < 5; i++) box(.46, .015, .035, grey, 0, .1 + i * .04, .02, HP);
+  const lampM = mat(0xfff6dc, .2, 0, {emissive: 0xfff0c8, emissiveIntensity: 0}); for (const s of [-1, 1]) box(.12, .06, .02, lampM, s * .2, .33, .005, HP);
+  // the tarp beside it with the old parts and a few tools
+  const T = new THREE.Group(); T.position.set(1.4, .045, .1); root.add(T);
+  const tarp = add(new THREE.PlaneGeometry(1.3, 1.6), mat(0x2f5f9a, .85, 0, {side: THREE.DoubleSide}), 0, .012, 0, T); tarp.rotation.x = -Math.PI / 2; tarp.rotation.z = .08;
+  const parts = new THREE.Group(); T.add(parts);
+  const blade = box(.08, .015, 1.0, steel, -.3, .03, .1, parts); blade.rotation.y = .3;
+  add(new THREE.CylinderGeometry(.1, .1, .08, 16), mat(0x5a4a30, .95), .25, .055, .45, parts);
+  const plug = add(new THREE.CylinderGeometry(.015, .015, .09, 8), cream, .1, .03, -.3, parts); plug.rotation.z = Math.PI / 2;
+  const wr = box(.04, .015, .3, steel, .3, .03, -.1, parts); wr.rotation.y = -.6;
+  const can = new THREE.Group(); can.position.set(.35, 0, -.6); T.add(can); box(.26, .3, .18, paint, 0, .15, 0, can); add(new THREE.CylinderGeometry(.025, .025, .14, 8), blk, .1, .34, 0, can).rotation.z = -.6;
+  const tb = new THREE.Group(); tb.position.set(-.1, 0, -.55); T.add(tb); box(.5, .22, .24, mat(0x1d1f22, .5, .3), 0, .11, 0, tb); box(.46, .04, .03, steel, 0, .24, 0, tb);
+  let fixT = -1, lastSh = -1;
+  function set({fix = 0} = {}) {
+    if (fix === fixT) return; fixT = fix; const f = fix;
+    const flat = 1 - ss(.05, .3, f); fl.scale.set(1, 1 - .28 * flat, 1 - .1 * flat); fl.position.y = .18 * (1 - .28 * flat); M.rotation.z = .025 * flat; M.position.y = -.025 * flat;
+    const out = ss(.3, .6, f); parts.visible = out < .98; parts.position.y = -out * .05; parts.scale.setScalar(1 - .6 * out);
+    filterTop.material.color.setHex(f > .45 ? 0xf0ede4 : 0x6b5a3a);
+    HP.rotation.x = .95 * (1 - ss(.6, .7, f));
+    const go = ss(.72, 1, f); M.position.x = -4.6 * go; M.position.z = 1.6 * Math.sin(go * Math.PI / 2); M.rotation.y = -Math.PI / 2 * ss(.72, .9, f);
+    tarp.visible = f < .96; T.position.y = .045; lampM.emissiveIntensity = f > .7 ? 1.4 : 0;
+    if (Math.abs(f - lastSh) > .004 || ((f === 0 || f === 1) && f !== lastSh)) { lastSh = f; world.shadows(); }
+  }
+  set({fix: 0});
+  return {root, set, exclude: (px, pz) => false};
+}
