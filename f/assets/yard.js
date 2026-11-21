@@ -1,6 +1,6 @@
 // Flagship home-trade kit: the yard around the Harlow house.
 // mow(): grass height and stripes for lawn crews. yardTree(): a big front-yard shade tree that a tree crew can trim, raise or take down.
-import {THREE, leafCard} from "../../harlow/assets/world.js";
+import {THREE, leafCard, signTexture} from "../../harlow/assets/world.js";
 
 // lawn(world, house): h = how overgrown (1 = freshly cut, 5 = two weeks too long), stripes 0..1, cut 0..1 = how much of the yard is done (the mower sweeps from -x to +x).
 // Long grass is its own tall, seedy blade field; stripes are a mowing pattern laid on the ground (light and dark bands like a roller leaves) plus the short blades.
@@ -100,4 +100,57 @@ export function yardTree(world, {x = -11.5, z = 3.2, s = 1.5} = {}) {
   apply();
   world.onTick && world.onTick.push(t => { leafU.t.value = t; });
   return {root, shape(t) { if (t !== shapeT) { shapeT = t; apply(); } }, down(t) { if (t !== downT) { downT = t; apply(); } }, exclude: (px, pz) => Math.hypot(px - x, pz - z) < .7 * s};
+}
+
+
+// flatwork(world, {kind}): the driveway in front of the garage wing, dirty ("wash") or cracked ("concrete").
+// set({fix}) sweeps the job along the drive: a clipping plane eats the old surface, a wet band rides the edge.
+// Driveway on the Harlow house: x 6.8..12.2, z 3..31 (house.js wx0/wx1/wz1).
+export function flatwork(world, {kind = "wash", x0 = 6.8, x1 = 12.2, z0 = 3, z1 = 31} = {}) {
+  const W = x1 - x0, L = z1 - z0, cv = document.createElement("canvas"); cv.width = 512; cv.height = 2048; const g = cv.getContext("2d");
+  let seed = kind === "wash" ? 7 : 19; const r = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const px = cv.width / W, pz = cv.height / L;  // canvas y runs from the street (top) to the garage (bottom)
+  const blob = (x, y, rad, col, a) => { const gr = g.createRadialGradient(x, y, 0, x, y, rad); gr.addColorStop(0, `rgba(${col},${a})`); gr.addColorStop(1, `rgba(${col},0)`); g.fillStyle = gr; g.beginPath(); g.ellipse(x, y, rad, rad * (.6 + r() * .8), r() * 3, 0, 7); g.fill(); };
+  // everyone's driveway: a grey film, tire tracks, oil where the car sits, mildew along the edges
+  g.fillStyle = kind === "wash" ? "rgba(58,62,44,.6)" : "rgba(64,64,60,.58)"; g.fillRect(0, 0, cv.width, cv.height);
+  for (let i = 0; i < 900; i++) blob(r() * cv.width, r() * cv.height, 6 + r() * 34, r() < .5 ? "40,48,30" : "52,50,42", .12 + r() * .2);
+  for (const tx of [1.35, 4.05]) for (let i = 0; i < 160; i++) blob(tx * px + (r() - .5) * 40, r() * cv.height, 14 + r() * 18, "28,28,26", .16 + r() * .14);
+  for (let i = 0; i < 9; i++) blob((1.6 + r() * 2.2) * px, (L - 4 - r() * 6) * pz, 30 + r() * 50, "20,20,22", .35 + r() * .2);
+  for (let i = 0; i < 260; i++) { const e = r() < .5 ? r() * 26 : cv.width - r() * 26; blob(e, r() * cv.height, 14 + r() * 30, "46,72,30", .3 + r() * .3); }
+  if (kind === "concrete") {
+    // the old slab: cracks with weeds in them, a broken corner and patched spots
+    const crack = (x, y, n, ang) => { g.strokeStyle = "rgba(28,28,26,.92)"; g.lineWidth = 4 + r() * 4; g.lineJoin = "round"; g.beginPath(); g.moveTo(x, y); const pts = [[x, y]];
+      for (let i = 0; i < n; i++) { ang += (r() - .5) * .9; x += Math.cos(ang) * (14 + r() * 22); y += Math.sin(ang) * (14 + r() * 22); g.lineTo(x, y); pts.push([x, y]); } g.stroke();
+      g.strokeStyle = "rgba(215,212,204,.35)"; g.lineWidth = 1; g.stroke();
+      for (const [a, b] of pts) if (r() < .35) { g.strokeStyle = "rgba(84,126,44,.95)"; g.lineWidth = 3.5; for (let k = 0; k < 7; k++) { g.beginPath(); g.moveTo(a, b); g.lineTo(a + (r() - .5) * 34, b - 8 - r() * 26); g.stroke(); } } return pts; };
+    for (let i = 0; i < 14; i++) { const p0 = crack(r() * cv.width, r() * cv.height, 10 + r() * 14, r() * 6.3); if (r() < .6) crack(p0[3][0], p0[3][1], 6, r() * 6.3); }
+    for (let i = 0; i < 6; i++) { const y = (2 + i * 4.6) * pz; g.strokeStyle = "rgba(30,30,28,.8)"; g.lineWidth = 3; g.beginPath(); g.moveTo(0, y); for (let x = 0; x <= cv.width; x += 32) g.lineTo(x, y + (r() - .5) * 10); g.stroke(); }
+    for (let i = 0; i < 5; i++) { const x = r() * cv.width, y = r() * cv.height, n = 7, rad = 26 + r() * 40; g.fillStyle = r() < .5 ? "rgba(48,46,42,.85)" : "rgba(120,116,106,.8)"; g.beginPath();
+      for (let k = 0; k < n; k++) { const a = k / n * 6.28, rr = rad * (.6 + r() * .5); g[k ? "lineTo" : "moveTo"](x + Math.cos(a) * rr, y + Math.sin(a) * rr * 1.3); } g.closePath(); g.fill(); }
+    g.fillStyle = "rgba(40,38,34,.9)"; g.beginPath(); g.moveTo(0, 0); g.lineTo(150, 0); g.lineTo(90, 60); g.lineTo(30, 130); g.lineTo(0, 120); g.fill();
+  }
+  const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8;
+  const clip = new THREE.Plane(new THREE.Vector3(0, 0, 1), -z0);
+  const mat = new THREE.MeshStandardMaterial({map: tex, transparent: true, depthWrite: false, roughness: .95, envMapIntensity: .2, clippingPlanes: [clip], polygonOffset: true, polygonOffsetFactor: -2});
+  world.R.localClippingEnabled = true;
+  const old = new THREE.Mesh(new THREE.PlaneGeometry(W, L), mat); old.rotation.x = -Math.PI / 2; old.rotation.z = Math.PI; old.position.set((x0 + x1) / 2, .028, (z0 + z1) / 2); old.receiveShadow = true; old.renderOrder = 2; world.scene.add(old);
+  // the working edge: wet, dark concrete behind a washer, or fresh grey mud on a pour
+  const bandM = new THREE.MeshStandardMaterial({color: kind === "wash" ? 0x3a3d40 : 0x8d8c88, transparent: true, opacity: 0, depthWrite: false, roughness: kind === "wash" ? .12 : .35, envMapIntensity: .8, polygonOffset: true, polygonOffsetFactor: -3});
+  const band = new THREE.Mesh(new THREE.PlaneGeometry(W, 2.4), bandM); band.rotation.x = -Math.PI / 2; band.position.set((x0 + x1) / 2, .03, z0); band.renderOrder = 3; world.scene.add(band);
+  let last = -1;
+  return {mesh: old, set({fix = 0} = {}) {
+    if (Math.abs(fix - last) < 1e-4) return; last = fix;
+    const zc = z0 + (L + 1.2) * fix; clip.constant = -zc; old.visible = fix < .999;
+    band.position.z = zc - 1.2; bandM.opacity = fix > .001 && fix < .999 ? (kind === "wash" ? .55 : .9) : 0;
+  }};
+}
+
+// workTruck(world, {sign}): the crew's pickup in the drive, the business name on both doors.
+export async function workTruck(world, {sign = "", sub = "", font, color = 0xf2f2ee, ink = "#172033", x = 9.5, z = 21.5, ry = 0} = {}) {
+  const {makeTruck} = await import("./garage.js");
+  const t = makeTruck(world, {color, lights: false}); t.set({lights: false}); t.car.position.set(x, 0, z); t.car.rotation.y = ry; world.scene.add(t.car);
+  if (sign) { const tex = await signTexture(sign, sub, {fg: ink, bg: null, font, w: 1024, h: 340});
+    const m = new THREE.MeshStandardMaterial({map: tex, transparent: true, roughness: .5, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2});
+    for (const s of [-1, 1]) { const p = new THREE.Mesh(new THREE.PlaneGeometry(1.5, .5), m); p.position.set(s * .995, .8, .05); p.rotation.y = s * Math.PI / 2; t.car.add(p); } }
+  return t;
 }

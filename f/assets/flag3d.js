@@ -2,7 +2,7 @@
 // t1250.js turns scroll into a state (camera keys, light, trade values); this file draws it on the Harlow engine.
 import {makeWorld, reduce, small} from "../../harlow/assets/world.js";
 import {makeHouse} from "../../harlow/assets/house.js";
-import {lawn, yardTree} from "./yard.js";
+import {lawn, yardTree, flatwork, workTruck} from "./yard.js";
 
 // camera keys: position, target, field of view (desktop)
 const K = {
@@ -14,6 +14,9 @@ const K = {
              dusk: [[22, 2.6, 19], [3, 3.8, 0], 36], cfg: [[-11.5, 2.6, 32], [2, 4.4, 1.5], 33]},
   body: {hero: [[-7.6, 1.5, 14.6], [-2.7, 1.0, 10.3], 34], close: [[-7.2, 1.5, 13.6], [-3.2, .8, 10.5], 34], bay: [[-5.0, 1.6, 5.5], [-2.8, 1.0, -2.5], 34],
          dusk: [[-11, 1.8, 19], [0, 2.4, 3], 36], cfg: [[-8.4, 1.9, 15.2], [-2.6, .9, 9.9], 36]},
+  // home services: the drive is the subject, the crew's pickup at the curb
+  wash: {hero: [[-4, 2.8, 44], [7.5, 1.8, 12], 36], house: [[-7, 2.0, 19], [2.5, 3.0, 3], 40], close: [[4.2, 1.5, 27], [9.6, .3, 14], 42],
+         dusk: [[-4, 2.4, 42], [7.5, 2.0, 12], 36], cfg: [[1.2, 2.9, 31.5], [8.6, .9, 12], 40]},
   auto: {hero: [[-13, 3.4, 23], [1, 2.6, 0], 34], bay: [[-6.5, 2.2, 9], [-2.4, 1.9, -3.5], 40], dusk: [[-11, 1.8, 19], [0, 2.4, 3], 36],
          cfg: [[-7.4, 2.5, 10.5], [-2.2, 2.0, -3.2], 40]},
 };
@@ -25,6 +28,8 @@ const STORE = {bakery: "bakery", salon: "salon", barber: "barber", nails: "nails
 const WORD = {bakery: "Bakery", cake: "Cakes", donut: "Donuts", salon: "Hair", barber: "Barber", nails: "Nails", restaurant: "Eat",
               thrift: "Thrift", boutique: "Boutique", petgroom: "Grooming", tailor: "Tailor", upholstery: "Upholstery"};
 for (const g in STORE) K[g] = SK;
+K.concrete = {...K.wash, hero: [[1.2, 2.9, 31.5], [8.6, .9, 12], 40]};
+const HOME = {wash: "wash", concrete: "concrete"};
 
 // The camera rig every trade shares: blend between two keys, drift a little, frame the subject clear of the captions.
 function makeRig(world, keys, HB) {
@@ -128,6 +133,15 @@ export async function start(HB) {
   const yard = g === "lawn" ? lawn(world, {exclude: (x, z) => house.exclude(x, z)}) : null;
   house.setFinish({siding: "white", roof: "black", trim: "black", door: "fir", porch: true});
   house.setProgress(1);
+  // home services: the drive overlay, the crew's truck, and (washing) grime on the siding
+  let drive = null; const hcur = {fix: 0, house: 0}, GRIME = {siding: new THREE.Color(0xa9a68f), trim: new THREE.Color(0x6f6d60)}, CLEAN = {};
+  if (HOME[g]) {
+    drive = flatwork(world, {kind: HOME[g]});
+    const font = getComputedStyle(document.documentElement).getPropertyValue("--serif").split(",")[0].trim() || "sans-serif";
+    await workTruck(world, {sign: HB.name || "", font, x: -1.5, z: 35.4, ry: Math.PI / 2});
+    CLEAN.siding = house.M.siding.color.clone(); CLEAN.trim = house.M.trim.color.clone();
+  }
+  let hfirst = true;
 
   // painting: blend siding, trim and door from faded to the chosen colors
   const FADE = {siding: new THREE.Color(0xb9b2a0), trim: new THREE.Color(0x8a8476), door: new THREE.Color(0x8a6a55)};
@@ -140,6 +154,12 @@ export async function start(HB) {
     world.setTod(s.tod);
     if (yard) yard.set({h: 5, stripes: P.stripes ?? 1, cut: P.cut ?? 1});
     if (tree) { tree.shape(+(P.trim ?? 0).toFixed(3)); tree.down(+(P.down ?? 0).toFixed(3)); const k = (P.trim ?? 0).toFixed(2) + (P.down ?? 0).toFixed(2); if (k !== shadowKey) { shadowKey = k; world.shadows(); } }
+    if (drive) {
+      const k = hfirst || reduce ? 1 : Math.min(1, dt * 4.5); hfirst = false;
+      for (const n in hcur) { const to = P[n] ?? hcur[n]; hcur[n] += (to - hcur[n]) * k; if (Math.abs(to - hcur[n]) < .002) hcur[n] = to; }
+      drive.set({fix: hcur.fix});
+      if (g === "wash") { house.M.siding.color.copy(GRIME.siding).lerp(CLEAN.siding, hcur.house); house.M.trim.color.copy(GRIME.trim).lerp(CLEAN.trim, hcur.house); }
+    }
     if (g === "painting") {
       house.M.siding.color.copy(FADE.siding).lerp(cB.setHex(P.color ?? 0x2c3e55), P.body ?? 0);
       house.M.trim.color.copy(FADE.trim).lerp(cA.setHex(P.trimColor ?? 0xf2f1ec), P.trimT ?? 0);

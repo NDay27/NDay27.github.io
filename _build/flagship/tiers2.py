@@ -122,11 +122,15 @@ import store  # noqa: E402
 for _g in store.GROUPS:
     G[_g] = _g; HERO[_g] = store.hero(_g); SVC_IMG[_g] = store.svc_img(_g); STAGES[_g] = store.stages(_g)
     VISIT[_g] = store.VISIT[_g]; VISIT_INTRO[_g] = store.VISIT_INTRO; TOOL_NAV[_g] = store.TOOL[_g][0]
+import home  # noqa: E402
+for _g in home.GROUPS:
+    G[_g] = _g; HERO[_g] = home.hero(_g); SVC_IMG[_g] = home.svc_img(_g); STAGES[_g] = home.stages(_g)
+    VISIT[_g] = home.VISIT[_g]; VISIT_INTRO[_g] = home.VISIT_INTRO; TOOL_NAV[_g] = home.TOOL[_g][0]
 
 
 def quiz(s):
     """Signature tool for storefronts: question one is the shop's own job list, question two is the trade's own."""
-    g = s["group"]; v = V[s["v"]]; nav, title, intro, q2, opts, tip, note = store.TOOL[g]
+    g = s["group"]; v = V[s["v"]]; nav, title, intro, q2, opts, tip, note = (store.TOOL.get(g) or home.TOOL[g])
     jobs = [j for j in v["jobs"] if j not in ("Something else", "Question")]
     b1 = "".join(f'<button type="button" aria-pressed="false" data-v="{E(j)}">{E(j)}</button>' for j in jobs)
     b2 = "".join(f'<button type="button" aria-pressed="false" data-v="{o[0]}"' + (f' style="--c:{o[3]}"><i></i>' if len(o) > 3 else ">") + f'{E(o[1])}</button>' for o in opts)
@@ -173,7 +177,7 @@ def stage(s):
 
 def tool(s):
     g = s["group"]
-    if g in store.GROUPS:
+    if g in kit.QUIZ:
         return quiz(s)
     if g == "body":
         hs = "".join(f'<button type="button" class="hs" aria-pressed="false" data-z="{k}" style="left:{x}%;top:{y}%"><i></i>{E(n)}</button>' for k, n, x, y in ZONES)
@@ -238,7 +242,7 @@ def faq(s):
              "tree": "Where the tree is, about how tall it is, and a photo if you can take one.",
              "painting": "Which rooms or which sides of the house, and any colors you're thinking about.",
              "auto": "The year, make and model, and what it's doing. A photo or a short video of the noise or the light helps.",
-             "body": "The year, make and model, where the damage is, and a few photos from different angles. A claim number too, if you have one.", **store.READY}[g]
+             "body": "The year, make and model, where the damage is, and a few photos from different angles. A claim number too, if you have one.", **store.READY, **home.READY}[g]
     items = [("How do I get a quote?", f"Call or text {s['phone']}, or plan your request above and send it with your name and number. Tell {s['short']} what you need and where you are."),
              ("What should I have ready?", ready),
              ("Which towns do you work in?", ", ".join(kit.towns(s)) + ". Close by but not listed? Ask anyway.")]
