@@ -154,3 +154,47 @@ export async function workTruck(world, {sign = "", sub = "", font, color = 0xf2f
     for (const s of [-1, 1]) { const p = new THREE.Mesh(new THREE.PlaneGeometry(1.5, .5), m); p.position.set(s * .995, .8, .05); p.rotation.y = s * Math.PI / 2; t.car.add(p); } }
   return t;
 }
+
+// acUnit(world): the outdoor condenser beside the house on a pad. set({fix}) swaps the old, rusted unit (fan stopped,
+// weeds at the pad) for a new one (fan spinning): the old one slides off, the new one is set down in its place.
+export function acUnit(world, {x = -7.4, z = -.2, ry = 0} = {}) {
+  const root = new THREE.Group(); root.position.set(x, 0, z); root.rotation.y = ry; world.scene.add(root);
+  const mat = (c, r = .6, m = 0, o = {}) => new THREE.MeshStandardMaterial({color: c, roughness: r, metalness: m, envMapIntensity: .6, ...o});
+  const add = (geo, m, px, py, pz, parent) => { const o = new THREE.Mesh(geo, m); o.position.set(px, py, pz); o.castShadow = o.receiveShadow = true; parent.add(o); return o; };
+  const fins = (c, rust) => { const cv = document.createElement("canvas"); cv.width = 512; cv.height = 256; const g = cv.getContext("2d");
+    g.fillStyle = c; g.fillRect(0, 0, 512, 256); g.fillStyle = "rgba(0,0,0,.5)"; for (let i = 0; i < 512; i += 3) g.fillRect(i, 22, 1.2, 214);
+    g.fillStyle = "rgba(255,255,255,.12)"; for (let i = 1; i < 512; i += 3) g.fillRect(i, 22, .8, 214);
+    g.fillStyle = c; g.fillRect(0, 0, 512, 22); g.fillRect(0, 236, 512, 20); g.fillStyle = "rgba(0,0,0,.3)"; g.fillRect(0, 21, 512, 2); g.fillRect(0, 235, 512, 2);
+    if (rust) { let s = 5; const r = () => (s = (s * 16807) % 2147483647) / 2147483647;
+      for (let i = 0; i < 46; i++) { const x = r() * 512, y = 120 + r() * 136, gr = g.createRadialGradient(x, y, 0, x, y, 8 + r() * 26); gr.addColorStop(0, "rgba(118,58,22,.8)"); gr.addColorStop(1, "rgba(118,58,22,0)"); g.fillStyle = gr; g.fillRect(0, 0, 512, 256); }
+      g.strokeStyle = "rgba(170,160,128,.6)"; g.lineWidth = 2; for (let i = 0; i < 9; i++) { const x = r() * 470, y = 40 + r() * 170; g.beginPath(); g.moveTo(x, y); g.bezierCurveTo(x + 12, y + 6, x + 26, y - 5, x + 40, y + 3); g.stroke(); }  // bent fins
+      const gr = g.createLinearGradient(0, 160, 0, 256); gr.addColorStop(0, "rgba(40,34,20,0)"); gr.addColorStop(1, "rgba(40,34,20,.7)"); g.fillStyle = gr; g.fillRect(0, 160, 512, 96); }
+    const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t; };
+  const unit = (old) => {
+    const u = new THREE.Group(), W = .92, H = .86, top = old ? 0x8d8670 : 0xe9e9e4, side = mat(0xffffff, .55, .25, {map: fins(old ? "#77735f" : "#b4b9bc", old)});
+    add(new THREE.BoxGeometry(W, H, W), side, 0, H / 2 + .1, 0, u);
+    for (const [a, b] of [[-1, -1], [1, -1], [-1, 1], [1, 1]]) add(new THREE.BoxGeometry(.07, H + .02, .07), mat(top, .5, .2), a * (W / 2 - .02), H / 2 + .1, b * (W / 2 - .02), u);
+    add(new THREE.BoxGeometry(W + .04, .06, W + .04), mat(top, .45, .25), 0, H + .13, 0, u);
+    add(new THREE.CylinderGeometry(.36, .36, .02, 28), mat(0x1c1e20, .7), 0, H + .165, 0, u);
+    const grille = add(new THREE.TorusGeometry(.3, .012, 6, 28), mat(0x2a2c2e, .5, .4), 0, H + .18, 0, u); grille.rotation.x = Math.PI / 2;
+    const fan = new THREE.Group(); fan.position.set(0, H + .16, 0); u.add(fan);
+    for (let k = 0; k < 4; k++) { const bl = add(new THREE.BoxGeometry(.28, .012, .1), mat(0x3a3d40, .5, .3), .15, 0, 0, fan); bl.rotation.x = .35; bl.parent.remove(bl); const arm = new THREE.Group(); arm.rotation.y = k * Math.PI / 2; arm.add(bl); fan.add(arm); }
+    add(new THREE.BoxGeometry(.3, .18, .04), mat(old ? 0x5a5446 : 0x2f3236, .5), W / 2 - .2, .35, W / 2 + .02, u);  // service panel
+    for (const [r, c, zz] of [[.025, 0xb87333, -.3], [.045, 0x111214, -.16]]) { const l = add(new THREE.CylinderGeometry(r, r, .95, 8), mat(c, c === 0x111214 ? .9 : .35, c === 0x111214 ? 0 : .8), W / 2 + .47, .4, zz, u); l.rotation.z = Math.PI / 2; }  // line set to the wall
+    u.userData.fan = fan; return u; };
+  add(new THREE.BoxGeometry(1.4, .1, 1.4), mat(0xbdbab2, .9), 0, .05, 0, root);
+  add(new THREE.BoxGeometry(.07, .32, .24), mat(0x8e9296, .5, .3), 1.36, 1.05, .25, root);  // disconnect box on the wall
+  { const c = add(new THREE.CylinderGeometry(.018, .018, .62, 6), mat(0x55595c, .6), 1.36, .62, .25, root); }
+  const oldU = unit(true), newU = unit(false); root.add(oldU, newU);
+  // weeds around the old pad
+  const weeds = new THREE.Group(); root.add(weeds); const wm = mat(0x4f6e2e, .9, 0, {side: THREE.DoubleSide});
+  for (let i = 0; i < 40; i++) { const a = i / 40 * 6.28, r = .72 + (i % 3) * .05, b = add(new THREE.PlaneGeometry(.06, .18 + (i % 4) * .06), wm, Math.cos(a) * r, .12, Math.sin(a) * r, weeds); b.rotation.set(.3, a, 0); b.castShadow = false; }
+  let fix = 0, spin = 0;
+  world.onTick.push((t, dt) => { spin += dt * 14 * Math.max(0, (fix - .9) * 10); newU.userData.fan.rotation.y = spin; });
+  const set = ({fix: f = 0} = {}) => { fix = f;
+    const a = Math.min(1, f * 2), b = Math.max(0, f * 2 - 1);
+    oldU.visible = a < 1; oldU.position.set(-a * 1.8, 0, a * .6); oldU.rotation.y = -a * .5; weeds.visible = f < .5;
+    newU.visible = b > 0; newU.position.set(0, (1 - b) * .8, 0); };
+  set({fix: 0});
+  return {root, set};
+}
