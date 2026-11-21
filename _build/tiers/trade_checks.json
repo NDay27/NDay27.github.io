@@ -6866,5 +6866,107 @@
   "trade": "Lawn mower repair service",
   "src": "Google listing category",
   "on": "2026-11-21"
+ },
+ "thomas-welding-repair-and-fabrication-los-alamitos-ca": {
+  "v": "welding",
+  "trade": "Welder",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "pinhead-fabrication-signal-hill-ca": {
+  "v": "welding",
+  "trade": "Metal fabricator",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "shaun-s-fab-llc-cleveland-oh": {
+  "v": "welding",
+  "trade": "Welder",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "ck-welding-and-fabrication-llc-bessemer-al": {
+  "v": "welding",
+  "trade": "Welder",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "quick-service-welding-mach-kent-oh": {
+  "v": "welding",
+  "trade": "Welder",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "crane-s-welding-llc-capon-bridge-wv": {
+  "v": "welding",
+  "trade": "Welder",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "way-s-custom-welding-painesville-oh": {
+  "v": "welding",
+  "trade": "Welder",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "bill-lykens-son-weld-co-inc-birmingham-al": {
+  "v": "welding",
+  "trade": "Welder",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "mariani-s-welding-fab-warren-oh": {
+  "v": "welding",
+  "trade": "Welder",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "elm-street-welding-automotive-willoughby-oh": {
+  "v": "welding",
+  "trade": "Welder",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "mike-s-welding-bessemer-al": {
+  "v": "welding",
+  "trade": "Welder",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "sv-innovations-fayetteville-wv": {
+  "v": "welding",
+  "trade": "Metal fabricator",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "tiger-s-eye-fabrication-llc-mogadore-oh": {
+  "v": "welding",
+  "trade": "Welder",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "all-4-u-cleaning-carpet-cleaning-and-janitorial-services-hopkinsville-ky": {
+  "v": "carpetclean",
+  "trade": "Carpet cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "advanced-aardvark-air-duct-carpet-cleaning-company-hightstown-nj": {
+  "v": "carpetclean",
+  "trade": "Carpet cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "top-dog-carpet-cleaning-rochester-nh": {
+  "v": "carpetclean",
+  "trade": "Carpet cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "all-clean-hudson-falls-ny": {
+  "v": "carpetclean",
+  "trade": "Carpet cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
  }
 }

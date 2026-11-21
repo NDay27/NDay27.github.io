@@ -281,7 +281,7 @@ def elevation(g, s=None):
         svg = svg.replace("</svg>", _tree() + "</svg>")
     elif g in HOMES:
         svg = re.sub(r'<g class="dim".*?</g>', "", svg, flags=re.S)
-        note = {"wash": "siding and drive, washed", "concrete": "new drive, poured and jointed", "hvac": "new unit on the pad, lines to the wall", "plumb": "water line dug, fixed and sodded", "handy": "gutter up, new step, list done", "clean": "every room, top to bottom", "stump": "stump out, grass back", "office": "every desk, every floor", "tow": "loaded up, ready to roll", "engine": "fixed and back on the lawn"}[g]
+        note = {"wash": "siding and drive, washed", "concrete": "new drive, poured and jointed", "hvac": "new unit on the pad, lines to the wall", "plumb": "water line dug, fixed and sodded", "handy": "gutter up, new step, list done", "clean": "every room, top to bottom", "stump": "stump out, grass back", "office": "every desk, every floor", "tow": "loaded up, ready to roll", "engine": "fixed and back on the lawn", "weld": "welded, painted, hung true", "carpet": "every room, every fiber"}[g]
         svg = svg.replace("</svg>", f'<g class="note" style="--w:3.2s"><text x="1340" y="700" text-anchor="end">{note}</text></g></svg>')
     else:
         i = svg.index("<path"); svg = svg[:i] + _rolls() + svg[i:]
@@ -297,6 +297,8 @@ def load_shops():
     final = json.load(open(os.path.join(HERE, "shops.json")))
     own = {x["slug"]: x["owner"] for x in final}
     vov = {x["slug"]: x["v"] for x in final if x.get("v")}
+    # capitals only, same words as the Google listing ("Shaun's fab llc" reads as a typo on a headline)
+    nov = {x["slug"]: x["name"] for x in final if x.get("name")}
     import importlib.util
     spec = importlib.util.spec_from_file_location("tiers_build", os.path.join(ROOT, "_build/tiers/build.py"))
     tb = importlib.util.module_from_spec(spec); spec.loader.exec_module(tb)
@@ -308,7 +310,7 @@ def load_shops():
         s = dict(s)
         s["owner"] = own[s["slug"]]
         s["v"] = vov.get(s["slug"], s["v"])  # e.g. a stump grinder listed as a tree service gets the stump variant
-        s["name"] = nice_name(s["name"])
+        s["name"] = nice_name(nov.get(s["slug"], s["name"]))
         s["short"] = short_name(s["name"])
         s["tel"] = tel(s["phone"])
         out.append(s)
