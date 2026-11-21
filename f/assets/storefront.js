@@ -18,12 +18,14 @@ export const KIND = {
   shop:   {trim: 0x24365e, awn: AWN.navy, wall: 0xf0e9dd, floor: "wood", sign: ["#24365e", "#f4f0e6"], icon: "bag"},
   groom:  {trim: 0x2f7f86, awn: AWN.teal, wall: 0xeef0e8, floor: "tile", sign: ["#f2f5f4", "#235f65"], icon: "paw"},
   scoop:  {trim: 0xf4efe4, awn: AWN.teal, wall: 0xfbefe6, wain: 0x7fc4b4, floor: "check", sign: ["#f6efe4", "#2f7f86"], icon: "cone"},
+  antique: {trim: 0x3b2a1e, awn: AWN.gold, wall: 0xeadcc6, wain: 0x5a3e2b, floor: "wood", sign: ["#2a1f18", "#f1e6d0"], icon: "clock"},
   sew:    {trim: 0x5a3550, awn: AWN.plum, wall: 0xefe7df, floor: "wood", sign: ["#5a3550", "#f6eee6"], icon: "needle"},
 };
 KIND.tailor = KIND.sew; KIND.uphol = KIND.sew;
 
 // blade-sign icons, drawn with Path2D on a 56 box
 const ICON = {
+  clock: ["M28 10a18 18 0 1 0 .1 0", "M28 18v10l7 5", "M22 48h12"],
   cupcake: ["M14 30h28l-4 16H18z", "M12 30c0-8 6-12 10-12 2-6 10-6 12 0 4 0 10 4 10 12", "M28 12v-4"],
   scissors: ["M20 14 36 42", "M36 14 20 42", "M16 44a5 5 0 1 0 0 .1", "M40 44a5 5 0 1 0 0 .1"],
   razor: ["M12 36 36 12l6 6-24 24z", "M36 12l8-4 4 4-4 8", "M18 30l6 6"],
@@ -407,6 +409,42 @@ export async function makeStore(world, {kind = "bakery", sign = "Bakery", font =
     box(1.9, .1, .9, trim, -2.2, .57, -.9); form(-2.6, -.95, 0xb3343a); form(-1.8, -.9, 0x24365e);
     box(.9, .5, .6, trim, 2.0, .85, -.85); for (let k = 0; k < 4; k++) box(.4, .07, .3, mat(garm[k + 2], .85), 2.0, 1.14 + k * .07, -.85);
     cyl(.07, .05, .3, mat(0xf2efe8, .3), 2.3, 1.25, -.8, P, 14);
+  } else if (kind === "antique") {
+    // a grandfather clock, a china hutch, a rocking chair, a trunk, a gramophone in the window and framed pictures
+    const walnut = mat(0x4a2e1c, .45), oak = mat(0x8a5a32, .5), china = mat(0xf3efe6, .25), BZ = IZ1 + .3;
+    const clock = new THREE.Group(); clock.position.set(2.7, 0, BZ); P.add(clock);
+    box(.62, .3, .42, walnut, 0, .15, 0, clock); box(.5, 1.3, .34, walnut, 0, .95, 0, clock); box(.6, .62, .4, walnut, 0, 1.91, 0, clock); box(.66, .1, .44, walnut, 0, 2.27, 0, clock);
+    const face = add(new THREE.CylinderGeometry(.2, .2, .02, 28), china, 0, 1.92, .21, clock); face.rotation.x = Math.PI / 2; box(.01, .14, .01, dark, 0, 1.97, .225, clock); box(.1, .01, .01, dark, .04, 1.92, .225, clock);
+    box(.3, .9, .01, glass, 0, .95, .175, clock).castShadow = false; cyl(.008, .008, .62, brass, 0, 1.1, .1, clock, 6); cyl(.08, .08, .02, brass, 0, .78, .1, clock, 18).rotation.x = Math.PI / 2;
+    const hutch = new THREE.Group(); hutch.position.set(-2.2, 0, BZ); P.add(hutch);
+    box(1.6, .9, .5, oak, 0, .45, 0, hutch); box(1.5, 1.1, .32, oak, 0, 1.45, -.08, hutch); box(1.66, .08, .5, oak, 0, 2.04, -.05, hutch);
+    for (const y of [1.2, 1.58]) box(1.42, .03, .28, oak, 0, y, -.06, hutch);
+    for (const y of [1.22, 1.6]) for (let i = 0; i < 5; i++) { const pl = add(new THREE.CylinderGeometry(.11, .11, .015, 22), mat([0xf3efe6, 0xdde6ef, 0xf1e2c8][i % 3], .25), -.56 + i * .28, y + .13, -.14, hutch); pl.rotation.x = Math.PI / 2 - .2; }
+    for (const x of [-.36, .36]) cyl(.02, .02, .04, brass, x, .7, .26, hutch, 8);
+    // rocking chair
+    const rock = new THREE.Group(); rock.position.set(-.9, 0, -5.4); rock.rotation.y = .5; P.add(rock);
+    box(.5, .05, .46, oak, 0, .44, 0, rock); for (let i = 0; i < 5; i++) box(.04, .62, .03, oak, -.18 + i * .09, .78, -.22, rock); box(.5, .06, .05, oak, 0, 1.1, -.22, rock);
+    for (const x of [-.22, .22]) { for (const z of [-.18, .18]) cyl(.02, .02, .4, oak, x, .25, z, rock, 6); const rn = add(new THREE.TorusGeometry(.9, .02, 6, 24, .7), oak, x, .92, 0, rock); rn.rotation.set(0, Math.PI / 2, -Math.PI / 2 - .35); }
+    // an old wool rug under the table, and a stack of suitcases
+    const rugCv = document.createElement("canvas"); rugCv.width = 512; rugCv.height = 340; { const g = rugCv.getContext("2d"); g.fillStyle = "#7a2b24"; g.fillRect(0, 0, 512, 340);
+      g.strokeStyle = "#d9b26a"; g.lineWidth = 10; g.strokeRect(14, 14, 484, 312); g.strokeStyle = "#1f2f4a"; g.lineWidth = 16; g.strokeRect(34, 34, 444, 272);
+      g.fillStyle = "#1f2f4a"; g.beginPath(); g.moveTo(256, 90); g.lineTo(360, 170); g.lineTo(256, 250); g.lineTo(152, 170); g.closePath(); g.fill();
+      g.fillStyle = "#d9b26a"; g.beginPath(); g.moveTo(256, 125); g.lineTo(314, 170); g.lineTo(256, 215); g.lineTo(198, 170); g.closePath(); g.fill();
+      for (let i = 0; i < 1800; i++) { g.fillStyle = `rgba(${rnd() < .5 ? "0,0,0" : "255,240,220"},.08)`; g.fillRect(rnd() * 512, rnd() * 340, 2, 2); } }
+    const rugT = new THREE.CanvasTexture(rugCv); rugT.colorSpace = THREE.SRGBColorSpace; const rug = add(new THREE.PlaneGeometry(2.6, 1.75), new THREE.MeshStandardMaterial({map: rugT, roughness: .95, envMapIntensity: .2}), .4, .012, -4.3, P); rug.rotation.x = -Math.PI / 2; rug.castShadow = false;
+    for (const [y, w, c] of [[.12, .75, 0x5a3a26], [.33, .66, 0x3b4a5a], [.52, .56, 0x8a6a3a]]) { box(w, .2, .42, mat(c, .6), 2.9, y, -4.6); box(.12, .03, .03, brass, 2.9, y + .11, -4.6 + .22); }
+    // trunk, a round table with a fringe lamp and teacups
+    box(.9, .5, .5, mat(0x6b4a2e, .6), 1.4, .25, -6.6); for (const x of [1.05, 1.75]) box(.06, .52, .52, brass, x, .25, -6.6); box(.92, .04, .52, mat(0x3b2a1e, .5), 1.4, .51, -6.6);
+    cyl(.5, .5, .04, oak, .9, .74, -4.0, P, 28); cyl(.05, .06, .72, oak, .9, .37, -4.0, P, 10); cyl(.3, .32, .04, oak, .9, .02, -4.0, P, 18);
+    cyl(.05, .07, .3, brass, .75, .91, -4.1, P, 12); const shade = add(new THREE.ConeGeometry(.24, .2, 24, 1, true), glow(0xe9a35a, 1.4), .75, 1.16, -4.1, P); shade.castShadow = false; lamp(.75, 1.05, -4.1, .8, 4, 0xffcf8a);
+    for (const [x, z] of [[1.1, -3.85], [1.2, -4.15]]) { cyl(.05, .035, .06, china, x, .79, z, P, 14); cyl(.08, .08, .01, china, x, .765, z, P, 18); }
+    // framed pictures on the side wall and a shelf of crocks
+    for (const [z, y, w, h, c] of [[-3.0, 2.3, .7, .9, 0x6f7f5a], [-4.2, 2.5, .9, .6, 0x8a6a4a], [-5.4, 2.2, .6, .8, 0x4f6a7a], [-6.5, 2.45, .8, .6, 0xa0784a]]) { box(.05, h + .1, w + .1, mat(0xb08a4a, .4, .5), -IW / 2 + .14, y, z); box(.02, h, w, mat(c, .9), -IW / 2 + .17, y, z); }
+    const sh = shelf(.4, BZ, 2.0, [1.6, 2.1]); for (const y of [1.62, 2.12]) for (let i = 0; i < 6; i++) cyl(.08, .07, .2 + (i % 2) * .06, mat([0xd8cbb0, 0x7a5a3a, 0x9aa6a8][i % 3], .7), -.65 + i * .26, y + .12, 0, sh, 14);
+    // window: a gramophone on a little table
+    box(.7, .7, .5, walnut, -2.2, .35, -1.0); const gr = new THREE.Group(); gr.position.set(-2.2, .7, -1.0); P.add(gr); box(.4, .18, .4, walnut, 0, .09, 0, gr); cyl(.16, .16, .01, dark, 0, .19, 0, gr, 24);
+    const horn = add(new THREE.CylinderGeometry(.3, .02, .55, 24, 1, true), mat(0xb8893a, .3, .8), .08, .55, .1, gr); horn.material.side = THREE.DoubleSide; horn.rotation.set(-.6, 0, -.5); cyl(.012, .012, .3, brass, .04, .3, .02, gr, 6);
+    plant(3.0, -1.4, .9);
   } else if (kind === "groom") {
     // grooming table, the tub, dryer, a shelf of shampoos; a dog waiting in the window
     const tbl = new THREE.Group(); tbl.position.set(-1.1, 0, -4.2); P.add(tbl);

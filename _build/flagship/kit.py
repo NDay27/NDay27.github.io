@@ -383,6 +383,7 @@ STORES = tuple(store.GROUPS)
 SHOPS = SHOPS + STORES
 KIT_V_EXTRA = dict(store.KIT_V)
 NAME_OUT_EXTRA = dict(store.NAME_OUT)
+V.update(store.V_NEW)
 
 # ---------- home-service groups on the Harlow house (home.py) ----------
 import home  # noqa: E402
