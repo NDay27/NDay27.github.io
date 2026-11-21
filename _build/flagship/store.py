@@ -313,3 +313,30 @@ def renders(g):
             r("s3", 1200, 800, "door", .14, "open=1&lights=1&awning=1&door=1"), r("s4", 1200, 800, "inside", .14, inside),
             r("dusk", 1600, 1000, "dusk", .84, opened), r("window", 1600, 1000, "window", .14, opened),
             r("inside", 1600, 1000, "inside", .14, inside), r("door", 1600, 1000, "door", .14, opened)]
+
+
+# shop-wide wording: the flagship pages were written for trades that come to you; a store is a place you visit
+WORDING = [
+    ("<dt>Works in</dt>", "<dt>Customers from</dt>"),
+    ('<p style="margin-bottom:10px">Works in</p>', '<p style="margin-bottom:10px">Customers from</p>'),
+    ("a little about the job and get a call back.", "what you need and get a call back."),
+    ("<h3>Ask for a quote</h3>", "<h3>Send a request</h3>"),
+    ('href="#quote">Get a quote</a>', 'href="#quote">Send a request</a>'),
+    ("Every job gets its own quote. Call, text or send the form and", "Questions about anything? Call, text or send the form and"),
+    ("will tell you what it takes.", "will get back to you."),
+    ("<b>To ask for a quote</b>", "<b>To send a request</b>"),
+    ("Ask for a quote", "Send a request"),
+    ("Quote request in about a minute", "Send a request in about a minute"),
+    ('<div class="t1">Job<b>', '<div class="t1">Shop<b>'),
+    ("<dt>Job</dt>", "<dt>Visit</dt>"),
+    (" works in ", " serves "),
+    ("the towns you work in", "the towns your customers come from"),
+    ("real job photos", "real shop photos"),
+    ("a few job photos", "a few shop photos"),
+]
+
+
+def wording(html):
+    for a, b in WORDING:
+        html = html.replace(a, b)
+    return html
