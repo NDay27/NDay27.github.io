@@ -31,12 +31,21 @@ THEME = {
               pencil="#ef8a5b", pencil2="#f5a882", blue="#3d5a99", barbg="#0e1422",
               serif='"DM Serif Display",Georgia,serif', sans='"DM Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif',
               fonts="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400..700&display=swap"),
+ "auto": dict(navy="#15181c", navy2="#22272e", paper="#f2f2ef", paper2="#e6e6e1", white="#fbfbf9", ink="#15181c", muted="#5a6067", line="#d6d6d0",
+              pencil="#f2b632", pencil2="#f7cb66", blue="#b3261c", barbg="#0b0d10",
+              serif='"Archivo",system-ui,sans-serif', sans='"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif',
+              fonts="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"),
 }
 # tree's display face has no italic: keep the second headline line upright
 EXTRA_CSS = {"tree": ".hero h1 .l2{font-style:normal;font-weight:400}.hero h1{font-weight:700;letter-spacing:-.035em}h1,h2,h3{letter-spacing:-.025em}h2{font-weight:600!important}",
-             "lawn": "", "painting": ".hero h1{font-weight:400}h2{font-weight:400!important}"}
+             "lawn": "", "painting": ".hero h1{font-weight:400}h2{font-weight:400!important}",
+             "auto": "h1,h2,h3,.strip .n,.mo{font-stretch:112%}.hero h1,.hero0 h1{font-weight:800!important;letter-spacing:-.035em;text-transform:uppercase;line-height:.92}"
+                     ".hero h1 .l2,.hero h1 em,.hero0 h1 em{font-style:normal!important;font-weight:800!important}h2{font-weight:700!important;letter-spacing:-.025em}h3{font-weight:700}"
+                     ".hero:has(.sheet) h1{font-size:clamp(42px,4vw,56px)}.hero0 h1{font-size:clamp(40px,5.4vw,84px)!important}.hero h1,.hero0 h1{overflow-wrap:break-word}.draw .sign{color:var(--navy)}[hidden]{display:none!important}.draw .l-trim,.draw .l-tire{color:var(--blue)}.draw .l-porch{color:#1d58b8}.dash button{display:grid;justify-items:center;gap:8px;padding:14px 8px!important;min-height:92px!important;font-size:13.5px!important;line-height:1.15}"
+                     ".dash{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:26px}.dash svg{width:34px;height:34px;color:#c98a00}.dash button[aria-pressed=true] svg{color:var(--pencil)}"}
 
-TRADE = {"lawn": "Lawn care", "landscape": "Landscaping", "tree": "Tree service", "painter": "Painting"}
+TRADE = {"lawn": "Lawn care", "landscape": "Landscaping", "tree": "Tree service", "painter": "Painting",
+         "auto": "Auto repair", "transmission": "Transmission shop", "radiator": "Radiator shop", "muffler": "Muffler and exhaust", "brake": "Brake shop"}
 
 COPY = {
  "lawn": dict(svc_h="What we take care of", svc_intro="Tell us what the yard needs. If it isn't on the list, ask anyway and get a straight answer.",
@@ -51,6 +60,10 @@ COPY = {
               quote_h="Get a painting quote", cta="Get a painting quote", msg_ph="Rooms or the outside, colors you're thinking about, timing.",
               sheet=("A house in {town}", "Exterior repaint"), sheet_label="Line drawing of a farmhouse with roller strokes of new paint across the siding",
               shot=("paint-after", "A farmhouse freshly painted navy with white trim", "Illustration. Your real job photos go here.")),
+ "auto": dict(svc_h="What we fix", svc_intro="Tell us what it's doing. If the job isn't on the list, ask anyway and get a straight answer.",
+              quote_h="Get it on the schedule", cta="Get a repair quote", msg_ph="Year, make and model, and what it's doing.",
+              sheet=("A shop in {town}", "Bay 1, up on the lift"), sheet_label="Line drawing of a two-bay brick repair shop with a pickup raised on the lift in bay one",
+              shot=("auto-after", "A red pickup parked in front of a brick two-bay repair shop", "Illustration. Your real shop photos go here.")),
 }
 
 _I = '<svg class="ic" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{}</svg>'
@@ -67,12 +80,25 @@ SVC_ICON = {
  "Interior painting": '<rect x="10" y="10" width="30" height="12" rx="2"/><path d="M40 16h6v10H25v8"/><rect x="22" y="34" width="6" height="14" rx="1.5"/>',
  "Exterior painting": '<path d="M6 28 24 14l18 14"/><path d="M10 25v21h28V25"/><path d="M20 46V35h8v11"/><path d="M42 10l6 6-12 12-6-6z"/><path d="M30 22l-4 4"/>',
  "Prep and repair": '<path d="M10 40 30 20l8 8-20 20H10z"/><path d="M30 20l6-6 8 8-6 6"/><path d="M16 46h28"/><path d="M42 36c3 0 5 2 5 5"/>',
+ "Repairs": '<path d="M38 10a10 10 0 0 0-12 13L10 39a4.2 4.2 0 0 0 6 6l16-16a10 10 0 0 0 13-12l-7 7-6-1-1-6z"/>',
+ "Truck repair": '<path d="M38 10a10 10 0 0 0-12 13L10 39a4.2 4.2 0 0 0 6 6l16-16a10 10 0 0 0 13-12l-7 7-6-1-1-6z"/>',
+ "Maintenance": '<path d="M12 44h26a4 4 0 0 0 4-4V26l-8-10H20"/><path d="M12 44V20h14"/><path d="M34 16l8-6 4 4-6 8"/><path d="M24 28c-3 4-4 6-4 8a4 4 0 0 0 8 0c0-2-1-4-4-8z"/>',
+ "Service": '<path d="M12 44h26a4 4 0 0 0 4-4V26l-8-10H20"/><path d="M12 44V20h14"/><path d="M34 16l8-6 4 4-6 8"/><path d="M24 28c-3 4-4 6-4 8a4 4 0 0 0 8 0c0-2-1-4-4-8z"/>',
+ "Diagnostics": '<path d="M12 22v16h8l4 4h14v-6h4V24h-4v-4H28v-4h-8v4z"/><path d="M6 26v8M48 26v8M20 12h10"/><path d="M27 26l-4 6h6l-4 6"/>',
+ "Inspections": '<rect x="12" y="10" width="26" height="36" rx="3"/><path d="M20 10V7h10v3"/><path d="M18 22l3 3 5-6M18 34l3 3 5-6M30 23h4M30 35h4"/>',
+ "Transmission repair": '<circle cx="28" cy="28" r="9"/><circle cx="28" cy="28" r="3"/><path d="M28 10v8M28 38v8M10 28h8M38 28h8M15 15l6 6M35 35l6 6M41 15l-6 6M21 35l-6 6"/>',
+ "Radiator repair": '<rect x="10" y="14" width="36" height="28" rx="3"/><path d="M18 14v28M24 14v28M30 14v28M36 14v28"/><path d="M16 14V9h8M40 42v5"/>',
+ "Cooling system": '<path d="M28 8v24"/><circle cx="28" cy="38" r="8"/><path d="M28 8a4 4 0 0 1 4 4v19M24 31V12a4 4 0 0 1 4-4"/><path d="M38 14h6M38 20h4M38 26h6"/>',
+ "Mufflers": '<rect x="14" y="18" width="26" height="18" rx="9"/><path d="M4 27h10M40 27h8"/><path d="M48 23v8"/><path d="M22 18v18M32 18v18"/>',
+ "Exhaust systems": '<path d="M6 34h14l6-10h10l4 6h10"/><rect x="24" y="20" width="14" height="10" rx="5" transform="rotate(0)"/><path d="M50 26v8"/><path d="M12 34v6M30 30v8"/>',
+ "Brakes": '<circle cx="28" cy="28" r="17"/><circle cx="28" cy="28" r="6"/><path d="M28 14v3M28 39v3M14 28h3M39 28h3"/><path d="M40 12a22 22 0 0 1 6 12"/>',
  "_more": '<path d="M10 12h36v24H24l-10 8v-8h-4z"/><path d="M20 22h16M20 28h10"/>',
 }
 GLYPH = {  # logo marks on a 32px box, drawn with the accent and the ink
  "lawn": '<path d="M5 26h22" stroke="currentColor" stroke-width="2.6"/><path d="M8 26c0-7 1.6-11 4-14M14.5 26c0-9 2-14 5.5-17M21 26c.4-6 2.4-9.5 5-11" fill="none" stroke="var(--pencil)" stroke-width="2.6" stroke-linecap="round"/>',
  "tree": '<path d="M16 28V17" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M16 4 7 17h18z" fill="none" stroke="var(--pencil)" stroke-width="2.6" stroke-linejoin="round"/><path d="M16 11 10 21h12z" fill="var(--pencil)"/>',
  "painting": '<rect x="4" y="5" width="20" height="8" rx="2" fill="none" stroke="var(--pencil)" stroke-width="2.6"/><path d="M24 9h4v7H16v5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M16 21v7" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>',
+ "auto": '<path d="M24 5a7.5 7.5 0 0 0-9.2 9.8L4.6 25a3.2 3.2 0 0 0 4.5 4.5l10.2-10.2A7.5 7.5 0 0 0 29 10l-5 5-4.2-.8-.8-4.2z" fill="none" stroke="var(--pencil)" stroke-width="2.4" stroke-linejoin="round"/><circle cx="7" cy="27" r="1.2" fill="currentColor"/>',
 }
 IC = {
  "PHONE_ICON": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2"/></svg>',
@@ -104,7 +130,11 @@ def favicon(g):
 STATE_NAME = {"IL": "Illinois", "MO": "Missouri", "IN": "Indiana", "KY": "Kentucky", "OH": "Ohio", "MI": "Michigan", "WI": "Wisconsin",
               "MN": "Minnesota", "IA": "Iowa", "KS": "Kansas", "NE": "Nebraska", "OK": "Oklahoma", "TX": "Texas", "AR": "Arkansas",
               "LA": "Louisiana", "MS": "Mississippi", "AL": "Alabama", "TN": "Tennessee", "GA": "Georgia", "SC": "South Carolina",
-              "NC": "North Carolina", "VA": "Virginia", "PA": "Pennsylvania"}
+              "NC": "North Carolina", "VA": "Virginia", "PA": "Pennsylvania", "CA": "California", "OR": "Oregon", "WA": "Washington",
+              "CO": "Colorado", "MA": "Massachusetts", "NY": "New York", "NJ": "New Jersey", "FL": "Florida", "AZ": "Arizona", "NM": "New Mexico",
+              "UT": "Utah", "NV": "Nevada", "ID": "Idaho", "MT": "Montana", "WY": "Wyoming", "ND": "North Dakota", "SD": "South Dakota",
+              "WV": "West Virginia", "MD": "Maryland", "DE": "Delaware", "CT": "Connecticut", "RI": "Rhode Island", "VT": "Vermont",
+              "NH": "New Hampshire", "ME": "Maine", "AK": "Alaska", "HI": "Hawaii"}
 
 
 def st(s):
@@ -192,7 +222,18 @@ def _tree():
             f'<g class="note" style="--w:3.1s"><text x="-205" y="690" text-anchor="middle" style="font-size:40px">Trim line keeps limbs off the roof</text></g></g>')
 
 
-def elevation(g):
+def sign_text(svg, name):
+    """Letter the shop's own name on the drawn sign band, squeezed to fit."""
+    m = re.search(r'data-w="(\d+)" data-h="(\d+)">{{SIGN}}', svg)
+    w, h = int(m.group(1)), int(m.group(2)); t = name.upper(); fs = h * .56
+    est = len(t) * fs * .66
+    fit = f' textLength="{w * .9:.0f}" lengthAdjust="spacingAndGlyphs"' if est > w * .9 else ""
+    return svg.replace("{{SIGN}}", f'<text x="{w / 2:.0f}" y="{h * .7:.0f}" text-anchor="middle" style="font:800 {fs:.0f}px var(--serif);font-stretch:100%"{fit}>{E(t)}</text>')
+
+
+def elevation(g, s=None):
+    if g == "auto":
+        return sign_text(open(os.path.join(HERE, "elev-auto.svg")).read(), s["short"] if s else "Auto Repair")
     svg = open(os.path.join(HERE, "elev.svg")).read()
     svg = svg.replace('class="draw"', 'class="draw" role="img"', 1).replace(' aria-hidden="true"', "", 1)
     if g == "lawn":
@@ -259,7 +300,7 @@ def bar(s, tier):
 
 
 def ldjson(s):
-    typ = "HousePainter" if s["group"] == "painting" else "HomeAndConstructionBusiness"
+    typ = {"painting": "HousePainter", "auto": "AutoRepair"}.get(s["group"], "HomeAndConstructionBusiness")
     d = {"@context": "https://schema.org", "@type": typ, "name": s["name"], "telephone": s["tel"],
          "address": {"@type": "PostalAddress", "addressLocality": s["town"], "addressRegion": st(s), "addressCountry": "US"},
          "areaServed": [t + " " + st(s) for t in towns(s)]}

@@ -12,9 +12,67 @@ const K = {
          dusk: [[-20, 2.6, 24], [-3, 5, 2], 38], cfg: [[-19, 3.4, 30], [-3.5, 5, 2], 38]},
   painting: {hero: [[-14, 2.0, 25], [-1.5, 4.4, 2], 36], close: [[-16, 7, 24], [2.5, 3.6, 0], 36], side: [[24, 3.4, 18], [4, 2.5, 2], 38],
              dusk: [[22, 2.6, 19], [3, 3.8, 0], 36], cfg: [[-11.5, 2.6, 32], [2, 4.4, 1.5], 33]},
+  auto: {hero: [[-13, 3.4, 23], [1, 2.6, 0], 34], bay: [[-6.5, 2.2, 9], [-2.4, 1.9, -3.5], 40], dusk: [[-11, 1.8, 19], [0, 2.4, 3], 36],
+         cfg: [[-7.4, 2.5, 10.5], [-2.2, 2.0, -3.2], 40]},
 };
 
+// The camera rig every trade shares: blend between two keys, drift a little, frame the subject clear of the captions.
+function makeRig(world, keys, HB) {
+  const {THREE, cam, ctl} = world;
+  ctl.enabled = false; ctl.autoRotate = false; ctl.enableDamping = false;
+  const pos = new THREE.Vector3(), tgt = new THREE.Vector3(), a0 = new THREE.Vector3(), a1 = new THREE.Vector3(), b0 = new THREE.Vector3(), b1 = new THREE.Vector3(), off = new THREE.Vector3();
+  const ease = t => t * t * (3 - 2 * t);
+  let intro = reduce ? 1 : 0, fov = 0, vo = "";
+  return (t, dt, s) => {
+    const A = keys[s.a], B = keys[s.b], e = ease(s.t);
+    a0.fromArray(A[0]); a1.fromArray(A[1]); b0.fromArray(B[0]); b1.fromArray(B[1]);
+    pos.lerpVectors(a0, b0, e); tgt.lerpVectors(a1, b1, e);
+    let f = A[2] + (B[2] - A[2]) * e;
+    const idle = reduce ? 0 : Math.sin(t * .16) * .04;
+    off.subVectors(pos, tgt).applyAxisAngle(THREE.Object3D.DEFAULT_UP, idle + (s.yaw || 0));
+    const w = world.host.clientWidth, h = world.host.clientHeight, asp = w / h, phone = asp < .8;
+    if (phone) { off.multiplyScalar(asp < .55 ? 1.42 : 1.25); f += 10; }
+    if (intro < 1) { intro = Math.min(1, intro + dt / 2.6); const k = 1 - Math.pow(1 - intro, 3); off.multiplyScalar(1 + .2 * (1 - k)); off.y += 2.2 * (1 - k); }
+    cam.position.copy(tgt).add(off); ctl.target.copy(tgt); cam.lookAt(tgt);
+    // frame the subject right of the captions on desktop, above them on a phone
+    const ox = phone ? 0 : -w * (w > 1100 ? .14 : .09), oy = phone ? h * .16 : 0, key = w + "," + h + "," + ox.toFixed(0) + "," + oy.toFixed(0);
+    if (Math.abs(f - fov) > .01 || key !== vo) { fov = f; vo = key; cam.fov = f; cam.setViewOffset(w, h, ox, oy, w, h); cam.updateProjectionMatrix(); }
+  };
+}
+
+// Auto shops: a two-bay garage with the shop's own name on the sign and a pickup that goes up on the lift.
+async function startAuto(HB) {
+  const keys = K.auto, {makeGarage} = await import("./garage.js");
+  const lot = (x, z) => (x > -7.2 && x < 11 && z > -11.5 && z < 6) || (z > -.6 && z < 30.6 && x > -30.4 && x < 34.4);
+  const world = await makeWorld({
+    cam: {pos: keys.hero[0], target: keys.hero[1], minD: 1, maxD: 400, minAz: -99, maxAz: 99, maxPolar: Math.PI * .62},
+    tod: .3, ground: "lawn", grassR: 44, grassH: .15, grassW: .04, grassN: small ? .9 : 1.6, offset: false, fov: () => 36, exclude: lot,
+  });
+  const font = getComputedStyle(document.documentElement).getPropertyValue("--serif").split(",")[0].trim() || "sans-serif";
+  const G = await makeGarage(world, {sign: HB.name || "Auto Repair", font});
+  const rig = makeRig(world, keys, HB), cur = {lift: 0, wheels: 1, hood: 0, pos: 0};
+  let first = true;
+  world.onTick.push((t, dt) => {
+    const s = HB.get(), P = s.v;
+    world.setTod(s.tod);
+    // ease toward the scroll or panel values so taps and fast scrolls still read as motion
+    const k = first || reduce ? 1 : Math.min(1, dt * 4.5); first = false;
+    for (const n in cur) { const to = P[n] ?? cur[n]; cur[n] += (to - cur[n]) * k; if (Math.abs(to - cur[n]) < .002) cur[n] = to; }
+    // the truck only leaves once it is back together and on the floor
+    const pos = cur.lift > .04 || cur.wheels < .96 ? 0 : cur.pos;
+    G.set({door: 1, door2: 0, lift: cur.lift, wheels: cur.wheels, hood: cur.hood, pos, color: P.color});
+    rig(t, dt, s);
+  });
+  world.size(); world.setTodNow(HB.get().tod);
+  await world.ready;
+  world.setTodNow(HB.get().tod);
+  world.start();
+  await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+  return world;
+}
+
 export async function start(HB) {
+  if (HB.group === "auto") return startAuto(HB);
   const g = HB.group, keys = K[g];
   let house = null, tree = null;
   const world = await makeWorld({
@@ -38,10 +96,7 @@ export async function start(HB) {
   const cA = new THREE.Color(), cB = new THREE.Color();
   let doorFir = null, shadowKey = "";
 
-  ctl.enabled = false; ctl.autoRotate = false; ctl.enableDamping = false;
-  const pos = new THREE.Vector3(), tgt = new THREE.Vector3(), a0 = new THREE.Vector3(), a1 = new THREE.Vector3(), b0 = new THREE.Vector3(), b1 = new THREE.Vector3(), off = new THREE.Vector3();
-  const ease = t => t * t * (3 - 2 * t);
-  let intro = reduce ? 1 : 0, fov = 0, vo = "";
+  const rig = makeRig(world, keys, HB);
   world.onTick.push((t, dt) => {
     const s = HB.get(), P = s.v;
     world.setTod(s.tod);
@@ -53,19 +108,7 @@ export async function start(HB) {
       const fir = (P.body ?? 0) > .5;
       if (fir !== doorFir) { doorFir = fir; house.setFinish({door: fir ? "fir" : 0x8a6a55}); }
     }
-    const A = keys[s.a], B = keys[s.b], e = ease(s.t);
-    a0.fromArray(A[0]); a1.fromArray(A[1]); b0.fromArray(B[0]); b1.fromArray(B[1]);
-    pos.lerpVectors(a0, b0, e); tgt.lerpVectors(a1, b1, e);
-    let f = A[2] + (B[2] - A[2]) * e;
-    const idle = reduce ? 0 : Math.sin(t * .16) * .04;
-    off.subVectors(pos, tgt).applyAxisAngle(THREE.Object3D.DEFAULT_UP, idle + (s.yaw || 0));
-    const w = world.host.clientWidth, h = world.host.clientHeight, asp = w / h, phone = asp < .8;
-    if (phone) { off.multiplyScalar(asp < .55 ? 1.42 : 1.25); f += 10; }
-    if (intro < 1) { intro = Math.min(1, intro + dt / 2.6); const k = 1 - Math.pow(1 - intro, 3); off.multiplyScalar(1 + .2 * (1 - k)); off.y += 2.2 * (1 - k); }
-    cam.position.copy(tgt).add(off); ctl.target.copy(tgt); cam.lookAt(tgt);
-    // frame the subject right of the captions on desktop, above them on a phone
-    const ox = phone ? 0 : -w * (w > 1100 ? .14 : .09), oy = phone ? h * .16 : 0, key = w + "," + h + "," + ox.toFixed(0) + "," + oy.toFixed(0);
-    if (Math.abs(f - fov) > .01 || key !== vo) { fov = f; vo = key; cam.fov = f; cam.setViewOffset(w, h, ox, oy, w, h); cam.updateProjectionMatrix(); }
+    rig(t, dt, s);
   });
   world.size(); world.setTodNow(HB.get().tod);
   await world.ready;

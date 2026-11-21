@@ -12,6 +12,7 @@ TOOLS = {
  "lawn": ("Text-the-crew button", "Before-and-after yard slider and a season planner", "a live 3D yard you can mow and stripe yourself"),
  "tree": ("Text-the-crew button", "Before-and-after tree slider and a quick tree check", "a live 3D yard where you trim the tree or take it down"),
  "painting": ("Text-the-painter button", "Color picker that repaints a real house", "a live 3D house you can repaint in any color"),
+ "auto": ("Text-the-shop button", "Before-and-after slider and a dash light check", "a live 3D shop where you raise the lift, pull the wheels and pop the hood"),
 }
 TRY = {
  "lawn": ("Tap a choice under \"Rather text than call?\" and watch the text write itself.",
@@ -23,12 +24,16 @@ TRY = {
  "painting": ("Tap a choice under \"Rather text than call?\" and watch the text write itself.",
           "Drag the before-and-after slider, then tap a color and watch the house change.",
           "Scroll to watch the house get repainted, then pick any color and see it on the 3D house."),
+ "auto": ("Tap a choice under \"Rather text than call?\" and watch the text write itself.",
+          "Drag the slider on the top picture from in the bay to back on the road, then tap a warning light in the dash light check.",
+          "Scroll to watch the truck go up on the lift and come apart, then raise the lift and pop the hood yourself."),
 }
 
 
 def meet(s):
     g = s["group"]
     t = TOOLS[g]
+    who = "shop" if g == "auto" else "crew"
     shop = dict(s)
     d = json.loads(tb.meet_json(shop).replace("<\\/", "</"))
     r = tb.rating_txt(shop)
@@ -40,8 +45,8 @@ def meet(s):
         ("Your Google rating, " if kit.rating_ok(s) else "Your Google listing, ") + "the towns you work in and a request form",
         "Set up for Google search, live the same day"]
     d["versions"]["signature"] = {
-        "blurb": f"Art-directed with photo-real pictures: {t[1][0].lower() + t[1][1:]}, and a request planner that fills in a ticket as people choose.",
-        "features": ["Everything in Starter, up to 7 sections", "Custom look and type made for your crew",
+        "blurb": f"Art-directed with {"3D-rendered" if g == "auto" else "photo-real"} pictures: {t[1][0].lower() + t[1][1:]}, and a request planner that fills in a ticket as people choose.",
+        "features": ["Everything in Starter, up to 7 sections", "Custom look and type made for your " + who,
                      "Before-and-after hero people can drag", t[1], "\"How a visit goes\" story in four pictures",
                      "Request planner that fills in a live ticket as people choose", "Two rounds of changes"]}
     d["versions"]["immersive"] = {
@@ -51,8 +56,8 @@ def meet(s):
     d["compare"] = [["Built for phones first, tap-to-call on every screen", 1, 1, 1],
                     ["Your Google " + ("rating, " if kit.rating_ok(s) else "listing, ") + "your towns and a request form", 1, 1, 1],
                     [t[0], 1, 1, 1], ["Business details set up for Google search", 1, 1, 1], ["Live the same day you approve it", 1, 1, 1],
-                    ["Custom look and type made for your crew, not a template", 0, 1, 1],
-                    ["Photo-real before-and-after people can drag", 0, 1, 1], [t[1], 0, 1, 1], ["Request planner with a live ticket", 0, 1, 1],
+                    ["Custom look and type made for your " + who + ", not a template", 0, 1, 1],
+                    [("3D-rendered" if g == "auto" else "Photo-real") + " before-and-after people can drag", 0, 1, 1], [t[1], 0, 1, 1], ["Request planner with a live ticket", 0, 1, 1],
                     ["A real-time 3D centerpiece (" + t[2] + ")", 0, 0, 1], ["Day and dusk light", 0, 0, 1],
                     ["Rounds of changes included", "1 (any time on $99/mo)", "2", "2"], ["Sections", "up to 5", "up to 7", "up to 7"]]
     d["try"] = {"essential": TRY[g][0], "signature": TRY[g][1], "immersive": TRY[g][2]}

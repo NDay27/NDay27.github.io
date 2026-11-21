@@ -178,5 +178,90 @@
   "w": 1600,
   "h": 900,
   "q": "p=1&tod=.56&cam=-14,2.0,25&tgt=-1.5,4.4,2&fov=36&siding=navy&trim=white"
+ },
+ {
+  "name": "auto-before",
+  "lab": "labauto",
+  "w": 2400,
+  "h": 1350,
+  "q": "tod=.3&cam=-13,3.4,23&tgt=1,2.6,0&fov=34&lift=1&wheels=0&hood=1&ox=.13"
+ },
+ {
+  "name": "auto-after",
+  "lab": "labauto",
+  "w": 2400,
+  "h": 1350,
+  "q": "tod=.3&cam=-13,3.4,23&tgt=1,2.6,0&fov=34&pos=1&ox=.13"
+ },
+ {
+  "name": "auto-hero",
+  "lab": "labauto",
+  "w": 2400,
+  "h": 1350,
+  "q": "tod=.3&cam=-13,3.4,23&tgt=1,2.6,0&fov=34&ox=.13"
+ },
+ {
+  "name": "auto-wheel",
+  "lab": "labauto",
+  "w": 1600,
+  "h": 1000,
+  "q": "tod=.3&cam=-4.6,1.7,-.9&tgt=-3.44,2.05,-3.04&fov=40&lift=1&wheels=0"
+ },
+ {
+  "name": "auto-hood",
+  "lab": "labauto",
+  "w": 1600,
+  "h": 1000,
+  "q": "tod=.3&cam=-7.5,2.0,14.5&tgt=-1.4,1.3,9.2&fov=32&pos=1&hood=1&lights=0"
+ },
+ {
+  "name": "auto-front",
+  "lab": "labauto",
+  "w": 1600,
+  "h": 1000,
+  "q": "tod=.3&cam=-6.5,1.3,13.5&tgt=-.5,1.9,6&fov=44&pos=1"
+ },
+ {
+  "name": "auto-dusk",
+  "lab": "labauto",
+  "w": 1600,
+  "h": 1000,
+  "q": "tod=.84&cam=-11,1.8,19&tgt=0,2.4,3&fov=36&pos=1"
+ },
+ {
+  "name": "auto-s1",
+  "lab": "labauto",
+  "w": 1200,
+  "h": 800,
+  "q": "tod=.3&cam=-6.5,2.2,9&tgt=-2.4,1.9,-3.5&fov=40"
+ },
+ {
+  "name": "auto-s2",
+  "lab": "labauto",
+  "w": 1200,
+  "h": 800,
+  "q": "tod=.3&cam=-6.5,2.2,9&tgt=-2.4,1.9,-3.5&fov=40&lift=1"
+ },
+ {
+  "name": "auto-s3",
+  "lab": "labauto",
+  "w": 1200,
+  "h": 800,
+  "q": "tod=.3&cam=-6.5,2.2,9&tgt=-2.4,1.9,-3.5&fov=40&lift=1&wheels=0&hood=1"
+ },
+ {
+  "name": "auto-s4",
+  "lab": "labauto",
+  "w": 1200,
+  "h": 800,
+  "q": "tod=.3&cam=-8.5,2.2,18&tgt=-1,1.6,6&fov=36&pos=1"
+ },
+ {
+  "name": "auto-elev",
+  "lab": "labauto",
+  "w": 1600,
+  "h": 900,
+  "q": "tod=.3&cam=-8,3,27&tgt=1.9,2.5,0&fov=30&lift=1&second=0",
+  "svg": true
  }
 ]

@@ -88,6 +88,25 @@
     verdict();
   }
 
+  // auto: tap a dash light, get a plain answer
+  var dc = $("#dashCheck");
+  if (dc) {
+    var DL = JSON.parse($("#dashData").textContent), vd = $("#verdict"), dl = $("#dlAdd");
+    $$("button", dc).forEach(function (b) {
+      b.addEventListener("click", function () {
+        $$("button", dc).forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+        var d = DL[b.getAttribute("data-k")];
+        $(".lvl", vd).className = "lvl" + (d.lvl === "stop" ? " soon" : ""); $(".lvl span", vd).textContent = d.lt;
+        $("h3", vd).textContent = d.name + " light"; $("p", vd).textContent = d.text;
+        dl.hidden = false; dl.setAttribute("data-note", d.name + " light is on");
+      });
+    });
+    dl.addEventListener("click", function () {
+      var j = "Warning light", chip = $('[data-pick="job"] [data-v="' + j + '"]'); if (chip && chip.getAttribute("aria-pressed") !== "true") chip.click();
+      var sel = $("#f-job"); if (sel) sel.value = j;
+    });
+  }
+
   // painting: tap a color, the house changes
   var sw = $("#swatches");
   if (sw) {

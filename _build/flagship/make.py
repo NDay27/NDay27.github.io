@@ -20,7 +20,7 @@ import kit  # noqa: E402
 from kit import E, V, STEPS, BASE, SITE, VER, COPY, THEME, TRADE  # noqa: E402
 
 ROOT = kit.ROOT
-GROUP_IMG = {"lawn": "lawn", "tree": "tree", "painting": "paint"}
+GROUP_IMG = {"lawn": "lawn", "tree": "tree", "painting": "paint", "auto": "auto"}
 
 
 def img(g, name, w):
@@ -102,7 +102,7 @@ def page300(s, meet):
     vals.update({
         "SHOPJSON": f'<script type="application/json" id="nds-shop">{meet}</script>',
         "H1A": E(h[0]), "H1B": E(h[1]), "LEDE": E(v["lede"].replace("{town}", s["town"])),
-        "FACTS": facts(s), "ELEV": kit.elevation(g), "SHEET_LABEL": c["sheet_label"],
+        "FACTS": facts(s), "ELEV": kit.elevation(g, s), "SHEET_LABEL": c["sheet_label"],
         "SHEET_JOB": E(c["sheet"][0].replace("{town}", s["town"])), "SHEET_DRAW": c["sheet"][1],
         "SVC_H": c["svc_h"], "SVC_INTRO": c["svc_intro"], "ROWS": rows(s),
         "STEPS": "".join(f"<li><h3>{E(a)}</h3><p>{E(b)}</p></li>" for a, b in STEPS[g]),
@@ -110,7 +110,10 @@ def page300(s, meet):
         "RATE": rate_card(s), "SHOT": img(g, shot, 1200), "SHOT_SET": f"{img(g, shot, 1200)} 1200w, {img(g, shot, 2400)} 2400w",
         "SHOT_ALT": c["shot"][1], "SHOT_CAP": c["shot"][2],
     })
-    return kit.fill(open(os.path.join(HERE, "t300.src.html")).read(), vals)
+    src = open(os.path.join(HERE, "t300.src.html")).read()
+    if g == "auto":
+        src = src.replace(">Crew<", ">Shop<")
+    return kit.fill(src, vals)
 
 
 def main():

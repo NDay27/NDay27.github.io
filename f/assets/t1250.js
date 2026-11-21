@@ -23,7 +23,7 @@
   addEventListener("scroll", measure, {passive: true}); addEventListener("resize", measure); measure();
 
   var HB = window.HB = {
-    group: C.group, yaw: 0,
+    group: C.group, name: C.short || C.name, yaw: 0,
     get: function () {
       var b = beats[cur.i], n = beats[Math.min(cur.i + 1, beats.length - 1)], t = clamp((cur.p - .62) / .38), v = {};
       var from = b.from || {}, to = b.to || from;
