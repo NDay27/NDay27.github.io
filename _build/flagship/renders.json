@@ -333,5 +333,643 @@
   "w": 1200,
   "h": 800,
   "q": "kind=body&tod=.3&cam=-7.2,1.5,13.6&tgt=-3.2,.8,10.5&fov=34&pos=1&fix=1"
+ },
+ {
+  "name": "store-elev",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 900,
+  "q": "kind=shop&sign=Shop&tod=.3&cam=-5,3.4,26&tgt=.4,3.9,0&fov=30&open=1&lights=0&awning=1&door=1&second=0",
+  "svg": true
+ },
+ {
+  "name": "bakery-before",
+  "lab": "labstore",
+  "w": 2400,
+  "h": 1350,
+  "q": "kind=bakery&sign=Bakery&word=Bakery&tod=0.62&cam=-9,2.3,17.5&tgt=.8,3.5,0&fov=36&open=0&lights=0&awning=0&door=0&ox=0.13"
+ },
+ {
+  "name": "bakery-after",
+  "lab": "labstore",
+  "w": 2400,
+  "h": 1350,
+  "q": "kind=bakery&sign=Bakery&word=Bakery&tod=0.14&cam=-9,2.3,17.5&tgt=.8,3.5,0&fov=36&open=1&lights=1&awning=1&door=0&ox=0.13"
+ },
+ {
+  "name": "bakery-s1",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=bakery&sign=Bakery&word=Bakery&tod=0.62&cam=-4.6,2.4,11.5&tgt=.6,2.7,0&fov=40&open=0&lights=0&awning=0&door=0"
+ },
+ {
+  "name": "bakery-s2",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=bakery&sign=Bakery&word=Bakery&tod=0.45&cam=-4.6,2.4,11.5&tgt=.6,2.7,0&fov=40&open=0&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "bakery-s3",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=bakery&sign=Bakery&word=Bakery&tod=0.14&cam=0,1.6,5.5&tgt=0,1.5,-2&fov=40&open=1&lights=1&awning=1&door=1"
+ },
+ {
+  "name": "bakery-s4",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=bakery&sign=Bakery&word=Bakery&tod=0.14&cam=1.6,1.75,-1.6&tgt=-.8,1.15,-5.2&fov=55&open=1&lights=1&awning=1&door=1&second=0"
+ },
+ {
+  "name": "bakery-dusk",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=bakery&sign=Bakery&word=Bakery&tod=0.84&cam=-7.5,1.9,15&tgt=.8,3.2,0&fov=36&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "bakery-window",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=bakery&sign=Bakery&word=Bakery&tod=0.14&cam=-3.6,1.55,3.6&tgt=-1.6,1.3,-1.0&fov=40&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "bakery-inside",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=bakery&sign=Bakery&word=Bakery&tod=0.14&cam=1.6,1.75,-1.6&tgt=-.8,1.15,-5.2&fov=55&open=1&lights=1&awning=1&door=1&second=0"
+ },
+ {
+  "name": "bakery-door",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=bakery&sign=Bakery&word=Bakery&tod=0.14&cam=0,1.6,5.5&tgt=0,1.5,-2&fov=40&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "salon-before",
+  "lab": "labstore",
+  "w": 2400,
+  "h": 1350,
+  "q": "kind=salon&sign=Salon&word=Hair&tod=0.62&cam=-9,2.3,17.5&tgt=.8,3.5,0&fov=36&open=0&lights=0&awning=0&door=0&ox=0.13"
+ },
+ {
+  "name": "salon-after",
+  "lab": "labstore",
+  "w": 2400,
+  "h": 1350,
+  "q": "kind=salon&sign=Salon&word=Hair&tod=0.14&cam=-9,2.3,17.5&tgt=.8,3.5,0&fov=36&open=1&lights=1&awning=1&door=0&ox=0.13"
+ },
+ {
+  "name": "salon-s1",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=salon&sign=Salon&word=Hair&tod=0.62&cam=-4.6,2.4,11.5&tgt=.6,2.7,0&fov=40&open=0&lights=0&awning=0&door=0"
+ },
+ {
+  "name": "salon-s2",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=salon&sign=Salon&word=Hair&tod=0.45&cam=-4.6,2.4,11.5&tgt=.6,2.7,0&fov=40&open=0&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "salon-s3",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=salon&sign=Salon&word=Hair&tod=0.14&cam=0,1.6,5.5&tgt=0,1.5,-2&fov=40&open=1&lights=1&awning=1&door=1"
+ },
+ {
+  "name": "salon-s4",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=salon&sign=Salon&word=Hair&tod=0.14&cam=1.6,1.75,-1.6&tgt=-.8,1.15,-5.2&fov=55&open=1&lights=1&awning=1&door=1&second=0"
+ },
+ {
+  "name": "salon-dusk",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=salon&sign=Salon&word=Hair&tod=0.84&cam=-7.5,1.9,15&tgt=.8,3.2,0&fov=36&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "salon-window",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=salon&sign=Salon&word=Hair&tod=0.14&cam=-3.6,1.55,3.6&tgt=-1.6,1.3,-1.0&fov=40&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "salon-inside",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=salon&sign=Salon&word=Hair&tod=0.14&cam=1.6,1.75,-1.6&tgt=-.8,1.15,-5.2&fov=55&open=1&lights=1&awning=1&door=1&second=0"
+ },
+ {
+  "name": "salon-door",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=salon&sign=Salon&word=Hair&tod=0.14&cam=0,1.6,5.5&tgt=0,1.5,-2&fov=40&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "barber-before",
+  "lab": "labstore",
+  "w": 2400,
+  "h": 1350,
+  "q": "kind=barber&sign=Barber+Shop&word=Barber&tod=0.62&cam=-9,2.3,17.5&tgt=.8,3.5,0&fov=36&open=0&lights=0&awning=0&door=0&ox=0.13"
+ },
+ {
+  "name": "barber-after",
+  "lab": "labstore",
+  "w": 2400,
+  "h": 1350,
+  "q": "kind=barber&sign=Barber+Shop&word=Barber&tod=0.14&cam=-9,2.3,17.5&tgt=.8,3.5,0&fov=36&open=1&lights=1&awning=1&door=0&ox=0.13"
+ },
+ {
+  "name": "barber-s1",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=barber&sign=Barber+Shop&word=Barber&tod=0.62&cam=-4.6,2.4,11.5&tgt=.6,2.7,0&fov=40&open=0&lights=0&awning=0&door=0"
+ },
+ {
+  "name": "barber-s2",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=barber&sign=Barber+Shop&word=Barber&tod=0.45&cam=-4.6,2.4,11.5&tgt=.6,2.7,0&fov=40&open=0&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "barber-s3",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=barber&sign=Barber+Shop&word=Barber&tod=0.14&cam=0,1.6,5.5&tgt=0,1.5,-2&fov=40&open=1&lights=1&awning=1&door=1"
+ },
+ {
+  "name": "barber-s4",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=barber&sign=Barber+Shop&word=Barber&tod=0.14&cam=1.6,1.75,-1.6&tgt=-.8,1.15,-5.2&fov=55&open=1&lights=1&awning=1&door=1&second=0"
+ },
+ {
+  "name": "barber-dusk",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=barber&sign=Barber+Shop&word=Barber&tod=0.84&cam=-7.5,1.9,15&tgt=.8,3.2,0&fov=36&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "barber-window",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=barber&sign=Barber+Shop&word=Barber&tod=0.14&cam=-3.6,1.55,3.6&tgt=-1.6,1.3,-1.0&fov=40&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "barber-inside",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=barber&sign=Barber+Shop&word=Barber&tod=0.14&cam=1.6,1.75,-1.6&tgt=-.8,1.15,-5.2&fov=55&open=1&lights=1&awning=1&door=1&second=0"
+ },
+ {
+  "name": "barber-door",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=barber&sign=Barber+Shop&word=Barber&tod=0.14&cam=0,1.6,5.5&tgt=0,1.5,-2&fov=40&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "nails-before",
+  "lab": "labstore",
+  "w": 2400,
+  "h": 1350,
+  "q": "kind=nails&sign=Nail+Salon&word=Nails&tod=0.62&cam=-9,2.3,17.5&tgt=.8,3.5,0&fov=36&open=0&lights=0&awning=0&door=0&ox=0.13"
+ },
+ {
+  "name": "nails-after",
+  "lab": "labstore",
+  "w": 2400,
+  "h": 1350,
+  "q": "kind=nails&sign=Nail+Salon&word=Nails&tod=0.14&cam=-9,2.3,17.5&tgt=.8,3.5,0&fov=36&open=1&lights=1&awning=1&door=0&ox=0.13"
+ },
+ {
+  "name": "nails-s1",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=nails&sign=Nail+Salon&word=Nails&tod=0.62&cam=-4.6,2.4,11.5&tgt=.6,2.7,0&fov=40&open=0&lights=0&awning=0&door=0"
+ },
+ {
+  "name": "nails-s2",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=nails&sign=Nail+Salon&word=Nails&tod=0.45&cam=-4.6,2.4,11.5&tgt=.6,2.7,0&fov=40&open=0&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "nails-s3",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=nails&sign=Nail+Salon&word=Nails&tod=0.14&cam=0,1.6,5.5&tgt=0,1.5,-2&fov=40&open=1&lights=1&awning=1&door=1"
+ },
+ {
+  "name": "nails-s4",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=nails&sign=Nail+Salon&word=Nails&tod=0.14&cam=1.6,1.75,-1.6&tgt=-.8,1.15,-5.2&fov=55&open=1&lights=1&awning=1&door=1&second=0"
+ },
+ {
+  "name": "nails-dusk",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=nails&sign=Nail+Salon&word=Nails&tod=0.84&cam=-7.5,1.9,15&tgt=.8,3.2,0&fov=36&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "nails-window",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=nails&sign=Nail+Salon&word=Nails&tod=0.14&cam=-3.6,1.55,3.6&tgt=-1.6,1.3,-1.0&fov=40&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "nails-inside",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=nails&sign=Nail+Salon&word=Nails&tod=0.14&cam=1.6,1.75,-1.6&tgt=-.8,1.15,-5.2&fov=55&open=1&lights=1&awning=1&door=1&second=0"
+ },
+ {
+  "name": "nails-door",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=nails&sign=Nail+Salon&word=Nails&tod=0.14&cam=0,1.6,5.5&tgt=0,1.5,-2&fov=40&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "eat-before",
+  "lab": "labstore",
+  "w": 2400,
+  "h": 1350,
+  "q": "kind=eat&sign=Restaurant&word=Eat&tod=0.62&cam=-9,2.3,17.5&tgt=.8,3.5,0&fov=36&open=0&lights=0&awning=0&door=0&ox=0.13"
+ },
+ {
+  "name": "eat-after",
+  "lab": "labstore",
+  "w": 2400,
+  "h": 1350,
+  "q": "kind=eat&sign=Restaurant&word=Eat&tod=0.14&cam=-9,2.3,17.5&tgt=.8,3.5,0&fov=36&open=1&lights=1&awning=1&door=0&ox=0.13"
+ },
+ {
+  "name": "eat-s1",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=eat&sign=Restaurant&word=Eat&tod=0.62&cam=-4.6,2.4,11.5&tgt=.6,2.7,0&fov=40&open=0&lights=0&awning=0&door=0"
+ },
+ {
+  "name": "eat-s2",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=eat&sign=Restaurant&word=Eat&tod=0.45&cam=-4.6,2.4,11.5&tgt=.6,2.7,0&fov=40&open=0&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "eat-s3",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=eat&sign=Restaurant&word=Eat&tod=0.14&cam=0,1.6,5.5&tgt=0,1.5,-2&fov=40&open=1&lights=1&awning=1&door=1"
+ },
+ {
+  "name": "eat-s4",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=eat&sign=Restaurant&word=Eat&tod=0.14&cam=1.6,1.75,-1.6&tgt=-.8,1.15,-5.2&fov=55&open=1&lights=1&awning=1&door=1&second=0"
+ },
+ {
+  "name": "eat-dusk",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=eat&sign=Restaurant&word=Eat&tod=0.84&cam=-7.5,1.9,15&tgt=.8,3.2,0&fov=36&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "eat-window",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=eat&sign=Restaurant&word=Eat&tod=0.14&cam=-3.6,1.55,3.6&tgt=-1.6,1.3,-1.0&fov=40&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "eat-inside",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=eat&sign=Restaurant&word=Eat&tod=0.14&cam=1.6,1.75,-1.6&tgt=-.8,1.15,-5.2&fov=55&open=1&lights=1&awning=1&door=1&second=0"
+ },
+ {
+  "name": "eat-door",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=eat&sign=Restaurant&word=Eat&tod=0.14&cam=0,1.6,5.5&tgt=0,1.5,-2&fov=40&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "shop-before",
+  "lab": "labstore",
+  "w": 2400,
+  "h": 1350,
+  "q": "kind=shop&sign=Shop&word=Shop&tod=0.62&cam=-9,2.3,17.5&tgt=.8,3.5,0&fov=36&open=0&lights=0&awning=0&door=0&ox=0.13"
+ },
+ {
+  "name": "shop-after",
+  "lab": "labstore",
+  "w": 2400,
+  "h": 1350,
+  "q": "kind=shop&sign=Shop&word=Shop&tod=0.14&cam=-9,2.3,17.5&tgt=.8,3.5,0&fov=36&open=1&lights=1&awning=1&door=0&ox=0.13"
+ },
+ {
+  "name": "shop-s1",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=shop&sign=Shop&word=Shop&tod=0.62&cam=-4.6,2.4,11.5&tgt=.6,2.7,0&fov=40&open=0&lights=0&awning=0&door=0"
+ },
+ {
+  "name": "shop-s2",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=shop&sign=Shop&word=Shop&tod=0.45&cam=-4.6,2.4,11.5&tgt=.6,2.7,0&fov=40&open=0&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "shop-s3",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=shop&sign=Shop&word=Shop&tod=0.14&cam=0,1.6,5.5&tgt=0,1.5,-2&fov=40&open=1&lights=1&awning=1&door=1"
+ },
+ {
+  "name": "shop-s4",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=shop&sign=Shop&word=Shop&tod=0.14&cam=1.6,1.75,-1.6&tgt=-.8,1.15,-5.2&fov=55&open=1&lights=1&awning=1&door=1&second=0"
+ },
+ {
+  "name": "shop-dusk",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=shop&sign=Shop&word=Shop&tod=0.84&cam=-7.5,1.9,15&tgt=.8,3.2,0&fov=36&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "shop-window",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=shop&sign=Shop&word=Shop&tod=0.14&cam=-3.6,1.55,3.6&tgt=-1.6,1.3,-1.0&fov=40&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "shop-inside",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=shop&sign=Shop&word=Shop&tod=0.14&cam=1.6,1.75,-1.6&tgt=-.8,1.15,-5.2&fov=55&open=1&lights=1&awning=1&door=1&second=0"
+ },
+ {
+  "name": "shop-door",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=shop&sign=Shop&word=Shop&tod=0.14&cam=0,1.6,5.5&tgt=0,1.5,-2&fov=40&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "groom-before",
+  "lab": "labstore",
+  "w": 2400,
+  "h": 1350,
+  "q": "kind=groom&sign=Pet+Grooming&word=Grooming&tod=0.62&cam=-9,2.3,17.5&tgt=.8,3.5,0&fov=36&open=0&lights=0&awning=0&door=0&ox=0.13"
+ },
+ {
+  "name": "groom-after",
+  "lab": "labstore",
+  "w": 2400,
+  "h": 1350,
+  "q": "kind=groom&sign=Pet+Grooming&word=Grooming&tod=0.14&cam=-9,2.3,17.5&tgt=.8,3.5,0&fov=36&open=1&lights=1&awning=1&door=0&ox=0.13"
+ },
+ {
+  "name": "groom-s1",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=groom&sign=Pet+Grooming&word=Grooming&tod=0.62&cam=-4.6,2.4,11.5&tgt=.6,2.7,0&fov=40&open=0&lights=0&awning=0&door=0"
+ },
+ {
+  "name": "groom-s2",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=groom&sign=Pet+Grooming&word=Grooming&tod=0.45&cam=-4.6,2.4,11.5&tgt=.6,2.7,0&fov=40&open=0&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "groom-s3",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=groom&sign=Pet+Grooming&word=Grooming&tod=0.14&cam=0,1.6,5.5&tgt=0,1.5,-2&fov=40&open=1&lights=1&awning=1&door=1"
+ },
+ {
+  "name": "groom-s4",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=groom&sign=Pet+Grooming&word=Grooming&tod=0.14&cam=1.6,1.75,-1.6&tgt=-.8,1.15,-5.2&fov=55&open=1&lights=1&awning=1&door=1&second=0"
+ },
+ {
+  "name": "groom-dusk",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=groom&sign=Pet+Grooming&word=Grooming&tod=0.84&cam=-7.5,1.9,15&tgt=.8,3.2,0&fov=36&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "groom-window",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=groom&sign=Pet+Grooming&word=Grooming&tod=0.14&cam=-3.6,1.55,3.6&tgt=-1.6,1.3,-1.0&fov=40&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "groom-inside",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=groom&sign=Pet+Grooming&word=Grooming&tod=0.14&cam=1.6,1.75,-1.6&tgt=-.8,1.15,-5.2&fov=55&open=1&lights=1&awning=1&door=1&second=0"
+ },
+ {
+  "name": "groom-door",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=groom&sign=Pet+Grooming&word=Grooming&tod=0.14&cam=0,1.6,5.5&tgt=0,1.5,-2&fov=40&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "tailor-before",
+  "lab": "labstore",
+  "w": 2400,
+  "h": 1350,
+  "q": "kind=sew&sign=Alterations&word=Tailor&tod=0.62&cam=-9,2.3,17.5&tgt=.8,3.5,0&fov=36&open=0&lights=0&awning=0&door=0&ox=0.13"
+ },
+ {
+  "name": "tailor-after",
+  "lab": "labstore",
+  "w": 2400,
+  "h": 1350,
+  "q": "kind=sew&sign=Alterations&word=Tailor&tod=0.14&cam=-9,2.3,17.5&tgt=.8,3.5,0&fov=36&open=1&lights=1&awning=1&door=0&ox=0.13"
+ },
+ {
+  "name": "tailor-s1",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=sew&sign=Alterations&word=Tailor&tod=0.62&cam=-4.6,2.4,11.5&tgt=.6,2.7,0&fov=40&open=0&lights=0&awning=0&door=0"
+ },
+ {
+  "name": "tailor-s2",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=sew&sign=Alterations&word=Tailor&tod=0.45&cam=-4.6,2.4,11.5&tgt=.6,2.7,0&fov=40&open=0&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "tailor-s3",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=sew&sign=Alterations&word=Tailor&tod=0.14&cam=0,1.6,5.5&tgt=0,1.5,-2&fov=40&open=1&lights=1&awning=1&door=1"
+ },
+ {
+  "name": "tailor-s4",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=sew&sign=Alterations&word=Tailor&tod=0.14&cam=1.6,1.75,-1.6&tgt=-.8,1.15,-5.2&fov=55&open=1&lights=1&awning=1&door=1&second=0"
+ },
+ {
+  "name": "tailor-dusk",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=sew&sign=Alterations&word=Tailor&tod=0.84&cam=-7.5,1.9,15&tgt=.8,3.2,0&fov=36&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "tailor-window",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=sew&sign=Alterations&word=Tailor&tod=0.14&cam=-3.6,1.55,3.6&tgt=-1.6,1.3,-1.0&fov=40&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "tailor-inside",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=sew&sign=Alterations&word=Tailor&tod=0.14&cam=1.6,1.75,-1.6&tgt=-.8,1.15,-5.2&fov=55&open=1&lights=1&awning=1&door=1&second=0"
+ },
+ {
+  "name": "tailor-door",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=sew&sign=Alterations&word=Tailor&tod=0.14&cam=0,1.6,5.5&tgt=0,1.5,-2&fov=40&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "uphol-before",
+  "lab": "labstore",
+  "w": 2400,
+  "h": 1350,
+  "q": "kind=sew&sign=Upholstery&word=Upholstery&tod=0.62&cam=-9,2.3,17.5&tgt=.8,3.5,0&fov=36&open=0&lights=0&awning=0&door=0&ox=0.13"
+ },
+ {
+  "name": "uphol-after",
+  "lab": "labstore",
+  "w": 2400,
+  "h": 1350,
+  "q": "kind=sew&sign=Upholstery&word=Upholstery&tod=0.14&cam=-9,2.3,17.5&tgt=.8,3.5,0&fov=36&open=1&lights=1&awning=1&door=0&ox=0.13"
+ },
+ {
+  "name": "uphol-s1",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=sew&sign=Upholstery&word=Upholstery&tod=0.62&cam=-4.6,2.4,11.5&tgt=.6,2.7,0&fov=40&open=0&lights=0&awning=0&door=0"
+ },
+ {
+  "name": "uphol-s2",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=sew&sign=Upholstery&word=Upholstery&tod=0.45&cam=-4.6,2.4,11.5&tgt=.6,2.7,0&fov=40&open=0&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "uphol-s3",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=sew&sign=Upholstery&word=Upholstery&tod=0.14&cam=0,1.6,5.5&tgt=0,1.5,-2&fov=40&open=1&lights=1&awning=1&door=1"
+ },
+ {
+  "name": "uphol-s4",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=sew&sign=Upholstery&word=Upholstery&tod=0.14&cam=1.6,1.75,-1.6&tgt=-.8,1.15,-5.2&fov=55&open=1&lights=1&awning=1&door=1&second=0"
+ },
+ {
+  "name": "uphol-dusk",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=sew&sign=Upholstery&word=Upholstery&tod=0.84&cam=-7.5,1.9,15&tgt=.8,3.2,0&fov=36&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "uphol-window",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=sew&sign=Upholstery&word=Upholstery&tod=0.14&cam=-3.6,1.55,3.6&tgt=-1.6,1.3,-1.0&fov=40&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "uphol-inside",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=sew&sign=Upholstery&word=Upholstery&tod=0.14&cam=1.6,1.75,-1.6&tgt=-.8,1.15,-5.2&fov=55&open=1&lights=1&awning=1&door=1&second=0"
+ },
+ {
+  "name": "uphol-door",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=sew&sign=Upholstery&word=Upholstery&tod=0.14&cam=0,1.6,5.5&tgt=0,1.5,-2&fov=40&open=1&lights=1&awning=1&door=0"
  }
 ]

@@ -2,6 +2,7 @@
 """Turn the hidden-line dump of the repair shop (render.cjs, name auto-elev) into the drawn hero sheet for auto shops.
 
   python3 _build/flagship/elevauto.py RENDER_DIR      -> _build/flagship/elev-auto.svg
+  python3 _build/flagship/elevauto.py RENDER_DIR store -> _build/flagship/elev-store.svg (dump store-elev, from labstore)
 """
 import json
 import os
@@ -15,9 +16,33 @@ OUT_W = 1352
 SW = 2.1
 
 
-def main(src):
-    d = json.load(open(os.path.join(src, "auto-elev.json")))
+NOTE = {"auto": "Bay 1: up on the lift", "store": "Awning out, door open"}
+
+
+def clip(s, x0, y0, x1, y1):
+    """Liang-Barsky: the part of segment s inside the box, or None."""
+    a, b, c, e = s; dx, dy = c - a, e - b; t0, t1 = 0.0, 1.0
+    for p, q in ((-dx, a - x0), (dx, x1 - a), (-dy, b - y0), (dy, y1 - b)):
+        if p == 0:
+            if q < 0:
+                return None
+            continue
+        r = q / p
+        if p < 0:
+            t0 = max(t0, r)
+        else:
+            t1 = min(t1, r)
+        if t0 > t1:
+            return None
+    return [a + t0 * dx, b + t0 * dy, a + t1 * dx, b + t1 * dy]
+
+
+def main(src, kind="auto"):
+    d = json.load(open(os.path.join(src, f"{kind}-elev.json")))
     L = d["layers"]
+    if kind == "store":  # keep the shop and a slice of each neighbour, not the whole block
+        wx = [v for s in L["wall"] for v in (s[0], s[2])]; box = (min(wx) - 300, 0, max(wx) + 300, d["H"] - 160)
+        L = {k: [c for c in (clip(s, *box) for s in v) if c] for k, v in L.items()}
     segs = [s for k in ORDER for s in L.get(k, []) if k != "batten"]
     xs = [v for s in segs for v in (s[0], s[2])]; ys = [v for s in segs for v in (s[1], s[3])]
     x0, x1, y0, y1 = min(xs) - 14, max(xs) + 14, min(ys) - 14, max(ys) + 14
@@ -35,10 +60,10 @@ def main(src):
     sw_, sh_ = math.dist(tl, tr), math.dist(tl, bl)
     a, b, c, e = (tr[0] - tl[0]) / sw_, (tr[1] - tl[1]) / sw_, (bl[0] - tl[0]) / sh_, (bl[1] - tl[1]) / sh_
     out.append(f'<g class="note sign" style="--w:2.4s" transform="matrix({a:.4f} {b:.4f} {c:.4f} {e:.4f} {tl[0]:.1f} {tl[1]:.1f})" data-w="{sw_:.0f}" data-h="{sh_:.0f}">{{{{SIGN}}}}</g>')
-    out.append(f'<g class="note" style="--w:3.1s"><text x="{OUT_W - 12}" y="{H - 14:.0f}" text-anchor="end">Bay 1: up on the lift</text></g></svg>')
-    open(os.path.join(HERE, "elev-auto.svg"), "w").write("".join(out))
-    print("elev-auto.svg", len(out[1:-1]), "layers", f"{H:.0f} tall")
+    out.append(f'<g class="note" style="--w:3.1s"><text x="{OUT_W - 12}" y="{H - 14:.0f}" text-anchor="end">{NOTE[kind]}</text></g></svg>')
+    open(os.path.join(HERE, f"elev-{kind}.svg"), "w").write("".join(out))
+    print(f"elev-{kind}.svg", len(out[1:-1]), "layers", f"{H:.0f} tall")
 
 
 if __name__ == "__main__":
-    main(sys.argv[1])
+    main(*sys.argv[1:3])

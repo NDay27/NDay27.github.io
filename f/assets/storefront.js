@@ -10,13 +10,13 @@ export const AWN = {red: 0xb3343a, green: 0x2f6b4f, navy: 0x24365e, black: 0x1d1
 
 // per trade: storefront paint, awning, interior wall, floor, sign colors, blade-sign icon, chalkboard line
 export const KIND = {
-  bakery: {trim: 0xead6b8, awn: AWN.pink, wall: 0xf0d9bf, floor: "check", sign: ["#3b2a22", "#f4e9da"], icon: "cupcake"},
-  salon:  {trim: 0x1f2124, awn: AWN.black, wall: 0xe9e4dc, floor: "wood", sign: ["#f2ede4", "#1f2124"], icon: "scissors"},
-  barber: {trim: 0x14213d, awn: AWN.red, wall: 0xdfe3e6, floor: "check", sign: ["#14213d", "#f1efe8"], icon: "razor", pole: true},
-  nails:  {trim: 0xf0e3e0, awn: AWN.pink, wall: 0xf6ece8, floor: "wood", sign: ["#f7efea", "#7a3b4f"], icon: "polish"},
+  bakery: {trim: 0xead6b8, awn: AWN.pink, wall: 0xf3dcc0, wain: 0x7a4a3a, floor: "check", sign: ["#3b2a22", "#f4e9da"], icon: "cupcake"},
+  salon:  {trim: 0x1f2124, awn: AWN.black, wall: 0xefe5d6, wain: 0xb8a28a, floor: "wood", sign: ["#f2ede4", "#1f2124"], icon: "scissors"},
+  barber: {trim: 0x14213d, awn: AWN.red, wall: 0xe8e4dc, floor: "check", sign: ["#14213d", "#f1efe8"], icon: "razor", pole: true},
+  nails:  {trim: 0xf0e3e0, awn: AWN.pink, wall: 0xf8e9df, wain: 0xc98d99, floor: "wood", sign: ["#f7efea", "#7a3b4f"], icon: "polish"},
   eat:    {trim: 0x23412f, awn: AWN.green, wall: 0xe8dfcf, floor: "check", sign: ["#23412f", "#f3ead7"], icon: "plate"},
-  shop:   {trim: 0x24365e, awn: AWN.navy, wall: 0xeeeae2, floor: "wood", sign: ["#24365e", "#f4f0e6"], icon: "bag"},
-  groom:  {trim: 0x2f7f86, awn: AWN.teal, wall: 0xe6efee, floor: "tile", sign: ["#f2f5f4", "#235f65"], icon: "paw"},
+  shop:   {trim: 0x24365e, awn: AWN.navy, wall: 0xf0e9dd, floor: "wood", sign: ["#24365e", "#f4f0e6"], icon: "bag"},
+  groom:  {trim: 0x2f7f86, awn: AWN.teal, wall: 0xeef0e8, floor: "tile", sign: ["#f2f5f4", "#235f65"], icon: "paw"},
   sew:    {trim: 0x5a3550, awn: AWN.plum, wall: 0xefe7df, floor: "wood", sign: ["#5a3550", "#f6eee6"], icon: "needle"},
 };
 KIND.tailor = KIND.sew; KIND.uphol = KIND.sew;
@@ -63,8 +63,8 @@ function floorTex(kind) {
   return canvasTex(512, 512, (g, w, h) => {
     const n = kind === "tile" ? 8 : 8, s = w / n;
     for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) { const dark = kind === "check" ? (x + y) % 2 : 0;
-      g.fillStyle = dark ? "#2a2c2e" : kind === "tile" ? "#dfe4e2" : "#ece8de"; g.fillRect(x * s, y * s, s, s);
-      g.fillStyle = "rgba(0,0,0,.05)"; g.fillRect(x * s, y * s, s, 2); g.fillRect(x * s, y * s, 2, s); }
+      g.fillStyle = dark ? "#2a2c2e" : kind === "tile" ? ((x * 7 + y * 3) % 5 ? "#aeb9b7" : "#a3afad") : "#ece8de"; g.fillRect(x * s, y * s, s, s);
+      g.fillStyle = kind === "tile" ? "rgba(40,50,50,.35)" : "rgba(0,0,0,.05)"; g.fillRect(x * s, y * s, s, kind === "tile" ? 4 : 2); g.fillRect(x * s, y * s, kind === "tile" ? 4 : 2, s); }
   }, [1, 1]);
 }
 
@@ -250,6 +250,9 @@ export async function makeStore(world, {kind = "bakery", sign = "Bakery", font =
   box(IW, .1, D - .7, wallM, 0, GH - .05, (IZ0 + IZ1) / 2).castShadow = false;
   box(IW, .12, .03, new THREE.MeshStandardMaterial({color: 0x5a4636, roughness: .5}), 0, .06, IZ1 + .02); // baseboard
   IW -= .24;  // props stand against the plaster face
+  { const wm = new THREE.MeshStandardMaterial({color: K.wain || K.trim, roughness: .55, envMapIntensity: .3}), cap = new THREE.MeshStandardMaterial({color: 0xf4efe6, roughness: .5, envMapIntensity: .3}), L = D - .9, zc = (IZ0 + IZ1) / 2 - .1;
+    for (const s of [-1, 1]) { box(.02, 1.0, L, wm, s * (IW / 2 + .0), .5, zc).castShadow = false; box(.05, .05, L, cap, s * (IW / 2 - .01), 1.02, zc).castShadow = false; }
+    box(IW, 1.0, .02, wm, 0, .5, IZ1 + .01).castShadow = false; box(IW, .05, .05, cap, 0, 1.02, IZ1 + .02).castShadow = false; }
   // back-room door and a crown line
   box(1.0, 2.2, .04, trim, 2.2, 1.1, IZ1 + .02); for (const y of [.6, 1.55]) box(.7, .6, .02, trim, 2.2, y, IZ1 + .05); box(.05, .05, .1, brass, 2.55, 1.05, IZ1 + .06); box(1.14, .08, .06, trim, 2.2, 2.24, IZ1 + .03);
   box(IW, .08, .06, trim, 0, GH - .2, IZ1 + .03);
@@ -302,13 +305,13 @@ export async function makeStore(world, {kind = "bakery", sign = "Bakery", font =
     plant(3.0, -7.6, 1.2);
   } else if (kind === "salon" || kind === "barber") {
     const bar = kind === "barber", chairC = bar ? 0x7a1f1f : 0x1b1c1f;
-    const mirror = new THREE.MeshStandardMaterial({color: 0xdfe6ea, metalness: 1, roughness: .04, envMapIntensity: 1.4});
+    const mirror = mirror_();
     const chair = (x, z, ry) => { const g = new THREE.Group(); g.position.set(x, 0, z); g.rotation.y = ry; P.add(g);
       cyl(.28, .3, .06, steel, 0, .03, 0, g, 24); cyl(.06, .06, .4, steel, 0, .25, 0, g, 12); const m = mat(chairC, .35, .1);
       box(.56, .14, .52, m, 0, .5, 0, g); box(.56, .62, .12, m, 0, .86, -.24, g); for (const s of [-1, 1]) { box(.08, .06, .44, m, s * .3, .7, 0, g); box(.04, .16, .04, steel, s * .3, .6, .14, g); }
       box(.4, .03, .16, steel, 0, .2, .34, g); if (bar) box(.3, .14, .08, m, 0, 1.25, -.26, g); return g; };
     for (const [i, z] of [-2.8, -4.7, -6.6].entries()) {
-      box(.04, 1.15, .82, mirror, -IW / 2 + .02, 1.75, z).castShadow = false; box(.06, 1.25, .92, trim, -IW / 2 + .01, 1.75, z);
+      box(.04, 1.15, .82, mirror, -IW / 2 + .045, 1.75, z).castShadow = false; box(.06, 1.25, .92, trim, -IW / 2 + .01, 1.75, z);
       box(.4, .05, 1.0, woodM, -IW / 2 + .2, 1.0, z); bottles(-IW / 2 + .12, 1.025, z - .3, 4, 0, .14, [0x2b2d30, 0xc9952f, 0xf2efe8, 0x9b2335]); chair(-IW / 2 + 1.05, z, -Math.PI / 2);
       if (i === 1 && !bar) { cyl(.18, .14, .38, steel, -1.4, 1.5, z, P, 20); }
     }
@@ -329,11 +332,12 @@ export async function makeStore(world, {kind = "bakery", sign = "Bakery", font =
       box(.12, .02, .12, mat(0x2b2d30), x + .25, .79, z); const lamp_ = add(new THREE.CylinderGeometry(.07, .07, .18, 14), mat(0xf2efe8, .3), x + .3, .9, z - .1, P); lamp_.rotation.x = .5;
       bottles(x - .3, .785, z - .12, 5, .08, .08, cols.slice(i * 5, i * 5 + 5).map(c => c.getHex()));
       chairB(x, z + .62, Math.PI, 0xe7c6c6); chairB(x, z - .62, 0, 0x2b2d30); }
-    const NB = 22 * 6, bot = new THREE.InstancedMesh(new THREE.CylinderGeometry(.03, .03, .1, 8), mat(0xffffff, .2), NB), m4 = new THREE.Matrix4(), c = new THREE.Color();
-    for (let r = 0; r < 6; r++) { box(.12, .03, 3.6, mat(0xf6f4f0, .4), IW / 2 - .08, 1.0 + r * .26, -4.2);
-      for (let i = 0; i < 22; i++) { m4.makeTranslation(IW / 2 - .08, 1.07 + r * .26, -5.85 + i * .157); bot.setMatrixAt(r * 22 + i, m4); bot.setColorAt(r * 22 + i, c.setHSL(((r * 22 + i) * .618) % 1, .62, .5)); } }
-    bot.castShadow = true; P.add(bot);
-    for (const x of [-1.2, .2]) { box(1.0, .3, 1.0, mat(0xf6f4f0, .4), x, .15, IZ1 + .8); box(.8, .5, .7, mat(0xa57983, .45), x, .55, IZ1 + .7); box(.8, .7, .16, mat(0xa57983, .45), x, 1.1, IZ1 + .4);
+    const NB = 28 * 5, bot = new THREE.InstancedMesh(new THREE.CylinderGeometry(.032, .032, .11, 8), mat(0xffffff, .2), NB), m4 = new THREE.Matrix4(), c = new THREE.Color();
+    box(4.7, 1.55, .06, mat(0xfbf6f2, .4), -.45, 2.32, IZ1 + .05); box(4.8, .06, .14, mat(0xc98d99, .5), -.45, 3.12, IZ1 + .08);
+    for (let r = 0; r < 5; r++) { box(4.5, .025, .14, mat(0xffffff, .3), -.45, 1.66 + r * .3, IZ1 + .13);
+      for (let i = 0; i < 28; i++) { m4.makeTranslation(-2.6 + i * .16, 1.73 + r * .3, IZ1 + .13); bot.setMatrixAt(r * 28 + i, m4); bot.setColorAt(r * 28 + i, c.setHSL(((r * 28 + i) * .618) % 1, .62, .38 + (i % 4) * .07)); } }
+    bot.castShadow = false; P.add(bot); lamp(-.45, 2.9, IZ1 + .9, .6, 3.2, 0xfff4ea);
+    for (const x of [-1.5, -.1, 1.3]) { box(1.0, .3, 1.0, mat(0xf6f4f0, .4), x, .15, IZ1 + .8); box(.8, .5, .7, mat(0xa57983, .45), x, .55, IZ1 + .7); box(.8, .7, .16, mat(0xa57983, .45), x, 1.1, IZ1 + .4);
       for (const s of [-1, 1]) box(.12, .2, .6, mat(0xa57983, .45), x + s * .42, .9, IZ1 + .7); cyl(.22, .18, .2, mat(0xf2f2f0, .2), x, .1, IZ1 + 1.45, P, 20); }
     box(.8, .7, .5, trim, 2.1, .95, -.85); bottles(1.82, 1.3, -.85, 7, .095, .12, cols.slice(15, 22).map(q => q.getHex()));
     plant(-2.3, -.95, 1.1);
@@ -374,20 +378,24 @@ export async function makeStore(world, {kind = "bakery", sign = "Bakery", font =
     const tbl = new THREE.Group(); tbl.position.set(-1.1, 0, -4.2); P.add(tbl);
     box(1.1, .04, .6, steel, 0, .86, 0, tbl); box(1.06, .02, .56, mat(0x2b2d30, .9), 0, .89, 0, tbl); for (const [a, b] of [[-.48, -.24], [.48, -.24], [-.48, .24], [.48, .24]]) cyl(.02, .02, .84, steel, a, .42, b, tbl, 8);
     cyl(.018, .018, 1.2, steel, -.5, 1.48, -.24, tbl, 8); const arm = add(new THREE.CylinderGeometry(.018, .018, .6, 8), steel, -.2, 2.08, -.24, tbl); arm.rotation.z = Math.PI / 2;
-    const dry = new THREE.Group(); dry.position.set(.4, 0, -5.2); P.add(dry); cyl(.25, .25, .04, dark, 0, .02, 0, dry, 16); cyl(.02, .02, 1.4, steel, 0, .72, 0, dry, 8); box(.3, .25, .2, mat(0x2f7f86, .4), 0, 1.5, .05, dry);
-    box(1.8, .9, .8, steel, -1.4, .45, IZ1 + .5); box(1.7, .1, .7, mat(0x9aa0a6, .3, .6), -1.4, .86, IZ1 + .5); cyl(.02, .02, .7, steel, -1.4, 1.25, IZ1 + .2, P, 8);
+    const dry = new THREE.Group(); dry.position.set(.4, 0, -5.2); P.add(dry); cyl(.25, .25, .04, dark, 0, .02, 0, dry, 16); cyl(.02, .02, 1.4, steel, 0, .72, 0, dry, 8); const hd = add(new THREE.CylinderGeometry(.11, .16, .34, 18), mat(0x2f7f86, .35), .12, 1.42, 0, dry); hd.rotation.z = -1.1;
+    const hose = add(new THREE.TorusGeometry(.32, .035, 8, 20, 2.4), mat(0x2b2d30, .6), -.15, 1.1, 0, dry); hose.rotation.z = -.3;
+    const tz = IZ1 + .55, tm = mat(0xdfe3e4, .25, .7); box(1.9, .9, .06, tm, -1.4, .45, tz + .42); box(1.9, .9, .06, tm, -1.4, .45, tz - .42); for (const s of [-1, 1]) box(.06, .9, .9, tm, -1.4 + s * .92, .45, tz);
+    box(1.8, .05, .8, mat(0x8d9599, .4, .6), -1.4, .3, tz); for (const s of [-1, 1]) box(2.0, .04, .1, tm, -1.4, .92, tz + s * .45);
+    box(2.0, .9, .03, mat(0xffffff, .2), -1.4, 1.4, IZ1 + .03); cyl(.02, .02, .5, steel, -1.4, 1.3, IZ1 + .12, P, 8); const sp = add(new THREE.CylinderGeometry(.03, .05, .12, 10), steel, -1.4, 1.03, IZ1 + .2, P); sp.rotation.x = -.8;
     const sh = shelf(1.6, IZ1 + .22, 2.6, [1.0, 1.5, 2.0]); for (const y of [1.02, 1.52, 2.02]) bottles(.6, y, IZ1 + .22, 9, .24, .2, [0x2f7f86, 0xf2efe8, 0xc9952f, 0x6b3a5e]);
     for (let i = 0; i < 5; i++) { const l = cyl(.012, .012, .7, mat([0xb3343a, 0x2f7f86, 0xc9952f, 0x24365e, 0x6b3a5e][i], .6), IW / 2 - .1, 1.6, -3.4 + i * .18, P, 6); }
     // dog bed and a sitting dog in the right window, treats jar left
     box(.9, .5, .6, trim, 2.1, .25 + .4, -.85);
     const bed = add(new THREE.TorusGeometry(.3, .1, 10, 24), mat(0x8a5a44, .9), 2.1, 1.0, -.85, P); bed.rotation.x = Math.PI / 2; cyl(.28, .28, .06, mat(0xe9dcc8, .9), 2.1, .96, -.85, P, 20);
-    const dog = new THREE.Group(); dog.position.set(2.1, 1.0, -.85); dog.rotation.y = -.5; P.add(dog); const fur = mat(0xc8924e, .9), fur2 = mat(0xe6c08a, .9);
+    const mkDog = (x, y, z, ry, sc, fc, fc2) => { const dog = new THREE.Group(); dog.position.set(x, y, z); dog.rotation.y = ry; dog.scale.setScalar(sc); P.add(dog); const fur = mat(fc, .9), fur2 = mat(fc2, .9);
     add(new THREE.SphereGeometry(.16, 18, 14), fur, 0, .14, -.02, dog).scale.set(1, .8, 1.25);
     add(new THREE.SphereGeometry(.13, 18, 14), fur, 0, .3, .08, dog).scale.set(.95, 1.25, .9);
     add(new THREE.SphereGeometry(.1, 18, 14), fur, 0, .5, .14, dog); add(new THREE.SphereGeometry(.06, 14, 10), fur2, 0, .47, .24, dog).scale.set(.9, .75, 1.2);
     add(new THREE.SphereGeometry(.018, 8, 6), dark, 0, .485, .3, dog); for (const s of [-1, 1]) { add(new THREE.SphereGeometry(.014, 8, 6), dark, s * .04, .54, .225, dog); add(new THREE.SphereGeometry(.05, 12, 8), mat(0x8a5a2c, .9), s * .08, .5, .1, dog).scale.set(.45, 1.3, .8); }
     for (const s of [-1, 1]) { cyl(.03, .028, .24, fur, s * .06, .12, .14, dog, 8); add(new THREE.SphereGeometry(.035, 10, 8), fur2, s * .06, .01, .17, dog); add(new THREE.SphereGeometry(.07, 12, 10), fur, s * .1, .07, -.08, dog).scale.set(.8, .7, 1.3); }
-    const tail = cyl(.02, .012, .2, fur, 0, .06, -.24, dog, 8); tail.rotation.x = 1.2;
+    const tail = cyl(.02, .012, .2, fur, 0, .06, -.24, dog, 8); tail.rotation.x = 1.2; };
+    mkDog(2.1, 1.0, -.85, -.5, 1, 0xc8924e, 0xe6c08a); mkDog(-1.1, .9, -4.2, .7, 1.25, 0xf2ede4, 0xfbf8f2);
     box(.9, .5, .6, trim, -2.2, .85, -.85); cyl(.14, .14, .3, glass, -2.2, 1.25, -.85, P, 18); for (let i = 0; i < 4; i++) box(.18, .26, .1, mat([0x2f7f86, 0xc9952f, 0xb3343a, 0x24365e][i], .6), -2.55 + i * .24, 1.23, -.75);
   } else if (kind === "sew" || kind === "tailor" || kind === "uphol") {
     // dress forms and an armchair in the window, the cutting table, the machine, fabric bolts and thread
@@ -410,9 +418,9 @@ export async function makeStore(world, {kind = "bakery", sign = "Bakery", font =
     box(.04, 1.3, 1.9, woodM, IW / 2 - .02, 2.0, -2.7);
     for (let r = 0; r < 8; r++) for (let i = 0; i < 14; i++) { m4.makeTranslation(IW / 2 - .07, 1.45 + r * .15, -3.55 + i * .13); sp.setMatrixAt(r * 14 + i, m4); sp.setColorAt(r * 14 + i, c.setHSL(((r * 14 + i) * .618) % 1, .6, .5)); }
     sp.castShadow = true; P.add(sp);
-    box(.04, 1.7, .7, mirror(), -IW / 2 + .03, 1.25, -6.4);
+    box(.04, 1.7, .7, mirror_(), -IW / 2 + .03, 1.25, -6.4);
   }
-  function mirror() { return new THREE.MeshStandardMaterial({color: 0xdfe6ea, metalness: 1, roughness: .04, envMapIntensity: 1.4}); }
+  function mirror_() { return new THREE.MeshStandardMaterial({color: 0xc9d3d9, emissive: 0x56616a, metalness: .35, roughness: .08, envMapIntensity: 1.1}); }
 
   // ---------- neighbours: plain shopfronts either side, more of the block beyond ----------
   const neighbour = (x0, x1, h, tone, trimC, awnC) => {

@@ -131,14 +131,15 @@ def main():
         d = os.path.join(ROOT, "p/2e8e4a", s["slug"])
         os.makedirs(os.path.join(d, "750"), exist_ok=True); os.makedirs(os.path.join(d, "1250"), exist_ok=True)
         meet = meetdata.meet(s)
-        open(os.path.join(d, "index.html"), "w").write(page300(s, meet))
         import room
+        import store
+        import tiers2
+        fix = store.wording if s["group"] in kit.STORES else (lambda h: h)
         os.makedirs(os.path.join(d, "room"), exist_ok=True)
-        open(os.path.join(d, "room", "index.html"), "w").write(room.page(s, meet))
-        if True:
-            import tiers2
-            open(os.path.join(d, "750", "index.html"), "w").write(tiers2.page750(s))
-            open(os.path.join(d, "1250", "index.html"), "w").write(tiers2.page1250(s))
+        open(os.path.join(d, "index.html"), "w").write(fix(page300(s, meet)))
+        open(os.path.join(d, "room", "index.html"), "w").write(fix(room.page(s, meet)))
+        open(os.path.join(d, "750", "index.html"), "w").write(fix(tiers2.page750(s)))
+        open(os.path.join(d, "1250", "index.html"), "w").write(fix(tiers2.page1250(s)))
     print(f"built {len(shops)} shops")
 
 
