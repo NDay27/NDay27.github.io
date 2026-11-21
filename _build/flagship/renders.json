@@ -1791,5 +1791,65 @@
   "h": 1000,
   "lab": "labroom",
   "q": "kind=carpet&tod=0.3&cam=2.2,.9,.4&tgt=-.6,.05,-2.0&fov=46&fix=0"
+ },
+ {
+  "name": "roof-before",
+  "w": 2400,
+  "h": 1350,
+  "q": "p=1&truck=Roofing&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-11,8,27&tgt=1.5,4.6,0&fov=40&roof=0&ox=0.13"
+ },
+ {
+  "name": "roof-after",
+  "w": 2400,
+  "h": 1350,
+  "q": "p=1&truck=Roofing&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-11,8,27&tgt=1.5,4.6,0&fov=40&roof=1&ox=0.13"
+ },
+ {
+  "name": "roof-s1",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Roofing&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-6,9.5,14&tgt=0,6.6,0&fov=40&roof=0"
+ },
+ {
+  "name": "roof-s2",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Roofing&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-6,9.5,14&tgt=0,6.6,0&fov=40&roof=.22"
+ },
+ {
+  "name": "roof-s3",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Roofing&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-6,9.5,14&tgt=0,6.6,0&fov=40&roof=.72"
+ },
+ {
+  "name": "roof-s4",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Roofing&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-11,8,27&tgt=1.5,4.6,0&fov=40&roof=1"
+ },
+ {
+  "name": "roof-dusk",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Roofing&tx=-1.5&tz=35.4&tr=1.5708&tod=0.84&cam=-11,8,27&tgt=1.5,4.6,0&fov=40&roof=1"
+ },
+ {
+  "name": "roof-close",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Roofing&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-6,9.5,14&tgt=0,6.6,0&fov=40&roof=.72"
+ },
+ {
+  "name": "roof-tear",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Roofing&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-6,9.5,14&tgt=0,6.6,0&fov=40&roof=.3"
+ },
+ {
+  "name": "roof-street",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Roofing&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-3,4,32&tgt=5,2.5,10&fov=40&roof=.3"
  }
 ]

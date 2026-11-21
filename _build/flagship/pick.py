@@ -68,6 +68,11 @@ def candidates():
         if s["v"] in STUMP_V and re.search(r"stump", s["name"].lower()) and kit.st(s) != "CA":
             out.append(("stump", dict(s, kv="stump")))
             continue
+        # an antique store listed as a thrift store gets the antique shop kit (its own variant, see store.V_NEW)
+        if s["v"] == "thrift" and "antique" in (s.get("cat") or "").lower():
+            if not re.search(NAME_OUT["antique"], s["name"].lower()):
+                out.append(("antique", dict(s, kv="antique")))
+            continue
         if s["slug"] not in KEEP and re.search(NAME_OUT.get(g, r"$^"), s["name"].lower()):
             continue
         if g in ("lawn", "tree", "painting") and kit.st(s) == "CA":
