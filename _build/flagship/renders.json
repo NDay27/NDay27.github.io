@@ -1151,5 +1151,65 @@
   "w": 1600,
   "h": 1000,
   "q": "p=1&truck=Heating+%26+Air&tx=-11&tz=35.4&tr=1.5708&tod=0.3&cam=-10.2,1.3,3.4&tgt=-7.3,.75,-.3&fov=40&ac=0"
+ },
+ {
+  "name": "plumb-before",
+  "w": 2400,
+  "h": 1350,
+  "q": "p=1&truck=Plumbing&tx=-6&tz=35.4&tr=1.5708&tod=0.3&cam=-7.4,1.9,24.6&tgt=-3.0,.2,17.6&fov=40&pipe=0&ox=0.3"
+ },
+ {
+  "name": "plumb-after",
+  "w": 2400,
+  "h": 1350,
+  "q": "p=1&truck=Plumbing&tx=-6&tz=35.4&tr=1.5708&tod=0.3&cam=-7.4,1.9,24.6&tgt=-3.0,.2,17.6&fov=40&pipe=1&ox=0.3"
+ },
+ {
+  "name": "plumb-s1",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Plumbing&tx=-6&tz=35.4&tr=1.5708&tod=0.3&cam=-6.6,1.6,22.6&tgt=-3.2,.05,18.2&fov=40&pipe=0"
+ },
+ {
+  "name": "plumb-s2",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Plumbing&tx=-6&tz=35.4&tr=1.5708&tod=0.3&cam=-6.6,1.6,22.6&tgt=-3.2,.05,18.2&fov=40&pipe=.45"
+ },
+ {
+  "name": "plumb-s3",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Plumbing&tx=-6&tz=35.4&tr=1.5708&tod=0.3&cam=-6.6,1.6,22.6&tgt=-3.2,.05,18.2&fov=40&pipe=.62"
+ },
+ {
+  "name": "plumb-s4",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Plumbing&tx=-6&tz=35.4&tr=1.5708&tod=0.3&cam=-6.6,1.6,22.6&tgt=-3.2,.05,18.2&fov=40&pipe=1"
+ },
+ {
+  "name": "plumb-dusk",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Plumbing&tx=-6&tz=35.4&tr=1.5708&tod=0.84&cam=-12,2.8,46&tgt=-3,1.2,14&fov=36&pipe=1"
+ },
+ {
+  "name": "plumb-house",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Plumbing&tx=-6&tz=35.4&tr=1.5708&tod=0.3&cam=-12,2.8,46&tgt=-3,1.2,14&fov=36&pipe=.45"
+ },
+ {
+  "name": "plumb-pipe",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Plumbing&tx=-6&tz=35.4&tr=1.5708&tod=0.3&cam=-6.6,1.6,22.6&tgt=-3.2,.05,18.2&fov=40&pipe=.62"
+ },
+ {
+  "name": "plumb-new",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Plumbing&tx=-6&tz=35.4&tr=1.5708&tod=0.3&cam=-6.6,1.6,22.6&tgt=-3.2,.05,18.2&fov=40&pipe=1"
  }
 ]

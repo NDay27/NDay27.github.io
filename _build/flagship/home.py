@@ -10,6 +10,7 @@ GROUPS = {
  "wash": dict(vs=["pressurewash"], drive="wash", noun="pressure washing crew", truck="Pressure Washing"),
  "concrete": dict(vs=["concrete"], drive="concrete", noun="concrete crew", truck="Concrete"),
  "hvac": dict(vs=["hvac"], drive=None, noun="heating and cooling crew", truck="Heating & Air"),
+ "plumb": dict(vs=["plumbing"], drive=None, noun="plumbing crew", truck="Plumbing"),
 }
 KGROUP = {v: g for g, d in GROUPS.items() for v in d["vs"]}
 KIT_V = dict(KGROUP)
@@ -18,18 +19,21 @@ NAME_OUT = {
  "wash": r"industrial|commercial|fleet|truck|car ?wash|auto|mobile services",
  "concrete": r"pump|ranch|land serv|handyman|asphalt|excavat|precast|supply|ready.?mix|^(?!.*concrete).*construct",
  "hvac": r"commercial|industrial|refrigerat|supply|wholesale|distribut|radiator|auto|truck|duct clean|chimney|appliance",
+ "plumb": r"commercial|industrial|supply|wholesale|distribut|septic|well drill|irrigat|pool|porta|fire sprinkler",
 }
-TRADE = {"pressurewash": "Pressure washing", "concrete": "Concrete contractor", "hvac": "Heating and air conditioning"}
-SCHEMA = {"pressurewash": "HomeAndConstructionBusiness", "concrete": "HomeAndConstructionBusiness", "hvac": "HVACBusiness"}
+TRADE = {"pressurewash": "Pressure washing", "concrete": "Concrete contractor", "hvac": "Heating and air conditioning", "plumbing": "Plumber"}
+SCHEMA = {"pressurewash": "HomeAndConstructionBusiness", "concrete": "HomeAndConstructionBusiness", "hvac": "HVACBusiness", "plumbing": "Plumber"}
 OVERRIDE = {}
 
 THEME = {
  "wash": _t("#0f2e3a", "#16404f", "#f3f7f7", "#e5eeee", "#0d2630", "#55686d", "#d2dfdf", "#3fb6c6", "#86d6e0", "#1d7d8c", "#081c24", "brico", "dmsans"),
  "concrete": _t("#22252a", "#2f3339", "#f4f3f0", "#e9e7e2", "#1d2024", "#5f6268", "#d9d6cf", "#e07a2e", "#f0a465", "#4a5a6e", "#131518", "archivo", "plex"),
+ "plumb": _t("#0e2a47", "#163a5f", "#f3f6f8", "#e3eaf0", "#0c2036", "#53657a", "#d0dbe5", "#1f8fe0", "#6cb9f0", "#e0563a", "#071a2e", "archivo", "dmsans"),
  "hvac": _t("#132640", "#1c3558", "#f4f6f9", "#e5eaf1", "#101c2e", "#566377", "#d3dbe6", "#e4583c", "#f39079", "#2f72b8", "#0a1526", "jost", "dmsans"),
 }
 EXTRA_CSS = {"wash": ".hero h1 .l2{font-style:normal}.hero h1{font-weight:700;letter-spacing:-.035em}h2{font-weight:600!important}.hero0 h1 em{font-style:normal}",
              "concrete": None,
+             "plumb": None,
              "hvac": ".hero h1 .l2{font-style:normal}.hero h1{font-weight:600;letter-spacing:-.025em}.hero0 h1 em{font-style:normal}h2{font-weight:600!important}"}
 
 COPY = {
@@ -43,6 +47,11 @@ COPY["hvac"] = dict(svc_h="What we work on", svc_intro="Heating, cooling and the
                    sheet=("A house in {town}", "Old unit out, new unit in"),
                    sheet_label="Line drawing of a two-storey farmhouse with a porch and a garage wing",
                    shot=("hvac-after", "A farmhouse with a new outdoor air conditioning unit on a clean pad beside the side wall", "Illustration. Your real job photos go here."))
+COPY["plumb"] = dict(svc_h="What we fix", svc_intro="Leaks, clogs, water heaters and new fixtures. If it isn't on the list, ask anyway.",
+                    quote_h="Get plumbing help", cta="Ask about your plumbing", msg_ph="What's going on, where in the house, and how soon you need someone.",
+                    sheet=("A house in {town}", "Line dug up and fixed"),
+                    sheet_label="Line drawing of a two-storey farmhouse with a porch and a garage wing",
+                    shot=("plumb-after", "A farmhouse front lawn with a neat strip of fresh sod where a broken water line was dug up and replaced", "Illustration. Your real job photos go here."))
 COPY["wash"].update(sheet=("A house in {town}", "Siding and drive, washed"),
                     sheet_label="Line drawing of a two-storey farmhouse with a porch and a garage wing",
                     shot=("wash-after", "A white farmhouse with clean siding and a bright, freshly washed driveway, the crew's pickup at the curb", "Illustration. Your real job photos go here."))
@@ -53,12 +62,14 @@ COPY["concrete"].update(sheet=("A driveway in {town}", "Old slab out, new slab i
 STEPS = {
  "wash": [("Tell us what needs washing", "The house, the drive, a deck or all three."), ("Get a straight quote", "Know the price before anyone starts."), ("Watch it come clean", "Bright again, and the mess rinsed away.")],
  "concrete": [("Tell us about the project", "What's there now, the size and what you want."), ("Get a straight quote", "Know the plan and the price before work starts."), ("Poured and finished", "Formed, poured, finished and left clean.")],
+ "plumb": [("Tell us what's going on", "A leak, a clog, no hot water or something new."), ("Get a straight answer", "Know what it needs and the price before work starts."), ("Fixed and cleaned up", "Running right, with the mess cleaned up.")],
  "hvac": [("Tell us what it's doing", "No heat, no cooling, an odd noise or just a tune-up."), ("Get a straight answer", "Know the options and the price before work starts."), ("Comfortable again", "Running right, with the mess cleaned up.")],
 }
 
 GLYPH = {
  "wash": _G.format("M6 22h8l3-4h6", "currentColor") + _G.format("M23 18l5-3M23 18l6 0M23 18l5 3", "var(--pencil)") + _G.format("M6 22v4h8", "currentColor"),
  "concrete": _G.format("M5 24h22v4H5z", "currentColor") + _G.format("M9 24l4-8h6l4 8M13 16v-6h6v6", "var(--pencil)"),
+ "plumb": _G.format("M5 12h10v8h12", "currentColor") + _G.format("M24 24c0 2 1.5 3.5 3 3.5S30 26 30 24c0-2-3-6-3-6s-3 4-3 6z", "var(--pencil)"),
  "hvac": _G.format("M6 6h20v20H6z", "currentColor") + _G.format("M16 16V9M16 16l6 4M16 16l-6 4", "var(--pencil)"),
 }
 
@@ -69,13 +80,16 @@ _J = {
  "slab": '<path d="M8 36l20-10 20 10-20 10z"/><path d="M8 36v4l20 10 20-10v-4"/><path d="M18 31l20 10M38 31 18 41"/>',
  "patio": '<path d="M8 24h40v20H8z"/><path d="M8 34h40M21 24v20M35 24v20"/>',
  "crack": '<path d="M8 12h40v34H8z"/><path d="M14 18l8 7-3 6 9 5-2 6"/><path d="M34 16l-4 8 7 4"/>',
+ "heater": '<rect x="18" y="8" width="20" height="40" rx="6"/><path d="M22 8V5M34 8V5"/><path d="M28 34c-3 0-5-2-5-5 0-3 3-5 3-8 3 2 6 5 6 8 0 3-2 5-4 5z"/><path d="M18 42h20"/>',
+ "faucet": '<path d="M10 24h20a6 6 0 0 1 6 6v4"/><path d="M10 20v8M24 16v8M18 16h12"/><path d="M36 40c0 2-1.5 4-3 4s-3-2-3-4 3-5 3-5 3 3 3 5z"/><path d="M6 48h44"/>',
  "flame": '<path d="M28 48c-9 0-14-6-14-13 0-8 7-12 8-20 6 4 7 9 6 13 2-2 4-4 4-8 5 4 10 9 10 15 0 7-5 13-14 13z"/><path d="M28 48c-3 0-6-2-6-6 0-3 3-5 4-9 3 2 6 5 6 9s-2 6-4 6z"/>',
  "snow": '<path d="M28 8v40M11 18l34 20M11 38l34-20"/><path d="M23 10l5 5 5-5M23 46l5-5 5 5M10 24l7-2-2-7M46 32l-7 2 2 7M10 32l7 2-2 7M46 24l-7-2 2-7"/>',
  "gauge": '<path d="M10 38a18 18 0 1 1 36 0"/><path d="M28 38l9-11"/><circle cx="28" cy="38" r="3"/><path d="M14 30l3 1M18 22l2 2M28 18v3M38 22l-2 2M42 30l-3 1"/><path d="M12 44h32"/>',
 }
 SVC_ICON = {"House washing": _J["house"], "Driveways and walks": _J["drive"], "Decks and fences": _J["deck"],
             "Driveways": _J["slab"], "Patios and walks": _J["patio"], ("concrete", "Repairs"): _J["crack"],
-            "Heating": _J["flame"], "Cooling": _J["snow"], "Tune-ups": _J["gauge"]}
+            "Heating": _J["flame"], "Cooling": _J["snow"], "Tune-ups": _J["gauge"],
+            "Water heaters": _J["heater"], "New fixtures": _J["faucet"]}
 
 # ---------- Signature and Immersive ----------
 _HERO = {
@@ -83,6 +97,8 @@ _HERO = {
           "The same farmhouse washed bright white with a clean driveway, the crew's pickup at the curb", "60% 50%"),
  "concrete": ("concrete-before", "concrete-after", "A farmhouse driveway cracked and broken, with weeds in the cracks",
               "The same driveway replaced with a new, bright concrete slab, the crew's pickup at the curb", "60% 50%"),
+ "plumb": ("plumb-before", "plumb-after", "A soggy front lawn with water pooling up over a broken water line",
+           "The same lawn with a neat strip of fresh sod where the new line went in", "60% 50%"),
  "hvac": ("hvac-before", "hvac-after", "A rusty, dented old air conditioning unit beside a farmhouse, weeds around its pad",
           "The same spot with a clean new air conditioning unit on the pad, lines run neatly to the wall", "62% 50%"),
 }
@@ -95,6 +111,7 @@ def hero(g):
 _SVC = {
  "wash": [("wash-house", "Farmhouse siding washed bright white"), ("wash-drive", "A driveway washed clean down to bright concrete"), ("wash-porch", "A clean porch deck and front steps")],
  "concrete": [("concrete-drive", "A new concrete driveway leading up to a garage"), ("concrete-walk", "A clean concrete front walk to the porch"), ("concrete-cracks", "A cracked, stained driveway before the work")],
+ "plumb": [("plumb-pipe", "A new blue water line coupled into the old one in an open trench"), ("plumb-house", "A white farmhouse with the crew's truck at the curb"), ("plumb-new", "A neat strip of fresh sod across the front lawn")],
  "hvac": [("hvac-house", "A white farmhouse with warm lights in the windows at dusk"), ("hvac-unit", "A new outdoor air conditioning unit on a clean pad"), ("hvac-old", "A worn, rusty outdoor unit before the service call")],
 }
 
@@ -112,6 +129,10 @@ _STAGES = {
               ("concrete-s2", "Pouring", "Old slab out, new slab in", "Formed up straight, then poured from the garage out."),
               ("concrete-s3", "Finishing", "Smooth and even", "Floated, edged and jointed so it cracks where it should, not where it wants."),
               ("concrete-s4", "Done", "A drive that lasts", "Clean edges, even joints and a bright new surface.")],
+ "plumb": [("plumb-s1", "Before", "Water where it shouldn't be", "A soggy lawn and a puddle that never dries out."),
+           ("plumb-s2", "Found", "Dug right to the leak", "The line marked, then a clean trench straight down to the break."),
+           ("plumb-s3", "Fixed", "A new section, coupled in tight", "The split pipe cut out and new line put in its place."),
+           ("plumb-s4", "Done", "Back to a dry lawn", "Backfilled, fresh sod down and the mess gone.")],
  "hvac": [("hvac-s1", "Before", "Worn out and working hard", "Rust, bent fins and weeds growing up around the pad."),
           ("hvac-s2", "Out", "The old unit comes out", "Disconnected safely and hauled away."),
           ("hvac-s3", "In", "The new unit goes in", "Set level on the pad, lines run neat and tight to the wall."),
@@ -123,7 +144,7 @@ def stages(g):
     return _STAGES[g]
 
 
-VISIT = {"wash": "From grimy to bright", "concrete": "From cracked to brand new", "hvac": "From worn out to brand new"}
+VISIT = {"wash": "From grimy to bright", "concrete": "From cracked to brand new", "hvac": "From worn out to brand new", "plumb": "From soggy lawn to fixed"}
 VISIT_INTRO = "Shown on the same house, from before to done."
 
 TOOL = {
@@ -138,6 +159,12 @@ TOOL = {
                                               ("broken", "Broken and crumbling", "When it's coming apart, tearing out and pouring new is usually the answer."),
                                               ("new", "Nothing there yet", "A new slab starts with the size and what it'll carry. Have rough measurements ready.")],
               "Rough measurements and a few photos help most.", "A quick guide, not a quote. The crew will tell you what it really needs."),
+ "plumb": ("Leak check", "What's going on?", "Pick the problem and how urgent it is, and get a plain answer on what to do first.",
+           "How urgent is it?", [("now", "Water is running now", "Shut the main water valve off if you can, then call right away."),
+                                 ("drip", "A slow drip or leak", "Worth fixing soon, before it damages anything. A photo helps."),
+                                 ("slow", "It drains slowly", "Often a clog building up. Mention which drains and how long it's been."),
+                                 ("plan", "Planning ahead", "A good time to ask. Mention the size or model if it's a replacement.")],
+           "A photo of the problem helps get a straight answer.", "A quick guide, not a quote. The crew will tell you what it really needs."),
  "hvac": ("System check", "What is the system doing?", "Pick what's going on and roughly how old the system is, and get a plain answer on where to start.",
           "How old is the system?", [("new", "Under 10 years", "Often worth repairing. Mention the brand if you know it."),
                                      ("mid", "10 to 15 years", "Repair or replace can go either way at this age. Ask about both."),
@@ -149,17 +176,21 @@ TOOL = {
 READY = {
  "wash": "What needs washing, roughly how big it is, and a photo or two of the worst spots.",
  "concrete": "What the project is, rough measurements, and a few photos of what's there now.",
+ "plumb": "What's going on, where in the house, and a photo of the problem if you can.",
  "hvac": "What the system is doing, roughly how old it is, and a photo of the label on the outdoor unit if you can.",
 }
 
 TOOLS = {g: ("Text-the-crew button", f"Before-and-after slider and a {TOOL[g][0].lower()}",
-             "a live 3D house where you " + {"wash": "wash the drive yourself", "concrete": "pour the new drive yourself", "hvac": "swap in the new unit yourself"}[g]) for g in GROUPS}
+             "a live 3D house where you " + {"wash": "wash the drive yourself", "concrete": "pour the new drive yourself", "hvac": "swap in the new unit yourself", "plumb": "dig down and fix the line yourself"}[g]) for g in GROUPS}
 TRY = {"wash": ("Tap a choice under \"Rather text than call?\" and watch the text write itself.",
                 "Drag the slider on the top picture from grimy to clean, then try the wash planner.",
                 "Scroll to watch the siding and the drive come clean, then drag the wand down the drive yourself."),
        "concrete": ("Tap a choice under \"Rather text than call?\" and watch the text write itself.",
                     "Drag the slider on the top picture from cracked to new, then try the slab check.",
                     "Scroll to watch the old drive go and the new slab go in, then pour it yourself."),
+       "plumb": ("Tap a choice under \"Rather text than call?\" and watch the text write itself.",
+                 "Drag the slider on the top picture from soggy to fixed, then try the leak check.",
+                 "Scroll to watch the line get dug up and fixed, then do it yourself."),
        "hvac": ("Tap a choice under \"Rather text than call?\" and watch the text write itself.",
                 "Drag the slider on the top picture from old to new, then try the system check.",
                 "Scroll to watch the old unit come out and the new one go in, then swap it yourself.")}
@@ -175,6 +206,13 @@ def beats(g):
                 ("hero", .3, {"house": 1, "fix": 1}, None, "wash-after", ("03 · Done", s4[2], s4[3])),
                 ("dusk", .84, {"house": 1, "fix": 1}, None, "wash-dusk", ("04 · Evening", "Still bright at dusk", "The kind of house people slow down to look at.")),
                 ("cfg", .3, {}, None, "wash-after", "cfg")]
+    if g == "plumb":
+        return [("hero", .3, {"fix": 0}, None, "plumb-before", None),
+                ("close", .3, {"fix": 0}, {"fix": .45}, "plumb-s2", ("01 · " + s2[1], s2[2], "Keep scrolling and watch the line get dug up, right down to the break.")),
+                ("close", .3, {"fix": .45}, {"fix": .7}, "plumb-s3", ("02 · " + s3[1], s3[2], s3[3])),
+                ("hero", .3, {"fix": .7}, {"fix": 1}, "plumb-after", ("03 · Done", s4[2], s4[3])),
+                ("dusk", .84, {"fix": 1}, None, "plumb-dusk", ("04 · Evening", "Dry, quiet and done", "The crew's truck at the curb and nothing left to show but fresh grass.")),
+                ("cfg", .3, {}, None, "plumb-after", "cfg")]
     if g == "hvac":
         return [("hero", .3, {"fix": 0}, None, "hvac-before", None),
                 ("close", .3, {"fix": 0}, None, "hvac-s1", ("01 · Before", s1[2], s1[3])),
@@ -195,6 +233,8 @@ def controls(g):
         return ('<div class="ctl"><label for="u-fix">Wash the drive <span>drag</span></label><input id="u-fix" type="range" min="0" max="100" value="100" data-set="fix"></div>'
                 '<div class="ctl"><div class="lab">Siding</div><div class="seg" role="group" aria-label="Siding"><button type="button" aria-pressed="false" data-set="house" data-v="0">Before</button>'
                 '<button type="button" aria-pressed="true" data-set="house" data-v="1">Washed</button></div></div>'), "Your turn: wash it yourself", {"house": 1, "fix": 1, "tod": .3}
+    if g == "plumb":
+        return ('<div class="ctl"><label for="u-fix">Fix the water line <span>drag</span></label><input id="u-fix" type="range" min="0" max="100" value="100" data-set="fix"></div>'), "Your turn: fix it yourself", {"fix": 1, "tod": .3}
     if g == "hvac":
         return ('<div class="ctl"><label for="u-fix">Swap in the new unit <span>drag</span></label><input id="u-fix" type="range" min="0" max="100" value="100" data-set="fix"></div>'), "Your turn: swap it yourself", {"fix": 1, "tod": .3}
     return ('<div class="ctl"><label for="u-fix">Pour the new drive <span>drag</span></label><input id="u-fix" type="range" min="0" max="100" value="100" data-set="fix"></div>'), "Your turn: pour it yourself", {"fix": 1, "tod": .3}
@@ -205,13 +245,14 @@ CAM = {"hero": ("-4,2.8,44", "7.5,1.8,12", 36), "close": ("4.2,1.5,27", "9.6,.3,
        "porch": ("-3.2,1.7,13.5", "0,1.5,5", 44), "walk": ("-4.5,1.6,18", "1.6,.2,9.5", 44), "dusk": ("-4,2.4,42", "7.5,2.0,12", 36),
        "slab": ("1.2,2.9,31.5", "8.6,.9,12", 40),
        "unit": ("-11.4,1.5,6.2", "-7.2,1.0,-.3", 40), "unitc": ("-10.2,1.3,3.4", "-7.3,.75,-.3", 40), "street": ("-17,3.2,50", "-4,1.6,6", 34),
-       "side": ("-15,2.4,13", "-5,2.0,-.5", 40)}
+       "side": ("-15,2.4,13", "-5,2.0,-.5", 40),
+       "yard": ("-7.4,1.9,24.6", "-3.0,.2,17.6", 40), "yardc": ("-6.6,1.6,22.6", "-3.2,.05,18.2", 40), "curb": ("-12,2.8,46", "-3,1.2,14", 36)}
 _DIRTY = "siding=a9a68f&trim=6f6d60"
 
 
 def renders(g):
     d = GROUPS[g]; tr = d["truck"].replace(" ", "+").replace("&", "%26")
-    base = (f"p=1&drive={d['drive']}&truck={tr}&tx=-1.5" if d["drive"] else f"p=1&truck={tr}&tx=-11") + "&tz=35.4&tr=1.5708"
+    base = (f"p=1&drive={d['drive']}&truck={tr}&tx=-1.5" if d["drive"] else f"p=1&truck={tr}&tx={-6 if g == 'plumb' else -11}") + "&tz=35.4&tr=1.5708"
     def r(name, w, h, cam, tod, st, ox=0):
         c, t, f = CAM[cam]
         q = f"{base}&tod={tod}&cam={c}&tgt={t}&fov={f}&{st}" + (f"&ox={ox}" if ox else "")
@@ -222,6 +263,12 @@ def renders(g):
                 r("s3", 1200, 800, "close", .3, "fix=.5"), r("s4", 1200, 800, "close", .3, "fix=1"),
                 r("dusk", 1600, 1000, "dusk", .84, "fix=1"), r("house", 1600, 1000, "house", .3, "fix=1"),
                 r("drive", 1600, 1000, "close", .3, "fix=1"), r("porch", 1600, 1000, "porch", .3, "fix=1")]
+    if g == "plumb":
+        return [r("before", 2400, 1350, "yard", .3, "pipe=0", .3), r("after", 2400, 1350, "yard", .3, "pipe=1", .3),
+                r("s1", 1200, 800, "yardc", .3, "pipe=0"), r("s2", 1200, 800, "yardc", .3, "pipe=.45"),
+                r("s3", 1200, 800, "yardc", .3, "pipe=.62"), r("s4", 1200, 800, "yardc", .3, "pipe=1"),
+                r("dusk", 1600, 1000, "curb", .84, "pipe=1"), r("house", 1600, 1000, "curb", .3, "pipe=.45"),
+                r("pipe", 1600, 1000, "yardc", .3, "pipe=.62"), r("new", 1600, 1000, "yardc", .3, "pipe=1")]
     if g == "hvac":
         return [r("before", 2400, 1350, "unit", .3, "ac=0", .13), r("after", 2400, 1350, "unit", .3, "ac=1", .13),
                 r("s1", 1200, 800, "unitc", .3, "ac=0"), r("s2", 1200, 800, "unitc", .3, "ac=.3"),
