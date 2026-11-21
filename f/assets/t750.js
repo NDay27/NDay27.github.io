@@ -6,7 +6,7 @@
   // before/after: drag anywhere on the picture, or use the arrow keys on the hidden range
   var ba = $("#ba");
   if (ba) {
-    var rng = $("#baR"), x = 50, raf = 0, drag = false, touched = false;
+    var rng = $("#baR"), x0 = +ba.getAttribute("data-x") || 50, x = x0, raf = 0, drag = false, touched = false;
     var set = function (v) { x = Math.max(2, Math.min(98, v)); ba.style.setProperty("--x", x + "%"); rng.value = Math.round(x); };
     var at = function (e) { var r = ba.getBoundingClientRect(); return (e.clientX - r.left) / r.width * 100; };
     ba.addEventListener("pointerdown", function (e) { if (e.button) return; drag = true; touched = true; ba.classList.add("drag"); set(at(e)); try { ba.setPointerCapture(e.pointerId); } catch (er) { /* old browsers */ } });
@@ -17,7 +17,7 @@
     ba.addEventListener("click", function () { rng.focus({preventScroll: true}); });
     // a slow sweep on arrival shows people the picture moves
     if (!reduce) {
-      var t0 = 0, path = [[0, 50], [900, 50], [2100, 82], [3500, 24], [4600, 50]];
+      var t0 = 0, path = [[0, x0], [900, x0], [2100, 82], [3500, 24], [4600, x0]];
       var step = function (t) {
         if (touched) return; if (!t0) t0 = t; var e = t - t0, i = 1;
         while (i < path.length - 1 && e > path[i][0]) i++;
@@ -103,6 +103,65 @@
     });
     dl.addEventListener("click", function () {
       var j = "Warning light", chip = $('[data-pick="job"] [data-v="' + j + '"]'); if (chip && chip.getAttribute("aria-pressed") !== "true") chip.click();
+      var sel = $("#f-job"); if (sel) sel.value = j;
+    });
+  }
+
+  // storefronts: two taps, a plain answer, and the pick goes into the request
+  var qz = $("#quiz");
+  if (qz) {
+    var QD = JSON.parse($("#quizData").textContent), qv = $("#verdict"), qa = $("#qzAdd"), qp = {};
+    var qshow = function () {
+      var j = qp.job, o = qp.two && QD.q2[qp.two], sw = $(".sw", qv);
+      $(".lvl span", qv).textContent = j && o ? "Ready to send" : j || o ? "One more tap" : "Two taps";
+      sw.hidden = !(o && o.c); if (o && o.c) sw.style.setProperty("--c", o.c);
+      $(".t", qv).textContent = j && o ? j + ": " + o.l : j ? QD.q2h : QD.ask;
+      $("p", qv).textContent = j && o ? o.t + " " + QD.tip : o ? o.t : j ? "One more tap and you're set." : "Pick one from each list and get a plain answer.";
+      qa.hidden = !(j && o);
+    };
+    $$("[data-q] .opts", qz).forEach(function (grp) {
+      var k = grp.parentNode.getAttribute("data-q");
+      $$("button", grp).forEach(function (b) {
+        b.addEventListener("click", function () {
+          $$("button", grp).forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+          qp[k] = b.getAttribute("data-v"); qshow();
+        });
+      });
+    });
+    qa.addEventListener("click", function () {
+      var j = qp.job, o = QD.q2[qp.two], chip = $('[data-pick="job"] [data-v="' + j + '"]'); if (chip && chip.getAttribute("aria-pressed") !== "true") chip.click();
+      var sel = $("#f-job"); if (sel) sel.value = j;
+      var m = $("#f-msg"); if (m && o && m.value.indexOf(o.l) < 0) m.value = (m.value ? m.value + "\n" : "") + QD.q2h + " " + o.l;
+    });
+  }
+
+  // body shop: tap where it got hit, then what it looks like
+  var bc = $("#bodyCheck");
+  if (bc) {
+    var BD = JSON.parse($("#bodyData").textContent), bv = $("#verdict"), ba = $("#bcAdd"), pick = {};
+    var show = function () {
+      $$(".zone", bc).forEach(function (z) { z.classList.toggle("on", z.getAttribute("data-z") === pick.where); });
+      var w = pick.where && BD.where[pick.where], d = pick.what && BD.what[pick.what];
+      $(".lvl", bv).className = "lvl" + (d && d.lvl !== "plan" ? " soon" : "");
+      $(".lvl span", bv).textContent = d ? d.lt : w ? "One more tap" : "Two taps";
+      $("h3", bv).textContent = w && d ? d.name + ": " + w.toLowerCase() : w ? w + ". What does it look like?" : "Where did it get hit?";
+      $("p", bv).textContent = d ? d.text : w ? "Pick what it looks like below the truck." : "Tap the spot on the truck, then pick what it looks like.";
+      ba.hidden = !(w && d); if (d) ba.setAttribute("data-job", d.job);
+    };
+    $$(".hs", bc).forEach(function (b) {
+      b.addEventListener("click", function () {
+        $$(".hs", bc).forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+        pick.where = b.getAttribute("data-z"); show();
+      });
+    });
+    $$("[data-q=what] button", bc).forEach(function (b) {
+      b.addEventListener("click", function () {
+        $$("[data-q=what] button", bc).forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+        pick.what = b.getAttribute("data-v"); show();
+      });
+    });
+    ba.addEventListener("click", function () {
+      var j = ba.getAttribute("data-job"), chip = $('[data-pick="job"] [data-v="' + j + '"]'); if (chip && chip.getAttribute("aria-pressed") !== "true") chip.click();
       var sel = $("#f-job"); if (sel) sel.value = j;
     });
   }

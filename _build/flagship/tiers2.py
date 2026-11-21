@@ -6,7 +6,7 @@ import kit
 from kit import E, V, COPY, THEME, IC
 
 HERE = kit.HERE
-G = {"lawn": "lawn", "tree": "tree", "painting": "paint", "auto": "auto"}
+G = {"lawn": "lawn", "tree": "tree", "painting": "paint", "auto": "auto", "body": "body"}
 NATIVE = {}  # render name -> native width, filled from renders.json
 for r in json.load(open(os.path.join(HERE, "renders.json"))):
     NATIVE[r["name"]] = r["w"]
@@ -32,12 +32,14 @@ HERO = {
  "lawn": ("lawn-before", "lawn-after", "A farmhouse yard grown long and seedy", "The same yard cut short with light and dark mowing stripes", "45% 50%"),
  "tree": ("tree-before", "tree-after", "A big shade tree with heavy limbs hanging over a farmhouse roof", "The same tree trimmed back off the roof with its canopy raised", "34% 50%"),
  "painting": ("paint-before", "paint-after", "A farmhouse with faded tan siding and dull trim", "The same farmhouse painted navy with crisp white trim", "48% 50%"),
+ "body": ("body-before", "body-after", "A red pickup out front with its front corner crumpled, the bumper bent and a headlight broken", "The same pickup with the corner straightened and fresh, glossy paint", "64% 55%"),
  "auto": ("auto-before", "auto-after", "A pickup up on the lift in the bay with its wheels off and the hood up", "The same pickup parked out front, back together and ready to go", "64% 55%"),
 }
 SVC_IMG = {
  "lawn": [("lawn-high", "A striped lawn seen from above the front walk"), ("lawn-back", "The back yard of a farmhouse, cut and tidy"), ("lawn-side", "Thick green grass along the side of a sage-green house")],
  "tree": [("tree-s3", "A tree taken down to a low stump beside a house"), ("tree-side", "A tall shade tree trimmed clear of the house"), ("tree-dusk", "A trimmed tree in front of a house at dusk")],
  "painting": [(None, ""), ("paint-after", "A farmhouse freshly painted navy with white trim"), ("paint-s2", "New white trim on window and door casings")],
+ "body": [("body-close", "A pickup's front corner pushed in, with scraped paint down the side"), ("body-prime", "The same corner straightened and sprayed in grey primer, in the bay"), ("body-front", "The repaired pickup in fresh, glossy red paint")],
  "auto": [("auto-wheel", "A pickup on the lift with a wheel off, showing the brake rotor"), ("auto-hood", "A pickup with its hood up in front of the shop"), ("auto-front", "The front of a red pickup outside a brick repair shop")],
 }
 STAGES = {
@@ -51,14 +53,40 @@ STAGES = {
  "painting": [("paint-s1", "Before", "Faded and tired", "Siding and trim that have seen too many summers."),
               ("paint-s2", "Trim first", "Crisp white trim", "Corners, windows and doors get their clean lines."),
               ("paint-s3", "Body color", "A whole new look", "The siding goes on and the house looks new again.")],
+ "body": [("body-s1", "Drop-off", "A real look at the damage", "Every dent and scrape gets looked at up close, and you hear what it takes before work starts."),
+          ("body-s3", "Body work", "Pulled straight, then primed", "The panel goes back to its shape and gets a coat of primer."),
+          ("body-s4", "Paint", "Matched and blended", "Paint mixed to match, then clear coat, so the repair disappears."),
+          ("body-s5", "Pick-up", "Like it never happened", "Polished up and parked out front, ready when you are.")],
  "auto": [("auto-s1", "Drop-off", "Into the bay", "Pull in, hand over the keys and say what it's been doing."),
           ("auto-s2", "A real look", "Up on the lift", "It goes up so the problem gets found, not guessed at."),
           ("auto-s3", "The work", "Wheels off, hood up", "You hear what it needs before any work starts. Then it gets fixed."),
           ("auto-s4", "Pick-up", "Back on the road", "Back together, checked over and parked out front.")],
 }
-VISIT = {"lawn": "From long to striped", "tree": "From overgrown to clear", "painting": "From faded to fresh", "auto": "From the bay to the road"}
-VISIT_INTRO = {"auto": "Shown on the same truck, start to finish."}
-TOOL_NAV = {"lawn": "Season planner", "tree": "Tree check", "painting": "Color picker", "auto": "Dash light check"}
+VISIT = {"lawn": "From long to striped", "tree": "From overgrown to clear", "painting": "From faded to fresh", "auto": "From the bay to the road", "body": "From crumpled to like new"}
+VISIT_INTRO = {"auto": "Shown on the same truck, start to finish.", "body": "Shown on the same truck, start to finish."}
+TOOL_NAV = {"lawn": "Season planner", "tree": "Tree check", "painting": "Color picker", "auto": "Dash light check", "body": "Damage check"}
+# body shops: tap where the damage is, then what it looks like, and get a plain answer
+CAR_SVG = ('<svg viewBox="0 0 600 220" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">'
+           '<path class="zone" data-z="rearb" d="M26 138h36v34H26z"/><path class="zone" data-z="bed" d="M62 96h210v64h-62a42 42 0 0 0-84-4H62z"/>'
+           '<path class="zone" data-z="doors" d="M282 98h150v66H282z"/><path class="zone" data-z="hood" d="M440 86h120l10 14H440z"/>'
+           '<path class="zone" data-z="fender" d="M440 100h126v40l-4 14h-48a42 42 0 0 0-74-4z"/><path class="zone" data-z="frontb" d="M560 136h30v36h-30z"/>'
+           '<path d="M30 172v-34l8-42h234l22-56h108l36 56h118l12 18 6 32v26h-14"/><path d="M106 172h-76M194 172h302M576 172h-14"/>'
+           '<path d="M302 46h98l28 48H290z" stroke-width="2"/><path d="M362 46v48M282 96v70M436 96v70"/><path d="M62 96v62M272 96v64"/>'
+           '<circle cx="150" cy="172" r="36"/><circle cx="150" cy="172" r="16"/><circle cx="520" cy="172" r="36"/><circle cx="520" cy="172" r="16"/>'
+           '<path d="M566 112h18M556 150h34" stroke-width="2"/><path d="M8 208h584" stroke-width="1.4" opacity=".5"/></svg>')
+ZONES = [("frontb", "Front bumper", 88, 86), ("hood", "Hood", 80, 27), ("fender", "Fender", 81, 57), ("doors", "Doors", 59, 55), ("bed", "Bed or side", 27, 50), ("rearb", "Back bumper", 11, 86)]
+HURT = [
+ ("scratch", "Scratch or scrape", "plan", "Good to plan ahead", "Scratch or scrape",
+  "If your fingernail doesn't catch in it, it may polish out. If you can see grey primer or bare metal, it usually needs paint so rust can't start."),
+ ("dent", "Dent, paint okay", "plan", "Good to plan ahead", "Dent",
+  "When the paint isn't cracked, some dents can be worked back out without repainting. Ask whether yours is one of them."),
+ ("both", "Dent with scratches", "soon", "Get it looked at soon", "Accident damage",
+  "A dent with broken paint usually means the panel gets straightened, primed and painted to match. Bare metal can start to rust, so don't let it sit."),
+ ("crack", "Cracked or torn", "soon", "Get it looked at soon", "Accident damage",
+  "Cracks and tears in a bumper cover can often be repaired. When they're bad, the part gets replaced and painted to match."),
+ ("crushed", "Crushed or pushed in", "stop", "Have it looked at before driving far", "Accident damage",
+  "A pushed-in panel can hide damage behind it, like brackets, lights or the radiator. Have it looked at before you drive far, and keep photos for your insurance."),
+]
 _DL = '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{}</svg>'
 DASH = [
  ("engine", "Check engine", '<path d="M8 16v12h5l3 3h12v-5h4V17h-4v-3H18v-3h-6v3z"/><path d="M4 19v7M36 19v7M13 8h7"/>', "soon", "Get it checked soon",
@@ -88,6 +116,27 @@ MONTHS = [
 ]
 SWATCH = [("navy", "Navy", "#26324a"), ("white", "White", "#f2f1ec"), ("sage", "Sage", "#9aab8f"), ("charcoal", "Charcoal", "#3a3d40"),
           ("red", "Barn red", "#7a2e26"), ("wheat", "Wheat", "#d6c49a"), ("slate", "Slate blue", "#5d7489")]
+
+
+import store  # noqa: E402
+for _g in store.GROUPS:
+    G[_g] = _g; HERO[_g] = store.hero(_g); SVC_IMG[_g] = store.svc_img(_g); STAGES[_g] = store.stages(_g)
+    VISIT[_g] = store.VISIT[_g]; VISIT_INTRO[_g] = store.VISIT_INTRO; TOOL_NAV[_g] = store.TOOL[_g][0]
+
+
+def quiz(s):
+    """Signature tool for storefronts: question one is the shop's own job list, question two is the trade's own."""
+    g = s["group"]; v = V[s["v"]]; nav, title, intro, q2, opts, tip, note = store.TOOL[g]
+    jobs = [j for j in v["jobs"] if j not in ("Something else", "Question")]
+    b1 = "".join(f'<button type="button" aria-pressed="false" data-v="{E(j)}">{E(j)}</button>' for j in jobs)
+    b2 = "".join(f'<button type="button" aria-pressed="false" data-v="{o[0]}"' + (f' style="--c:{o[3]}"><i></i>' if len(o) > 3 else ">") + f'{E(o[1])}</button>' for o in opts)
+    data = json.dumps({"q2": {o[0]: {"l": o[1], "t": o[2], "c": o[3] if len(o) > 3 else ""} for o in opts}, "tip": tip, "ask": v["ask"], "q2h": q2})
+    return (f'<div class="tool"><div><p class="eyebrow">{E(nav)}</p><h2 id="h-tool" style="margin-top:16px">{E(title)}</h2>'
+            f'<p class="intro">{E(intro)}</p><div class="qs qz" id="quiz"><div data-q="job"><h3>{E(v["ask"])}</h3><div class="opts">{b1}</div></div>'
+            f'<div data-q="two"><h3>{E(q2)}</h3><div class="opts">{b2}</div></div></div><script type="application/json" id="quizData">{data}</script></div>'
+            f'<div class="card verdict rv" id="verdict" aria-live="polite"><span class="lvl"><i></i><span>Two taps</span></span><h3><span class="sw" hidden></span><span class="t">{E(v["ask"])}</span></h3><p>Pick one from each list and get a plain answer.</p>'
+            f'<button class="btn solid" type="button" id="qzAdd" hidden>Send this to {E(s["short"])}</button>'
+            f'<p class="note">{E(note)}</p></div></div>')
 
 
 def strip(s):
@@ -124,6 +173,20 @@ def stage(s):
 
 def tool(s):
     g = s["group"]
+    if g in store.GROUPS:
+        return quiz(s)
+    if g == "body":
+        hs = "".join(f'<button type="button" class="hs" aria-pressed="false" data-z="{k}" style="left:{x}%;top:{y}%"><i></i>{E(n)}</button>' for k, n, x, y in ZONES)
+        hurt = "".join(f'<button type="button" aria-pressed="false" data-v="{k}">{E(n)}</button>' for k, n, lv, lt, job, tx in HURT)
+        data = json.dumps({"where": {k: n for k, n, x, y in ZONES}, "what": {k: {"name": n, "lvl": lv, "lt": lt, "job": job, "text": tx} for k, n, lv, lt, job, tx in HURT}})
+        return (f'<div class="tool"><div><p class="eyebrow">Damage check</p><h2 id="h-tool" style="margin-top:16px">Show us where it got hit</h2>'
+                f'<p class="intro">Tap where the damage is, then what it looks like, and get a plain answer on what it usually takes.</p>'
+                f'<div id="bodyCheck"><div class="car"><div class="cv" style="position:relative">{CAR_SVG}{hs}</div></div>'
+                f'<div class="qs"><div data-q="what"><h3>What does it look like?</h3><div class="opts">{hurt}</div></div></div></div>'
+                f'<script type="application/json" id="bodyData">{data}</script></div>'
+                f'<div class="card verdict rv" id="verdict" aria-live="polite"><span class="lvl"><i></i><span>Two taps</span></span><h3>Where did it get hit?</h3><p>Tap the spot on the truck, then pick what it looks like.</p>'
+                f'<button class="btn solid" type="button" id="bcAdd" hidden>Send this to {E(s["short"])}</button>'
+                f'<p class="note">A quick guide, not an estimate. {E(s["short"])} will tell you what it really needs.</p></div></div>')
     if g == "auto":
         btns = "".join(f'<button type="button" aria-pressed="false" data-k="{k}">{_DL.format(ic)}{E(n)}</button>' for k, n, ic, lv, lt, tx in DASH)
         data = json.dumps({k: {"name": n, "lvl": lv, "lt": lt, "text": tx} for k, n, ic, lv, lt, tx in DASH})
@@ -174,10 +237,15 @@ def faq(s):
     ready = {"lawn": "Your address and roughly how big the yard is. A photo helps if it's been a while since the last cut.",
              "tree": "Where the tree is, about how tall it is, and a photo if you can take one.",
              "painting": "Which rooms or which sides of the house, and any colors you're thinking about.",
-             "auto": "The year, make and model, and what it's doing. A photo or a short video of the noise or the light helps."}[g]
+             "auto": "The year, make and model, and what it's doing. A photo or a short video of the noise or the light helps.",
+             "body": "The year, make and model, where the damage is, and a few photos from different angles. A claim number too, if you have one.", **store.READY}[g]
     items = [("How do I get a quote?", f"Call or text {s['phone']}, or plan your request above and send it with your name and number. Tell {s['short']} what you need and where you are."),
              ("What should I have ready?", ready),
              ("Which towns do you work in?", ", ".join(kit.towns(s)) + ". Close by but not listed? Ask anyway.")]
+    if g in store.GROUPS:
+        q = COPY[g]["quote_h"].replace("your ", "my ")
+        items[0] = (f"How do I {q[0].lower() + q[1:]}?", f"Call or text {s['phone']}, or pick your choices above and send them with your name and number.")
+        items[2] = ("Where are you?", f"{s['short']} is in {s['town']}, {kit.state(s)}. The Google Maps link on this page has directions.")
     return "".join(f'<details><summary>{E(q)}{IC["PLUS"]}</summary><p>{E(a)}</p></details>' for q, a in items)
 
 
@@ -198,6 +266,7 @@ def vals750(s, tier):
     imgs, steps = stage(s); p, rows = picks(s)
     vals = make.base_vals(s, tier)
     vals.update({
+        "BA_X": "74" if g == "body" else "50",
         "NAVYHEX": THEME[g]["navy"], "HERO_BEFORE": src(g, b), "HERO_BEFORE_M": src(g, b, True), "HERO_AFTER": src(g, a), "HERO_AFTER_M": src(g, a, True),
         "BEFORE_ALT": balt, "AFTER_ALT": aalt, "POS": pos, "H1": f"{E(h[0])} <em>{E(h[1])}</em>",
         "LEDE": E(v["lede"].replace("{town}", s["town"])), "STRIP": strip(s), "SVC_H": c["svc_h"], "SVC_INTRO": c["svc_intro"], "SVC": services(s),

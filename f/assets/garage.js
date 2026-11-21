@@ -10,10 +10,39 @@ const BAY = {x: -2.6, z: -4.7};          // lift centre (bay 1)
 const OUT = {x: -1.2, z: 9.4, yaw: -.62}; // parked out front, nose toward the camera
 export const PAINT = {red: 0xb3241c, white: 0xe9e9e4, blue: 0x1f4f8f, black: 0x16181b, silver: 0xa9afb5, green: 0x2f5a44};
 
+// scrapes and crumples for the body-shop overlay (u runs tail to nose, v bottom to top of the side panels)
+function scuffTex() {
+  const W = 1024, H = 256, c = document.createElement("canvas"); c.width = W; c.height = H; const g = c.getContext("2d");
+  let sd = 11; const r = () => (sd = (sd * 16807) % 2147483647) / 2147483647;
+  const X = z => (z + .8) / 3.56 * W, Y = y => H - (y - .3) / .95 * H;
+  // shade the crushed corner so the dent reads in flat light
+  const sh = g.createRadialGradient(X(2.55), Y(.68), 4, X(2.55), Y(.68), 120); sh.addColorStop(0, "rgba(10,8,8,.5)"); sh.addColorStop(.6, "rgba(10,8,8,.22)"); sh.addColorStop(1, "rgba(10,8,8,0)");
+  g.fillStyle = sh; g.fillRect(0, 0, W, H);
+  // a long scrape down the door and bed side: bare primer and metal streaks
+  for (let i = 0; i < 220; i++) { const y = .6 + r() * .16, z0 = -.6 + r() * 2.2, len = .2 + r() * .9; g.strokeStyle = r() < .65 ? "rgba(226,224,218," + (.45 + r() * .5) + ")" : "rgba(50,52,54," + (.3 + r() * .4) + ")";
+    g.lineWidth = .8 + r() * 2.6; g.beginPath(); g.moveTo(X(z0), Y(y)); g.lineTo(X(z0 + len), Y(y + (r() - .5) * .025)); g.stroke(); }
+  // folds at the front corner: dark creases with a bright edge
+  for (let i = 0; i < 14; i++) { const z = 2.28 + i * .032 + r() * .02, y0 = .45 + r() * .1, y1 = .85 + r() * .1;
+    g.lineWidth = 2 + r() * 2.5; g.strokeStyle = "rgba(20,16,14,.55)"; g.beginPath(); g.moveTo(X(z), Y(y0)); g.quadraticCurveTo(X(z + (r() - .5) * .08), Y((y0 + y1) / 2), X(z + (r() - .5) * .05), Y(y1)); g.stroke();
+    g.lineWidth = 1; g.strokeStyle = "rgba(240,236,228,.35)"; g.beginPath(); g.moveTo(X(z) + 3, Y(y0)); g.lineTo(X(z) + 3, Y(y1)); g.stroke(); }
+  // chipped paint along the folds
+  for (let i = 0; i < 30; i++) { const z = 2.25 + r() * .45, y = .5 + r() * .4, s = 2 + r() * 6; g.fillStyle = "rgba(196,196,190," + (.5 + r() * .4) + ")";
+    g.beginPath(); g.moveTo(X(z), Y(y)); for (let k = 0; k < 5; k++) g.lineTo(X(z) + (r() - .5) * s * 2, Y(y) + (r() - .5) * s); g.closePath(); g.fill(); }
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t;
+}
+function primerTex() {
+  const W = 512, H = 128, c = document.createElement("canvas"); c.width = W; c.height = H; const g = c.getContext("2d");
+  const X = z => (z + .8) / 3.56 * W, Y = y => H - (y - .3) / .95 * H;
+  g.fillStyle = "#000"; g.fillRect(0, 0, W, H); g.filter = "blur(6px)"; g.fillStyle = "#fff";
+  g.beginPath(); g.ellipse(X(2.5), Y(.7), X(2.95) - X(2.5) + 30, (Y(.4) - Y(.7)) * 1.15, 0, 0, 6.3); g.fill();
+  g.beginPath(); g.roundRect(X(-.7), Y(.82), X(.95) - X(-.7), Y(.54) - Y(.82), 14); g.fill();
+  const t = new THREE.CanvasTexture(c); return t;
+}
+
 // ---------- the truck ----------
 // The body is a loft: a cross-section swept from tail to nose. The sill follows the wheel arches, so the
 // arches are real openings. The hood is the same surface cut out as its own panel, hinged at the cowl.
-function makeTruck(world, {color = PAINT.red, lights = true} = {}) {
+export function makeTruck(world, {color = PAINT.red, lights = true} = {}) {
   const car = new THREE.Group(), L = 5.5, Z0 = -L / 2, Z1 = L / 2, R = .39, RA = .53, AX = [1.66, -1.52];
   const paint = new THREE.MeshPhysicalMaterial({color, metalness: .2, roughness: .4, clearcoat: .6, clearcoatRoughness: .12, envMapIntensity: .55, side: THREE.DoubleSide});
   const glass = new THREE.MeshPhysicalMaterial({color: 0x0b1013, metalness: .1, roughness: .08, clearcoat: 1, clearcoatRoughness: .03, envMapIntensity: .9});
@@ -46,8 +75,25 @@ function makeTruck(world, {color = PAINT.red, lights = true} = {}) {
   // nose and tail caps
   const cap = (i, flip) => { const c = pos.length / 3, z = zs[i], r = ring(z); pos.push(0, (r[0][1] + r[6][1]) / 2, z); for (let k = 0; k < NR; k++) { const a = i * NR + k, b = i * NR + (k + 1) % NR; flip ? body.push(c, a, b) : body.push(c, b, a); } };
   cap(0, false); cap(zs.length - 1, true);
-  const geo = idx => { const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx); return toCreasedNormals(g, .62); };
-  const shell = add(geo(body), paint); shell.userData.layer = "trim";
+  const geo = (idx, P = pos, uv) => { const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(P, 3)); if (uv) g.setAttribute("uv", new THREE.Float32BufferAttribute(uv, 2)); g.setIndex(idx); return toCreasedNormals(g, .62); };
+  // body-shop states: the driver-side front corner pushed in (a morph target on the same loft), with an overlay
+  // that shows the scrapes, then grey primer, then disappears under fresh paint. The hood seam never moves.
+  const dentV = (x, y, z) => { if (x > -.25 || z < 1.9) return [0, 0];
+    const k = smooth(-.25, -.6, x) * (1 - smooth(.9, 1.04, y)) * smooth(1.95, 2.25, z);
+    const f = Math.exp(-((z - 2.55) ** 2) / (2 * .26 ** 2) - ((y - .7) ** 2) / (2 * .2 ** 2));
+    const fold = Math.sin((z - 2.2) * 26 + y * 9) * Math.exp(-((y - .68) ** 2) / .03);
+    return [k * (.25 * f + .04 * fold * f), -k * .22 * smooth(2.4, 2.75, z) * Math.exp(-((y - .68) ** 2) / .09)]; };
+  const dpos = pos.slice(); for (let i = 0; i < pos.length; i += 3) { const [dx, dz] = dentV(pos[i], pos[i + 1], pos[i + 2]); dpos[i] += dx; dpos[i + 2] += dz; }
+  const dented = (idx, P = pos, D = dpos, uv) => { const a = geo(idx, P, uv), b = geo(idx, D, uv); a.morphAttributes.position = [b.attributes.position]; a.morphAttributes.normal = [b.attributes.normal]; return a; };
+  const shell = add(dented(body), paint); shell.userData.layer = "trim";
+  // the overlay: driver-side panels from the cab back pillar to the nose, a few millimetres proud of the paint
+  const PZ = [-.8, 2.76], ppos = pos.map((v, i) => i % 3 === 0 && v < 0 ? v - .005 : v), pdpos = dpos.map((v, i) => i % 3 === 0 && v < 0 ? v - .005 : v), puv = [], pidx = [];
+  for (let i = 0; i < pos.length; i += 3) puv.push((pos[i + 2] - PZ[0]) / (PZ[1] - PZ[0]), (pos[i + 1] - .3) / .95);
+  for (let i = 0; i < zs.length - 1; i++) if (zs[i] >= PZ[0] && zs[i + 1] <= PZ[1]) for (const k of [8, 9, 10]) { const a = i * NR + k, b = i * NR + (k + 1) % NR, c = a + NR, d = b + NR; pidx.push(a, b, c, b, d, c); }
+  const patchG = dented(pidx, ppos, pdpos, puv);
+  const scuffM = new THREE.MeshStandardMaterial({map: scuffTex(), transparent: true, opacity: 0, roughness: .75, metalness: .1, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2});
+  const primerM = new THREE.MeshStandardMaterial({color: 0xc6c8c8, alphaMap: primerTex(), transparent: true, opacity: 0, roughness: .92, envMapIntensity: .4, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -3});
+  const scuff = add(patchG, scuffM), primer = add(patchG, primerM); scuff.castShadow = primer.castShadow = false; scuff.visible = primer.visible = false;
   // hood: pivot at the cowl
   const hoodPivot = new THREE.Group(); hoodPivot.position.set(0, top(HOOD[0]), HOOD[0]); car.add(hoodPivot);
   const hg = geo(hood); hg.translate(0, -top(HOOD[0]), -HOOD[0]);
@@ -100,10 +146,11 @@ function makeTruck(world, {color = PAINT.red, lights = true} = {}) {
   box(1.64, .03, 1.82, dark, 0, 1.205, -1.72); box(1.5, .012, .02, chrome, 0, .93, -2.756); box(.3, .06, .02, dark, 0, 1.02, -2.756);
   box(1.9, .17, .16, chrome, 0, .5, -2.77); box(.34, .17, .012, new THREE.MeshStandardMaterial({color: 0xf2f2ee, roughness: .5}), 0, .5, -2.853);
   const tail = world.glowMat(0xd0221c, .35, {roughness: .35}); for (const s of [1, -1]) box(.1, .34, .04, tail, s * .87, .98, -2.74);
-  box(1.86, .2, .17, dark, 0, .43, 2.72); box(1.5, .05, .02, chrome, 0, .5, 2.81);
+  const bumper = [box(1.86, .2, .17, dark, 0, .43, 2.72), box(1.5, .05, .02, chrome, 0, .5, 2.81)];
   box(1.12, .36, .05, dark, 0, .76, 2.735); for (let i = 0; i < 4; i++) box(1.06, .022, .02, chrome, 0, .63 + i * .085, 2.765); box(1.2, .03, .03, chrome, 0, .955, 2.74); box(1.2, .03, .03, chrome, 0, .57, 2.74);
   const lens = new THREE.MeshStandardMaterial({color: 0xd5dade, roughness: .7, metalness: 0, envMapIntensity: .4}), headOn = lights ? world.glowMat(0xfff1cf, .8, {roughness: .2}) : lens, heads = [];
   for (const s of [1, -1]) { heads.push(box(.2, .15, .05, lens, s * .7, .86, 2.715)); box(.24, .19, .03, chrome, s * .7, .86, 2.7); box(.1, .05, .03, new THREE.MeshStandardMaterial({color: 0xe08a1a, roughness: .4}), s * .7, .73, 2.715); }
+  const cracked = new THREE.MeshStandardMaterial({color: 0x34393d, roughness: .35, metalness: .2, envMapIntensity: .8});
   const beams = []; if (lights) for (const s of [1, -1]) { const l = world.lamp(0, 0, 0, 0xfff1cf, .35, 9); car.add(l); l.position.set(s * .7, .8, 3.2); l.visible = false; beams.push(l); }
 
   // wheels: tire and rim are lathes; the hub, rotor and caliper stay on the truck when the wheel comes off
@@ -126,9 +173,22 @@ function makeTruck(world, {color = PAINT.red, lights = true} = {}) {
   }
   car.traverse(o => { if (o.isMesh && !o.userData.layer) o.userData.layer = o.material === rubber ? "tire" : null; });
   let hoodT = -1, wheelT = -1, liftY = 0;
-  function set({hood: h = 0, wheels: wt_ = 1, y = 0, lights: on = false} = {}) {
-    liftY = y; car.position.y = y; heads.forEach(m => m.material = on ? headOn : lens); beams.forEach(l => l.visible = on);
-    if (h !== hoodT) { hoodT = h; hoodPivot.rotation.x = -h * 1.02; prop.visible = h > .5;
+  // fix: 0 = damaged, about .55 = dent out and in grey primer, 1 = painted and polished. Undefined leaves the truck as built.
+  let fixT = null, crash = 0;
+  function setFix(f) {
+    if (f === fixT) return; fixT = f;
+    const dent = 1 - smooth(.1, .45, f), sc = 1 - smooth(.15, .3, f), pr = smooth(.25, .45, f) * (1 - smooth(.7, .95, f)), fr = smooth(.7, 1, f);
+    shell.morphTargetInfluences[0] = dent; scuff.morphTargetInfluences[0] = primer.morphTargetInfluences[0] = dent;
+    scuffM.opacity = sc; scuff.visible = sc > .01; primerM.opacity = pr; primer.visible = pr > .01;
+    bumper.forEach(b => { b.rotation.y = -.2 * dent; b.rotation.z = .1 * dent; b.position.z = -.08 * dent; b.position.y = -.03 * dent; }); crash = dent;
+    for (const m of [paint, M.roof, M.hood]) { m.roughness = mix(.55, .3, fr); m.clearcoat = mix(.3, .95, fr); m.clearcoatRoughness = mix(.25, .04, fr); }
+  }
+  function set({hood: h = 0, wheels: wt_ = 1, y = 0, lights: on = false, fix} = {}) {
+    if (fix !== undefined && fix !== null) setFix(clamp(fix));
+    const broken = fixT !== null && fixT < .45;
+    liftY = y; car.position.y = y; heads.forEach((m, i) => m.material = i === 1 && broken ? cracked : on ? headOn : lens); beams.forEach((l, i) => l.visible = on && !(i === 1 && broken));
+    hoodPivot.rotation.x = -h * 1.02 - .07 * crash; hoodPivot.rotation.z = .03 * crash;
+    if (h !== hoodT) { hoodT = h; prop.visible = h > .5;
       if (prop.visible) { const A = new THREE.Vector3(.55, 1.0, 2.5), B = new THREE.Vector3(.55, top(HOOD[0]) + Math.sin(1.02 * h) * 1.35, HOOD[0] + Math.cos(1.02 * h) * 1.35); prop.position.copy(A).add(B).multiplyScalar(.5); prop.scale.y = A.distanceTo(B); prop.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), B.sub(A).normalize()); } }
     const k = 1 - wt_; wheelT = wt_;
     wheels.forEach(({w, s, a}) => { const out = smooth(0, .45, k), dn = smooth(.3, 1, k);
@@ -139,7 +199,7 @@ function makeTruck(world, {color = PAINT.red, lights = true} = {}) {
 }
 
 // ---------- the shop ----------
-export async function makeGarage(world, {sign = "Auto Repair", color = PAINT.red, second = true, font = "Archivo"} = {}) {
+export async function makeGarage(world, {sign = "Auto Repair", color = PAINT.red, second = true, font = "Archivo", kind = "auto"} = {}) {
   const {scene} = world, root = new THREE.Group(); scene.add(root);
   const X0 = -5.4, X1 = 9.2, D = 10.5, H = 5.1, BW = 3.7, BH = 3.55, B2 = 1.9; // bay 2 centre
   const brickT = TEX.brick([1, 1], [142, 66, 50]), concT = TEX.concrete([1, 1]), asphT = TEX.asphalt([10, 5]), floorT = TEX.concrete([3, 2]);
@@ -262,13 +322,24 @@ export async function makeGarage(world, {sign = "Auto Repair", color = PAINT.red
   { const m = new THREE.Matrix4(), q = new THREE.Quaternion(), c = new THREE.Color(); cards.forEach(([x, y, z, sc, a, b, cc, h, l], i) => { q.setFromEuler(new THREE.Euler(a, b, cc)); m.compose(new THREE.Vector3(x, y, z), q, new THREE.Vector3(sc, sc, sc)); leaves.setMatrixAt(i, m); leaves.setColorAt(i, c.setHSL(h, .45, l * 1.7)); }); }
   scene.add(leaves);
 
+  // body shops: a paint cart, masking paper and spare panels by the left wall
+  if (kind === "body") {
+    const cart = new THREE.Group(); cart.position.set(-.2, 0, -7.7); root.add(cart);
+    box(.9, .05, .55, steel, 0, .78, 0, cart); box(.9, .05, .55, steel, 0, .3, 0, cart); for (const [x, z] of [[-.42, -.24], [.42, -.24], [-.42, .24], [.42, .24]]) box(.035, .78, .035, steel, x, .4, z, cart);
+    [0xb3241c, 0x1f4f8f, 0xe9e9e4, 0x16181b, 0xa9afb5].forEach((c, i) => add(new THREE.CylinderGeometry(.08, .08, .17, 14), new THREE.MeshStandardMaterial({color: c, metalness: .3, roughness: .4}), -.32 + i * .16, .89, -.1, cart));
+    const gun = new THREE.Group(); gun.position.set(.2, .86, .14); cart.add(gun); box(.05, .16, .05, dark, 0, 0, 0, gun); box(.05, .05, .18, steel, 0, .08, .07, gun); add(new THREE.CylinderGeometry(.05, .04, .12, 12), steel, 0, .18, -.01, gun);
+    const roll = add(new THREE.CylinderGeometry(.09, .09, .95, 16), new THREE.MeshStandardMaterial({color: 0xcbb98f, roughness: .9}), -4.8, 1.05, -6.4); roll.rotation.x = Math.PI / 2;
+    box(.04, 1.1, .9, dark, -4.95, .55, -6.4);
+    for (let i = 0; i < 3; i++) box(.86, .62, .02, new THREE.MeshStandardMaterial({color: [0x8d9296, 0x2a2d31, 0xb3241c][i], roughness: .6}), -4.95 + .06 + i * .02, 2.15, -4.5 - i * .9).rotation.y = Math.PI / 2;
+  }
+
   // the truck, and a second one parked by the office so the lot isn't empty
   const truck = makeTruck(world, {color}); root.add(truck.car);
   if (second) { const t2 = makeTruck(world, {color: PAINT.white, lights: false}); t2.car.position.set(15.9, 0, 9.2); t2.car.rotation.y = Math.PI; root.add(t2.car); }
 
   const S = {door: -1, door2: -1, lift: -1, hood: -1, wheels: -1, pos: -1, key: ""};
-  function set({door = 1, door2 = 0, lift: lf = 0, hood = 0, wheels = 1, pos = 0, color: col, lights} = {}) {
-    const key = [door, door2, lf, hood, wheels, pos].map(n => (+n).toFixed(3)).join() + lights;
+  function set({door = 1, door2 = 0, lift: lf = 0, hood = 0, wheels = 1, pos = 0, color: col, lights, fix} = {}) {
+    const key = [door, door2, lf, hood, wheels, pos, fix ?? -1].map(n => (+n).toFixed(3)).join() + lights;
     if (col !== undefined && col !== S.color) { S.color = col; truck.setColor(col); }
     if (key === S.key) return; S.key = key;
     setDoor(0, clamp(door)); setDoor(1, clamp(door2));
@@ -276,7 +347,7 @@ export async function makeGarage(world, {sign = "Auto Repair", color = PAINT.red
     // out of the bay in a straight line, then a turn onto the lot
     const p = clamp(pos), a = smooth(0, .55, p), b = smooth(.4, 1, p);
     truck.car.position.x = mix(BAY.x, OUT.x, b); truck.car.position.z = mix(BAY.z, mix(3.2, OUT.z, b), a); truck.car.rotation.y = OUT.yaw * b;
-    truck.set({hood, wheels, y: p > .001 ? 0 : y, lights: lights ?? p > .5});
+    truck.set({hood, wheels, y: p > .001 ? 0 : y, lights: lights ?? p > .5, fix});
     world.shadows();
   }
   set();

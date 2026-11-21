@@ -202,13 +202,13 @@ section{scroll-margin-top:calc(var(--bar) + 70px)}
 
 <main id="main">
 <section class="hero" data-hero aria-labelledby="h1">
-  <div class="ba" id="ba" style="--pos:{{POS}}">
+  <div class="ba" id="ba" data-x="{{BA_X}}" style="--pos:{{POS}};--x:{{BA_X}}%">
     <img class="before" src="{{HERO_BEFORE_M}}" srcset="{{HERO_BEFORE_M}} 1200w, {{HERO_BEFORE}} 2400w" sizes="100vw" width="2400" height="1350" alt="{{BEFORE_ALT}}" fetchpriority="high">
     <img class="after" src="{{HERO_AFTER_M}}" srcset="{{HERO_AFTER_M}} 1200w, {{HERO_AFTER}} 2400w" sizes="100vw" width="2400" height="1350" alt="{{AFTER_ALT}}" fetchpriority="high">
     <span class="tag b">Before</span><span class="tag a">After</span>
     <span class="line" aria-hidden="true"></span>
     <span class="knob" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6-6 6 6 6M15 6l6 6-6 6"/></svg></span>
-    <label class="sr" for="baR">Before and after</label><input id="baR" type="range" min="0" max="100" value="50">
+    <label class="sr" for="baR">Before and after</label><input id="baR" type="range" min="0" max="100" value="{{BA_X}}">
   </div>
   <div class="shade"></div>
   <div class="copy">

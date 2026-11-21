@@ -263,5 +263,75 @@
   "h": 900,
   "q": "tod=.3&cam=-8,3,27&tgt=1.9,2.5,0&fov=30&lift=1&second=0",
   "svg": true
+ },
+ {
+  "name": "body-before",
+  "lab": "labauto",
+  "w": 2400,
+  "h": 1350,
+  "q": "kind=body&tod=.3&cam=-7.6,1.5,14.6&tgt=-2.7,1.0,10.3&fov=34&pos=1&fix=0&ox=.13"
+ },
+ {
+  "name": "body-after",
+  "lab": "labauto",
+  "w": 2400,
+  "h": 1350,
+  "q": "kind=body&tod=.3&cam=-7.6,1.5,14.6&tgt=-2.7,1.0,10.3&fov=34&pos=1&fix=1&ox=.13"
+ },
+ {
+  "name": "body-close",
+  "lab": "labauto",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=body&tod=.3&cam=-7.2,1.5,13.6&tgt=-3.2,.8,10.5&fov=34&pos=1&fix=0"
+ },
+ {
+  "name": "body-front",
+  "lab": "labauto",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=body&tod=.3&cam=-7.2,1.5,13.6&tgt=-3.2,.8,10.5&fov=34&pos=1&fix=1"
+ },
+ {
+  "name": "body-prime",
+  "lab": "labauto",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=body&tod=.3&cam=-4.6,1.7,-.6&tgt=-3.3,.8,-3.6&fov=50&fix=.55"
+ },
+ {
+  "name": "body-dusk",
+  "lab": "labauto",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=body&tod=.84&cam=-11,1.8,19&tgt=0,2.4,3&fov=36&pos=1&fix=1"
+ },
+ {
+  "name": "body-s1",
+  "lab": "labauto",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=body&tod=.3&cam=-7.2,1.5,13.6&tgt=-3.2,.8,10.5&fov=34&pos=1&fix=0"
+ },
+ {
+  "name": "body-s3",
+  "lab": "labauto",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=body&tod=.3&cam=-4.6,1.7,-.6&tgt=-3.3,.8,-3.6&fov=50&fix=.55"
+ },
+ {
+  "name": "body-s4",
+  "lab": "labauto",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=body&tod=.3&cam=-4.6,1.7,-.6&tgt=-3.3,.8,-3.6&fov=50&fix=1"
+ },
+ {
+  "name": "body-s5",
+  "lab": "labauto",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=body&tod=.3&cam=-7.2,1.5,13.6&tgt=-3.2,.8,10.5&fov=34&pos=1&fix=1"
  }
 ]

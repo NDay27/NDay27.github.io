@@ -6,7 +6,7 @@
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/","@pmndrs/assets/":"https://cdn.jsdelivr.net/npm/@pmndrs/assets@1.7.0/"}}</script>
 </head><body><div class="scene"><canvas id="c"></canvas></div>
 <script type="module">
-// Usage: labauto.html?tod=.55&cam=x,y,z&tgt=x,y,z&fov=30&door=1&door2=0&lift=0&hood=0&wheels=1&pos=0&color=red&sign=Auto+Repair
+// Usage: labauto.html?tod=.55&cam=x,y,z&tgt=x,y,z&fov=30&door=1&door2=0&lift=0&hood=0&wheels=1&pos=0&color=red&sign=Auto+Repair[&fix=0..1&kind=body]
 import {makeWorld} from "../../harlow/assets/world.js";
 import {makeGarage, PAINT} from "../../f/assets/garage.js";
 const q = new URLSearchParams(location.search), num = (k, d) => q.has(k) ? +q.get(k) : d, vec = (k, d) => q.has(k) ? q.get(k).split(",").map(Number) : d;
@@ -14,9 +14,9 @@ await document.fonts.load("800 40px Archivo");
 let G = null;
 const world = await makeWorld({cam: {pos: vec("cam", [-12, 4, 24]), target: vec("tgt", [1, 2.4, 0]), minD: 1, maxD: 200, minAz: -9, maxAz: 9, maxPolar: Math.PI * .6}, offset: false, fov: () => num("fov", 32), tod: num("tod", .5), ground: "lawn", grassR: 46, grassH: .15, grassW: .04, grassN: 1.6,
   exclude: (x, z) => (x > -7.2 && x < 11 && z > -11.5 && z < 6) || (z > -.6 && z < 30.6 && x > -30.4 && x < 34.4)});
-G = await makeGarage(world, {sign: q.get("sign") || "Auto Repair", color: PAINT[q.get("color")] ?? PAINT.red, second: q.get("second") !== "0"});
+G = await makeGarage(world, {kind: q.get("kind") || "auto", sign: q.get("sign") || (q.get("kind") === "body" ? "Auto Body" : "Auto Repair"), color: PAINT[q.get("color")] ?? PAINT.red, second: q.get("second") !== "0"});
 window.G = G; window.world = world;
-G.set({door: num("door", 1), door2: num("door2", 0), lift: num("lift", 0), hood: num("hood", 0), wheels: num("wheels", 1), pos: num("pos", 0), lights: q.has("lights") ? !!num("lights", 0) : undefined});
+G.set({door: num("door", 1), door2: num("door2", 0), lift: num("lift", 0), hood: num("hood", 0), wheels: num("wheels", 1), pos: num("pos", 0), fix: q.has("fix") ? num("fix", 1) : undefined, lights: q.has("lights") ? !!num("lights", 0) : undefined});
 world.ctl.autoRotate = false; world.ctl.enableDamping = false; world.setQuality(2);
 world.size(); world.setTodNow(num("tod", .5));
 await world.ready; world.setTodNow(num("tod", .5)); world.shadows();
