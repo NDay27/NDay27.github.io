@@ -1,0 +1,142 @@
+[
+ {
+  "slug": "150-autobody-east-peoria",
+  "name": "150 Autobody",
+  "trade": "Auto Body",
+  "town": "East Peoria",
+  "plans": [
+   "Starter $300",
+   "Signature $750",
+   "Immersive $1,250"
+  ],
+  "seconds": 21.5,
+  "mb": 3.61,
+  "made": "2026-11-21"
+ },
+ {
+  "slug": "brecklin-s-servicenter-washington",
+  "name": "Brecklin's Servicenter",
+  "trade": "Auto Repair",
+  "town": "Washington",
+  "plans": [
+   "Starter $300",
+   "Signature $750",
+   "Immersive $1,250"
+  ],
+  "seconds": 21.5,
+  "mb": 3.61,
+  "made": "2026-11-21"
+ },
+ {
+  "slug": "buck-s-tree-service-landscaping-peoria",
+  "name": "Buck's Tree Service & Landscaping",
+  "trade": "Tree Service",
+  "town": "Peoria",
+  "plans": [
+   "Starter $300",
+   "Signature $750",
+   "Immersive $1,250"
+  ],
+  "seconds": 21.5,
+  "mb": 3.61,
+  "made": "2026-11-21"
+ },
+ {
+  "slug": "carol-s-cleaning-service-peoria",
+  "name": "Carol's Cleaning Service",
+  "trade": "House Cleaning",
+  "town": "Peoria",
+  "plans": [
+   "Starter $300",
+   "Signature $750",
+   "Immersive $1,250"
+  ],
+  "seconds": 21.5,
+  "mb": 3.6,
+  "made": "2026-11-21"
+ },
+ {
+  "slug": "dmz-s-trees-canton",
+  "name": "DMZ's Trees",
+  "trade": "Tree Service",
+  "town": "Canton",
+  "plans": [
+   "Starter $300",
+   "Signature $750",
+   "Immersive $1,250"
+  ],
+  "seconds": 21.5,
+  "mb": 3.64,
+  "made": "2026-11-21"
+ },
+ {
+  "slug": "ellis-painting-eureka",
+  "name": "Ellis Painting",
+  "trade": "Painting",
+  "town": "Eureka",
+  "plans": [
+   "Starter $300",
+   "Signature $750",
+   "Immersive $1,250"
+  ],
+  "seconds": 21.5,
+  "mb": 3.63,
+  "made": "2026-11-21"
+ },
+ {
+  "slug": "j-p-painting-morton",
+  "name": "J P Painting",
+  "trade": "Painting",
+  "town": "Morton",
+  "plans": [
+   "Starter $300",
+   "Signature $750",
+   "Immersive $1,250"
+  ],
+  "seconds": 21.5,
+  "mb": 3.59,
+  "made": "2026-11-21"
+ },
+ {
+  "slug": "langley-automobile-industrial-rpr-springfield",
+  "name": "Langley Automobile & Industrial Rpr",
+  "trade": "Auto Repair",
+  "town": "Springfield",
+  "plans": [
+   "Starter $300",
+   "Signature $750",
+   "Immersive $1,250"
+  ],
+  "seconds": 21.5,
+  "mb": 3.61,
+  "made": "2026-11-21"
+ },
+ {
+  "slug": "pekin-alignment-auto-body-pekin",
+  "name": "Pekin Alignment & Auto Body",
+  "trade": "Auto Body",
+  "town": "Pekin",
+  "plans": [
+   "Starter $300",
+   "Signature $750",
+   "Immersive $1,250"
+  ],
+  "seconds": 21.5,
+  "mb": 3.59,
+  "made": "2026-11-21"
+ },
+ {
+  "slug": "r-w-stoneworks-washington",
+  "name": "R.W. Stoneworks",
+  "trade": "Hardscaping & Masonry",
+  "town": "Morton",
+  "plans": [
+   "Starter $300",
+   "Signature $750",
+   "Immersive $1,250"
+  ],
+  "seconds": 21.5,
+  "mb": 3.6,
+  "made": "2026-11-21"
+ }
+]

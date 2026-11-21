@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=450">
+<title>Reel stage · Nolan Day Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Figtree:wght@400;500;600;700;800&display=swap">
+<style>
+/* The reel stage. tools/reels/make_reel.js loads this page at 450x800 CSS px with a 2.4 device scale
+   (1080x1920 video) and calls R.frame(state) once per video frame, then screenshots it.
+   Every motion here is computed from the time it is handed, never from CSS transitions, so frames are exact. */
+:root{--acc:#E59A45;--accLite:#F1B56F;--deep:#12110F;--paper:#F3F1EC;--ink:#16181A;--blue:#2F5DFF}
+*{box-sizing:border-box}
+html,body{margin:0;background:#0B0C0E;overflow:hidden}
+body{width:450px;height:800px;font-family:Figtree,system-ui,sans-serif;color:#fff;-webkit-font-smoothing:antialiased}
+body.cover{height:450px}
+#v{position:relative;width:450px;height:100%;overflow:hidden;isolation:isolate;
+  background:linear-gradient(172deg,var(--deepMix) 0%,#0B0C0E 62%)}
+.glow{position:absolute;border-radius:50%;pointer-events:none;will-change:transform}
+#g1{width:520px;height:520px;right:-230px;top:-210px;background:radial-gradient(circle,color-mix(in srgb,var(--acc) 40%,transparent) 0%,color-mix(in srgb,var(--acc) 14%,transparent) 38%,transparent 68%)}
+#g2{width:480px;height:480px;left:-250px;bottom:-230px;background:radial-gradient(circle,color-mix(in srgb,var(--acc) 22%,transparent) 0%,color-mix(in srgb,var(--acc) 8%,transparent) 40%,transparent 68%)}
+#grain{position:absolute;inset:0;pointer-events:none;z-index:9;opacity:.045;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+/* fine survey grid, fades toward the bottom */
+#grid{position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background-image:linear-gradient(#ffffff08 1px,transparent 1px),linear-gradient(90deg,#ffffff08 1px,transparent 1px);background-size:30px 30px;
+  -webkit-mask-image:linear-gradient(#000 0%,transparent 70%);mask-image:linear-gradient(#000 0%,transparent 70%)}
+.mark{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:6px;background:var(--paper);color:var(--ink);
+  font:400 15px/1 "Instrument Serif",Georgia,serif;position:relative;flex:none}
+.mark::after{content:"";position:absolute;top:3px;right:3px;width:4px;height:4px;border-radius:50%;background:var(--blue)}
+.mask{display:inline-block;overflow:hidden;vertical-align:top;padding:0 .04em .08em;margin:0 -.04em -.08em}
+.mask>span{display:inline-block;will-change:transform}
+.layer{position:absolute;inset:0}
+
+/* ---------- intro ---------- */
+#intro{display:flex;flex-direction:column;justify-content:flex-start;padding:128px 34px 0}
+#intro .brandrow{display:flex;align-items:center;gap:10px;margin-bottom:46px}
+#intro .brandrow .mark{width:34px;height:34px;border-radius:9px;font-size:23px}
+#intro .brandrow .mark::after{top:5px;right:5px;width:6px;height:6px}
+#intro .brandrow b{font:700 11.5px/1 Figtree,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#ffffffc8}
+#intro .made{font:italic 400 30px/1 "Instrument Serif",Georgia,serif;color:#ffffffa6;margin:0 0 6px}
+#intro h1{font:400 58px/1.0 "Instrument Serif",Georgia,serif;letter-spacing:-.012em;margin:0;text-wrap:balance}
+#intro .rule{height:2px;width:120px;background:var(--accLite);margin:26px 0 20px;transform-origin:0 50%}
+#intro .sub{font:500 16px/1.45 Figtree,sans-serif;color:#ffffffb8;max-width:30ch;margin:0}
+#intro .trade{display:inline-flex;gap:8px;align-items:center;margin-top:22px;font:600 11px/1 Figtree,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#ffffff8c}
+#intro .trade i{width:6px;height:6px;border-radius:50%;background:var(--accLite)}
+#wires{position:absolute;left:0;right:0;bottom:46px;height:250px;display:flex;justify-content:center;gap:22px}
+#wires figure{margin:0;width:104px;display:flex;flex-direction:column;align-items:center;gap:12px;will-change:transform}
+#wires svg{display:block;overflow:visible}
+#wires figcaption{font:700 10.5px/1 Figtree,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#ffffffa0;white-space:nowrap}
+#wires figcaption b{color:#fff;font-weight:800;letter-spacing:.02em;margin-left:6px}
+
+/* ---------- site segments ---------- */
+#bar{position:absolute;left:22px;right:22px;top:14px;display:flex;gap:5px;z-index:5}
+#bar i{flex:1;height:3px;border-radius:3px;background:#ffffff2b;overflow:hidden;position:relative}
+#bar i b{position:absolute;inset:0;background:#fff;transform-origin:0 50%;transform:scaleX(0)}
+#top{position:absolute;left:24px;right:24px;top:24px;height:22px;display:flex;align-items:center;justify-content:space-between;gap:12px;z-index:5}
+#top .l{display:flex;align-items:center;gap:8px;font:700 10.5px/1 Figtree,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#ffffffd0}
+#top .r{font:italic 400 15px/1 "Instrument Serif",serif;color:#ffffffa8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px}
+#phone{position:absolute;left:24px;top:52px;width:402px;height:674px;border-radius:46px;background:#0A0B0D;padding:6px;transform-origin:50% 0;
+  box-shadow:0 0 0 1px #ffffff26 inset,0 0 0 1.5px #000,0 50px 90px -40px #000,0 30px 60px -30px color-mix(in srgb,var(--acc) 40%,transparent);will-change:transform}
+#scr{position:relative;width:390px;height:662px;border-radius:40px;overflow:hidden;background:#000}
+#status{position:absolute;left:0;right:0;top:0;height:22px;background:#000;z-index:3;display:flex;align-items:center;justify-content:space-between;padding:0 30px;font:600 11px/1 Figtree,sans-serif;color:#fff}
+#status .isl{position:absolute;left:50%;top:4px;transform:translateX(-50%);width:78px;height:15px;border-radius:10px;background:#16171A}
+#status .dots{display:flex;gap:3px;align-items:flex-end}
+#status .dots i{width:3px;background:#fff;border-radius:1px}
+#vp{position:absolute;left:0;top:22px;width:390px;height:640px;overflow:hidden;background:#0A0B0D}
+#site,#prev{position:absolute;left:0;top:0;width:390px;height:640px;border:0;display:block;background:#fff}
+#prev{z-index:2;object-fit:cover;visibility:hidden}
+#shade{position:absolute;inset:0;z-index:2;background:#000;opacity:0;pointer-events:none}
+#lt{position:absolute;left:28px;right:28px;top:704px;height:90px;z-index:5}
+#lt .ey{font:700 10.5px/1 Figtree,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#ffffff9a;display:flex;gap:8px;align-items:center}
+#lt .ey i{width:16px;height:1.5px;background:var(--accLite)}
+#lt .row{display:flex;align-items:baseline;gap:12px;margin-top:6px}
+#lt h2{font:400 36px/1 "Instrument Serif",Georgia,serif;margin:0;letter-spacing:-.01em}
+#lt .price{font:800 15px/1 Figtree,sans-serif;background:var(--paper);color:var(--ink);padding:7px 11px;border-radius:999px;transform-origin:0 50%;align-self:center}
+#lt p{margin:7px 0 0;font:500 14px/1.3 Figtree,sans-serif;color:#ffffffb3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#lt .sw{position:absolute;inset:0}
+/* a finger tap shown over the phone when the reel presses a control in a 3D scene */
+#tap,#ring{position:absolute;left:0;top:0;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;z-index:6;pointer-events:none;opacity:0;will-change:transform}
+#tap{background:#ffffff4d;border:2px solid #fff;box-shadow:0 6px 20px #0007}
+#ring{border:2px solid #fff}
+
+/* ---------- outro ---------- */
+#outro{display:flex;flex-direction:column;justify-content:flex-start;padding:318px 30px 0}
+#outro h2{font:400 62px/1 "Instrument Serif",Georgia,serif;margin:0 0 6px;letter-spacing:-.012em}
+#outro h2 em{font-style:italic;color:var(--accLite)}
+#outro .lede{font:500 16px/1.4 Figtree,sans-serif;color:#ffffffb0;margin:0 0 22px}
+#url{border-radius:18px;background:#ffffff0d;border:1px solid #ffffff22;padding:16px 18px 17px;position:relative;overflow:hidden}
+#url::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accLite)}
+#url .h{font:600 17px/1 Figtree,sans-serif;color:#ffffffc8;white-space:nowrap}
+#url .s{font:700 20px/1.2 Figtree,sans-serif;color:#fff;margin-top:8px;white-space:nowrap}
+#url .caret{display:inline-block;width:2px;height:1.05em;background:var(--accLite);vertical-align:-.15em;margin-left:2px}
+#url small{display:block;margin-bottom:9px;font:700 10px/1 Figtree,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#ffffff80}
+#promise{list-style:none;padding:0;margin:24px 0 0;display:grid;gap:12px}
+#promise li{display:flex;gap:12px;align-items:flex-start;font:600 17.5px/1.3 Figtree,sans-serif}
+#oFan{position:absolute;left:0;right:0;top:40px;height:250px}
+#oFan .ph{position:absolute;top:10px;width:124px;height:200px;border-radius:19px;background:#0A0B0D;padding:3px;box-shadow:0 0 0 1px #ffffff24 inset,0 26px 40px -18px #000;will-change:transform}
+#oFan .ph img{width:100%;height:100%;object-fit:cover;object-position:top;border-radius:16px;display:block;background:#1a1a1a}
+#promise li svg{flex:none;margin-top:1px}
+#foot{position:absolute;left:30px;right:30px;bottom:34px;display:flex;align-items:center;gap:10px;font:600 12px/1.3 Figtree,sans-serif;color:#ffffff99}
+#foot .mark{width:26px;height:26px;font-size:18px;border-radius:7px}
+
+/* ---------- cover (1080x1080) ---------- */
+#cover{display:none;padding:30px 30px 0}
+body.cover #cover{display:block}
+body.cover #intro,body.cover #site-ui,body.cover #outro{display:none!important}
+#cover .brandrow{display:flex;align-items:center;gap:9px;font:700 10.5px/1 Figtree,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#ffffffc8}
+#cover .brandrow .mark{width:26px;height:26px;font-size:18px;border-radius:7px}
+#cover .made{font:italic 400 22px/1 "Instrument Serif",serif;color:#ffffffa6;margin:26px 0 4px}
+#cover h1{font:400 46px/1 "Instrument Serif",Georgia,serif;margin:0;letter-spacing:-.01em;max-width:390px;text-wrap:balance}
+#cover .n{position:absolute;right:30px;top:30px;font:700 10.5px/1 Figtree,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#ffffff8c}
+#cover .sub{font:500 13.5px/1.4 Figtree,sans-serif;color:#ffffffa8;margin:12px 0 0;max-width:34ch}
+#fan{position:absolute;left:0;right:0;bottom:-70px;height:300px}
+#fan .ph{position:absolute;bottom:0;width:168px;height:271px;border-radius:24px;background:#0A0B0D;padding:4px;box-shadow:0 0 0 1px #ffffff24 inset,0 30px 50px -20px #000}
+#fan .ph img{width:100%;height:100%;object-fit:cover;object-position:top;border-radius:20px;display:block;background:#222}
+#fan .ph span{position:absolute;left:50%;top:-14px;transform:translate(-50%,-100%);font:800 12px/1 Figtree,sans-serif;background:var(--paper);color:var(--ink);padding:6px 10px;border-radius:999px;white-space:nowrap}
+#fan .play{position:absolute;left:50%;top:-6px;display:none}
+</style>
+</head>
+<body>
+<div id="v">
+  <div class="glow" id="g1"></div><div class="glow" id="g2"></div><div id="grid"></div>
+
+  <section class="layer" id="intro">
+    <div class="brandrow" id="iBrand"><span class="mark">N</span><b>Nolan Day Studio</b></div>
+    <p class="made"><span class="mask"><span id="iMade">Made for</span></span></p>
+    <h1 id="iName"></h1>
+    <div class="rule" id="iRule"></div>
+    <p class="sub" id="iSub"></p>
+    <div class="trade" id="iTrade"><i></i><span></span></div>
+    <div id="wires"></div>
+  </section>
+
+  <section class="layer" id="site-ui">
+    <div id="bar"></div>
+    <div id="top"><span class="l"><span class="mark">N</span>Nolan Day Studio</span><span class="r" id="tFor"></span></div>
+    <div id="phone"><div id="scr">
+      <div id="status"><span>9:41</span><span class="isl"></span><span class="dots"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span></div>
+      <div id="vp"><iframe id="site" title="Website preview" scrolling="no"></iframe><img id="prev" alt=""><div id="shade"></div></div>
+    </div></div>
+    <div id="lt"></div>
+    <div id="tap"></div><div id="ring"></div>
+  </section>
+
+  <section class="layer" id="outro">
+    <div id="oFan"></div>
+    <h2 id="oH"></h2>
+    <p class="lede" id="oLede"></p>
+    <div id="url"><small>Open on your phone</small><div class="h" id="uH"></div><div class="s"><span id="uS"></span><span class="caret" id="caret"></span></div></div>
+    <ul id="promise">
+      <li><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10" fill="none" stroke="var(--accLite)" stroke-width="1.6"/><path d="M6.5 11.3l3 3 6-6.4" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Live the same day you say yes.</span></li>
+      <li><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10" fill="none" stroke="var(--accLite)" stroke-width="1.6"/><path d="M6.5 11.3l3 3 6-6.4" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Pay only after you approve.</span></li>
+    </ul>
+    <div id="foot"><span class="mark">N</span><span>Nolan Day Studio · Morton, Illinois</span></div>
+  </section>
+
+  <section class="layer" id="cover">
+    <div class="brandrow"><span class="mark">N</span>Nolan Day Studio</div>
+    <span class="n" id="cN"></span>
+    <p class="made">Made for</p>
+    <h1 id="cName"></h1>
+    <p class="sub" id="cSub"></p>
+    <div id="fan"></div>
+  </section>
+  <div id="grain"></div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var $ = function (id) { return document.getElementById(id); };
+  var clamp = function (v, a, b) { return Math.max(a, Math.min(b, v)); };
+  var E = {
+    outCubic: function (t) { return 1 - Math.pow(1 - t, 3); },
+    outExpo: function (t) { return t >= 1 ? 1 : 1 - Math.pow(2, -10 * t); },
+    inOutCubic: function (t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; },
+    inCubic: function (t) { return t * t * t; },
+    outBack: function (t) { var c1 = 1.5, c3 = c1 + 1; return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2); }
+  };
+  /* progress of t through [a,b], eased */
+  function p(t, a, b, ease) { var x = clamp((t - a) / (b - a), 0, 1); return (E[ease] || E.outCubic)(x); }
+  function set(el, ty, op, extra) { el.style.transform = "translate3d(0," + ty.toFixed(2) + "px,0)" + (extra || ""); if (op != null) el.style.opacity = op.toFixed(3); }
+  function words(el, text) {
+    el.textContent = "";
+    text.split(/\s+/).forEach(function (w, i, a) {
+      var m = document.createElement("span"); m.className = "mask"; var s = document.createElement("span"); s.textContent = w; m.appendChild(s); el.appendChild(m);
+      if (i < a.length - 1) el.appendChild(document.createTextNode(" "));
+    });
+    return Array.prototype.slice.call(el.querySelectorAll(".mask>span"));
+  }
+  /* shrink a block's font until it fits the box (lines and width) */
+  function fit(el, maxPx, minPx, maxLines, maxW) {
+    for (var s = maxPx; s >= minPx; s -= 1) {
+      el.style.fontSize = s + "px";
+      var lh = parseFloat(getComputedStyle(el).lineHeight) || s;
+      if (el.scrollHeight <= lh * maxLines + 4 && (!maxW || el.scrollWidth <= maxW)) return s;
+    }
+    return minPx;
+  }
+  function fitLine(el, maxPx, minPx, maxW) {
+    for (var s = maxPx; s >= minPx; s -= .5) { el.style.fontSize = s + "px"; if (el.getBoundingClientRect().width <= maxW) return s; }
+    return minPx;
+  }
+  function lum(h) {
+    h = String(h || "").trim().replace("#", ""); if (h.length === 3) h = h.split("").map(function (c) { return c + c; }).join("");
+    var n = parseInt(h.slice(0, 6), 16); if (!isFinite(n)) return -1;
+    return [n >> 16 & 255, n >> 8 & 255, n & 255].map(function (v) { v /= 255; return v <= .03928 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); })
+      .reduce(function (a, v, i) { return a + v * [.2126, .7152, .0722][i]; }, 0);
+  }
+  function mix(h, w, k) { /* mix hex h toward hex w by k */
+    var a = parseInt(h.replace("#", ""), 16), b = parseInt(w.replace("#", ""), 16);
+    var r = function (x, y) { return Math.round(x + (y - x) * k); };
+    var c = [r(a >> 16 & 255, b >> 16 & 255), r(a >> 8 & 255, b >> 8 & 255), r(a & 255, b & 255)];
+    return "#" + c.map(function (v) { return ("0" + v.toString(16)).slice(-2); }).join("");
+  }
+
+  var C = null, LT = [], iNameW = [], oHW = [], urlFull = "", WF = [];
+  /* A line-drawn phone per version for the intro: what each plan looks like, sketched. */
+  function wire(k, label, price) {
+    var d = function (x) { return '<path class="d" pathLength="1" d="' + x + '"/>'; };
+    var art = k === 0
+      ? '<rect class="f" x="10" y="36" width="84" height="54" rx="7" fill="var(--accLite)" opacity=".16"/>' + d("M22 70l14-14 10 9 12-15 14 20")
+      : k === 1
+      ? '<rect class="f" x="10" y="36" width="84" height="54" rx="7" fill="#fff" opacity=".07"/>' + d("M14 84c18-34 44-44 76-46") + d("M14 70c16-20 36-26 58-26") + '<circle class="f" cx="76" cy="52" r="6" fill="var(--accLite)"/>'
+      : '<rect class="f" x="10" y="36" width="84" height="54" rx="7" fill="var(--accLite)" opacity=".1"/>' + d("M52 44l20 11v22l-20 11-20-11V55z") + d("M32 55l20 11 20-11M52 66v22");
+    return '<figure><svg width="104" height="200" viewBox="0 0 104 200" fill="none" stroke-linecap="round" stroke-linejoin="round">' +
+      '<rect class="d o" pathLength="1" x="1" y="1" width="102" height="198" rx="17" stroke="#ffffffa8" stroke-width="1.5"/>' +
+      '<rect class="f" x="40" y="8" width="24" height="7" rx="3.5" fill="#ffffff40"/>' +
+      '<g stroke="#ffffffcc" stroke-width="1.6">' + d("M12 24h26") + '</g><circle class="f" cx="88" cy="24" r="4" fill="var(--accLite)"/>' +
+      '<g stroke="var(--accLite)" stroke-width="1.6">' + art + '</g>' +
+      '<g stroke="#fff" stroke-width="4">' + d("M14 106h58") + d("M14 117h40") + '</g>' +
+      '<g stroke="#ffffff55" stroke-width="2">' + d("M14 133h74") + d("M14 141h68") + d("M14 149h52") + '</g>' +
+      '<rect class="f" x="14" y="162" width="44" height="14" rx="7" fill="var(--accLite)"/>' +
+      '</svg><figcaption>' + label + '<b>' + price + '</b></figcaption></figure>';
+  }
+  var R = window.R = {};
+
+  R.setup = function (cfg) {
+    C = cfg;
+    var root = document.documentElement.style, acc = /^#[0-9a-f]{3,8}$/i.test(cfg.acc || "") ? cfg.acc : "#E59A45";
+    if (acc.length === 4) acc = "#" + acc.slice(1).split("").map(function (c) { return c + c; }).join("");
+    var L = lum(acc);
+    /* lift a dark brand color toward white just enough to read on the dark stage (about 3.9:1 or better) */
+    var accLite = acc.slice(0, 7); for (var k = .06; lum(accLite) < .16 && k <= .7; k += .06) accLite = mix(acc.slice(0, 7), "#ffffff", k);
+    var deep = /^#[0-9a-f]{6}$/i.test(cfg.deep || "") && lum(cfg.deep) < .06 ? cfg.deep : mix(acc.slice(0, 7), "#0B0C0E", .82);
+    root.setProperty("--acc", acc.slice(0, 7)); root.setProperty("--accLite", accLite.slice(0, 7)); root.setProperty("--deep", deep);
+    root.setProperty("--deepMix", mix(deep, "#0B0C0E", .25));
+    document.body.classList.toggle("cover", !!cfg.cover);
+
+    /* intro */
+    iNameW = words($("iName"), cfg.name);
+    fit($("iName"), 62, 34, 3, 382);
+    var n = cfg.plans.length;
+    $("iSub").textContent = n > 1 ? (n === 3 ? "Three" : "Two") + " versions of your website, built before asking for anything." : "Your new website, built before asking for anything.";
+    $("iTrade").querySelector("span").textContent = [cfg.trade, cfg.town].filter(Boolean).join(" · ");
+    var wr = $("wires"); wr.innerHTML = cfg.plans.map(function (pl, k) { return wire(["essential", "signature", "immersive"].indexOf(pl.key) >= 0 ? ["essential", "signature", "immersive"].indexOf(pl.key) : k, pl.label, pl.price); }).join("");
+    WF = Array.prototype.slice.call(wr.children);
+    /* keep the sketches clear of a long name: shrink them into whatever room is left */
+    var bottom = $("iTrade").getBoundingClientRect().bottom, room = 800 - 40 - bottom - 26, sc = clamp(room / 226, .55, 1);
+    wr.style.height = (226 * sc) + "px"; wr.style.bottom = "40px"; wr.style.gap = (22 * sc) + "px";
+    WF.forEach(function (f) { f.style.zoom = sc; });
+
+    /* site UI */
+    $("tFor").textContent = "for " + cfg.short;
+    var bar = $("bar"); bar.textContent = "";
+    cfg.plans.forEach(function () { var i = document.createElement("i"); i.appendChild(document.createElement("b")); bar.appendChild(i); });
+    var lt = $("lt"); lt.textContent = ""; LT = [];
+    cfg.plans.forEach(function (pl, k) {
+      var sw = document.createElement("div"); sw.className = "sw";
+      sw.innerHTML = '<div class="ey"><i></i><span></span></div><div class="row"><h2><span class="mask"><span></span></span></h2><span class="price"></span></div><p></p>';
+      sw.querySelector(".ey span").textContent = "Version " + (k + 1) + " of " + n;
+      sw.querySelector("h2 .mask>span").textContent = pl.label;
+      sw.querySelector(".price").textContent = pl.price;
+      sw.querySelector("p").textContent = pl.line || "";
+      lt.appendChild(sw); LT.push(sw);
+    });
+
+    /* outro */
+    oHW = words($("oH"), n === 3 ? "See all three" : n === 2 ? "See both" : "See it live");
+    var last = oHW[oHW.length - 1]; var em = document.createElement("em"); em.textContent = last.textContent; last.textContent = ""; last.appendChild(em);
+    $("oLede").textContent = n > 1 ? "Tap through every version on your own phone." : "Open it on your own phone.";
+    $("uH").textContent = cfg.urlHost; urlFull = cfg.urlQuery;
+    $("uS").textContent = urlFull; fitLine($("uS"), 22, 10, 330);
+
+    /* cover */
+    $("cName").textContent = cfg.name; fit($("cName"), 48, 28, 2, 390);
+    $("cSub").textContent = n > 1 ? (n === 3 ? "Three" : "Two") + " versions of a new website, built before asking for anything." : "A new website, built before asking for anything.";
+    $("cN").textContent = n > 1 ? n + " versions" : "";
+    return true;
+  };
+
+  /* The hero shots taken during the recording: a fan of phones for the outro and for the cover. */
+  R.heroShots = function (shots) {
+    var fan = $("oFan"); fan.textContent = ""; var n = shots.length;
+    var pos = n === 3 ? [[-9, 43, 22], [0, 163, 0], [9, 283, 22]] : n === 2 ? [[-6, 96, 10], [6, 230, 10]] : [[0, 163, 0]];
+    shots.forEach(function (s, i) {
+      var d = document.createElement("div"); d.className = "ph"; d.style.left = pos[i][1] + "px"; d.style.zIndex = i === 1 ? 3 : 2;
+      d.dataset.r = pos[i][0]; d.dataset.y = pos[i][2];
+      var im = document.createElement("img"); im.src = s.src; d.appendChild(im); fan.appendChild(d);
+    });
+    return R.coverShots(shots);
+  };
+  R.coverShots = function (shots) {
+    var fan = $("fan"); fan.textContent = ""; var n = shots.length;
+    var pos = n === 3 ? [[-10, 27, 34], [0, 141, 0], [10, 255, 34]] : n === 2 ? [[-7, 80, 14], [7, 202, 14]] : [[0, 141, 0]];
+    shots.forEach(function (s, i) {
+      var d = document.createElement("div"); d.className = "ph"; var q = pos[i];
+      d.style.left = q[1] + "px"; d.style.transform = "translateY(" + q[2] + "px) rotate(" + q[0] + "deg)"; d.style.zIndex = i === 1 ? 3 : 2;
+      var im = document.createElement("img"); im.src = s.src; d.appendChild(im);
+      var tag = document.createElement("span"); tag.textContent = s.label + " " + s.price; d.appendChild(tag);
+      fan.appendChild(d);
+    });
+    return Promise.all(Array.prototype.map.call(document.querySelectorAll("#fan img, #oFan img"), function (im) { return im.decode().catch(function () {}); }));
+  };
+
+  /* CSS animations and transitions inside the site run on the compositor's real clock, which the recorder
+     cannot slow down. So each one is paused and stepped by hand: dt ms per video frame, from 0 when first seen.
+     reset=true replays everything from the start (used when a version first comes on screen). */
+  R.seek = function (dt, reset) {
+    var w = $("site").contentWindow, d; try { d = w.document; } catch (e) { return 0; }
+    if (!d || !d.getAnimations) return 0;
+    var n = 0;
+    d.getAnimations().forEach(function (a) {
+      try {
+        if (a.timeline && a.timeline !== d.timeline) return;   /* scroll-driven: follows the scroll by itself */
+        if (a.__nds == null || reset) { a.__nds = 0; a.__done = false; } else if (a.__done) return; else a.__nds += dt;
+        if (a.playState !== "paused") a.pause();
+        a.currentTime = a.__nds; n++;
+        var end = a.effect && a.effect.getComputedTiming ? a.effect.getComputedTiming().endTime : Infinity;
+        if (a.__nds >= end) a.__done = true;   /* parked on its last frame: nothing left to step */
+      } catch (e) { /* an animation that went away mid-frame */ }
+    });
+    return n;
+  };
+
+  /* The scene's first control (Raise the lift, Trim a branch, a paint swatch...) if one shows on the first screen. */
+  var tapEl = null;
+  R.tapInfo = function () {
+    var w = $("site").contentWindow, d = w.document; tapEl = null;
+    var c = d.querySelector("#scBtns button, [data-scene] .sc-ui button, .scene button[type=button]");
+    if (!c) return null;
+    var r = c.getBoundingClientRect();
+    if (r.width < 10 || r.top < 60 || r.bottom > w.innerHeight - 4) return null;
+    var hit = d.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);   /* not hidden under the call bar */
+    if (hit !== c && !c.contains(hit)) return null;
+    tapEl = c; return { x: r.left + r.width / 2, y: r.top + r.height / 2, label: (c.textContent || "").trim().slice(0, 40) };
+  };
+  R.tapClick = function () { if (tapEl) { tapEl.click(); return true; } return false; };
+
+  R.scroll = function (y) { var w = $("site").contentWindow; try { w.scrollTo({ top: y, left: 0, behavior: "instant" }); return w.scrollY; } catch (e) { return -1; } };
+
+  /* Where the site's sections start, so the scroll can come to rest on them instead of mid-paragraph. */
+  R.measure = function () {
+    var w = $("site").contentWindow, d = w.document, se = d.scrollingElement || d.documentElement;
+    var max = Math.max(0, se.scrollHeight - w.innerHeight), tops = [];
+    var hd = d.querySelector("header, .hd, .top, nav"), hh = 0;
+    if (hd) { var cs = w.getComputedStyle(hd); if (cs.position === "fixed" || cs.position === "sticky") hh = Math.min(90, hd.getBoundingClientRect().height); }
+    d.querySelectorAll("main > *, body > section, main section, footer, .band, [id]").forEach(function (el) {
+      var r = el.getBoundingClientRect(); if (r.height < 160 || r.width < 300) return;
+      tops.push(Math.round(r.top + w.scrollY - hh));
+    });
+    tops = tops.filter(function (v) { return v > 40 && v < max; }).sort(function (a, b) { return a - b; });
+    return { max: max, vh: w.innerHeight, tops: tops, imgs: d.images.length, canvas: !!d.querySelector("canvas"), coarse: w.matchMedia("(pointer: coarse)").matches, framed: d.documentElement.classList.contains("framed") };
+  };
+
+  /* Wait for every picture on the page, lazy ones included, so nothing pops in mid-scroll. */
+  R.loadImages = function () {
+    var d = $("site").contentWindow.document;
+    d.querySelectorAll("img[loading=lazy]").forEach(function (im) { im.loading = "eager"; });
+    var ims = Array.prototype.slice.call(d.images);
+    return Promise.all(ims.map(function (im) { return im.complete ? 0 : new Promise(function (r) { im.addEventListener("load", r, { once: true }); im.addEventListener("error", r, { once: true }); }); }))
+      .then(function () { return d.fonts ? d.fonts.ready : 0; }).then(function () { return ims.length; });
+  };
+
+  /* Cut one element's box out of a full-frame capture (the frame is the whole 450x800 page). */
+  R.crop = function (src, sel) {
+    var r = document.querySelector(sel).getBoundingClientRect();
+    return new Promise(function (res) {
+      var im = new Image();
+      im.onload = function () {
+        var k = im.naturalWidth / 450, c = document.createElement("canvas");
+        c.width = Math.round(r.width * k); c.height = Math.round(r.height * k);
+        c.getContext("2d").drawImage(im, r.left * k, r.top * k, r.width * k, r.height * k, 0, 0, c.width, c.height);
+        res(c.toDataURL("image/jpeg", .9));
+      };
+      im.onerror = function () { res(""); };
+      im.src = src;
+    });
+  };
+
+  R.setShot = function (src) { var im = $("prev"); im.src = src || ""; return src ? im.decode().catch(function () {}) : Promise.resolve(); };
+
+  /* One video frame. st = {scene, t (scene time), T (reel time), seg, segT, segDur, intoOutro} */
+  R.frame = function (st) {
+    var T = st.T;
+    /* the backdrop breathes slowly the whole time */
+    $("g1").style.transform = "translate3d(" + (Math.sin(T * .55) * 26).toFixed(1) + "px," + (Math.cos(T * .4) * 22).toFixed(1) + "px,0)";
+    $("g2").style.transform = "translate3d(" + (Math.cos(T * .45) * 30).toFixed(1) + "px," + (Math.sin(T * .5) * 18).toFixed(1) + "px,0)";
+    /* visibility, not display: the site iframe keeps its real 390x584 viewport while hidden */
+    ["intro", "site", "outro"].forEach(function (k) { $(k === "site" ? "site-ui" : k).style.visibility = st.scene === k ? "visible" : "hidden"; });
+    if (st.scene === "intro") intro(st.t, st.dur);
+    if (st.scene === "site") site(st);
+    if (st.scene === "outro") outro(st.t, st.dur);
+    return true;
+  };
+
+  function intro(t, D) {
+    var out = p(t, D - .32, D, "inCubic");
+    var b = p(t, .02, .42, "outBack"); set($("iBrand"), (1 - b) * 14 - out * 26, clamp(b * 1.4, 0, 1) * (1 - out));
+    var m = p(t, .2, .6, "outExpo"); set($("iMade"), (1 - m) * 40, null);
+    $("iMade").parentNode.parentNode.style.opacity = (1 - out).toFixed(3);
+    iNameW.forEach(function (w, i) { var k = p(t, .34 + i * .065, .9 + i * .065, "outExpo"); set(w, (1 - k) * 74, null); });
+    $("iName").style.transform = "translate3d(0," + (-out * 30).toFixed(1) + "px,0)"; $("iName").style.opacity = (1 - out).toFixed(3);
+    var r = p(t, .75, 1.25, "inOutCubic"); $("iRule").style.transform = "scaleX(" + r.toFixed(3) + ")"; $("iRule").style.opacity = (1 - out).toFixed(3);
+    var s = p(t, .95, 1.4, "outCubic"); set($("iSub"), (1 - s) * 12 - out * 30, s * (1 - out));
+    var tr = p(t, 1.1, 1.5, "outCubic"); set($("iTrade"), (1 - tr) * 10 - out * 30, tr * (1 - out));
+    WF.forEach(function (f, i) {
+      var a = p(t, .32 + i * .1, .8 + i * .1, "outCubic"), ln = p(t, .45 + i * .1, 1.15 + i * .1, "inOutCubic"), fl = p(t, .9 + i * .1, 1.3 + i * .1, "outCubic");
+      var o = p(t, D - .36 + i * .03, D, "inCubic");
+      f.style.transform = "translate3d(0," + ((1 - a) * 40 - o * 46 + Math.sin(t * 2.2 + i) * 2).toFixed(2) + "px,0)";
+      f.style.opacity = (clamp(a * 1.6, 0, 1) * (1 - o)).toFixed(3);
+      f.querySelectorAll(".d").forEach(function (q) { var l = q.classList.contains("o") ? p(t, .32 + i * .1, 1.0 + i * .1, "inOutCubic") : ln; q.style.strokeDasharray = "1 1"; q.style.strokeDashoffset = (1 - l).toFixed(4); });
+      f.querySelectorAll(".f").forEach(function (q) { if (q.__o == null) q.__o = q.getAttribute("opacity") ? +q.getAttribute("opacity") : 1; q.style.opacity = (fl * q.__o).toFixed(3); });
+      f.querySelector("figcaption").style.opacity = p(t, 1.0 + i * .1, 1.4 + i * .1, "outCubic").toFixed(3);
+    });
+  }
+
+  function site(st) {
+    var seg = st.seg, t = st.segT, D = st.segDur, n = LT.length;
+    /* story bar */
+    Array.prototype.forEach.call($("bar").children, function (el, i) { var f = i < seg ? 1 : i > seg ? 0 : clamp(t / D, 0, 1); el.firstChild.style.transform = "scaleX(" + f.toFixed(4) + ")"; });
+    /* the phone rises in on the first version and sinks away after the last */
+    var rise = seg === 0 ? p(t, 0, .6, "outCubic") : 1;
+    var sink = seg === n - 1 ? p(t, D - .36, D, "inCubic") : 0;
+    var ty = (1 - rise) * 170 + sink * 90, sc = (.93 + .07 * rise - .05 * sink) * .95;
+    $("phone").style.transform = "translate3d(0," + ty.toFixed(2) + "px,0) scale(" + sc.toFixed(4) + ")";
+    $("phone").style.opacity = (clamp(rise * 1.6, 0, 1) * (1 - sink)).toFixed(3);
+    var chrome = (seg === 0 ? p(t, .1, .5, "outCubic") : 1) * (1 - sink);
+    $("top").style.opacity = chrome.toFixed(3); $("bar").style.opacity = chrome.toFixed(3);
+    /* switching versions: the last frame of the previous site slides off to the left as the new one comes in */
+    var sw = seg > 0 ? p(t, 0, .5, "inOutCubic") : 1, prev = $("prev"), frame = $("site");
+    if (seg > 0 && sw < 1) {
+      prev.style.visibility = "visible";
+      prev.style.transform = "translate3d(" + (-sw * 390).toFixed(1) + "px,0,0) scale(" + (1 - .08 * sw).toFixed(4) + ")";
+      prev.style.filter = "brightness(" + (1 - .5 * sw).toFixed(3) + ")";
+      frame.style.transform = "translate3d(" + ((1 - sw) * 390).toFixed(1) + "px,0,0)";
+    } else { prev.style.visibility = "hidden"; frame.style.transform = "none"; }
+    /* the tap */
+    var tp = $("tap"), rg = $("ring");
+    if (st.tap) {
+      var r = $("site").getBoundingClientRect(), k = r.width / 390, X = r.left + st.tap.x * k, Y = r.top + st.tap.y * k, t0 = st.tap.t0;
+      var a = p(t, t0, t0 + .25, "outCubic"), dn = p(t, t0 + .28, t0 + .4, "outCubic"), up = p(t, t0 + .42, t0 + .56, "outBack"), f = p(t, t0 + .75, t0 + 1.05, "inCubic");
+      var sc = (1.5 - .5 * a) * (1 - .18 * dn + .18 * up);
+      tp.style.transform = "translate3d(" + X.toFixed(1) + "px," + Y.toFixed(1) + "px,0) scale(" + sc.toFixed(3) + ")"; tp.style.opacity = (a * (1 - f)).toFixed(3);
+      var g = p(t, t0 + .38, t0 + .95, "outCubic");
+      rg.style.transform = "translate3d(" + X.toFixed(1) + "px," + Y.toFixed(1) + "px,0) scale(" + (1 + 1.6 * g).toFixed(3) + ")"; rg.style.opacity = (t > t0 + .38 ? .9 * (1 - g) : 0).toFixed(3);
+    } else { tp.style.opacity = "0"; rg.style.opacity = "0"; }
+    /* lower third */
+    LT.forEach(function (el, i) {
+      if (i !== seg) { el.style.display = "none"; return; }
+      el.style.display = "block";
+      var a = p(t, seg === 0 ? .25 : .18, (seg === 0 ? .25 : .18) + .5, "outExpo"), o = p(t, D - .28, D, "inCubic");
+      var ey = el.querySelector(".ey"), h = el.querySelector("h2 .mask>span"), pr = el.querySelector(".price"), ln = el.querySelector("p");
+      set(ey, (1 - a) * 10 - o * 8, a * (1 - o));
+      set(h, (1 - a) * 46 - o * 46, null);
+      var pk = p(t, (seg === 0 ? .45 : .38), (seg === 0 ? .45 : .38) + .42, "outBack");
+      pr.style.transform = "scale(" + (.6 + .4 * pk).toFixed(3) + ")"; pr.style.opacity = (clamp(pk * 1.5, 0, 1) * (1 - o)).toFixed(3);
+      var lk = p(t, (seg === 0 ? .55 : .48), (seg === 0 ? .55 : .48) + .45, "outCubic"); set(ln, (1 - lk) * 8, lk * (1 - o));
+    });
+  }
+
+  function outro(t, D) {
+    Array.prototype.forEach.call($("oFan").children, function (ph, i) {
+      /* the phones settle into a fan above the text: a short drop and a turn, never crossing the words */
+      var k = p(t, .05 + i * .09, .75 + i * .09, "outCubic"), r = +ph.dataset.r, y0 = +ph.dataset.y;
+      ph.style.transform = "translate3d(0," + (y0 - (1 - k) * 46 + Math.sin(t * 1.8 + i * 1.3) * 3).toFixed(2) + "px,0) rotate(" + (r * k).toFixed(2) + "deg) scale(" + (.86 + .14 * k).toFixed(4) + ")";
+      ph.style.opacity = clamp(k * 1.4, 0, 1).toFixed(3);
+    });
+    oHW.forEach(function (w, i) { var k = p(t, .05 + i * .08, .65 + i * .08, "outExpo"); set(w, (1 - k) * 80, null); });
+    var l = p(t, .35, .75, "outCubic"); set($("oLede"), (1 - l) * 12, l);
+    var u = p(t, .45, .85, "outCubic"); set($("url"), (1 - u) * 20, u);
+    $("uH").style.opacity = p(t, .55, .8, "outCubic").toFixed(3);
+    /* the address types itself out */
+    var k = Math.round(p(t, .7, 1.5, "inOutCubic") * urlFull.length);
+    $("uS").textContent = urlFull.slice(0, k);
+    $("caret").style.opacity = (t < 1.5 ? 1 : (Math.floor((t - 1.5) / .45) % 2 ? 0 : 1)).toString();
+    Array.prototype.forEach.call($("promise").children, function (li, i) { var q = p(t, 1.25 + i * .16, 1.7 + i * .16, "outCubic"); set(li, (1 - q) * 14, q); });
+    var f = p(t, 1.6, 2.05, "outCubic"); set($("foot"), (1 - f) * 10, f);
+  }
+})();
+</script>
+</body>
+</html>
