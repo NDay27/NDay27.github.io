@@ -2,7 +2,7 @@
 // t1250.js turns scroll into a state (camera keys, light, trade values); this file draws it on the Harlow engine.
 import {makeWorld, reduce, small} from "../../harlow/assets/world.js";
 import {makeHouse} from "../../harlow/assets/house.js";
-import {lawn, yardTree, flatwork, workTruck, acUnit, yardLine, fixList, stumpGrind} from "./yard.js";
+import {lawn, yardTree, flatwork, workTruck, acUnit, yardLine, fixList, stumpGrind, towJob} from "./yard.js";
 
 // camera keys: position, target, field of view (desktop)
 const K = {
@@ -41,7 +41,10 @@ K.handy = {hero: [[-5.2, 2.0, 15], [-1.4, 2.0, 6.4], 42], close: [[-3.6, 1.6, 12
 // stump grinding: an old stump in the side yard, ground out and grown back in
 K.stump = {hero: [[-15.2, 1.9, 9.6], [-10.6, .6, 2.9], 40], close: [[-14.4, 1.5, 7.8], [-10.9, .4, 2.9], 40], dusk: [[-19, 2.6, 14], [-8, 1.6, 2], 40],
            cfg: [[-15, 1.8, 9.2], [-10.8, .5, 2.9], 42]};
-const HOME = {wash: "wash", concrete: "concrete", hvac: "ac", plumb: "pipe", handy: "list", stump: "stump"};
+// towing: a pickup broken down at the curb, a rollback pulls in, tilts its bed and winches it up
+K.tow = {hero: [[3, 2.4, 48], [-3.5, 1.2, 35.4], 44], close: [[-12, 2.2, 45], [-5.5, 1.0, 35.4], 44], dusk: [[3, 2.4, 48], [-3.5, 1.2, 35.4], 44],
+         cfg: [[-10, 2.4, 47], [-3.5, 1.1, 35.4], 44]};
+const HOME = {wash: "wash", concrete: "concrete", hvac: "ac", plumb: "pipe", handy: "list", stump: "stump", tow: "tow"};
 
 // The camera rig every trade shares: blend between two keys, drift a little, frame the subject clear of the captions.
 function makeRig(world, keys, HB) {
@@ -180,9 +183,9 @@ export async function start(HB) {
   // home services: the drive overlay, the crew's truck, and (washing) grime on the siding
   let drive = null; const hcur = {fix: 0, house: 0}, GRIME = {siding: new THREE.Color(0xa9a68f), trim: new THREE.Color(0x6f6d60)}, CLEAN = {};
   if (HOME[g]) {
-    drive = HOME[g] === "ac" ? acUnit(world) : HOME[g] === "list" ? fixList(world) : line || flatwork(world, {kind: HOME[g]});
     const font = getComputedStyle(document.documentElement).getPropertyValue("--serif").split(",")[0].trim() || "sans-serif";
-    await workTruck(world, {sign: HB.name || "", font, x: {ac: -11, pipe: -6, list: 1.5}[HOME[g]] ?? -1.5, z: 35.4, ry: Math.PI / 2});
+    drive = HOME[g] === "tow" ? await towJob(world, {sign: HB.name || "", font}) : HOME[g] === "ac" ? acUnit(world) : HOME[g] === "list" ? fixList(world) : line || flatwork(world, {kind: HOME[g]});
+    if (HOME[g] !== "tow") await workTruck(world, {sign: HB.name || "", font, x: {ac: -11, pipe: -6, list: 1.5}[HOME[g]] ?? -1.5, z: 35.4, ry: Math.PI / 2});
     CLEAN.siding = house.M.siding.color.clone(); CLEAN.trim = house.M.trim.color.clone();
   }
   let hfirst = true;
@@ -201,7 +204,7 @@ export async function start(HB) {
     if (drive) {
       const k = hfirst || reduce ? 1 : Math.min(1, dt * 4.5); hfirst = false;
       for (const n in hcur) { const to = P[n] ?? hcur[n]; hcur[n] += (to - hcur[n]) * k; if (Math.abs(to - hcur[n]) < .002) hcur[n] = to; }
-      drive.set({fix: hcur.fix});
+      drive.set({fix: hcur.fix, t});
       if (g === "wash") { house.M.siding.color.copy(GRIME.siding).lerp(CLEAN.siding, hcur.house); house.M.trim.color.copy(GRIME.trim).lerp(CLEAN.trim, hcur.house); }
     }
     if (g === "painting") {

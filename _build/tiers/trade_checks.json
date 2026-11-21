@@ -6782,5 +6782,35 @@
   "trade": "Janitorial service",
   "src": "Google listing category",
   "on": "2026-11-21"
+ },
+ "classic-towing-humboldt-tn": {
+  "v": "towing",
+  "trade": "Towing service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "mitchem-wrecker-and-recovery-llc-big-spring-tx": {
+  "v": "towing",
+  "trade": "Towing service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "silva-s-towing-old-town-me": {
+  "v": "towing",
+  "trade": "Towing service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "autolta-towing-ridgeland-sc": {
+  "v": "towing",
+  "trade": "Towing service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
+ },
+ "flywheel-towing-repair-llc-edwardsville-pa": {
+  "v": "towing",
+  "trade": "Towing service",
+  "src": "Google listing category",
+  "on": "2026-11-21"
  }
 }

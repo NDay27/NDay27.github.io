@@ -395,3 +395,95 @@ export function stumpGrind(world, {x = -11.5, z = 3.2} = {}) {
   set({fix: 0});
   return {root, set, exclude: (px, pz) => Math.hypot(px - x, pz - z) < 1.45};
 }
+
+// towJob(world, {sign}): a broken-down pickup at the curb (hood up, hazards on) and a rollback tow truck with the business name
+// on its doors. set({fix}): the truck pulls in ahead (0-.18), the bed slides back (.18-.28) and tilts to the road (.28-.38),
+// the winch pulls the pickup up (.38-.68), the bed tilts back (.68-.78) and slides home (.78-.88), then it's strapped down.
+export async function towJob(world, {sign = "", font, x = 0, z = 35.4, ry = Math.PI / 2} = {}) {
+  const {makeTruck} = await import("./garage.js");
+  const G = new THREE.Group(); G.position.set(x, 0, z); G.rotation.y = ry; world.scene.add(G);
+  const mat = (c, ro = .6, m = 0, o = {}) => new THREE.MeshStandardMaterial({color: c, roughness: ro, metalness: m, envMapIntensity: .6, ...o});
+  const add = (geo, m, px, py, pz, parent) => { const o = new THREE.Mesh(geo, m); o.position.set(px, py, pz); o.castShadow = o.receiveShadow = true; parent.add(o); return o; };
+  const box = (w, h, d, m, px, py, pz, parent) => add(new THREE.BoxGeometry(w, h, d), m, px, py, pz, parent);
+  const ss = (a, b, t) => { const k = Math.min(1, Math.max(0, (t - a) / (b - a))); return k * k * (3 - 2 * k); };
+  const tex = (w, h, draw) => { const cv = document.createElement("canvas"); cv.width = w; cv.height = h; draw(cv.getContext("2d"), w, h); const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t; };
+  // ---------- the customer's pickup: hood up, hazards blinking ----------
+  const car = makeTruck(world, {color: 0x2f5d8a, lights: false}); G.add(car.car);
+  const hazM = mat(0xffa21a, .4, 0, {emissive: 0xff8a00, emissiveIntensity: 2.2});
+  const haz = [[1, 2.72], [-1, 2.72], [1, -2.72], [-1, -2.72]].map(([sx, sz]) => box(.18, .1, .05, hazM, sx * .78, .95, sz, car.car));
+  // ---------- the rollback: cab, frame, three axles, a bed that slides and tilts ----------
+  const T = new THREE.Group(); G.add(T);
+  const paint = new THREE.MeshPhysicalMaterial({color: 0xf3f3ef, metalness: .15, roughness: .35, clearcoat: .7, clearcoatRoughness: .1, envMapIntensity: .6});
+  const accent = new THREE.MeshPhysicalMaterial({color: 0xc8261b, metalness: .2, roughness: .4, clearcoat: .6, envMapIntensity: .6});
+  const glass = new THREE.MeshPhysicalMaterial({color: 0x0b1013, metalness: .1, roughness: .08, clearcoat: 1, envMapIntensity: .9});
+  const dark = mat(0x1b1d20, .75), rubber = mat(0x111214, .93), chrome = mat(0xd8dde2, .25, .9), steel = mat(0x5d6268, .5, .7);
+  for (const sx of [-.45, .45]) box(.2, .26, 9, dark, sx, .8, -.3, T);
+  const wheel = (wx, wz, dual) => { const g = new THREE.Group(); g.position.set(wx, .52, wz); T.add(g);
+    const tyre = add(new THREE.CylinderGeometry(.52, .52, dual ? .62 : .34, 28), rubber, 0, 0, 0, g); tyre.rotation.z = Math.PI / 2;
+    const hub = add(new THREE.CylinderGeometry(.3, .3, (dual ? .62 : .34) + .02, 20), chrome, 0, 0, 0, g); hub.rotation.z = Math.PI / 2; };
+  for (const s of [-1, 1]) { wheel(s * 1.0, 3.15, false); wheel(s * .98, -1.85, true); wheel(s * .98, -3.15, true); }
+  // cab
+  box(2.3, 1.05, 2.2, paint, 0, 1.45, 2.75, T); box(2.16, .8, 1.35, paint, 0, 1.3, 4.5, T); box(2.36, .5, .9, paint, 0, 1.05, 3.2, T);
+  box(1.9, .62, .06, chrome, 0, 1.3, 5.19, T); for (let i = 0; i < 5; i++) box(1.8, .03, .07, dark, 0, 1.08 + i * .11, 5.2, T);
+  box(2.4, .3, .3, chrome, 0, .68, 5.3, T);
+  const headM = mat(0xfff6dc, .2, 0, {emissive: 0xfff0c8, emissiveIntensity: .8}); for (const s of [-1, 1]) box(.36, .2, .05, headM, s * .82, 1.42, 5.19, T);
+  box(2.18, .64, 1.7, glass, 0, 2.3, 2.6, T); box(2.24, .12, 1.88, paint, 0, 2.66, 2.58, T);
+  for (const [px, pz] of [[1.09, 3.42], [-1.09, 3.42], [1.09, 1.75], [-1.09, 1.75]]) box(.06, .66, .1, paint, px, 2.3, pz, T);
+  box(2.3, .07, .08, accent, 0, 1.95, 2.75, T); for (const s of [-1, 1]) box(.02, .14, 2.22, accent, s * 1.155, 1.0, 2.75, T);
+  for (const s of [-1, 1]) { box(.1, .3, .14, dark, s * 1.25, 2.25, 3.4, T); box(.04, .22, .3, chrome, s * 1.3, 2.25, 3.55, T); }
+  // fenders over the front wheels and the rear duals
+  for (const s of [-1, 1]) { box(.42, .14, 1.4, dark, s * 1.0, 1.12, 3.15, T); box(.62, .1, 2.6, dark, s * .98, 1.12, -2.5, T); }
+  // light bar and exhaust stack
+  box(1.7, .08, .3, dark, 0, 2.76, 2.35, T); const barM = mat(0xffb21a, .3, 0, {emissive: 0xff9000, emissiveIntensity: 0}); const bar = box(1.6, .12, .24, barM, 0, 2.86, 2.35, T);
+  const stack = add(new THREE.CylinderGeometry(.07, .07, 1.6, 12), chrome, -1.0, 2.0, 1.45, T);
+  // the name on both doors
+  if (sign) { const st = await signTexture(sign, "", {fg: "#172033", bg: null, font, w: 1024, h: 340});
+    const m = new THREE.MeshStandardMaterial({map: st, transparent: true, roughness: .5, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2});
+    for (const s of [-1, 1]) { const p = new THREE.Mesh(new THREE.PlaneGeometry(1.7, .56), m); p.position.set(s * 1.157, 1.45, 2.72); p.rotation.y = s * Math.PI / 2; T.add(p); } }
+  // subframe and the bed (origin at its front top edge; the deck runs back along -z)
+  box(1.6, .2, 6, steel, 0, 1.03, -1.3, T);
+  const B = new THREE.Group(); T.add(B); const DL = 6.6;
+  const treadT = tex(256, 256, (g, w, h) => { g.fillStyle = "#7c8187"; g.fillRect(0, 0, w, h); g.strokeStyle = "rgba(220,225,230,.55)"; g.lineWidth = 3;
+    for (let yy = 0; yy < h; yy += 32) for (let xx = (yy / 32) % 2 * 16; xx < w; xx += 32) { g.beginPath(); g.moveTo(xx - 6, yy - 6); g.lineTo(xx + 6, yy + 6); g.stroke(); } });
+  treadT.wrapS = treadT.wrapT = THREE.RepeatWrapping; treadT.repeat.set(3, 8);
+  box(2.4, .16, DL, mat(0xffffff, .45, .6, {map: treadT}), 0, -.08, -DL / 2, B);
+  for (const s of [-1, 1]) box(.12, .26, DL, accent, s * 1.2, -.05, -DL / 2, B);
+  const stripeT = tex(256, 32, (g, w, h) => { for (let i = -2; i < 18; i++) { g.fillStyle = i % 2 ? "#c8261b" : "#f3f3ef"; g.beginPath(); g.moveTo(i * 16, h); g.lineTo(i * 16 + 16, h); g.lineTo(i * 16 + 32, 0); g.lineTo(i * 16 + 16, 0); g.fill(); } });
+  const rear = add(new THREE.PlaneGeometry(2.4, .26), mat(0xffffff, .5, 0, {map: stripeT}), 0, -.05, -DL - .005, B); rear.rotation.y = Math.PI;
+  for (const s of [-1, 1]) box(.22, .1, .04, mat(0xd01010, .3, 0, {emissive: 0xa00000, emissiveIntensity: .8}), s * .95, -.06, -DL - .02, B);
+  // headboard with a grid, winch drum at its foot
+  for (const s of [-1, 1]) box(.12, 1.4, .12, accent, s * 1.12, .7, -.12, B); box(2.36, .12, .12, accent, 0, 1.4, -.12, B);
+  for (let i = 1; i < 6; i++) box(.05, 1.3, .05, steel, -1.1 + i * .366, .68, -.12, B); for (let i = 1; i < 4; i++) box(2.2, .04, .04, steel, 0, i * .33, -.12, B);
+  const drum = add(new THREE.CylinderGeometry(.16, .16, .9, 16), dark, 0, .2, -.4, B); drum.rotation.z = Math.PI / 2;
+  // winch cable and tie-down straps
+  const cable = add(new THREE.CylinderGeometry(.018, .018, 1, 6), dark, 0, 0, 0, G); cable.castShadow = false;
+  const strapM = mat(0xf0b400, .7); const straps = [];
+  for (const sz of [1.66, -1.52]) for (const s of [-1, 1]) { const st = box(.07, .7, .02, strapM, s * .98, .35, sz, car.car); st.rotation.x = .35 * (sz > 0 ? 1 : -1); straps.push(st); }
+  // geometry of the move, in the frame of G (front of the tow truck toward +z)
+  const FZ = 1.6, FY0 = 1.25, PHI = .235, S_END = 3.5, S0 = -3.4;
+  const rearAt = (sl, lift, phi, tz) => ({z: tz + FZ - sl - DL * Math.cos(phi), y: FY0 + lift - DL * Math.sin(phi)});
+  const R1 = rearAt(2.3, .3, PHI, 0);
+  let fixT = -1, lastSh = -1; const vA = new THREE.Vector3(), vB = new THREE.Vector3();
+  function set({fix = 0, t = 0} = {}) {
+    fixT = fix; const f = fix;
+    const arrive = ss(0, .18, f), sl = 2.3 * ss(.18, .28, f) * (1 - ss(.78, .88, f)), lift = .3 * ss(.18, .24, f) * (1 - ss(.82, .88, f));
+    const phi = PHI * ss(.28, .38, f) * (1 - ss(.68, .78, f)), w = ss(.38, .68, f);
+    const tz = 24 * (1 - arrive); T.position.z = tz; T.visible = f > .005;
+    B.position.set(0, FY0 + lift, FZ - sl); B.rotation.x = -phi;
+    car.set({hood: 1 - ss(.05, .16, f)});  // (resets the pickup's height, so before placing it)
+    // the pickup: on the road behind the bed until the winch pulls it up, then riding the deck
+    const s = S0 + (S_END - S0) * w, R = rearAt(sl, lift, phi, tz);
+    if (s < 0) { car.car.position.set(0, 0, R1.z + s); car.car.rotation.x = 0; }
+    else { const k = Math.min(1, s / 1.2); car.car.position.set(0, (R.y + s * Math.sin(phi)) * k + (1 - k) * 0 + .02, R.z + s * Math.cos(phi)); car.car.rotation.x = -phi * k; }
+    const on = f < .88, blink = on && (Math.floor(t * 1.6) % 2 === 0); haz.forEach(h => h.visible = blink || t === 0 && on);
+    barM.emissiveIntensity = f > .1 ? 2.4 : 0;
+    if (Math.abs(f - lastSh) > .004 || ((f === 0 || f === 1) && f !== lastSh)) { lastSh = f; world.shadows(); }
+    straps.forEach(st => st.visible = f > .9);
+    cable.visible = f > .3 && f < .9;
+    if (cable.visible) { B.updateMatrixWorld(true); car.car.updateMatrixWorld(true); G.updateMatrixWorld(true);
+      vA.set(0, .22, -.45); B.localToWorld(vA); G.worldToLocal(vA); vB.set(0, .55, 2.8); car.car.localToWorld(vB); G.worldToLocal(vB);
+      cable.position.copy(vA).add(vB).multiplyScalar(.5); cable.scale.y = vA.distanceTo(vB); cable.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), vB.clone().sub(vA).normalize()); }
+  }
+  set({fix: 0});
+  return {root: G, set, get fix() { return fixT; }};
+}
