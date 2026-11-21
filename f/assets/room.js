@@ -11,8 +11,9 @@ function canvasTex(w, h, draw) {
 }
 
 export function makeRoom(world, {card = "Cleaned with care", font = "sans-serif", kind = "home"} = {}) {
-  const office = kind === "office";
+  const office = kind === "office", carpet = kind === "carpet";
   const root = new THREE.Group(); root.position.y = .03; world.scene.add(root);   // just above the world's ground disc
+  world.R.localClippingEnabled = true;   // the dust and the fresh floor lines are swept by clip planes
   let seed = 23; const r = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
   const std = (c, ro = .7, o = {}) => new THREE.MeshStandardMaterial({color: c, roughness: ro, envMapIntensity: .55, ...o});
   const add = (geo, m, x, y, z, parent = root) => { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = o.receiveShadow = true; parent.add(o); return o; };
@@ -24,7 +25,11 @@ export function makeRoom(world, {card = "Cleaned with care", font = "sans-serif"
     for (let i = 0; i < 9000; i++) { g.fillStyle = r() < .5 ? "rgba(40,48,60,.18)" : "rgba(220,226,235,.12)"; g.fillRect(r() * w, r() * h, 2, 2); }
     g.fillStyle = "rgba(30,36,46,.35)"; for (let k = 0; k <= 4; k++) { g.fillRect(k * 128 - 1, 0, 2, h); g.fillRect(0, k * 128 - 1, w, 2); } }) : null;
   if (carpetT) { carpetT.wrapS = carpetT.wrapT = THREE.RepeatWrapping; carpetT.repeat.set(3, 3.3); }
-  const floorM = office ? std(0xffffff, 1, {map: carpetT, envMapIntensity: .3}) : new THREE.MeshStandardMaterial({...TEX.wood([4, 5]), roughness: 1, envMapIntensity: .9});
+  // wall-to-wall plush for carpet cleaners
+  const plushT = carpet ? canvasTex(512, 512, (g, w, h) => { g.fillStyle = "#c9bca8"; g.fillRect(0, 0, w, h);
+    for (let i = 0; i < 26000; i++) { const v = r(); g.fillStyle = v < .5 ? `rgba(120,104,84,${.08 + r() * .14})` : `rgba(240,232,218,${.08 + r() * .14})`; g.fillRect(r() * w, r() * h, 1 + r() * 2, 1 + r() * 2); } }) : null;
+  if (plushT) { plushT.wrapS = plushT.wrapT = THREE.RepeatWrapping; plushT.repeat.set(4, 4.4); }
+  const floorM = office ? std(0xffffff, 1, {map: carpetT, envMapIntensity: .3}) : carpet ? std(0xffffff, 1, {map: plushT, envMapIntensity: .25}) : new THREE.MeshStandardMaterial({...TEX.wood([4, 5]), roughness: 1, envMapIntensity: .9});
   const fl = add(new THREE.PlaneGeometry(X1 - X0, ZF - ZB), floorM, 0, 0, (ZB + ZF) / 2); fl.rotation.x = -Math.PI / 2; fl.castShadow = false;
   const wallM = new THREE.MeshStandardMaterial({...TEX.plaster([2, 2], [255, 255, 255]), color: 0xf0ebe2, envMapIntensity: .25});
   const trimM = std(0xfbfaf6, .45);
@@ -44,6 +49,7 @@ export function makeRoom(world, {card = "Cleaned with care", font = "sans-serif"
   const smM = new THREE.MeshBasicMaterial({map: canvasTex(512, 320, (g, w, h) => { for (let i = 0; i < 70; i++) { const x = r() * w, y = r() * h, rad = 10 + r() * 40, gr = g.createRadialGradient(x, y, 0, x, y, rad);
     gr.addColorStop(0, "rgba(200,196,180,.5)"); gr.addColorStop(1, "rgba(200,196,180,0)"); g.fillStyle = gr; g.fillRect(0, 0, w, h); }
     g.strokeStyle = "rgba(210,206,190,.45)"; g.lineWidth = 6; for (let i = 0; i < 6; i++) { g.beginPath(); const x = r() * w; g.moveTo(x, 0); g.quadraticCurveTo(x + 40, h / 2, x - 20, h); g.stroke(); } }), transparent: true, depthWrite: false, opacity: .9});
+  if (carpet) smM.opacity = 0;
   const smudge = add(new THREE.PlaneGeometry(WX1 - WX0, WY1 - WY0), smM, (WX0 + WX1) / 2, (WY0 + WY1) / 2, ZB - .03); smudge.castShadow = false;
   // curtains either side of the window (blinds in an office)
   if (office) { const slat = std(0xf2f0ea, .5); for (let y = WY0 + .06; y < WY1 - .02; y += .085) box(WX1 - WX0 - .04, .012, .06, slat, (WX0 + WX1) / 2, y, ZB + .06).rotation.x = .9;
@@ -107,6 +113,12 @@ export function makeRoom(world, {card = "Cleaned with care", font = "sans-serif"
     const vac = add(new THREE.PlaneGeometry(X1 - X0, ZF - ZB), new THREE.MeshBasicMaterial({map: vacT, transparent: true, depthWrite: false, clippingPlanes: [vacClip]}), 0, .01, (ZB + ZF) / 2); vac.rotation.x = -Math.PI / 2; vac.castShadow = false; vac.renderOrder = 3;
     sparkAt = [[-1.5, .8, -3.6], [1.3, .8, -3.6], [-1.9, .02, -1.2], [.9, .02, -.8], [WX0 + .4, 1.9, ZB - .02], [WX1 - .3, 1.3, ZB - .02], [1.9, .02, -2.6]];
   } else {
+  if (carpet) {
+    // fresh wand strokes behind the sweep: wide stripes front to back, a touch darker where it's still damp
+    const stT = canvasTex(256, 256, (g, w, h) => { for (let i = 0; i < 8; i++) { g.fillStyle = i % 2 ? "rgba(255,250,240,.10)" : "rgba(60,50,40,.07)"; g.fillRect(i * 32, 0, 32, h); } }); stT.wrapS = stT.wrapT = THREE.RepeatWrapping; stT.repeat.set(5, 1);
+    vacClip = new THREE.Plane(new THREE.Vector3(-1, 0, 0), X0);
+    const st = add(new THREE.PlaneGeometry(X1 - X0, ZF - ZB), new THREE.MeshBasicMaterial({map: stT, transparent: true, depthWrite: false, clippingPlanes: [vacClip]}), 0, .01, (ZB + ZF) / 2); st.rotation.x = -Math.PI / 2; st.castShadow = false; st.renderOrder = 3;
+  }
 
   // ---------- furniture ----------
   const fab = std(0x56677a, .92), wood = std(0x8a5a3a, .5), dk = std(0x2a2724, .5);
@@ -117,7 +129,7 @@ export function makeRoom(world, {card = "Cleaned with care", font = "sans-serif"
   // rug
   const rugT = canvasTex(512, 360, (g, w, h) => { g.fillStyle = "#c9b79a"; g.fillRect(0, 0, w, h); g.strokeStyle = "#8a4a3a"; g.lineWidth = 14; g.strokeRect(20, 20, w - 40, h - 40);
     g.strokeStyle = "#3f5a6a"; g.lineWidth = 5; g.strokeRect(44, 44, w - 88, h - 88); g.fillStyle = "#8a4a3a"; for (let i = 0; i < 5; i++) for (let j = 0; j < 3; j++) { g.save(); g.translate(96 + i * 80, 100 + j * 80); g.rotate(Math.PI / 4); g.fillRect(-14, -14, 28, 28); g.restore(); } });
-  const rug = add(new THREE.PlaneGeometry(2.8, 1.9), std(0xffffff, .95, {map: rugT}), SX, .006, -2.45); rug.rotation.x = -Math.PI / 2; rug.castShadow = false;
+  if (!carpet) { const rug = add(new THREE.PlaneGeometry(2.8, 1.9), std(0xffffff, .95, {map: rugT}), SX, .006, -2.45); rug.rotation.x = -Math.PI / 2; rug.castShadow = false; }
   // coffee table
   const TZ = -2.5; box(1.2, .05, .62, wood, SX, .42, TZ); for (const dx of [-.55, .55]) for (const dz of [-.26, .26]) box(.05, .4, .05, wood, SX + dx, .2, TZ + dz); box(1.1, .03, .52, wood, SX, .12, TZ);
   // bookshelf in the back right corner
@@ -135,6 +147,7 @@ export function makeRoom(world, {card = "Cleaned with care", font = "sans-serif"
   box(.04, .72, .96, dk, X0 + .03, 1.55, -2.3); add(new THREE.PlaneGeometry(.88, .64), std(0xffffff, .8, {map: artT}), X0 + .055, 1.55, -2.3).rotation.y = Math.PI / 2;
 
   // ---------- the mess (gone as the sweep passes) ----------
+  if (!carpet) {
   // laundry piled on the sofa and a throw bunched on the floor
   for (const [c, dx, s] of [[0xd8d2c4, -.75, 1.3], [0x8e3b3b, -.45, 1], [0x2f4c6e, -.62, .9], [0xe7e3da, -.3, .8], [0x4b6b4f, .25, 1.1]]) crumple(c, SX + dx, .62, SZ + .05 + (r() - .5) * .2, s);
   crumple(0x7f6a8c, SX + 1.35, .08, SZ + .75, 1.8); crumple(0x6d7f92, SX - .9, .1, -3.0, 1.2);   // throw on the floor, cushion knocked off
@@ -150,22 +163,38 @@ export function makeRoom(world, {card = "Cleaned with care", font = "sans-serif"
   m(add(new THREE.SphereGeometry(.11, 18, 12), std(0xd64541, .4), SX + 1.05, .11, -1.7));
   for (const [x, z, a] of [[1.6, -.9, .3], [1.85, -.7, 1.2], [-2.4, -1.2, 2]]) { const s = box(.11, .08, .28, std(0x3b3633, .6), x, .04, z); s.rotation.y = a; m(s); }
   }
+  }
   // cobweb in the top left corner
   const web = new THREE.Group(); root.add(web); const wm = new THREE.LineBasicMaterial({color: 0xdddddd, transparent: true, opacity: .55});
   for (let i = 0; i < 7; i++) { const a = i / 6 * Math.PI / 2; web.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, 0, 0), new THREE.Vector3(Math.cos(a) * .5, -Math.sin(a) * .5, 0)]), wm)); }
   for (let k = 1; k < 5; k++) { const pts = []; for (let i = 0; i <= 6; i++) { const a = i / 6 * Math.PI / 2, rr = k * .11 * (1 - .12 * Math.sin(i * 1.7)); pts.push(new THREE.Vector3(Math.cos(a) * rr, -Math.sin(a) * rr, 0)); } web.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), wm)); }
-  web.position.set(X0 + .02, H - .02, ZB + .3); web.rotation.y = Math.PI / 2; m(web, X0);
+  web.position.set(X0 + .02, H - .02, ZB + .3); web.rotation.y = Math.PI / 2; m(web, X0); web.visible = !carpet; if (carpet) mess.pop();
   // dust, crumbs and footprints over the floor and rug, wiped away by a moving clip plane
-  const dustT = canvasTex(1024, 1024, (g, w, h) => {
+  const W = X1 - X0, D = ZF - ZB, px = (x) => (x - X0) / W * 1024, pz = (z) => (z - ZB) / D * 1024;   // world x,z -> canvas
+  const blot = (g, x, y, rad, c, a, n = 9) => { for (let i = 0; i < n; i++) { const ox = x + (r() - .5) * rad * .9, oy = y + (r() - .5) * rad * .7, rr = rad * (.4 + r() * .6), gr = g.createRadialGradient(ox, oy, 0, ox, oy, rr);
+    gr.addColorStop(0, `rgba(${c},${a})`); gr.addColorStop(.7, `rgba(${c},${a * .8})`); gr.addColorStop(1, `rgba(${c},0)`); g.fillStyle = gr; g.beginPath(); g.arc(ox, oy, rr, 0, 7); g.fill(); } };
+  const dustT = carpet ? canvasTex(1024, 1024, (g, w, h) => {
+    // a grey traffic lane from the doorway side to the sofa, coffee by the table, red wine, a pet spot, muddy paw prints
+    g.lineCap = "round"; for (let k = 0; k < 6; k++) { g.strokeStyle = `rgba(92,82,68,${.07})`; g.lineWidth = 150 - k * 18; g.beginPath(); g.moveTo(px(1.4), pz(2.4)); g.bezierCurveTo(px(1.0), pz(.6), px(-.2), pz(-.4), px(-.6), pz(-1.6)); g.stroke(); }
+    for (let i = 0; i < 2600; i++) { const t = r(), x = px(1.4 - 2 * t) + (r() - .5) * 140, y = pz(2.4 - 4 * t) + (r() - .5) * 60; g.fillStyle = "rgba(70,60,48,.22)"; g.fillRect(x, y, 2, 2); }
+    blot(g, px(.25), pz(-1.95), 46, "120,78,40", .5); blot(g, px(.5), pz(-1.75), 16, "120,78,40", .45, 4);
+    blot(g, px(-1.7), pz(-1.55), 54, "128,30,48", .55); blot(g, px(-1.45), pz(-1.35), 14, "128,30,48", .5, 3);
+    blot(g, px(2.3), pz(-2.7), 40, "168,140,60", .4);
+    for (let i = 0; i < 9; i++) { const t = i / 8, x = px(2.5 - 2.2 * t) + (i % 2) * 18, y = pz(1.9 - 3.1 * t);
+      g.fillStyle = "rgba(78,58,38,.62)"; g.beginPath(); g.ellipse(x, y, 8, 6.5, 0, 0, 7); g.fill(); for (let k = 0; k < 4; k++) { const a = -2.35 + k * .52; g.beginPath(); g.ellipse(x + Math.cos(a) * 12, y + Math.sin(a) * 11, 3.2, 3.8, a + 1.57, 0, 7); g.fill(); } } }) : canvasTex(1024, 1024, (g, w, h) => {
     for (let i = 0; i < 500; i++) { const x = r() * w, y = r() * h, rad = 20 + r() * 70, gr = g.createRadialGradient(x, y, 0, x, y, rad); gr.addColorStop(0, "rgba(120,110,92,.22)"); gr.addColorStop(1, "rgba(120,110,92,0)"); g.fillStyle = gr; g.fillRect(0, 0, w, h); }
     g.fillStyle = "rgba(70,58,44,.5)"; for (let i = 0; i < 1600; i++) g.fillRect(r() * w, r() * h, 2 + r() * 3, 2 + r() * 3);
     for (let k = 0; k < 2; k++) { let x = 120 + r() * 300, y = 980; for (let i = 0; i < 9; i++) { g.save(); g.translate(x + (i % 2) * 34, y); g.rotate(-.5); g.fillStyle = "rgba(80,66,50,.35)"; g.beginPath(); g.ellipse(0, 0, 14, 30, 0, 0, 7); g.fill(); g.restore(); x += 46; y -= 90; } } });
-  const clip = new THREE.Plane(new THREE.Vector3(1, 0, 0), -X0);   // world space; the room sits at x = 0 world.R.localClippingEnabled = true;
+  const clip = new THREE.Plane(new THREE.Vector3(1, 0, 0), -X0);   // world space; the room sits at x = 0
   const dustM = new THREE.MeshStandardMaterial({map: dustT, transparent: true, depthWrite: false, roughness: 1, envMapIntensity: .2, clippingPlanes: [clip], polygonOffset: true, polygonOffsetFactor: -2});
   const dust = add(new THREE.PlaneGeometry(X1 - X0, ZF - ZB), dustM, 0, .012, (ZB + ZF) / 2); dust.rotation.x = -Math.PI / 2; dust.castShadow = false; dust.renderOrder = 2;
 
   // ---------- the tidy room (appears as the sweep passes) ----------
-  if (!office) {
+  if (carpet) {
+    const SX = (WX0 + WX1) / 2, TZ = -2.5;
+    cardAt(SX - .05, .445, TZ + .15, -.25);
+    sparkAt = [[.25, .02, -1.95], [-1.7, .02, -1.55], [2.3, .02, -2.7], [1.2, .02, .6], [.4, .02, -.6], [-.4, .5, TZ + .2], [1.9, .02, -1.2]];
+  } else if (!office) {
   const SX = (WX0 + WX1) / 2, SZ = ZB + .55, TZ = -2.5;
   for (const [dx, c, a] of [[-.9, 0xd9b25a, .25], [.9, 0xe9e1d2, -.25], [-.62, 0xe9e1d2, .1]]) { const p = box(.42, .38, .12, std(c, .95), SX + dx, .73, SZ - .18); p.rotation.set(-.25, a, 0); t(p); }
   t(box(.5, .08, .34, std(0x8e3b3b, .95), SX + 1.1, .87, SZ + .05));   // throw folded over the arm
@@ -179,6 +208,24 @@ export function makeRoom(world, {card = "Cleaned with care", font = "sans-serif"
     g.position.set(SX + 1.25, 0, -1.75); root.add(g); t(g, SX + 1.25); }   // toys put away in a basket
   cardAt(SX - .05, .445, TZ + .15, -.25);
   sparkAt = [[SX - .3, .5, TZ + .2], [SX + .5, .46, TZ - .2], [-1.9, .02, -1.2], [.9, .02, -.8], [WX0 + .4, 1.9, ZB - .02], [WX1 - .3, 1.3, ZB - .02], [1.9, .02, -2.6]];
+  }
+  // a portable carpet extractor and its wand ride along the sweep line
+  let rig = null;
+  if (carpet) {
+    rig = new THREE.Group(); root.add(rig); const body = std(0x2f6fb0, .35, {metalness: .1}), dkM = std(0x1d2126, .5), chrome = std(0xc9cdd2, .25, {metalness: .9});
+    const unit = new THREE.Group(); unit.position.set(-.85, 0, .35); unit.rotation.y = .5; rig.add(unit);
+    box(.42, .46, .56, body, 0, .33, 0, unit); box(.4, .14, .5, std(0xdfe6ec, .1, {transparent: true, opacity: .75}), 0, .63, 0, unit);
+    for (const dx of [-.2, .2]) { const wh = cyl(.08, .08, .05, dkM, dx, .08, -.22, unit, 16); wh.rotation.z = Math.PI / 2; }
+    cyl(.025, .025, .06, dkM, -.15, .03, .22, unit, 8); cyl(.025, .025, .06, dkM, .15, .03, .22, unit, 8);
+    for (const dx of [-.17, .17]) cyl(.014, .014, .5, chrome, dx, .92, -.25, unit, 8); { const hb = cyl(.016, .016, .36, dkM, 0, 1.17, -.25, unit, 8); hb.rotation.z = Math.PI / 2; }
+    // wand: floor head, chrome tube, handle
+    const wand = new THREE.Group(); wand.position.set(0, 0, -1.15); rig.add(wand);
+    box(.36, .05, .1, dkM, 0, .03, 0, wand); box(.3, .015, .03, chrome, 0, .055, .04, wand);
+    const tube = cyl(.016, .016, 1.0, chrome, 0, .5, .2, wand, 10); tube.rotation.x = .38;
+    box(.06, .05, .16, dkM, 0, .97, .39, wand).rotation.x = .38; { const tb = cyl(.014, .014, .2, dkM, 0, .99, .45, wand, 8); tb.rotation.z = Math.PI / 2; }
+    const a = new THREE.Vector3(-.85 + Math.sin(.5) * -.0, .6, .35), b = new THREE.Vector3(0, .9, -1.15 + .37);
+    const hose = new THREE.TubeGeometry(new THREE.CatmullRomCurve3([a, new THREE.Vector3(-.75, .05, -.1), new THREE.Vector3(-.3, .05, -.55), new THREE.Vector3(0, .35, -.75), b]), 40, .022, 8);
+    add(hose, std(0x9aa3ab, .6), 0, 0, 0, rig);
   }
   // sparkles that twinkle once the room is done
   const spT = canvasTex(64, 64, (g, w, h) => { const gr = g.createRadialGradient(32, 32, 0, 32, 32, 30); gr.addColorStop(0, "rgba(255,255,255,1)"); gr.addColorStop(.25, "rgba(255,255,255,.5)"); gr.addColorStop(1, "rgba(255,255,255,0)"); g.fillStyle = gr; g.fillRect(0, 0, w, h);
@@ -198,8 +245,9 @@ export function makeRoom(world, {card = "Cleaned with care", font = "sans-serif"
     const cx = X0 - .4 + (X1 - X0 + .8) * f;   // the sweep line, left to right
     clip.constant = -cx; dust.visible = f < .999;
     for (const [o, x] of mess) o.visible = x > cx; for (const [o, x] of tidy) o.visible = x <= cx;
-    smM.opacity = .9 * (1 - Math.min(1, Math.max(0, (cx - WX0) / (WX1 - WX0))));
-    if (office) vacClip.constant = cx; else floorM.roughness = 1 - .36 * f;
+    smM.opacity = carpet ? 0 : .9 * (1 - Math.min(1, Math.max(0, (cx - WX0) / (WX1 - WX0))));
+    if (office || carpet) vacClip.constant = cx; else floorM.roughness = 1 - .36 * f;
+    if (rig) { rig.visible = f > .001 && f < .985; rig.position.x = Math.min(X1 - .25, cx); }
     if (f < .98) sparks.forEach(s => { s.material.opacity = 0; }); };
   set({fix: 0});
   return {root, set, exclude: (x, z) => x > X0 - .5 && x < X1 + .5 && z > ZB - .5 && z < ZF + .5};

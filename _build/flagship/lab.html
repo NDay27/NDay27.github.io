@@ -9,7 +9,7 @@
 // Usage: lab.html?p=1&[drive=wash|concrete&fix=0..1&truck=Name&tc=hex&ink=hex]&tod=.55&cam=x,y,z&tgt=x,y,z&fov=30&siding=white&roof=black&trim=black&door=fir&porch=1
 import {makeWorld} from "../../harlow/assets/world.js";
 import {makeHouse} from "../../harlow/assets/house.js";
-import {lawn, yardTree, flatwork, workTruck, acUnit, yardLine, fixList, stumpGrind, towJob, mowerFix, weldGate} from "../../f/assets/yard.js";
+import {lawn, yardTree, flatwork, workTruck, acUnit, yardLine, fixList, stumpGrind, towJob, mowerFix, weldGate, roofJob} from "../../f/assets/yard.js";
 const q = new URLSearchParams(location.search), num = (k, d) => q.has(k) ? +q.get(k) : d, vec = (k, d) => q.has(k) ? q.get(k).split(",").map(Number) : d;
 await document.fonts.load("700 40px Newsreader"); await document.fonts.load("700 40px 'Schibsted Grotesk'");
 let house, tree0 = null;
@@ -37,6 +37,7 @@ else if (q.has("truck")) await workTruck(world, {sign: q.get("truck"), x: num("t
 world.ctl.autoRotate = false; world.ctl.enableDamping = false; world.setQuality(2);
 world.size(); world.setTodNow(num("tod", .5));
 await world.ready; world.setTodNow(num("tod", .5)); house.setProgress(num("p", 1) - .0001); house.setProgress(num("p", 1));
+if (q.has("roof")) roofJob(world, house).set({fix: num("roof", 0)});
 if (q.get("mode") === "svg") { world.ctl.update(); world.cam.updateMatrixWorld(); window.__svg = drawing(); window.__done = true; }
 else { for (let i = 0; i < 4; i++) { world.grade.uniforms.t.value = i; world.renderOnce(); await new Promise(r => requestAnimationFrame(r)); } window.__done = true; }
 
