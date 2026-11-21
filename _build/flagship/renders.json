@@ -1851,5 +1851,75 @@
   "w": 1600,
   "h": 1000,
   "q": "p=1&truck=Roofing&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-3,4,32&tgt=5,2.5,10&fov=40&roof=.3"
+ },
+ {
+  "name": "antique-before",
+  "lab": "labstore",
+  "w": 2400,
+  "h": 1350,
+  "q": "kind=antique&sign=Antiques&word=Antiques&tod=0.62&cam=-9,2.3,17.5&tgt=.8,3.5,0&fov=36&open=0&lights=0&awning=0&door=0&ox=0.13"
+ },
+ {
+  "name": "antique-after",
+  "lab": "labstore",
+  "w": 2400,
+  "h": 1350,
+  "q": "kind=antique&sign=Antiques&word=Antiques&tod=0.14&cam=-9,2.3,17.5&tgt=.8,3.5,0&fov=36&open=1&lights=1&awning=1&door=0&ox=0.13"
+ },
+ {
+  "name": "antique-s1",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=antique&sign=Antiques&word=Antiques&tod=0.62&cam=-4.6,2.4,11.5&tgt=.6,2.7,0&fov=40&open=0&lights=0&awning=0&door=0"
+ },
+ {
+  "name": "antique-s2",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=antique&sign=Antiques&word=Antiques&tod=0.45&cam=-4.6,2.4,11.5&tgt=.6,2.7,0&fov=40&open=0&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "antique-s3",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=antique&sign=Antiques&word=Antiques&tod=0.14&cam=0,1.6,5.5&tgt=0,1.5,-2&fov=40&open=1&lights=1&awning=1&door=1"
+ },
+ {
+  "name": "antique-s4",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=antique&sign=Antiques&word=Antiques&tod=0.14&cam=1.6,1.75,-1.6&tgt=-.8,1.15,-5.2&fov=55&open=1&lights=1&awning=1&door=1&second=0"
+ },
+ {
+  "name": "antique-dusk",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=antique&sign=Antiques&word=Antiques&tod=0.84&cam=-7.5,1.9,15&tgt=.8,3.2,0&fov=36&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "antique-window",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=antique&sign=Antiques&word=Antiques&tod=0.14&cam=-3.6,1.55,3.6&tgt=-1.6,1.3,-1.0&fov=40&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "antique-inside",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=antique&sign=Antiques&word=Antiques&tod=0.14&cam=1.6,1.75,-1.6&tgt=-.8,1.15,-5.2&fov=55&open=1&lights=1&awning=1&door=1&second=0"
+ },
+ {
+  "name": "antique-door",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=antique&sign=Antiques&word=Antiques&tod=0.14&cam=0,1.6,5.5&tgt=0,1.5,-2&fov=40&open=1&lights=1&awning=1&door=0"
  }
 ]
