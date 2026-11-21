@@ -542,3 +542,64 @@ export function mowerFix(world, {x = 9.6, z = 22} = {}) {
   set({fix: 0});
   return {root, set, exclude: (px, pz) => false};
 }
+
+// weldGate(world): a steel double gate across the end of the drive. Before: rusted, the right leaf sagging to the ground with
+// its brace snapped and a picket lying in the gravel. set({fix}): the leaf is jacked level (.05-.3), the picket goes back (.3-.4),
+// the welder works the joints with sparks and an arc glow (.4-.7), fresh black paint (.7-.85), then both leaves swing open (.88-1).
+export function weldGate(world, {z = 30.2, xa = 6.45, xb = 12.55} = {}) {
+  const root = new THREE.Group(); world.scene.add(root);
+  const mat = (c, ro = .6, m = 0, o = {}) => new THREE.MeshStandardMaterial({color: c, roughness: ro, metalness: m, envMapIntensity: .6, ...o});
+  const add = (geo, m, px, py, pz, parent) => { const o = new THREE.Mesh(geo, m); o.position.set(px, py, pz); o.castShadow = o.receiveShadow = true; parent.add(o); return o; };
+  const box = (w, h, d, m, px, py, pz, parent) => add(new THREE.BoxGeometry(w, h, d), m, px, py, pz, parent);
+  const ss = (a, b, t) => { const k = Math.min(1, Math.max(0, (t - a) / (b - a))); return k * k * (3 - 2 * k); };
+  const RUST = new THREE.Color(0xffffff), BLACK = new THREE.Color(0x1c1d1f);
+  const cv = document.createElement("canvas"); cv.width = cv.height = 128; const g2 = cv.getContext("2d"); g2.fillStyle = "#6a4a36"; g2.fillRect(0, 0, 128, 128);
+  { let sd = 9; const rr = () => (sd = (sd * 16807) % 2147483647) / 2147483647;
+    for (let k = 0; k < 90; k++) { g2.fillStyle = ["rgba(176,92,40,.7)", "rgba(60,52,48,.6)", "rgba(140,70,34,.6)", "rgba(96,88,80,.5)"][k % 4]; g2.beginPath(); g2.ellipse(rr() * 128, rr() * 128, 2 + rr() * 9, 1 + rr() * 5, rr() * 3, 0, 7); g2.fill(); } }
+  const rustT = new THREE.CanvasTexture(cv); rustT.colorSpace = THREE.SRGBColorSpace; rustT.wrapS = rustT.wrapT = THREE.RepeatWrapping;
+  const gm = mat(0xffffff, .92, .25, {map: rustT}), post = mat(0x3a3b3d, .7, .5), conc = mat(0xb9b4aa, .9);
+  for (const px of [xa, xb]) { box(.16, 1.7, .16, gm, px, .85, z, root); box(.22, .04, .22, gm, px, 1.72, z, root); add(new THREE.CylinderGeometry(.3, .3, .06, 16), conc, px, .03, z, root); }
+  const W = (xb - xa) / 2 - .12, H = 1.25;
+  const leaf = (hx, dir) => { const L = new THREE.Group(); L.position.set(hx + dir * .1, .18, z); root.add(L);
+    const P = [];
+    box(W, .06, .06, gm, dir * W / 2, H, 0, L); box(W, .06, .06, gm, dir * W / 2, 0, 0, L); box(W, .04, .04, gm, dir * W / 2, H * .5, 0, L);
+    box(.06, H + .06, .06, gm, 0, H / 2, 0, L); box(.06, H + .06, .06, gm, dir * W, H / 2, 0, L);
+    for (let i = 1; i < 8; i++) P.push(box(.025, H, .025, gm, dir * W * i / 8, H / 2, 0, L));
+    const br = box(.04, Math.hypot(W, H) * .96, .04, gm, dir * W / 2, H / 2, 0, L); br.rotation.z = -dir * Math.atan2(W, H);
+    for (const y of [.15, H - .15]) { const h = add(new THREE.CylinderGeometry(.045, .045, .14, 10), post, -dir * .06, y, 0, L); }
+    return {L, P, br}; };
+  const A = leaf(xa, 1), B = leaf(xb, -1);
+  // the snapped brace (two halves) and a picket fallen in the drive
+  const brT = B.br; const brA = box(.04, 1.1, .04, gm, 0, 0, 0, B.L), brB = box(.04, .9, .04, gm, 0, 0, 0, B.L);
+  brA.position.set(-W * .78, H * .78, 0); brA.rotation.z = Math.atan2(W, H) + .25; brB.position.set(-W * .22, H * .25, .02); brB.rotation.z = Math.atan2(W, H) - .35;
+  const pk = B.P[2]; const pkHome = pk.position.clone();
+  // the welder's cart, the lead to the torch, sparks and the arc glow
+  const C = new THREE.Group(); C.position.set(10.4, 0, z + 1.3); root.add(C);
+  box(.55, .5, .7, mat(0x2d5d8a, .45, .3), 0, .55, 0, C); box(.5, .08, .66, post, 0, .27, 0, C); for (const s of [-1, 1]) { const w = add(new THREE.CylinderGeometry(.11, .11, .06, 14), mat(0x121314, .9), s * .3, .11, -.25, C); w.rotation.z = Math.PI / 2; }
+  box(.5, .02, .02, post, 0, .95, .34, C); add(new THREE.CylinderGeometry(.11, .11, .9, 14), mat(0x6b7f4a, .5, .3), .05, .75, -.5, C);
+  const lead = add(new THREE.CylinderGeometry(.018, .018, 1, 6), mat(0x151515, .8), 0, 0, 0, root); lead.castShadow = false;
+  const J = new THREE.Vector3(xb - .1 - W * .5, .18 + H * .5, z + .05);
+  const SP = new THREE.Group(); SP.position.copy(J); root.add(SP);
+  const spM = mat(0xffd27a, .3, 0, {emissive: 0xffa020, emissiveIntensity: 4}); let seed = 5; const r = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  for (let i = 0; i < 46; i++) { const a = r() * Math.PI * 2, d = .05 + r() * .5, s = box(.012, .012, .05 + r() * .12, spM, Math.cos(a) * d * .8, -r() * .5 + Math.sin(a) * d * .3, .05 + r() * .35, SP); s.lookAt(SP.position.clone().multiplyScalar(0)); s.castShadow = false; }
+  const core = add(new THREE.SphereGeometry(.05, 12, 8), mat(0xffffff, .2, 0, {emissive: 0xd8ecff, emissiveIntensity: 6}), 0, 0, .03, SP); core.castShadow = false;
+  const glow = new THREE.PointLight(0x9fc8ff, 0, 5, 2); glow.position.set(0, .1, .3); SP.add(glow);
+  const torch = box(.05, .05, .3, post, .08, .05, .2, SP); torch.rotation.x = -.6;
+  let fixT = -1, lastSh = -1; const vA = new THREE.Vector3(), vB = new THREE.Vector3();
+  function set({fix = 0, t = 0} = {}) {
+    if (fix === fixT && !(fix > .4 && fix < .7)) return; fixT = fix; const f = fix;
+    const sag = 1 - ss(.05, .3, f); B.L.rotation.z = -.13 * sag;
+    const pb = ss(.3, .4, f); pk.position.set(pkHome.x + .25 * (1 - pb), pkHome.y * pb - .17 * (1 - pb), pkHome.z + .5 * (1 - pb)); pk.rotation.set((1 - pb) * Math.PI / 2, 0, (1 - pb) * .4);
+    const fixed = f > .55; brT.visible = fixed; brA.visible = brB.visible = !fixed;
+    const weld = f > .4 && f < .7; SP.visible = weld; glow.intensity = weld ? 6 + 2 * Math.sin(t * 40) : 0;
+    SP.scale.setScalar(weld ? .9 + .15 * Math.sin(t * 23) : 1);
+    const pnt = ss(.7, .85, f); gm.color.copy(RUST).lerp(BLACK, pnt); gm.roughness = .92 - .5 * pnt; gm.metalness = .25 + .2 * pnt;
+    const wantMap = pnt < .5 ? rustT : null; if (gm.map !== wantMap) { gm.map = wantMap; gm.needsUpdate = true; } if (!wantMap) gm.color.copy(BLACK).lerp(new THREE.Color(0x3a3530), 1 - pnt);
+    const open = ss(.88, 1, f); A.L.rotation.y = 1.15 * open; B.L.rotation.y = -1.15 * open;
+    C.visible = f > .08 && f < .86; lead.visible = weld;
+    if (weld) { vA.set(10.4, .85, z + 1.0); vB.copy(J).add(new THREE.Vector3(.08, .05, .35)); lead.position.copy(vA).add(vB).multiplyScalar(.5); lead.scale.y = vA.distanceTo(vB); lead.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), vB.clone().sub(vA).normalize()); }
+    if (Math.abs(f - lastSh) > .004 || ((f === 0 || f === 1) && f !== lastSh)) { lastSh = f; world.shadows(); }
+  }
+  set({fix: 0});
+  return {root, set, exclude: (px, pz) => false};
+}
