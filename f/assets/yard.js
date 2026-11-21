@@ -603,3 +603,77 @@ export function weldGate(world, {z = 30.2, xa = 6.45, xb = 12.55} = {}) {
   set({fix: 0});
   return {root, set, exclude: (px, pz) => false};
 }
+
+// roofJob(world, house): an old, worn shingle roof (curled and missing tabs, moss, a blue tarp over a leak) is torn off from the
+// ridge down into a roll-off dumpster in the drive, the deck shows, then new charcoal shingles go on from the eaves up.
+// set({fix}): 0..1. Needs the finished house (setProgress(1)); the house's own roof skins are hidden and replaced by two layers.
+export function roofJob(world, house) {
+  const root = new THREE.Group(); world.scene.add(root);
+  world.R.localClippingEnabled = true;
+  const mat = (c, ro = .6, m = 0, o = {}) => new THREE.MeshStandardMaterial({color: c, roughness: ro, metalness: m, envMapIntensity: .5, ...o});
+  const add = (geo, m, px, py, pz, parent = root) => { const o = new THREE.Mesh(geo, m); o.position.set(px, py, pz); o.castShadow = o.receiveShadow = true; parent.add(o); return o; };
+  const box = (w, h, d, m, px, py, pz, parent) => add(new THREE.BoxGeometry(w, h, d), m, px, py, pz, parent);
+  const ss = (a, b, t) => { const k = Math.min(1, Math.max(0, (t - a) / (b - a))); return k * k * (3 - 2 * k); };
+  let seed = 11; const r = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  // shingle canvases: 1024 x 512 covers 6 m along the eave by 3 m up the slope (tabs 1 m wide, 14 cm courses)
+  const shingles = (old) => { const cv = document.createElement("canvas"); cv.width = 1024; cv.height = 512; const g = cv.getContext("2d");
+    g.fillStyle = old ? "#6e665c" : "#34373b"; g.fillRect(0, 0, 1024, 512);
+    const rowH = 512 / 21, tabW = 1024 / 18;
+    for (let row = 0; row < 22; row++) { const y = row * rowH, off = (row % 2) * tabW * .5;
+      for (let k = -1; k < 19; k++) { const x = k * tabW + off, v = r();
+        g.fillStyle = old ? `hsl(${30 + v * 8},${7 + v * 6}%,${34 + v * 9}%)` : `hsl(210,${3 + v * 4}%,${17 + v * 9}%)`; g.fillRect(x + 1, y + 1, tabW - 2, rowH - 2);
+        for (let i = 0; i < 40; i++) { g.fillStyle = `rgba(${r() < .5 ? "0,0,0" : "255,255,255"},${old ? .1 : .07})`; g.fillRect(x + r() * tabW, y + r() * rowH, 2, 2); }
+        if (old && v > .965) { g.fillStyle = "#1c1a18"; g.fillRect(x + 1, y + 1, tabW - 2, rowH - 2); }   // missing tab: black tar paper
+        else if (old && v > .88) { g.fillStyle = "rgba(255,255,255,.18)"; g.fillRect(x + 1, y + rowH - 6, tabW - 2, 4); } }   // curled edge catching light
+      g.fillStyle = "rgba(0,0,0,.45)"; g.fillRect(0, y + rowH - 2, 1024, 2); }
+    if (old) { for (let i = 0; i < 16; i++) { const x = r() * 1024, y = r() * 512, gr = g.createRadialGradient(x, y, 0, x, y, 10 + r() * 34);
+        gr.addColorStop(0, "rgba(78,96,46,.42)"); gr.addColorStop(1, "rgba(70,88,40,0)"); g.fillStyle = gr; g.fillRect(0, 0, 1024, 512); }   // moss
+      for (let i = 0; i < 14; i++) { const x = r() * 1024, gr = g.createLinearGradient(0, 0, 0, 512); gr.addColorStop(0, "rgba(20,18,14,.0)"); gr.addColorStop(1, "rgba(20,18,14,.18)"); g.fillStyle = gr; g.fillRect(x, 0, 18 + r() * 40, 512); } }   // streaks
+    const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; t.wrapS = t.wrapT = THREE.RepeatWrapping; return t; };
+  const oldT = shingles(true), newT = shingles(false);
+  const oldPlane = new THREE.Plane(new THREE.Vector3(0, -1, 0), 100), newPlane = new THREE.Plane(new THREE.Vector3(0, -1, 0), 100);
+  const lay = [];
+  house.root.updateMatrixWorld(true);
+  const skins = []; house.root.traverse(o => { if (o.isMesh && o.userData.seams && (o.material === house.M.roof || o.material === house.M.wingRoof)) skins.push(o); });
+  const bb = new THREE.Box3(); skins.forEach(o => bb.expandByObject(o));
+  for (const o of skins) {
+    const p = o.geometry.parameters, along = o.userData.seams, len = along === "x" ? p.width : p.depth, up = (along === "x" ? p.depth : p.width) * 1;
+    for (const [tex, plane, lift] of [[newT, newPlane, .012], [oldT, oldPlane, .03]]) {
+      const t = tex.clone(); t.needsUpdate = true; t.repeat.set(len / 6, up / 3); if (along === "z") { t.center.set(.5, .5); t.rotation = Math.PI / 2; t.repeat.set(up / 3, len / 6); }
+      const m = new THREE.Mesh(o.geometry, new THREE.MeshStandardMaterial({map: t, roughness: .95, envMapIntensity: .3, clippingPlanes: [plane], clipShadows: true}));
+      m.matrixAutoUpdate = false; m.matrix.copy(o.matrixWorld); m.matrix.multiply(new THREE.Matrix4().makeTranslation(0, lift / o.scale.y, 0)); m.castShadow = m.receiveShadow = true; root.add(m); lay.push(m); }
+    o.visible = false; }
+  // a blue tarp over a leak on the front slope of the main roof, torn off with the old layer
+  const main = skins.find(o => o.userData.seams === "x" && new THREE.Vector3().setFromMatrixPosition(o.matrixWorld).z > 0);
+  const onRoof = (obj) => { obj.updateMatrix(); const w = obj; w.matrixAutoUpdate = false; w.matrix.premultiply(main.matrixWorld); root.add(w); return w; };
+  if (main) { const tarp = new THREE.Mesh(new THREE.PlaneGeometry(2.6, 1.9, 8, 6), mat(0x2f6fc0, .7, 0, {clippingPlanes: [oldPlane], side: THREE.DoubleSide}));
+    const pp = tarp.geometry.attributes.position; for (let i = 0; i < pp.count; i++) pp.setZ(i, (1 + Math.sin(pp.getX(i) * 3.1) * Math.cos(pp.getY(i) * 2.7)) * .012); tarp.geometry.computeVertexNormals();
+    tarp.rotation.x = -Math.PI / 2; tarp.position.set(-2.2, .052 / main.scale.y, .3); tarp.scale.set(1, 1, 1 / main.scale.y); onRoof(tarp); tarp.castShadow = true; }
+  // roll-off dumpster in the drive and a ladder at the front eave
+  const DX = 9.6, DZ = 17.5, green = mat(0x2f5a3c, .55, .3), dk = mat(0x22262a, .6, .4);
+  const dump = new THREE.Group(); dump.position.set(DX, 0, DZ); root.add(dump);
+  box(2.3, .12, 5.6, dk, 0, .18, 0, dump); box(2.3, 1.3, .08, green, 0, .9, 2.76, dump); box(2.3, 1.3, .08, green, 0, .9, -2.76, dump); for (const s of [1, -1]) { box(.08, 1.3, 5.6, green, s * 1.11, .9, 0, dump); for (let k = -2; k <= 2; k++) box(.1, 1.3, .1, green, s * 1.16, .9, k * 1.2, dump); }
+  box(2.2, .06, 5.5, mat(0x3a3530, .9), 0, .3, 0, dump);
+  const debris = new THREE.Group(); dump.add(debris);
+  for (let i = 0; i < 70; i++) { const s = box(.9 + r() * .5, .04, .35 + r() * .2, mat([0x6e665c, 0x5a5249, 0x7a7064, 0x1c1a18][i % 4], .95), (r() - .5) * 1.5, .4 + (i / 70) * 1.25 + r() * .2, (r() - .5) * 4.6, debris); s.rotation.set((r() - .5) * .9, r() * 3, (r() - .5) * .9); s.userData.y = s.position.y; }
+  const eaveZ = bb.max.z, eaveY = bb.min.y;
+  const ladder = new THREE.Group(); ladder.position.set(-4.6, 0, eaveZ + .9); ladder.rotation.x = -.2; root.add(ladder); const al = mat(0xb8bcc0, .4, .7);
+  for (const s of [-.24, .24]) box(.06, eaveY + 1.1, .1, al, s, (eaveY + 1.1) / 2, 0, ladder); for (let y = .3; y < eaveY + 1; y += .3) box(.48, .04, .04, al, 0, y, 0, ladder);
+  // bundles of new shingles on the roof (gone when it's done)
+  const bundles = new THREE.Group(); root.add(bundles); const bm = mat(0x8a8e94, .8);
+  if (main) for (let i = 0; i < 4; i++) { const b = new THREE.Mesh(new THREE.BoxGeometry(1, .16, .35), bm); b.position.set(1.5 + i * 1.15, .1 / main.scale.y, -1.6); b.scale.y = 1 / main.scale.y; b.castShadow = true;
+    b.updateMatrix(); b.matrixAutoUpdate = false; b.matrix.premultiply(main.matrixWorld); bundles.add(b); }
+  const mb = new THREE.Box3(); skins.filter(o => o.userData.seams === "x").forEach(o => mb.expandByObject(o));
+  const Y0 = mb.min.y - .3, Y1 = mb.max.y + .4;   // the main roof sets the pace; the lower wing roof goes first on and last off
+  let lastSh = -1, cur = -1;
+  function set({fix: f = 0} = {}) { if (f === cur) return; cur = f;
+    const tear = ss(.06, .42, f), lay2 = ss(.5, .92, f);
+    oldPlane.constant = tear <= 0 ? 100 : tear >= 1 ? -100 : Y1 - (Y1 - Y0) * tear;      // keep y <= c: torn off from the ridge down
+    newPlane.constant = lay2 <= 0 ? -100 : lay2 >= 1 ? 100 : Y0 + (Y1 - Y0) * lay2;     // laid from the eaves up
+    debris.visible = tear > .02 && f < .97; debris.children.forEach((s, i) => { s.visible = i / debris.children.length < tear; });
+    dump.visible = f > .02 && f < .97; ladder.visible = f > .02 && f < .985; bundles.visible = f > .3 && f < .9;
+    if (Math.abs(f - lastSh) > .004 || ((f === 0 || f === 1) && f !== lastSh)) { lastSh = f; world.shadows(); }
+  }
+  set({fix: 0});
+  return {root, set, exclude: (px, pz) => false};
+}
