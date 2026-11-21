@@ -43,7 +43,9 @@ KEEP = {"buck-s-tree-service-landscaping-peoria",
         # nail salons named "& Spa", salons/barbers that also do nails or styling, family restaurants named Kitchen
         "art-nails-spa-monroe-la", "a-j-elite-nails-spa-branson-mo", "rio-nails-and-spa-cedar-city-ut", "gallery-nail-spa-bloomingdale-nj", "yg-nail-spa-oakland-nj",
         "lv-spa-nails-ringwood-nj", "serenity-salon-and-day-spa-hartwell-ga", "stylz-hair-nail-salon-saginaw-mi", "sweeney-braz-s-barbershop-salon-green-river-wy",
-        "elvira-s-hair-styling-williamsport-pa", "mountain-view-kitchen-fountain-hills-az", "texas-kountry-kitchen-dayton-tx"}
+        "elvira-s-hair-styling-williamsport-pa", "mountain-view-kitchen-fountain-hills-az", "texas-kountry-kitchen-dayton-tx",
+        # Google lists these as a lawn care service, and concrete contractors; the extra word in the name doesn't change the story
+        "grindstone-lawn-care-berea-oh", "fridley-construction-livingston-mt", "mr-concrete-asphalt-sandia-park-nm"}
 
 
 def candidates():
