@@ -278,7 +278,7 @@ def elevation(g, s=None):
         svg = svg.replace("</svg>", _tree() + "</svg>")
     elif g in HOMES:
         svg = re.sub(r'<g class="dim".*?</g>', "", svg, flags=re.S)
-        note = {"wash": "siding and drive, washed", "concrete": "new drive, poured and jointed", "hvac": "new unit on the pad, lines to the wall"}[g]
+        note = {"wash": "siding and drive, washed", "concrete": "new drive, poured and jointed", "hvac": "new unit on the pad, lines to the wall", "plumb": "water line dug, fixed and sodded"}[g]
         svg = svg.replace("</svg>", f'<g class="note" style="--w:3.2s"><text x="1340" y="700" text-anchor="end">{note}</text></g></svg>')
     else:
         i = svg.index("<path"); svg = svg[:i] + _rolls() + svg[i:]

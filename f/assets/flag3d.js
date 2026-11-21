@@ -2,7 +2,7 @@
 // t1250.js turns scroll into a state (camera keys, light, trade values); this file draws it on the Harlow engine.
 import {makeWorld, reduce, small} from "../../harlow/assets/world.js";
 import {makeHouse} from "../../harlow/assets/house.js";
-import {lawn, yardTree, flatwork, workTruck, acUnit} from "./yard.js";
+import {lawn, yardTree, flatwork, workTruck, acUnit, yardLine} from "./yard.js";
 
 // camera keys: position, target, field of view (desktop)
 const K = {
@@ -32,7 +32,10 @@ K.concrete = {...K.wash, hero: [[1.2, 2.9, 31.5], [8.6, .9, 12], 40]};
 // heating and cooling: the outdoor unit beside the house is the subject, the crew's truck at the curb
 K.hvac = {hero: [[-11.4, 1.5, 6.2], [-7.2, 1.0, -.3], 40], close: [[-10.2, 1.3, 3.4], [-7.3, .75, -.3], 40], dusk: [[-17, 3.2, 50], [-4, 1.6, 6], 34],
           cfg: [[-11.8, 1.7, 6.6], [-7.2, .9, -.3], 42]};
-const HOME = {wash: "wash", concrete: "concrete", hvac: "ac"};
+// plumbing: a broken water line under the front lawn, dug up and fixed; the truck at the curb near the line
+K.plumb = {hero: [[-7.4, 1.9, 24.6], [-3.0, .2, 17.6], 40], close: [[-6.2, 1.4, 21.6], [-3.3, .05, 18.2], 40], dusk: [[-12, 2.8, 46], [-3, 1.2, 14], 36],
+           cfg: [[-7, 1.8, 23.8], [-3.2, .1, 18], 42]};
+const HOME = {wash: "wash", concrete: "concrete", hvac: "ac", plumb: "pipe"};
 
 // The camera rig every trade shares: blend between two keys, drift a little, frame the subject clear of the captions.
 function makeRig(world, keys, HB) {
@@ -129,9 +132,10 @@ export async function start(HB) {
   const {THREE, cam, ctl} = world;
   house = makeHouse(world);
   if (g === "tree") tree = yardTree(world);
+  const line = HOME[g] === "pipe" ? yardLine(world) : null;
   // grass was planted before the house existed: keep only the blades outside its footprint
   if (world.grass) { const gr = world.grass, m = new THREE.Matrix4(), c = new THREE.Color(), P = gr.userData.pos; let n = 0;
-    for (let i = 0; i < P.length; i++) { const [x, z, sc, q] = P[i]; if (house.exclude(x, z) || (tree && tree.exclude(x, z))) continue; m.compose(new THREE.Vector3(x, 0, z), q, new THREE.Vector3(1, sc, 1)); gr.setMatrixAt(n, m); gr.getColorAt(i, c); gr.setColorAt(n, c); n++; }
+    for (let i = 0; i < P.length; i++) { const [x, z, sc, q] = P[i]; if (house.exclude(x, z) || (tree && tree.exclude(x, z)) || (line && line.exclude(x, z))) continue; m.compose(new THREE.Vector3(x, 0, z), q, new THREE.Vector3(1, sc, 1)); gr.setMatrixAt(n, m); gr.getColorAt(i, c); gr.setColorAt(n, c); n++; }
     gr.count = n; gr.instanceMatrix.needsUpdate = true; if (gr.instanceColor) gr.instanceColor.needsUpdate = true; }
   const yard = g === "lawn" ? lawn(world, {exclude: (x, z) => house.exclude(x, z)}) : null;
   house.setFinish({siding: "white", roof: "black", trim: "black", door: "fir", porch: true});
@@ -139,9 +143,9 @@ export async function start(HB) {
   // home services: the drive overlay, the crew's truck, and (washing) grime on the siding
   let drive = null; const hcur = {fix: 0, house: 0}, GRIME = {siding: new THREE.Color(0xa9a68f), trim: new THREE.Color(0x6f6d60)}, CLEAN = {};
   if (HOME[g]) {
-    drive = HOME[g] === "ac" ? acUnit(world) : flatwork(world, {kind: HOME[g]});
+    drive = HOME[g] === "ac" ? acUnit(world) : line || flatwork(world, {kind: HOME[g]});
     const font = getComputedStyle(document.documentElement).getPropertyValue("--serif").split(",")[0].trim() || "sans-serif";
-    await workTruck(world, {sign: HB.name || "", font, x: HOME[g] === "ac" ? -11 : -1.5, z: 35.4, ry: Math.PI / 2});
+    await workTruck(world, {sign: HB.name || "", font, x: {ac: -11, pipe: -6}[HOME[g]] ?? -1.5, z: 35.4, ry: Math.PI / 2});
     CLEAN.siding = house.M.siding.color.clone(); CLEAN.trim = house.M.trim.color.clone();
   }
   let hfirst = true;

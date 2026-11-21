@@ -198,3 +198,71 @@ export function acUnit(world, {x = -7.4, z = -.2, ry = 0} = {}) {
   set({fix: 0});
   return {root, set};
 }
+
+// yardLine(world, {x, z0, z1}): a broken water line under the front lawn. set({fix}): 0 = a soggy patch with a puddle and
+// locate flags, ~.5 = the trench open with the old pipe split, then a new blue section coupled in, 1 = backfilled with fresh sod.
+// exclude(x, z) keeps grass blades out of the trench strip.
+export function yardLine(world, {x = -3.4, z0 = 15.5, z1 = 20.5, leak = 18.1} = {}) {
+  const root = new THREE.Group(); world.scene.add(root);
+  const L = z1 - z0, zc = (z0 + z1) / 2;
+  let seed = 31; const r = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const canvas = (w, h, draw) => { const cv = document.createElement("canvas"); cv.width = w; cv.height = h; draw(cv.getContext("2d"), w, h); const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t; };
+  const flat = (w, l, m, y, px = x, pz = zc) => { const o = new THREE.Mesh(new THREE.PlaneGeometry(w, l), m); o.rotation.x = -Math.PI / 2; o.position.set(px, y, pz); o.receiveShadow = true; root.add(o); return o; };
+  const std = (c, ro = .9, o = {}) => new THREE.MeshStandardMaterial({color: c, roughness: ro, envMapIntensity: .4, ...o});
+  const mesh = (geo, m, px, py, pz) => { const o = new THREE.Mesh(geo, m); o.position.set(px, py, pz); o.castShadow = o.receiveShadow = true; root.add(o); return o; };
+  // soggy ground: dark mud fading out into the grass
+  const mudM = new THREE.MeshStandardMaterial({map: canvas(256, 640, (g, w, h) => {
+    for (let i = 0; i < 260; i++) { const cx = w / 2 + (r() - .5) * w * .55, cy = h * (.08 + r() * .84), rad = 14 + r() * 44, gr = g.createRadialGradient(cx, cy, 0, cx, cy, rad);
+      const c = r() < .5 ? "58,44,30" : "40,32,24"; gr.addColorStop(0, `rgba(${c},.5)`); gr.addColorStop(1, `rgba(${c},0)`); g.fillStyle = gr; g.fillRect(0, 0, w, h); } }),
+    transparent: true, depthWrite: false, roughness: .55, envMapIntensity: .5, polygonOffset: true, polygonOffsetFactor: -2});
+  const mud = flat(2.2, L + 1.6, mudM, .012); mud.renderOrder = 2;
+  // the puddle where the water comes up
+  const pudM = new THREE.MeshStandardMaterial({color: 0x34414a, roughness: .04, metalness: .2, envMapIntensity: 1.4, transparent: true, opacity: .88, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -3});
+  const pud = new THREE.Mesh(new THREE.CircleGeometry(.5, 40), pudM); pud.rotation.x = -Math.PI / 2; pud.scale.set(1.5, 2.6, 1); pud.position.set(x + .1, .016, leak); pud.renderOrder = 3; root.add(pud);
+  const ringM = new THREE.MeshBasicMaterial({color: 0xdfe9ee, transparent: true, opacity: .4, depthWrite: false});
+  const ring = new THREE.Mesh(new THREE.RingGeometry(.1, .13, 32), ringM); ring.rotation.x = -Math.PI / 2; ring.position.set(x + .05, .02, leak); ring.renderOrder = 4; root.add(ring);
+  // the dig: a dark channel between two spoil piles, the shovel left in the pile
+  const chanM = std(0x2a2017, 1, {transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -4});
+  const chan = flat(.72, L, chanM, .02); chan.renderOrder = 5;
+  const soil = new THREE.MeshStandardMaterial({color: 0x3f3329, roughness: 1, envMapIntensity: .3});
+  const pileGeo = new THREE.SphereGeometry(1, 18, 10, 0, Math.PI * 2, 0, Math.PI / 2); { const p = pileGeo.attributes.position; for (let i = 0; i < p.count; i++) { const k = 1 + (r() - .5) * .22; p.setXYZ(i, p.getX(i) * k, p.getY(i) * k, p.getZ(i) * k); } pileGeo.computeVertexNormals(); }
+  const mounds = []; for (let i = 0; i < 9; i++) { const side = i < 6, k = side ? i : i - 6, n = side ? 6 : 3;
+    const o = mesh(pileGeo, soil, x + (side ? .72 : -.7) + (r() - .5) * .14, 0, z0 + .5 + (k + .5) / n * (L - 1) + (r() - .5) * .3);
+    o.userData.s = side ? [.42 + r() * .14, .3 + r() * .14, .55 + r() * .25] : [.26 + r() * .06, .1 + r() * .05, .6 + r() * .3]; o.rotation.y = r() * 3; mounds.push(o); }
+  const shovel = new THREE.Group(); root.add(shovel); shovel.position.set(x + .9, .2, zc - 1.2); shovel.rotation.set(.35, 0, -.25);
+  { const h = new THREE.Mesh(new THREE.CylinderGeometry(.018, .018, 1.1, 8), std(0x9a7b52, .6)); h.position.y = .55; h.castShadow = true; shovel.add(h);
+    const b = new THREE.Mesh(new THREE.BoxGeometry(.22, .28, .02), std(0x3b3f44, .45, {metalness: .6})); b.position.y = -.05; b.castShadow = true; shovel.add(b); }
+  // pipe: the old grey line split open, then a blue section with brass couplings
+  const pipeGeo = (len) => { const c = new THREE.CylinderGeometry(.045, .045, len, 14); c.rotateX(Math.PI / 2); return c; };
+  const oldA = mesh(pipeGeo(leak - .12 - z0), std(0x7b8086, .5), x, .06, (z0 + leak - .12) / 2), oldB = mesh(pipeGeo(z1 - leak - .12), std(0x7b8086, .5), x, .06, (leak + .12 + z1) / 2);
+  const split = mesh(new THREE.SphereGeometry(.06, 10, 8), std(0x6a6f74, .5), x + .02, .07, leak); split.scale.set(1, .7, 1.6);
+  const newP = new THREE.Group(); root.add(newP);
+  { const p = new THREE.Mesh(pipeGeo(2.6), std(0x2f6fd0, .35)); p.position.set(x, .06, leak); p.castShadow = true; newP.add(p);
+    for (const dz of [-1.3, 1.3]) { const c = new THREE.Mesh(new THREE.CylinderGeometry(.065, .065, .14, 14), std(0xb58a3a, .3, {metalness: .8})); c.rotation.x = Math.PI / 2; c.position.set(x, .06, leak + dz); newP.add(c); } }
+  // fresh sod over the patch afterwards: a lighter strip with seams
+  const sodM = new THREE.MeshStandardMaterial({map: canvas(128, 640, (g, w, h) => {
+    g.fillStyle = "#567f33"; g.fillRect(0, 0, w, h);
+    for (let i = 0; i < 2600; i++) { g.strokeStyle = r() < .5 ? "rgba(40,78,22,.55)" : "rgba(140,180,80,.45)"; g.lineWidth = 1; const a = r() * w, b = r() * h; g.beginPath(); g.moveTo(a, b); g.lineTo(a + (r() - .5) * 3, b - 4 - r() * 6); g.stroke(); }
+    g.fillStyle = "rgba(48,40,28,.6)"; for (let y = 0; y < h; y += h / 8) g.fillRect(0, y, w, 2); g.fillRect(0, 0, 2, h); g.fillRect(w - 2, 0, 2, h); }),
+    transparent: true, depthWrite: false, roughness: .9, envMapIntensity: .3, polygonOffset: true, polygonOffsetFactor: -4});
+  const sod = flat(.95, L + .3, sodM, .022); sod.renderOrder = 6;
+  // locate flags along the line, house to street
+  const flags = new THREE.Group(); root.add(flags); const flagM = std(0x2a64d6, .6, {side: THREE.DoubleSide}), wire = std(0x8a8d90, .5);
+  for (const fz of [7.5, 10.5, 13.5, 23, 26, 29]) { const st = new THREE.Mesh(new THREE.CylinderGeometry(.006, .006, .5, 5), wire); st.position.set(x, .25, fz); flags.add(st);
+    const f = new THREE.Mesh(new THREE.PlaneGeometry(.12, .08), flagM); f.position.set(x + .06, .46, fz); f.rotation.y = .4; flags.add(f); }
+  const ss = (a, b, t) => { const k = Math.min(1, Math.max(0, (t - a) / (b - a))); return k * k * (3 - 2 * k); };
+  let fix = -1, tt = 0;
+  world.onTick.push((t, dt) => { tt += dt; if (ring.visible) { const k = (tt * .7) % 1; ring.scale.setScalar(1 + k * 3); ringM.opacity = .45 * (1 - k); } });
+  const set = ({fix: f = 0} = {}) => { if (Math.abs(f - fix) < 1e-4) return; fix = f;
+    const dig = f < .5 ? ss(.12, .4, f) : 1 - ss(.66, .86, f), wet = 1 - ss(0, .28, f);
+    pudM.opacity = .88 * wet; pud.visible = wet > .01; ring.visible = wet > .2;
+    mudM.opacity = Math.max(wet, dig * .85, .0); mud.visible = mudM.opacity > .01;
+    chanM.opacity = dig; chan.visible = dig > .01;
+    for (const o of mounds) { const [a, b, c] = o.userData.s; o.scale.set(a, b * dig + .001, c); o.visible = dig > .01; }
+    shovel.visible = dig > .3;
+    const swap = f >= .55; oldA.visible = oldB.visible = dig > .05 && !swap; split.visible = oldA.visible; newP.visible = dig > .05 && swap;
+    const s = ss(.8, .95, f); sodM.opacity = s * .9; sod.visible = s > .01;
+    flags.visible = f < .9; };
+  set({fix: 0});
+  return {root, set, exclude: (px, pz) => Math.abs(px - x) < .5 && pz > z0 - .2 && pz < z1 + .2};
+}
