@@ -7238,5 +7238,41 @@
   "src": "Google listing category",
   "on": "2026-11-22",
   "name_ok": true
+ },
+ "benny-s-sip-scoop-fountain-inn-sc": {
+  "v": "coffee",
+  "trade": "Coffee shop",
+  "src": "Google listing category",
+  "on": "2026-11-22"
+ },
+ "pressed-flower-azusa-ca": {
+  "v": "coffee",
+  "trade": "Coffee shop",
+  "src": "Google listing category",
+  "on": "2026-11-22"
+ },
+ "elevate-fitness-farmington-mo": {
+  "v": "gym",
+  "trade": "Fitness center",
+  "src": "Google listing category",
+  "on": "2026-11-22"
+ },
+ "fortissimo-academy-of-music-troy-mi": {
+  "v": "music",
+  "trade": "Music instructor",
+  "src": "Google listing category",
+  "on": "2026-11-22"
+ },
+ "axis-music-foundation-501-c-3-west-bloomfield-township-mi": {
+  "v": "music",
+  "trade": "Music instructor",
+  "src": "Google listing category",
+  "on": "2026-11-22"
+ },
+ "studio-ii-photography-design-beaver-dam-ky": {
+  "v": "photo",
+  "trade": "Photography studio",
+  "src": "Google listing category",
+  "on": "2026-11-22"
  }
 }
