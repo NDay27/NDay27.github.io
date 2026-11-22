@@ -2,7 +2,7 @@
 // t1250.js turns scroll into a state (camera keys, light, trade values); this file draws it on the Harlow engine.
 import {makeWorld, reduce, small} from "../../harlow/assets/world.js";
 import {makeHouse} from "../../harlow/assets/house.js";
-import {lawn, yardTree, flatwork, workTruck, acUnit, yardLine, fixList, stumpGrind, towJob, mowerFix, weldGate, roofJob, elecJob, lockJob, fenceJob, snowJob} from "./yard.js";
+import {lawn, yardTree, flatwork, workTruck, acUnit, yardLine, fixList, stumpGrind, towJob, mowerFix, weldGate, roofJob, elecJob, lockJob, fenceJob, snowJob, digJob, wellJob} from "./yard.js";
 
 // camera keys: position, target, field of view (desktop)
 const K = {
@@ -53,7 +53,7 @@ K.tow = {hero: [[3, 2.4, 48], [-3.5, 1.2, 35.4], 44], close: [[-12, 2.2, 45], [-
 // small engine repair: a riding mower that won't run in the drive, fixed and driven onto the lawn
 K.engine = {hero: [[14.5, 2.4, 30], [7.6, .5, 22], 40], close: [[13.5, 1.8, 26.5], [9.5, .5, 22], 42], dusk: [[14.5, 2.4, 30], [7.6, .5, 22], 40],
             cfg: [[13, 2.2, 29], [7.5, .5, 21.5], 42]};
-const HOME = {wash: "wash", concrete: "concrete", hvac: "ac", plumb: "pipe", handy: "list", stump: "stump", tow: "tow", engine: "engine", weld: "weld", roof: "roof", elec: "elec", lock: "lock", fence: "fence", snow: "snow"};
+const HOME = {wash: "wash", concrete: "concrete", hvac: "ac", plumb: "pipe", handy: "list", stump: "stump", tow: "tow", engine: "engine", weld: "weld", roof: "roof", elec: "elec", lock: "lock", fence: "fence", snow: "snow", dig: "dig", well: "well"};
 // welding: a rusted, sagging double gate at the end of the drive, welded, painted and hung true
 K.weld = {hero: [[14, 1.9, 37], [9.5, .7, 30], 44], close: [[12.8, 1.3, 33.2], [11, .7, 30.2], 44], dusk: [[14, 1.9, 37], [9.5, .7, 30], 44],
           cfg: [[13.4, 1.7, 35.5], [9.8, .7, 30], 44]};
@@ -75,6 +75,12 @@ K.fence = {hero: [[-14, 2.0, 16], [-11.2, 1.1, 5.8], 40], close: [[-9.6, 1.5, 10
 // snow removal: the morning after a snowfall; the plow clears the drive, then the path and the front walk are shoveled and salted
 K.snow = {hero: [[-6, 3.5, 32], [6, 1.2, 10], 40], close: [[1.5, 3.2, 27], [10, .6, 14], 42], walk: [[-3.5, 1.8, 18], [1.5, .4, 11], 40],
           dusk: [[-12, 4.5, 38], [4, 1.5, 6], 40], cfg: [[-5, 3.4, 30], [6, 1.2, 10], 40]};
+// excavating: the side yard left of the house; a mini excavator digs a pit, gravel and footing forms go in
+K.dig = {hero: [[-14, 7, 15], [-10.5, -.3, .5], 40], close: [[-7.5, 4.2, 9], [-11.2, .2, 1.5], 42], pit: [[-17.2, 4.8, -2.2], [-10.8, -1.2, .4], 42],
+         dusk: [[-19, 7.5, 19], [-9, 0, 1], 40], cfg: [[-15, 7, 16], [-10.5, -.3, .5], 40]};
+// well drilling: a rig in the front yard; the mast goes up, it drills to water, then the casing gets its cap and the rig leaves
+K.well = {hero: [[-24, 4.2, 23.5], [-9.5, 4.4, 11], 40], close: [[-13.5, 1.9, 7.4], [-11, .9, 11.6], 42], done: [[-13.2, 2.6, 6.6], [-11, .3, 11.6], 40],
+          dusk: [[-14, 2.4, 16.5], [-11, .3, 11.4], 40], cfg: [[-25, 4.6, 25], [-9.5, 4.2, 11], 40]};
 K.roof = {hero: [[-11, 8, 27], [1.5, 4.6, 0], 40], close: [[-6, 9.5, 14], [0, 6.6, 0], 40], dusk: [[-11, 8, 27], [1.5, 4.6, 0], 40],
           cfg: [[-10, 7.6, 25], [1.5, 4.8, 0], 40]};
 
@@ -207,7 +213,7 @@ export async function start(HB) {
   const {THREE, cam, ctl} = world;
   house = makeHouse(world);
   if (g === "tree") tree = yardTree(world);
-  const line = HOME[g] === "pipe" ? yardLine(world) : HOME[g] === "stump" ? stumpGrind(world) : null;
+  const line = HOME[g] === "pipe" ? yardLine(world) : HOME[g] === "stump" ? stumpGrind(world) : HOME[g] === "dig" ? digJob(world) : HOME[g] === "well" ? wellJob(world) : null;
   // grass was planted before the house existed: keep only the blades outside its footprint
   if (world.grass) { const gr = world.grass, m = new THREE.Matrix4(), c = new THREE.Color(), P = gr.userData.pos; let n = 0;
     for (let i = 0; i < P.length; i++) { const [x, z, sc, q] = P[i]; if (house.exclude(x, z) || (tree && tree.exclude(x, z)) || (line && line.exclude(x, z))) continue; m.compose(new THREE.Vector3(x, 0, z), q, new THREE.Vector3(1, sc, 1)); gr.setMatrixAt(n, m); gr.getColorAt(i, c); gr.setColorAt(n, c); n++; }

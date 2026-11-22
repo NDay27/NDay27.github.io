@@ -7304,5 +7304,36 @@
   "trade": "Dog trainer",
   "src": "Google listing category",
   "on": "2026-11-22"
+ },
+ "west-michigan-water-wells-belding-mi": {
+  "v": "handyman",
+  "trade": "Well drilling contractor",
+  "src": "Google listing category",
+  "on": "2026-11-22"
+ },
+ "dolson-well-service-llc-belding-mi": {
+  "v": "handyman",
+  "trade": "Well drilling contractor",
+  "src": "Google listing category",
+  "on": "2026-11-22"
+ },
+ "ron-meyers-son-digging-air-marshfield-wi": {
+  "v": "handyman",
+  "trade": "Excavating contractor",
+  "src": "Google listing category",
+  "on": "2026-11-22"
+ },
+ "lb-lawn-fencing-missoula-mt": {
+  "v": "handyman",
+  "trade": "Excavating contractor",
+  "src": "Google listing category",
+  "on": "2026-11-22"
+ },
+ "dirt-bros-excavating-llc-neillsville-wi": {
+  "v": "handyman",
+  "trade": "Excavating contractor",
+  "src": "Google listing category",
+  "on": "2026-11-22",
+  "name_ok": true
  }
 }

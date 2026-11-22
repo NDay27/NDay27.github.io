@@ -81,6 +81,12 @@ def candidates():
         if s["v"] in STUMP_V and re.search(r"stump", s["name"].lower()) and kit.st(s) != "CA":
             out.append(("stump", dict(s, kv="stump")))
             continue
+        # a handyman lead whose Google category is an excavating or well drilling contractor gets the dig or the well kit (own variants, see home.V_NEW)
+        if g == "handy" and re.search(r"excavat|well drill", (s.get("cat") or "").lower()):
+            k = "well" if "well" in s["cat"].lower() else "dig"
+            if not re.search(NAME_OUT[k], s["name"].lower()):
+                out.append((k, dict(s, kv={"well": "welldrill", "dig": "excavation"}[k])))
+            continue
         # an antique store listed as a thrift store gets the antique shop kit (its own variant, see store.V_NEW)
         if s["v"] == "thrift" and "antique" in (s.get("cat") or "").lower():
             if not re.search(NAME_OUT["antique"], s["name"].lower()):
