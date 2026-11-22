@@ -48,6 +48,10 @@ def meet(s):
     who = "shop" if g in kit.SHOPS else "crew"
     shop = dict(s); shop["group"] = kit.V[s["v"]]["group"]  # the tier template's group, for the shared pitch-room text
     d = json.loads(tb.meet_json(shop).replace("<\\/", "</"))
+    if s.get("trade"):
+        d["trade"] = s["trade"]
+    if s.get("vx"):
+        d["services"] = [x[0] for x in s["vx"]["services"]]
     r = tb.rating_txt(shop)
     d["tools"] = {"essential": t[0], "signature": t[1], "immersive": t[2]}
     d["versions"]["essential"]["features"] = [

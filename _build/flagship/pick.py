@@ -62,6 +62,16 @@ KEEP = {"buck-s-tree-service-landscaping-peoria",
         # Nov 22: Google lists these as an air conditioning repair service and a Mexican restaurant; "Refrigeration" / "& Bar" in the name doesn't change the story
         "j-r-refrigeration-service-parts-llc-union-city-nj", "el-patron-mexican-grill-bar-austin-mn"}
 
+# Nov 22: leads with hand-written copy (multi-trade names) checked by hand: the group's 3D story fits, so they join with their own
+# service names and jobs re-worded as "Ask about ..." (kit.own_copy). Left out: Piercings By Spencer (the window would say Tattoo),
+# Mince's Creatures (a rural kennel, not a storefront), Home Improvements Plus and The Grease Spot (no Google listing found).
+COPY_OK = {"101-corvette-paint-body-shop-macomb", "a-a-paint-seamless-gutters-washington", "tnt-painting-cleaning-bloomington",
+           "309-lawn-care-landscaping-excavating-peoria", "bird-dog-diesel-repair-llc-washington", "cns-forestry-and-landscaping-llc-lincoln",
+           "marks-lawn-care-and-small-engine-repair-galesburg", "hughes-tree-landscaping-pekin", "bd-auto-truck-body-inc-plymouth-wi",
+           "moore-s-lawncare-handy-man-cleaning-services-shelby-oh", "suit-expo-florence-sc", "four-eyes-a-brush-painting-and-pressure-washing-valdosta-ga",
+           "root-eaters-plumbing-and-drain-cleaning-services-llc-saginaw-mi", "wright-personal-fitness-rome-ga", "hoff-s-machine-welding-inc-salina-ks",
+           "bywaters-plumbing-repair-services-drain-cleaning-cairo-ga"}
+KEEP = KEEP | COPY_OK
 # checked by hand: the kit's story would be wrong (Nov 22: a boxing gym whose listing address looks like a house, not a storefront)
 HOLD = {"bearcityboxing-new-bern-nc"}
 
@@ -73,7 +83,7 @@ def candidates():
     checks = json.load(open(tb.CHECKS_PATH))
     out = []
     for s in tiers + dealt:
-        if s["slug"] in done or s.get("copy") or s["slug"] in HOLD:
+        if s["slug"] in done or (s.get("copy") and s["slug"] not in COPY_OK) or s["slug"] in HOLD:
             continue
         if s.get("gstatus") in ("closed", "temp") or s.get("wk") == "own":
             continue
