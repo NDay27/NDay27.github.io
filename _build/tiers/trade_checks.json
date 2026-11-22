@@ -3309,9 +3309,9 @@
  },
  "mj-s-windshield-repair-north-pekin": {
   "v": "autoglass",
-  "trade": "auto glass / windshield repair (per name)",
-  "src": "business name and Google category",
-  "on": "2026-11-20"
+  "trade": "Windshield repair",
+  "src": "Google listing category",
+  "on": "2026-11-22"
  },
  "modern-garage-mankato-mn": {
   "v": "auto",
@@ -7022,5 +7022,12 @@
   "trade": "Thrift store",
   "src": "Google listing category",
   "on": "2026-11-21"
+ },
+ "arv-autoglass-repair-replacement-canton": {
+  "v": "autoglass",
+  "trade": "Auto glass shop",
+  "src": "Google listing category",
+  "on": "2026-11-22",
+  "name_ok": true
  }
 }

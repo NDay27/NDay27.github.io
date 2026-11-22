@@ -1999,5 +1999,75 @@
   "h": 900,
   "q": "kind=truck&sign=Truck+Repair&tod=.3&cam=-8,3.4,28&tgt=1.6,3.0,0&fov=31&hood=1&second=0",
   "svg": true
+ },
+ {
+  "name": "glass-before",
+  "lab": "labauto",
+  "w": 2400,
+  "h": 1350,
+  "q": "kind=glass&sign=Auto+Glass&tod=0.3&cam=-6.2,1.8,14.4&tgt=-2.2,1.15,10.0&fov=32&pos=1&fix=0&ox=0.13"
+ },
+ {
+  "name": "glass-after",
+  "lab": "labauto",
+  "w": 2400,
+  "h": 1350,
+  "q": "kind=glass&sign=Auto+Glass&tod=0.3&cam=-6.2,1.8,14.4&tgt=-2.2,1.15,10.0&fov=32&pos=1&fix=1&ox=0.13"
+ },
+ {
+  "name": "glass-s1",
+  "lab": "labauto",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=glass&sign=Auto+Glass&tod=0.3&cam=-4.4,2.2,12.2&tgt=-1.55,1.45,9.9&fov=36&pos=1&fix=0"
+ },
+ {
+  "name": "glass-s2",
+  "lab": "labauto",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=glass&sign=Auto+Glass&tod=0.3&cam=-4.4,2.2,12.2&tgt=-1.55,1.45,9.9&fov=36&pos=1&fix=0.45"
+ },
+ {
+  "name": "glass-s3",
+  "lab": "labauto",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=glass&sign=Auto+Glass&tod=0.3&cam=-4.4,2.2,12.2&tgt=-1.55,1.45,9.9&fov=36&pos=1&fix=0.8"
+ },
+ {
+  "name": "glass-s4",
+  "lab": "labauto",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=glass&sign=Auto+Glass&tod=0.3&cam=-6.2,1.8,14.4&tgt=-2.2,1.15,10.0&fov=32&pos=1&fix=1"
+ },
+ {
+  "name": "glass-dusk",
+  "lab": "labauto",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=glass&sign=Auto+Glass&tod=0.84&cam=-11,1.8,19&tgt=0,2.4,3&fov=36&pos=1&fix=1"
+ },
+ {
+  "name": "glass-crack",
+  "lab": "labauto",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=glass&sign=Auto+Glass&tod=0.3&cam=-4.4,2.2,12.2&tgt=-1.55,1.45,9.9&fov=36&pos=1&fix=0"
+ },
+ {
+  "name": "glass-cups",
+  "lab": "labauto",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=glass&sign=Auto+Glass&tod=0.3&cam=-4.4,2.2,12.2&tgt=-1.55,1.45,9.9&fov=36&pos=1&fix=0.45"
+ },
+ {
+  "name": "glass-clear",
+  "lab": "labauto",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=glass&sign=Auto+Glass&tod=0.3&cam=-6.2,1.8,14.4&tgt=-2.2,1.15,10.0&fov=32&pos=1&fix=1"
  }
 ]
