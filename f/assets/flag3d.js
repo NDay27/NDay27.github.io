@@ -26,11 +26,11 @@ const SK = {hero: [[-9, 2.3, 17.5], [.8, 3.5, 0], 36], front: [[-4.6, 2.4, 11.5]
             inside: [[0, 1.6, -3.4], [-.4, 1.2, -7.2], 50], dusk: [[.6, 2.0, 16], [.4, 3.0, 0], 36], cfg: [[-6.5, 2.2, 13.5], [.6, 2.6, 0], 38]};
 // every store group in _build/flagship/store.py GROUPS must be listed here (make.py checks), or its live 3D falls back to stills
 const STORE = {bakery: "bakery", salon: "salon", barber: "barber", nails: "nails", eat: "eat", shop: "shop", groom: "groom", tailor: "sew", uphol: "sew", scoop: "scoop",
-               antique: "antique", tattoo: "tattoo", dojo: "dojo", jewel: "jewel", appst: "appst", massage: "massage", cafe: "cafe", gym: "gym", music: "music", photo: "photo", stand: "stand", kids: "kids", dogs: "dogs", train: "dogs", autotrim: "autotrim"};
+               antique: "antique", tattoo: "tattoo", dojo: "dojo", jewel: "jewel", appst: "appst", massage: "massage", cafe: "cafe", gym: "gym", music: "music", photo: "photo", stand: "stand", kids: "kids", dogs: "dogs", train: "dogs", autotrim: "autotrim", boxing: "boxing"};
 const WORD = {bakery: "Bakery", cake: "Cakes", donut: "Donuts", salon: "Hair", barber: "Barber", nails: "Nails", restaurant: "Eat",
               thrift: "Thrift", boutique: "Boutique", petgroom: "Grooming", tailor: "Tailor", upholstery: "Upholstery", icecream: "Ice Cream",
               antique: "Antiques", tattoo: "Tattoo", martial: "Martial Arts", jewelry: "Jewelry", applstore: "Appliances", massage: "Massage",
-              coffee: "Coffee", gym: "Fitness", music: "Music", photo: "Studio", dairystand: "Ice Cream", daycare: "Child Care", petcare: "Dog Care", dogtrain: "Training", autotrim: "Auto Trim"};
+              coffee: "Coffee", gym: "Fitness", music: "Music", photo: "Studio", dairystand: "Ice Cream", daycare: "Child Care", petcare: "Dog Care", dogtrain: "Training", autotrim: "Auto Trim", boxing: "Boxing"};
 for (const g in STORE) K[g] = SK;
 // the drive-in stand is one storey on its own lot: the camera comes in closer and lower
 K.stand = {...SK, inside: [[1.6, 1.75, -1.6], [-.8, 1.15, -5.2], 55], hero: [[-8, 2.1, 14], [.6, 2.4, 0], 36], front: [[-4.2, 2.0, 9.5], [.4, 1.9, 0], 40], dusk: [[-6.2, 1.7, 12.2], [.6, 2.3, 0], 36], cfg: [[-6, 2.0, 11], [.5, 2.0, 0], 38]};
