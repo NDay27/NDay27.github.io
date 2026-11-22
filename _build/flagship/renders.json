@@ -2739,5 +2739,65 @@
   "w": 1600,
   "h": 1000,
   "q": "p=1&truck=Fence&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-9.6,1.5,10.5&tgt=-11.6,1.0,5.8&fov=42&fence=0"
+ },
+ {
+  "name": "snow-before",
+  "w": 2400,
+  "h": 1350,
+  "q": "p=1&truck=Snow&tx=-11&tz=35.4&tr=1.5708&tod=0.3&cam=-6,3.5,32&tgt=6,1.2,10&fov=40&snow=0&ox=0.13"
+ },
+ {
+  "name": "snow-after",
+  "w": 2400,
+  "h": 1350,
+  "q": "p=1&truck=Snow&tx=-11&tz=35.4&tr=1.5708&tod=0.3&cam=-6,3.5,32&tgt=6,1.2,10&fov=40&snow=1&ox=0.13"
+ },
+ {
+  "name": "snow-s1",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Snow&tx=-11&tz=35.4&tr=1.5708&tod=0.3&cam=-6,3.5,32&tgt=6,1.2,10&fov=40&snow=0"
+ },
+ {
+  "name": "snow-s2",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Snow&tx=-11&tz=35.4&tr=1.5708&tod=0.3&cam=1.5,3.2,27&tgt=10,.6,14&fov=42&snow=.3"
+ },
+ {
+  "name": "snow-s3",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Snow&tx=-11&tz=35.4&tr=1.5708&tod=0.3&cam=-3.5,1.8,18&tgt=1.5,.4,11&fov=40&snow=.76"
+ },
+ {
+  "name": "snow-s4",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Snow&tx=-11&tz=35.4&tr=1.5708&tod=0.3&cam=-3.5,1.8,18&tgt=1.5,.4,11&fov=40&snow=1"
+ },
+ {
+  "name": "snow-dusk",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Snow&tx=-11&tz=35.4&tr=1.5708&tod=0.84&cam=-12,4.5,38&tgt=4,1.5,6&fov=40&snow=1"
+ },
+ {
+  "name": "snow-plow",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Snow&tx=-11&tz=35.4&tr=1.5708&tod=0.3&cam=1.5,3.2,27&tgt=10,.6,14&fov=42&snow=.34"
+ },
+ {
+  "name": "snow-walk",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Snow&tx=-11&tz=35.4&tr=1.5708&tod=0.3&cam=-3.5,1.8,18&tgt=1.5,.4,11&fov=40&snow=1"
+ },
+ {
+  "name": "snow-fall",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Snow&tx=-11&tz=35.4&tr=1.5708&tod=0.3&cam=-4,2.2,24&tgt=3,2.2,6&fov=38&snow=0"
  }
 ]
