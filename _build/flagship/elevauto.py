@@ -17,7 +17,7 @@ OUT_W = 1352
 SW = 2.1
 
 
-NOTE = {"auto": "Bay 1: up on the lift", "store": "Awning out, door open", "semi": "Bay 1: hood tilted, engine open"}
+NOTE = {"auto": "Bay 1: up on the lift", "store": "Awning out, door open", "stand": "Shutters up, awning out", "semi": "Bay 1: hood tilted, engine open"}
 
 
 def clip(s, x0, y0, x1, y1):
@@ -41,7 +41,7 @@ def clip(s, x0, y0, x1, y1):
 def main(src, kind="auto"):
     d = json.load(open(os.path.join(src, f"{kind}-elev.json")))
     L = d["layers"]
-    if kind == "store":  # keep the shop and a slice of each neighbour, not the whole block
+    if kind in ("store", "stand"):  # keep the shop and a slice of each neighbour, not the whole block
         wx = [v for s in L["wall"] for v in (s[0], s[2])]; box = (min(wx) - 300, 0, max(wx) + 300, d["H"] - 160)
         L = {k: [c for c in (clip(s, *box) for s in v) if c] for k, v in L.items()}
     segs = [s for k in ORDER for s in L.get(k, []) if k != "batten"]

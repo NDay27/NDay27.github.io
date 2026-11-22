@@ -7640,5 +7640,30 @@
    "Google listing category (trade check)"
   ],
   "v": "landscape"
+ },
+ {
+  "slug": "bob-s-dairy-dream-east-peoria",
+  "owner": "nolan",
+  "src": [
+   "Google listing category (trade check)"
+  ],
+  "v": "dairystand"
+ },
+ {
+  "slug": "flavor-freeze-galesburg",
+  "owner": "nolan",
+  "src": [
+   "Google listing category (trade check)"
+  ],
+  "v": "dairystand"
+ },
+ {
+  "slug": "ernie-s-dairy-dream-peoria",
+  "owner": "nolan",
+  "src": [
+   "Google listing category (trade check)"
+  ],
+  "v": "dairystand",
+  "name": "Ernie's Dairy Dream"
  }
 ]

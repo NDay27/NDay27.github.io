@@ -9,12 +9,14 @@
 // Usage: labstore.html?kind=bakery&sign=Bakery&tod=.3&cam=x,y,z&tgt=x,y,z&fov=34&open=1&lights=1&awning=1&door=0[&color=hex&word=Bakery&second=0]
 import {makeWorld} from "../../harlow/assets/world.js";
 import {makeStore} from "../../f/assets/storefront.js";
+import {makeStand, standExclude} from "../../f/assets/stand.js";
+const STAND = new URLSearchParams(location.search).get("kind") === "stand";
 const q = new URLSearchParams(location.search), num = (k, d) => q.has(k) ? +q.get(k) : d, vec = (k, d) => q.has(k) ? q.get(k).split(",").map(Number) : d;
 await document.fonts.load("800 40px Archivo"); await document.fonts.load("italic 600 40px Archivo").catch(() => 0);
 let G = null;
 const world = await makeWorld({cam: {pos: vec("cam", [-9, 2.4, 18]), target: vec("tgt", [.8, 3.4, 0]), minD: 1, maxD: 200, minAz: -9, maxAz: 9, maxPolar: Math.PI * .6}, offset: false, fov: () => num("fov", 34), tod: num("tod", .3), ground: "lawn", grassR: 30, grassH: .15, grassW: .04, grassN: .2,
-  exclude: (x, z) => z > -11 && z < 40});
-G = await makeStore(world, {kind: q.get("kind") || "bakery", sign: q.get("sign") || "Bakery", font: "Archivo", word: q.get("word") || "", second: q.get("second") !== "0", awning: q.has("color") ? parseInt(q.get("color"), 16) : undefined});
+  exclude: STAND ? standExclude : (x, z) => z > -11 && z < 40});
+G = await (STAND ? makeStand : makeStore)(world, {kind: q.get("kind") || "bakery", sign: q.get("sign") || "Bakery", font: "Archivo", word: q.get("word") || "", second: q.get("second") !== "0", awning: q.has("color") ? parseInt(q.get("color"), 16) : undefined});
 window.G = G; window.world = world;
 G.set({open: num("open", 1), lights: num("lights", 1), awning: num("awning", 1), door: num("door", 0)});
 world.ctl.autoRotate = false; world.ctl.enableDamping = false; world.setQuality(2);
@@ -52,8 +54,8 @@ function drawing() {
     for (let i = 0; i < p.count; i += 2) seg(new THREE.Vector3().fromBufferAttribute(p, i).applyMatrix4(m.matrixWorld), new THREE.Vector3().fromBufferAttribute(p, i + 1).applyMatrix4(m.matrixWorld), L); }
   // brick coursing: piers and the solid wall between the upper windows
   const d = G.dims, by = .16, gaps = [[-3.025, -1.875], [-.575, .575], [1.875, 3.025]];
-  for (let y = .5; y < d.GH; y += .5) for (const [a, b] of [[d.X0, d.X0 + .46], [d.X1 - .46, d.X1]]) seg(new THREE.Vector3(a, y + by, .01), new THREE.Vector3(b, y + by, .01), "batten");
-  for (let y = d.GH + .25; y < d.H2 - .7; y += .5) { const inWin = y > 5.35 && y < 7.55; let x = d.X0;
+  if (!G.stand) for (let y = .5; y < d.GH; y += .5) for (const [a, b] of [[d.X0, d.X0 + .46], [d.X1 - .46, d.X1]]) seg(new THREE.Vector3(a, y + by, .01), new THREE.Vector3(b, y + by, .01), "batten");
+  if (!G.stand) for (let y = d.GH + .25; y < d.H2 - .7; y += .5) { const inWin = y > 5.35 && y < 7.55; let x = d.X0;
     for (const [a, b] of inWin ? gaps : []) { seg(new THREE.Vector3(x, y + by, .01), new THREE.Vector3(a, y + by, .01), "batten"); x = b; } seg(new THREE.Vector3(x, y + by, .01), new THREE.Vector3(d.X1, y + by, .01), "batten"); }
   const sm = G.signMesh, sp = sm.geometry.parameters, sign = [[-1, 1], [1, 1], [-1, -1]].map(([x, y]) => proj(new THREE.Vector3(x * sp.width / 2, y * sp.height / 2, sp.depth / 2).applyMatrix4(sm.matrixWorld)).slice(0, 2));
   rt.dispose(); return {W, H, layers: out, sign};

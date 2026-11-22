@@ -260,6 +260,8 @@ def elevation(g, s=None):
     if g == "office":  # a cleaning team's client: an office block on main street
         svg = open(os.path.join(HERE, "elev-store.svg")).read().replace("Awning out, door open", "Every desk, every floor")
         return sign_text(svg, "Offices")
+    if g == "stand":
+        return sign_text(open(os.path.join(HERE, "elev-stand.svg")).read(), s["short"] if s else "Ice Cream")
     if g in STORES:
         svg = open(os.path.join(HERE, "elev-store.svg")).read()
         return sign_text(svg, s["short"] if s else store.GROUPS[g]["sign"])

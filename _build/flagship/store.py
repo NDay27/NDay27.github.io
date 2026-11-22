@@ -361,10 +361,14 @@ CAM = {"hero": ("-9,2.3,17.5", ".8,3.5,0", 36), "front": ("-4.6,2.4,11.5", ".6,2
        "inside": ("1.6,1.75,-1.6", "-.8,1.15,-5.2", 55), "window": ("-3.6,1.55,3.6", "-1.6,1.3,-1.0", 40), "dusk": ("-7.5,1.9,15", ".8,3.2,0", 36)}
 
 
+# a kind can frame its own shots (the drive-in stand is one storey, so the camera comes in closer)
+CAM_KIND = {"stand": {"hero": ("-8,2.1,14", ".6,2.4,0", 36), "front": ("-4.2,2.0,9.5", ".4,1.9,0", 40), "dusk": ("-6.2,1.7,12.2", ".6,2.3,0", 36)}}
+
+
 def renders(g):
     d = GROUPS[g]; base = f"kind={d['kind']}&sign={d['sign'].replace(' ', '+')}&word={d['word']}"
     def r(name, w, h, cam, tod, st, ox=0):
-        c, t, f = CAM[cam]
+        c, t, f = {**CAM, **CAM_KIND.get(d["kind"], {})}[cam]
         q = f"{base}&tod={tod}&cam={c}&tgt={t}&fov={f}&{st}" + (f"&ox={ox}" if ox else "")
         return {"name": f"{g}-{name}", "lab": "labstore", "w": w, "h": h, "q": q}
     closed, opened, inside = "open=0&lights=0&awning=0&door=0", "open=1&lights=1&awning=1&door=0", "open=1&lights=1&awning=1&door=1&second=0"
@@ -650,3 +654,67 @@ for _g in _B78:
                f"Drag the slider on the top picture from closed to open, then try the {TOOL[_g][0].lower()}.",
                "Scroll to watch the shop open up and walk inside, then change the awning color and flip the sign yourself.")
 AWN_DEFAULT.update({"cafe": "Green", "gym": "Black", "music": "Plum", "photo": "Black"})
+
+
+# ---------- the drive-in ice cream stand (f/assets/stand.js): a walk-up stand on its own lot ----------
+# Ice cream leads whose name says drive-in (Dairy Dream, Flavor Freeze...) move here from pick.py with flagship v "dairystand".
+import copy as _copy  # noqa: E402
+GROUPS["stand"] = dict(vs=["dairystand"], kind="stand", sign="Ice Cream", word="Ice Cream", noun="ice cream stand")
+KGROUP["dairystand"] = "stand"; KIT_V.update(KGROUP)
+NAME_OUT["stand"] = r"food truck|truck|mobile|cart\b|trailer|wholesale|distribut|dairy farm|creamery"
+WORD["dairystand"] = "Ice Cream"; TRADE["dairystand"] = "Ice cream shop"; SCHEMA["dairystand"] = "IceCreamShop"; TRADE_LABEL["dairystand"] = "Ice Cream"
+V_NEW["dairystand"] = dict(group="sweets", noun="stand", h300=["Grab a cone.", "Pick a flavor."], h750=["Cold treats.", "Warm nights."],
+                           h1250=["Cones up.", "Come on by."],
+                           lede="Ice cream in {town}. Stop by for a cone, or ask about treats for your next party.",
+                           services=[("Cones and cups", "Ask what's on today."), ("Sundaes and shakes", "Ask what they're making today."), ("Treats for a group", "Ask about treats for a team or a party.")],
+                           jobs=["Party order", "Group visit", "Fundraiser", "Something else"],
+                           when=["This week", "Next week", "Later this month", "Just asking"], who="customers", ask="What are you planning?")
+THEME["stand"] = _t("#5a1420", "#6e1a28", "#fbf6ee", "#f4e9dc", "#2a1216", "#6e5a5c", "#ead9cf", "#d64a5e", "#f2a1ad", "#2f8f86", "#2a0b10", "fraunces", "dmsans")
+EXTRA_CSS["stand"] = EXTRA_CSS["scoop"]
+COPY["stand"] = dict(_copy.deepcopy(COPY["scoop"]), svc_h="At the window", svc_intro="Stop by and see what's on today, or ask about treats for a group.",
+                     sheet=("An ice cream stand in {town}", "Awning out, open for the day"),
+                     sheet_label="Line drawing of a one-storey ice cream stand with two walk-up windows, a striped awning and a giant cone on the roof",
+                     shot=("stand-after", "An ice cream stand with a striped awning, the shutters up and a giant cone on the roof", "Illustration. Your real shop photos go here."))
+STEPS["stand"] = [("Tell us what you're planning", "A party, a team or a group visit, and how many people."), ("Get a call back", "Sort out the details ahead of time."), ("Grab a cone", "Stop by and enjoy.")]
+GLYPH["stand"] = GLYPH["scoop"]
+SVC_ICON.update({("stand", "Cones and cups"): _I["scoop"], ("stand", "Sundaes and shakes"): _I["cup"], ("stand", "Treats for a group"): _I["group"]})
+INSIDE["stand"] = ("Behind the window", "Soft-serve machines, a dipping cabinet of tubs and cones stacked by the window.", "Inside the ice cream stand: two soft-serve machines, a dipping cabinet and stacked cones")
+VISIT["stand"] = "From the lot to the window"
+TOOL["stand"] = _copy.deepcopy(TOOL["scoop"]); READY["stand"] = READY["scoop"]
+TOOLS["stand"] = ("Text-the-shop button", f"Before-and-after slider and a {TOOL['stand'][0].lower()}", "a live 3D ice cream stand that opens up for the day and lets you look inside")
+TRY["stand"] = ("Tap a choice under \"Rather text than call?\" and watch the text write itself.",
+                f"Drag the slider on the top picture from closed to open, then try the {TOOL['stand'][0].lower()}.",
+                "Scroll to watch the stand open up and look inside, then change the awning color and flip the sign yourself.")
+AWN_DEFAULT["stand"] = "Red"
+_hero0, _svc_img0, _stages0, _beats0 = hero, svc_img, stages, beats
+
+
+def hero(g):
+    if g != "stand":
+        return _hero0(g)
+    return ("stand-before", "stand-after", "An ice cream stand before opening, with the shutters down and the awning rolled up",
+            "The same ice cream stand open for the day, with the shutters up, the awning out and the OPEN sign lit", "50% 50%")
+
+
+def svc_img(g):
+    if g != "stand":
+        return _svc_img0(g)
+    return [("stand-window", "The walk-up window of an ice cream stand, with the menu board lit"), ("stand-inside", INSIDE[g][2]),
+            ("stand-door", "The front of an ice cream stand with both windows open and the OPEN sign on the door")]
+
+
+def stages(g):
+    if g != "stand":
+        return _stages0(g)
+    i = INSIDE[g]
+    return [("stand-s1", "Early", "Before the shutters go up", "A quiet lot, the lights off and the awning rolled up."),
+            ("stand-s2", "Getting ready", "Lights on, awning out", "The stand wakes up and the menu boards light."),
+            ("stand-s3", "Open", "Shutters up", "The windows slide open and the neon's on. Come on by."),
+            ("stand-s4", "Inside", i[0], i[1])]
+
+
+def beats(g):
+    b = _beats0(g)
+    if g == "stand":
+        b[4] = b[4][:5] + (("04 · Evening", "Still glowing at dusk", "The menu boards lit, the neon on and the lot lamps coming up."),)
+    return b

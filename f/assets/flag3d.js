@@ -26,12 +26,14 @@ const SK = {hero: [[-9, 2.3, 17.5], [.8, 3.5, 0], 36], front: [[-4.6, 2.4, 11.5]
             inside: [[0, 1.6, -3.4], [-.4, 1.2, -7.2], 50], dusk: [[.6, 2.0, 16], [.4, 3.0, 0], 36], cfg: [[-6.5, 2.2, 13.5], [.6, 2.6, 0], 38]};
 // every store group in _build/flagship/store.py GROUPS must be listed here (make.py checks), or its live 3D falls back to stills
 const STORE = {bakery: "bakery", salon: "salon", barber: "barber", nails: "nails", eat: "eat", shop: "shop", groom: "groom", tailor: "sew", uphol: "sew", scoop: "scoop",
-               antique: "antique", tattoo: "tattoo", dojo: "dojo", jewel: "jewel", appst: "appst", massage: "massage", cafe: "cafe", gym: "gym", music: "music", photo: "photo"};
+               antique: "antique", tattoo: "tattoo", dojo: "dojo", jewel: "jewel", appst: "appst", massage: "massage", cafe: "cafe", gym: "gym", music: "music", photo: "photo", stand: "stand"};
 const WORD = {bakery: "Bakery", cake: "Cakes", donut: "Donuts", salon: "Hair", barber: "Barber", nails: "Nails", restaurant: "Eat",
               thrift: "Thrift", boutique: "Boutique", petgroom: "Grooming", tailor: "Tailor", upholstery: "Upholstery", icecream: "Ice Cream",
               antique: "Antiques", tattoo: "Tattoo", martial: "Martial Arts", jewelry: "Jewelry", applstore: "Appliances", massage: "Massage",
-              coffee: "Coffee", gym: "Fitness", music: "Music", photo: "Studio"};
+              coffee: "Coffee", gym: "Fitness", music: "Music", photo: "Studio", dairystand: "Ice Cream"};
 for (const g in STORE) K[g] = SK;
+// the drive-in stand is one storey on its own lot: the camera comes in closer and lower
+K.stand = {...SK, inside: [[1.6, 1.75, -1.6], [-.8, 1.15, -5.2], 55], hero: [[-8, 2.1, 14], [.6, 2.4, 0], 36], front: [[-4.2, 2.0, 9.5], [.4, 1.9, 0], 40], dusk: [[-6.2, 1.7, 12.2], [.6, 2.3, 0], 36], cfg: [[-6, 2.0, 11], [.5, 2.0, 0], 38]};
 K.concrete = {...K.wash, hero: [[1.2, 2.9, 31.5], [8.6, .9, 12], 40]};
 // heating and cooling: the outdoor unit beside the house is the subject, the crew's truck at the curb
 K.hvac = {hero: [[-11.4, 1.5, 6.2], [-7.2, 1.0, -.3], 40], close: [[-10.2, 1.3, 3.4], [-7.3, .75, -.3], 40], dusk: [[-17, 3.2, 50], [-4, 1.6, 6], 34],
@@ -133,13 +135,13 @@ async function startAuto(HB) {
 
 // Storefronts: the shop's own name on the sign band, its trade on the window, an interior dressed for the trade.
 async function startStore(HB) {
-  const keys = K[HB.group], {makeStore} = await import("./storefront.js");
+  const keys = K[HB.group], stand = STORE[HB.group] === "stand", {makeStore} = await import("./storefront.js"), SM = stand ? await import("./stand.js") : null;
   const world = await makeWorld({
     cam: {pos: keys.hero[0], target: keys.hero[1], minD: 1, maxD: 400, minAz: -99, maxAz: 99, maxPolar: Math.PI * .62},
-    tod: .62, ground: "lawn", grassR: 30, grassH: .15, grassW: .04, grassN: .12, offset: false, fov: () => 36, exclude: (x, z) => z > -11 && z < 40,
+    tod: .62, ground: "lawn", grassR: 30, grassH: .15, grassW: .04, grassN: .12, offset: false, fov: () => 36, exclude: stand ? SM.standExclude : (x, z) => z > -11 && z < 40,
   });
   const font = getComputedStyle(document.documentElement).getPropertyValue("--serif").split(",")[0].trim() || "sans-serif";
-  const S = await makeStore(world, {kind: STORE[HB.group], sign: HB.name || "Open", font, word: WORD[HB.v] || ""});
+  const S = await (stand ? SM.makeStand : makeStore)(world, {kind: STORE[HB.group], sign: HB.name || "Open", font, word: WORD[HB.v] || ""});
   const rig = makeRig(world, keys, HB), cur = {open: 0, lights: 0, awning: 0, door: 0};
   let first = true;
   world.onTick.push((t, dt) => {

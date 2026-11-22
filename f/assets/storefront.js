@@ -64,15 +64,15 @@ function iconTex(icon, fg, bg) {
   const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t;
 }
 
-function canvasTex(w, h, draw, rep) {
+export function canvasTex(w, h, draw, rep) {
   const c = document.createElement("canvas"); c.width = w; c.height = h; draw(c.getContext("2d"), w, h);
   const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8;
   if (rep) { t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(rep[0], rep[1]); } return t;
 }
-const hex = n => "#" + n.toString(16).padStart(6, "0");
+export const hex = n => "#" + n.toString(16).padStart(6, "0");
 
 // awning canvas: stripes across the width, cream between; the valance gets a scalloped hem
-function stripes(g, w, h, col, n, hem) {
+export function stripes(g, w, h, col, n, hem) {
   g.clearRect(0, 0, w, h);
   for (let i = 0; i < n; i++) { g.fillStyle = i % 2 ? "#efe8da" : col; g.fillRect(i * w / n, 0, w / n + 1, h); }
   const sh = g.createLinearGradient(0, 0, 0, h); sh.addColorStop(0, "rgba(0,0,0,.08)"); sh.addColorStop(1, "rgba(0,0,0,0)"); g.fillStyle = sh; g.fillRect(0, 0, w, h);
@@ -101,14 +101,14 @@ function mosaicTex() {
   });
 }
 
-function hangTex(open) {
+export function hangTex(open) {
   return canvasTex(256, 128, (g, w, h) => {
     g.fillStyle = "#faf7f0"; g.beginPath(); g.roundRect(6, 10, w - 12, h - 16, 14); g.fill(); g.lineWidth = 5; g.strokeStyle = open ? "#b3241c" : "#2b2d30"; g.stroke();
     g.fillStyle = open ? "#b3241c" : "#2b2d30"; g.font = "800 62px Archivo, Arial, sans-serif"; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText(open ? "OPEN" : "CLOSED", w / 2, h / 2 + 4);
   });
 }
 
-function neonTex() {
+export function neonTex() {
   return canvasTex(512, 256, (g, w, h) => {
     g.clearRect(0, 0, w, h); g.font = "700 150px 'Archivo', Arial, sans-serif"; g.textAlign = "center"; g.textBaseline = "middle"; g.lineJoin = "round";
     g.shadowColor = "#ff3b5c"; g.shadowBlur = 34; g.lineWidth = 10; g.strokeStyle = "#ff6f86"; g.strokeText("OPEN", w / 2, h / 2 + 6);
@@ -117,7 +117,7 @@ function neonTex() {
   });
 }
 
-function chalkTex(line) {
+export function chalkTex(line) {
   return canvasTex(512, 640, (g, w, h) => {
     g.fillStyle = "#2c3a33"; g.fillRect(0, 0, w, h); g.strokeStyle = "#7a5a3a"; g.lineWidth = 26; g.strokeRect(0, 0, w, h);
     g.fillStyle = "#f2efe6"; g.textAlign = "center"; g.font = "700 76px 'Archivo', Arial, sans-serif"; g.fillText(line[0], w / 2, 170); g.fillText(line[1], w / 2, 260);

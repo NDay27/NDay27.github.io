@@ -86,6 +86,11 @@ def candidates():
             if not re.search(NAME_OUT["antique"], s["name"].lower()):
                 out.append(("antique", dict(s, kv="antique")))
             continue
+        # an ice cream lead whose name says drive-in gets the walk-up stand kit (its own variant, see store.V_NEW)
+        if s["v"] == "icecream" and re.search(r"dairy dream|freeze|frost|drive.?in|dip\b|\bstand\b|soft serve|dairy bar", s["name"].lower()):
+            if not re.search(NAME_OUT["stand"], s["name"].lower()):
+                out.append(("stand", dict(s, kv="dairystand")))
+            continue
         # appliance: only repair services get the kitchen repair story (stores and small-appliance repair are listed as appliance too)
         if g == "appl" and re.search(r"store|small appliance", (s.get("cat") or "").lower()):
             if "store" in (s.get("cat") or "").lower() and not re.search(NAME_OUT["appst"], s["name"].lower()):
