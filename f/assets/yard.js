@@ -835,3 +835,61 @@ export function lockJob(world, house) {
   set({fix: 0});
   return {root, set, exclude: () => false};
 }
+
+// Fence crew: a tired side-yard fence beside the house comes out and a new cedar privacy fence goes up, post by post.
+// set({fix}): old fence leaning, gappy and half down (<.2); torn out from the house end and piled on the lawn (.2-.42);
+// new posts set in concrete (.36-.56); rails then boards run out from the house (.5-.9); the gate, caps and cleanup (.9-1).
+export function fenceJob(world, {x0 = -6.7, x1 = -16.9, z = 5.8} = {}) {
+  const root = new THREE.Group(); world.scene.add(root);
+  const mat = (c, ro = .8, m = 0, o = {}) => new THREE.MeshStandardMaterial({color: c, roughness: ro, metalness: m, envMapIntensity: .5, ...o});
+  const add = (geo, m, px, py, pz, parent = root) => { const o = new THREE.Mesh(geo, m); o.position.set(px, py, pz); o.castShadow = o.receiveShadow = true; parent.add(o); return o; };
+  const box = (w, h, d, m, px, py, pz, parent) => add(new THREE.BoxGeometry(w, h, d), m, px, py, pz, parent);
+  let seed = 31; const r = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const ss = (a, b, t) => { const k = Math.min(1, Math.max(0, (t - a) / (b - a))); return k * k * (3 - 2 * k); };
+  const L = x0 - x1, N = 4, SP = L / N, BW = .14, BH = 1.8;
+  const posts = []; for (let i = 0; i <= N; i++) posts.push(x0 - i * SP);
+  // ---------- the old fence: grey boards with gaps and missing pickets, leaning posts, one section fallen in the grass ----------
+  const old = [], oldM = [mat(0x8f897e, .95), mat(0x7d776c, .95), mat(0x9a9488, .95)], oPost = mat(0x6e685e, .95);
+  posts.forEach((px, i) => { const p = box(.1, 1.95, .1, oPost, px, .95, z, root); p.rotation.z = (r() - .5) * .16; p.rotation.x = (r() - .5) * .1; old.push([p, px]); });
+  for (let s = 0; s < N; s++) { const a = posts[s], b = posts[s + 1], fallen = s === 2, sec = new THREE.Group(); root.add(sec);
+    if (fallen) { sec.position.set((a + b) / 2, .02, z + .1); sec.rotation.x = -Math.PI / 2 + .12; } else { sec.position.set((a + b) / 2, 0, z); sec.rotation.z = (r() - .5) * .08; }
+    for (const y of [.35, 1.5]) box(SP - .1, .08, .04, oPost, 0, fallen ? -y : y, fallen ? .06 : -.05, sec);
+    for (let k = 0; k < SP / (BW + .05); k++) { if (r() < .16) continue; const h = BH - r() * .25, bx = -SP / 2 + .1 + k * (BW + .05);
+      const bd = box(BW, h, .02, oldM[(k + s) % 3], bx, fallen ? -h / 2 : h / 2 + .06, fallen ? .03 : .0, sec); if (!fallen) bd.rotation.z = (r() - .5) * .06; }
+    old.push([sec, (a + b) / 2]); }
+  // the pile of torn-out boards on the lawn, hauled away before the new boards go up
+  const pile = new THREE.Group(); pile.position.set(-11.5, 0, 9.3); root.add(pile);
+  for (let i = 0; i < 14; i++) { const b = box(1.6 + r() * .3, .025, BW, oldM[i % 3], (r() - .5) * .3, .02 + i * .026, (r() - .5) * .5, pile); b.rotation.y = (r() - .5) * .5; }
+  // ---------- the new fence: posts in concrete, three rails, cedar boards, caps, a gate by the house ----------
+  const cedar = [mat(0xb7814f, .7), mat(0xa9744a, .7), mat(0xc08b58, .7)], pM = mat(0x9c6a40, .7), conc = mat(0xa8a49c, .95);
+  const newPosts = posts.map(px => { const g = new THREE.Group(); g.position.set(px, 0, z); root.add(g); box(.11, 2.05, .11, pM, 0, 1.02, 0, g); box(.15, .05, .15, pM, 0, 2.07, 0, g);
+    const c = add(new THREE.CylinderGeometry(.16, .16, .04, 16), conc, 0, .02, 0, g); c.castShadow = false; return [g, px]; });
+  const rails = []; for (let s = 0; s < N; s++) { const g = new THREE.Group(); g.position.set((posts[s] + posts[s + 1]) / 2, 0, z - .07); root.add(g); for (const y of [.3, 1.0, 1.7]) box(SP - .11, .09, .04, pM, 0, y, 0, g); rails.push([g, (posts[s] + posts[s + 1]) / 2]); }
+  const GW = 1.15, gx = x0 - .06;   // gate: first section, hung off the post by the house
+  const boardGeo = new THREE.BoxGeometry(BW, BH, .02), bds = [];
+  for (let s = 0; s < N; s++) for (let k = 0; ; k++) { const bx = posts[s] - .06 - BW / 2 - k * (BW + .008); if (bx < posts[s + 1] + .06 + BW / 2) break;
+    if (s === 0 && bx > gx - GW) continue; const m = add(boardGeo, cedar[(k * 7 + s) % 3], bx, BH / 2 + .08, z + .07); m.visible = false; bds.push([m, bx]); }
+  const gate = new THREE.Group(); gate.position.set(gx, 0, z + .07); root.add(gate);
+  for (let k = 0; k < Math.floor(GW / (BW + .008)); k++) box(BW, BH - .05, .02, cedar[k % 3], -BW / 2 - k * (BW + .008), BH / 2 + .1, 0, gate);
+  for (const y of [.4, 1.55]) box(GW - .04, .09, .035, pM, -GW / 2, y, -.03, gate); { const d = box(.06, 1.5, .03, pM, -GW / 2, .98, -.03, gate); d.rotation.z = .78; }
+  const iron = mat(0x1d1f22, .5, .6); for (const y of [.42, 1.57]) box(.24, .03, .01, iron, -.12, y, .02, gate); box(.06, .08, .03, iron, -GW + .12, 1.15, .03, gate);
+  // the crew's bits: a stack of new boards, concrete bags, a post-hole digger, a level
+  const kit = new THREE.Group(); kit.position.set(-13.4, 0, 9.8); root.add(kit);
+  for (let i = 0; i < 10; i++) box(1.9, .022, BW, cedar[i % 3], 0, .03 + (i % 5) * .024, -.2 + Math.floor(i / 5) * (BW + .01), kit);
+  for (let i = 0; i < 3; i++) { const b = box(.42, .12, .28, mat(0xd8d2c2, .9), 1.3 + (i % 2) * .05, .06 + i * .12, .25, kit); b.rotation.y = (r() - .5) * .3; }
+  const dig = new THREE.Group(); dig.position.set(-1.0, 0, .5); dig.rotation.z = .35; kit.add(dig); for (const dx of [-.06, .06]) { const h = add(new THREE.CylinderGeometry(.016, .016, 1.4, 8), mat(0xc9a46e, .7), dx, .7, 0, dig); h.rotation.z = dx * 2; } box(.22, .2, .04, iron, 0, .05, 0, dig);
+  box(1.2, .04, .05, mat(0xe0a82e, .5), .2, .03, .9, kit);
+  let cur = -1;
+  function set({fix: f = 0} = {}) { if (f === cur) return; cur = f;
+    const rx = x0 + .4 - (L + 1) * ss(.1, .34, f);   // tear-out line moves away from the house
+    for (const [o, px] of old) o.visible = px < rx;
+    pile.visible = f > .12 && f < .62; pile.scale.y = .3 + .7 * ss(.1, .34, f);
+    const px_ = x0 + .2 - (L + .6) * ss(.24, .46, f); for (const [g, px] of newPosts) g.visible = f > .24 && px >= px_;
+    const rl = x0 - (L + .4) * ss(.4, .58, f); for (const [g, px] of rails) g.visible = px >= rl;
+    const bl = x0 - (L + .4) * ss(.56, .9, f); for (const [m, bx] of bds) m.visible = bx >= bl;
+    gate.visible = f > .9; gate.rotation.y = -.9 * (1 - ss(.9, .98, f));
+    kit.visible = f > .3 && f < .96;
+  }
+  set({fix: 0});
+  return {root, set, exclude: (px, pz) => px < x0 + .3 && px > x1 - .3 && Math.abs(pz - z) < .3};
+}

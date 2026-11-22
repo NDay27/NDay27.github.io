@@ -47,7 +47,12 @@ KEEP = {"buck-s-tree-service-landscaping-peoria",
         # Google lists these as a lawn care service, and concrete contractors; the extra word in the name doesn't change the story
         "grindstone-lawn-care-berea-oh", "fridley-construction-livingston-mt", "mr-concrete-asphalt-sandia-park-nm",
         # Nov 22: Google lists these as landscapers / a landscape designer; "Construction" in the name is the hardscape side of the same crew
-        "king-landscaping-construction-pekin", "ferguson-landscape-construction-llc-abingdon"}
+        "king-landscaping-construction-pekin", "ferguson-landscape-construction-llc-abingdon",
+        # Nov 22: Google lists these as landscape designers, an alteration service and a mower repair shop; the tree / handyman /
+        # cleaners / salvage word is extra work, the kit story still fits
+        "gonzalez-landscaping-and-tree-service-memphis-tn", "above-n-beyond-landscaping-n-handyman-services-ogden-ut",
+        "yong-s-alterations-cleaners-arvada-co", "john-s-small-engine-repair-salvage-reeds-mo",
+        "stone-hill-landscaping-bloomington", "bb-s-salon-barbershop-belpre-oh"}
 
 
 def candidates():
@@ -77,6 +82,8 @@ def candidates():
             continue
         # appliance: only repair services get the kitchen repair story (stores and small-appliance repair are listed as appliance too)
         if g == "appl" and re.search(r"store|small appliance", (s.get("cat") or "").lower()):
+            if "store" in (s.get("cat") or "").lower() and not re.search(NAME_OUT["appst"], s["name"].lower()):
+                out.append(("appst", dict(s, kv="applstore")))
             continue
         if s["slug"] not in KEEP and re.search(NAME_OUT.get(g, r"$^"), s["name"].lower()):
             continue

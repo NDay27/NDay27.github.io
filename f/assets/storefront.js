@@ -20,6 +20,10 @@ export const KIND = {
   scoop:  {trim: 0xf4efe4, awn: AWN.teal, wall: 0xfbefe6, wain: 0x7fc4b4, floor: "check", sign: ["#f6efe4", "#2f7f86"], icon: "cone"},
   tattoo: {trim: 0x161618, awn: AWN.black, wall: 0x4a4a50, wain: 0x1b1b1e, floor: "check", sign: ["#161618", "#f1e6d0"], icon: "machine"},
   antique: {trim: 0x3b2a1e, awn: AWN.gold, wall: 0xeadcc6, wain: 0x5a3e2b, floor: "wood", sign: ["#2a1f18", "#f1e6d0"], icon: "clock"},
+  dojo:   {trim: 0x1f2a44, awn: AWN.red, wall: 0xf1ede4, wain: 0x1f2a44, floor: "wood", sign: ["#1f2a44", "#f4efe4"], icon: "belt"},
+  jewel:  {trim: 0x1d2a44, awn: AWN.navy, wall: 0xf3efe8, wain: 0x2b3550, floor: "wood", sign: ["#1d2a44", "#ecd9a8"], icon: "ring"},
+  appst:  {trim: 0x2b3a4a, awn: AWN.navy, wall: 0xf2f2ef, floor: "tile", sign: ["#2b3a4a", "#f3f3f0"], icon: "fridge"},
+  massage: {trim: 0x4a5a48, awn: AWN.green, wall: 0xefe6da, wain: 0x7d8a73, floor: "wood", sign: ["#3e4b3c", "#f1ead9"], icon: "lotus"},
   sew:    {trim: 0x5a3550, awn: AWN.plum, wall: 0xefe7df, floor: "wood", sign: ["#5a3550", "#f6eee6"], icon: "needle"},
 };
 KIND.tailor = KIND.sew; KIND.uphol = KIND.sew;
@@ -36,6 +40,10 @@ const ICON = {
   bag: ["M14 20h28l-2 28H16z", "M22 24v-8a6 6 0 0 1 12 0v8"],
   paw: ["M28 46c-8 0-12-4-10-9s6-7 10-7 8 2 10 7-2 9-10 9z", "M16 28a4 5 0 1 0 0-.1", "M40 28a4 5 0 1 0 0-.1", "M23 20a4 5 0 1 0 0-.1", "M33 20a4 5 0 1 0 0-.1"],
   cone: ["M18 26h20L28 50z", "M18 26a10 10 0 0 1 20 0", "M22 16a7 7 0 0 1 12 0", "M22 32l10 8M34 32l-8 10"],
+  belt: ["M8 24h40", "M8 31h40", "M24 22h8v11h-8z", "M26 33l-5 13", "M30 33l5 13"],
+  ring: ["M16 36a12 12 0 1 0 24 0a12 12 0 1 0-24 0", "M22 16l6-7 6 7-6 6z"],
+  fridge: ["M17 6h22v44H17z", "M17 21h22", "M22 11v5", "M22 26v10"],
+  lotus: ["M28 44c-7-6-9-14 0-26 9 12 7 20 0 26z", "M28 44c-10 0-17-6-19-14 8 0 14 4 19 14z", "M28 44c10 0 17-6 19-14-8 0-14 4-19 14z"],
   needle: ["M14 42 40 16", "M40 16c3-3 6-2 6 1s-3 4-6 1", "M12 30c6-6 12 0 18-4s8-10 14-10"],
 };
 
@@ -497,6 +505,73 @@ export async function makeStore(world, {kind = "bakery", sign = "Bakery", font =
     box(.9, .6, .5, trim, -2.1, .3, -.95); const bind = box(.5, .04, .36, mat(0x161618, .5), -2.1, .63, -.95); bind.rotation.x = -.15;
     const open_ = add(new THREE.PlaneGeometry(.44, .32), new THREE.MeshStandardMaterial({map: flash(31), roughness: .7, envMapIntensity: .3}), -2.1, .66, -.95, P); open_.rotation.x = -Math.PI / 2 - .15; open_.castShadow = false;
     plant(2.6, -1.2, 1.0);
+  } else if (kind === "dojo") {
+    // puzzle mats wall to wall, two heavy bags, a mirror wall, belts on a rack, a trophy shelf, pads and gloves in the window
+    const matT = canvasTex(512, 512, (g, w, h) => { for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) { g.fillStyle = (i + j) % 2 ? "#24497a" : "#a8323a"; g.fillRect(i * 128, j * 128, 128, 128); }
+      g.strokeStyle = "rgba(0,0,0,.28)"; g.lineWidth = 3; for (let k = 0; k <= 4; k++) { g.beginPath(); g.moveTo(k * 128, 0); g.lineTo(k * 128, h); g.moveTo(0, k * 128); g.lineTo(w, k * 128); g.stroke(); } }, [IW / 2.4, 5.6 / 2.4]);
+    flat(IW, 5.6, new THREE.MeshStandardMaterial({map: matT, roughness: .85, envMapIntensity: .25}), 0, .02, -4.8, P);
+    const bag = (x, z, c) => { cyl(.008, .008, .9, steel, x, GH - .5, z, P, 6); cyl(.05, .05, .04, dark, x, GH - .96, z, P, 10); cyl(.19, .19, 1.05, mat(c, .45), x, GH - 1.52, z, P, 22); cyl(.19, .17, .04, dark, x, GH - 2.06, z, P, 22); };
+    bag(1.6, -3.4, 0x7a1f1f); bag(1.6, -5.2, 0x1d1f22);
+    box(.04, 1.5, 3.2, mat(0xdfe4e8, .05, .9), -IW / 2 + .03, 1.55, -4.7).castShadow = false; box(.06, 1.58, 3.3, trim, -IW / 2 + .01, 1.55, -4.7);
+    box(2.0, .1, .06, woodM, -.9, 1.82, IZ1 + .06); const belts = [0xf4f2ec, 0xf2cf3a, 0xe8822a, 0x2f8a4f, 0x2f5fa8, 0x6b4428, 0x161618];
+    belts.forEach((c, i) => { box(.06, .56, .012, mat(c, .85), -1.75 + i * .28, 1.5, IZ1 + .1); cyl(.012, .012, .08, brass, -1.75 + i * .28, 1.8, IZ1 + .12, P, 6).rotation.x = Math.PI / 2; });
+    const tr = shelf(.9, IZ1 + .22, 1.1, [1.25]); for (let i = 0; i < 4; i++) { const x = -.4 + i * .27, h = .14 + (i % 2) * .08; box(.1, .05, .1, dark, x, 1.3, 0, tr); cyl(.012, .012, h, brass, x, 1.33 + h / 2, 0, tr, 6); add(new THREE.CylinderGeometry(.05, .025, .07, 14), brass, x, 1.36 + h, 0, tr); }
+    box(1.6, .06, .36, woodM, -2.0, .44, -2.5); for (const dz of [-.65, .65]) box(.06, .42, .3, woodM, -2.0 + dz, .21, -2.5);
+    box(1.9, .1, .9, trim, -2.2, .57, -.9); for (const [x, c] of [[-2.7, 0xb3241c], [-2.45, 0xb3241c]]) { const g = add(new THREE.SphereGeometry(.1, 14, 10), mat(c, .4), x, .7, -.85); g.scale.set(1, .8, 1.3); }
+    { const sh = box(.38, .52, .14, mat(0x24497a, .6), -1.75, .9, -1.0); sh.rotation.set(-.25, .3, 0); } box(.5, .1, .3, mat(0x1d1f22, .6), -2.1, .67, -.7);
+  } else if (kind === "jewel") {
+    // lit glass cases with rings and pendants, a necklace niche on the back wall, two stools, a mirror, risers in the window
+    const glass = new THREE.MeshPhysicalMaterial({color: 0xffffff, roughness: .02, transparent: true, opacity: .16, envMapIntensity: 1.4, depthWrite: false});
+    const velvet = mat(0x1d2a44, .95), gold = mat(0xd9b15a, .22, 1), silver = mat(0xe2e5e9, .16, 1);
+    const gem = c => new THREE.MeshPhysicalMaterial({color: c, roughness: 0, clearcoat: 1, envMapIntensity: 2.4, emissive: c, emissiveIntensity: .12});
+    const ringAt = (x, y, z, i, g) => { box(.07, .045, .07, velvet, x, y + .022, z, g); const r = add(new THREE.TorusGeometry(.024, .005, 8, 22), i % 2 ? gold : silver, x, y + .07, z, g); r.castShadow = false;
+      add(new THREE.OctahedronGeometry(.011), gem([0xffffff, 0x3a6fd8, 0xc0263a, 0x2f9a5f, 0xffffff][i % 5]), x, y + .098, z, g).castShadow = false; };
+    const caseAt = (x, z, w, ry) => { const g = new THREE.Group(); g.position.set(x, 0, z); g.rotation.y = ry; P.add(g);
+      box(w, .72, .6, trim, 0, .36, 0, g); box(w - .04, .02, .56, velvet, 0, .73, 0, g); box(w - .08, .012, .02, glow(0xfff4e0, 1.4), 0, 1.04, -.26, g).castShadow = false;
+      for (const m of [box(w, .015, .6, glass, 0, 1.07, 0, g), box(w, .33, .015, glass, 0, .9, .3, g), box(.015, .33, .6, glass, -w / 2, .9, 0, g), box(.015, .33, .6, glass, w / 2, .9, 0, g)]) m.castShadow = false;
+      const n = Math.max(4, Math.round(w / .22)); for (let i = 0; i < n; i++) ringAt(-w / 2 + .14 + i * (w - .28) / (n - 1), .74, i % 2 ? .1 : -.08, i, g); return g; };
+    caseAt(-2.3, -4.3, 2.4, Math.PI / 2); caseAt(-.2, -6.3, 2.8, 0); caseAt(1.0, -3.3, 1.6, 0);
+    for (const x of [-.7, .3]) { cyl(.17, .17, .05, mat(0x1d2a44, .7), x, .76, -5.6, P, 18); cyl(.02, .02, .74, brass, x, .37, -5.6, P, 8); cyl(.16, .16, .02, brass, x, .02, -5.6, P, 18); }
+    box(1.66, .74, .02, glow(0xfff4e0, .22, {color: 0x1d2a44}), 1.2, 1.78, IZ1 + .02).castShadow = false;
+    for (const y of [1.36, 2.2]) box(1.8, .08, .34, trim, 1.2, y, IZ1 + .17); for (const x of [.34, 2.06]) box(.08, .92, .34, trim, x, 1.78, IZ1 + .17);
+    for (let i = 0; i < 3; i++) { const x = .75 + i * .45; add(new THREE.ConeGeometry(.08, .28, 16), velvet, x, 1.54, IZ1 + .2); add(new THREE.SphereGeometry(.05, 12, 10), velvet, x, 1.72, IZ1 + .2);
+      const ch = add(new THREE.TorusGeometry(.07, .004, 6, 26), i === 1 ? silver : gold, x, 1.62, IZ1 + .25); ch.scale.y = 1.3; ch.castShadow = false; add(new THREE.OctahedronGeometry(.016), gem([0xc0263a, 0xffffff, 0x3a6fd8][i]), x, 1.53, IZ1 + .27).castShadow = false; }
+    lamp(1.2, 1.9, IZ1 + .7, .5, 3, 0xfff4e0);
+    box(1.9, .1, .9, trim, -2.2, .57, -.9); for (const [x, h] of [[-2.7, .12], [-2.2, .22], [-1.7, .08]]) { box(.4, h, .4, velvet, x, .62 + h / 2, -.95); ringAt(x, .62 + h, -.95, Math.abs(x * 10 | 0), P); }
+    lamp(-2.2, 1.4, -.6, .5, 2.5, 0xfff4e0);
+  } else if (kind === "appst") {
+    // fridges down the left wall, washers in a row, ranges at the back, each with a blank tag; a counter on the right; a washer and range in the window
+    const white = mat(0xf2f1ee, .32), stl = mat(0xc9cdd1, .28, .85), bl = mat(0x1b1d20, .35), tagM = mat(0xf6d64a, .6);
+    const unit = (x, y, z, ry) => { const g = new THREE.Group(); g.position.set(x, y, z); g.rotation.y = ry; P.add(g); return g; };
+    const fridge = (x, z, ry, m) => { const g = unit(x, 0, z, ry); box(.8, 1.75, .7, m, 0, .875, 0, g); box(.006, 1.0, .006, bl, 0, 1.25, .352, g); box(.8, .008, .006, bl, 0, .72, .352, g);
+      for (const dx of [-.05, .05]) box(.02, .5, .03, stl, dx, 1.25, .37, g); box(.4, .02, .03, stl, 0, .62, .37, g); box(.12, .08, .006, tagM, .26, 1.5, .356, g); };
+    const washer = (x, y, z, ry, m) => { const g = unit(x, y, z, ry); box(.62, .86, .62, m, 0, .43, 0, g); box(.62, .1, .04, m === white ? mat(0xdedcd6, .35) : bl, 0, .81, .3, g);
+      const d = add(new THREE.TorusGeometry(.19, .03, 10, 28), stl, 0, .42, .315, g); add(new THREE.CircleGeometry(.17, 28), mat(0x2a3138, .05, .3), 0, .42, .316, g); box(.12, .08, .006, tagM, .2, .7, .312, g); };
+    const range = (x, y, z, ry) => { const g = unit(x, y, z, ry); box(.76, .9, .64, stl, 0, .45, 0, g); box(.76, .02, .64, bl, 0, .91, 0, g); box(.6, .38, .01, mat(0x111214, .05, .2), 0, .42, .325, g);
+      box(.76, .12, .06, stl, 0, .98, -.29, g); for (let i = 0; i < 4; i++) cyl(.02, .02, .03, bl, -.24 + i * .16, .8, .33, g, 10).rotation.x = Math.PI / 2; box(.12, .08, .006, tagM, .26, .72, .326, g); };
+    [stl, white, stl, bl].forEach((m, i) => fridge(-IW / 2 + .45, -2.8 - i * .95, Math.PI / 2, m));
+    for (let i = 0; i < 4; i++) washer(-.75 + i * .75, 0, -4.3, 0, i % 2 ? stl : white);
+    for (let i = 0; i < 3; i++) range(-.7 + i * .9, 0, IZ1 + .4, 0);
+    box(1.4, .95, .6, trim, 2.0, .475, -2.8); box(1.46, .05, .66, mat(0x3a3f45, .4), 2.0, .975, -2.8); box(.34, .22, .26, bl, 2.3, 1.11, -2.85);
+    box(1.9, .1, .9, trim, -2.2, .57, -.9); washer(-2.6, .62, -.95, .2, white); range(-1.8, .62, -.95, -.15);
+  } else if (kind === "massage") {
+    // a massage table with folded towels, a paper screen, a shelf of candles and stones, plants, warm low light
+    const pad = mat(0xe9e1d2, .9), wd = mat(0x6b4a32, .55), towel = mat(0xf4f1ea, .95);
+    const tbl = new THREE.Group(); tbl.position.set(-.9, 0, -4.6); P.add(tbl);
+    box(.76, .1, 1.9, pad, 0, .72, 0, tbl); for (const [x, z] of [[-.32, -.85], [.32, -.85], [-.32, .85], [.32, .85]]) box(.06, .67, .06, wd, x, .335, z, tbl); box(.66, .04, 1.7, wd, 0, .2, 0, tbl);
+    { const hr = add(new THREE.TorusGeometry(.13, .045, 10, 20, Math.PI), pad, 0, .76, -1.05, tbl); hr.rotation.x = -Math.PI / 2; }
+    box(.62, .05, .4, towel, 0, .8, .7, tbl); { const rl = cyl(.06, .06, .6, towel, 0, .83, .35, tbl, 16); rl.rotation.z = Math.PI / 2; }
+    flat(2.2, 3.0, mat(0xb9a58a, .95), -.9, .012, -4.6, P);
+    const scr = new THREE.Group(); scr.position.set(1.3, 0, -4.4); scr.rotation.y = -.5; P.add(scr); const paper = glow(0xfff1da, .25, {color: 0xf3ead8, roughness: .9});
+    for (let i = 0; i < 3; i++) { const p = new THREE.Group(); p.position.set((i - 1) * .52, 0, 0); p.rotation.y = (i - 1) * .35; scr.add(p); box(.5, 1.8, .04, wd, 0, .95, 0, p); box(.44, 1.68, .045, paper, 0, .97, 0, p);
+      for (const y of [.55, 1.0, 1.45]) box(.44, .02, .05, wd, 0, y, 0, p); box(.02, 1.68, .05, wd, 0, .97, 0, p); }
+    const sh = shelf(-.9, IZ1 + .22, 1.8, [1.0, 1.5]);
+    for (let i = 0; i < 4; i++) { const x = -.7 + i * .45; cyl(.04, .04, .09 + (i % 2) * .05, mat(0xf4efe6, .7), x, 1.065 + (i % 2) * .025, 0, sh, 14); add(new THREE.SphereGeometry(.014, 8, 6), glow(0xffb45a, 2.2), x, 1.13 + (i % 2) * .05, 0, sh).castShadow = false; }
+    for (let i = 0; i < 3; i++) { const st = add(new THREE.SphereGeometry(.07 - i * .015, 14, 10), mat(0x3a3b3d, .4), .4, 1.56 + i * .05, 0, sh); st.scale.y = .45; }
+    for (let i = 0; i < 3; i++) box(.3, .06, .22, towel, -.6 + i * .32, 1.55, 0, sh);
+    plant(2.5, -2.6, 1.1); plant(-2.5, -6.6, 1.0); lamp(-.9, 2.0, -4.6, .5, 4, 0xffd9a8);
+    box(1.9, .1, .9, trim, -2.2, .57, -.9); for (let k = 0; k < 3; k++) box(.36, .07, .28, towel, -2.5, .66 + k * .07, -.9);
+    for (let i = 0; i < 3; i++) { cyl(.045, .045, .12, mat(0xf4efe6, .7), -1.9 + i * .14, .68, -.85, P, 14); add(new THREE.SphereGeometry(.015, 8, 6), glow(0xffb45a, 2.2), -1.9 + i * .14, .755, -.85).castShadow = false; }
   } else if (kind === "groom") {
     // grooming table, the tub, dryer, a shelf of shampoos; a dog waiting in the window
     const tbl = new THREE.Group(); tbl.position.set(-1.1, 0, -4.2); P.add(tbl);

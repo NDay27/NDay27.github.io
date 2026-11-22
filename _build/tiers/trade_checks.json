@@ -5874,7 +5874,8 @@
   "v": "restaurant",
   "trade": "American restaurant",
   "src": "Google listing category",
-  "on": "2026-11-21"
+  "on": "2026-11-21",
+  "name_ok": true
  },
  "built-to-last-automotive-services-durango-co": {
   "v": "auto",
@@ -5958,7 +5959,8 @@
   "v": "salon",
   "trade": "Beauty salon",
   "src": "Google listing category",
-  "on": "2026-11-21"
+  "on": "2026-11-21",
+  "name_ok": true
  },
  "chrisjayden-auto-repair-oklahoma-city-ok": {
   "v": "auto",
@@ -7113,5 +7115,121 @@
   "trade": "Appliance repair service",
   "src": "Google listing category",
   "on": "2026-11-22"
+ },
+ "scratch-and-dent-appliances-of-nebraska-omaha-ne": {
+  "v": "appliance",
+  "trade": "Appliance store",
+  "src": "Google listing category",
+  "on": "2026-11-22"
+ },
+ "gmj-refrigeration-union-city-nj": {
+  "v": "appliance",
+  "trade": "Used appliance store",
+  "src": "Google listing category",
+  "on": "2026-11-22"
+ },
+ "balfour-morgantown-wv": {
+  "v": "jewelry",
+  "trade": "Jeweler",
+  "src": "Google listing category",
+  "on": "2026-11-22"
+ },
+ "diamond-treasures-decatur-ga": {
+  "v": "jewelry",
+  "trade": "Jeweler",
+  "src": "Google listing category",
+  "on": "2026-11-22"
+ },
+ "royal-jewelers-decatur-ga": {
+  "v": "jewelry",
+  "trade": "Jewelry store",
+  "src": "Google listing category",
+  "on": "2026-11-22"
+ },
+ "the-dojo-zen-bei-martial-arts-troy-mi": {
+  "v": "martial",
+  "trade": "Martial arts school",
+  "src": "Google listing category",
+  "on": "2026-11-22"
+ },
+ "john-duello-lmt-hartwell-ga": {
+  "v": "massage",
+  "trade": "Massage therapist",
+  "src": "Google listing category",
+  "on": "2026-11-22"
+ },
+ "highwest-fence-company-sioux-city-ia": {
+  "v": "fence",
+  "trade": "Fence contractor",
+  "src": "Google listing category",
+  "on": "2026-11-22"
+ },
+ "oc-fence-service-santa-ana-ca": {
+  "v": "fence",
+  "trade": "Fence contractor",
+  "src": "Google listing category",
+  "on": "2026-11-22"
+ },
+ "all-pro-fence-co-compton-ca": {
+  "v": "fence",
+  "trade": "Fence contractor",
+  "src": "Google listing category",
+  "on": "2026-11-22"
+ },
+ "stone-hill-landscaping-bloomington": {
+  "v": "landscape",
+  "trade": "Landscape designer",
+  "src": "Google listing category",
+  "on": "2026-11-22"
+ },
+ "gamez-landscaping-service-coats-nc": {
+  "v": "landscape",
+  "trade": "Landscape designer",
+  "src": "Google listing category",
+  "on": "2026-11-22"
+ },
+ "gonzalez-landscaping-and-tree-service-memphis-tn": {
+  "v": "landscape",
+  "trade": "Landscape designer",
+  "src": "Google listing category",
+  "on": "2026-11-22"
+ },
+ "above-n-beyond-landscaping-n-handyman-services-ogden-ut": {
+  "v": "landscape",
+  "trade": "Landscape designer",
+  "src": "Google listing category",
+  "on": "2026-11-22",
+  "name_ok": true
+ },
+ "sweet-scoops-ice-cream-dayton-tx": {
+  "v": "icecream",
+  "trade": "Ice cream shop",
+  "src": "Google listing category",
+  "on": "2026-11-22"
+ },
+ "muler-rug-cleaners-princeton-nj": {
+  "v": "carpetclean",
+  "trade": "Carpet cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-22"
+ },
+ "carol-s-cleaning-service-peoria": {
+  "v": "houseclean",
+  "trade": "House cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-22"
+ },
+ "final-clean-sub-c-peoria": {
+  "v": "houseclean",
+  "trade": "House cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-22"
+ },
+ "commercial-cleaning-inc-st-peters-mo": {
+  "v": "houseclean",
+  "trade": "Cleaning service",
+  "src": "Google listing category",
+  "on": "2026-11-22",
+  "name_ok": true
  }
 }

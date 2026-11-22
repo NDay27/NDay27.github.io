@@ -400,3 +400,132 @@ def wording(html):
     for a, b in WORDING:
         html = html.replace(a, b)
     return html
+
+
+# ---------- Nov 22: martial arts schools, jewelers, appliance stores, massage studios ----------
+GROUPS.update({
+ "dojo": dict(vs=["martial"], kind="dojo", sign="Martial Arts", word="Martial Arts", noun="martial arts school"),
+ "jewel": dict(vs=["jewelry"], kind="jewel", sign="Jewelers", word="Jewelry", noun="jewelry store"),
+ "appst": dict(vs=["applstore"], kind="appst", sign="Appliances", word="Appliances", noun="appliance store"),
+ "massage": dict(vs=["massage"], kind="massage", sign="Massage", word="Massage", noun="massage studio"),
+})
+KGROUP.update({v: g for g in ("dojo", "jewel", "appst", "massage") for v in GROUPS[g]["vs"]}); KIT_V.update(KGROUP)
+NAME_OUT.update({
+ "dojo": r"boxing|mma\b|cage|fight club|crossfit|fitness|gym\b|yoga|mobile",
+ "jewel": r"pawn|gold buyer|cash for|wholesale|supply|mobile|piercing|online",
+ "appst": r"repair|parts|service center|mobile",
+ "massage": r"asian|parlor|spa\b|mobile|in.?home|chair|clinic|chiro|physical therapy",
+})
+WORD.update({"martial": "Martial Arts", "jewelry": "Jewelry", "applstore": "Appliances", "massage": "Massage"})
+TRADE.update({"martial": "Martial arts school", "jewelry": "Jewelry store", "applstore": "Appliance store", "massage": "Massage therapist"})
+SCHEMA.update({"martial": "SportsActivityLocation", "jewelry": "JewelryStore", "applstore": "Store", "massage": "HealthAndBeautyBusiness"})
+# appliance stores are appliance leads on Google; pick.py moves the ones whose Google category is a store onto their own variant
+V_NEW["applstore"] = dict(group="retail", noun="store", h300=["Fridges, washers,", "ranges and more."], h750=["Come see it", "in person."],
+                          h1250=["Pick it out.", "Take it home."],
+                          lede="An appliance store in {town}. Stop in to look around, or call to ask what's on the floor.",
+                          services=[("Fridges and freezers", "Come see what's on the floor, side by side."), ("Washers and dryers", "Call or text to ask what's in."),
+                                    ("Ranges and more", "Ask about ovens, dishwashers and more.")],
+                          jobs=["Fridge or freezer", "Washer or dryer", "Range or oven", "Something else"],
+                          when=["Today", "This week", "This month", "Just asking"], who="shoppers", ask="What are you looking for?")
+TRADE_LABEL["applstore"] = "Appliance Store"
+OVERRIDE.update({
+ "martial": {"services": [("Classes", "Ask about the class schedule and who each class is for."), ("First class", "Ask about trying a class before you sign up."),
+                          ("Kids and adults", "Ask which classes fit your age and level.")],
+             "jobs": ["Classes", "First class", "Kids or adults", "Something else"]},
+ "jewelry": {"services": [("Fine jewelry", "Rings, necklaces, earrings and more to see in person."), ("Repairs", "Ask about sizing, clasps, chains and stones."),
+                          ("Custom ideas", "Ask if they can make what you have in mind.")],
+             "jobs": ["A piece I saw", "Repair", "Custom idea", "Something else"]},
+ "massage": {"lede": "Massage in {town}. Tell us what's bothering you and ask for a time that works for you.",
+             "services": [("Relaxation", "Ask about a session to unwind."), ("Deep tissue", "Ask if deep tissue work is offered."), ("Gift a session", "Ask about giving a session as a gift.")],
+             "jobs": ["Relaxation", "Deep tissue", "Gift", "Something else"]},
+})
+THEME.update({
+ "dojo": _t("#1f2a44", "#2a3656", "#f6f3ec", "#ebe6dc", "#161e33", "#5f6473", "#d9d4c8", "#b3343a", "#e2747a", "#24497a", "#111829", "archivo", "dmsans"),
+ "jewel": _t("#1d2a44", "#283756", "#f7f4ee", "#ece6da", "#141d31", "#62666f", "#dcd5c6", "#b98f3e", "#e2c27a", "#3a5f8a", "#0f1626", "fraunces", "dmsans"),
+ "appst": _t("#2b3a4a", "#36485b", "#f5f6f4", "#e8eae6", "#212d3a", "#5f6670", "#d5d9d6", "#d0632f", "#eea27a", "#2f6f68", "#18222d", "archivo", "dmsans"),
+ "massage": _t("#3e4b3c", "#4b5a48", "#f7f3ec", "#ece5d8", "#2f3a2e", "#666a60", "#dcd4c4", "#b8794a", "#e0b08a", "#5a7a8a", "#232b22", "fraunces", "dmsans"),
+})
+EXTRA_CSS.update({"dojo": _UPRIGHT, "jewel": ".hero h1 em,.hero0 h1 em{font-weight:400}", "appst": _UPRIGHT, "massage": ".hero h1 em,.hero0 h1 em{font-weight:400}"})
+COPY.update({
+ "dojo": dict(svc_h="On the mat", svc_intro="Tell us who the class is for, and ask which one fits their age and level.",
+              quote_h="Ask about a class", cta="Ask about a class", msg_ph="Who the class is for, their age, and any experience so far."),
+ "jewel": dict(svc_h="What you'll find", svc_intro="Rings, necklaces and more in the cases. Looking for a repair or something custom? Ask about it.",
+               quote_h="Ask about a piece", cta="Ask about a piece", msg_ph="What you're looking for, a repair, or an idea, and a photo if you have one."),
+ "appst": dict(svc_h="On the floor", svc_intro="Looking for a fridge, washer, dryer or range? Ask what's on the floor.",
+               quote_h="Ask what's in", cta="Ask what's in", msg_ph="What you need, the size or space it has to fit, and when you need it."),
+ "massage": dict(svc_h="What we offer", svc_intro="Tell us what's bothering you or what you'd like, and ask which session fits.",
+                 quote_h="Ask for a time", cta="Ask for a time", msg_ph="What's bothering you, the kind of massage, and a few days or times that work."),
+})
+for g in ("dojo", "jewel", "appst", "massage"):
+    d = GROUPS[g]
+    COPY[g].update(sheet=("A storefront in {town}", "Main street, open for the day"),
+                   sheet_label=f"Line drawing of a two-storey brick {d['noun']} on main street with a striped awning and a big display window",
+                   shot=(f"{g}-after", f"A brick {d['noun']} storefront with a striped awning, the lights on and the OPEN sign lit", "Illustration. Your real shop photos go here."))
+STEPS.update({
+ "dojo": [("Say who it's for", "Kids, teens or adults, and any experience."), ("Get an answer", "Get a call or text back about the classes."), ("Step on the mat", "Come try a class.")],
+ "jewel": [("Tell us what you're after", "A piece, a repair or an idea."), ("Get an answer", "Get a call or text back."), ("See it in person", "Stop in and see it up close.")],
+ "appst": [("Tell us what you need", "The appliance and the space it has to fit."), ("Get an answer", "Find out what's on the floor."), ("Come see it", "Look it over in person before you buy.")],
+ "massage": [("Tell us what would help", "What's bothering you and what kind of massage."), ("Pick a time", "Get a call or text back to set it up."), ("Breathe out", "Come in, lie down and let go.")],
+})
+GLYPH.update({
+ "dojo": _G.format("M4 13h24M4 18h24M13 11h6v9h-6z", "currentColor") + _G.format("M14 20l-3 8M18 20l3 8", "var(--pencil)"),
+ "jewel": _G.format("M8 20a8 8 0 1 0 16 0a8 8 0 1 0-16 0", "currentColor") + _G.format("M12 8l4-4 4 4-4 4z", "var(--pencil)"),
+ "appst": _G.format("M9 3h14v26H9zM9 12h14", "currentColor") + _G.format("M13 6v3M13 15v6", "var(--pencil)"),
+ "massage": _G.format("M16 26c-5-4-6-9 0-17 6 8 5 13 0 17z", "currentColor") + _G.format("M16 26c-6 0-11-4-12-9 5 0 9 3 12 9zM16 26c6 0 11-4 12-9-5 0-9 3-12 9z", "var(--pencil)"),
+})
+_I.update({
+ "mat": '<path d="M8 36l20-10 20 10-20 10z"/><path d="M8 36v4l20 10 20-10v-4"/><path d="M18 31l20 10"/>',
+ "belt": '<path d="M8 24h40M8 31h40"/><path d="M24 22h8v11h-8z"/><path d="M26 33l-5 13M30 33l5 13"/>',
+ "kids": '<circle cx="20" cy="18" r="6"/><circle cx="38" cy="22" r="4.5"/><path d="M8 46c1-9 6-14 12-14s11 5 12 14"/><path d="M30 46c1-6 4-10 8-10s7 4 8 10"/>',
+ "ring": '<circle cx="28" cy="36" r="12"/><path d="M22 16l6-7 6 7-6 6z"/>',
+ "wrench": '<path d="M36 10a9 9 0 0 0-8 12L12 38a4 4 0 0 0 6 6l16-16a9 9 0 0 0 12-8l-6 2-4-4z"/>',
+ "spark": '<path d="M28 8l4 14 14 4-14 4-4 14-4-14-14-4 14-4z"/>',
+ "fridge": '<path d="M17 6h22v44H17z"/><path d="M17 21h22"/><path d="M22 11v5M22 26v10"/>',
+ "washer": '<path d="M12 6h32v44H12z"/><path d="M12 15h32"/><circle cx="28" cy="32" r="10"/><circle cx="18" cy="10.5" r="1.5"/>',
+ "range": '<path d="M8 10h40v38H8z"/><path d="M8 20h40"/><path d="M15 26h26v15H15z"/><path d="M15 15h2M23 15h2M31 15h2M39 15h2"/>',
+ "leaf": '<path d="M28 46c-9-7-11-16 0-30 11 14 9 23 0 30z"/><path d="M28 46V24"/>',
+ "knot": '<path d="M14 40c6-12 22-12 28-24"/><path d="M14 16c6 12 22 12 28 24"/><circle cx="28" cy="28" r="4"/>',
+ "gift": '<path d="M10 24h36v8H10zM13 32h30v14H13z"/><path d="M28 24v22"/><path d="M28 24c-4-8-12-8-10-2 1 2 6 2 10 2zM28 24c4-8 12-8 10-2-1 2-6 2-10 2z"/>',
+})
+SVC_ICON.update({k: _I[v] for k, v in {"Classes": "mat", "First class": "belt", "Kids and adults": "kids", "Fine jewelry": "ring", ("jewel", "Repairs"): "wrench", "Custom ideas": "spark",
+                                       "Fridges and freezers": "fridge", "Washers and dryers": "washer", "Ranges and more": "range",
+                                       "Relaxation": "leaf", "Deep tissue": "knot", "Gift a session": "gift"}.items()})
+INSIDE.update({
+ "dojo": ("Step on the mat", "Mats wall to wall, heavy bags, a mirror and the belts on the wall.", "Inside the martial arts school: puzzle mats, two heavy bags and a rack of colored belts"),
+ "jewel": ("Take a closer look", "Lit glass cases of rings, pendants on the back wall and a seat at the counter.", "Inside the jewelry store: lit glass cases of rings and pendants on the back wall"),
+ "appst": ("Walk the floor", "Fridges down the wall, washers in a row and ranges at the back.", "Inside the appliance store: fridges along the wall, a row of washers and ranges at the back"),
+ "massage": ("Slow everything down", "A table with fresh towels, a paper screen, candles and plants.", "Inside the massage studio: a massage table with towels, a paper screen and candles on a shelf"),
+})
+VISIT.update({"dojo": "From the street to the mat", "jewel": "From the street to the case", "appst": "From the street to the floor", "massage": "From the street to the table"})
+TOOL.update({
+ "dojo": ("Class finder", "Who's the class for?", "Pick who it's for and their experience, and know what to ask.",
+          "Who's training?", [("kid", "A child", "Mention their age and whether they've trained before."), ("teen", "A teen", "Mention their age and any sports they play."),
+                              ("adult", "An adult", "Mention your goals, like fitness, self-defense or competing."), ("family", "The family", "Ask if there are classes you can take together.")],
+          "Ask about trying a class first.", "A quick guide. The school will tell you which class fits."),
+ "jewel": ("Piece finder", "What are you after?", "Pick what you're looking for, and know what to mention so they can help.",
+           "What is it?", [("ring", "A ring", "Mention the size if you know it, and the metal and stone you like."), ("neck", "A necklace or pendant", "Say the length and the style you have in mind."),
+                           ("fix", "A repair", "Say what's wrong, like a broken clasp, a loose stone or a resize."), ("idea", "A custom idea", "Send a sketch or a photo of something close.")],
+           "A photo helps them answer fastest.", "A quick guide. The store will tell you what they have."),
+ "appst": ("Fit check", "What do you need?", "Pick the appliance, and know what to measure before you ask.",
+           "Which appliance?", [("fridge", "Fridge or freezer", "Measure the width, height and depth of the space, and the door it has to fit through."),
+                                ("wash", "Washer or dryer", "Measure the space, and check gas or electric for a dryer."),
+                                ("range", "Range or oven", "Check gas or electric and the width of the opening."), ("dish", "Dishwasher", "Measure the opening under the counter.")],
+           "Measurements and a photo of the space help them answer fastest.", "A quick guide. The store will tell you what's on the floor."),
+ "massage": ("Session finder", "What would help most?", "Pick what's going on, and know what to mention when you ask for a time.",
+             "What's going on?", [("relax", "I need to relax", "A relaxation massage is a good place to start."), ("knots", "Tight back or neck", "Mention where it's tight and how long it's been."),
+                                  ("sore", "Sore after training", "Mention the activity and the sore spots."), ("gift", "It's a gift", "Ask about giving a session as a gift.")],
+             "Mention any injuries or anything to avoid.", "A quick guide. The therapist will tell you what fits."),
+})
+READY.update({
+ "dojo": "Who the class is for, their age, any experience, and the days that work.",
+ "jewel": "What you're looking for or what needs fixing, and a photo if you have one.",
+ "appst": "The appliance, the space it has to fit (measurements), and gas or electric.",
+ "massage": "What's bothering you, the kind of massage, and a few days or times that work.",
+})
+for _g in ("dojo", "jewel", "appst", "massage"):
+    TOOLS[_g] = ("Text-the-shop button", f"Before-and-after slider and a{'n' if TOOL[_g][0][0] in 'AEIOU' else ''} {TOOL[_g][0].lower()}",
+                 "a live 3D storefront that opens up for the day and lets you step inside")
+    TRY[_g] = ("Tap a choice under \"Rather text than call?\" and watch the text write itself.",
+               f"Drag the slider on the top picture from closed to open, then try the {TOOL[_g][0].lower()}.",
+               "Scroll to watch the shop open up and walk inside, then change the awning color and flip the sign yourself.")
+AWN_DEFAULT.update({"dojo": "Red", "jewel": "Navy", "appst": "Navy", "massage": "Green"})
