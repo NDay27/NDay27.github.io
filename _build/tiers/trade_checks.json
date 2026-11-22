@@ -7274,5 +7274,35 @@
   "trade": "Photography studio",
   "src": "Google listing category",
   "on": "2026-11-22"
+ },
+ "jack-jill-big-spring-tx": {
+  "v": "daycare",
+  "trade": "Child care agency",
+  "src": "Google listing category",
+  "on": "2026-11-22"
+ },
+ "jenna-s-doggie-lodge-fair-lawn-nj": {
+  "v": "petcare",
+  "trade": "Pet boarding service",
+  "src": "Google listing category",
+  "on": "2026-11-22"
+ },
+ "bonnet-carre-kennels-laplace-la": {
+  "v": "petcare",
+  "trade": "Dog day care center",
+  "src": "Google listing category",
+  "on": "2026-11-22"
+ },
+ "off-the-grid-k9-llc-rhinelander-wi": {
+  "v": "dogtrain",
+  "trade": "Dog trainer",
+  "src": "Google listing category",
+  "on": "2026-11-22"
+ },
+ "pawesome-dog-training-islip-ny": {
+  "v": "dogtrain",
+  "trade": "Dog trainer",
+  "src": "Google listing category",
+  "on": "2026-11-22"
  }
 }
