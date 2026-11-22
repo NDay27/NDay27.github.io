@@ -7335,5 +7335,11 @@
   "src": "Google listing category",
   "on": "2026-11-22",
   "name_ok": true
+ },
+ "sonny-s-auto-trim-del-city-ok": {
+  "v": "upholstery",
+  "trade": "Auto upholsterer",
+  "src": "Google listing category",
+  "on": "2026-11-22"
  }
 }

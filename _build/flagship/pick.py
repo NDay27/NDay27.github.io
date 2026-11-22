@@ -103,6 +103,11 @@ def candidates():
             if not re.search(NAME_OUT["stand"], s["name"].lower()):
                 out.append(("stand", dict(s, kv="dairystand")))
             continue
+        # an upholstery lead whose name says auto / marine / top / trim gets the auto upholstery storefront (its own variant, see store.V_NEW)
+        if s["v"] == "upholstery" and re.search(r"\bauto\b|marine|\btop\b|\btrim\b", s["name"].lower()):
+            if not re.search(NAME_OUT["autotrim"], s["name"].lower()):
+                out.append(("autotrim", dict(s, kv="autotrim")))
+            continue
         # appliance: only repair services get the kitchen repair story (stores and small-appliance repair are listed as appliance too)
         if g == "appl" and re.search(r"store|small appliance", (s.get("cat") or "").lower()):
             if "store" in (s.get("cat") or "").lower() and not re.search(NAME_OUT["appst"], s["name"].lower()):

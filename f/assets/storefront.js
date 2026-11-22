@@ -33,6 +33,7 @@ export const KIND = {
   sew:    {trim: 0x5a3550, awn: AWN.plum, wall: 0xefe7df, floor: "wood", sign: ["#5a3550", "#f6eee6"], icon: "needle"},
 };
 KIND.tailor = KIND.sew; KIND.uphol = KIND.sew;
+KIND.autotrim = {trim: 0x1f2226, awn: AWN.red, wall: 0xece8e1, wain: 0x3a3d42, floor: "tile", sign: ["#1f2226", "#f2efe8"], icon: "seat"};
 
 // blade-sign icons, drawn with Path2D on a 56 box
 const ICON = {
@@ -55,6 +56,7 @@ const ICON = {
   note: ["M22 40V12l20-4v28", "M22 40a5 4 0 1 1-.1 0", "M42 36a5 4 0 1 1-.1 0", "M22 20l20-4"],
   blocks: ["M10 30h16v16H10z", "M30 30h16v16H30z", "M20 14h16v16H20z", "M15 38h6M35 38h6M25 22h6"],
   camera: ["M8 18h40v28H8z", "M20 18l4-6h8l4 6", "M28 40a8 8 0 1 0 0-16 8 8 0 0 0 0 16z", "M40 24h3"],
+  seat: ["M17 6h9v6h-9z", "M16 12h11l4 23h12v8H19z", "M20 43v6M38 43v6", "M21 18h6M22 26h6"],
   needle: ["M14 42 40 16", "M40 16c3-3 6-2 6 1s-3 4-6 1", "M12 30c6-6 12 0 18-4s8-10 14-10"],
 };
 
@@ -785,19 +787,41 @@ export async function makeStore(world, {kind = "bakery", sign = "Bakery", font =
     const bed = add(new THREE.TorusGeometry(.3, .1, 10, 24), mat(0x8a5a44, .9), 2.1, 1.0, -.85, P); bed.rotation.x = Math.PI / 2; cyl(.28, .28, .06, mat(0xe9dcc8, .9), 2.1, .96, -.85, P, 20);
     mkDog(2.1, 1.0, -.85, -.5, 1, 0xc8924e, 0xe6c08a); mkDog(-1.1, .9, -4.2, .7, 1.25, 0xf2ede4, 0xfbf8f2);
     box(.9, .5, .6, trim, -2.2, .85, -.85); cyl(.14, .14, .3, glass, -2.2, 1.25, -.85, P, 18); for (let i = 0; i < 4; i++) box(.18, .26, .1, mat([0x2f7f86, 0xc9952f, 0xb3343a, 0x24365e][i], .6), -2.55 + i * .24, 1.23, -.75);
-  } else if (kind === "sew" || kind === "tailor" || kind === "uphol") {
+  } else if (kind === "sew" || kind === "tailor" || kind === "uphol" || kind === "autotrim") {
+    const at = kind === "autotrim";
     // dress forms and an armchair in the window, the cutting table, the machine, fabric bolts and thread
-    const fab = [0x5a3550, 0x24365e, 0xb3343a, 0x2f6b4f, 0xc9952f, 0xe9e4dc, 0x8aa2b8, 0x6b4430, 0xd9879a, 0x1d1f22];
+    const fab = at ? [0x1d1f22, 0x8a5a3a, 0x7a1f24, 0x55585e, 0xd8cdb8, 0x2b2d30, 0xb3343a, 0x3a2a22, 0x9aa0a6, 0xc9a77a]
+      : [0x5a3550, 0x24365e, 0xb3343a, 0x2f6b4f, 0xc9952f, 0xe9e4dc, 0x8aa2b8, 0x6b4430, 0xd9879a, 0x1d1f22];
+    // auto trim: a car bucket seat (bolsters, stitched insert, headrest on posts, slider base)
+    const seat = (x, y, z, ry, sc, base, ins) => { const g = new THREE.Group(); g.position.set(x, y, z); g.rotation.y = ry; g.scale.setScalar(sc); P.add(g);
+      const b = mat(base, .42), n = mat(ins, .72), st = mat(0x0e0f10, .8);
+      box(.42, .04, .44, steel, 0, .02, 0, g); box(.5, .12, .52, b, 0, .1, 0, g); box(.3, .03, .46, n, 0, .175, .01, g);
+      for (const sx of [-1, 1]) { const c = add(new THREE.CapsuleGeometry(.055, .42, 4, 10), b, sx * .21, .18, 0, g); c.rotation.x = Math.PI / 2; }
+      const bk = new THREE.Group(); bk.position.set(0, .14, -.22); bk.rotation.x = -.2; g.add(bk);
+      box(.5, .66, .12, b, 0, .33, 0, bk); box(.28, .56, .03, n, 0, .33, .065, bk);
+      for (let i = 0; i < 5; i++) box(.29, .008, .036, st, 0, .12 + i * .1, .066, bk);
+      for (const sx of [-1, 1]) add(new THREE.CapsuleGeometry(.06, .5, 4, 10), b, sx * .22, .34, .045, bk);
+      for (const sx of [-.08, .08]) cyl(.011, .011, .1, steel, sx, .7, 0, bk, 6);
+      box(.3, .17, .1, b, 0, .8, 0, bk);
+      return g; };
     const form = (x, z, col) => { const pts = [[0, 0], [.16, 0], [.2, .22], [.15, .46], [.13, .58], [.17, .74], [.06, .84], [.03, .9], [0, .9]].map(([a, b]) => new THREE.Vector2(a, b));
       const g = new THREE.Group(); g.position.set(x, .6, z); P.add(g); add(new THREE.LatheGeometry(pts, 24), mat(col, .85), 0, .55, 0, g); cyl(.025, .025, .55, woodM, 0, .27, 0, g, 8);
       for (let k = 0; k < 3; k++) { const l = cyl(.015, .015, .45, woodM, Math.cos(k * 2.1) * .12, .1, Math.sin(k * 2.1) * .12, g, 6); l.rotation.set(Math.sin(k * 2.1) * .5, 0, -Math.cos(k * 2.1) * .5); }
       box(.05, .03, .05, brass, 0, 1.46, 0, g); };
-    box(1.9, .1, .9, trim, -2.2, .55, -.9); form(-2.65, -.95, 0xe9e4dc); form(-1.8, -.9, 0x5a3550);
-    const ch = new THREE.Group(); ch.position.set(2.1, .6, -.95); ch.rotation.y = -.35; P.add(ch); const up = mat(0x2f6b4f, .85);
+    box(1.9, .1, .9, trim, -2.2, .55, -.9);
+    if (at) { seat(-2.62, .6, -.95, .4, 1.25, 0x1d1f22, 0x7a1f24); seat(-1.78, .6, -.9, -.32, 1.25, 0x8a5a3a, 0xd8cdb8);
+      box(.9, .5, .6, trim, 2.1, .3, -.95).scale.set(1.05, 1.2, 1.3);
+      cyl(.025, .03, .62, steel, 2.32, .92, -1.0, P, 10); const wh = new THREE.Group(); wh.position.set(2.32, 1.34, -.98); wh.rotation.x = -.35; P.add(wh);
+      add(new THREE.TorusGeometry(.19, .03, 12, 40), mat(0x2a1c16, .5), 0, 0, 0, wh); cyl(.06, .06, .05, dark, 0, 0, 0, wh, 16).rotation.x = Math.PI / 2;
+      for (const a of [Math.PI / 2, Math.PI * 7 / 6, -Math.PI / 6]) { const sp = box(.17, .03, .02, steel, Math.cos(a) * .09, Math.sin(a) * .09, 0, wh); sp.rotation.z = a; }
+      for (const [k, c] of [[0, 0x1d1f22], [1, 0x7a1f24], [2, 0xd8cdb8]]) { const rl = cyl(.08, .08, .7, mat(c, .55), 1.85, .67 + (k === 2 ? .15 : 0), -.88 + (k === 2 ? 0 : k * .17 - .08), P, 20); rl.rotation.z = Math.PI / 2; }
+    } else { form(-2.65, -.95, 0xe9e4dc); form(-1.8, -.9, 0x5a3550); }
+    const ch = at ? null : new THREE.Group(); if (ch) { ch.position.set(2.1, .6, -.95); ch.rotation.y = -.35; P.add(ch); const up = mat(0x2f6b4f, .85);
     box(.8, .22, .7, up, 0, .3, 0, ch); box(.8, .75, .16, up, 0, .7, -.3, ch); for (const s of [-1, 1]) { box(.14, .3, .66, up, s * .38, .48, 0, ch); box(.12, .3, .12, up, s * .36, .95, -.24, ch); } for (const [a, b] of [[-.32, -.28], [.32, -.28], [-.32, .28], [.32, .28]]) cyl(.025, .018, .2, woodM, a, .1, b, ch, 8);
-    box(.9, .5, .6, trim, 2.1, .3, -.95).scale.set(1.05, 1.2, 1.3);
+    box(.9, .5, .6, trim, 2.1, .3, -.95).scale.set(1.05, 1.2, 1.3); }
     box(2.4, .05, 1.1, woodM, -.9, .9, -3.6); for (const [a, b] of [[-2, -4.05], [.2, -4.05], [-2, -3.15], [.2, -3.15]]) box(.06, .88, .06, woodM, a, .44, b);
-    box(1.6, .012, .8, mat(0x24365e, .9), -1.1, .93, -3.6).rotation.y = .1; box(.5, .02, .03, steel, -.2, .935, -3.3);
+    box(1.6, .012, .8, mat(at ? 0x1d1f22 : 0x24365e, at ? .5 : .9), -1.1, .93, -3.6).rotation.y = .1; box(.5, .02, .03, steel, -.2, .935, -3.3);
+    if (at) { seat(-.55, .94, -3.75, .5, .95, 0x55585e, 0x1d1f22); }
     const sm = new THREE.Group(); sm.position.set(2.0, .9, -4.8); P.add(sm); box(1.0, .05, .6, woodM, 0, 0, 0, sm); for (const [a, b] of [[-.45, -.25], [.45, -.25], [-.45, .25], [.45, .25]]) box(.05, .9, .05, dark, a, -.45, b, sm);
     const wm = mat(0xf2efe8, .35); box(.46, .07, .2, wm, 0, .06, 0, sm); box(.08, .28, .16, wm, .19, .23, 0, sm); box(.46, .09, .16, wm, 0, .38, 0, sm); box(.06, .15, .1, wm, -.2, .26, 0, sm); cyl(.06, .06, .03, dark, .25, .38, .09, sm, 14);
     chairB(2.0, -4.1, 0, 0x5a3550);

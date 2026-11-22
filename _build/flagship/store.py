@@ -822,3 +822,51 @@ for _g in _B82:
                f"Drag the slider on the top picture from closed to open, then try the {TOOL[_g][0].lower()}.",
                "Scroll to watch the shop open up and walk inside, then change the awning color and flip the sign yourself.")
 AWN_DEFAULT.update({"kids": "Gold", "dogs": "Green", "train": "Green"})
+
+
+# ---------- Nov 22: auto upholstery (seats, headliners, tops) ----------
+# upholstery leads whose name says auto / marine / top / trim move here from pick.py with flagship v "autotrim";
+# same sewing room as the upholstery shop, dressed with car bucket seats, a steering wheel and vinyl rolls
+GROUPS["autotrim"] = dict(vs=["autotrim"], kind="autotrim", sign="Auto Trim", word="Auto Trim", noun="auto upholstery shop")
+KGROUP["autotrim"] = "autotrim"; KIT_V.update(KGROUP)
+NAME_OUT["autotrim"] = r"mobile|furniture|awning|canvas|tent|\bsigns?\b|glass|tint|detail"
+WORD["autotrim"] = "Auto Trim"; TRADE["autotrim"] = "Auto upholsterer"; SCHEMA["autotrim"] = "AutomotiveBusiness"; TRADE_LABEL["autotrim"] = "Auto Upholstery"
+V_NEW["autotrim"] = dict(group="studio", noun="shop", h300=["Seats, tops", "and trim."], h750=["Torn seat?", "Ask about it."],
+                         h1250=["Inside the car,", "stitch by stitch."],
+                         lede="Auto upholstery in {town}. Send a few photos and ask what it takes.",
+                         services=[("Seats", "Ask about torn, worn or split seats."), ("Headliners", "Ask about a sagging headliner."),
+                                   ("Tops and trim", "Ask about convertible tops, carpet and door panels.")],
+                         jobs=["Seat", "Headliner", "Convertible top", "Carpet or panels", "Something else"],
+                         when=["As soon as possible", "In the next two weeks", "This season", "Just getting a quote"], who="customers", ask="What are we working on?")
+THEME["autotrim"] = _t("#1f2226", "#2c3036", "#f5f2ec", "#ebe6dc", "#17191c", "#62646a", "#d9d4c8", "#b8452f", "#e08a72", "#c8963e", "#101114", "archivo", "dmsans")
+EXTRA_CSS["autotrim"] = _UPRIGHT
+COPY["autotrim"] = dict(svc_h="What we redo", svc_intro="Seats, headliners, tops or trim: send a few photos and ask what it takes.",
+                        quote_h="Get a quote on your car", cta="Get a trim quote", msg_ph="The year, make and model, what's torn or worn, and a photo if you have one.",
+                        sheet=("A storefront in {town}", "Main street, open for the day"),
+                        sheet_label="Line drawing of a two-storey brick auto upholstery shop on main street with a striped awning and a big display window",
+                        shot=("autotrim-after", "A brick auto upholstery shop with a striped awning, car seats in the window and the OPEN sign lit", "Illustration. Your real photos go here."))
+STEPS["autotrim"] = [("Send a few photos", "The seat, the headliner or the top, and what's wrong."), ("Get a straight answer", "Know what it takes before any work starts."),
+                     ("Drive it home", "Stitched up and ready to ride.")]
+GLYPH["autotrim"] = _G.format("M11 5h7v4h-7zM10 9h9l3 13h7v5H12z", "currentColor") + _G.format("M13 27v3M25 27v3", "var(--pencil)")
+_I.update({
+ "seat": '<path d="M17 6h10v6H17z"/><path d="M16 12h12l4 22h12v9H19z"/><path d="M21 43v6M39 43v6"/>',
+ "headliner": '<path d="M6 36l8-14c2-4 5-6 9-6h10c4 0 7 2 9 6l8 14"/><path d="M6 36h44v8H6z"/><path d="M15 26c6 3 20 3 26 0"/>',
+ "top": '<path d="M8 38h40v6H8z"/><path d="M12 38c2-10 9-18 20-18 6 0 10 3 13 8l3 10"/><path d="M24 22l-3 16M34 21l2 17"/>',
+})
+SVC_ICON.update({("autotrim", "Seats"): _I["seat"], ("autotrim", "Headliners"): _I["headliner"], ("autotrim", "Tops and trim"): _I["top"]})
+INSIDE["autotrim"] = ("Where the work happens", "A seat on the cutting table, the machine, and rolls of vinyl and leather to pick from.",
+                      "Inside the auto upholstery shop: a car seat on the cutting table, a sewing machine and shelves of vinyl and leather")
+VISIT["autotrim"] = "From the street to the shop floor"
+TOOL["autotrim"] = ("Seat check", "What's going on with it?", "Pick what's wrong, and know what to send when you ask.",
+                    "What's wrong?", [("torn", "Torn or split seat", "A close photo of the tear and one of the whole seat help most."),
+                                      ("sag", "Sagging headliner", "Mention the year, make and model, and ask what it takes."),
+                                      ("top", "Worn convertible top", "Photos with the top up, front and back, help most."),
+                                      ("trim", "Carpet or panels", "Mention what's worn and send a photo or two.")],
+                    "The year, make and model help most.", "A quick guide, not a quote. The shop will tell you what it takes.")
+READY["autotrim"] = "The year, make and model, what's torn or worn, and a few photos."
+TOOLS["autotrim"] = ("Text-the-shop button", f"Before-and-after slider and a {TOOL['autotrim'][0].lower()}",
+                     "a live 3D storefront that opens up for the day and lets you step inside")
+TRY["autotrim"] = ("Tap a choice under \"Rather text than call?\" and watch the text write itself.",
+                   f"Drag the slider on the top picture from closed to open, then try the {TOOL['autotrim'][0].lower()}.",
+                   "Scroll to watch the shop open up and walk inside, then change the awning color and flip the sign yourself.")
+AWN_DEFAULT["autotrim"] = "Red"
