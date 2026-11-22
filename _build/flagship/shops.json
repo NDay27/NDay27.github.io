@@ -7831,5 +7831,37 @@
    "Google listing category (trade check)"
   ],
   "v": "alignment"
+ },
+ {
+  "slug": "anytime-automotive-mobile-mechanic-bloomington",
+  "owner": "nolan",
+  "src": [
+   "Google listing category (trade check)"
+  ],
+  "v": "mobilemech"
+ },
+ {
+  "slug": "ace-s-mobile-auto-repair-springfield",
+  "owner": "nolan",
+  "src": [
+   "Google listing category (trade check)"
+  ],
+  "v": "mobilemech"
+ },
+ {
+  "slug": "great-lakes-mobile-mechanic-muskegon-mi",
+  "owner": "nolan",
+  "src": [
+   "Google listing category (trade check)"
+  ],
+  "v": "mobilemech"
+ },
+ {
+  "slug": "sam-mobile-auto-mechanic-san-bruno-ca",
+  "owner": "nolan",
+  "src": [
+   "Google listing category (trade check)"
+  ],
+  "v": "mobilemech"
  }
 ]

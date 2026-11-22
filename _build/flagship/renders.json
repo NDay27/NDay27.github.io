@@ -3557,5 +3557,65 @@
   "w": 1600,
   "h": 1000,
   "q": "kind=autotrim&sign=Auto+Trim&word=Auto Trim&tod=0.14&cam=0,1.6,5.5&tgt=0,1.5,-2&fov=40&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "mobile-before",
+  "w": 2400,
+  "h": 1350,
+  "q": "p=1&truck=Mobile+Mechanic&tx=9.5&tz=22.2&tr=3.14159&mob=0&tod=0.3&cam=-2,4.2,25.5&tgt=9.7,.8,17.4&fov=38&ox=0.13"
+ },
+ {
+  "name": "mobile-after",
+  "w": 2400,
+  "h": 1350,
+  "q": "p=1&truck=Mobile+Mechanic&tx=9.5&tz=22.2&tr=3.14159&mob=1&tod=0.3&cam=-2,4.2,25.5&tgt=9.7,.8,17.4&fov=38&ox=0.13"
+ },
+ {
+  "name": "mobile-s1",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Mobile+Mechanic&tx=9.5&tz=22.2&tr=3.14159&mob=0&tod=0.3&cam=5.2,2,19.8&tgt=9.4,.9,15.8&fov=42"
+ },
+ {
+  "name": "mobile-s2",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Mobile+Mechanic&tx=9.5&tz=22.2&tr=3.14159&mob=0.22&tod=0.3&cam=5.2,2,19.8&tgt=9.4,.9,15.8&fov=42"
+ },
+ {
+  "name": "mobile-s3",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Mobile+Mechanic&tx=9.5&tz=22.2&tr=3.14159&mob=0.55&tod=0.3&cam=5.2,2,19.8&tgt=9.4,.9,15.8&fov=42"
+ },
+ {
+  "name": "mobile-s4",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Mobile+Mechanic&tx=9.5&tz=22.2&tr=3.14159&mob=1&tod=0.3&cam=5.2,2,19.8&tgt=9.4,.9,15.8&fov=42"
+ },
+ {
+  "name": "mobile-dusk",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Mobile+Mechanic&tx=9.5&tz=22.2&tr=3.14159&mob=1&tod=0.84&cam=-3,4.5,27&tgt=9.5,.8,17&fov=40"
+ },
+ {
+  "name": "mobile-work",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Mobile+Mechanic&tx=9.5&tz=22.2&tr=3.14159&mob=0.5&tod=0.3&cam=5.2,2,19.8&tgt=9.4,.9,15.8&fov=42"
+ },
+ {
+  "name": "mobile-truck",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Mobile+Mechanic&tx=9.5&tz=22.2&tr=3.14159&mob=0.5&tod=0.3&cam=-2,4.2,25.5&tgt=9.7,.8,17.4&fov=38"
+ },
+ {
+  "name": "mobile-done",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Mobile+Mechanic&tx=9.5&tz=22.2&tr=3.14159&mob=1&tod=0.3&cam=5.2,2,19.8&tgt=9.4,.9,15.8&fov=42"
  }
 ]
