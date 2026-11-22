@@ -39,6 +39,7 @@ TOOLS.update(store.TOOLS); TRY.update(store.TRY)
 import home  # noqa: E402
 TOOLS.update(home.TOOLS); TRY.update(home.TRY)
 tb.TRADE_LABEL.update(home.TRADE_LABEL); tb.TRADE_LABEL.update(store.TRADE_LABEL)
+tb.TRADE_LABEL.setdefault("alignment", "Auto Repair")  # kit.V["alignment"]: alignment shops on the auto garage
 
 
 def meet(s):
