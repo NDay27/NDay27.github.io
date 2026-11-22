@@ -24,6 +24,7 @@ GROUPS = {
  "glass": dict(vs=["autoglass"], drive=None, noun="auto glass shop", truck="Auto Glass"),
  "elec": dict(vs=["electrical"], drive=None, noun="electrician", truck="Electric"),
  "lock": dict(vs=["locksmith"], drive=None, noun="locksmith", truck="Locksmith"),
+ "fence": dict(vs=["fence"], drive=None, noun="fence crew", truck="Fence"),
  "floor": dict(vs=["flooring"], drive=None, noun="flooring team", truck="Flooring"),
  "appl": dict(vs=["appliance"], drive=None, noun="appliance tech", truck="Appliance Repair"),
 }
@@ -46,13 +47,14 @@ NAME_OUT = {
  "glass": r"mobile|tint|residential|home|window|door|mirror|construction|plate glass",
  "elec": r"commercial|industrial|supply|wholesale|solar|motor|auto|generator|sign",
  "lock": r"hardware|automotive|auto key|car key|safe deposit|alarm|camera",
+ "fence": r"electric|gate repair|automatic|operator|iron works|ornamental|commercial|industrial|supply|rental",
  "floor": r"\btile\b|carpet clean|commercial|industrial|epoxy|garage|concrete|cabinet|kitchen|bath",
  "appl": r"parts|store|outlet|sales|used|scratch|refrigeration",
  "engine": r"mobile|salvage|marine|outboard|auto|truck|diesel",
  "office": r"carpet|window|pressure|power wash|restoration|duct|chimney|pool|supply|house|home|maid|residential",
 }
-TRADE = {"pressurewash": "Pressure washing", "concrete": "Concrete contractor", "hvac": "Heating and air conditioning", "plumbing": "Plumber", "handyman": "Handyman", "houseclean": "House cleaning service", "stump": "Stump grinding", "janitorial": "Janitorial service", "towing": "Towing service", "smallengine": "Small engine repair", "welding": "Welding and fabrication", "carpetclean": "Carpet cleaning service", "roofing": "Roofing contractor", "electrical": "Electrician", "flooring": "Flooring", "locksmith": "Locksmith", "appliance": "Appliance repair"}
-SCHEMA = {"pressurewash": "HomeAndConstructionBusiness", "concrete": "HomeAndConstructionBusiness", "hvac": "HVACBusiness", "plumbing": "Plumber", "handyman": "HomeAndConstructionBusiness", "houseclean": "LocalBusiness", "stump": "HomeAndConstructionBusiness", "janitorial": "LocalBusiness", "towing": "AutomotiveBusiness", "smallengine": "LocalBusiness", "welding": "HomeAndConstructionBusiness", "carpetclean": "LocalBusiness", "roofing": "RoofingContractor", "electrical": "Electrician", "flooring": "HomeAndConstructionBusiness", "locksmith": "Locksmith", "appliance": "HomeAndConstructionBusiness"}
+TRADE = {"pressurewash": "Pressure washing", "concrete": "Concrete contractor", "hvac": "Heating and air conditioning", "plumbing": "Plumber", "handyman": "Handyman", "houseclean": "House cleaning service", "stump": "Stump grinding", "janitorial": "Janitorial service", "towing": "Towing service", "smallengine": "Small engine repair", "welding": "Welding and fabrication", "carpetclean": "Carpet cleaning service", "roofing": "Roofing contractor", "electrical": "Electrician", "flooring": "Flooring", "locksmith": "Locksmith", "appliance": "Appliance repair", "fence": "Fence contractor"}
+SCHEMA = {"pressurewash": "HomeAndConstructionBusiness", "concrete": "HomeAndConstructionBusiness", "hvac": "HVACBusiness", "plumbing": "Plumber", "handyman": "HomeAndConstructionBusiness", "houseclean": "LocalBusiness", "stump": "HomeAndConstructionBusiness", "janitorial": "LocalBusiness", "towing": "AutomotiveBusiness", "smallengine": "LocalBusiness", "welding": "HomeAndConstructionBusiness", "carpetclean": "LocalBusiness", "roofing": "RoofingContractor", "electrical": "Electrician", "flooring": "HomeAndConstructionBusiness", "locksmith": "Locksmith", "appliance": "HomeAndConstructionBusiness", "fence": "HomeAndConstructionBusiness"}
 OVERRIDE = {}
 # stump grinders are tree-service leads on Google; pick.py moves the ones with "stump" in the name onto their own variant
 V_NEW = {"stump": dict(group="tree", noun="crew", h300=["Stumps gone.", "Lawn back."], h750=["Grind it out.", "Mow right over."],
@@ -78,6 +80,13 @@ V_NEW["truck"] = dict(group="auto", noun="shop", h300=["Trucks fixed right.", "B
                       jobs=["Warning light", "Won't start", "Brakes or air", "Service", "Strange noise", "Something else"],
                       when=["As soon as possible", "This week", "Next week", "Just getting a quote"],
                       who="drivers", ask="What is the truck doing?")
+# fence crews: the mix copy listed materials ("wood, vinyl, chain link") no listing confirms
+V_NEW["fence"] = dict(group="trades", noun="crew", h300=["New fence?", "Start here."], h750=["Good fences.", "Good neighbors."],
+                      h1250=["Post by post.", "Straight and true."],
+                      lede="Fencing in {town} and nearby. Tell us about the yard and get a straight quote.",
+                      services=[("New fences", "Ask about the style and height you have in mind."), ("Gates", "Ask about a new gate or one that won't latch."), ("Repairs", "Ask about leaning posts and broken boards.")],
+                      jobs=["New fence", "Gate", "Repair", "Something else"], when=["As soon as possible", "This month", "This season", "Just getting a quote"],
+                      who="homeowners", ask="What's the project?")
 # locksmiths: the mix copy promised "We'll get you in" and car lockouts; told here on the front door with claims any locksmith can stand behind
 V_NEW["locksmith"] = dict(group="trades", noun="locksmith", h300=["Locks and keys,", "done right."], h750=["Keys, locks,", "peace of mind."],
                           h1250=["New lock.", "New keys."],
@@ -116,6 +125,7 @@ THEME = {
  "appl": _t("#1d2a26", "#273731", "#f5f6f2", "#e7ebe4", "#17211e", "#5e6a65", "#d3dcd5", "#d0632f", "#eea27a", "#3b7a9a", "#101815", "archivo", "dmsans"),
  "elec": _t("#161a22", "#222836", "#f5f4ef", "#e9e7df", "#12151b", "#5f6470", "#d7d4cb", "#c27c0e", "#efc25a", "#3d6fb3", "#0d1016", "archivo", "dmsans"),
  "lock": _t("#171a1f", "#23272f", "#f6f4ee", "#ebe7dc", "#121419", "#5f636c", "#d8d3c6", "#a8792a", "#e0b766", "#2f6f68", "#0d0f13", "archivo", "dmsans"),
+ "fence": _t("#22301f", "#2d3e29", "#f6f4ee", "#ebe6da", "#1b2619", "#626a5c", "#d9d4c5", "#b7814f", "#e0b48a", "#3d6f8a", "#121a10", "fraunces", "dmsans"),
  "glass": _t("#14263a", "#1d3550", "#f3f6f9", "#e4ebf2", "#0f1d2c", "#58687a", "#d2dce7", "#2f9fd8", "#86cbef", "#e8862c", "#0a1520", "archivo", "dmsans"),
  "hvac": _t("#132640", "#1c3558", "#f4f6f9", "#e5eaf1", "#101c2e", "#566377", "#d3dbe6", "#e4583c", "#f39079", "#2f72b8", "#0a1526", "jost", "dmsans"),
 }
@@ -130,6 +140,7 @@ EXTRA_CSS = {"wash": ".hero h1 .l2{font-style:normal}.hero h1{font-weight:700;le
              "semi": ".hero h1 .l2{font-style:normal}.hero h1{font-weight:800;letter-spacing:-.035em}h2{font-weight:700!important}.hero0 h1 em{font-style:normal}",
              "elec": ".hero h1 .l2{font-style:normal}.hero h1{font-weight:800;letter-spacing:-.035em}h2{font-weight:700!important}.hero0 h1 em{font-style:normal}",
              "lock": ".hero h1 .l2{font-style:normal}.hero h1{font-weight:800;letter-spacing:-.035em}h2{font-weight:700!important}.hero0 h1 em{font-style:normal}",
+             "fence": ".hero h1 em,.hero0 h1 em{font-weight:400}",
              "glass": ".hero h1 .l2{font-style:normal}.hero h1{font-weight:800;letter-spacing:-.035em}h2{font-weight:700!important}.hero0 h1 em{font-style:normal}",
              "weld": ".hero h1 .l2{font-style:normal}.hero h1{font-weight:800;letter-spacing:-.035em}h2{font-weight:700!important}.hero0 h1 em{font-style:normal}",
              "engine": ".hero h1 .l2{font-style:normal}.hero h1{font-weight:700;letter-spacing:-.035em}h2{font-weight:600!important}.hero0 h1 em{font-style:normal}",
@@ -190,6 +201,11 @@ COPY["elec"] = dict(svc_h="What we do", svc_intro="Repairs, lighting and panel u
                    sheet=("A house in {town}", "New panel, lights back on"),
                    sheet_label="Line drawing of a two-storey farmhouse with a porch and a garage wing",
                    shot=("elec-after", "A farmhouse at dusk with every room lit, the porch light on and path lights along the walk", "Illustration. Your real job photos go here."))
+COPY["fence"] = dict(svc_h="What we build", svc_intro="Tell us about the yard and what you have in mind. Not sure? Ask anyway.",
+                    quote_h="Get a fence quote", cta="Get a fence quote", msg_ph="Roughly how many feet, the style you like, any gates, and a photo of the yard if you can.",
+                    sheet=("A yard in {town}", "Old fence out, new fence up"),
+                    sheet_label="Line drawing of a two-storey farmhouse with a porch and a garage wing",
+                    shot=("fence-after", "A new cedar privacy fence along a side yard beside a white farmhouse", "Illustration. Your real job photos go here."))
 COPY["lock"] = dict(svc_h="What we do", svc_intro="Rekeying, new locks and lockouts. If it isn't on the list, ask anyway.",
                    quote_h="Ask a locksmith", cta="Ask about the job", msg_ph="What's going on, which doors, and a photo of the lock you have now if you can.",
                    sheet=("A front door in {town}", "Old lock out, new lock in"),
@@ -245,6 +261,7 @@ STEPS = {
  "appl": [("Tell us what's acting up", "The appliance, the brand and what it's doing."), ("Get a straight answer", "Know the price before the repair starts."), ("Back to normal", "Fixed, tested, and the mess cleaned up.")],
  "elec": [("Tell us what's going on", "A breaker that trips, lights that flicker or something new."), ("Get a straight answer", "Know the price before work starts."), ("Power you can trust", "Wired right, tested, and cleaned up after.")],
  "lock": [("Call or text", "Locked out, just moved in, or ready for better locks."), ("Get a straight answer", "Know the price before work starts."), ("Locked up right", "Every lock checked and every key tried.")],
+ "fence": [("Tell us about the yard", "Roughly how long, the style you like and any gates."), ("Get a straight quote", "Know the price before the first post goes in."), ("Post by post", "Old fence out, new fence up, and the yard cleaned up.")],
  "roof": [("Tell us about the roof", "A leak, storm damage or a full replacement."), ("Get a straight quote", "Know the price before the tear-off starts."), ("Sealed up tight", "Old roof off, new roof on, and the yard picked up.")],
  "semi": [("Call or text about the truck", "What it is and what it's doing."), ("Get a straight answer", "What it needs and the price before work starts."), ("Back on the road", "Fixed, checked over and ready to roll.")],
  "glass": [("Tell us what's broken", "The windshield, a side window or the back glass."), ("Get a straight answer", "What it takes and the price before work starts."), ("Clear view again", "New glass set, sealed and cleaned up.")],
@@ -267,6 +284,7 @@ GLYPH = {
  "appl": _G.format("M8 4h16v24H8zM8 9h16", "currentColor") + _G.format("M16 19a5 5 0 1 0 0 .1M11 6.5h2", "var(--pencil)"),
  "elec": _G.format("M18 4L8 18h7l-2 10 11-15h-7z", "currentColor") + _G.format("M5 28h22", "var(--pencil)"),
  "lock": _G.format("M12 22a6 6 0 1 1 0-.1M16.5 17.5L28 6M24 10l3 3M20.5 13.5l3 3", "currentColor") + _G.format("M5 28h22", "var(--pencil)"),
+ "fence": _G.format("M6 28V10l3-3 3 3v18M14 28V10l3-3 3 3v18M22 28V10l3-3 3 3v18", "currentColor") + _G.format("M3 14h26M3 22h26", "var(--pencil)"),
  "roof": _G.format("M4 18L16 8l12 10M8 15v11h16V15", "currentColor") + _G.format("M13 26v-6h6v6", "var(--pencil)"),
  "semi": _G.format("M3 23h8V11h7l4 6v6h7", "currentColor") + _G.format("M8 26a2 2 0 1 0 0 .1M24 26a2 2 0 1 0 0 .1M12 15h4", "var(--pencil)"),
  "glass": _G.format("M5 22l3-10h16l3 10z", "currentColor") + _G.format("M14 17l2-2 1 3 2-2M16 15l-3-2", "var(--pencil)"),
@@ -353,6 +371,10 @@ _J.update(washer='<rect x="12" y="6" width="32" height="44" rx="3"/><path d="M12
           fridge='<rect x="14" y="4" width="28" height="48" rx="3"/><path d="M14 22h28M20 10v6M20 28v10"/>',
           oven='<rect x="8" y="8" width="40" height="40" rx="3"/><path d="M8 18h40"/><rect x="15" y="24" width="26" height="17" rx="2"/><path d="M15 13h2M23 13h2M31 13h2"/>')
 SVC_ICON.update({("appl", "Washers and dryers"): _J["washer"], ("appl", "Fridges and freezers"): _J["fridge"], ("appl", "Ovens and dishwashers"): _J["oven"]})
+_J.update(fence='<path d="M10 48V16l4-5 4 5v32M24 48V16l4-5 4 5v32M38 48V16l4-5 4 5v32"/><path d="M6 24h44M6 38h44"/>',
+          gate='<path d="M8 48V10M48 48V10"/><path d="M12 14h32v30H12z"/><path d="M12 44 44 14"/><path d="M40 28h3"/>',
+          post='<path d="M20 48V14l8-6 8 6v34"/><path d="M14 48h28"/><path d="M8 20l10 2M48 24l-10 2"/>')
+SVC_ICON.update({("fence", "New fences"): _J["fence"], ("fence", "Gates"): _J["gate"], ("fence", "Repairs"): _J["post"]})
 
 # ---------- Signature and Immersive ----------
 _HERO = {
@@ -374,6 +396,8 @@ _HERO = {
           "The same farmhouse with every room lit, the porch light on and path lights along the front walk", "62% 50%"),
  "lock": ("lock-before", "lock-after", "A farmhouse front door at golden hour with a worn brass knob and an old deadbolt",
           "The same front door with a new black keypad deadbolt and lever, standing open to a warm lit hallway", "50% 50%"),
+ "fence": ("fence-before", "fence-after", "A side yard beside a white farmhouse with an old grey fence: leaning posts, missing boards and a section fallen in the grass",
+           "The same side yard with a new cedar privacy fence and a gate by the house", "50% 50%"),
  "roof": ("roof-before", "roof-after", "A farmhouse with an old, worn shingle roof: curled and missing tabs, moss and a blue tarp over a leak",
           "The same farmhouse with a new charcoal shingle roof", "62% 50%"),
  "semi": ("semi-before", "semi-after", "A red semi tractor nosed out of a truck repair shop's first bay with its hood tilted forward and the engine open",
@@ -412,6 +436,7 @@ _SVC = {
  "appl": [("appl-open", "A dishwasher pulled out from the counter with its door down and the racks showing"), ("appl-leak", "Water spread across a tile floor in front of a dishwasher"), ("appl-done", "A steel dishwasher back under the counter beside a folded card")],
  "elec": [("elec-panel", "A new gray breaker panel and meter on the side wall of a house"), ("elec-walk", "Path lights along a front walk at night"), ("elec-ladder", "A ladder up the side of a house during a panel upgrade")],
  "lock": [("lock-keypad", "A new keypad deadbolt and black lever on a wood front door, with keys on a ring"), ("lock-kit", "A locksmith's red case and drill on a porch beside the front door"), ("lock-open", "A front door standing open to a warm lit hallway")],
+ "fence": [("fence-gate", "A new cedar gate with black hinges beside a farmhouse"), ("fence-posts", "New fence posts set in concrete with rails going up"), ("fence-old", "An old grey fence leaning, with missing boards and a fallen section")],
  "roof": [("roof-close", "New charcoal shingles going on above bare roof deck"), ("roof-tear", "Old shingles torn off down to the roof deck"), ("roof-street", "A roll-off dumpster in the drive during a roof replacement")],
  "semi": [("semi-close", "A semi tractor's engine, open under a tilted hood"), ("semi-side", "A red semi tractor beside a two-bay truck repair shop"), ("semi-front", "A red semi tractor parked on the lot, ready to roll")],
  "glass": [("glass-crack", "A star break and a long crack across a pickup's windshield"), ("glass-cups", "Suction cup handles on a new windshield as it goes in"), ("glass-clear", "A red pickup with a clear new windshield, ready to go")],
@@ -469,6 +494,10 @@ _STAGES = {
           ("lock-s2", "The swap", "Old hardware out", "The knob and deadbolt come off and the door is ready for the new set."),
           ("lock-s3", "New lock", "Keypad and lever in", "A keypad deadbolt and a lever set go in, with new keys on the ring."),
           ("lock-s4", "Done", "Locked up right", "Every key tried and the code set, then the door swings open.")],
+ "fence": [("fence-s1", "Before", "Leaning and falling down", "Grey boards, leaning posts and a whole section down in the grass."),
+           ("fence-s2", "Tear-out", "Old fence out", "Pulled out section by section and piled up to haul away."),
+           ("fence-s3", "Posts and rails", "Set straight", "New posts set in concrete, then the rails run between them."),
+           ("fence-s4", "Done", "Board by board", "Cedar boards from end to end, the gate hung and the yard cleaned up.")],
  "roof": [("roof-s1", "Before", "Worn and leaking", "Curled and missing shingles, moss, and a blue tarp over the leak."),
           ("roof-s2", "Tear-off", "Down to the deck", "Old shingles off from the ridge down, straight into the dumpster."),
           ("roof-s3", "New roof", "Course by course", "New shingles laid from the eaves up to the ridge."),
@@ -512,7 +541,7 @@ def stages(g):
     return _STAGES[g]
 
 
-VISIT = {"wash": "From grimy to bright", "concrete": "From cracked to brand new", "hvac": "From worn out to brand new", "plumb": "From soggy lawn to fixed", "handy": "From to-do list to done", "clean": "From lived-in to spotless", "stump": "From stump to grass", "office": "From end of day to ready for the morning", "tow": "From stuck to on the way", "engine": "From won't start to mowing", "weld": "From broken to built strong", "carpet": "From stained to fresh", "roof": "From leaking to covered", "elec": "From flickering to lit up", "floor": "From worn out to brand new", "lock": "From worn out to locked up right", "appl": "From leaking to running again"}
+VISIT = {"wash": "From grimy to bright", "concrete": "From cracked to brand new", "hvac": "From worn out to brand new", "plumb": "From soggy lawn to fixed", "handy": "From to-do list to done", "clean": "From lived-in to spotless", "stump": "From stump to grass", "office": "From end of day to ready for the morning", "tow": "From stuck to on the way", "engine": "From won't start to mowing", "weld": "From broken to built strong", "carpet": "From stained to fresh", "roof": "From leaking to covered", "elec": "From flickering to lit up", "floor": "From worn out to brand new", "lock": "From worn out to locked up right", "appl": "From leaking to running again", "fence": "From falling down to built new"}
 VISIT["semi"] = "From the bay to the road"
 VISIT["glass"] = "From cracked to clear"
 VISIT_INTRO = "Shown on the same house, from before to done."
@@ -572,6 +601,12 @@ TOOL = {
                                 ("dead", "An outlet or light is dead", "Say where it is and whether anything else went out with it."),
                                 ("new", "Adding something new", "Lights, outlets or a panel upgrade? Say what and where.")],
           "A photo of the panel with the door open helps get a straight answer.", "A quick guide, not a quote. The electrician will tell you what it really needs."),
+ "fence": ("Fence planner", "What's the project?", "Pick the job, and know what to mention for a straight quote.",
+           "What do you need?", [("new", "A new fence", "Mention roughly how many feet, the height and the style you like."),
+                                 ("replace", "Replace an old one", "Mention the length and whether the old fence comes out too."),
+                                 ("gate", "A gate", "Say how wide the opening is and whether it's for walking or a driveway."),
+                                 ("fix", "A repair", "Say what's wrong, like a leaning post or broken boards, and send a photo.")],
+           "Roughly how many feet and a photo of the yard gets a straight quote fastest.", "A quick guide, not a quote. The crew will tell you what it really takes."),
  "lock": ("Lock check", "What do you need?", "Pick what's going on, and know what to mention for a straight answer.",
           "What's going on?", [("out", "Locked out", "Say where you are and what's locked: a house, a car or a business."),
                                 ("move", "Just moved in", "Mention how many outside doors and whether you'd like one key for all of them."),
@@ -645,6 +680,7 @@ READY = {
  "appl": "The appliance, the brand and model number from the label, what it's doing, and a photo if you can.",
  "elec": "What's going on, which rooms, roughly how old the house is, and a photo of the panel if you can.",
  "lock": "What's going on, which doors, the kind of lock you have now, and a photo if you can.",
+ "fence": "Roughly how many feet, the height and style you like, any gates, and a photo of the yard if you can.",
  "roof": "What's going on, roughly how old the roof is, any leaks inside, and a photo from the street.",
  "semi": "The make and model, the engine, roughly the miles, what it's doing, and any warning lights.",
  "glass": "The year, make and model, which glass is broken, and a photo of the damage.",
@@ -657,7 +693,7 @@ READY = {
 }
 
 TOOLS = {g: ("Text-the-team button" if g in ("clean", "office", "carpet", "floor", "appl") else "Text-the-shop button" if g in ("engine", "weld", "semi", "glass") else "Text-the-crew button", f"Before-and-after slider and a {TOOL[g][0].lower()}",
-             ("a live 3D room where you " if g in ("clean", "carpet", "floor") else "a live 3D kitchen where you " if g == "appl" else "a live 3D office where you " if g == "office" else "a live 3D street where you " if g == "tow" else "a live 3D driveway where you " if g in ("engine", "weld") else "a live 3D shop where you " if g in ("semi", "glass") else "a live 3D house where you ") + {"wash": "wash the drive yourself", "concrete": "pour the new drive yourself", "hvac": "swap in the new unit yourself", "plumb": "dig down and fix the line yourself", "handy": "work through the list yourself", "clean": "tidy it up yourself", "stump": "grind the stump out yourself", "office": "clean it up yourself", "tow": "load the pickup yourself", "engine": "fix the mower yourself", "weld": "weld the gate yourself", "carpet": "clean the carpet yourself", "roof": "put the new roof on yourself", "elec": "turn the lights back on yourself", "lock": "fit the new lock yourself", "appl": "fix the dishwasher yourself", "floor": "lay the new floor yourself", "semi": "tilt the hood and drive it out yourself", "glass": "swap in the new windshield yourself"}[g]) for g in GROUPS}
+             ("a live 3D room where you " if g in ("clean", "carpet", "floor") else "a live 3D kitchen where you " if g == "appl" else "a live 3D office where you " if g == "office" else "a live 3D street where you " if g == "tow" else "a live 3D driveway where you " if g in ("engine", "weld") else "a live 3D shop where you " if g in ("semi", "glass") else "a live 3D house where you ") + {"wash": "wash the drive yourself", "concrete": "pour the new drive yourself", "hvac": "swap in the new unit yourself", "plumb": "dig down and fix the line yourself", "handy": "work through the list yourself", "clean": "tidy it up yourself", "stump": "grind the stump out yourself", "office": "clean it up yourself", "tow": "load the pickup yourself", "engine": "fix the mower yourself", "weld": "weld the gate yourself", "carpet": "clean the carpet yourself", "roof": "put the new roof on yourself", "elec": "turn the lights back on yourself", "lock": "fit the new lock yourself", "appl": "fix the dishwasher yourself", "fence": "build the new fence yourself", "floor": "lay the new floor yourself", "semi": "tilt the hood and drive it out yourself", "glass": "swap in the new windshield yourself"}[g]) for g in GROUPS}
 TRY = {"wash": ("Tap a choice under \"Rather text than call?\" and watch the text write itself.",
                 "Drag the slider on the top picture from grimy to clean, then try the wash planner.",
                 "Scroll to watch the siding and the drive come clean, then drag the wand down the drive yourself."),
@@ -685,6 +721,9 @@ TRY = {"wash": ("Tap a choice under \"Rather text than call?\" and watch the tex
        "elec": ("Tap a choice under \"Rather text than call?\" and watch the text write itself.",
                 "Drag the slider on the top picture from dark to lit, then try the power check.",
                 "Scroll to watch the old panel come out and the lights come on room by room, then flip the power yourself."),
+       "fence": ("Tap a choice under \"Rather text than call?\" and watch the text write itself.",
+                 "Drag the slider on the top picture from the old fence to the new one, then try the fence planner.",
+                 "Scroll to watch the old fence come out and the new one go up, then build it yourself."),
        "lock": ("Tap a choice under \"Rather text than call?\" and watch the text write itself.",
                 "Drag the slider on the top picture from the old lock to the new one, then try the lock check.",
                 "Scroll to watch the old lock come out and the keypad go in, then fit it yourself."),
@@ -783,6 +822,13 @@ def beats(g):
                 ("hero", .3, {"fix": .95}, {"fix": 1}, "floor-after", ("03 · Done", s4[2], s4[3])),
                 ("dusk", .84, {"fix": 1}, None, "floor-dusk", ("04 · Evening", "Warm underfoot", "The lamp on and the new floor glowing, ready for the first night back in.")),
                 ("cfg", .3, {}, None, "floor-after", "cfg")]
+    if g == "fence":
+        return [("hero", .3, {"fix": 0}, None, "fence-before", None),
+                ("close", .3, {"fix": 0}, {"fix": .45}, "fence-s2", ("01 · " + s2[1], s2[2], "Keep scrolling and watch the old fence come out, section by section.")),
+                ("close", .3, {"fix": .45}, {"fix": .9}, "fence-s3", ("02 · " + s3[1], s3[2], "New posts set in concrete, the rails run between them, then the boards go up.")),
+                ("hero", .3, {"fix": .9}, {"fix": 1}, "fence-after", ("03 · " + s4[1], s4[2], s4[3])),
+                ("dusk", .84, {"fix": 1}, None, "fence-dusk", ("04 · Evening", "Private and straight", "The new fence glowing in the last of the light, the gate shut.")),
+                ("cfg", .3, {}, None, "fence-after", "cfg")]
     if g == "lock":
         return [("hero", .74, {"fix": 0}, None, "lock-before", None),
                 ("close", .74, {"fix": 0}, {"fix": .5}, "lock-s2", ("01 · " + s2[1], s2[2], "Keep scrolling and watch the old knob and deadbolt come off the door.")),
@@ -880,6 +926,8 @@ def controls(g):
         return ('<div class="ctl"><label for="u-fix">Fix the dishwasher <span>drag</span></label><input id="u-fix" type="range" min="0" max="100" value="100" data-set="fix"></div>'), "Your turn: fix it yourself", {"fix": 1, "tod": .3}
     if g == "floor":
         return ('<div class="ctl"><label for="u-fix">Lay the new floor <span>drag</span></label><input id="u-fix" type="range" min="0" max="100" value="100" data-set="fix"></div>'), "Your turn: lay it yourself", {"fix": 1, "tod": .3}
+    if g == "fence":
+        return ('<div class="ctl"><label for="u-fix">Build the new fence <span>drag</span></label><input id="u-fix" type="range" min="0" max="100" value="100" data-set="fix"></div>'), "Your turn: build it yourself", {"fix": 1, "tod": .3}
     if g == "lock":
         return ('<div class="ctl"><label for="u-fix">Fit the new lock <span>drag</span></label><input id="u-fix" type="range" min="0" max="100" value="100" data-set="fix"></div>'), "Your turn: fit it yourself", {"fix": 1, "tod": .74}
     if g == "elec":
@@ -927,6 +975,9 @@ CAM.update(semih=("-14,3.6,24", ".5,2.6,2", 36), semis=("-11.5,2.6,4.8", "-2.6,1
 CAM.update(elech=("-15,3,24", "-1,3.4,2", 38), elecc=("-11.5,2.2,7.5", "-6,1.9,1.2", 36), elecp=("-8.6,1.7,3.2", "-6.1,1.4,.1", 40),
            elecw=("-4.4,1.5,19", ".2,.9,9", 40), elecl=("-12.5,3.2,6.5", "-6,3.2,.8", 40), elecv=("-2.6,.9,16.5", "0,.35,9.5", 40))
 # locksmith (lab lock=): the front door; hero takes in the porch, close sees the hardware and the case, key is the keypad up close
+# fence (lab fence=): the side yard left of the house; hero from the front lawn, close down the run, gate by the house
+CAM.update(fenceh=("-14,2.0,16", "-11.2,1.1,5.8", 40), fencec=("-9.6,1.5,10.5", "-11.6,1.0,5.8", 42), fencew=("-16,2.6,22", "-9,1.6,4", 40),
+           fenceg=("-6.0,1.5,9.4", "-7.6,1.1,5.8", 40))
 CAM.update(lockh=("-.5,1.6,10.8", ".1,1.55,4", 30), lockc=("-.9,1.7,7.4", ".3,1.45,4", 40), lockk=("-.6,1.8,5.8", ".35,1.7,4", 36),
            lockt=("0.5,1.25,6.4", "1.0,.62,4.6", 42), lockw=("-6,2.4,15", "0,2.2,4", 36))
 CAM.update(glassh=("-6.2,1.8,14.4", "-2.2,1.15,10.0", 32), glassc=("-4.4,2.2,12.2", "-1.55,1.45,9.9", 36), glassd=("-11,1.8,19", "0,2.4,3", 36))
@@ -934,7 +985,7 @@ CAM.update(glassh=("-6.2,1.8,14.4", "-2.2,1.15,10.0", 32), glassc=("-4.4,2.2,12.
 
 def renders(g):
     d = GROUPS[g]; tr = d["truck"].replace(" ", "+").replace("&", "%26")
-    base = (f"p=1&drive={d['drive']}&truck={tr}&tx=-1.5" if d["drive"] else f"p=1&truck={tr}&tx={ {'plumb': -6, 'handy': 1.5, 'roof': -1.5, 'elec': -1.5, 'lock': -1.5}.get(g, -11) }") + "&tz=35.4&tr=1.5708"
+    base = (f"p=1&drive={d['drive']}&truck={tr}&tx=-1.5" if d["drive"] else f"p=1&truck={tr}&tx={ {'plumb': -6, 'handy': 1.5, 'roof': -1.5, 'elec': -1.5, 'lock': -1.5, 'fence': -1.5}.get(g, -11) }") + "&tz=35.4&tr=1.5708"
     def r(name, w, h, cam, tod, st, ox=0):
         c, t, f = CAM[cam]
         q = f"{base}&tod={tod}&cam={c}&tgt={t}&fov={f}&{st}" + (f"&ox={ox}" if ox else "")
@@ -999,6 +1050,12 @@ def renders(g):
                 rs("s3", 1200, 800, "semic", .3, "hood=1"), rs("s4", 1200, 800, "semih", .3, "pos=1"),
                 rs("dusk", 1600, 1000, "semid", .84, "pos=1"), rs("close", 1600, 1000, "semic", .3, "hood=1"),
                 rs("side", 1600, 1000, "semis", .3, "hood=1"), rs("front", 1600, 1000, "semid", .3, "pos=1")]
+    if g == "fence":
+        return [r("before", 2400, 1350, "fenceh", .3, "fence=0", .13), r("after", 2400, 1350, "fenceh", .3, "fence=1", .13),
+                r("s1", 1200, 800, "fencec", .3, "fence=0"), r("s2", 1200, 800, "fenceh", .3, "fence=.22"),
+                r("s3", 1200, 800, "fencec", .3, "fence=.52"), r("s4", 1200, 800, "fenceh", .3, "fence=1"),
+                r("dusk", 1600, 1000, "fencew", .84, "fence=1"), r("gate", 1600, 1000, "fenceg", .3, "fence=1"),
+                r("posts", 1600, 1000, "fencec", .3, "fence=.48"), r("old", 1600, 1000, "fencec", .3, "fence=0")]
     if g == "lock":
         return [r("before", 2400, 1350, "lockh", .74, "lock=0", .13), r("after", 2400, 1350, "lockh", .74, "lock=1", .13),
                 r("s1", 1200, 800, "lockc", .74, "lock=0"), r("s2", 1200, 800, "lockc", .74, "lock=.4"),

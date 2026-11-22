@@ -2399,5 +2399,345 @@
   "w": 1600,
   "h": 1000,
   "q": "p=1&truck=Locksmith&tx=-1.5&tz=35.4&tr=1.5708&tod=0.74&cam=-.9,1.7,7.4&tgt=.3,1.45,4&fov=40&lock=1"
+ },
+ {
+  "name": "dojo-before",
+  "lab": "labstore",
+  "w": 2400,
+  "h": 1350,
+  "q": "kind=dojo&sign=Martial+Arts&word=Martial Arts&tod=0.62&cam=-9,2.3,17.5&tgt=.8,3.5,0&fov=36&open=0&lights=0&awning=0&door=0&ox=0.13"
+ },
+ {
+  "name": "dojo-after",
+  "lab": "labstore",
+  "w": 2400,
+  "h": 1350,
+  "q": "kind=dojo&sign=Martial+Arts&word=Martial Arts&tod=0.14&cam=-9,2.3,17.5&tgt=.8,3.5,0&fov=36&open=1&lights=1&awning=1&door=0&ox=0.13"
+ },
+ {
+  "name": "dojo-s1",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=dojo&sign=Martial+Arts&word=Martial Arts&tod=0.62&cam=-4.6,2.4,11.5&tgt=.6,2.7,0&fov=40&open=0&lights=0&awning=0&door=0"
+ },
+ {
+  "name": "dojo-s2",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=dojo&sign=Martial+Arts&word=Martial Arts&tod=0.45&cam=-4.6,2.4,11.5&tgt=.6,2.7,0&fov=40&open=0&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "dojo-s3",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=dojo&sign=Martial+Arts&word=Martial Arts&tod=0.14&cam=0,1.6,5.5&tgt=0,1.5,-2&fov=40&open=1&lights=1&awning=1&door=1"
+ },
+ {
+  "name": "dojo-s4",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=dojo&sign=Martial+Arts&word=Martial Arts&tod=0.14&cam=1.6,1.75,-1.6&tgt=-.8,1.15,-5.2&fov=55&open=1&lights=1&awning=1&door=1&second=0"
+ },
+ {
+  "name": "dojo-dusk",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=dojo&sign=Martial+Arts&word=Martial Arts&tod=0.84&cam=-7.5,1.9,15&tgt=.8,3.2,0&fov=36&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "dojo-window",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=dojo&sign=Martial+Arts&word=Martial Arts&tod=0.14&cam=-3.6,1.55,3.6&tgt=-1.6,1.3,-1.0&fov=40&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "dojo-inside",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=dojo&sign=Martial+Arts&word=Martial Arts&tod=0.14&cam=1.6,1.75,-1.6&tgt=-.8,1.15,-5.2&fov=55&open=1&lights=1&awning=1&door=1&second=0"
+ },
+ {
+  "name": "dojo-door",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=dojo&sign=Martial+Arts&word=Martial Arts&tod=0.14&cam=0,1.6,5.5&tgt=0,1.5,-2&fov=40&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "jewel-before",
+  "lab": "labstore",
+  "w": 2400,
+  "h": 1350,
+  "q": "kind=jewel&sign=Jewelers&word=Jewelry&tod=0.62&cam=-9,2.3,17.5&tgt=.8,3.5,0&fov=36&open=0&lights=0&awning=0&door=0&ox=0.13"
+ },
+ {
+  "name": "jewel-after",
+  "lab": "labstore",
+  "w": 2400,
+  "h": 1350,
+  "q": "kind=jewel&sign=Jewelers&word=Jewelry&tod=0.14&cam=-9,2.3,17.5&tgt=.8,3.5,0&fov=36&open=1&lights=1&awning=1&door=0&ox=0.13"
+ },
+ {
+  "name": "jewel-s1",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=jewel&sign=Jewelers&word=Jewelry&tod=0.62&cam=-4.6,2.4,11.5&tgt=.6,2.7,0&fov=40&open=0&lights=0&awning=0&door=0"
+ },
+ {
+  "name": "jewel-s2",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=jewel&sign=Jewelers&word=Jewelry&tod=0.45&cam=-4.6,2.4,11.5&tgt=.6,2.7,0&fov=40&open=0&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "jewel-s3",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=jewel&sign=Jewelers&word=Jewelry&tod=0.14&cam=0,1.6,5.5&tgt=0,1.5,-2&fov=40&open=1&lights=1&awning=1&door=1"
+ },
+ {
+  "name": "jewel-s4",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=jewel&sign=Jewelers&word=Jewelry&tod=0.14&cam=1.6,1.75,-1.6&tgt=-.8,1.15,-5.2&fov=55&open=1&lights=1&awning=1&door=1&second=0"
+ },
+ {
+  "name": "jewel-dusk",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=jewel&sign=Jewelers&word=Jewelry&tod=0.84&cam=-7.5,1.9,15&tgt=.8,3.2,0&fov=36&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "jewel-window",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=jewel&sign=Jewelers&word=Jewelry&tod=0.14&cam=-3.6,1.55,3.6&tgt=-1.6,1.3,-1.0&fov=40&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "jewel-inside",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=jewel&sign=Jewelers&word=Jewelry&tod=0.14&cam=1.6,1.75,-1.6&tgt=-.8,1.15,-5.2&fov=55&open=1&lights=1&awning=1&door=1&second=0"
+ },
+ {
+  "name": "jewel-door",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=jewel&sign=Jewelers&word=Jewelry&tod=0.14&cam=0,1.6,5.5&tgt=0,1.5,-2&fov=40&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "appst-before",
+  "lab": "labstore",
+  "w": 2400,
+  "h": 1350,
+  "q": "kind=appst&sign=Appliances&word=Appliances&tod=0.62&cam=-9,2.3,17.5&tgt=.8,3.5,0&fov=36&open=0&lights=0&awning=0&door=0&ox=0.13"
+ },
+ {
+  "name": "appst-after",
+  "lab": "labstore",
+  "w": 2400,
+  "h": 1350,
+  "q": "kind=appst&sign=Appliances&word=Appliances&tod=0.14&cam=-9,2.3,17.5&tgt=.8,3.5,0&fov=36&open=1&lights=1&awning=1&door=0&ox=0.13"
+ },
+ {
+  "name": "appst-s1",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=appst&sign=Appliances&word=Appliances&tod=0.62&cam=-4.6,2.4,11.5&tgt=.6,2.7,0&fov=40&open=0&lights=0&awning=0&door=0"
+ },
+ {
+  "name": "appst-s2",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=appst&sign=Appliances&word=Appliances&tod=0.45&cam=-4.6,2.4,11.5&tgt=.6,2.7,0&fov=40&open=0&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "appst-s3",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=appst&sign=Appliances&word=Appliances&tod=0.14&cam=0,1.6,5.5&tgt=0,1.5,-2&fov=40&open=1&lights=1&awning=1&door=1"
+ },
+ {
+  "name": "appst-s4",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=appst&sign=Appliances&word=Appliances&tod=0.14&cam=1.6,1.75,-1.6&tgt=-.8,1.15,-5.2&fov=55&open=1&lights=1&awning=1&door=1&second=0"
+ },
+ {
+  "name": "appst-dusk",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=appst&sign=Appliances&word=Appliances&tod=0.84&cam=-7.5,1.9,15&tgt=.8,3.2,0&fov=36&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "appst-window",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=appst&sign=Appliances&word=Appliances&tod=0.14&cam=-3.6,1.55,3.6&tgt=-1.6,1.3,-1.0&fov=40&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "appst-inside",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=appst&sign=Appliances&word=Appliances&tod=0.14&cam=1.6,1.75,-1.6&tgt=-.8,1.15,-5.2&fov=55&open=1&lights=1&awning=1&door=1&second=0"
+ },
+ {
+  "name": "appst-door",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=appst&sign=Appliances&word=Appliances&tod=0.14&cam=0,1.6,5.5&tgt=0,1.5,-2&fov=40&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "massage-before",
+  "lab": "labstore",
+  "w": 2400,
+  "h": 1350,
+  "q": "kind=massage&sign=Massage&word=Massage&tod=0.62&cam=-9,2.3,17.5&tgt=.8,3.5,0&fov=36&open=0&lights=0&awning=0&door=0&ox=0.13"
+ },
+ {
+  "name": "massage-after",
+  "lab": "labstore",
+  "w": 2400,
+  "h": 1350,
+  "q": "kind=massage&sign=Massage&word=Massage&tod=0.14&cam=-9,2.3,17.5&tgt=.8,3.5,0&fov=36&open=1&lights=1&awning=1&door=0&ox=0.13"
+ },
+ {
+  "name": "massage-s1",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=massage&sign=Massage&word=Massage&tod=0.62&cam=-4.6,2.4,11.5&tgt=.6,2.7,0&fov=40&open=0&lights=0&awning=0&door=0"
+ },
+ {
+  "name": "massage-s2",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=massage&sign=Massage&word=Massage&tod=0.45&cam=-4.6,2.4,11.5&tgt=.6,2.7,0&fov=40&open=0&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "massage-s3",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=massage&sign=Massage&word=Massage&tod=0.14&cam=0,1.6,5.5&tgt=0,1.5,-2&fov=40&open=1&lights=1&awning=1&door=1"
+ },
+ {
+  "name": "massage-s4",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=massage&sign=Massage&word=Massage&tod=0.14&cam=1.6,1.75,-1.6&tgt=-.8,1.15,-5.2&fov=55&open=1&lights=1&awning=1&door=1&second=0"
+ },
+ {
+  "name": "massage-dusk",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=massage&sign=Massage&word=Massage&tod=0.84&cam=-7.5,1.9,15&tgt=.8,3.2,0&fov=36&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "massage-window",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=massage&sign=Massage&word=Massage&tod=0.14&cam=-3.6,1.55,3.6&tgt=-1.6,1.3,-1.0&fov=40&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "massage-inside",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=massage&sign=Massage&word=Massage&tod=0.14&cam=1.6,1.75,-1.6&tgt=-.8,1.15,-5.2&fov=55&open=1&lights=1&awning=1&door=1&second=0"
+ },
+ {
+  "name": "massage-door",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=massage&sign=Massage&word=Massage&tod=0.14&cam=0,1.6,5.5&tgt=0,1.5,-2&fov=40&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "fence-before",
+  "w": 2400,
+  "h": 1350,
+  "q": "p=1&truck=Fence&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-14,2.0,16&tgt=-11.2,1.1,5.8&fov=40&fence=0&ox=0.13"
+ },
+ {
+  "name": "fence-after",
+  "w": 2400,
+  "h": 1350,
+  "q": "p=1&truck=Fence&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-14,2.0,16&tgt=-11.2,1.1,5.8&fov=40&fence=1&ox=0.13"
+ },
+ {
+  "name": "fence-s1",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Fence&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-9.6,1.5,10.5&tgt=-11.6,1.0,5.8&fov=42&fence=0"
+ },
+ {
+  "name": "fence-s2",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Fence&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-14,2.0,16&tgt=-11.2,1.1,5.8&fov=40&fence=.22"
+ },
+ {
+  "name": "fence-s3",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Fence&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-9.6,1.5,10.5&tgt=-11.6,1.0,5.8&fov=42&fence=.52"
+ },
+ {
+  "name": "fence-s4",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Fence&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-14,2.0,16&tgt=-11.2,1.1,5.8&fov=40&fence=1"
+ },
+ {
+  "name": "fence-dusk",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Fence&tx=-1.5&tz=35.4&tr=1.5708&tod=0.84&cam=-16,2.6,22&tgt=-9,1.6,4&fov=40&fence=1"
+ },
+ {
+  "name": "fence-gate",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Fence&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-6.0,1.5,9.4&tgt=-7.6,1.1,5.8&fov=40&fence=1"
+ },
+ {
+  "name": "fence-posts",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Fence&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-9.6,1.5,10.5&tgt=-11.6,1.0,5.8&fov=42&fence=.48"
+ },
+ {
+  "name": "fence-old",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Fence&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-9.6,1.5,10.5&tgt=-11.6,1.0,5.8&fov=42&fence=0"
  }
 ]
