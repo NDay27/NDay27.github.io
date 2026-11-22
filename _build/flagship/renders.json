@@ -2269,5 +2269,135 @@
   "w": 1600,
   "h": 1000,
   "q": "kind=tattoo&sign=Tattoo&word=Tattoo&tod=0.14&cam=0,1.6,5.5&tgt=0,1.5,-2&fov=40&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "appl-before",
+  "w": 2400,
+  "h": 1350,
+  "lab": "labroom",
+  "q": "kind=appl&tod=0.3&cam=1.9,1.45,-.4&tgt=-.4,.8,-4.0&fov=46&fix=0&ox=0.13"
+ },
+ {
+  "name": "appl-after",
+  "w": 2400,
+  "h": 1350,
+  "lab": "labroom",
+  "q": "kind=appl&tod=0.3&cam=1.9,1.45,-.4&tgt=-.4,.8,-4.0&fov=46&fix=1&ox=0.13"
+ },
+ {
+  "name": "appl-s1",
+  "w": 1200,
+  "h": 800,
+  "lab": "labroom",
+  "q": "kind=appl&tod=0.3&cam=1.3,1.1,-2.0&tgt=.2,.45,-3.9&fov=44&fix=0"
+ },
+ {
+  "name": "appl-s2",
+  "w": 1200,
+  "h": 800,
+  "lab": "labroom",
+  "q": "kind=appl&tod=0.3&cam=1.3,1.1,-2.0&tgt=.2,.45,-3.9&fov=44&fix=0.3"
+ },
+ {
+  "name": "appl-s3",
+  "w": 1200,
+  "h": 800,
+  "lab": "labroom",
+  "q": "kind=appl&tod=0.3&cam=1.3,1.1,-2.0&tgt=.2,.45,-3.9&fov=44&fix=0.62"
+ },
+ {
+  "name": "appl-s4",
+  "w": 1200,
+  "h": 800,
+  "lab": "labroom",
+  "q": "kind=appl&tod=0.3&cam=1.0,1.25,-2.6&tgt=.25,.75,-4.0&fov=40&fix=1"
+ },
+ {
+  "name": "appl-dusk",
+  "w": 1600,
+  "h": 1000,
+  "lab": "labroom",
+  "q": "kind=appl&tod=0.84&cam=1.9,1.45,-.4&tgt=-.4,.8,-4.0&fov=46&fix=1"
+ },
+ {
+  "name": "appl-open",
+  "w": 1600,
+  "h": 1000,
+  "lab": "labroom",
+  "q": "kind=appl&tod=0.3&cam=1.3,1.1,-2.0&tgt=.2,.45,-3.9&fov=44&fix=0.3"
+ },
+ {
+  "name": "appl-leak",
+  "w": 1600,
+  "h": 1000,
+  "lab": "labroom",
+  "q": "kind=appl&tod=0.3&cam=1.6,.8,-2.2&tgt=.3,.05,-3.6&fov=44&fix=0"
+ },
+ {
+  "name": "appl-done",
+  "w": 1600,
+  "h": 1000,
+  "lab": "labroom",
+  "q": "kind=appl&tod=0.3&cam=1.0,1.25,-2.6&tgt=.25,.75,-4.0&fov=40&fix=1"
+ },
+ {
+  "name": "lock-before",
+  "w": 2400,
+  "h": 1350,
+  "q": "p=1&truck=Locksmith&tx=-1.5&tz=35.4&tr=1.5708&tod=0.74&cam=-.5,1.6,10.8&tgt=.1,1.55,4&fov=30&lock=0&ox=0.13"
+ },
+ {
+  "name": "lock-after",
+  "w": 2400,
+  "h": 1350,
+  "q": "p=1&truck=Locksmith&tx=-1.5&tz=35.4&tr=1.5708&tod=0.74&cam=-.5,1.6,10.8&tgt=.1,1.55,4&fov=30&lock=1&ox=0.13"
+ },
+ {
+  "name": "lock-s1",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Locksmith&tx=-1.5&tz=35.4&tr=1.5708&tod=0.74&cam=-.9,1.7,7.4&tgt=.3,1.45,4&fov=40&lock=0"
+ },
+ {
+  "name": "lock-s2",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Locksmith&tx=-1.5&tz=35.4&tr=1.5708&tod=0.74&cam=-.9,1.7,7.4&tgt=.3,1.45,4&fov=40&lock=.4"
+ },
+ {
+  "name": "lock-s3",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Locksmith&tx=-1.5&tz=35.4&tr=1.5708&tod=0.74&cam=-.6,1.8,5.8&tgt=.35,1.7,4&fov=36&lock=.76"
+ },
+ {
+  "name": "lock-s4",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Locksmith&tx=-1.5&tz=35.4&tr=1.5708&tod=0.74&cam=-.9,1.7,7.4&tgt=.3,1.45,4&fov=40&lock=1"
+ },
+ {
+  "name": "lock-dusk",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Locksmith&tx=-1.5&tz=35.4&tr=1.5708&tod=0.9&cam=-6,2.4,15&tgt=0,2.2,4&fov=36&lock=1"
+ },
+ {
+  "name": "lock-keypad",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Locksmith&tx=-1.5&tz=35.4&tr=1.5708&tod=0.74&cam=-.6,1.8,5.8&tgt=.35,1.7,4&fov=36&lock=.78"
+ },
+ {
+  "name": "lock-kit",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Locksmith&tx=-1.5&tz=35.4&tr=1.5708&tod=0.74&cam=0.5,1.25,6.4&tgt=1.0,.62,4.6&fov=42&lock=.4"
+ },
+ {
+  "name": "lock-open",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Locksmith&tx=-1.5&tz=35.4&tr=1.5708&tod=0.74&cam=-.9,1.7,7.4&tgt=.3,1.45,4&fov=40&lock=1"
  }
 ]

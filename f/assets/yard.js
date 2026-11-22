@@ -767,3 +767,71 @@ export function elecJob(world, house) {
   set({fix: 0});
   return {root, set, exclude: () => false};
 }
+
+// lockJob(world, house): the front door gets new locks. set({fix}): 0 = a tarnished brass knob and an old deadbolt,
+// ~.25-.55 = the old hardware off, holes showing, the locksmith's case open on the porch, .55-.75 = a black lever and a
+// keypad deadbolt go on, the keypad lights, then the door swings open on a warm hallway.
+export function lockJob(world, house) {
+  const root = new THREE.Group(); world.scene.add(root);
+  const mat = (c, ro = .5, m = 0, o = {}) => new THREE.MeshStandardMaterial({color: c, roughness: ro, metalness: m, envMapIntensity: .7, ...o});
+  const add = (geo, m, px, py, pz, parent = root) => { const o = new THREE.Mesh(geo, m); o.position.set(px, py, pz); o.castShadow = o.receiveShadow = true; parent.add(o); return o; };
+  const box = (w, h, d, m, px, py, pz, parent) => add(new THREE.BoxGeometry(w, h, d), m, px, py, pz, parent);
+  const cyl = (a, b, h, m, px, py, pz, parent, s = 18) => add(new THREE.CylinderGeometry(a, b, h, s), m, px, py, pz, parent);
+  const ss = (a, b, t) => { const k = Math.min(1, Math.max(0, (t - a) / (b - a))); return k * k * (3 - 2 * k); };
+  // find the front door slab, hide it and its knob and lite, and hang our own on a hinge in the same place
+  house.root.updateMatrixWorld(true);
+  let slab = null; house.root.traverse(o => { if (o.isMesh && o.material === house.M.door && o.geometry.parameters && o.geometry.parameters.height > 2) slab = o; });
+  const wp = new THREE.Vector3(), W = slab ? slab.geometry.parameters.width : .97, H = slab ? slab.geometry.parameters.height : 2.26;
+  if (slab) { slab.getWorldPosition(wp); slab.parent.children.forEach(c => { if (c !== slab && c.isMesh && (c.material === house.M.metal || c.material === house.M.glass || (c.material.emissive && c.material.emissive.getHex()))) c.visible = false; }); slab.visible = false; }
+  else wp.set(0, 1.91, 3.94);
+  const FZ = wp.z + .03;   // the outside face of the door
+  const hinge = new THREE.Group(); hinge.position.set(wp.x - W / 2, wp.y, wp.z); root.add(hinge);
+  const door = new THREE.Group(); door.position.x = W / 2; hinge.add(door);
+  if (house.M.door.normalScale) house.M.door.normalScale.multiplyScalar(.2);   // the fir grain reads as ripples this close
+  box(W, H, .05, house.M.door, 0, 0, 0, door);
+  for (const [y, h] of [[.55, .7], [-.55, .9]]) for (const s of [-1, 1]) box(.34, h, .012, house.M.door, s * .22, y, .03, door);   // raised panels
+  // warm hallway behind the opening, seen when the door swings in
+  const hall = add(new THREE.PlaneGeometry(W + .2, H + .1), world.glowMat(0xffc98a, .28, {color: 0x3a2614, roughness: .9}), wp.x, wp.y, wp.z - 1.2); hall.castShadow = false;
+  const hallL = world.lamp(wp.x, wp.y + 1.3, wp.z - 1, 0xffc58a, .25, 3.5);
+  // hardware: old brass knob + deadbolt, holes, new black lever + keypad deadbolt
+  const HX = W / 2 - .14, brass = mat(0x8a6a35, .62, .8), black = mat(0x1a1b1d, .35, .6);
+  const old = new THREE.Group(); door.add(old);
+  cyl(.035, .035, .015, brass, HX, -.06, .033, old, 20).rotation.x = Math.PI / 2; add(new THREE.SphereGeometry(.03, 16, 12), brass, HX, -.06, .075, old); cyl(.012, .016, .04, brass, HX, -.06, .05, old, 10).rotation.x = Math.PI / 2;
+  cyl(.03, .03, .015, brass, HX, .14, .033, old, 20).rotation.x = Math.PI / 2; box(.012, .03, .01, mat(0x2a2014, .8), HX, .14, .043, old);
+  const holes = new THREE.Group(); door.add(holes); for (const y of [-.06, .14]) { const h = add(new THREE.CircleGeometry(.027, 20), mat(0x120d08, .9), HX, y, .0265, holes); h.castShadow = false; }
+  const nu = new THREE.Group(); door.add(nu);
+  box(.06, .17, .016, black, HX, -.06, .033, nu); { const lv = box(.13, .022, .022, black, HX - .05, -.04, .07, nu); cyl(.012, .012, .04, black, HX, -.04, .05, nu, 10).rotation.x = Math.PI / 2; }
+  box(.075, .2, .028, black, HX, .17, .039, nu);
+  const keypad = new THREE.Group(); keypad.position.set(HX, .19, .054); nu.add(keypad);
+  const keyM = world.glowMat(0xbfe3ff, .5, {color: 0x1b2430});
+  for (let r = 0; r < 4; r++) for (let c = 0; c < 3; c++) { const k = add(new THREE.CircleGeometry(.008, 12), keyM, (c - 1) * .018, .03 - r * .02, 0, keypad); k.castShadow = false; }
+  const ring = add(new THREE.CircleGeometry(.012, 16), world.glowMat(0x7fd6a0, .6, {color: 0x14301f}), 0, -.06, 0, keypad); ring.castShadow = false;
+  // the locksmith's case open on the porch, a drill, the new lock's box
+  const kit = new THREE.Group(); kit.position.set(wp.x + .95, .52, FZ + .7); kit.rotation.y = -.3; root.add(kit);
+  box(.5, .1, .34, mat(0xb3241c, .5), 0, .05, 0, kit); box(.46, .02, .3, mat(0x1d1f22, .9), 0, .1, 0, kit);
+  { const lid = box(.5, .34, .03, mat(0xb3241c, .5), 0, .27, -.18, kit); lid.rotation.x = -.25; }
+  for (let i = 0; i < 6; i++) box(.012, .006, .14, mat(0xc9ccd0, .3, .9), -.16 + i * .06, .115, 0, kit);
+  for (let i = 0; i < 4; i++) { const k = box(.05, .006, .02, brass, .12 + (i % 2) * .06, .115, -.08 + (i >> 1) * .05, kit); }
+  const drill = new THREE.Group(); drill.position.set(wp.x + .45, .52, FZ + .55); drill.rotation.y = .8; root.add(drill);
+  box(.2, .08, .07, mat(0xe0a82e, .5), 0, .14, 0, drill); box(.06, .14, .06, mat(0x1d1f22, .6), .05, .06, 0, drill); cyl(.006, .006, .08, mat(0xc9ccd0, .3, .9), -.14, .14, 0, drill, 8).rotation.z = Math.PI / 2;
+  const pkg = box(.2, .26, .09, mat(0xe9e4dc, .7), wp.x + 1.35, .52 + .13, FZ + .45, root);
+  // a key ring hanging from the new deadbolt once it's done
+  const keys = new THREE.Group(); keys.position.set(HX, .13, .06); nu.add(keys);
+  add(new THREE.TorusGeometry(.016, .003, 6, 16), mat(0xc9ccd0, .3, .9), 0, -.02, 0, keys);
+  for (const [a, c] of [[.2, 0xc9a14a], [-.25, 0xc9ccd0]]) { const k = box(.012, .055, .003, mat(c, .35, .9), Math.sin(a) * .02, -.06, .004, keys); k.rotation.z = a; }
+  let cur = -1, lastSh = -1;
+  function set({fix: f = 0} = {}) { if (f === cur) return; cur = f;
+    old.visible = f < .25; holes.visible = f >= .25 && f < .55; nu.visible = f >= .55;
+    nu.position.z = (1 - ss(.55, .62, f)) * .05; keypad.visible = f >= .55;
+    keys.visible = f > .72 && f < .8;
+    kit.visible = drill.visible = f > .2 && f < .9; pkg.visible = f > .2 && f < .6;
+    const open = ss(.8, .97, f); hinge.rotation.y = 1.15 * open; hallL.intensity = (hallL.userData.b ?? 0) * open; hall.visible = open > .01;
+    const lit = ss(.68, .74, f);
+    keypad.children.forEach(c => { c.visible = lit > .5; });
+    if (Math.abs(f - lastSh) > .02 || ((f === 0 || f === 1) && f !== lastSh)) { lastSh = f; world.shadows(); }
+  }
+  // the hallway lamp follows the time of day like the house's own lights, but only once the door is open
+  world.onTod.push(() => { hallL.userData.b = hallL.intensity; hallL.intensity *= ss(.8, .97, cur); });
+  set({fix: 0});
+  return {root, set, exclude: () => false};
+}
