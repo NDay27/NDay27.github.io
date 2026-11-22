@@ -24,6 +24,10 @@ export const KIND = {
   jewel:  {trim: 0x1d2a44, awn: AWN.navy, wall: 0xf3efe8, wain: 0x2b3550, floor: "wood", sign: ["#1d2a44", "#ecd9a8"], icon: "ring"},
   appst:  {trim: 0x2b3a4a, awn: AWN.navy, wall: 0xf2f2ef, floor: "tile", sign: ["#2b3a4a", "#f3f3f0"], icon: "fridge"},
   massage: {trim: 0x4a5a48, awn: AWN.green, wall: 0xefe6da, wain: 0x7d8a73, floor: "wood", sign: ["#3e4b3c", "#f1ead9"], icon: "lotus"},
+  cafe:   {trim: 0x3b2a22, awn: AWN.green, wall: 0xf0e6d6, wain: 0x6b4a32, floor: "check", sign: ["#2f2420", "#f2e6d0"], icon: "cup"},
+  gym:    {trim: 0x1d1f22, awn: AWN.black, wall: 0xe9e9e6, wain: 0x2b2e33, floor: "wood", sign: ["#1d1f22", "#f2f2ee"], icon: "dumbbell"},
+  music:  {trim: 0x2a2440, awn: AWN.plum, wall: 0xf1ebe2, wain: 0x4a3f66, floor: "wood", sign: ["#2a2440", "#f2ead8"], icon: "note"},
+  photo:  {trim: 0x1d1f22, awn: AWN.black, wall: 0xf3f1ec, wain: 0x3a3c40, floor: "wood", sign: ["#f3f1ec", "#1d1f22"], icon: "camera"},
   sew:    {trim: 0x5a3550, awn: AWN.plum, wall: 0xefe7df, floor: "wood", sign: ["#5a3550", "#f6eee6"], icon: "needle"},
 };
 KIND.tailor = KIND.sew; KIND.uphol = KIND.sew;
@@ -44,6 +48,10 @@ const ICON = {
   ring: ["M16 36a12 12 0 1 0 24 0a12 12 0 1 0-24 0", "M22 16l6-7 6 7-6 6z"],
   fridge: ["M17 6h22v44H17z", "M17 21h22", "M22 11v5", "M22 26v10"],
   lotus: ["M28 44c-7-6-9-14 0-26 9 12 7 20 0 26z", "M28 44c-10 0-17-6-19-14 8 0 14 4 19 14z", "M28 44c10 0 17-6 19-14-8 0-14 4-19 14z"],
+  cup: ["M14 24h24v12a10 10 0 0 1-10 10h-4a10 10 0 0 1-10-10z", "M38 28h3a5 5 0 0 1 0 10h-4", "M20 18c0-3 3-3 3-6M28 18c0-3 3-3 3-6", "M10 50h34"],
+  dumbbell: ["M8 22v12M14 18v20M42 18v20M48 22v12", "M14 28h28"],
+  note: ["M22 40V12l20-4v28", "M22 40a5 4 0 1 1-.1 0", "M42 36a5 4 0 1 1-.1 0", "M22 20l20-4"],
+  camera: ["M8 18h40v28H8z", "M20 18l4-6h8l4 6", "M28 40a8 8 0 1 0 0-16 8 8 0 0 0 0 16z", "M40 24h3"],
   needle: ["M14 42 40 16", "M40 16c3-3 6-2 6 1s-3 4-6 1", "M12 30c6-6 12 0 18-4s8-10 14-10"],
 };
 
@@ -572,6 +580,105 @@ export async function makeStore(world, {kind = "bakery", sign = "Bakery", font =
     plant(2.5, -2.6, 1.1); plant(-2.5, -6.6, 1.0); lamp(-.9, 2.0, -4.6, .5, 4, 0xffd9a8);
     box(1.9, .1, .9, trim, -2.2, .57, -.9); for (let k = 0; k < 3; k++) box(.36, .07, .28, towel, -2.5, .66 + k * .07, -.9);
     for (let i = 0; i < 3; i++) { cyl(.045, .045, .12, mat(0xf4efe6, .7), -1.9 + i * .14, .68, -.85, P, 14); add(new THREE.SphereGeometry(.015, 8, 6), glow(0xffb45a, 2.2), -1.9 + i * .14, .755, -.85).castShadow = false; }
+  } else if (kind === "cafe") {
+    // a counter with an espresso machine and grinder, a pastry case, menu boards, stools; bistro tables by the window wall
+    const CZ = -6.0, wood = mat(0x6b4a32, .5), top = mat(0x2e2a27, .35), cream = mat(0xf2ece0, .4), copper = mat(0xb8733a, .3, .9);
+    box(4.6, .98, .7, trim, .9, .49, CZ); box(4.7, .05, .78, top, .9, 1.005, CZ); for (let i = 0; i < 6; i++) box(.04, .8, .02, wood, -1.1 + i * .8, .45, CZ + .36);
+    const em = new THREE.Group(); em.position.set(1.6, 1.03, CZ - .1); P.add(em); box(.9, .5, .5, steel, 0, .25, 0, em); box(.92, .06, .52, mat(0x1d1f22, .4), 0, .53, 0, em);
+    for (const x of [-.22, .22]) { box(.06, .08, .1, mat(0x1d1f22, .4), x, .2, .28, em); cyl(.035, .03, .1, steel, x, .12, .34, em, 10); cyl(.04, .03, .07, cream, x, .035, .3, em, 12); }
+    for (let i = 0; i < 6; i++) cyl(.04, .032, .08, cream, -.3 + (i % 3) * .1, .6, -.1 + Math.floor(i / 3) * .1, em, 12);
+    { const gr = new THREE.Group(); gr.position.set(.7, 1.03, CZ - .1); P.add(gr); box(.2, .32, .22, mat(0x1d1f22, .4), 0, .16, 0, gr); add(new THREE.ConeGeometry(.11, .26, 16), mat(0x2a2420, .2, .1, ), 0, .45, 0, gr).rotation.x = Math.PI; }
+    // pastry case on the left end of the counter
+    const CX = -.7; box(1.3, .02, .6, mat(0x3b3631, .4), CX, 1.03, CZ + .02); add(new THREE.BoxGeometry(1.26, .42, .58), glass, CX, 1.25, CZ + .02, P).castShadow = false;
+    const pas = [0xd9a066, 0x6b4430, 0xf0c8d4, 0xe8c27a, 0xf6efe4, 0x9a5a34];
+    for (let i = 0; i < 8; i++) { const x = CX - .5 + (i % 4) * .33, z = CZ - .1 + Math.floor(i / 4) * .22; const m = add(new THREE.SphereGeometry(.07, 14, 10), mat(pas[i % 6], .7), x, 1.09, z, P); m.scale.set(1.2, .55, 1); }
+    lamp(CX, 1.4, CZ + .2, .4, 2.5, 0xfff1dc);
+    // menu boards and a shelf of bags and cups on the back wall
+    box(2.4, 1.0, .04, new THREE.MeshStandardMaterial({map: boardTex(), roughness: .9}), .4, 2.75, IZ1 + .03);
+    const sh = shelf(-2.3, IZ1 + .22, 1.6, [1.3, 1.75]); for (let i = 0; i < 5; i++) { box(.18, .26, .1, mat([0x6b4a32, 0x2f6b4f, 0xc9952f][i % 3], .8), -.6 + i * .3, 1.45, 0, sh); cyl(.05, .04, .1, cream, -.6 + i * .3, 1.82, 0, sh, 12); }
+    // stools at the counter, bistro tables down the left side
+    for (let i = 0; i < 3; i++) { const x = .1 + i * .8; cyl(.17, .17, .05, wood, x, .74, CZ + .75, P, 18); cyl(.025, .025, .72, dark, x, .36, CZ + .75, P, 8); cyl(.18, .18, .02, dark, x, .01, CZ + .75, P, 18); }
+    const bistro = (x, z) => { cyl(.34, .34, .04, cream, x, .74, z, P, 24); cyl(.03, .03, .72, dark, x, .37, z, P, 8); cyl(.22, .22, .02, dark, x, .01, z, P, 16);
+      chairB(x - .55, z, Math.PI / 2, 0x2f4a3a); chairB(x + .55, z, -Math.PI / 2, 0x2f4a3a); cyl(.04, .032, .08, cream, x - .1, .8, z, P, 12); cyl(.04, .032, .08, cream, x + .12, .8, z + .06, P, 12); };
+    bistro(-2.3, -3.0); bistro(-2.3, -4.5); plant(2.9, -2.6, 1.0);
+    // the window: a crate of coffee bags, a stack of cups and a jar of beans
+    box(1.9, .1, .9, trim, -2.2, .57, -.9); for (let i = 0; i < 3; i++) box(.2, .3, .12, mat([0x6b4a32, 0x2f6b4f, 0xc9952f][i], .8), -2.7 + i * .26, .77, -.95);
+    for (let k = 0; k < 4; k++) cyl(.05, .04, .1, cream, -1.75, .67 + k * .1, -.85, P, 12); cyl(.09, .09, .22, glass, -1.95, .73, -1.05, P, 16); cyl(.08, .08, .14, mat(0x3a2418, .8), -1.95, .69, -1.05, P, 16);
+  } else if (kind === "gym") {
+    // rubber floor, a dumbbell rack, a squat rack with a loaded bar, a bench, two treadmills facing the mirror, kettlebells in the window
+    flat(IW, 6.6, mat(0x4a4e54, .9), 0, .015, -4.6, P); lamp(.8, 3.7, -3.4, .7, 8, 0xfff1dc); flat(2.3, 2.0, woodM, .3 - .6, .03, IZ1 + 1.1, P); lamp(-.4, 3.7, -6.6, .9, 9, 0xfff1dc);
+    const iron = mat(0x1d1f22, .45, .6), chromeM = mat(0xc9cdd1, .2, .9), red = mat(0xb3343a, .5);
+    box(.04, 1.6, 3.4, mat(0xdfe4e8, .05, .9), IW / 2 - .03, 1.6, -4.4).castShadow = false; box(.06, 1.68, 3.5, trim, IW / 2 - .01, 1.6, -4.4);
+    // dumbbells on a two-tier rack along the left wall
+    const rack = new THREE.Group(); rack.position.set(-IW / 2 + .4, 0, -4.4); P.add(rack); for (const [y, dz] of [[.45, .1], [.8, -.12]]) { box(.36, .04, 3.0, iron, dz, y, 0, rack); }
+    for (const z of [-1.4, 1.4]) box(.05, .82, .05, iron, 0, .41, z, rack);
+    for (let i = 0; i < 9; i++) for (const [y, dz] of [[.45, .1], [.8, -.12]]) { const g = new THREE.Group(); g.position.set(dz, y + .08, -1.2 + i * .3); rack.add(g); const r = .05 + i * .006;
+      for (const s of [-1, 1]) cyl(r, r, .07, iron, s * .1, 0, 0, g, 12).rotation.z = Math.PI / 2; cyl(.015, .015, .16, chromeM, 0, 0, 0, g, 8).rotation.z = Math.PI / 2; g.rotation.y = Math.PI / 2; }
+    // squat rack and bar at the back
+    const sq = new THREE.Group(); sq.position.set(-.3, 0, IZ1 + .9); P.add(sq); for (const x of [-.6, .6]) for (const z of [-.4, .4]) box(.07, 2.3, .07, iron, x, 1.15, z, sq);
+    for (const z of [-.4, .4]) box(1.27, .07, .07, iron, 0, 2.3, z, sq); for (const x of [-.6, .6]) box(.07, .07, .87, iron, x, 2.3, 0, sq);
+    { const bar = cyl(.016, .016, 2.1, chromeM, 0, 1.35, .4, sq, 8); bar.rotation.z = Math.PI / 2; for (const s of [-1, 1]) for (let k = 0; k < 2; k++) cyl(.22 - k * .05, .22 - k * .05, .05, k ? red : iron, s * (.78 + k * .06), 1.35, .4, sq, 22).rotation.z = Math.PI / 2; }
+    // a flat bench and kettlebells on the floor
+    box(1.2, .08, .32, mat(0x1d1f22, .6), .7, .45, -5.7); for (const x of [.2, 1.2]) box(.06, .42, .3, iron, x, .21, -5.7);
+    [[.6, .5, .25], [.52, .4, .7], [.44, .3, 1.05]].forEach(([w, h, y]) => box(w, h, w * .85, woodM, 2.3, y, -7.6));
+    const kb = (x, z, s = 1, m = iron) => { add(new THREE.SphereGeometry(.13 * s, 16, 12), m, x, .12 * s, z, P); const h = add(new THREE.TorusGeometry(.08 * s, .018 * s, 8, 16, Math.PI), m, x, .22 * s, z, P); };
+    kb(-2.3, -6.6); kb(-1.95, -6.6, 1.2); kb(-1.6, -6.6, .9, red);
+    // two treadmills facing the mirror wall
+    const tread = (z) => { const g = new THREE.Group(); g.position.set(z, 0, IZ1 + 1.55); P.add(g); box(.75, .16, 1.7, iron, 0, .08, 0, g); box(.6, .02, 1.5, mat(0x111214, .9), 0, .17, .05, g);
+      for (const x of [-.34, .34]) { const u = box(.05, 1.1, .05, iron, x, .7, -.75, g); u.rotation.x = .18; } box(.75, .3, .12, iron, 0, 1.25, -.88, g); box(.4, .18, .02, glow(0x4fc3ff, 1.2), 0, 1.28, -.82, g).castShadow = false; };
+    tread(-2.75); tread(-1.85); box(2.3, 1.5, .03, mat(0xdfe4e8, .05, .9), -2.3, 1.75, IZ1 + .04).castShadow = false; box(2.38, 1.58, .02, trim, -2.3, 1.75, IZ1 + .025);
+    // the window: kettlebells on risers, a medicine ball and a rope
+    box(1.9, .1, .9, trim, -2.2, .57, -.9); kb(-2.7, -.9, 1.0, red); kb(-2.35, -.9, 1.3); kb(-1.95, -.95, .8, red);
+    { const mb = add(new THREE.SphereGeometry(.16, 18, 14), mat(0x2f5fa8, .6), -1.7, .78, -.7); }
+  } else if (kind === "music") {
+    // an upright piano, a drum kit, guitars on the back wall, music stands and chairs; a guitar on a stand in the window
+    const blackM = mat(0x111214, .2, .1), ivory = mat(0xf4efe4, .35), wood = mat(0x7a4a2a, .4), brassC = mat(0xc9a24a, .25, .9);
+    const pi = new THREE.Group(); pi.position.set(-IW / 2 + .4, 0, -4.2); pi.rotation.y = Math.PI / 2; P.add(pi);
+    box(1.5, 1.25, .6, blackM, 0, .62, 0, pi); box(1.52, .05, .38, blackM, 0, .74, .38, pi); box(1.3, .02, .16, ivory, 0, .77, .32, pi);
+    for (let i = 0; i < 26; i++) if ([1, 2, 4, 5, 6][i % 7 % 5] && i % 7 !== 2 && i % 7 !== 6) box(.025, .025, .09, blackM, -.63 + i * .05, .79, .29, pi);
+    box(.7, .04, .36, blackM, 0, .46, .75, pi); for (const x of [-.3, .3]) box(.04, .44, .04, blackM, x, .23, .75, pi);
+    // drum kit
+    const dk = new THREE.Group(); dk.position.set(.6, 0, IZ1 + 1.3); P.add(dk); const shellM = mat(0x8a1f2a, .3, .2), headM = mat(0xf2efe6, .6);
+    { const bd = cyl(.3, .3, .4, shellM, 0, .32, 0, dk, 24); bd.rotation.x = Math.PI / 2; add(new THREE.CircleGeometry(.29, 24), headM, 0, .32, .201, dk); }
+    for (const [x, y, z, r] of [[-.5, .62, .25, .18], [.22, .78, -.05, .13], [-.18, .78, -.05, .13], [.6, .5, .2, .22]]) { cyl(r, r, .16, shellM, x, y, z, dk, 20); cyl(r, r, .005, headM, x, y + .081, z, dk, 20); cyl(.01, .01, y, steel, x, y / 2, z + .05, dk, 6); }
+    for (const [x, y, z] of [[-.75, 1.15, .1], [.85, 1.25, -.1]]) { cyl(.012, .012, y, steel, x, y / 2, z, dk, 6); const c = cyl(.24, .24, .006, brassC, x, y, z, dk, 24); c.rotation.x = .15; }
+    { const st = cyl(.17, .14, .05, blackM, 0, .5, .75, dk, 16); cyl(.02, .02, .48, steel, 0, .24, .75, dk, 6); }
+    // guitars on the back wall
+    const gtr = (x, y, z, c, ry = 0, parent = P) => { const g = new THREE.Group(); g.position.set(x, y, z); g.rotation.y = ry; parent.add(g); const bm = mat(c, .3, .1);
+      const lo = cyl(.19, .19, .08, bm, 0, -.18, 0, g, 24); lo.rotation.x = Math.PI / 2; const up = cyl(.15, .15, .08, bm, 0, .08, 0, g, 24); up.rotation.x = Math.PI / 2;
+      add(new THREE.CircleGeometry(.05, 16), blackM, 0, -.02, .041, g); box(.05, .62, .03, wood, 0, .5, .03, g); box(.07, .14, .03, wood, 0, .86, .03, g); return g; };
+    [[-1.6, 0xc98a3a], [-1.0, 0x1d1f22], [-.4, 0x8a1f2a], [2.2, 0xe8d8b8]].forEach(([x, c]) => { gtr(x, 1.75, IZ1 + .12, c); box(.08, .04, .1, dark, x, 2.66, IZ1 + .06); });
+    // music stands and chairs
+    const stand = (x, z, ry) => { const g = new THREE.Group(); g.position.set(x, 0, z); g.rotation.y = ry; P.add(g); cyl(.012, .012, 1.1, dark, 0, .55, 0, g, 6); const d = box(.48, .34, .015, dark, 0, 1.2, 0, g); d.rotation.x = -.35;
+      const sheet = box(.4, .28, .005, mat(0xf6f3ea, .9), 0, 1.21, .02, g); sheet.rotation.x = -.35; for (const a of [0, 2.1, 4.2]) { const l = box(.02, .02, .3, dark, Math.sin(a) * .12, .03, Math.cos(a) * .12, g); l.rotation.y = a; } };
+    stand(-.6, -3.2, .3); stand(.7, -3.0, -.3); chairB(-.6, -2.4, Math.PI + .3, 0x2a2440); chairB(.7, -2.2, Math.PI - .3, 0x2a2440);
+    // the window: a guitar on a stand, sheet music and a metronome
+    box(1.9, .1, .9, trim, -2.2, .57, -.9); { const g = gtr(-2.5, 1.12, -.95, 0xc98a3a); g.rotation.x = -.15; box(.3, .05, .3, dark, -2.5, .64, -.95); }
+    for (let k = 0; k < 3; k++) { const sm = box(.3, .006, .4, mat(0xf6f3ea, .9), -1.85 + k * .04, .63 + k * .006, -.85); sm.rotation.y = .2 * k; }
+    { const mt = add(new THREE.ConeGeometry(.09, .22, 4), wood, -1.6, .73, -1.1); mt.rotation.y = Math.PI / 4; }
+  } else if (kind === "photo") {
+    // a seamless paper backdrop, a stool, two softboxes, a camera on a tripod, framed prints on the walls and in the window
+    const paperM = mat(0xe9e6df, .95), blackM = mat(0x1d1f22, .45, .3), white = mat(0xffffff, .9);
+    { const bx = .2, bz = IZ1 + .35, w = 3.4; for (const x of [bx - w / 2 - .1, bx + w / 2 + .1]) cyl(.02, .02, 3.1, blackM, x, 1.55, bz, P, 8);
+      const rl = cyl(.08, .08, w + .1, paperM, bx, 3.05, bz, P, 16); rl.rotation.z = Math.PI / 2;
+      box(w, 2.9, .01, paperM, bx, 1.6, bz + .02).castShadow = false; const sweep = add(new THREE.CylinderGeometry(.5, .5, w, 16, 1, true, Math.PI, Math.PI / 2), new THREE.MeshStandardMaterial({color: 0xe9e6df, roughness: .95, side: THREE.DoubleSide}), bx, .5, bz + .52, P);
+      sweep.rotation.z = Math.PI / 2; box(w, .01, 1.6, paperM, bx, .006, bz + 1.8).castShadow = false; }
+    { const st = new THREE.Group(); st.position.set(.2, 0, -5.9); P.add(st); cyl(.18, .18, .04, woodM, 0, .66, 0, st, 18); for (const a of [0, 2.1, 4.2]) { const l = cyl(.015, .015, .7, blackM, Math.sin(a) * .12, .33, Math.cos(a) * .12, st, 6); l.rotation.set(-Math.cos(a) * .15, 0, Math.sin(a) * .15); } }
+    const softbox = (x, z, ry) => { const g = new THREE.Group(); g.position.set(x, 0, z); g.rotation.y = ry; P.add(g); cyl(.016, .016, 1.8, blackM, 0, .9, 0, g, 6);
+      for (const a of [0, 2.1, 4.2]) { const l = box(.02, .02, .5, blackM, Math.sin(a) * .2, .03, Math.cos(a) * .2, g); l.rotation.y = a; }
+      const hd = new THREE.Group(); hd.position.set(0, 1.85, 0); hd.rotation.x = .2; g.add(hd); add(new THREE.CylinderGeometry(.42, .14, .4, 4, 1, true), new THREE.MeshStandardMaterial({color: 0x1d1f22, roughness: .6, side: THREE.DoubleSide}), 0, 0, .2, hd).rotation.set(Math.PI / 2, Math.PI / 4, 0);
+      const face = box(.56, .56, .01, glow(0xfff8ec, 1.6), 0, 0, .41, hd); face.castShadow = false; lamp(x + Math.sin(ry) * .8, 1.9, z + Math.cos(ry) * .8, .7, 4, 0xfff6e8); };
+    softbox(-1.6, -4.6, .7); softbox(2.0, -4.8, -.75);
+    { const tp = new THREE.Group(); tp.position.set(-.1, 0, -4.1); P.add(tp); for (const a of [0, 2.1, 4.2]) { const l = cyl(.012, .012, 1.4, blackM, Math.sin(a) * .2, .68, Math.cos(a) * .2, tp, 6); l.rotation.set(-Math.cos(a) * .3, 0, Math.sin(a) * .3); }
+      box(.2, .14, .12, blackM, 0, 1.42, 0, tp); const lens = cyl(.045, .05, .14, blackM, 0, 1.42, -.12, tp, 16); lens.rotation.x = Math.PI / 2; add(new THREE.CircleGeometry(.04, 16), mat(0x1a2a3a, .05, .5), 0, 1.42, -.191, tp).rotation.y = Math.PI; }
+    // framed prints on the right wall and in the window
+    const printT = (h1, h2) => canvasTex(256, 192, (g, w, h) => { const gr = g.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, `hsl(${h1},45%,72%)`); gr.addColorStop(.6, `hsl(${h2},35%,52%)`); gr.addColorStop(1, `hsl(${h2},30%,30%)`); g.fillStyle = gr; g.fillRect(0, 0, w, h);
+      g.fillStyle = "rgba(20,24,30,.55)"; g.beginPath(); g.moveTo(0, h * .75); for (let x = 0; x <= w; x += 16) g.lineTo(x, h * (.62 + .1 * Math.sin(x * .03 + h1))); g.lineTo(w, h); g.lineTo(0, h); g.fill(); });
+    const frame = (x, y, z, w, h, ry, k) => { const g = new THREE.Group(); g.position.set(x, y, z); g.rotation.y = ry; P.add(g); box(w + .08, h + .08, .03, blackM, 0, 0, 0, g); box(w - .04, h - .04, .01, white, 0, 0, .018, g);
+      box(w - .16, h - .16, .005, new THREE.MeshStandardMaterial({map: printT(20 + k * 60, 200 + k * 25), roughness: .6}), 0, 0, .025, g); return g; };
+    [[-3.0, .9, .65, 0], [-4.4, .7, .5, 1], [-5.6, .9, .65, 2]].forEach(([z, w, h, k]) => frame(IW / 2 - .03, 1.75, z, w, h, -Math.PI / 2, k));
+    box(1.9, .1, .9, trim, -2.2, .57, -.9);
+    for (const [x, k, ry] of [[-2.6, 3, .15], [-1.85, 4, -.15]]) { const f = frame(x, .98, -.95, .5, .38, ry, k); f.rotation.x = -.12; const e = box(.03, .5, .03, woodM, x, .85, -1.05); e.rotation.x = .25; }
   } else if (kind === "groom") {
     // grooming table, the tub, dryer, a shelf of shampoos; a dog waiting in the window
     const tbl = new THREE.Group(); tbl.position.set(-1.1, 0, -4.2); P.add(tbl);

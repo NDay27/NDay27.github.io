@@ -529,3 +529,124 @@ for _g in ("dojo", "jewel", "appst", "massage"):
                f"Drag the slider on the top picture from closed to open, then try the {TOOL[_g][0].lower()}.",
                "Scroll to watch the shop open up and walk inside, then change the awning color and flip the sign yourself.")
 AWN_DEFAULT.update({"dojo": "Red", "jewel": "Navy", "appst": "Navy", "massage": "Green"})
+
+
+# ---------- Nov 22: coffee shops, gyms, music schools, a photography studio ----------
+_B78 = ("cafe", "gym", "music", "photo")
+GROUPS.update({
+ "cafe": dict(vs=["coffee"], kind="cafe", sign="Coffee", word="Coffee", noun="coffee shop"),
+ "gym": dict(vs=["gym"], kind="gym", sign="Fitness", word="Fitness", noun="gym"),
+ "music": dict(vs=["music"], kind="music", sign="Music", word="Music", noun="music school"),
+ "photo": dict(vs=["photo"], kind="photo", sign="Photography", word="Studio", noun="photography studio"),
+})
+KGROUP.update({v: g for g in _B78 for v in GROUPS[g]["vs"]}); KIT_V.update(KGROUP)
+NAME_OUT.update({
+ "cafe": r"roaster|wholesale|supply|mobile|truck|cart|drive.?thru|kiosk",
+ "gym": r"crossfit|yoga|boxing|mma\b|martial|physical therapy|rehab|mobile|equipment|supply",
+ "music": r"store|repair|rental|supply|records?\b|recording|\bdj\b",
+ "photo": r"boudoir|booth|lab\b|print|supply|drone",
+})
+WORD.update({"coffee": "Coffee", "gym": "Fitness", "music": "Music", "photo": "Photography"})
+TRADE.update({"coffee": "Coffee shop", "gym": "Gym", "music": "Music lessons", "photo": "Photography studio"})
+SCHEMA.update({"coffee": "CafeOrCoffeeShop", "gym": "ExerciseGym", "music": "EducationalOrganization", "photo": "LocalBusiness"})
+# the mix copy promised group orders, results, one-on-one lessons and weddings no listing confirms: every service is an "ask about"
+OVERRIDE.update({
+ "coffee": {"lede": "A coffee shop in {town}. Stop in, or call to ask what's on today.",
+            "services": [("Coffee and espresso", "Your usual, or try something new."), ("Something to eat", "Ask what's on the counter today."),
+                         ("Orders for a group", "Ask about coffee for the office or a meeting.")],
+            "jobs": ["Order ahead", "Group order", "Question", "Something else"]},
+ "gym": {"services": [("Memberships", "Ask what fits your schedule."), ("Training", "Ask about help with a plan."), ("Get started", "New to the gym? Ask about a tour.")]},
+ "music": {"services": [("Lessons", "Ask about lessons, instruments and times."), ("Kids and adults", "Ask which ages they teach."), ("First lesson", "Ask about getting started.")]},
+ "photo": {"services": [("Portraits", "Ask about family, senior and headshot sessions."), ("Weddings and events", "Ask about weddings and events."),
+                        ("Business", "Ask about photos for your business.")],
+           "jobs": ["Family photos", "Senior photos", "Headshots", "An event", "Something else"]},
+})
+THEME.update({
+ "cafe": _t("#2f2420", "#3c2e28", "#f7f1e8", "#ece3d5", "#241b17", "#6a5f57", "#ddd2c2", "#b8733a", "#e2a979", "#2f6b4f", "#1a1310", "fraunces", "dmsans"),
+ "gym": _t("#1d1f22", "#2a2d31", "#f4f4f1", "#e7e7e3", "#141517", "#62656a", "#d6d6d1", "#d4452f", "#f08a6f", "#2f5fa8", "#0e0f11", "archivo", "dmsans"),
+ "music": _t("#2a2440", "#362f52", "#f6f2ea", "#ebe5da", "#1e1a2f", "#655f72", "#dad3c6", "#c9952f", "#e8c27a", "#8a1f2a", "#141123", "fraunces", "dmsans"),
+ "photo": _t("#1d1f22", "#2b2e33", "#f6f5f2", "#ebe9e4", "#151618", "#64666b", "#d9d7d1", "#c06a3a", "#e6a27e", "#3a5f8a", "#0f1012", "fraunces", "dmsans"),
+})
+EXTRA_CSS.update({"cafe": ".hero h1 em,.hero0 h1 em{font-weight:400}", "gym": _UPRIGHT, "music": ".hero h1 em,.hero0 h1 em{font-weight:400}", "photo": ".hero h1 em,.hero0 h1 em{font-weight:400}"})
+COPY.update({
+ "cafe": dict(svc_h="On the counter", svc_intro="Coffee, espresso and something to go with it. Ask what's on today.",
+              quote_h="Order ahead", cta="Ask about an order", msg_ph="What you'd like, how many people, and the time you need it."),
+ "gym": dict(svc_h="On the floor", svc_intro="Tell us your goals, and ask about memberships and training.",
+             quote_h="Ask about a tour", cta="Ask about a tour", msg_ph="Your goals, your schedule, and any questions about memberships."),
+ "music": dict(svc_h="Lessons", svc_intro="Tell us who's learning and what they'd like to play, and ask about times.",
+               quote_h="Ask about lessons", cta="Ask about lessons", msg_ph="Who the lessons are for, their age, the instrument and any experience."),
+ "photo": dict(svc_h="Sessions", svc_intro="Tell us about the shoot, who's in it and what it's for, and ask about a time.",
+               quote_h="Get a shoot quote", cta="Get a shoot quote", msg_ph="The kind of shoot, how many people, and the dates that work."),
+})
+for g in _B78:
+    d = GROUPS[g]
+    COPY[g].update(sheet=("A storefront in {town}", "Main street, open for the day"),
+                   sheet_label=f"Line drawing of a two-storey brick {d['noun']} on main street with a striped awning and a big display window",
+                   shot=(f"{g}-after", f"A brick {d['noun']} storefront with a striped awning, the lights on and the OPEN sign lit", "Illustration. Your real shop photos go here."))
+STEPS.update({
+ "cafe": [("Tell us what you need", "Your usual, or an order for a group."), ("Get an answer", "Get a call or text back."), ("Pick it up", "Stop in and enjoy.")],
+ "gym": [("Tell us your goals", "Stronger, fitter or just getting started."), ("Ask about a tour", "Get a call or text back to set it up."), ("Show up", "Walk the floor and get started.")],
+ "music": [("Say who it's for", "The instrument, the age and any experience."), ("Get an answer", "Get a call or text back about lessons."), ("Play your first song", "Come in for a lesson.")],
+ "photo": [("Tell us about the shoot", "Who's in it and what it's for."), ("Get an answer", "Get a call or text back about a time."), ("Smile", "Step in front of the lens.")],
+})
+GLYPH.update({
+ "cafe": _G.format("M8 12h14v8a7 7 0 0 1-14 0zM22 14h2a3 3 0 0 1 0 6h-2", "currentColor") + _G.format("M11 8c0-2 2-2 2-4M16 8c0-2 2-2 2-4", "var(--pencil)"),
+ "gym": _G.format("M8 10v12M5 13v6M24 10v12M27 13v6", "currentColor") + _G.format("M8 16h16", "var(--pencil)"),
+ "music": _G.format("M12 24V8l12-3v16", "currentColor") + _G.format("M12 24a3 2.5 0 1 1-.1 0M24 21a3 2.5 0 1 1-.1 0", "var(--pencil)"),
+ "photo": _G.format("M5 10h22v15H5zM12 10l2-3h4l2 3", "currentColor") + _G.format("M16 22a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9z", "var(--pencil)"),
+})
+_I.update({
+ "cup": '<path d="M12 22h26v12a11 11 0 0 1-11 11h-4a11 11 0 0 1-11-11z"/><path d="M38 25h3a5 5 0 0 1 0 10h-3"/><path d="M19 15c0-3 3-3 3-6M27 15c0-3 3-3 3-6"/>',
+ "croissant": '<path d="M8 36c4-14 36-14 40 0-6-3-10-2-12 2-3-6-13-6-16 0-2-4-6-5-12-2z"/><path d="M22 26l2 10M34 26l-2 10"/>',
+ "group": '<circle cx="20" cy="20" r="6"/><circle cx="36" cy="20" r="6"/><path d="M8 46c1-9 6-14 12-14s11 5 12 14"/><path d="M28 46c1-9 4-14 8-14s11 5 12 14"/>',
+ "dumbbell": '<path d="M10 22v12M16 17v22M40 17v22M46 22v12"/><path d="M16 28h24"/>',
+ "coach": '<circle cx="28" cy="15" r="6"/><path d="M16 48l4-18h16l4 18"/><path d="M20 30l-8-6M36 30l8-6"/>',
+ "door": '<path d="M16 8h24v40H16z"/><path d="M34 28h2"/><path d="M8 48h40"/>',
+ "note": '<path d="M22 40V12l20-4v28"/><path d="M22 40a5 4 0 1 1-.1 0M42 36a5 4 0 1 1-.1 0"/><path d="M22 20l20-4"/>',
+ "play": '<circle cx="28" cy="28" r="18"/><path d="M24 20v16l12-8z"/>',
+ "portrait": '<path d="M10 8h36v40H10z"/><circle cx="28" cy="22" r="6"/><path d="M17 42c1-7 5-11 11-11s10 4 11 11"/>',
+ "rings": '<circle cx="22" cy="32" r="10"/><circle cx="34" cy="32" r="10"/><path d="M30 14l4-5 4 5-4 4z"/>',
+ "case": '<path d="M8 18h40v28H8z"/><path d="M21 18v-6h14v6"/><path d="M8 30h40"/>',
+})
+SVC_ICON.update({k: _I[v] for k, v in {("cafe", "Coffee and espresso"): "cup", ("cafe", "Something to eat"): "croissant", ("cafe", "Orders for a group"): "group",
+                                       ("gym", "Memberships"): "dumbbell", ("gym", "Training"): "coach", ("gym", "Get started"): "door",
+                                       ("music", "Lessons"): "note", ("music", "Kids and adults"): "kids", ("music", "First lesson"): "play",
+                                       ("photo", "Portraits"): "portrait", ("photo", "Weddings and events"): "rings", ("photo", "Business"): "case"}.items()})
+INSIDE.update({
+ "cafe": ("Pull up a stool", "An espresso machine on the counter, a pastry case and bistro tables by the wall.", "Inside the coffee shop: an espresso machine on the counter, a pastry case and bistro tables"),
+ "gym": ("Walk the floor", "A dumbbell rack, a squat rack, a bench and treadmills facing the mirror.", "Inside the gym: a dumbbell rack, a squat rack with a loaded bar and treadmills facing a mirror"),
+ "music": ("Pick it up", "A piano, a drum kit, guitars on the wall and music stands ready.", "Inside the music school: an upright piano, a drum kit and guitars on the back wall"),
+ "photo": ("Step in front of the lens", "A paper backdrop, two softboxes, a stool and a camera on a tripod.", "Inside the photography studio: a paper backdrop, two softbox lights and a camera on a tripod"),
+})
+VISIT.update({"cafe": "From the street to the counter", "gym": "From the street to the floor", "music": "From the street to the lesson", "photo": "From the street to the backdrop"})
+TOOL.update({
+ "cafe": ("Order helper", "What's the order for?", "Pick what it's for, and know what to mention when you call.",
+          "What's it for?", [("me", "Just me", "Ask what's on the counter today."), ("office", "The office", "Mention how many people and the time you need it."),
+                             ("meet", "A meeting", "Mention the day, the time and how many cups."), ("q", "A question", "Call or text and ask.")],
+          "Ordering for a group? Call ahead.", "A quick guide. The shop will tell you what they can do."),
+ "gym": ("Goal finder", "What are your goals?", "Pick your goal, and know what to ask when you call.",
+         "What's the goal?", [("strong", "Get stronger", "Ask about strength training."), ("cardio", "Cardio", "Ask what's on the floor for cardio."),
+                              ("start", "Just starting", "Ask about a tour first."), ("coach", "A coach", "Ask about training.")],
+         "Ask about a tour before you sign up.", "A quick guide. The gym will tell you what fits."),
+ "music": ("Lesson finder", "What would you like to play?", "Pick the instrument, and know what to mention when you ask.",
+           "Which instrument?", [("piano", "Piano", "Mention the age and any experience."), ("guitar", "Guitar", "Say acoustic or electric, and any experience."),
+                                 ("drums", "Drums", "Mention the age and whether there's a kit at home."), ("other", "Something else", "Ask which instruments they teach.")],
+           "Ask about a first lesson.", "A quick guide. The teacher will tell you what fits."),
+ "photo": ("Shoot planner", "What's the shoot?", "Pick the shoot, and know what to mention for a straight quote.",
+           "What kind?", [("family", "Family", "Mention how many people and any pets."), ("senior", "Senior photos", "Mention the season and any spots you like."),
+                          ("head", "Headshots", "Mention how many people and where they'll be used."), ("event", "An event", "Mention the date, the place and how long.")],
+           "The date and how many people help the studio answer fastest.", "A quick guide, not a quote. The studio will tell you what it takes."),
+})
+READY.update({
+ "cafe": "What it's for, how many people, and the time you need it.",
+ "gym": "Your goals, your schedule, and any questions about memberships.",
+ "music": "Who the lessons are for, their age, the instrument and any experience.",
+ "photo": "The kind of shoot, how many people, and the dates that work.",
+})
+for _g in _B78:
+    TOOLS[_g] = ("Text-the-shop button", f"Before-and-after slider and a{'n' if TOOL[_g][0][0] in 'AEIOU' else ''} {TOOL[_g][0].lower()}",
+                 "a live 3D storefront that opens up for the day and lets you step inside")
+    TRY[_g] = ("Tap a choice under \"Rather text than call?\" and watch the text write itself.",
+               f"Drag the slider on the top picture from closed to open, then try the {TOOL[_g][0].lower()}.",
+               "Scroll to watch the shop open up and walk inside, then change the awning color and flip the sign yourself.")
+AWN_DEFAULT.update({"cafe": "Green", "gym": "Black", "music": "Plum", "photo": "Black"})
