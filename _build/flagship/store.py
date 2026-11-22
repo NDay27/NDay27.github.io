@@ -17,6 +17,7 @@ GROUPS = {
  "uphol": dict(vs=["upholstery"], kind="sew", sign="Upholstery", word="Upholstery", noun="upholstery shop"),
  "scoop": dict(vs=["icecream"], kind="scoop", sign="Ice Cream", word="Ice Cream", noun="ice cream shop"),
  "antique": dict(vs=["antique"], kind="antique", sign="Antiques", word="Antiques", noun="antique shop"),
+ "tattoo": dict(vs=["tattoo"], kind="tattoo", sign="Tattoo", word="Tattoo", noun="tattoo studio"),
 }
 KGROUP = {v: g for g, d in GROUPS.items() for v in d["vs"]}
 KIT_V = dict(KGROUP)
@@ -32,17 +33,18 @@ NAME_OUT = {
  "tailor": r"mobile|uniform|embroid|screen|print|dry ?clean|cleaner|laundr",
  "uphol": r"mobile|marine|boat|auto|truck|car\b|cars\b|awning|canvas",
  "antique": r"online|auction|pawn|mobile|appraisal|estate sale|restoration",
+ "tattoo": r"academy|school|supply|removal|laser|mobile|cosmetic|microblad|permanent makeup|brow|lash|piercing only",
  "scoop": r"food truck|truck|mobile|cart\b|trailer|wholesale|distribut|dairy farm|creamery|dairy dream|freeze|frost|drive.?in|dip\b|\bstand\b|soft serve",
 }
 WORD = {"bakery": "Bakery", "cake": "Cakes", "donut": "Donuts", "salon": "Hair", "barber": "Barber", "nails": "Nails", "restaurant": "Eat",
-        "thrift": "Thrift", "boutique": "Boutique", "petgroom": "Grooming", "tailor": "Tailor", "upholstery": "Upholstery", "icecream": "Ice Cream", "antique": "Antiques"}
+        "thrift": "Thrift", "boutique": "Boutique", "petgroom": "Grooming", "tailor": "Tailor", "upholstery": "Upholstery", "icecream": "Ice Cream", "antique": "Antiques", "tattoo": "Tattoo"}
 
 TRADE = {"bakery": "Bakery", "cake": "Cake shop", "donut": "Donut shop", "salon": "Hair salon", "barber": "Barber shop", "nails": "Nail salon",
          "restaurant": "Restaurant", "thrift": "Thrift store", "boutique": "Boutique", "petgroom": "Pet grooming", "tailor": "Tailoring and alterations",
-         "upholstery": "Upholstery", "icecream": "Ice cream shop", "antique": "Antique store"}
+         "upholstery": "Upholstery", "icecream": "Ice cream shop", "antique": "Antique store", "tattoo": "Tattoo shop"}
 SCHEMA = {"bakery": "Bakery", "cake": "Bakery", "donut": "Bakery", "salon": "HairSalon", "barber": "HairSalon", "nails": "NailSalon",
           "restaurant": "Restaurant", "thrift": "Store", "boutique": "ClothingStore", "petgroom": "LocalBusiness", "tailor": "LocalBusiness",
-          "upholstery": "LocalBusiness", "icecream": "IceCreamShop", "antique": "Store"}
+          "upholstery": "LocalBusiness", "icecream": "IceCreamShop", "antique": "Store", "tattoo": "TattooParlor"}
 
 # antique stores are thrift leads on Google; pick.py moves the ones whose Google category is "Antique store" onto their own variant
 V_NEW = {"antique": dict(group="retail", noun="shop", h300=["Old things,", "new homes."], h750=["Come browse.", "Find a story."],
@@ -60,6 +62,7 @@ OVERRIDE = {
  "nails": {"lede": "A nail salon in {town}. Pick your service and ask for a time that works for you."},
  "petgroom": {"lede": "Pet grooming in {town}. Tell us about your dog and ask for a time that works for you."},
  "icecream": {"h300": ["Grab a cone.", "Pick a flavor."]},
+ "tattoo": {"services": [("Custom work", "Bring an idea, a sketch or a photo and talk it through."), ("Cover-ups", "Old tattoo you're done with? Ask about it."), ("Touch-ups", "Faded or healed rough? Ask about a touch-up.")]},
 }
 
 _F = {
@@ -93,6 +96,7 @@ THEME = {
  "shop": _t("#1e2a44", "#2a3858", "#f6f3ed", "#ece7de", "#1b2235", "#5f6577", "#dcd6cb", "#d9775b", "#eda08a", "#3c5a8a", "#121a2c", "bodoni", "jost"),
  "groom": _t("#17393c", "#21494d", "#f2f6f4", "#e4ece9", "#142b2d", "#58696a", "#d3dfdb", "#f2a541", "#f7c27a", "#2f7f86", "#0d2426", "brico", "dmsans"),
  "tailor": _t("#3a2236", "#4a2d45", "#f7f2ec", "#ede5dc", "#2e1b2b", "#6a5b66", "#e0d5cb", "#c9a46a", "#dfc395", "#7a4a6e", "#231421", "corm", "jost"),
+ "tattoo": _t("#161618", "#232327", "#f4f1ea", "#e8e3d8", "#141416", "#5f5c57", "#d8d2c6", "#c23a2e", "#e9786a", "#24497a", "#0c0c0e", "archivo", "dmsans"),
  "antique": _t("#2a1f18", "#3a2b21", "#f7f2ea", "#ece4d6", "#231a14", "#6a5d50", "#ddd2c1", "#c9952f", "#e3bd6e", "#6b3a2a", "#160f0b", "fraunces", "dmsans"),
  "scoop": _t("#1f3f44", "#295257", "#fbf6f1", "#f4eae2", "#1b3236", "#5f6e70", "#e7dbd2", "#ef8fa8", "#f7bccb", "#2f8f86", "#122a2e", "fraunces", "dmsans"),
  "uphol": _t("#23322b", "#2f4239", "#f5f1e9", "#ebe5d9", "#1e2a24", "#5e675f", "#dad3c4", "#c8793e", "#e0a275", "#2f6b4f", "#141f1a", "fraunces", "dmsans"),
@@ -102,7 +106,7 @@ EXTRA_CSS = {
  "bakery": ".hero h1 em,.hero0 h1 em{font-weight:400}", "salon": ".hero h1,h1,h2{font-weight:400!important;letter-spacing:-.01em}",
  "barber": None, "nails": ".hero h1{font-weight:400}h2{font-weight:400!important}", "eat": _UPRIGHT,
  "shop": ".hero h1,h1{font-weight:500!important;letter-spacing:-.02em}h2{font-weight:500!important}", "groom": _UPRIGHT,
- "tailor": ".hero h1,h1,h2{font-weight:600!important;letter-spacing:-.01em}", "uphol": "", "scoop": ".hero h1 em,.hero0 h1 em{font-weight:400}", "antique": ".hero h1 em,.hero0 h1 em{font-weight:400}",
+ "tailor": ".hero h1,h1,h2{font-weight:600!important;letter-spacing:-.01em}", "uphol": "", "scoop": ".hero h1 em,.hero0 h1 em{font-weight:400}", "antique": ".hero h1 em,.hero0 h1 em{font-weight:400}", "tattoo": _UPRIGHT,
 }
 # each store page carries the quiz card styles
 QUIZ_CSS = (".qz .opts button i{display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--c);margin-right:8px;vertical-align:-2px;border:1px solid #0002}"
@@ -126,6 +130,8 @@ COPY = {
                quote_h="Get your dog on the schedule", cta="Ask for a groom", msg_ph="Breed or size, the coat, and when the last groom was."),
  "tailor": dict(svc_h="What we fit and fix", svc_intro="Bring it in or tell us about it. If it isn't on the list, ask anyway.",
                 quote_h="Get it fitted or fixed", cta="Ask about a fitting", msg_ph="What the piece is, what needs doing, and when you need it."),
+ "tattoo": dict(svc_h="What we do", svc_intro="Custom pieces, cover-ups and touch-ups. Have an idea? Send it over.",
+                quote_h="Talk through your idea", cta="Send your idea", msg_ph="The idea, where on the body, roughly how big, and a photo or sketch if you have one."),
  "antique": dict(svc_h="What you'll find", svc_intro="Furniture, glass, clocks and the odd surprise. Looking for something? Ask anyway.",
                  quote_h="Ask about a piece", cta="Ask about a piece", msg_ph="What you're looking for, or what you'd like to sell, and a photo if you have one."),
  "scoop": dict(svc_h="What's in the case", svc_intro="Stop in and see what's scooping today, or ask about treats for a group.",
@@ -147,6 +153,7 @@ STEPS = {
  "shop": [("Tell us what you're after", "An item, a size, a gift or a question."), ("Get an answer", "Get a call or text back."), ("Stop in", "Come see it in person.")],
  "groom": [("Tell us about your dog", "Breed or size, the coat and anything to know."), ("Ask for a time", "Get a call or text back to set it up."), ("Pick up a happy dog", "Clean, brushed and ready to go home.")],
  "tailor": [("Tell us about the piece", "What it is and what needs doing."), ("Get a straight answer", "Know what it takes before any work starts."), ("Pick it up", "Fitted or fixed, ready when you are.")],
+ "tattoo": [("Send your idea", "What you want, where it goes and roughly how big."), ("Talk it through", "Get a call or text back to go over it."), ("Sit for it", "Line by line, made to last.")],
  "antique": [("Tell us what you're after", "A piece you're hunting for, or one you'd like to sell."), ("Get an answer", "Get a call or text back."), ("Come browse", "See it in person, and find a few things you weren't looking for.")],
  "scoop": [("Tell us what you're planning", "A party, a team or a group visit, and how many people."), ("Get a call back", "Sort out the details ahead of time."), ("Grab a spoon", "Stop in and enjoy.")],
  "uphol": [("Tell us about the piece", "What it is, what's worn and a few photos."), ("Get a straight answer", "Know what it takes before any work starts."), ("Bring it home", "Redone and ready to use.")],
@@ -162,6 +169,7 @@ GLYPH = {
  "shop": _G.format("M7 11h18l-1.4 17H8.4z", "currentColor") + _G.format("M11.5 13V9a4.5 4.5 0 0 1 9 0v4", "var(--pencil)"),
  "groom": '<path d="M16 27c-5 0-7.5-2.5-6.2-5.6S13.6 17 16 17s4.9 1.3 6.2 4.4S21 27 16 27z" fill="var(--pencil)"/>' + "".join(f'<ellipse cx="{x}" cy="{y}" rx="2.4" ry="3" fill="currentColor"/>' for x, y in ((8.5, 15), (23.5, 15), (12.5, 9.5), (19.5, 9.5))),
  "tailor": _G.format("M6 26 25 7", "currentColor") + _G.format("M25 7c2-2 4-1.3 4 .7S27 10.4 25 8.4", "currentColor") + _G.format("M5 18c4-4 8 0 12-2.6S22.4 8.6 27 8.6", "var(--pencil)"),
+ "tattoo": _G.format("M7 25l8-8M13 9h11v7H13zM16 9V6h5v3", "currentColor") + _G.format("M24 12h4", "var(--pencil)"),
  "antique": _G.format("M16 5a11 11 0 1 0 .1 0", "currentColor") + _G.format("M16 10v6l4 3", "var(--pencil)"),
  "scoop": _G.format("M10 15h12l-6 13z", "currentColor") + _G.format("M10 15a6 6 0 0 1 12 0M13 9a4 4 0 0 1 6 0", "var(--pencil)"),
  "uphol": _G.format("M6 14h20v9H6z", "currentColor") + _G.format("M9 14V9h14v5M8 23v4M24 23v4", "var(--pencil)"),
@@ -198,6 +206,9 @@ _I = {
  "clock": '<circle cx="28" cy="26" r="16"/><path d="M28 16v10l7 5"/><path d="M20 48h16"/>',
  "lamp": '<path d="M18 26h20l-5-14H23z"/><path d="M28 26v16M20 46h16"/>',
  "sell": '<path d="M8 30l14-14h12l6 6v12L26 48z"/><circle cx="30" cy="22" r="3"/><path d="M40 8v8M36 12h8"/>',
+ "machine": '<path d="M10 46 26 30"/><path d="M22 18h22v14H22z"/><path d="M27 18v-7h12v7"/><path d="M26 32l-5 5"/><path d="M44 25h6"/>',
+ "rose": '<circle cx="28" cy="22" r="10"/><path d="M28 16a5 5 0 1 0 5 5"/><path d="M28 32v16M28 40c-6-1-9-5-10-9M28 42c6-1 9-5 10-9"/>',
+ "touch": '<path d="M12 44 32 24"/><path d="M30 18l8 8M34 14l8 8"/><path d="M40 34l2 4 4 2-4 2-2 4-2-4-4-2 4-2z"/>',
  "car": '<path d="M8 36h40v-8l-6-10H16l-6 10z"/><circle cx="17" cy="38" r="4"/><circle cx="39" cy="38" r="4"/><path d="M14 26h28"/>',
 }
 SVC_ICON = {
@@ -210,6 +221,7 @@ SVC_ICON = {
  "Bath and brush": "tub", "Full groom": "paw", "Nails and touch-ups": "clip",
  "Alterations": "needle", "Formal wear": "dress", "Furniture": "chair", "Auto and boat": "car",
  "Scoops": "scoop", "Parties": "group",
+ "Custom work": "machine", "Cover-ups": "rose", "Touch-ups": "touch",
  "Browse the floor": "lamp", "Looking for a piece": "clock", "Selling something": "sell",
 }
 SVC_ICON = {k: _I[v] for k, v in SVC_ICON.items()}
@@ -230,6 +242,7 @@ INSIDE = {
  "shop": ("Take a look around", "Racks, shelves and a table of finds.", "Inside the shop: clothing racks, a table of folded finds and full shelves"),
  "groom": ("A spa day for the dog", "A grooming table, a dryer and a tub at the back.", "Inside the grooming shop: a grooming table, a dryer and a tub"),
  "tailor": ("Fitted right here", "Dress forms, a cutting table, the machine and a wall of thread.", "Inside the tailor shop: a cutting table, a sewing machine and fabric shelves"),
+ "tattoo": ("Pull up a chair", "Flash on the wall, two clean stations and the lamps on.", "Inside the tattoo studio: framed flash on the wall and two tattoo stations with lamps"),
  "antique": ("Come browse", "A grandfather clock, a china hutch, a rocker and a gramophone in the window.", "Inside the antique shop: a grandfather clock, a china hutch and a rocking chair"),
  "scoop": ("Pick a flavor", "A case full of tubs, cones stacked high and sundaes in the window.", "Inside the ice cream shop: a dipping case of colorful tubs and stacked cones"),
  "uphol": ("Where the work happens", "A cutting table, the machine and fabric to pick from.", "Inside the upholstery shop: a cutting table, a sewing machine and fabric bolts"),
@@ -251,7 +264,7 @@ def stages(g):
 
 VISIT = {"bakery": "From the street to the case", "salon": "From the street to the chair", "barber": "From the street to the chair",
          "nails": "From the street to the chair", "eat": "From the street to your seat", "shop": "From the street to the racks",
-         "groom": "From the street to the tub", "tailor": "From the street to the fitting", "uphol": "From the street to the shop floor", "scoop": "From the street to the case", "antique": "From the street to the shop floor"}
+         "groom": "From the street to the tub", "tailor": "From the street to the fitting", "uphol": "From the street to the shop floor", "scoop": "From the street to the case", "antique": "From the street to the shop floor", "tattoo": "From the street to the chair"}
 VISIT_INTRO = "Shown on the same shop, from opening to inside."
 
 # the Signature tool: two quick questions and a plain answer; question one is always the shop's own job list
@@ -289,6 +302,10 @@ TOOL = {
             "What's the piece?", [("pants", "Pants", "Bring the shoes you'll wear so the hem lands right."), ("dress", "Dress or skirt", "Bring the shoes and what you'll wear under it."),
                                   ("suit", "Suit or jacket", "Bring the shirt and shoes you'll wear with it."), ("bridal", "Wedding dress", "Start early. Bridal fittings usually take more than one visit.")],
             "Say the date you need it by when you ask.", "A quick guide. The tailor will tell you what it really needs."),
+ "tattoo": ("Idea check", "What are you thinking?", "Pick the kind of piece and how big, and know what to send so the artist can give a straight answer.",
+            "How big?", [("s", "Small", "Palm-sized or smaller. Send a photo or sketch and where it goes."), ("m", "Medium", "Hand to forearm size. Mention the placement and any style you like."),
+                         ("l", "Large or a sleeve", "Bigger pieces often take more than one sitting. Ask how it's planned."), ("c", "A cover-up", "Send a clear photo of the old tattoo and roughly its size.")],
+            "A photo or sketch and the placement get you a straight answer fastest.", "A quick guide, not a quote. The artist will tell you what it really takes."),
  "antique": ("Piece finder", "Looking for something?", "Pick what you're after and what kind of piece, and send it over. They'll check for you.",
              "What kind of piece?", [("furn", "Furniture", "Mention the size and the room it's for."), ("glass", "Glass and china", "A pattern name or a photo helps a lot."),
                                      ("decor", "Clocks, lamps and decor", "Say the era or style if you know it."), ("other", "Something else", "Describe it, or send a photo.")],
@@ -314,6 +331,7 @@ READY = {
  "tailor": "What the piece is, what needs doing and the date you need it by.",
  "uphol": "What the piece is, a few photos and roughly how big it is.",
  "scoop": "What it's for, how many people, the day you need it and any allergies.",
+ "tattoo": "The idea, where it goes, roughly how big, and a photo or sketch if you have one.",
  "antique": "What you're looking for (or selling), rough size or era, and a photo if you have one.",
 }
 
@@ -336,7 +354,7 @@ def beats(g):
 
 
 AWNINGS = [("Red", "#b3343a"), ("Green", "#2f6b4f"), ("Navy", "#24365e"), ("Black", "#1d1f22"), ("Pink", "#d9879a"), ("Teal", "#2f7f86"), ("Gold", "#c9952f"), ("Plum", "#6b3a5e")]
-AWN_DEFAULT = {"bakery": "Pink", "salon": "Black", "barber": "Red", "nails": "Pink", "eat": "Green", "shop": "Navy", "groom": "Teal", "tailor": "Plum", "uphol": "Plum", "scoop": "Teal", "antique": "Gold"}
+AWN_DEFAULT = {"bakery": "Pink", "salon": "Black", "barber": "Red", "nails": "Pink", "eat": "Green", "shop": "Navy", "groom": "Teal", "tailor": "Plum", "uphol": "Plum", "scoop": "Teal", "antique": "Gold", "tattoo": "Black"}
 
 # render list for one group: hero pair, the four stages, dusk, window, inside, door
 CAM = {"hero": ("-9,2.3,17.5", ".8,3.5,0", 36), "front": ("-4.6,2.4,11.5", ".6,2.7,0", 40), "door": ("0,1.6,5.5", "0,1.5,-2", 40),
