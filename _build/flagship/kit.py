@@ -408,3 +408,14 @@ def svc_icon(g, h):
 QUIZ = STORES + HOMES  # groups whose Signature tool is the two-question quiz
 KIT_V_EXTRA.update(home.KIT_V)
 NAME_OUT_EXTRA.update(home.NAME_OUT)
+
+# ---------- Nov 22: wheel alignment shops on the auto repair garage ----------
+# leads whose name says alignment (Google: auto repair shop / brake shop); pick.py routes them here with flagship v "alignment"
+V["alignment"] = dict(group="auto", noun="shop", h300=["Pulls to one side?", "Ask about it."], h750=["Crooked wheel?", "Ask about it."],
+                      h1250=["Up on the lift.", "Back on the road."],
+                      lede="Alignment work in {town}. Tell us what the car is doing and ask what it takes.",
+                      services=[("Alignment", "Ask about it if the car pulls or the wheel sits crooked."), ("Steering and suspension", "Ask about clunks, wander and worn parts."),
+                                ("Brakes and more", "Ask what else they can look at.")],
+                      jobs=["Pulls to one side", "Crooked steering wheel", "Uneven tire wear", "Clunk or wander", "Something else"],
+                      when=["As soon as possible", "This week", "Next week", "Just getting a quote"], who="drivers", ask="What is the car doing?")
+TRADE["alignment"] = "Wheel alignment"
