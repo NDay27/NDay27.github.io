@@ -62,6 +62,9 @@ KEEP = {"buck-s-tree-service-landscaping-peoria",
         # Nov 22: Google lists these as an air conditioning repair service and a Mexican restaurant; "Refrigeration" / "& Bar" in the name doesn't change the story
         "j-r-refrigeration-service-parts-llc-union-city-nj", "el-patron-mexican-grill-bar-austin-mn"}
 
+# checked by hand: the kit's story would be wrong (Nov 22: a boxing gym whose listing address looks like a house, not a storefront)
+HOLD = {"bearcityboxing-new-bern-nc"}
+
 
 def candidates():
     tiers = json.load(open(os.path.join(ROOT, "_build/tiers/shops.json")))
@@ -70,7 +73,7 @@ def candidates():
     checks = json.load(open(tb.CHECKS_PATH))
     out = []
     for s in tiers + dealt:
-        if s["slug"] in done or s.get("copy"):
+        if s["slug"] in done or s.get("copy") or s["slug"] in HOLD:
             continue
         if s.get("gstatus") in ("closed", "temp") or s.get("wk") == "own":
             continue
@@ -102,6 +105,11 @@ def candidates():
         if s["v"] == "icecream" and re.search(r"dairy dream|freeze|frost|drive.?in|dip\b|\bstand\b|soft serve|dairy bar", s["name"].lower()):
             if not re.search(NAME_OUT["stand"], s["name"].lower()):
                 out.append(("stand", dict(s, kv="dairystand")))
+            continue
+        # a martial arts lead whose Google category is a boxing gym gets the boxing gym storefront (its own variant, see store.V_NEW)
+        if s["v"] == "martial" and "boxing" in (s.get("cat") or "").lower():
+            if not re.search(NAME_OUT["boxing"], s["name"].lower()):
+                out.append(("boxing", dict(s, kv="boxing")))
             continue
         # an auto repair lead whose name says mobile gets the mobile mechanic driveway kit (its own variant, see home.V_NEW)
         if g == "auto" and re.search(r"\bmobile\b", s["name"].lower()):

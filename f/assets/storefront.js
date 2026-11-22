@@ -33,6 +33,7 @@ export const KIND = {
   sew:    {trim: 0x5a3550, awn: AWN.plum, wall: 0xefe7df, floor: "wood", sign: ["#5a3550", "#f6eee6"], icon: "needle"},
 };
 KIND.tailor = KIND.sew; KIND.uphol = KIND.sew;
+KIND.boxing = {trim: 0x1d1f22, awn: AWN.red, wall: 0xe9e9e6, wain: 0x7a1f24, floor: "wood", sign: ["#1d1f22", "#f2f2ee"], icon: "glove"};
 KIND.autotrim = {trim: 0x1f2226, awn: AWN.red, wall: 0xece8e1, wain: 0x3a3d42, floor: "tile", sign: ["#1f2226", "#f2efe8"], icon: "seat"};
 
 // blade-sign icons, drawn with Path2D on a 56 box
@@ -56,6 +57,7 @@ const ICON = {
   note: ["M22 40V12l20-4v28", "M22 40a5 4 0 1 1-.1 0", "M42 36a5 4 0 1 1-.1 0", "M22 20l20-4"],
   blocks: ["M10 30h16v16H10z", "M30 30h16v16H30z", "M20 14h16v16H20z", "M15 38h6M35 38h6M25 22h6"],
   camera: ["M8 18h40v28H8z", "M20 18l4-6h8l4 6", "M28 40a8 8 0 1 0 0-16 8 8 0 0 0 0 16z", "M40 24h3"],
+  glove: ["M18 30c-1-11 5-18 14-18s15 6 14 15-6 14-13 14H26", "M18 30c0 7 3 11 8 11h10v7H20z", "M23 26c4-3 9-3 11 1"],
   seat: ["M17 6h9v6h-9z", "M16 12h11l4 23h12v8H19z", "M20 43v6M38 43v6", "M21 18h6M22 26h6"],
   needle: ["M14 42 40 16", "M40 16c3-3 6-2 6 1s-3 4-6 1", "M12 30c6-6 12 0 18-4s8-10 14-10"],
 };
@@ -617,7 +619,8 @@ export async function makeStore(world, {kind = "bakery", sign = "Bakery", font =
     // the window: a crate of coffee bags, a stack of cups and a jar of beans
     box(1.9, .1, .9, trim, -2.2, .57, -.9); for (let i = 0; i < 3; i++) box(.2, .3, .12, mat([0x6b4a32, 0x2f6b4f, 0xc9952f][i], .8), -2.7 + i * .26, .77, -.95);
     for (let k = 0; k < 4; k++) cyl(.05, .04, .1, cream, -1.75, .67 + k * .1, -.85, P, 12); cyl(.09, .09, .22, glass, -1.95, .73, -1.05, P, 16); cyl(.08, .08, .14, mat(0x3a2418, .8), -1.95, .69, -1.05, P, 16);
-  } else if (kind === "gym") {
+  } else if (kind === "gym" || kind === "boxing") {
+    const bx = kind === "boxing";
     // rubber floor, a dumbbell rack, a squat rack with a loaded bar, a bench, two treadmills facing the mirror, kettlebells in the window
     flat(IW, 6.6, mat(0x4a4e54, .9), 0, .015, -4.6, P); lamp(.8, 3.7, -3.4, .7, 8, 0xfff1dc); flat(2.3, 2.0, woodM, .3 - .6, .03, IZ1 + 1.1, P); lamp(-.4, 3.7, -6.6, .9, 9, 0xfff1dc);
     const iron = mat(0x1d1f22, .45, .6), chromeM = mat(0xc9cdd1, .2, .9), red = mat(0xb3343a, .5);
@@ -627,6 +630,22 @@ export async function makeStore(world, {kind = "bakery", sign = "Bakery", font =
     for (const z of [-1.4, 1.4]) box(.05, .82, .05, iron, 0, .41, z, rack);
     for (let i = 0; i < 9; i++) for (const [y, dz] of [[.45, .1], [.8, -.12]]) { const g = new THREE.Group(); g.position.set(dz, y + .08, -1.2 + i * .3); rack.add(g); const r = .05 + i * .006;
       for (const s of [-1, 1]) cyl(r, r, .07, iron, s * .1, 0, 0, g, 12).rotation.z = Math.PI / 2; cyl(.015, .015, .16, chromeM, 0, 0, 0, g, 8).rotation.z = Math.PI / 2; g.rotation.y = Math.PI / 2; }
+    const kb = (x, z, s = 1, m = iron) => { add(new THREE.SphereGeometry(.13 * s, 16, 12), m, x, .12 * s, z, P); const h = add(new THREE.TorusGeometry(.08 * s, .018 * s, 8, 16, Math.PI), m, x, .22 * s, z, P); };
+    if (bx) {
+    // boxing: a ring at the back, three heavy bags on chains, a speed bag on the right wall
+    const ring = new THREE.Group(); ring.position.set(.9, 0, -7.9); P.add(ring);
+    box(3.0, .45, 3.0, mat(0x1d2f5a, .7), 0, .225, 0, ring); box(3.0, .02, 3.0, mat(0xd9d6cf, .9), 0, .455, 0, ring);
+    const corner = [[-1.42, -1.42, 0xb3343a], [1.42, 1.42, 0x2f5fa8], [-1.42, 1.42, 0xe9e9e4], [1.42, -1.42, 0xe9e9e4]];
+    for (const [x, z, c] of corner) { cyl(.05, .05, 1.45, iron, x, .45 + .72, z, ring, 10); box(.14, 1.1, .14, mat(c, .6), x, .45 + .75, z, ring); }
+    const rope = mat(0xf2f2ee, .5), ropeR = mat(0xb3343a, .5);
+    for (const [k, y] of [[0, .95], [1, 1.3], [2, 1.65]]) { const m = k === 1 ? ropeR : rope;
+      for (const [x, z, alongX] of [[0, -1.42, 1], [0, 1.42, 1], [-1.42, 0, 0], [1.42, 0, 0]]) { const r_ = cyl(.022, .022, 2.84, m, x, y, z, ring, 8); if (alongX) r_.rotation.z = Math.PI / 2; else r_.rotation.x = Math.PI / 2; } }
+    const bagM = [mat(0xb3343a, .45), mat(0x1d1f22, .45), mat(0xb3343a, .45)];
+    [-4.0, -5.6, -7.2].forEach((z, i) => { cyl(.008, .008, 1.6, chromeM, -1.8, GH - .9, z, P, 6); cyl(.2, .2, .04, iron, -1.8, 2.05, z, P, 16);
+      cyl(.19, .19, 1.15, bagM[i], -1.8, 1.45, z, P, 20); cyl(.192, .192, .06, mat(0xe9e9e4, .5), -1.8, 1.2, z, P, 20); });
+    box(.12, .08, 4.0, iron, -1.8, GH - .12, -5.6);
+    box(.6, .06, .5, woodM, IW / 2 - .3, 2.1, -2.4); add(new THREE.SphereGeometry(.09, 14, 10), mat(0xb3343a, .45), IW / 2 - .3, 1.92, -2.32, P).scale.set(1, 1.35, 1);
+    } else {
     // squat rack and bar at the back
     const sq = new THREE.Group(); sq.position.set(-.3, 0, IZ1 + .9); P.add(sq); for (const x of [-.6, .6]) for (const z of [-.4, .4]) box(.07, 2.3, .07, iron, x, 1.15, z, sq);
     for (const z of [-.4, .4]) box(1.27, .07, .07, iron, 0, 2.3, z, sq); for (const x of [-.6, .6]) box(.07, .07, .87, iron, x, 2.3, 0, sq);
@@ -634,15 +653,23 @@ export async function makeStore(world, {kind = "bakery", sign = "Bakery", font =
     // a flat bench and kettlebells on the floor
     box(1.2, .08, .32, mat(0x1d1f22, .6), .7, .45, -5.7); for (const x of [.2, 1.2]) box(.06, .42, .3, iron, x, .21, -5.7);
     [[.6, .5, .25], [.52, .4, .7], [.44, .3, 1.05]].forEach(([w, h, y]) => box(w, h, w * .85, woodM, 2.3, y, -7.6));
-    const kb = (x, z, s = 1, m = iron) => { add(new THREE.SphereGeometry(.13 * s, 16, 12), m, x, .12 * s, z, P); const h = add(new THREE.TorusGeometry(.08 * s, .018 * s, 8, 16, Math.PI), m, x, .22 * s, z, P); };
     kb(-2.3, -6.6); kb(-1.95, -6.6, 1.2); kb(-1.6, -6.6, .9, red);
     // two treadmills facing the mirror wall
     const tread = (z) => { const g = new THREE.Group(); g.position.set(z, 0, IZ1 + 1.55); P.add(g); box(.75, .16, 1.7, iron, 0, .08, 0, g); box(.6, .02, 1.5, mat(0x111214, .9), 0, .17, .05, g);
       for (const x of [-.34, .34]) { const u = box(.05, 1.1, .05, iron, x, .7, -.75, g); u.rotation.x = .18; } box(.75, .3, .12, iron, 0, 1.25, -.88, g); box(.4, .18, .02, glow(0x4fc3ff, 1.2), 0, 1.28, -.82, g).castShadow = false; };
     tread(-2.75); tread(-1.85); box(2.3, 1.5, .03, mat(0xdfe4e8, .05, .9), -2.3, 1.75, IZ1 + .04).castShadow = false; box(2.38, 1.58, .02, trim, -2.3, 1.75, IZ1 + .025);
-    // the window: kettlebells on risers, a medicine ball and a rope
-    box(1.9, .1, .9, trim, -2.2, .57, -.9); kb(-2.7, -.9, 1.0, red); kb(-2.35, -.9, 1.3); kb(-1.95, -.95, .8, red);
-    { const mb = add(new THREE.SphereGeometry(.16, 18, 14), mat(0x2f5fa8, .6), -1.7, .78, -.7); }
+    }
+    // the window: kettlebells on risers, a medicine ball and a rope (boxing: a pair of gloves, a jump rope and hand wraps)
+    box(1.9, .1, .9, trim, -2.2, .57, -.9);
+    if (bx) { const glv = (x, z, ry, c) => { const g = new THREE.Group(); g.position.set(x, .62, z); g.rotation.y = ry; P.add(g); const m = mat(c, .35);
+        add(new THREE.SphereGeometry(.15, 18, 14), m, 0, .14, 0, g).scale.set(1, .85, 1.25); add(new THREE.SphereGeometry(.06, 12, 10), m, .12, .12, .07, g).scale.set(1, 1.2, 1.4);
+        cyl(.1, .11, .16, m, 0, .12, -.22, g, 16).rotation.x = Math.PI / 2; cyl(.112, .112, .05, mat(0xf2f2ee, .5), 0, .12, -.26, g, 16).rotation.x = Math.PI / 2; };
+      glv(-2.6, -.95, .5, 0xb3343a); glv(-2.15, -.9, -.4, 0xb3343a);
+      const jr = add(new THREE.TorusGeometry(.16, .012, 6, 30), mat(0x1d1f22, .6), -1.65, .63, -.8, P); jr.rotation.x = Math.PI / 2;
+      for (const s_ of [-1, 1]) cyl(.022, .022, .14, mat(0x2f5fa8, .5), -1.65 + s_ * .2, .64, -1.02, P, 8).rotation.z = Math.PI / 2;
+      cyl(.05, .05, .07, mat(0x2b2d30, .8), -1.9, .65, -1.2, P, 14);
+    } else { kb(-2.7, -.9, 1.0, red); kb(-2.35, -.9, 1.3); kb(-1.95, -.95, .8, red);
+    { const mb = add(new THREE.SphereGeometry(.16, 18, 14), mat(0x2f5fa8, .6), -1.7, .78, -.7); } }
   } else if (kind === "music") {
     // an upright piano, a drum kit, guitars on the back wall, music stands and chairs; a guitar on a stand in the window
     const blackM = mat(0x111214, .2, .1), ivory = mat(0xf4efe4, .35), wood = mat(0x7a4a2a, .4), brassC = mat(0xc9a24a, .25, .9);

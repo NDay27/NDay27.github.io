@@ -870,3 +870,45 @@ TRY["autotrim"] = ("Tap a choice under \"Rather text than call?\" and watch the 
                    f"Drag the slider on the top picture from closed to open, then try the {TOOL['autotrim'][0].lower()}.",
                    "Scroll to watch the shop open up and walk inside, then change the awning color and flip the sign yourself.")
 AWN_DEFAULT["autotrim"] = "Red"
+
+
+# ---------- Nov 22: boxing gyms (martial arts leads whose Google category is a boxing gym) ----------
+# the gym storefront with a ring at the back, heavy bags on chains, a speed bag and gloves in the window
+GROUPS["boxing"] = dict(vs=["boxing"], kind="boxing", sign="Boxing", word="Boxing", noun="boxing gym")
+KGROUP["boxing"] = "boxing"; KIT_V.update(KGROUP)
+NAME_OUT["boxing"] = r"kickbox|mma\b|jiu|karate|taekwondo|kung fu|crossfit|yoga|mobile|equipment|supply"
+WORD["boxing"] = "Boxing"; TRADE["boxing"] = "Boxing gym"; SCHEMA["boxing"] = "SportsActivityLocation"; TRADE_LABEL["boxing"] = "Boxing"
+V_NEW["boxing"] = dict(group="fitness", noun="gym", h300=["Want to box?", "Ask about classes."], h750=["Gloves on.", "Hands up."],
+                       h1250=["Bags and a ring.", "Ask about a class."],
+                       lede="A boxing gym in {town}. Tell us your age and experience, and ask about classes.",
+                       services=[("Classes", "Ask about the class schedule and who each class is for."), ("First class", "Ask about trying a class before you sign up."),
+                                 ("Kids and adults", "Ask which classes fit your age and level.")],
+                       jobs=["Classes", "First class", "Kids", "Adults", "Something else"],
+                       when=["This week", "Next week", "This month", "Just asking"], who="members", ask="What are you looking for?")
+THEME["boxing"] = _t("#1b1c1f", "#2a2b30", "#f5f3ef", "#e9e6e0", "#131416", "#64656a", "#d8d4cc", "#c8302b", "#ee7f74", "#2f5fa8", "#0d0e10", "archivo", "dmsans")
+EXTRA_CSS["boxing"] = _UPRIGHT
+COPY["boxing"] = dict(svc_h="What to ask about", svc_intro="Tell us your age and whether you've boxed before, and ask about classes.",
+                      quote_h="Ask about a class", cta="Ask about a class", msg_ph="Your age, whether you've boxed before, and what you'd like to work on.",
+                      sheet=("A storefront in {town}", "Main street, open for the day"),
+                      sheet_label="Line drawing of a two-storey brick boxing gym on main street with a striped awning and a big display window",
+                      shot=("boxing-after", "A brick boxing gym with a striped awning, gloves in the window and the OPEN sign lit", "Illustration. Your real photos go here."))
+STEPS["boxing"] = [("Tell us about you", "Your age and whether you've boxed before."), ("Ask about a class", "Get a call or text back about the schedule."), ("Gloves on", "Show up and get started.")]
+GLYPH["boxing"] = _G.format("M9 15c0-6 3-9 8-9s8 3 8 8-3 8-7 8h-4", "currentColor") + _G.format("M9 15c0 4 2 7 5 7h5v4H10z", "var(--pencil)")
+_I.update({
+ "glove": '<path d="M16 30c-1-11 5-18 14-18s15 6 14 15-6 14-13 14H24"/><path d="M16 30c0 7 3 11 8 11h10v7H18z"/><path d="M22 26c4-3 9-3 11 1"/>',
+ "bag": '<path d="M28 4v8"/><path d="M18 12h20v32a10 4 0 0 1-20 0z"/><path d="M18 22h20"/>',
+})
+SVC_ICON.update({("boxing", "Classes"): _I["glove"], ("boxing", "First class"): _I["bag"], ("boxing", "Kids and adults"): _I["group"]})
+INSIDE["boxing"] = ("Step into the gym", "A ring at the back, heavy bags on chains, a speed bag on the wall and a rack of dumbbells.",
+                    "Inside the boxing gym: a ring at the back, three heavy bags hanging on chains, a speed bag and a dumbbell rack")
+VISIT["boxing"] = "From the street to the ring"
+TOOL["boxing"] = ("Class finder", "Where are you starting?", "Pick where you're starting, and know what to ask when you call.",
+                  "Where are you starting?", [("new", "Brand new", "Ask which class is for beginners and what to bring."), ("back", "Getting back into it", "Mention how long it's been."),
+                                              ("kid", "For a kid", "Mention their age and ask which class fits."), ("fit", "Just for fitness", "Ask about classes that don't involve sparring.")],
+                  "Ask what to bring to a first class.", "A quick guide. The gym will tell you what fits.")
+READY["boxing"] = "Your age, whether you've boxed before, and what you'd like to work on."
+TOOLS["boxing"] = ("Text-the-shop button", f"Before-and-after slider and a {TOOL['boxing'][0].lower()}", "a live 3D storefront that opens up for the day and lets you step inside")
+TRY["boxing"] = ("Tap a choice under \"Rather text than call?\" and watch the text write itself.",
+                 f"Drag the slider on the top picture from closed to open, then try the {TOOL['boxing'][0].lower()}.",
+                 "Scroll to watch the gym open up and walk inside, then change the awning color and flip the sign yourself.")
+AWN_DEFAULT["boxing"] = "Red"
