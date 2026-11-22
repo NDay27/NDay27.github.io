@@ -269,7 +269,9 @@ def elevation(g, s=None):
         svg = open(os.path.join(HERE, "elev-auto.svg")).read()
         if g == "body":
             svg = svg.replace("Bay 1: up on the lift", "Bay 1: body work")
-        return sign_text(svg, s["short"] if s else "Auto Repair")
+        elif g == "glass":
+            svg = svg.replace("Bay 1: up on the lift", "New glass, set and sealed")
+        return sign_text(svg, s["short"] if s else "Auto Glass" if g == "glass" else "Auto Repair")
     svg = open(os.path.join(HERE, "elev.svg")).read()
     svg = svg.replace('class="draw"', 'class="draw" role="img"', 1).replace(' aria-hidden="true"', "", 1)
     if g == "lawn":
@@ -383,7 +385,7 @@ for _v, _o in store.OVERRIDE.items():
     V[_v].update(_o)
 STORES = tuple(store.GROUPS)
 SHOPS = SHOPS + STORES
-SHOPS = SHOPS + ("semi",)  # truck repair: a shop trucks drive to, told on the tall-bay garage
+SHOPS = SHOPS + ("semi", "glass")  # truck repair: a shop trucks drive to, told on the tall-bay garage
 KIT_V_EXTRA = dict(store.KIT_V)
 NAME_OUT_EXTRA = dict(store.NAME_OUT)
 V.update(store.V_NEW)

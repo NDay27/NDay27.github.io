@@ -39,10 +39,31 @@ function primerTex() {
   const t = new THREE.CanvasTexture(c); return t;
 }
 
+// a windshield hit by a rock: a star break low on the driver side and a long crack running across (u runs driver to passenger, v bottom to top)
+function crackTex() {
+  const W = 1024, H = 512, c = document.createElement("canvas"); c.width = W; c.height = H; const g = c.getContext("2d");
+  let sd = 23; const r = () => (sd = (sd * 16807) % 2147483647) / 2147483647;
+  const cx = W * .3, cy = H * .62, line = (pts, w, a) => { g.lineWidth = w; g.strokeStyle = `rgba(236,242,246,${a})`; g.beginPath(); g.moveTo(...pts[0]); for (const p of pts.slice(1)) g.lineTo(...p); g.stroke(); };
+  g.lineCap = g.lineJoin = "round";
+  // the bullseye and the star around it
+  const bull = g.createRadialGradient(cx, cy, 0, cx, cy, 34); bull.addColorStop(0, "rgba(240,244,248,.95)"); bull.addColorStop(.5, "rgba(220,228,234,.55)"); bull.addColorStop(1, "rgba(220,228,234,0)");
+  g.fillStyle = bull; g.beginPath(); g.arc(cx, cy, 34, 0, 6.3); g.fill();
+  for (let i = 0; i < 11; i++) { const a = i / 11 * 6.28 + r() * .3, len = 40 + r() * 90; const pts = [[cx, cy]]; let x = cx, y = cy;
+    for (let k = 1; k <= 6; k++) { x = cx + Math.cos(a + (r() - .5) * .25) * len * k / 6; y = cy + Math.sin(a + (r() - .5) * .25) * len * k / 6 * .9; pts.push([x, y]); }
+    line(pts, 3 + r() * 1.5, .9); line(pts, 1, .55); }
+  for (const rad of [22, 38]) { g.lineWidth = 1.1; g.strokeStyle = "rgba(236,242,246,.6)"; g.beginPath(); g.arc(cx, cy, rad + r() * 4, r() * 2, 2 + r() * 3); g.stroke(); }
+  // the running crack, across toward the passenger side and up
+  let x = cx + 60, y = cy - 10; const run = [[cx + 20, cy - 4], [x, y]];
+  while (x < W * .93) { x += 24 + r() * 30; y += (r() - .62) * 22; run.push([x, Math.max(H * .12, y)]); }
+  line(run, 3.6, .92); line(run.map(([a, b]) => [a + 2, b + 2]), 1.2, .4);
+  for (let i = 0; i < 5; i++) { const k = 3 + Math.floor(r() * (run.length - 4)); const [a, b] = run[k]; line([[a, b], [a + 24 + r() * 36, b + (r() - .5) * 48]], 2, .75); }
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t;
+}
+
 // ---------- the truck ----------
 // The body is a loft: a cross-section swept from tail to nose. The sill follows the wheel arches, so the
 // arches are real openings. The hood is the same surface cut out as its own panel, hinged at the cowl.
-export function makeTruck(world, {color = PAINT.red, lights = true} = {}) {
+export function makeTruck(world, {color = PAINT.red, lights = true, glass: glassKit = false} = {}) {
   const car = new THREE.Group(), L = 5.5, Z0 = -L / 2, Z1 = L / 2, R = .39, RA = .53, AX = [1.66, -1.52];
   const paint = new THREE.MeshPhysicalMaterial({color, metalness: .2, roughness: .4, clearcoat: .6, clearcoatRoughness: .12, envMapIntensity: .55, side: THREE.DoubleSide});
   const glass = new THREE.MeshPhysicalMaterial({color: 0x0b1013, metalness: .1, roughness: .08, clearcoat: 1, clearcoatRoughness: .03, envMapIntensity: .9});
@@ -194,8 +215,31 @@ export function makeTruck(world, {color = PAINT.red, lights = true} = {}) {
     wheels.forEach(({w, s, a}) => { const out = smooth(0, .45, k), dn = smooth(.3, 1, k);
       w.position.set(s * (out * .5 + dn * .42), -dn * y, (a > 0 ? 1 : -1) * dn * .32); w.rotation.y = s * dn * .35; w.rotation.z = -s * dn * .07; });
   }
+  // auto glass shops: a crack overlay that lies on the windshield, suction cups that set the new glass, and tape that holds the moulding while it cures
+  let setGlass = () => {};
+  if (glassKit) {
+    const wsY = z => roofY(z) + .006, wsZ0 = .31, wsZ1 = .96, gp = [], gu = [], gi = [], NX = 14, NZ = 12;
+    for (let j = 0; j <= NZ; j++) { const z = mix(wsZ0, wsZ1, j / NZ), y = wsY(z), w = wAt(y - .006) * .93;
+      for (let i = 0; i <= NX; i++) { const u = i / NX; gp.push(mix(w, -w, u), y, z + .004); gu.push(u, 1 - j / NZ); } }
+    for (let j = 0; j < NZ; j++) for (let i = 0; i < NX; i++) { const a = j * (NX + 1) + i, b = a + 1, c = a + NX + 1, d = c + 1; gi.push(a, c, b, b, c, d); }
+    const wg = new THREE.BufferGeometry(); wg.setAttribute("position", new THREE.Float32BufferAttribute(gp, 3)); wg.setAttribute("uv", new THREE.Float32BufferAttribute(gu, 2)); wg.setIndex(gi); wg.computeVertexNormals();
+    const crackM = new THREE.MeshStandardMaterial({map: crackTex(), transparent: true, roughness: .2, metalness: .1, depthWrite: false, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -2});
+    const crack = add(wg, crackM); crack.castShadow = false;
+    const at = (u, v) => { const z = mix(wsZ1, wsZ0, v), y = wsY(z), w = wAt(y - .006) * .93; return new THREE.Vector3(mix(w, -w, u), y, z); };
+    const nrm = new THREE.Vector3(0, .78, .62).normalize(), cups = new THREE.Group(); car.add(cups);
+    const cupM = new THREE.MeshStandardMaterial({color: 0x2a2d31, roughness: .5}), barM = new THREE.MeshStandardMaterial({color: 0xd9a21b, roughness: .4, metalness: .2});
+    for (const u of [.22, .78]) { const h = new THREE.Group(); h.position.copy(at(u, .5)); h.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), nrm); cups.add(h);
+      for (const dx of [-.09, .09]) { const c = add(new THREE.CylinderGeometry(.07, .075, .02, 18), cupM, dx, .012, 0, h); c.castShadow = false; }
+      add(new THREE.BoxGeometry(.26, .035, .05), barM, 0, .07, 0, h); for (const dx of [-.09, .09]) add(new THREE.BoxGeometry(.025, .06, .03), barM, dx, .04, 0, h); }
+    const tapeM = new THREE.MeshStandardMaterial({color: 0x2f7fd0, roughness: .8}), tape = new THREE.Group(); car.add(tape);
+    for (const u of [.12, .32, .5, .68, .88]) { const t = new THREE.Mesh(new THREE.BoxGeometry(.05, .004, .18), tapeM); t.position.copy(at(u, .97)); t.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), nrm); t.translateZ(-.04); tape.add(t); }
+    setGlass = f => { crackM.opacity = 1 - smooth(.38, .5, f); crack.visible = crackM.opacity > .01; cups.visible = f > .22 && f < .66; tape.visible = f > .6 && f < .96; };
+    setGlass(0);
+  }
+  const set0 = set;
+  set = function (o = {}) { set0(o); if (o.glass !== undefined && o.glass !== null) setGlass(clamp(o.glass)); };
   set();
-  return {car, set, M, beams, setColor(c) { paint.color.setHex(c); M.hood.color.setHex(c); M.roof.color.setHex(c); }, get liftY() { return liftY; }};
+  return {car, set: o => set(o), M, beams, setColor(c) { paint.color.setHex(c); M.hood.color.setHex(c); M.roof.color.setHex(c); }, get liftY() { return liftY; }};
 }
 
 // ---------- the shop ----------
@@ -336,7 +380,7 @@ export async function makeGarage(world, {sign = "Auto Repair", color = PAINT.red
   }
 
   // the truck, and a second one parked by the office so the lot isn't empty
-  const truck = T ? (await import("./semi.js")).makeSemi(world, {color}) : makeTruck(world, {color}); root.add(truck.car);
+  const truck = T ? (await import("./semi.js")).makeSemi(world, {color}) : makeTruck(world, {color, glass: kind === "glass"}); root.add(truck.car);
   if (second && !T) { const t2 = makeTruck(world, {color: PAINT.white, lights: false}); t2.car.position.set(15.9, 0, 9.2); t2.car.rotation.y = Math.PI; root.add(t2.car); }
   if (second && T) { const tr = (await import("./semi.js")).makeTrailer(world); tr.position.set(17.5, 0, 9.6); tr.rotation.y = Math.PI / 2 - .08; root.add(tr); }
   // truck shops: a rolling tool cart and a work light on a stand beside the tilted hood
@@ -359,7 +403,7 @@ export async function makeGarage(world, {sign = "Auto Repair", color = PAINT.red
     // out of the bay in a straight line, then a turn onto the lot
     const p = clamp(pos), a = smooth(0, .55, p), b = smooth(.4, 1, p);
     truck.car.position.x = mix(BAY.x, OUT.x, b); truck.car.position.z = mix(BAY.z, mix(3.2, OUT.z, b), a); truck.car.rotation.y = OUT.yaw * b;
-    truck.set({hood, wheels, y: p > .001 ? 0 : y, lights: lights ?? p > .5, fix});
+    truck.set({hood, wheels, y: p > .001 ? 0 : y, lights: lights ?? p > .5, fix: kind === "glass" ? undefined : fix, glass: kind === "glass" ? fix ?? 1 : undefined});
     if (workLight) { workLight.intensity = 9 * clamp(hood) * (1 - smooth(0, .2, p)); workLight.userData.st.visible = hood > .05 && p < .1; }
     world.shadows();
   }
