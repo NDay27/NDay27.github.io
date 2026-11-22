@@ -51,6 +51,9 @@ const HOME = {wash: "wash", concrete: "concrete", hvac: "ac", plumb: "pipe", han
 // welding: a rusted, sagging double gate at the end of the drive, welded, painted and hung true
 K.weld = {hero: [[14, 1.9, 37], [9.5, .7, 30], 44], close: [[12.8, 1.3, 33.2], [11, .7, 30.2], 44], dusk: [[14, 1.9, 37], [9.5, .7, 30], 44],
           cfg: [[13.4, 1.7, 35.5], [9.8, .7, 30], 44]};
+// truck repair: a semi nosed out of bay one of a tall-bay shop; the hood tilts forward, then it drives out onto the lot
+K.semi = {hero: [[-14, 3.6, 24], [.5, 2.6, 2], 36], side: [[-11.5, 2.6, 4.8], [-2.6, 1.6, .4], 40], close: [[-7.6, 2.2, 3.6], [-2.8, 1.4, 1.3], 42],
+          dusk: [[-12, 2.4, 24], [2, 2.4, 5], 40], cfg: [[-10.5, 2.8, 15], [-1.2, 1.8, 2.5], 40]};
 K.roof = {hero: [[-11, 8, 27], [1.5, 4.6, 0], 40], close: [[-6, 9.5, 14], [0, 6.6, 0], 40], dusk: [[-11, 8, 27], [1.5, 4.6, 0], 40],
           cfg: [[-10, 7.6, 25], [1.5, 4.8, 0], 40]};
 
@@ -80,14 +83,14 @@ function makeRig(world, keys, HB) {
 
 // Auto shops: a two-bay garage with the shop's own name on the sign and a pickup that goes up on the lift.
 async function startAuto(HB) {
-  const body = HB.group === "body", keys = K[HB.group], {makeGarage} = await import("./garage.js");
+  const body = HB.group === "body", semi = HB.group === "semi", keys = K[HB.group], {makeGarage} = await import("./garage.js");
   const lot = (x, z) => (x > -7.2 && x < 11 && z > -11.5 && z < 6) || (z > -.6 && z < 30.6 && x > -30.4 && x < 34.4);
   const world = await makeWorld({
     cam: {pos: keys.hero[0], target: keys.hero[1], minD: 1, maxD: 400, minAz: -99, maxAz: 99, maxPolar: Math.PI * .62},
     tod: .3, ground: "lawn", grassR: 44, grassH: .15, grassW: .04, grassN: small ? .9 : 1.6, offset: false, fov: () => 36, exclude: lot,
   });
   const font = getComputedStyle(document.documentElement).getPropertyValue("--serif").split(",")[0].trim() || "sans-serif";
-  const G = await makeGarage(world, {sign: HB.name || (body ? "Auto Body" : "Auto Repair"), font, kind: body ? "body" : "auto"});
+  const G = await makeGarage(world, {sign: HB.name || (semi ? "Truck Repair" : body ? "Auto Body" : "Auto Repair"), font, kind: semi ? "truck" : body ? "body" : "auto"});
   const rig = makeRig(world, keys, HB), cur = body ? {lift: 0, wheels: 1, hood: 0, pos: 1, fix: 0} : {lift: 0, wheels: 1, hood: 0, pos: 0};
   let first = true;
   world.onTick.push((t, dt) => {
@@ -97,7 +100,7 @@ async function startAuto(HB) {
     const k = first || reduce ? 1 : Math.min(1, dt * 4.5); first = false;
     for (const n in cur) { const to = P[n] ?? cur[n]; cur[n] += (to - cur[n]) * k; if (Math.abs(to - cur[n]) < .002) cur[n] = to; }
     // the truck only leaves once it is back together and on the floor
-    const pos = cur.lift > .04 || cur.wheels < .96 ? 0 : cur.pos;
+    const pos = cur.lift > .04 || cur.wheels < .96 || (semi && cur.hood > .04) ? 0 : cur.pos;
     G.set({door: 1, door2: 0, lift: cur.lift, wheels: cur.wheels, hood: cur.hood, pos, color: P.color, fix: body ? cur.fix : undefined});
     rig(t, dt, s);
   });
@@ -169,7 +172,7 @@ async function startRoom(HB) {
 export async function start(HB) {
   if (HB.group === "clean" || HB.group === "office" || HB.group === "carpet") return startRoom(HB);
   if (STORE[HB.group]) return startStore(HB);
-  if (HB.group === "auto" || HB.group === "body") return startAuto(HB);
+  if (HB.group === "auto" || HB.group === "body" || HB.group === "semi") return startAuto(HB);
   const g = HB.group, keys = K[g];
   let house = null, tree = null;
   const world = await makeWorld({
