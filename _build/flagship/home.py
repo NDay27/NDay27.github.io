@@ -1334,3 +1334,88 @@ def renders(g):
             r("s3", 1200, 800, "wellc", .3, "well=.645"), r("s4", 1200, 800, "welld", .3, "well=1"),
             r("dusk", 1600, 1000, "welld", .84, "well=1"), r("mast", 1600, 1000, "wellw", .3, "well=.45"),
             r("water", 1600, 1000, "wellc", .3, "well=.64"), r("cap", 1600, 1000, "welld", .3, "well=1")]
+
+
+# ---------- Nov 22: mobile mechanics (yard.js mobileJob, lab mob=) ----------
+# Auto repair leads whose name says mobile move here from pick.py: the customer's pickup in the drive with the hood up,
+# the mechanic's truck parked nose to nose, fixed where it sits.
+_B87 = ("mobile",)
+GROUPS["mobile"] = dict(vs=["mobilemech"], drive=None, noun="mobile mechanic", truck="Mobile Mechanic")
+KGROUP["mobilemech"] = "mobile"; KIT_V.update(KGROUP)
+NAME_OUT["mobile"] = r"diesel|truck|semi|marine|\brv\b|small engine|mower|tires?\b|glass|detail|wash|tow|wrecker|road service"
+TRADE["mobilemech"] = "Mobile mechanic"; SCHEMA["mobilemech"] = "AutoRepair"; TRADE_LABEL["mobilemech"] = "Mobile Mechanic"
+V_NEW["mobilemech"] = dict(group="trades", noun="mechanic", h300=["Car won't start?", "Ask about it."], h750=["The mechanic", "comes to you."],
+                           h1250=["Stuck in the drive.", "Back on the road."],
+                           lede="A mobile mechanic in {town}. Tell us what the car is doing and where it's parked, and ask what it takes.",
+                           services=[("Repairs where it sits", "Ask about getting the car looked at where it's parked."), ("Won't start", "Ask about a car that won't start or keeps dying."),
+                                     ("Upkeep", "Ask about oil changes, brakes and other upkeep.")],
+                           jobs=["Won't start", "Warning light", "A noise", "Brakes", "Oil change", "Something else"],
+                           when=["As soon as possible", "Today", "This week", "Just getting a quote"], who="drivers", ask="What is the car doing?")
+THEME["mobile"] = _t("#1d2733", "#283444", "#f4f6f8", "#e6eaee", "#151d27", "#5b6673", "#d3dae1", "#d9452b", "#ef8a72", "#2f6fae", "#0e141b", "archivo", "dmsans")
+EXTRA_CSS["mobile"] = EXTRA_CSS["snow"]
+READY["mobile"] = "The year, make and model, what it's doing, and where the car is parked."
+COPY["mobile"] = dict(svc_h="What to ask about", svc_intro="Tell us what the car is doing and where it's parked. Not sure what it is? Ask anyway.",
+                      quote_h="Ask about your car", cta="Ask about your car", msg_ph=READY["mobile"],
+                      sheet=("A driveway in {town}", "Hood up to back on the road"), sheet_label="Line drawing of a two-storey farmhouse with a porch and a garage wing",
+                      shot=("mobile-after", "A blue pickup in a farmhouse driveway with the hood down, parked nose to nose with the mechanic's white truck",
+                            "Illustration. Your real job photos go here."))
+STEPS["mobile"] = [("Tell us what's going on", "What the car is doing and where it's parked."), ("Get a straight answer", "Ask what it takes and when the mechanic can come."),
+                   ("Ready to drive", "Hood down and ready to go.")]
+GLYPH["mobile"] = _G.format("M21 5a6 6 0 0 0-7 8L5 22l4 4 9-9a6 6 0 0 0 8-7l-4 4-4-1-1-4z", "currentColor") + _G.format("M6 29h20", "var(--pencil)")
+_J.update(svan='<path d="M4 38V20h26l8 8h12v10z"/><path d="M30 20v8h8"/><circle cx="14" cy="40" r="4"/><circle cx="40" cy="40" r="4"/><path d="M10 26h12"/>',
+          ckey='<circle cx="18" cy="28" r="9"/><circle cx="18" cy="28" r="3"/><path d="M27 28h21M42 28v7M48 28v5"/>',
+          oilcan='<path d="M10 22h22v20H10z"/><path d="M32 26l14-6v4l-14 10"/><path d="M16 22v-6h8v6"/><path d="M46 30c-1.5 3-2 4-2 5a2 2 0 0 0 4 0c0-1-.5-2-2-5z"/>')
+SVC_ICON.update({("mobile", "Repairs where it sits"): _J["svan"], ("mobile", "Won't start"): _J["ckey"], ("mobile", "Upkeep"): _J["oilcan"]})
+_HERO["mobile"] = ("mobile-before", "mobile-after", "A blue pickup in a farmhouse driveway with its hood propped up, and a white mechanic's truck parked nose to nose with it",
+                   "The same pickup with the hood down and the headlights on, ready to drive", "50% 50%")
+_SVC["mobile"] = [("mobile-work", "A mechanic leaning under the hood of a blue pickup in a driveway, a red tool chest and a work light beside him"),
+                  ("mobile-truck", "A white mechanic's truck parked nose to nose with a blue pickup in a driveway"),
+                  ("mobile-done", "A blue pickup in a farmhouse driveway with the hood down and the headlights on")]
+_STAGES["mobile"] = [("mobile-s1", "Before", "Won't start", "Stuck in the drive with the hood up."),
+                     ("mobile-s2", "On the way", "Tools out", "The mechanic pulls in, rolls the tool chest up and turns on the work light."),
+                     ("mobile-s3", "Under the hood", "Old parts out", "The old parts come out onto a mat by the wheel."),
+                     ("mobile-s4", "Done", "Running again", "Hood down, headlights on and ready to drive.")]
+VISIT["mobile"] = "From hood up to back on the road"
+TOOL["mobile"] = ("Car check", "What's the car doing?", "Pick what's going on, and know what to mention when you ask.",
+                  "What's going on?", [("start", "Won't start", "Mention what happens when you turn the key, and where the car is parked."),
+                                       ("light", "Warning light", "Mention which light and whether it's steady or flashing."),
+                                       ("noise", "A noise", "Mention when you hear it and where it seems to come from."),
+                                       ("upkeep", "Upkeep", "Ask about oil changes and other upkeep where the car is parked.")],
+                  "The year, make and model and where the car is parked help most.", "A quick guide, not a quote. The mechanic will tell you what it takes.")
+TOOLS["mobile"] = ("Text-the-shop button", f"Before-and-after slider and a {TOOL['mobile'][0].lower()}", "a live 3D driveway where you fix the pickup yourself")
+TRY["mobile"] = ("Tap a choice under \"Rather text than call?\" and watch the text write itself.",
+                 "Drag the slider on the top picture from hood up to running again, then try the car check.",
+                 "Scroll to watch the mechanic roll up, work under the hood and close it, then fix it yourself.")
+CAM.update(mobh=("-2,4.2,25.5", "9.7,.8,17.4", 38), mobc=("5.2,2,19.8", "9.4,.9,15.8", 42), mobd=("-3,4.5,27", "9.5,.8,17", 40))
+_beats1, _controls1, _renders1 = beats, controls, renders
+
+
+def beats(g):
+    if g not in _B87:
+        return _beats1(g)
+    s1, s2, s3, s4 = stages(g)
+    return [("hero", .3, {"fix": 0}, None, "mobile-before", None),
+            ("close", .3, {"fix": 0}, {"fix": .45}, "mobile-s2", ("01 · " + s2[1], s2[2], "Keep scrolling and watch the mechanic roll up and get to work.")),
+            ("close", .3, {"fix": .45}, {"fix": .8}, "mobile-s3", ("02 · " + s3[1], s3[2], s3[3])),
+            ("hero", .3, {"fix": .8}, {"fix": 1}, "mobile-after", ("03 · " + s4[1], s4[2], s4[3])),
+            ("dusk", .84, {"fix": 1}, None, "mobile-dusk", ("04 · Evening", "Headlights on", "Running again and ready for the drive in the morning.")),
+            ("cfg", .3, {}, None, "mobile-after", "cfg")]
+
+
+def controls(g):
+    if g == "mobile":
+        return ('<div class="ctl"><label for="u-fix">Fix the pickup <span>drag</span></label><input id="u-fix" type="range" min="0" max="100" value="100" data-set="fix"></div>'), "Your turn: fix it yourself", {"fix": 1, "tod": .3}
+    return _controls1(g)
+
+
+def renders(g):
+    if g not in _B87:
+        return _renders1(g)
+    def r(name, w, h, cam, tod, fx, ox=0):
+        c, t, f = CAM[cam]
+        return {"name": f"mobile-{name}", "w": w, "h": h, "q": f"p=1&truck=Mobile+Mechanic&tx=9.5&tz=22.2&tr=3.14159&mob={fx}&tod={tod}&cam={c}&tgt={t}&fov={f}" + (f"&ox={ox}" if ox else "")}
+    return [r("before", 2400, 1350, "mobh", .3, 0, .13), r("after", 2400, 1350, "mobh", .3, 1, .13),
+            r("s1", 1200, 800, "mobc", .3, 0), r("s2", 1200, 800, "mobc", .3, .22),
+            r("s3", 1200, 800, "mobc", .3, .55), r("s4", 1200, 800, "mobc", .3, 1),
+            r("dusk", 1600, 1000, "mobd", .84, 1), r("work", 1600, 1000, "mobc", .3, .5),
+            r("truck", 1600, 1000, "mobh", .3, .5), r("done", 1600, 1000, "mobc", .3, 1)]

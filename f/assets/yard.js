@@ -1213,3 +1213,66 @@ export function wellJob(world, {x = -11, z = 11.4} = {}) {
   set({fix: 0});
   return {root, set, exclude: (px, pz) => Math.hypot(px - x, pz - z) < 1.8};
 }
+
+// mobileJob(world): a mobile mechanic at the house. The customer's pickup sits in the drive, nose to the street, hood up and
+// won't start; the mechanic's own truck (workTruck, placed by the caller) parks nose to nose. set({fix}): the mechanic walks up
+// with a rolling tool chest (.04-.16), the work light comes on (.16-.22), the old battery and belt come out onto a mat (.4-.5),
+// the light goes off and the hood comes down (.72-.8), the headlights come on and a puff from the tailpipe (.82-.95), and the
+// chest and mat are packed up (.88-.98).
+export async function mobileJob(world, {x = 9.5, z = 13} = {}) {
+  const {makeTruck} = await import("./garage.js");
+  const root = new THREE.Group(); root.position.set(x, 0, z); world.scene.add(root);
+  const {mat, add, box, cyl, ss} = kit3(root, 71);
+  const car = makeTruck(world, {color: 0x1f4f8f, lights: true}); root.add(car.car);
+  // the mechanic: work shirt, dark pants, cap; stands at the front bumper facing the engine
+  const man = new THREE.Group(); root.add(man);
+  const skin = mat(0xc89270, .7), pants = mat(0x2b2f36, .9), shirt = mat(0x5d6b7a, .8), cap = mat(0x1d1f22, .6);
+  const legs = []; for (const sx of [-1, 1]) legs.push(cyl(.075, .07, .86, pants, sx * .1, .43, 0, man, 8));
+  const torso = new THREE.Group(); torso.position.set(0, .86, 0); man.add(torso);
+  box(.4, .58, .24, shirt, 0, .3, 0, torso); box(.4, .04, .25, mat(0x1a1b1d, .7), 0, .02, 0, torso);
+  for (const sx of [-1, 1]) { const a = cyl(.052, .05, .62, shirt, sx * .25, .32, .12, torso, 8); a.rotation.x = -.9; }
+  add(new THREE.SphereGeometry(.12, 14, 10), skin, 0, .72, 0, torso);
+  add(new THREE.SphereGeometry(.13, 14, 8, 0, Math.PI * 2, 0, Math.PI / 2), cap, 0, .75, 0, torso); box(.2, .02, .16, cap, 0, .76, .14, torso);
+  // rolling tool chest: red drawers, chrome pulls, casters
+  const chest = new THREE.Group(); root.add(chest);
+  const red = new THREE.MeshPhysicalMaterial({color: 0xb3241c, metalness: .3, roughness: .35, clearcoat: .6, envMapIntensity: .6}), chrome = mat(0xd8dde2, .25, .9), blk = mat(0x1a1b1d, .7);
+  box(.7, .78, .45, red, 0, .52, 0, chest); box(.72, .05, .47, blk, 0, .93, 0, chest);
+  for (let i = 0; i < 5; i++) { box(.66, .006, .01, blk, 0, .26 + i * .14, .226, chest); box(.3, .02, .03, chrome, 0, .33 + i * .14, .24, chest); }
+  for (const [cx, cz] of [[-.28, -.17], [.28, -.17], [-.28, .17], [.28, .17]]) cyl(.05, .05, .04, blk, cx, .06, cz, chest, 12).rotation.z = Math.PI / 2;
+  const hdl = box(.04, .04, .5, chrome, .38, .9, 0, chest); hdl.rotation.y = 0;
+  // work light on a stand, aimed at the engine bay
+  const lamp = new THREE.Group(); root.add(lamp); lamp.position.set(1.55, 0, 3.55);
+  for (let k = 0; k < 3; k++) { const l = cyl(.012, .012, .9, blk, Math.cos(k * 2.1) * .16, .42, Math.sin(k * 2.1) * .16, lamp, 6); l.rotation.set(-Math.sin(k * 2.1) * .35, 0, Math.cos(k * 2.1) * .35); }
+  cyl(.016, .016, .9, chrome, 0, 1.2, 0, lamp, 8);
+  const head = new THREE.Group(); head.position.set(0, 1.62, 0); head.rotation.set(-.55, -.75, 0); lamp.add(head);
+  box(.3, .22, .08, mat(0xe0b31a, .5, .2), 0, 0, 0, head);
+  const lampM = mat(0xfff6e0, .3, 0, {emissive: 0xfff2d6, emissiveIntensity: 0}); box(.26, .18, .01, lampM, 0, 0, -.045, head);
+  const beam = new THREE.SpotLight(0xfff2d6, 0, 7, .7, .6, 1.4); beam.position.set(0, 1.62, 0); lamp.add(beam); beam.target.position.set(-1.5, .6, -1.9); lamp.add(beam.target);
+  // a mat by the front wheel with the old battery and belt
+  const M = new THREE.Group(); root.add(M); M.position.set(-1.55, 0, 2.2);
+  const matt = box(.9, .012, 1.1, mat(0x2a2d31, .95), 0, .008, 0, M);
+  const old = new THREE.Group(); M.add(old);
+  box(.32, .22, .18, mat(0x222428, .6), .05, .13, -.2, old); box(.32, .02, .18, mat(0x3a3d42, .5), .05, .25, -.2, old);
+  cyl(.02, .02, .03, mat(0xc8261b, .5), -.06, .27, -.2, old, 8); cyl(.02, .02, .03, mat(0x1d1f22, .5), .16, .27, -.2, old, 8);
+  const belt = add(new THREE.TorusGeometry(.17, .012, 6, 28), mat(0x151617, .85), -.05, .02, .25, old); belt.rotation.x = Math.PI / 2; belt.scale.set(1, 1.6, 1);
+  // exhaust puff when it starts
+  const puffM = mat(0xd9dbde, 1, 0, {transparent: true, opacity: 0, depthWrite: false});
+  const puffs = [0, 1, 2].map(i => { const p = add(new THREE.SphereGeometry(.14, 12, 8), puffM, .5 + i * .05, .32 + i * .08, -2.85 - i * .22); p.castShadow = false; return p; });
+  let fixT = -1, lastSh = -1;
+  function set({fix = 0} = {}) {
+    if (fix === fixT) return; fixT = fix; const f = fix;
+    const walk = ss(.04, .16, f), pack = ss(.88, .98, f);
+    man.visible = f > .03 && f < .985; man.position.set(-.35 + pack * -1.6, 0, 3.75 + (1 - walk) * 9 + pack * 7); man.rotation.y = pack > 0 ? 0 : Math.PI;
+    torso.rotation.x = .38 * ss(.18, .26, f) * (1 - ss(.7, .76, f)); torso.position.z = -.1 * torso.rotation.x;
+    const stride = Math.sin(f * 220) * .35 * ((walk > 0 && walk < 1) || (pack > 0 && pack < 1) ? 1 : 0); legs[0].rotation.x = stride; legs[1].rotation.x = -stride;
+    chest.visible = man.visible; chest.position.set(-1.45 + pack * -1.2, 0, 4.15 + (1 - walk) * 9 + pack * 7); chest.rotation.y = .35;
+    lamp.visible = f > .12 && f < .88; const on = ss(.16, .22, f) * (1 - ss(.7, .74, f)); lampM.emissiveIntensity = 2.2 * on; beam.intensity = 9 * on;
+    M.visible = f > .3 && f < .9; old.visible = f > .44; old.scale.setScalar(.6 + .4 * ss(.4, .5, f));
+    const hood = 1 - ss(.72, .8, f), lights = f > .84;
+    car.set({hood, lights});
+    const pf = ss(.84, .97, f); puffM.opacity = .55 * Math.sin(Math.PI * pf); puffs.forEach((p, i) => { p.visible = pf > 0 && pf < 1; p.scale.setScalar(.6 + pf * (1.4 + i * .5)); p.position.y = .32 + i * .08 + pf * .35; });
+    if (Math.abs(f - lastSh) > .004 || ((f === 0 || f === 1) && f !== lastSh)) { lastSh = f; world.shadows(); }
+  }
+  set({fix: 0});
+  return {root, set, car, exclude: () => false};
+}

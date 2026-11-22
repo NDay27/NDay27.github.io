@@ -103,6 +103,11 @@ def candidates():
             if not re.search(NAME_OUT["stand"], s["name"].lower()):
                 out.append(("stand", dict(s, kv="dairystand")))
             continue
+        # an auto repair lead whose name says mobile gets the mobile mechanic driveway kit (its own variant, see home.V_NEW)
+        if g == "auto" and re.search(r"\bmobile\b", s["name"].lower()):
+            if not re.search(NAME_OUT["mobile"], s["name"].lower()):
+                out.append(("mobile", dict(s, kv="mobilemech")))
+            continue
         # a repair or brake shop whose name says alignment gets the auto garage with alignment copy (its own variant, see kit.V["alignment"])
         if g == "auto" and re.search(r"alignment", s["name"].lower()) and s["slug"] not in KEEP:
             if not re.search(NAME_OUT["auto"].replace("alignment|", ""), s["name"].lower()):

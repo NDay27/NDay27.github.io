@@ -9,7 +9,7 @@
 // Usage: lab.html?p=1&[drive=wash|concrete&fix=0..1&truck=Name&tc=hex&ink=hex]&tod=.55&cam=x,y,z&tgt=x,y,z&fov=30&siding=white&roof=black&trim=black&door=fir&porch=1
 import {makeWorld} from "../../harlow/assets/world.js";
 import {makeHouse} from "../../harlow/assets/house.js";
-import {lawn, yardTree, flatwork, workTruck, acUnit, yardLine, fixList, stumpGrind, towJob, mowerFix, weldGate, roofJob, elecJob, lockJob, fenceJob, snowJob, digJob, wellJob} from "../../f/assets/yard.js";
+import {lawn, yardTree, flatwork, workTruck, acUnit, yardLine, fixList, stumpGrind, towJob, mowerFix, weldGate, roofJob, elecJob, lockJob, fenceJob, snowJob, digJob, wellJob, mobileJob} from "../../f/assets/yard.js";
 const q = new URLSearchParams(location.search), num = (k, d) => q.has(k) ? +q.get(k) : d, vec = (k, d) => q.has(k) ? q.get(k).split(",").map(Number) : d;
 await document.fonts.load("700 40px Newsreader"); await document.fonts.load("700 40px 'Schibsted Grotesk'");
 let house, tree0 = null;
@@ -34,6 +34,7 @@ if (q.has("fence")) fenceJob(world).set({fix: num("fence", 0)});
 if (line) line.set({fix: num("pipe", num("stump", num("dig", num("well", 0))))});
 if (q.has("hm")) fixList(world).set({fix: num("hm", 0)});
 if (q.has("eng")) mowerFix(world).set({fix: num("eng", 0)});
+if (q.has("mob")) (await mobileJob(world)).set({fix: num("mob", 0)});
 if (q.has("weld")) weldGate(world).set({fix: num("weld", 0), t: .3});
 if (q.has("snow")) (await snowJob(world, house, {sign: q.get("truck") || "", font: "Schibsted Grotesk"})).set({fix: num("snow", 0), t: 2.5});
 else if (q.has("tow")) (await towJob(world, {sign: q.get("truck") || "", font: "Schibsted Grotesk"})).set({fix: num("tow", 0)});
