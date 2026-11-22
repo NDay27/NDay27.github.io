@@ -6929,5 +6929,91 @@
    "Google listing category (trade check)"
   ],
   "v": "antique"
+ },
+ {
+  "slug": "k-g-truck-repair-inc-goodfield",
+  "owner": "nolan",
+  "src": [
+   "Google listing category (trade check)"
+  ]
+ },
+ {
+  "slug": "morton-truck-trailer-repair-morton",
+  "owner": "nolan",
+  "src": [
+   "Google listing category (trade check)"
+  ]
+ },
+ {
+  "slug": "sangamon-diesel-services-springfield",
+  "owner": "nolan",
+  "src": [
+   "Google listing category (trade check)"
+  ]
+ },
+ {
+  "slug": "r-l-truck-repair-lincoln",
+  "owner": "nolan",
+  "src": [
+   "Google listing category (trade check)"
+  ]
+ },
+ {
+  "slug": "lk-repair-inc-carlock",
+  "owner": "nolan",
+  "src": [
+   "Google listing category (trade check)"
+  ],
+  "name": "LK Repair, Inc"
+ },
+ {
+  "slug": "county-line-diesel-service-llc-chillicothe",
+  "owner": "nolan",
+  "src": [
+   "Google listing category (trade check)"
+  ]
+ },
+ {
+  "slug": "puckett-s-mechanical-service-marion-in",
+  "owner": "nolan",
+  "src": [
+   "Google listing category (trade check)"
+  ]
+ },
+ {
+  "slug": "interstate-truck-trailer-repair-llc-rolla-mo",
+  "owner": "nolan",
+  "src": [
+   "Google listing category (trade check)"
+  ]
+ },
+ {
+  "slug": "palmer-truck-trailer-repair-salina-ks",
+  "owner": "nolan",
+  "src": [
+   "Google listing category (trade check)"
+  ]
+ },
+ {
+  "slug": "sellen-repair-springfield-mi",
+  "owner": "nolan",
+  "src": [
+   "Google listing category (trade check)"
+  ]
+ },
+ {
+  "slug": "lea-s-truck-service-llc-sedalia-mo",
+  "owner": "nolan",
+  "src": [
+   "Google listing category (trade check)"
+  ],
+  "name": "Lea's Truck Service LLC"
+ },
+ {
+  "slug": "jw-repairs-llc-findlay-oh",
+  "owner": "nolan",
+  "src": [
+   "Google listing category (trade check)"
+  ]
  }
 ]

@@ -1921,5 +1921,83 @@
   "w": 1600,
   "h": 1000,
   "q": "kind=antique&sign=Antiques&word=Antiques&tod=0.14&cam=0,1.6,5.5&tgt=0,1.5,-2&fov=40&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "semi-before",
+  "lab": "labauto",
+  "w": 2400,
+  "h": 1350,
+  "q": "kind=truck&sign=Truck+Repair&tod=0.3&cam=-14,3.6,24&tgt=.5,2.6,2&fov=36&hood=1&ox=0.13"
+ },
+ {
+  "name": "semi-after",
+  "lab": "labauto",
+  "w": 2400,
+  "h": 1350,
+  "q": "kind=truck&sign=Truck+Repair&tod=0.3&cam=-14,3.6,24&tgt=.5,2.6,2&fov=36&pos=1&ox=0.13"
+ },
+ {
+  "name": "semi-s1",
+  "lab": "labauto",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=truck&sign=Truck+Repair&tod=0.3&cam=-11.5,2.6,4.8&tgt=-2.6,1.6,.4&fov=40&hood=0"
+ },
+ {
+  "name": "semi-s2",
+  "lab": "labauto",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=truck&sign=Truck+Repair&tod=0.3&cam=-11.5,2.6,4.8&tgt=-2.6,1.6,.4&fov=40&hood=.55"
+ },
+ {
+  "name": "semi-s3",
+  "lab": "labauto",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=truck&sign=Truck+Repair&tod=0.3&cam=-7.6,2.2,3.6&tgt=-2.8,1.4,1.3&fov=42&hood=1"
+ },
+ {
+  "name": "semi-s4",
+  "lab": "labauto",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=truck&sign=Truck+Repair&tod=0.3&cam=-14,3.6,24&tgt=.5,2.6,2&fov=36&pos=1"
+ },
+ {
+  "name": "semi-dusk",
+  "lab": "labauto",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=truck&sign=Truck+Repair&tod=0.84&cam=-12,2.4,24&tgt=2,2.4,5&fov=40&pos=1"
+ },
+ {
+  "name": "semi-close",
+  "lab": "labauto",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=truck&sign=Truck+Repair&tod=0.3&cam=-7.6,2.2,3.6&tgt=-2.8,1.4,1.3&fov=42&hood=1"
+ },
+ {
+  "name": "semi-side",
+  "lab": "labauto",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=truck&sign=Truck+Repair&tod=0.3&cam=-11.5,2.6,4.8&tgt=-2.6,1.6,.4&fov=40&hood=1"
+ },
+ {
+  "name": "semi-front",
+  "lab": "labauto",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=truck&sign=Truck+Repair&tod=0.3&cam=-12,2.4,24&tgt=2,2.4,5&fov=40&pos=1"
+ },
+ {
+  "name": "semi-elev",
+  "lab": "labauto",
+  "w": 1600,
+  "h": 900,
+  "q": "kind=truck&sign=Truck+Repair&tod=.3&cam=-8,3.4,28&tgt=1.6,3.0,0&fov=31&hood=1&second=0",
+  "svg": true
  }
 ]

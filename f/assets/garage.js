@@ -6,8 +6,8 @@ import {THREE, TEX, leafCard, signTexture, mix, clamp} from "../../harlow/assets
 import {toCreasedNormals} from "three/addons/utils/BufferGeometryUtils.js";
 
 const smooth = (a, b, x) => { const t = clamp((x - a) / (b - a)); return t * t * (3 - 2 * t); };
-const BAY = {x: -2.6, z: -4.7};          // lift centre (bay 1)
-const OUT = {x: -1.2, z: 9.4, yaw: -.62}; // parked out front, nose toward the camera
+const BAY1 = {x: -2.6, z: -4.7};          // lift centre (bay 1)
+const OUT1 = {x: -1.2, z: 9.4, yaw: -.62}; // parked out front, nose toward the camera
 export const PAINT = {red: 0xb3241c, white: 0xe9e9e4, blue: 0x1f4f8f, black: 0x16181b, silver: 0xa9afb5, green: 0x2f5a44};
 
 // scrapes and crumples for the body-shop overlay (u runs tail to nose, v bottom to top of the side panels)
@@ -201,7 +201,9 @@ export function makeTruck(world, {color = PAINT.red, lights = true} = {}) {
 // ---------- the shop ----------
 export async function makeGarage(world, {sign = "Auto Repair", color = PAINT.red, second = true, font = "Archivo", kind = "auto"} = {}) {
   const {scene} = world, root = new THREE.Group(); scene.add(root);
-  const X0 = -5.4, X1 = 9.2, D = 10.5, H = 5.1, BW = 3.7, BH = 3.55, B2 = 1.9; // bay 2 centre
+  // truck shops: taller walls and wider, taller bay doors so a semi tractor fits; the office end stays the same
+  const T = kind === "truck", X0 = -5.4, X1 = 9.2, D = 10.5, H = T ? 6.7 : 5.1, BW = T ? 4.2 : 3.7, BH = T ? 4.9 : 3.55, B2 = T ? 1.75 : 1.9; // bay 2 centre
+  const BAY = T ? {x: -2.85, z: -.5} : BAY1, OUT = T ? {x: -1.8, z: 11.2, yaw: .12} : OUT1;
   const brickT = TEX.brick([1, 1], [142, 66, 50]), concT = TEX.concrete([1, 1]), asphT = TEX.asphalt([10, 5]), floorT = TEX.concrete([3, 2]);
   const brick = new THREE.MeshStandardMaterial({...brickT, envMapIntensity: .5});
   const cope = new THREE.MeshStandardMaterial({color: 0x23272c, metalness: .6, roughness: .5, envMapIntensity: .8});
@@ -252,7 +254,7 @@ export async function makeGarage(world, {sign = "Auto Repair", color = PAINT.red
   box(.1, H - .2, D - .6, inner, X0 + .4, H / 2, -D / 2).castShadow = false; box(.14, H - .2, D - .6, inner, 4.3, H / 2, -D / 2).castShadow = false;
   box(X1 - X0 - .7, .08, D - .6, inner, (X0 + X1) / 2, H - .1, -D / 2).castShadow = false;
   // a stripe of safety yellow on the floor, tool chest, bench, shelves, tyres
-  for (const s of [1, -1]) { const m = add(new THREE.PlaneGeometry(.1, 6.6), yellow, BAY.x + s * 1.75, .075, -4.2); m.rotation.x = -Math.PI / 2; m.castShadow = false; }
+  for (const s of [1, -1]) { const m = add(new THREE.PlaneGeometry(.1, 6.6), yellow, BAY.x + s * (T ? 1.95 : 1.75), .075, -4.2); m.rotation.x = -Math.PI / 2; m.castShadow = false; }
   const chest = new THREE.Group(); chest.position.set(-.35, 0, -D + .85); root.add(chest);
   box(1.5, .95, .55, redBox, 0, .58, 0, chest); box(1.4, .5, .5, redBox, 0, 1.32, 0, chest); box(1.5, .04, .57, steel, 0, 1.07, 0, chest);
   for (let i = 0; i < 4; i++) box(1.36, .02, .02, steel, 0, .28 + i * .2, .285, chest); for (let i = 0; i < 2; i++) box(1.26, .02, .02, steel, 0, 1.22 + i * .2, .26, chest);
@@ -272,9 +274,9 @@ export async function makeGarage(world, {sign = "Auto Repair", color = PAINT.red
   world.lamp(BAY.x, 3.6, -1.6, 0xffe2b8, .9, 12); world.lamp(6.6, 2.4, -2.2, 0xffc98a, .7, 9);
 
   // two-post lift in bay 1
-  const lift = new THREE.Group(); lift.position.set(BAY.x, 0, BAY.z); root.add(lift);
+  const lift = new THREE.Group(); lift.position.set(BAY.x, 0, BAY.z); root.add(lift); lift.visible = !T;
   const carr = [];
-  for (const s of [1, -1]) {
+  if (!T) for (const s of [1, -1]) {
     box(.26, 3.75, .34, liftC, s * 1.5, 1.95, 0, lift, "porch"); box(.6, .05, .7, liftC, s * 1.5, .1, 0, lift, "porch");
     const c = new THREE.Group(); lift.add(c); carr.push(c);
     box(.34, .5, .42, liftC, s * 1.5, 0, 0, c);
@@ -282,7 +284,7 @@ export async function makeGarage(world, {sign = "Auto Repair", color = PAINT.red
       arm.position.copy(A).add(B).multiplyScalar(.5); arm.rotation.set(0, Math.atan2(B.x - A.x, B.z - A.z), 0);
       add(new THREE.CylinderGeometry(.09, .09, .06, 14), dark, B.x, -.13, B.z, c); }
   }
-  box(3.26, .18, .2, liftC, 0, 3.82, 0, lift, "porch");
+  if (!T) box(3.26, .18, .2, liftC, 0, 3.82, 0, lift, "porch");
 
   // bay doors: sectional, glass in the top rows
   const doors = [BAY.x, B2].map(c => { const g = new THREE.Group(); g.position.set(c, 0, -.3); root.add(g); const rows = 5, ph = BH / rows, P = [];
@@ -334,8 +336,18 @@ export async function makeGarage(world, {sign = "Auto Repair", color = PAINT.red
   }
 
   // the truck, and a second one parked by the office so the lot isn't empty
-  const truck = makeTruck(world, {color}); root.add(truck.car);
-  if (second) { const t2 = makeTruck(world, {color: PAINT.white, lights: false}); t2.car.position.set(15.9, 0, 9.2); t2.car.rotation.y = Math.PI; root.add(t2.car); }
+  const truck = T ? (await import("./semi.js")).makeSemi(world, {color}) : makeTruck(world, {color}); root.add(truck.car);
+  if (second && !T) { const t2 = makeTruck(world, {color: PAINT.white, lights: false}); t2.car.position.set(15.9, 0, 9.2); t2.car.rotation.y = Math.PI; root.add(t2.car); }
+  if (second && T) { const tr = (await import("./semi.js")).makeTrailer(world); tr.position.set(17.5, 0, 9.6); tr.rotation.y = Math.PI / 2 - .08; root.add(tr); }
+  // truck shops: a rolling tool cart and a work light on a stand beside the tilted hood
+  let workLight = null;
+  if (T) { const cart = new THREE.Group(); cart.position.set(.2, 0, 3.6); cart.rotation.y = -.6; root.add(cart);
+    box(.95, .85, .5, redBox, 0, .55, 0, cart); box(.97, .04, .52, steel, 0, 1.0, 0, cart); for (let i = 0; i < 4; i++) box(.85, .02, .02, steel, 0, .3 + i * .18, .26, cart);
+    for (const [x, z] of [[-.4, -.2], [.4, -.2], [-.4, .2], [.4, .2]]) add(new THREE.SphereGeometry(.05, 10, 8), dark, x, .05, z, cart);
+    const st = new THREE.Group(); st.position.set(-.55, 0, 1.6); root.add(st); add(new THREE.CylinderGeometry(.02, .02, 1.9, 8), steel, 0, .95, 0, st);
+    for (let k = 0; k < 3; k++) { const l = add(new THREE.CylinderGeometry(.012, .012, .5, 6), steel, Math.cos(k * 2.1) * .18, .12, Math.sin(k * 2.1) * .18, st); l.rotation.set(Math.sin(k * 2.1) * .9, 0, -Math.cos(k * 2.1) * .9); }
+    const head = world.glowMat(0xfff4dc, 1.6); box(.36, .26, .1, dark, 0, 1.95, 0, st).rotation.y = .9; const face = box(.3, .2, .02, head, .04, 1.95, .05, st); face.rotation.y = .9; st.rotation.y = -1.6;
+    workLight = new THREE.PointLight(0xfff1dc, 0, 7, 1.6); workLight.position.set(-.9, 1.9, 1.6); workLight.userData.st = st; root.add(workLight); }
 
   const S = {door: -1, door2: -1, lift: -1, hood: -1, wheels: -1, pos: -1, key: ""};
   function set({door = 1, door2 = 0, lift: lf = 0, hood = 0, wheels = 1, pos = 0, color: col, lights, fix} = {}) {
@@ -348,6 +360,7 @@ export async function makeGarage(world, {sign = "Auto Repair", color = PAINT.red
     const p = clamp(pos), a = smooth(0, .55, p), b = smooth(.4, 1, p);
     truck.car.position.x = mix(BAY.x, OUT.x, b); truck.car.position.z = mix(BAY.z, mix(3.2, OUT.z, b), a); truck.car.rotation.y = OUT.yaw * b;
     truck.set({hood, wheels, y: p > .001 ? 0 : y, lights: lights ?? p > .5, fix});
+    if (workLight) { workLight.intensity = 9 * clamp(hood) * (1 - smooth(0, .2, p)); workLight.userData.st.visible = hood > .05 && p < .1; }
     world.shadows();
   }
   set();

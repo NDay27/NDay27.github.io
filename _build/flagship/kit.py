@@ -263,6 +263,8 @@ def elevation(g, s=None):
     if g in STORES:
         svg = open(os.path.join(HERE, "elev-store.svg")).read()
         return sign_text(svg, s["short"] if s else store.GROUPS[g]["sign"])
+    if g == "semi":
+        return sign_text(open(os.path.join(HERE, "elev-semi.svg")).read(), s["short"] if s else "Truck Repair")
     if g in SHOPS:
         svg = open(os.path.join(HERE, "elev-auto.svg")).read()
         if g == "body":
@@ -381,6 +383,7 @@ for _v, _o in store.OVERRIDE.items():
     V[_v].update(_o)
 STORES = tuple(store.GROUPS)
 SHOPS = SHOPS + STORES
+SHOPS = SHOPS + ("semi",)  # truck repair: a shop trucks drive to, told on the tall-bay garage
 KIT_V_EXTRA = dict(store.KIT_V)
 NAME_OUT_EXTRA = dict(store.NAME_OUT)
 V.update(store.V_NEW)

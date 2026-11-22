@@ -3,6 +3,7 @@
 
   python3 _build/flagship/elevauto.py RENDER_DIR      -> _build/flagship/elev-auto.svg
   python3 _build/flagship/elevauto.py RENDER_DIR store -> _build/flagship/elev-store.svg (dump store-elev, from labstore)
+  python3 _build/flagship/elevauto.py RENDER_DIR semi  -> _build/flagship/elev-semi.svg (dump semi-elev, labauto kind=truck)
 """
 import json
 import os
@@ -16,7 +17,7 @@ OUT_W = 1352
 SW = 2.1
 
 
-NOTE = {"auto": "Bay 1: up on the lift", "store": "Awning out, door open"}
+NOTE = {"auto": "Bay 1: up on the lift", "store": "Awning out, door open", "semi": "Bay 1: hood tilted, engine open"}
 
 
 def clip(s, x0, y0, x1, y1):
