@@ -52,7 +52,13 @@ KEEP = {"buck-s-tree-service-landscaping-peoria",
         # cleaners / salvage word is extra work, the kit story still fits
         "gonzalez-landscaping-and-tree-service-memphis-tn", "above-n-beyond-landscaping-n-handyman-services-ogden-ut",
         "yong-s-alterations-cleaners-arvada-co", "john-s-small-engine-repair-salvage-reeds-mo",
-        "stone-hill-landscaping-bloomington", "bb-s-salon-barbershop-belpre-oh"}
+        "stone-hill-landscaping-bloomington", "bb-s-salon-barbershop-belpre-oh",
+        # Nov 22: Google lists these as car repair shops / mechanics, a muffler shop, tree services and painters; the tire / cycle / custom /
+        # property improvements / handyman / construction / sandblasting word is extra work, the kit story still fits
+        "twin-city-tire-service-bloomington", "city-tire-kokomo-in", "chicago-tire-sioux-city-ia", "northside-cycle-auto-llc-richmond-in",
+        "carmichael-exhaust-custom-terre-haute-in", "gfactor-property-improvements-peoria", "carmelo-duarte-handyman-kewanee",
+        "tri-county-painting-sndblstg-pekin", "defiant-construction-maintenance-llc-macomb",
+        "alpha-and-omega-painting-and-construction-jesus-is-our-foundation-jackson-mi"}
 
 
 def candidates():
