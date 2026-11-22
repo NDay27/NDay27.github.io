@@ -2,7 +2,7 @@
 // t1250.js turns scroll into a state (camera keys, light, trade values); this file draws it on the Harlow engine.
 import {makeWorld, reduce, small} from "../../harlow/assets/world.js";
 import {makeHouse} from "../../harlow/assets/house.js";
-import {lawn, yardTree, flatwork, workTruck, acUnit, yardLine, fixList, stumpGrind, towJob, mowerFix, weldGate, roofJob, elecJob, lockJob, fenceJob} from "./yard.js";
+import {lawn, yardTree, flatwork, workTruck, acUnit, yardLine, fixList, stumpGrind, towJob, mowerFix, weldGate, roofJob, elecJob, lockJob, fenceJob, snowJob} from "./yard.js";
 
 // camera keys: position, target, field of view (desktop)
 const K = {
@@ -47,7 +47,7 @@ K.tow = {hero: [[3, 2.4, 48], [-3.5, 1.2, 35.4], 44], close: [[-12, 2.2, 45], [-
 // small engine repair: a riding mower that won't run in the drive, fixed and driven onto the lawn
 K.engine = {hero: [[14.5, 2.4, 30], [7.6, .5, 22], 40], close: [[13.5, 1.8, 26.5], [9.5, .5, 22], 42], dusk: [[14.5, 2.4, 30], [7.6, .5, 22], 40],
             cfg: [[13, 2.2, 29], [7.5, .5, 21.5], 42]};
-const HOME = {wash: "wash", concrete: "concrete", hvac: "ac", plumb: "pipe", handy: "list", stump: "stump", tow: "tow", engine: "engine", weld: "weld", roof: "roof", elec: "elec", lock: "lock", fence: "fence"};
+const HOME = {wash: "wash", concrete: "concrete", hvac: "ac", plumb: "pipe", handy: "list", stump: "stump", tow: "tow", engine: "engine", weld: "weld", roof: "roof", elec: "elec", lock: "lock", fence: "fence", snow: "snow"};
 // welding: a rusted, sagging double gate at the end of the drive, welded, painted and hung true
 K.weld = {hero: [[14, 1.9, 37], [9.5, .7, 30], 44], close: [[12.8, 1.3, 33.2], [11, .7, 30.2], 44], dusk: [[14, 1.9, 37], [9.5, .7, 30], 44],
           cfg: [[13.4, 1.7, 35.5], [9.8, .7, 30], 44]};
@@ -66,6 +66,9 @@ K.lock = {hero: [[-6, 2.4, 15], [0, 2.2, 4], 36], close: [[-.9, 1.7, 7.4], [.3, 
 // fence: the side yard left of the house; the old grey fence comes out and a cedar privacy fence goes up
 K.fence = {hero: [[-14, 2.0, 16], [-11.2, 1.1, 5.8], 40], close: [[-9.6, 1.5, 10.5], [-11.6, 1.0, 5.8], 42], dusk: [[-16, 2.6, 22], [-9, 1.6, 4], 40],
            cfg: [[-13, 2.1, 15], [-10.8, 1.0, 5.8], 40]};
+// snow removal: the morning after a snowfall; the plow clears the drive, then the path and the front walk are shoveled and salted
+K.snow = {hero: [[-6, 3.5, 32], [6, 1.2, 10], 40], close: [[1.5, 3.2, 27], [10, .6, 14], 42], walk: [[-3.5, 1.8, 18], [1.5, .4, 11], 40],
+          dusk: [[-12, 4.5, 38], [4, 1.5, 6], 40], cfg: [[-5, 3.4, 30], [6, 1.2, 10], 40]};
 K.roof = {hero: [[-11, 8, 27], [1.5, 4.6, 0], 40], close: [[-6, 9.5, 14], [0, 6.6, 0], 40], dusk: [[-11, 8, 27], [1.5, 4.6, 0], 40],
           cfg: [[-10, 7.6, 25], [1.5, 4.8, 0], 40]};
 
@@ -192,7 +195,7 @@ export async function start(HB) {
   let house = null, tree = null;
   const world = await makeWorld({
     cam: {pos: keys.hero[0], target: keys.hero[1], minD: 1, maxD: 400, minAz: -99, maxAz: 99, maxPolar: Math.PI * .62},
-    tod: .56, ground: "lawn", grassR: 34, grassH: .15, grassW: .04, grassN: small ? 1.5 : 2.6, offset: false, fov: () => 36,
+    tod: .56, ground: g === "snow" ? "snow" : "lawn", grassR: 34, grassH: .15, grassW: .04, grassN: small ? 1.5 : 2.6, offset: false, fov: () => 36,
     exclude: (x, z) => (house ? house.exclude(x, z) : false) || (tree ? tree.exclude(x, z) : false),
   });
   const {THREE, cam, ctl} = world;
@@ -210,8 +213,8 @@ export async function start(HB) {
   let drive = null; const hcur = {fix: 0, house: 0}, GRIME = {siding: new THREE.Color(0xa9a68f), trim: new THREE.Color(0x6f6d60)}, CLEAN = {};
   if (HOME[g]) {
     const font = getComputedStyle(document.documentElement).getPropertyValue("--serif").split(",")[0].trim() || "sans-serif";
-    drive = HOME[g] === "tow" ? await towJob(world, {sign: HB.name || "", font}) : HOME[g] === "engine" ? mowerFix(world) : HOME[g] === "weld" ? weldGate(world) : HOME[g] === "roof" ? roofJob(world, house) : HOME[g] === "elec" ? elecJob(world, house) : HOME[g] === "lock" ? lockJob(world, house) : HOME[g] === "fence" ? fenceJob(world) : HOME[g] === "ac" ? acUnit(world) : HOME[g] === "list" ? fixList(world) : line || flatwork(world, {kind: HOME[g]});
-    if (!["tow", "engine", "weld"].includes(HOME[g])) await workTruck(world, {sign: HB.name || "", font, x: {ac: -11, pipe: -6, list: 1.5}[HOME[g]] ?? -1.5, z: 35.4, ry: Math.PI / 2});
+    drive = HOME[g] === "tow" ? await towJob(world, {sign: HB.name || "", font}) : HOME[g] === "engine" ? mowerFix(world) : HOME[g] === "weld" ? weldGate(world) : HOME[g] === "roof" ? roofJob(world, house) : HOME[g] === "elec" ? elecJob(world, house) : HOME[g] === "lock" ? lockJob(world, house) : HOME[g] === "fence" ? fenceJob(world) : HOME[g] === "snow" ? await snowJob(world, house, {sign: HB.name || "", font}) : HOME[g] === "ac" ? acUnit(world) : HOME[g] === "list" ? fixList(world) : line || flatwork(world, {kind: HOME[g]});
+    if (!["tow", "engine", "weld", "snow"].includes(HOME[g])) await workTruck(world, {sign: HB.name || "", font, x: {ac: -11, pipe: -6, list: 1.5}[HOME[g]] ?? -1.5, z: 35.4, ry: Math.PI / 2});
     CLEAN.siding = house.M.siding.color.clone(); CLEAN.trim = house.M.trim.color.clone();
   }
   let hfirst = true;

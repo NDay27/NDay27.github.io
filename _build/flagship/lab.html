@@ -9,11 +9,11 @@
 // Usage: lab.html?p=1&[drive=wash|concrete&fix=0..1&truck=Name&tc=hex&ink=hex]&tod=.55&cam=x,y,z&tgt=x,y,z&fov=30&siding=white&roof=black&trim=black&door=fir&porch=1
 import {makeWorld} from "../../harlow/assets/world.js";
 import {makeHouse} from "../../harlow/assets/house.js";
-import {lawn, yardTree, flatwork, workTruck, acUnit, yardLine, fixList, stumpGrind, towJob, mowerFix, weldGate, roofJob, elecJob, lockJob, fenceJob} from "../../f/assets/yard.js";
+import {lawn, yardTree, flatwork, workTruck, acUnit, yardLine, fixList, stumpGrind, towJob, mowerFix, weldGate, roofJob, elecJob, lockJob, fenceJob, snowJob} from "../../f/assets/yard.js";
 const q = new URLSearchParams(location.search), num = (k, d) => q.has(k) ? +q.get(k) : d, vec = (k, d) => q.has(k) ? q.get(k).split(",").map(Number) : d;
 await document.fonts.load("700 40px Newsreader"); await document.fonts.load("700 40px 'Schibsted Grotesk'");
 let house, tree0 = null;
-const world = await makeWorld({cam: {pos: vec("cam", [-14, 7, 26]), target: vec("tgt", [2, 3.6, 0]), minD: 1, maxD: 200, minAz: -9, maxAz: 9, maxPolar: Math.PI * .6}, offset: false, fov: () => num("fov", 30), tod: num("tod", .5), ground: "lawn", grassR: 34, grassH: .15, grassW: .04, grassN: 2.6,
+const world = await makeWorld({cam: {pos: vec("cam", [-14, 7, 26]), target: vec("tgt", [2, 3.6, 0]), minD: 1, maxD: 200, minAz: -9, maxAz: 9, maxPolar: Math.PI * .6}, offset: false, fov: () => num("fov", 30), tod: num("tod", .5), ground: q.has("snow") ? "snow" : "lawn", grassR: 34, grassH: .15, grassW: .04, grassN: 2.6,
   exclude: (x, z) => (house ? house.exclude(x, z) : false) || (tree0 ? tree0.exclude(x, z) : false)});
 house = makeHouse(world);
 const line = q.has("pipe") ? yardLine(world) : q.has("stump") ? stumpGrind(world) : null;
@@ -35,7 +35,8 @@ if (line) line.set({fix: num("pipe", num("stump", 0))});
 if (q.has("hm")) fixList(world).set({fix: num("hm", 0)});
 if (q.has("eng")) mowerFix(world).set({fix: num("eng", 0)});
 if (q.has("weld")) weldGate(world).set({fix: num("weld", 0), t: .3});
-if (q.has("tow")) (await towJob(world, {sign: q.get("truck") || "", font: "Schibsted Grotesk"})).set({fix: num("tow", 0)});
+if (q.has("snow")) (await snowJob(world, house, {sign: q.get("truck") || "", font: "Schibsted Grotesk"})).set({fix: num("snow", 0), t: 2.5});
+else if (q.has("tow")) (await towJob(world, {sign: q.get("truck") || "", font: "Schibsted Grotesk"})).set({fix: num("tow", 0)});
 else if (q.has("truck")) await workTruck(world, {sign: q.get("truck"), x: num("tx", 9.5), z: num("tz", 21.5), ry: num("tr", 0), font: "Schibsted Grotesk", color: q.has("tc") ? parseInt(q.get("tc"), 16) : undefined, ink: q.get("ink") ? "#" + q.get("ink") : undefined});
 world.ctl.autoRotate = false; world.ctl.enableDamping = false; world.setQuality(2);
 world.size(); world.setTodNow(num("tod", .5));
