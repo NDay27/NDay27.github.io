@@ -7083,5 +7083,35 @@
   "trade": "Tattoo shop",
   "src": "Google listing category",
   "on": "2026-11-22"
+ },
+ "king-landscaping-construction-pekin": {
+  "v": "landscape",
+  "trade": "Landscape designer",
+  "src": "Google listing category",
+  "on": "2026-11-22"
+ },
+ "jorgenson-lock-safe-savage-mn": {
+  "v": "locksmith",
+  "trade": "Locksmith",
+  "src": "Google listing category",
+  "on": "2026-11-22"
+ },
+ "area-wide-security-savage-mn": {
+  "v": "locksmith",
+  "trade": "Locksmith",
+  "src": "Google listing category",
+  "on": "2026-11-22"
+ },
+ "all-day-appliance-services-lula-ga": {
+  "v": "appliance",
+  "trade": "Appliance repair service",
+  "src": "Google listing category",
+  "on": "2026-11-22"
+ },
+ "c-j-buckeye-appliance-repair-girard-oh": {
+  "v": "appliance",
+  "trade": "Appliance repair service",
+  "src": "Google listing category",
+  "on": "2026-11-22"
  }
 }

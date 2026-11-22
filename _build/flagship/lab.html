@@ -9,7 +9,7 @@
 // Usage: lab.html?p=1&[drive=wash|concrete&fix=0..1&truck=Name&tc=hex&ink=hex]&tod=.55&cam=x,y,z&tgt=x,y,z&fov=30&siding=white&roof=black&trim=black&door=fir&porch=1
 import {makeWorld} from "../../harlow/assets/world.js";
 import {makeHouse} from "../../harlow/assets/house.js";
-import {lawn, yardTree, flatwork, workTruck, acUnit, yardLine, fixList, stumpGrind, towJob, mowerFix, weldGate, roofJob, elecJob} from "../../f/assets/yard.js";
+import {lawn, yardTree, flatwork, workTruck, acUnit, yardLine, fixList, stumpGrind, towJob, mowerFix, weldGate, roofJob, elecJob, lockJob} from "../../f/assets/yard.js";
 const q = new URLSearchParams(location.search), num = (k, d) => q.has(k) ? +q.get(k) : d, vec = (k, d) => q.has(k) ? q.get(k).split(",").map(Number) : d;
 await document.fonts.load("700 40px Newsreader"); await document.fonts.load("700 40px 'Schibsted Grotesk'");
 let house, tree0 = null;
@@ -29,6 +29,7 @@ house.setProgress(num("p", 1));
 if (q.has("drive")) flatwork(world, {kind: q.get("drive")}).set({fix: num("fix", 0)});
 if (q.has("ac")) acUnit(world).set({fix: num("ac", 0)});
 if (q.has("elec")) elecJob(world, house).set({fix: num("elec", 0)});
+if (q.has("lock")) lockJob(world, house).set({fix: num("lock", 0)});
 if (line) line.set({fix: num("pipe", num("stump", 0))});
 if (q.has("hm")) fixList(world).set({fix: num("hm", 0)});
 if (q.has("eng")) mowerFix(world).set({fix: num("eng", 0)});

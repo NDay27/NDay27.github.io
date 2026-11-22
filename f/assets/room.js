@@ -12,6 +12,7 @@ function canvasTex(w, h, draw) {
 
 export function makeRoom(world, {card = "Cleaned with care", font = "sans-serif", kind = "home"} = {}) {
   const office = kind === "office", floor = kind === "floor", carpet = kind === "carpet" || floor;   // floor: old carpet out, subfloor, new hardwood
+  const appl = kind === "appl";   // appliance repair: a kitchen with the dishwasher pulled out and leaking, fixed and running again
   const root = new THREE.Group(); root.position.y = .03; world.scene.add(root);   // just above the world's ground disc
   world.R.localClippingEnabled = true;   // the dust and the fresh floor lines are swept by clip planes
   let seed = 23; const r = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
@@ -29,7 +30,12 @@ export function makeRoom(world, {card = "Cleaned with care", font = "sans-serif"
   const plushT = carpet ? canvasTex(512, 512, (g, w, h) => { g.fillStyle = floor ? "#a99a82" : "#c9bca8"; g.fillRect(0, 0, w, h);
     for (let i = 0; i < 26000; i++) { const v = r(); g.fillStyle = v < .5 ? `rgba(120,104,84,${.08 + r() * .14})` : `rgba(240,232,218,${.08 + r() * .14})`; g.fillRect(r() * w, r() * h, 1 + r() * 2, 1 + r() * 2); } }) : null;
   if (plushT) { plushT.wrapS = plushT.wrapT = THREE.RepeatWrapping; plushT.repeat.set(4, 4.4); }
-  const floorM = office ? std(0xffffff, 1, {map: carpetT, envMapIntensity: .3}) : carpet && !floor ? std(0xffffff, 1, {map: plushT, envMapIntensity: .25}) : new THREE.MeshStandardMaterial({...TEX.wood([4, 5]), roughness: 1, envMapIntensity: .9});
+  // big porcelain tiles for the kitchen
+  const tileT = appl ? canvasTex(512, 512, (g, w, h) => { for (let i = 0; i < 2; i++) for (let j = 0; j < 2; j++) { const v = 214 + ((i + j) % 2) * 6; g.fillStyle = `rgb(${v},${v - 4},${v - 12})`; g.fillRect(i * 256, j * 256, 256, 256); }
+    for (let i = 0; i < 5000; i++) { g.fillStyle = r() < .5 ? "rgba(120,110,96,.08)" : "rgba(255,255,255,.12)"; g.fillRect(r() * w, r() * h, 2 + r() * 3, 2); }
+    g.fillStyle = "rgba(120,112,100,.55)"; for (let k = 0; k <= 2; k++) { g.fillRect(k * 256 - 2, 0, 4, h); g.fillRect(0, k * 256 - 2, w, 4); } }) : null;
+  if (tileT) { tileT.wrapS = tileT.wrapT = THREE.RepeatWrapping; tileT.repeat.set((X1 - X0) / 1.2, (ZF - ZB) / 1.2); }
+  const floorM = appl ? std(0xffffff, .45, {map: tileT, envMapIntensity: .6}) : office ? std(0xffffff, 1, {map: carpetT, envMapIntensity: .3}) : carpet && !floor ? std(0xffffff, 1, {map: plushT, envMapIntensity: .25}) : new THREE.MeshStandardMaterial({...TEX.wood([4, 5]), roughness: 1, envMapIntensity: .9});
   const fl = add(new THREE.PlaneGeometry(X1 - X0, ZF - ZB), floorM, 0, 0, (ZB + ZF) / 2); fl.rotation.x = -Math.PI / 2; fl.castShadow = false;
   if (floor) floorM.roughness = .55;
   // flooring: the old carpet and the bare subfloor lie over the new hardwood, each cut back by its own sweep line
@@ -63,12 +69,12 @@ export function makeRoom(world, {card = "Cleaned with care", font = "sans-serif"
   const smM = new THREE.MeshBasicMaterial({map: canvasTex(512, 320, (g, w, h) => { for (let i = 0; i < 70; i++) { const x = r() * w, y = r() * h, rad = 10 + r() * 40, gr = g.createRadialGradient(x, y, 0, x, y, rad);
     gr.addColorStop(0, "rgba(200,196,180,.5)"); gr.addColorStop(1, "rgba(200,196,180,0)"); g.fillStyle = gr; g.fillRect(0, 0, w, h); }
     g.strokeStyle = "rgba(210,206,190,.45)"; g.lineWidth = 6; for (let i = 0; i < 6; i++) { g.beginPath(); const x = r() * w; g.moveTo(x, 0); g.quadraticCurveTo(x + 40, h / 2, x - 20, h); g.stroke(); } }), transparent: true, depthWrite: false, opacity: .9});
-  if (carpet) smM.opacity = 0;
+  if (carpet || appl) smM.opacity = 0;
   const smudge = add(new THREE.PlaneGeometry(WX1 - WX0, WY1 - WY0), smM, (WX0 + WX1) / 2, (WY0 + WY1) / 2, ZB - .03); smudge.castShadow = false;
   // curtains either side of the window (blinds in an office)
   if (office) { const slat = std(0xf2f0ea, .5); for (let y = WY0 + .06; y < WY1 - .02; y += .085) box(WX1 - WX0 - .04, .012, .06, slat, (WX0 + WX1) / 2, y, ZB + .06).rotation.x = .9;
     box(WX1 - WX0 + .04, .05, .07, slat, (WX0 + WX1) / 2, WY1 - .01, ZB + .06); cyl(.003, .003, WY1 - WY0 - .2, std(0xdddddd, .6), WX1 - .1, (WY0 + WY1) / 2 + .08, ZB + .1, root, 4); }
-  else {
+  else if (!appl) {
   const curM = std(0xe7dcc8, .95, {side: THREE.DoubleSide});
   for (const x of [WX0 - .32, WX1 + .32]) { const g = new THREE.PlaneGeometry(.5, H - .25, 12, 1), p = g.attributes.position; for (let i = 0; i < p.count; i++) p.setZ(i, Math.sin(p.getX(i) * 26) * .035); g.computeVertexNormals(); add(g, curM, x, (H - .25) / 2 + .05, ZB + .12); }
   cyl(.015, .015, WX1 - WX0 + 1.5, std(0x2b2b2b, .4, {metalness: .6}), (WX0 + WX1) / 2, H - .12, ZB + .12).rotation.z = Math.PI / 2; }
@@ -79,10 +85,10 @@ export function makeRoom(world, {card = "Cleaned with care", font = "sans-serif"
     const o = add(g, std(c, .95), x, y, z); o.scale.setScalar(s); o.rotation.y = r() * 3; return m(o); };
   // a folded card with the cleaner's name
   const cardT = canvasTex(512, 256, (g, w, h) => { g.fillStyle = "#fbf8f2"; g.fillRect(0, 0, w, h); g.strokeStyle = "#c9a46a"; g.lineWidth = 6; g.strokeRect(14, 14, w - 28, h - 28);
-    g.fillStyle = "#2a2724"; g.textAlign = "center"; g.font = `600 30px ${font}`; g.fillText(floor ? (card ? "New floors by" : "New floors") : card ? "Cleaned by" : "Freshly cleaned", w / 2, 92); const big = card || (office ? "Ready for Monday" : "Welcome home"); let fs = 52; g.font = `700 ${fs}px ${font}`; while (g.measureText(big).width > w - 60 && fs > 22) { fs -= 2; g.font = `700 ${fs}px ${font}`; } g.fillText(big, w / 2, 170); });
+    g.fillStyle = "#2a2724"; g.textAlign = "center"; g.font = `600 30px ${font}`; g.fillText(floor ? (card ? "New floors by" : "New floors") : appl ? (card ? "Fixed by" : "Fixed and") : card ? "Cleaned by" : "Freshly cleaned", w / 2, 92); const big = card || (office ? "Ready for Monday" : appl ? "running again" : "Welcome home"); let fs = 52; g.font = `700 ${fs}px ${font}`; while (g.measureText(big).width > w - 60 && fs > 22) { fs -= 2; g.font = `700 ${fs}px ${font}`; } g.fillText(big, w / 2, 170); });
   const cardAt = (x, y, z, ry) => { const g = new THREE.Group(), cm = std(0xffffff, .8, {map: cardT}); const a = add(new THREE.PlaneGeometry(.24, .12), cm, 0, .055, .02, g); a.rotation.x = -.35; const b = add(new THREE.PlaneGeometry(.24, .12), std(0xfbf8f2, .8), 0, .055, -.02, g); b.rotation.x = .35; b.rotation.y = Math.PI;
     g.position.set(x, y, z); g.rotation.y = ry; root.add(g); t(g, x); };
-  let sparkAt = [], vacClip = null;
+  let sparkAt = [], vacClip = null, KIT = null;
   const paperM = std(0xf7f5ef, .9, {side: THREE.DoubleSide});
   const mug = (x, y, z, c) => { const g = new THREE.Group(); cyl(.045, .04, .1, std(c, .4), 0, .05, 0, g); const h = add(new THREE.TorusGeometry(.03, .008, 6, 12), std(c, .4), .05, .05, 0, g); h.rotation.y = Math.PI / 2; g.position.set(x, y, z); root.add(g); return m(g, x); };
   if (office) {
@@ -126,6 +132,82 @@ export function makeRoom(world, {card = "Cleaned with care", font = "sans-serif"
     vacClip = new THREE.Plane(new THREE.Vector3(-1, 0, 0), X0);
     const vac = add(new THREE.PlaneGeometry(X1 - X0, ZF - ZB), new THREE.MeshBasicMaterial({map: vacT, transparent: true, depthWrite: false, clippingPlanes: [vacClip]}), 0, .01, (ZB + ZF) / 2); vac.rotation.x = -Math.PI / 2; vac.castShadow = false; vac.renderOrder = 3;
     sparkAt = [[-1.5, .8, -3.6], [1.3, .8, -3.6], [-1.9, .02, -1.2], [.9, .02, -.8], [WX0 + .4, 1.9, ZB - .02], [WX1 - .3, 1.3, ZB - .02], [1.9, .02, -2.6]];
+  } else if (appl) {
+    // ---------- a kitchen: sage cabinets, quartz tops, a range on the left, the sink under the window, the dishwasher right of it, a fridge ----------
+    const cabM = std(0x52695f, .55), topM = std(0xebe7df, .22), steel = std(0xc9cdd1, .3, {metalness: .85}), blk = std(0x1b1d20, .35), hdl = std(0xb8a27a, .3, {metalness: .8});
+    const CH = .88, CD = .6, TOP = CH + .04, BZ0 = ZB + CD / 2;
+    const RX = -2.35, DX = .25, SKX = (WX0 + WX1) / 2;   // range, dishwasher and sink centers
+    for (const [a, b] of [[X0, RX - .38], [RX + .38, DX - .3], [DX + .3, 1.98]]) { const w = b - a, cx = (a + b) / 2; box(w, CH - .1, CD, cabM, cx, .1 + (CH - .1) / 2, BZ0); box(w - .04, .1, CD - .06, blk, cx, .05, BZ0 - .03);
+      const n = Math.max(1, Math.round(w / .5)); for (let i = 0; i < n; i++) { const x0 = a + i * w / n; box(.006, CH - .16, .004, std(0x3c4f47, .6), x0 + .003, .12 + (CH - .16) / 2, ZB + CD + .002); const h = box(.012, .14, .02, hdl, x0 + w / n - .06, CH - .2, ZB + CD + .015); }
+      box(w - .004, .006, .004, std(0x3c4f47, .6), cx, CH - .12, ZB + CD + .002); }
+    box(1.98 - X0 + .02, .04, CD + .04, topM, (X0 + 1.98) / 2, CH + .02, BZ0 + .02);
+    // subway-tile backsplash and upper cabinets either side of the window
+    const subT = canvasTex(512, 256, (g, w, h) => { g.fillStyle = "#b9b4aa"; g.fillRect(0, 0, w, h); for (let j = 0; j < 8; j++) for (let i = -1; i < 9; i++) { g.fillStyle = `rgb(${244 - (i * 7 + j * 3) % 6},${242 - (i * 5 + j) % 5},${236 - (i * 3 + j * 7) % 6})`; g.fillRect(i * 64 + (j % 2) * 32 + 2, j * 32 + 2, 60, 28); } });
+    subT.wrapS = subT.wrapT = THREE.RepeatWrapping; subT.repeat.set((1.98 - X0) / 1.2, 1);
+    const spl = add(new THREE.PlaneGeometry(1.98 - X0, .53), std(0xffffff, .3, {map: subT, envMapIntensity: .5}), (X0 + 1.98) / 2, TOP + .265, ZB + .004); spl.castShadow = false;
+    for (const [a, b] of [[X0, WX0 - .16], [WX1 + .16, 1.98]]) { const w = b - a, cx = (a + b) / 2; box(w, .78, .34, cabM, cx, 1.86, ZB + .17);
+      const n = Math.max(1, Math.round(w / .45)); for (let i = 1; i < n; i++) box(.006, .74, .004, std(0x3c4f47, .6), a + i * w / n, 1.86, ZB + .342); for (let i = 0; i < n; i++) box(.012, .12, .02, hdl, a + (i + .5) * w / n + (i % 2 ? -.16 : .16) * (w / n > .3 ? 1 : 0), 1.55, ZB + .35); }
+    // range with a hood
+    box(.76, CH - .02, CD, steel, RX, (CH - .02) / 2, BZ0); box(.76, .025, CD, blk, RX, CH - .01, BZ0);
+    box(.6, .4, .01, std(0x111214, .05, {metalness: .2}), RX, .45, ZB + CD + .005); { const b = cyl(.012, .012, .56, steel, RX, .72, ZB + CD + .05, root, 8); b.rotation.z = Math.PI / 2; }
+    for (const [dx, dz, rr] of [[-.18, -.13, .09], [.18, -.13, .07], [-.18, .13, .07], [.18, .13, .09]]) { const t2 = add(new THREE.TorusGeometry(rr, .008, 6, 24), std(0x3a3c40, .5), RX + dx, CH + .005, BZ0 + dz); t2.rotation.x = Math.PI / 2; t2.castShadow = false; }
+    for (let i = 0; i < 4; i++) { const k = cyl(.022, .022, .03, blk, RX - .24 + i * .16, CH - .08, ZB + CD + .02, root, 12); k.rotation.x = Math.PI / 2; }
+    box(.78, .14, .5, steel, RX, 1.53, ZB + .25); box(.3, .5, .3, steel, RX, 2.0, ZB + .15);
+    // sink and faucet under the window
+    box(.66, .03, .42, std(0xa9aeb3, .25, {metalness: .9}), SKX, TOP - .005, BZ0 - .02); box(.6, .02, .36, std(0x6e7378, .3, {metalness: .9}), SKX, TOP - .012, BZ0 - .02);
+    cyl(.018, .022, .3, steel, SKX, TOP + .15, ZB + .1, root, 12); { const sp = add(new THREE.TorusGeometry(.1, .016, 8, 16, Math.PI), steel, SKX, TOP + .3, ZB + .2); sp.rotation.y = Math.PI / 2; }
+    // fridge in the right corner, with a small display on the door
+    const FX = 2.5; box(.9, 1.82, .74, steel, FX, .91, ZB + .4); box(.004, 1.0, .004, blk, FX, 1.3, ZB + .772); box(.9, .006, .004, blk, FX, .78, ZB + .772);
+    for (const dx of [-.06, .06]) box(.02, .55, .03, std(0xdadde0, .2, {metalness: .9}), FX + dx, 1.32, ZB + .8); box(.5, .02, .03, std(0xdadde0, .2, {metalness: .9}), FX, .7, ZB + .8);
+    box(.12, .07, .005, world.glowMat ? world.glowMat(0x7fc8ff, .35, {color: 0x14202b}) : blk, FX - .22, 1.42, ZB + .773).castShadow = false;
+    box(.9, .5, .36, cabM, FX, 2.38, ZB + .2);
+    // the dishwasher: steel front, control strip, a door that drops open on its bottom hinge, racks of plates inside
+    const dw = new THREE.Group(); root.add(dw); const DW = .59;
+    { const inM = std(0x7c8186, .45, {metalness: .5}), hh = CH - .12, yc = .1 + hh / 2; for (const dx of [-DW / 2 + .01, DW / 2 - .01]) box(.02, hh, .56, inM, dx, yc, 0, dw);
+      box(DW, .02, .56, inM, 0, .1 + hh - .01, 0, dw); box(DW, .02, .56, inM, 0, .11, 0, dw); box(DW, hh, .02, std(0x5d6267, .6), 0, yc, -.27, dw); }
+    for (const y of [.32, .58]) { box(DW - .1, .008, .46, std(0xbfc3c7, .4, {metalness: .7}), 0, y, -.02, dw); for (let i = 0; i < 7; i++) { const pl = cyl(.1, .1, .006, std(0xf4f2ec, .3), -.2 + i * .065, y + .1, -.02, dw, 22); pl.rotation.z = Math.PI / 2; } }
+    const door = new THREE.Group(); door.position.set(0, .1, .29); dw.add(door);
+    box(DW, CH - .12, .04, steel, 0, (CH - .12) / 2, .0, door); box(DW - .04, .05, .045, blk, 0, CH - .16, .002, door);
+    const led = box(.03, .012, .005, world.glowMat ? world.glowMat(0x58e08a, .9, {color: 0x123a20}) : blk, .18, CH - .16, .026, door); led.castShadow = false;
+    box(.4, .018, .03, std(0xdadde0, .2, {metalness: .9}), 0, CH - .24, .04, door);
+    const kick = box(DW, .09, .015, blk, 0, .05, .27, dw);
+    // the leak: a wide puddle in front of the dishwasher, a towel, the tech's bag, a meter and the new pump in its box
+    const pudT = canvasTex(512, 512, (g, w, h) => { const blobs = [[256, 230, 150], [170, 300, 110], [350, 300, 100], [250, 360, 90], [120, 220, 60], [400, 210, 70], [300, 140, 70]];
+      for (const [x, y, rr] of blobs) { const gr = g.createRadialGradient(x, y, rr * .55, x, y, rr); gr.addColorStop(0, "rgba(58,92,112,.72)"); gr.addColorStop(.75, "rgba(58,92,112,.6)"); gr.addColorStop(1, "rgba(58,92,112,0)"); g.fillStyle = gr; g.beginPath(); g.arc(x, y, rr, 0, 7); g.fill(); }
+      g.strokeStyle = "rgba(255,255,255,.35)"; g.lineWidth = 6; g.lineCap = "round"; for (const [x, y, l] of [[200, 230, 70], [300, 290, 50]]) { g.beginPath(); g.moveTo(x, y); g.lineTo(x + l, y - l * .35); g.stroke(); }
+      for (let i = 0; i < 14; i++) { const a = r() * 6.28, d = 170 + r() * 70, gr = g.createRadialGradient(256 + Math.cos(a) * d, 260 + Math.sin(a) * d * .8, 0, 256 + Math.cos(a) * d, 260 + Math.sin(a) * d * .8, 8 + r() * 12); gr.addColorStop(0, "rgba(58,92,112,.65)"); gr.addColorStop(1, "rgba(58,92,112,0)"); g.fillStyle = gr; g.fillRect(0, 0, w, h); } });
+    const puddle = add(new THREE.PlaneGeometry(1.5, 1.5), new THREE.MeshStandardMaterial({map: pudT, roughness: .04, metalness: .2, transparent: true, envMapIntensity: 1.4, polygonOffset: true, polygonOffsetFactor: -3, depthWrite: false}), DX + .1, .006, ZB + 1.2);
+    puddle.rotation.x = -Math.PI / 2; puddle.scale.set(1.3, 1, 1); puddle.castShadow = false; puddle.receiveShadow = false; puddle.renderOrder = 4;
+    const towel = crumple(0x7aa0b8, DX + .75, .05, ZB + 1.6, 1.2); mess.pop();
+    const kit = new THREE.Group(); kit.position.set(1.05, 0, ZB + 1.55); kit.rotation.y = -.4; root.add(kit);
+    box(.48, .26, .24, std(0x2f3b33, .9), 0, .13, 0, kit); box(.5, .03, .26, std(0x1d2420, .8), 0, .27, 0, kit); { const hd = add(new THREE.TorusGeometry(.12, .012, 6, 16, Math.PI), std(0x1d1f22, .6), 0, .28, 0, kit); }
+    box(.05, .02, .2, std(0xb3241c, .5), .3, .01, .12, kit).rotation.y = .5; cyl(.014, .014, .22, std(0xf0c419, .5), -.32, .016, .14, kit, 8).rotation.z = Math.PI / 2;
+    const meter = box(.08, .03, .15, std(0xf0b419, .5), -.15, .015, .3, kit); meter.rotation.y = .7;
+    const kickOff = box(DW, .09, .015, blk, DX - .45, .01, ZB + 1.15); kickOff.rotation.set(-Math.PI / 2, 0, .3);
+    const part = new THREE.Group(); part.position.set(DX + .55, 0, ZB + 1.0); root.add(part);
+    box(.2, .14, .16, std(0xc9a46e, .9), 0, .07, 0, part); cyl(.045, .045, .09, std(0x2a2d31, .5), 0, .2, 0, part, 16); cyl(.016, .016, .12, std(0x2a2d31, .5), .07, .2, 0, part, 8).rotation.z = Math.PI / 2;
+    // dirty dishes stacked by the sink (they end up in the clean racks)
+    const dishes = new THREE.Group(); root.add(dishes);
+    for (let i = 0; i < 5; i++) cyl(.12 - i * .004, .1 - i * .004, .016, std([0xf4f2ec, 0xe7d9c3, 0xf4f2ec][i % 3], .35), SKX + .52, TOP + .01 + i * .018, BZ0 - .05, dishes, 22);
+    for (const [dx, c] of [[-.5, 0xc65b3e], [.72, 0x2d5d7b], [.6, 0xe8e2d6]]) { const g = new THREE.Group(); cyl(.045, .04, .1, std(c, .4), 0, .05, 0, g); g.position.set(SKX + dx, TOP, BZ0 + .08 + (dx > .65 ? -.15 : 0)); dishes.add(g); }
+    // tidy: a bowl of lemons and a folded towel on the oven bar, plus the card
+    const tidyK = new THREE.Group(); root.add(tidyK);
+    { const b = cyl(.16, .1, .08, std(0xf4f2ec, .4), -1.2, TOP + .04, BZ0 + .05, tidyK, 24); for (let i = 0; i < 4; i++) add(new THREE.SphereGeometry(.045, 12, 10), std(0xf2cf3a, .5), -1.2 + Math.cos(i * 1.6) * .06, TOP + .1, BZ0 + .05 + Math.sin(i * 1.6) * .06, tidyK).scale.set(1, .85, 1.25); }
+    box(.2, .26, .015, std(0xe9e1d2, .9), RX + .1, .6, ZB + CD + .06, tidyK);
+    const cardG = new THREE.Group(), cm = std(0xffffff, .8, {map: cardT}); const ca = add(new THREE.PlaneGeometry(.24, .12), cm, 0, .055, .02, cardG); ca.rotation.x = -.35; const cb = add(new THREE.PlaneGeometry(.24, .12), std(0xfbf8f2, .8), 0, .055, -.02, cardG); cb.rotation.x = .35; cb.rotation.y = Math.PI;
+    cardG.position.set(DX + .62, TOP, BZ0 + .12); cardG.rotation.y = -.35; tidyK.add(cardG);
+    // a small oak table with two chairs and a jug of flowers on the open side of the room, a runner by the sink
+    { const oak = std(0xb08455, .55), seat = std(0x2f3a36, .7), TX = -2.1, TZ = -2.0;
+      cyl(.55, .55, .04, oak, TX, .74, TZ, root, 36); cyl(.05, .07, .7, oak, TX, .37, TZ, root, 12); cyl(.32, .34, .03, oak, TX, .015, TZ, root, 24);
+      for (const [dx, dz, a] of [[.78, .1, -Math.PI / 2 - .2], [-.15, .78, Math.PI + .15]]) { const c = new THREE.Group(); c.position.set(TX + dx, 0, TZ + dz); c.rotation.y = a; root.add(c);
+        box(.42, .04, .42, oak, 0, .46, 0, c); for (const [x, z] of [[-.18, -.18], [.18, -.18], [-.18, .18], [.18, .18]]) box(.035, .46, .035, oak, x, .23, z, c);
+        for (const x of [-.18, .18]) box(.035, .48, .035, oak, x, .72, -.19, c); box(.42, .1, .03, seat, 0, .9, -.19, c); }
+      cyl(.07, .06, .2, std(0x3f5a6a, .3), TX + .1, .86, TZ - .05, root, 16);
+      for (let i = 0; i < 6; i++) { const a2 = i / 6 * 6.28; add(new THREE.SphereGeometry(.04, 8, 6), std([0xf3f0ea, 0xf5c542, 0xe8a0a8][i % 3], .6), TX + .1 + Math.cos(a2) * .06, 1.02 + (i % 2) * .03, TZ - .05 + Math.sin(a2) * .06); }
+      const runT = canvasTex(256, 512, (g, w, h) => { g.fillStyle = "#b5583e"; g.fillRect(0, 0, w, h); g.strokeStyle = "#e9d9bf"; g.lineWidth = 10; g.strokeRect(14, 14, w - 28, h - 28); g.fillStyle = "#2f4c4a"; for (let i = 0; i < 6; i++) g.fillRect(60, 60 + i * 70, w - 120, 18); });
+      const run = add(new THREE.PlaneGeometry(.7, 1.6), std(0xffffff, .95, {map: runT}), SKX - .55, .004, ZB + 1.3); run.rotation.set(-Math.PI / 2, 0, Math.PI / 2); run.castShadow = false; }
+    KIT = {dw, door, led, kick, kickOff, puddle, towel, kit, part, dishes, tidyK, DX, BZ0};
+    sparkAt = [[DX, .9, ZB + .7], [DX + .2, .02, ZB + 1.2], [SKX, TOP + .05, BZ0], [-1.2, TOP + .15, BZ0], [DX - .3, .02, ZB + 1.6], [FX - .2, 1.5, ZB + .8]];
   } else {
   if (carpet && !floor) {
     // fresh wand strokes behind the sweep: wide stripes front to back, a touch darker where it's still damp
@@ -182,7 +264,7 @@ export function makeRoom(world, {card = "Cleaned with care", font = "sans-serif"
   const web = new THREE.Group(); root.add(web); const wm = new THREE.LineBasicMaterial({color: 0xdddddd, transparent: true, opacity: .55});
   for (let i = 0; i < 7; i++) { const a = i / 6 * Math.PI / 2; web.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, 0, 0), new THREE.Vector3(Math.cos(a) * .5, -Math.sin(a) * .5, 0)]), wm)); }
   for (let k = 1; k < 5; k++) { const pts = []; for (let i = 0; i <= 6; i++) { const a = i / 6 * Math.PI / 2, rr = k * .11 * (1 - .12 * Math.sin(i * 1.7)); pts.push(new THREE.Vector3(Math.cos(a) * rr, -Math.sin(a) * rr, 0)); } web.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), wm)); }
-  web.position.set(X0 + .02, H - .02, ZB + .3); web.rotation.y = Math.PI / 2; m(web, X0); web.visible = !carpet; if (carpet) mess.pop();
+  web.position.set(X0 + .02, H - .02, ZB + .3); web.rotation.y = Math.PI / 2; m(web, X0); web.visible = !carpet && !appl; if (carpet || appl) mess.pop();
   // dust, crumbs and footprints over the floor and rug, wiped away by a moving clip plane
   const W = X1 - X0, D = ZF - ZB, px = (x) => (x - X0) / W * 1024, pz = (z) => (z - ZB) / D * 1024;   // world x,z -> canvas
   const blot = (g, x, y, rad, c, a, n = 9) => { for (let i = 0; i < n; i++) { const ox = x + (r() - .5) * rad * .9, oy = y + (r() - .5) * rad * .7, rr = rad * (.4 + r() * .6), gr = g.createRadialGradient(ox, oy, 0, ox, oy, rr);
@@ -208,7 +290,7 @@ export function makeRoom(world, {card = "Cleaned with care", font = "sans-serif"
     const SX = (WX0 + WX1) / 2, TZ = -2.5;
     cardAt(SX - .05, .445, TZ + .15, -.25);
     sparkAt = [[.25, .02, -1.95], [-1.7, .02, -1.55], [2.3, .02, -2.7], [1.2, .02, .6], [.4, .02, -.6], [-.4, .5, TZ + .2], [1.9, .02, -1.2]];
-  } else if (!office) {
+  } else if (!office && !appl) {
   const SX = (WX0 + WX1) / 2, SZ = ZB + .55, TZ = -2.5;
   for (const [dx, c, a] of [[-.9, 0xd9b25a, .25], [.9, 0xe9e1d2, -.25], [-.62, 0xe9e1d2, .1]]) { const p = box(.42, .38, .12, std(c, .95), SX + dx, .73, SZ - .18); p.rotation.set(-.25, a, 0); t(p); }
   t(box(.5, .08, .34, std(0x8e3b3b, .95), SX + 1.1, .87, SZ + .05));   // throw folded over the arm
@@ -275,10 +357,17 @@ export function makeRoom(world, {card = "Cleaned with care", font = "sans-serif"
     if (floor) { oldClip.constant = -c1; subClip.constant = -c2;
       roll.visible = f > .15 && f < .42;
       edge.visible = f > .4 && f < .95; edge.position.x = Math.min(X1 - .9, c2); stack.visible = f > .3 && f < .97; }
-    clip.constant = floor ? -c1 : -cx; dust.visible = floor ? f < .46 : f < .999;
+    clip.constant = floor ? -c1 : -cx; dust.visible = appl ? false : floor ? f < .46 : f < .999;
+    if (KIT) {   // appliance repair: the leak mopped, the new pump in, the dishwasher slid home, door shut and running
+      const K2 = KIT, out = 1 - ss(.5, .72), open = 1 - ss(.6, .8);
+      K2.dw.position.set(K2.DX, 0, K2.BZ0 + .02 + .5 * out); K2.door.rotation.x = 1.45 * open;
+      K2.puddle.visible = f < .42; K2.puddle.scale.set(1.3 * (1 - .85 * ss(.08, .42)), 1 - .85 * ss(.08, .42), 1); K2.towel.visible = f > .06 && f < .45;
+      K2.kit.visible = f < .9; K2.part.visible = f > .2 && f < .52; K2.kick.visible = f >= .78; K2.kickOff.visible = f < .78;
+      K2.led.visible = f > .84; K2.dishes.visible = f < .6; K2.tidyK.visible = f > .9;
+    }
     for (const [o, x] of mess) o.visible = x > cx; for (const [o, x] of tidy) o.visible = x <= cx;
-    smM.opacity = carpet ? 0 : .9 * (1 - Math.min(1, Math.max(0, (cx - WX0) / (WX1 - WX0))));
-    if (vacClip) vacClip.constant = cx; else if (!floor) floorM.roughness = 1 - .36 * f;
+    smM.opacity = carpet || appl ? 0 : .9 * (1 - Math.min(1, Math.max(0, (cx - WX0) / (WX1 - WX0))));
+    if (vacClip) vacClip.constant = cx; else if (!floor && !appl) floorM.roughness = 1 - .36 * f;
     if (rig) { rig.visible = f > .001 && f < .985; rig.position.x = Math.min(X1 - .25, cx); }
     if (f < .98) sparks.forEach(s => { s.material.opacity = 0; }); };
   set({fix: 0});

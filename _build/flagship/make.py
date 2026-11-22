@@ -119,7 +119,7 @@ def page300(s, meet):
     src = open(os.path.join(HERE, "t300.src.html")).read()
     if g in kit.SHOPS or g in ("engine", "weld"):
         src = src.replace(">Crew<", ">Shop<")
-    elif g in ("clean", "office", "carpet", "floor"):
+    elif g in ("clean", "office", "carpet", "floor", "appl", "lock"):
         src = src.replace(">Crew<", ">Team<")
     return kit.fill(src, vals)
 
