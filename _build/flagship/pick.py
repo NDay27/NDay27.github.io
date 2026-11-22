@@ -58,7 +58,9 @@ KEEP = {"buck-s-tree-service-landscaping-peoria",
         "twin-city-tire-service-bloomington", "city-tire-kokomo-in", "chicago-tire-sioux-city-ia", "northside-cycle-auto-llc-richmond-in",
         "carmichael-exhaust-custom-terre-haute-in", "gfactor-property-improvements-peoria", "carmelo-duarte-handyman-kewanee",
         "tri-county-painting-sndblstg-pekin", "defiant-construction-maintenance-llc-macomb",
-        "alpha-and-omega-painting-and-construction-jesus-is-our-foundation-jackson-mi"}
+        "alpha-and-omega-painting-and-construction-jesus-is-our-foundation-jackson-mi",
+        # Nov 22: Google lists these as an air conditioning repair service and a Mexican restaurant; "Refrigeration" / "& Bar" in the name doesn't change the story
+        "j-r-refrigeration-service-parts-llc-union-city-nj", "el-patron-mexican-grill-bar-austin-mn"}
 
 
 def candidates():
@@ -86,6 +88,10 @@ def candidates():
             k = "well" if "well" in s["cat"].lower() else "dig"
             if not re.search(NAME_OUT[k], s["name"].lower()):
                 out.append((k, dict(s, kv={"well": "welldrill", "dig": "excavation"}[k])))
+            continue
+        # a lawn or landscape lead whose name says snow removal gets the snow kit (its own variant, see home.V_NEW)
+        if g == "lawn" and re.search(r"\bsnow\b", s["name"].lower()) and kit.st(s) != "CA":
+            out.append(("snow", dict(s, kv="snow")))
             continue
         # an antique store listed as a thrift store gets the antique shop kit (its own variant, see store.V_NEW)
         if s["v"] == "thrift" and "antique" in (s.get("cat") or "").lower():
