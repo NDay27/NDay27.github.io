@@ -28,6 +28,8 @@ export const KIND = {
   gym:    {trim: 0x1d1f22, awn: AWN.black, wall: 0xe9e9e6, wain: 0x2b2e33, floor: "wood", sign: ["#1d1f22", "#f2f2ee"], icon: "dumbbell"},
   music:  {trim: 0x2a2440, awn: AWN.plum, wall: 0xf1ebe2, wain: 0x4a3f66, floor: "wood", sign: ["#2a2440", "#f2ead8"], icon: "note"},
   photo:  {trim: 0x1d1f22, awn: AWN.black, wall: 0xf3f1ec, wain: 0x3a3c40, floor: "wood", sign: ["#f3f1ec", "#1d1f22"], icon: "camera"},
+  kids:   {trim: 0x2f5fa8, awn: AWN.gold, wall: 0xfbf3e4, wain: 0x7fb6d9, floor: "wood", sign: ["#fbf3e4", "#2f5fa8"], icon: "blocks"},
+  dogs:   {trim: 0x2f6b4f, awn: AWN.green, wall: 0xf0ede4, wain: 0x6f8f5e, floor: "tile", sign: ["#f2f0e8", "#2f6b4f"], icon: "paw"},
   sew:    {trim: 0x5a3550, awn: AWN.plum, wall: 0xefe7df, floor: "wood", sign: ["#5a3550", "#f6eee6"], icon: "needle"},
 };
 KIND.tailor = KIND.sew; KIND.uphol = KIND.sew;
@@ -51,6 +53,7 @@ const ICON = {
   cup: ["M14 24h24v12a10 10 0 0 1-10 10h-4a10 10 0 0 1-10-10z", "M38 28h3a5 5 0 0 1 0 10h-4", "M20 18c0-3 3-3 3-6M28 18c0-3 3-3 3-6", "M10 50h34"],
   dumbbell: ["M8 22v12M14 18v20M42 18v20M48 22v12", "M14 28h28"],
   note: ["M22 40V12l20-4v28", "M22 40a5 4 0 1 1-.1 0", "M42 36a5 4 0 1 1-.1 0", "M22 20l20-4"],
+  blocks: ["M10 30h16v16H10z", "M30 30h16v16H30z", "M20 14h16v16H20z", "M15 38h6M35 38h6M25 22h6"],
   camera: ["M8 18h40v28H8z", "M20 18l4-6h8l4 6", "M28 40a8 8 0 1 0 0-16 8 8 0 0 0 0 16z", "M40 24h3"],
   needle: ["M14 42 40 16", "M40 16c3-3 6-2 6 1s-3 4-6 1", "M12 30c6-6 12 0 18-4s8-10 14-10"],
 };
@@ -295,6 +298,14 @@ export async function makeStore(world, {kind = "bakery", sign = "Bakery", font =
     box(.42, .05, .42, m, 0, .46, 0, g); box(.42, .42, .04, m, 0, .7, -.2, g); for (const [a, b] of [[-.18, -.18], [.18, -.18], [-.18, .18], [.18, .18]]) cyl(.016, .016, .46, dark, a, .23, b, g, 6); return g; };
   const bottles = (x0, y, z, n, dx, h = .16, cols) => { for (let i = 0; i < n; i++) { const c = cols ? cols[i % cols.length] : new THREE.Color().setHSL(rnd(), .5, .55).getHex(); cyl(.03, .03, h, mat(c, .25), x0 + i * dx, y + h / 2, z, P, 10); } };
   const shelf = (x, z, w, ys, ry = 0) => { const g = new THREE.Group(); g.position.set(x, 0, z); g.rotation.y = ry; P.add(g); for (const y of ys) box(w, .04, .34, woodM, 0, y, 0, g); return g; };
+  // a sitting dog, built from spheres (grooming shop window, dog care floor)
+  const mkDog = (x, y, z, ry, sc, fc, fc2) => { const dog = new THREE.Group(); dog.position.set(x, y, z); dog.rotation.y = ry; dog.scale.setScalar(sc); P.add(dog); const fur = mat(fc, .9), fur2 = mat(fc2, .9);
+  add(new THREE.SphereGeometry(.16, 18, 14), fur, 0, .14, -.02, dog).scale.set(1, .8, 1.25);
+  add(new THREE.SphereGeometry(.13, 18, 14), fur, 0, .3, .08, dog).scale.set(.95, 1.25, .9);
+  add(new THREE.SphereGeometry(.1, 18, 14), fur, 0, .5, .14, dog); add(new THREE.SphereGeometry(.06, 14, 10), fur2, 0, .47, .24, dog).scale.set(.9, .75, 1.2);
+  add(new THREE.SphereGeometry(.018, 8, 6), dark, 0, .485, .3, dog); for (const s of [-1, 1]) { add(new THREE.SphereGeometry(.014, 8, 6), dark, s * .04, .54, .225, dog); add(new THREE.SphereGeometry(.05, 12, 8), mat(0x8a5a2c, .9), s * .08, .5, .1, dog).scale.set(.45, 1.3, .8); }
+  for (const s of [-1, 1]) { cyl(.03, .028, .24, fur, s * .06, .12, .14, dog, 8); add(new THREE.SphereGeometry(.035, 10, 8), fur2, s * .06, .01, .17, dog); add(new THREE.SphereGeometry(.07, 12, 10), fur, s * .1, .07, -.08, dog).scale.set(.8, .7, 1.3); }
+  const tail = cyl(.02, .012, .2, fur, 0, .06, -.24, dog, 8); tail.rotation.x = 1.2; };
 
   if (kind === "bakery") {
     // the case: painted base, glass top, two shelves of treats
@@ -679,6 +690,84 @@ export async function makeStore(world, {kind = "bakery", sign = "Bakery", font =
     [[-3.0, .9, .65, 0], [-4.4, .7, .5, 1], [-5.6, .9, .65, 2]].forEach(([z, w, h, k]) => frame(IW / 2 - .03, 1.75, z, w, h, -Math.PI / 2, k));
     box(1.9, .1, .9, trim, -2.2, .57, -.9);
     for (const [x, k, ry] of [[-2.6, 3, .15], [-1.85, 4, -.15]]) { const f = frame(x, .98, -.95, .5, .38, ry, k); f.rotation.x = -.12; const e = box(.03, .5, .03, woodM, x, .85, -1.05); e.rotation.x = .25; }
+  } else if (kind === "kids") {
+    // a rug of bright squares, low tables with little chairs, cubbies with bins, a reading corner, an easel and a pennant banner
+    const cols = [0xe4573d, 0xf2b134, 0x4aa36c, 0x3c7fc4, 0x8c5bb5, 0xef8fa8];
+    const rugT = canvasTex(512, 512, (g, w, h) => { g.fillStyle = "#f7f2e8"; g.fillRect(0, 0, w, h); const n = 6, s = w / n;
+      for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) { g.fillStyle = hex(cols[(x + y * 2) % 6]); g.fillRect(x * s + 4, y * s + 4, s - 8, s - 8); } });
+    flat(3.0, 3.0, new THREE.MeshStandardMaterial({map: rugT, roughness: .95}), -1.2, .012, -6.4, P);
+    const tbl = (x, z, c) => { cyl(.5, .5, .04, mat(c, .5), x, .52, z, P, 28); for (const a of [0, 1.57, 3.14, 4.71]) cyl(.025, .025, .5, mat(0xf4efe6, .5), x + Math.cos(a) * .32, .25, z + Math.sin(a) * .32, P, 8);
+      [0, 1, 2, 3].forEach(k => { const a = k * 1.57 + .78, g = new THREE.Group(); g.position.set(x + Math.cos(a) * .72, 0, z + Math.sin(a) * .72); g.rotation.y = -a - Math.PI / 2; P.add(g); const m = mat(cols[(k + 2) % 6], .5);
+        box(.3, .03, .3, m, 0, .3, 0, g); box(.3, .26, .03, m, 0, .45, -.14, g); for (const [dx, dz] of [[-.13, -.13], [.13, -.13], [-.13, .13], [.13, .13]]) cyl(.015, .015, .3, m, dx, .15, dz, g, 6); }); };
+    tbl(1.0, -4.2, 0xf2b134); tbl(1.5, -6.9, 0x4aa36c);
+    // cubbies along the left wall, a colored bin in each
+    { const cg = new THREE.Group(); cg.position.set(-IW / 2 + .2, 0, -3.9); cg.rotation.y = Math.PI / 2; P.add(cg); const wm = mat(0xe9d8bd, .55);
+      box(2.4, .04, .38, wm, 0, .02, 0, cg); for (let r = 1; r <= 3; r++) box(2.4, .03, .38, wm, 0, r * .38, 0, cg); for (let c = 0; c <= 4; c++) box(.03, 1.14, .38, wm, -1.2 + c * .6, .57, 0, cg); box(2.4, 1.14, .02, wm, 0, .57, -.18, cg);
+      for (let r = 0; r < 3; r++) for (let c = 0; c < 4; c++) box(.48, .24, .3, mat(cols[(r + c) % 6], .6), -.9 + c * .6, .15 + r * .38, .03, cg); }
+    // reading corner: a low shelf of books and two bean bags
+    { const sx = -2.0, sz = IZ1 + .3; box(1.6, .8, .32, woodM, sx, .4, sz); for (const y of [.36, .76]) for (let i = 0; i < 12; i++) { const h = .2 + (i % 3) * .04; box(.05, h, .22, mat(cols[i % 6], .6), sx - .7 + i * .12, y + h / 2 - .12, sz + .02); }
+      for (const [x, z, c] of [[-2.6, -8.2, 0x3c7fc4], [-1.4, -8.0, 0xe4573d]]) { const b = add(new THREE.SphereGeometry(.38, 20, 14), mat(c, .8), x, .26, z, P); b.scale.set(1, .7, 1); } }
+    // an easel with a painting, and a stack of nap mats
+    { const g = new THREE.Group(); g.position.set(2.4, 0, -8.2); g.rotation.y = -.5; P.add(g); for (const s of [-1, 1]) { const l = box(.04, 1.5, .04, woodM, s * .3, .75, 0, g); l.rotation.z = -s * .1; } const bl = box(.04, 1.4, .04, woodM, 0, .7, -.3, g); bl.rotation.x = -.25;
+      box(.7, .03, .08, woodM, 0, .7, .04, g); const art = canvasTex(256, 256, (c, w, h) => { c.fillStyle = "#fbfaf6"; c.fillRect(0, 0, w, h); c.fillStyle = "#f2b134"; c.beginPath(); c.arc(190, 60, 30, 0, 7); c.fill(); c.fillStyle = "#4aa36c"; c.fillRect(0, 190, w, 66);
+        c.fillStyle = "#e4573d"; c.fillRect(70, 120, 80, 70); c.fillStyle = "#3c7fc4"; c.beginPath(); c.moveTo(60, 122); c.lineTo(110, 80); c.lineTo(160, 122); c.fill(); });
+      box(.66, .66, .02, new THREE.MeshStandardMaterial({map: art, roughness: .8}), 0, 1.08, .05, g); }
+    for (let i = 0; i < 5; i++) box(1.0, .05, .5, mat(cols[i], .8), 2.7, .03 + i * .055, -5.6);
+    // a pennant banner across the back wall with letters
+    { const n = 12, x0 = -3.0, step = .5; for (let i = 0; i < n; i++) { const t = canvasTex(128, 160, (c, w, h) => { c.fillStyle = hex(cols[i % 6]); c.beginPath(); c.moveTo(0, 0); c.lineTo(w, 0); c.lineTo(w / 2, h); c.fill();
+        c.fillStyle = "#fff"; c.font = "800 64px Archivo, Arial, sans-serif"; c.textAlign = "center"; c.fillText("ABCDEFGHIJKL"[i], w / 2, 70); });
+        const pm = new THREE.MeshStandardMaterial({map: t, transparent: true, alphaTest: .5, roughness: .8, side: THREE.DoubleSide}); const sag = Math.sin(i / (n - 1) * Math.PI) * .18;
+        add(new THREE.PlaneGeometry(.36, .45), pm, x0 + i * step, 2.75 - sag, IZ1 + .06, P).castShadow = false; }
+      const cord = cyl(.006, .006, (n - 1) * step + .4, dark, x0 + (n - 1) * step / 2, 2.96, IZ1 + .06, P, 4); cord.rotation.z = Math.PI / 2; }
+    // the window: a tower of blocks, a teddy bear and a paper chain
+    box(1.9, .1, .9, trim, -2.2, .57, -.9);
+    for (let i = 0; i < 9; i++) { const r = Math.floor(i / 3), c = i % 3; const b = box(.16, .16, .16, mat(cols[i % 6], .5), -2.8 + c * .17 + r * .08, .7 + r * .165, -.9); b.rotation.y = (i % 2) * .2; }
+    { const bear = new THREE.Group(); bear.position.set(-1.8, .62, -.95); bear.rotation.y = .3; P.add(bear); const fur = mat(0xa8743f, .95);
+      add(new THREE.SphereGeometry(.16, 16, 12), fur, 0, .16, 0, bear).scale.set(1, 1.1, .9); add(new THREE.SphereGeometry(.12, 16, 12), fur, 0, .42, .02, bear);
+      for (const s of [-1, 1]) { add(new THREE.SphereGeometry(.045, 10, 8), fur, s * .09, .52, 0, bear); add(new THREE.SphereGeometry(.06, 10, 8), fur, s * .14, .2, .06, bear); add(new THREE.SphereGeometry(.065, 10, 8), fur, s * .09, .04, .1, bear); add(new THREE.SphereGeometry(.014, 6, 6), dark, s * .04, .45, .12, bear); }
+      add(new THREE.SphereGeometry(.04, 10, 8), mat(0xe6c8a0, .9), 0, .4, .12, bear); }
+    for (let i = 0; i < 14; i++) { const t = add(new THREE.TorusGeometry(.06, .012, 6, 14), mat(cols[i % 6], .7), -3.1 + i * .17, 2.62 - Math.sin(i / 13 * Math.PI) * .2, -.55, P); t.rotation.y = i % 2 ? Math.PI / 2 : 0; }
+    // kids' drawings pinned up on the back wall over the reading corner
+    { const dr = canvasTex(1024, 384, (g, w, h) => { g.fillStyle = "#c79a64"; g.fillRect(0, 0, w, h); g.fillStyle = "#b5885a"; for (let i = 0; i < 400; i++) g.fillRect((i * 97.3) % w, (i * 61.7) % h, 3, 3);
+        const pics = [["#fffdf6", (x, y) => { g.fillStyle = "#f2b134"; g.beginPath(); g.arc(x + 60, y + 55, 30, 0, 7); g.fill(); g.fillStyle = "#4aa36c"; g.fillRect(x, y + 170, 200, 50); }],
+          ["#fdf3f6", (x, y) => { g.fillStyle = "#e4573d"; g.fillRect(x + 50, y + 100, 100, 90); g.fillStyle = "#3c7fc4"; g.beginPath(); g.moveTo(x + 35, y + 100); g.lineTo(x + 100, y + 40); g.lineTo(x + 165, y + 100); g.fill(); }],
+          ["#f4f8ff", (x, y) => { g.strokeStyle = "#8c5bb5"; g.lineWidth = 10; g.beginPath(); g.arc(x + 100, y + 110, 55, 0, 7); g.stroke(); g.fillStyle = "#8c5bb5"; g.fillRect(x + 75, y + 95, 12, 12); g.fillRect(x + 113, y + 95, 12, 12); }],
+          ["#fffbea", (x, y) => { for (let k = 0; k < 4; k++) { g.fillStyle = ["#e4573d", "#f2b134", "#4aa36c", "#3c7fc4"][k]; g.fillRect(x + 20, y + 40 + k * 40, 160, 28); } }]];
+        pics.forEach(([bg, f], i) => { const x = 30 + i * 248, y = 50; g.save(); g.translate(x + 100, y + 140); g.rotate((i % 2 ? 1 : -1) * .04); g.translate(-x - 100, -y - 140); g.fillStyle = bg; g.fillRect(x, y, 200, 260); f(x, y + 20); g.restore();
+          g.fillStyle = "#d64a5e"; g.beginPath(); g.arc(x + 100, y + 12, 9, 0, 7); g.fill(); }); });
+      box(2.3, .9, .03, new THREE.MeshStandardMaterial({map: dr, roughness: .9}), -1.9, 1.75, IZ1 + .03); box(2.38, .04, .05, woodM, -1.9, 2.22, IZ1 + .04); box(2.38, .04, .05, woodM, -1.9, 1.28, IZ1 + .04); }
+  } else if (kind === "dogs") {
+    // a turf play floor, kennel runs at the back, a jump and a tunnel, dog beds, toys and a low gate; a dog waiting in the window
+    flat(IW, 6.6, mat(0x6f8f5e, .95), 0, .015, -4.6, P);
+    const linkT = canvasTex(128, 128, (g, w, h) => { g.clearRect(0, 0, w, h); g.strokeStyle = "#c9cdd1"; g.lineWidth = 3; for (let i = -4; i < 8; i++) { g.beginPath(); g.moveTo(i * 32, 0); g.lineTo(i * 32 + h, h); g.stroke(); g.beginPath(); g.moveTo(i * 32 + h, 0); g.lineTo(i * 32, h); g.stroke(); } }, [6, 6]);
+    const linkM = new THREE.MeshStandardMaterial({map: linkT, transparent: true, alphaTest: .4, side: THREE.DoubleSide, metalness: .6, roughness: .4});
+    // three kennel runs against the back wall, each with a bed
+    { const z0 = IZ1 + 1.5, w = 1.5; for (let i = 0; i < 3; i++) { const x = -2.6 + i * w; for (const dx of [0, w]) cyl(.025, .025, 1.5, steel, x + dx, .75, z0, P, 8);
+        box(w, .03, .03, steel, x + w / 2, 1.5, z0); const pn = add(new THREE.PlaneGeometry(w - .05, 1.45), linkM, x + w / 2, .74, z0, P); pn.castShadow = false;
+        const side = add(new THREE.PlaneGeometry(1.5, 1.45), linkM, x, .74, z0 - .75, P); side.rotation.y = Math.PI / 2; side.castShadow = false;
+        const bed = add(new THREE.TorusGeometry(.32, .1, 10, 22), mat([0x2f6b8f, 0xb3343a, 0x8a5a44][i], .9), x + w / 2, .1, z0 - .8, P); bed.rotation.x = Math.PI / 2; cyl(.3, .3, .06, mat(0xe9dcc8, .9), x + w / 2, .06, z0 - .8, P, 20); }
+      const side = add(new THREE.PlaneGeometry(1.5, 1.45), linkM, -2.6 + 3 * w, .74, z0 - .75, P); side.rotation.y = Math.PI / 2; side.castShadow = false; }
+    mkDog(-1.1, .1, IZ1 + .65, .2, 1.1, 0x2b2522, 0xc8924e);
+    // an agility jump, a tunnel and toys on the floor
+    { const g = new THREE.Group(); g.position.set(-.9, 0, -5.4); g.rotation.y = .25; P.add(g); const st = canvasTex(32, 256, (c, w, h) => { for (let i = 0; i < 8; i++) { c.fillStyle = i % 2 ? "#ffffff" : "#e4573d"; c.fillRect(0, i * h / 8, w, h / 8); } });
+      const pm = new THREE.MeshStandardMaterial({map: st, roughness: .5}); for (const s of [-1, 1]) { cyl(.025, .025, .9, pm, s * .6, .45, 0, g, 10); box(.3, .03, .3, mat(0xf4efe6, .5), s * .6, .015, 0, g); }
+      const bar = cyl(.02, .02, 1.2, pm, 0, .5, 0, g, 8); bar.rotation.z = Math.PI / 2; }
+    { const tn = add(new THREE.CylinderGeometry(.38, .38, 2.2, 22, 1, true), new THREE.MeshStandardMaterial({color: 0x3c7fc4, roughness: .7, side: THREE.DoubleSide}), 1.4, .38, -6.4, P); tn.rotation.set(0, .5, Math.PI / 2);
+      for (const k of [-1, -.5, 0, .5, 1]) { const r = add(new THREE.TorusGeometry(.385, .015, 6, 24), mat(0x24365e, .5), 1.4 + Math.cos(.5) * k * 1.05, .38, -6.4 - Math.sin(.5) * k * 1.05, P); r.rotation.y = .5 + Math.PI / 2; } }
+    for (const [x, z, c] of [[.4, -4.2, 0xf2b134], [.7, -4.5, 0x4aa36c], [-1.9, -4.0, 0xe4573d]]) add(new THREE.SphereGeometry(.07, 14, 10), mat(c, .5), x, .085, z, P);
+    mkDog(.5, .02, -4.9, -.6, 1.2, 0xf2ede4, 0xfbf8f2); mkDog(2.2, .02, -4.0, -1.4, .9, 0xc8924e, 0xe6c08a);
+    // a low gate between the lobby and the floor, leashes on hooks by the door
+    for (let i = 0; i < 5; i++) { const x = -3.3 + i * .55; box(.04, .8, .04, woodM, x, .4, -2.6); } box(2.3, .06, .06, woodM, -2.2, .78, -2.6); box(2.3, .06, .06, woodM, -2.2, .3, -2.6);
+    for (let i = 0; i < 4; i++) { box(.04, .04, .1, steel, IW / 2 - .05, 1.7, -2.8 - i * .3); const lm = mat([0xb3343a, 0x2f7f86, 0xc9952f, 0x24365e][i], .6), l = add(new THREE.TorusGeometry(.06, .012, 6, 14), lm, IW / 2 - .08, 1.6, -2.8 - i * .3, P); l.rotation.y = Math.PI / 2; l.scale.y = 1.5;
+      cyl(.01, .01, .7, lm, IW / 2 - .08, 1.2, -2.8 - i * .3, P, 6); cyl(.016, .016, .05, steel, IW / 2 - .08, .84, -2.8 - i * .3, P, 6); }
+    // the window: a dog bed with a dog in it and a jar of treats
+    box(1.9, .1, .9, trim, -2.2, .57, -.9);
+    { const bed = add(new THREE.TorusGeometry(.3, .1, 10, 24), mat(0x8a5a44, .9), -2.5, .72, -.9, P); bed.rotation.x = Math.PI / 2; cyl(.28, .28, .06, mat(0xe9dcc8, .9), -2.5, .68, -.9, P, 20); }
+    mkDog(-2.5, .7, -.95, .4, 1, 0xc8924e, 0xe6c08a); cyl(.12, .12, .26, glass, -1.7, .75, -.9, P, 18); for (let i = 0; i < 6; i++) add(new THREE.SphereGeometry(.035, 8, 6), mat(0xa8743f, .8), -1.72 + (i % 3) * .04, .66 + Math.floor(i / 3) * .05, -.9, P);
+    // a row of painted paw prints along the back wall over the runs
+    { const pw = canvasTex(1024, 128, (g, w, h) => { g.clearRect(0, 0, w, h); for (let i = 0; i < 9; i++) { const x = 60 + i * 112, y = i % 2 ? 50 : 78; g.fillStyle = ["#e08a3a", "#2f6b8f", "#b3343a"][i % 3];
+        g.beginPath(); g.ellipse(x, y + 14, 22, 18, 0, 0, 7); g.fill(); for (const [dx, dy] of [[-22, -12], [-8, -24], [8, -24], [22, -12]]) { g.beginPath(); g.ellipse(x + dx, y + dy, 7, 9, 0, 0, 7); g.fill(); } } });
+      const pm = add(new THREE.PlaneGeometry(4.4, .55), new THREE.MeshStandardMaterial({map: pw, transparent: true, roughness: .9}), -.4, 2.15, IZ1 + .02, P); pm.castShadow = false; }
   } else if (kind === "groom") {
     // grooming table, the tub, dryer, a shelf of shampoos; a dog waiting in the window
     const tbl = new THREE.Group(); tbl.position.set(-1.1, 0, -4.2); P.add(tbl);
@@ -694,13 +783,6 @@ export async function makeStore(world, {kind = "bakery", sign = "Bakery", font =
     // dog bed and a sitting dog in the right window, treats jar left
     box(.9, .5, .6, trim, 2.1, .25 + .4, -.85);
     const bed = add(new THREE.TorusGeometry(.3, .1, 10, 24), mat(0x8a5a44, .9), 2.1, 1.0, -.85, P); bed.rotation.x = Math.PI / 2; cyl(.28, .28, .06, mat(0xe9dcc8, .9), 2.1, .96, -.85, P, 20);
-    const mkDog = (x, y, z, ry, sc, fc, fc2) => { const dog = new THREE.Group(); dog.position.set(x, y, z); dog.rotation.y = ry; dog.scale.setScalar(sc); P.add(dog); const fur = mat(fc, .9), fur2 = mat(fc2, .9);
-    add(new THREE.SphereGeometry(.16, 18, 14), fur, 0, .14, -.02, dog).scale.set(1, .8, 1.25);
-    add(new THREE.SphereGeometry(.13, 18, 14), fur, 0, .3, .08, dog).scale.set(.95, 1.25, .9);
-    add(new THREE.SphereGeometry(.1, 18, 14), fur, 0, .5, .14, dog); add(new THREE.SphereGeometry(.06, 14, 10), fur2, 0, .47, .24, dog).scale.set(.9, .75, 1.2);
-    add(new THREE.SphereGeometry(.018, 8, 6), dark, 0, .485, .3, dog); for (const s of [-1, 1]) { add(new THREE.SphereGeometry(.014, 8, 6), dark, s * .04, .54, .225, dog); add(new THREE.SphereGeometry(.05, 12, 8), mat(0x8a5a2c, .9), s * .08, .5, .1, dog).scale.set(.45, 1.3, .8); }
-    for (const s of [-1, 1]) { cyl(.03, .028, .24, fur, s * .06, .12, .14, dog, 8); add(new THREE.SphereGeometry(.035, 10, 8), fur2, s * .06, .01, .17, dog); add(new THREE.SphereGeometry(.07, 12, 10), fur, s * .1, .07, -.08, dog).scale.set(.8, .7, 1.3); }
-    const tail = cyl(.02, .012, .2, fur, 0, .06, -.24, dog, 8); tail.rotation.x = 1.2; };
     mkDog(2.1, 1.0, -.85, -.5, 1, 0xc8924e, 0xe6c08a); mkDog(-1.1, .9, -4.2, .7, 1.25, 0xf2ede4, 0xfbf8f2);
     box(.9, .5, .6, trim, -2.2, .85, -.85); cyl(.14, .14, .3, glass, -2.2, 1.25, -.85, P, 18); for (let i = 0; i < 4; i++) box(.18, .26, .1, mat([0x2f7f86, 0xc9952f, 0xb3343a, 0x24365e][i], .6), -2.55 + i * .24, 1.23, -.75);
   } else if (kind === "sew" || kind === "tailor" || kind === "uphol") {

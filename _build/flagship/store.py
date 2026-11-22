@@ -718,3 +718,107 @@ def beats(g):
     if g == "stand":
         b[4] = b[4][:5] + (("04 · Evening", "Still glowing at dusk", "The menu boards lit, the neon on and the lot lamps coming up."),)
     return b
+
+
+# ---------- Nov 22: child care centers, dog day care and boarding, dog trainers ----------
+# kids and dogs are storefront kinds in storefront.js; trainers share the dogs room with their own sign
+_B82 = ("kids", "dogs", "train")
+GROUPS.update({
+ "kids": dict(vs=["daycare"], kind="kids", sign="Child Care", word="Child Care", noun="child care center"),
+ "dogs": dict(vs=["petcare"], kind="dogs", sign="Dog Care", word="Dog Care", noun="dog care center"),
+ "train": dict(vs=["dogtrain"], kind="dogs", sign="Dog Training", word="Training", noun="dog training center"),
+})
+KGROUP.update({v: g for g in _B82 for v in GROUPS[g]["vs"]}); KIT_V.update(KGROUP)
+NAME_OUT.update({
+ "kids": r"school district|elementary|middle school|high school|nanny|babysit|in.?home|home day|summer camp|tutor",
+ "dogs": r"walker|walking|mobile|vet\b|veterinar|hospital|clinic|groom|in.?home|sitter|sitting|rescue|shelter|breeder|cattery|cat\b",
+ "train": r"mobile|in.?home|vet\b|veterinar|groom|breeder|protection|service dog|police",
+})
+WORD.update({"daycare": "Child Care", "petcare": "Dog Care", "dogtrain": "Training"})
+TRADE.update({"daycare": "Child care center", "petcare": "Dog day care and boarding", "dogtrain": "Dog trainer"})
+SCHEMA.update({"daycare": "ChildCare", "petcare": "LocalBusiness", "dogtrain": "LocalBusiness"})
+# the mix copy promised learning programs, walks and results no listing confirms: every service is an "ask about"
+OVERRIDE.update({
+ "daycare": {"h300": ["Looking for", "child care?"], "h750": ["Ask about", "openings."],
+             "services": [("Child care", "Ask about openings and hours."), ("Ages", "Ask which ages they care for."), ("Visit first", "Ask about a time to come see it.")],
+             "jobs": ["Openings", "A visit", "Ages", "Something else"]},
+ "petcare": {"lede": "Dog care in {town}. Tell us about your dog and the dates you need.",
+             "services": [("Day care", "Ask about day care for your dog."), ("Boarding", "Ask about a stay while you're away."), ("Meet first", "Ask about a visit before the first stay.")],
+             "jobs": ["Day care", "Boarding", "A first visit", "Something else"]},
+ "dogtrain": {"services": [("Puppy training", "Ask about starting early."), ("Obedience", "Ask about sit, stay, come and a calmer walk."),
+                           ("Problem behaviors", "Ask about pulling, jumping and barking.")]},
+})
+THEME.update({
+ "kids": _t("#1f3a6b", "#2a4a82", "#fbf6ec", "#f2eadb", "#172a4d", "#5f6675", "#dcd3c3", "#e0a526", "#f2c96b", "#c8553d", "#101d36", "fraunces", "dmsans"),
+ "dogs": _t("#1f3b2e", "#2a4d3c", "#f5f3ec", "#ebe7dc", "#16291f", "#5e6a62", "#d8d4c6", "#e08a3a", "#f2b77a", "#2f6b8f", "#0f1f17", "brico", "dmsans"),
+ "train": _t("#2b2a26", "#3a3833", "#f6f3ec", "#ece7dc", "#1d1c19", "#66625a", "#dad4c6", "#3f8f5e", "#86c79c", "#c0603a", "#141310", "archivo", "dmsans"),
+})
+EXTRA_CSS.update({"kids": ".hero h1 em,.hero0 h1 em{font-weight:400}", "dogs": _UPRIGHT, "train": _UPRIGHT})
+COPY.update({
+ "kids": dict(svc_h="What to ask about", svc_intro="Tell us your child's age and the days you need, and ask about openings and a visit.",
+              quote_h="Ask about openings", cta="Ask about openings", msg_ph="Your child's age, the days and hours you need, and when you'd like to start."),
+ "dogs": dict(svc_h="What to ask about", svc_intro="Tell us about your dog and the dates you need, and ask about day care or a stay.",
+              quote_h="Ask about dates", cta="Ask about dates", msg_ph="Your dog's breed or size, their age, the dates you need and anything to know."),
+ "train": dict(svc_h="What to work on", svc_intro="Tell us about your dog and what you'd like to work on, and ask about getting started.",
+               quote_h="Ask about training", cta="Ask about training", msg_ph="Your dog's age and breed, and what you'd like to work on."),
+})
+for g in _B82:
+    d = GROUPS[g]
+    COPY[g].update(sheet=("A storefront in {town}", "Main street, open for the day"),
+                   sheet_label=f"Line drawing of a two-storey brick {d['noun']} on main street with a striped awning and a big display window",
+                   shot=(f"{g}-after", f"A brick {d['noun']} storefront with a striped awning, the lights on and the OPEN sign lit", "Illustration. Your real photos go here."))
+STEPS.update({
+ "kids": [("Tell us about your child", "Their age and the days you need."), ("Ask about a visit", "Get a call or text back to set up a time."), ("Come see it", "See the room and ask your questions.")],
+ "dogs": [("Tell us about your dog", "Breed or size, age and anything to know."), ("Ask about dates", "Get a call or text back about day care or a stay."), ("Meet first", "Ask about a visit before the first stay.")],
+ "train": [("Tell us about your dog", "Age, breed and what's going on."), ("Ask about training", "Get a call or text back about getting started."), ("Start working", "Sit, stay and a calmer walk, one step at a time.")],
+})
+GLYPH.update({
+ "kids": _G.format("M6 17h9v9H6zM17 17h9v9h-9zM11.5 7h9v10h-9z", "currentColor") + _G.format("M9 21.5h3M20 21.5h3", "var(--pencil)"),
+ "dogs": GLYPH["groom"],
+ "train": _G.format("M7 24V10M25 24V10M7 17h18M4 24h6M22 24h6", "currentColor") + _G.format("M16 9a2 2 0 1 0 0-.1", "var(--pencil)"),
+})
+_I.update({
+ "blocks": '<path d="M8 30h18v18H8zM30 30h18v18H30zM19 10h18v20H19z"/><path d="M14 39h6M36 39h6M25 20h6"/>',
+ "doghouse": '<path d="M8 26L28 9l20 17"/><path d="M13 22v26h30V22"/><path d="M22 48V37a6 6 0 0 1 12 0v11"/>',
+ "bone": '<circle cx="12" cy="22" r="5"/><circle cx="12" cy="34" r="5"/><circle cx="44" cy="22" r="5"/><circle cx="44" cy="34" r="5"/><path d="M16 24h24v8H16z"/>',
+ "leash": '<circle cx="16" cy="40" r="7"/><path d="M21 35c9-9 9-19 21-25"/><path d="M37 8l6 1-1 6"/>',
+ "jump": '<path d="M12 48V14M44 48V14M12 30h32M7 48h10M39 48h10"/>',
+})
+SVC_ICON.update({k: _I[v] for k, v in {("kids", "Child care"): "kids", ("kids", "Ages"): "blocks", ("kids", "Visit first"): "door",
+                                       ("dogs", "Day care"): "paw", ("dogs", "Boarding"): "doghouse", ("dogs", "Meet first"): "heart",
+                                       ("train", "Puppy training"): "bone", ("train", "Obedience"): "jump", ("train", "Problem behaviors"): "leash"}.items()})
+INSIDE.update({
+ "kids": ("Come see the room", "Little tables and chairs, cubbies by the wall, a reading corner with bean bags and an easel.",
+          "Inside the child care center: low tables and chairs, cubbies with bins, a reading corner and an easel"),
+ "dogs": ("Room to run", "Turf to play on, a tunnel and a jump, and kennel runs with beds at the back.",
+          "Inside the dog care center: a turf floor, an agility tunnel and jump, and kennel runs at the back"),
+ "train": ("Room to learn", "Turf underfoot, an agility jump and a tunnel, and leashes by the gate.",
+           "Inside the dog training center: a turf floor, an agility jump and tunnel, and leashes hanging by the gate"),
+})
+VISIT.update({"kids": "From the street to the classroom", "dogs": "From the street to the play yard", "train": "From the street to the training floor"})
+TOOL.update({
+ "kids": ("Visit planner", "How old is your child?", "Pick the age, and know what to ask when you call.",
+          "How old?", [("baby", "Under 1", "Ask if they have openings for infants."), ("tod", "1 to 2", "Ask about openings for toddlers."),
+                       ("pre", "3 to 5", "Ask about openings and what a day looks like."), ("school", "School age", "Ask about before and after school.")],
+          "Ask about a time to come see it first.", "A quick guide. The center will tell you what they have open."),
+ "dogs": ("Stay planner", "What does your dog need?", "Pick what you need, and know what to mention when you call.",
+          "What do you need?", [("day", "Day care", "Mention your dog's size, age and the days."), ("stay", "A stay", "Mention the dates and anything your dog needs."),
+                                ("first", "First time", "Ask about a visit before the first stay."), ("q", "A question", "Call or text and ask.")],
+          "Mention shots, meds or any worries up front.", "A quick guide. The team will tell you what fits."),
+ "train": ("Training guide", "What would you like to work on?", "Pick the goal, and know what to mention when you ask.",
+           "What's the goal?", [("pup", "A new puppy", "Mention the age and what you're seeing."), ("basic", "The basics", "Ask about sit, stay and come."),
+                                ("pull", "Pulling on the leash", "Mention when it happens and how big your dog is."), ("bark", "Barking or jumping", "Mention when it happens and what sets it off.")],
+           "Your dog's age and what's going on help the trainer answer fastest.", "A quick guide. The trainer will tell you what fits."),
+})
+READY.update({
+ "kids": "Your child's age, the days and hours you need, and when you'd like to start.",
+ "dogs": "Your dog's breed or size, their age, the dates you need and anything to know.",
+ "train": "Your dog's age and breed, and what you'd like to work on.",
+})
+for _g in _B82:
+    TOOLS[_g] = ("Text-the-shop button", f"Before-and-after slider and a {TOOL[_g][0].lower()}",
+                 "a live 3D storefront that opens up for the day and lets you step inside")
+    TRY[_g] = ("Tap a choice under \"Rather text than call?\" and watch the text write itself.",
+               f"Drag the slider on the top picture from closed to open, then try the {TOOL[_g][0].lower()}.",
+               "Scroll to watch the shop open up and walk inside, then change the awning color and flip the sign yourself.")
+AWN_DEFAULT.update({"kids": "Gold", "dogs": "Green", "train": "Green"})
