@@ -3367,5 +3367,125 @@
   "w": 1600,
   "h": 1000,
   "q": "kind=dogs&sign=Dog+Training&word=Training&tod=0.14&cam=0,1.6,5.5&tgt=0,1.5,-2&fov=40&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "dig-before",
+  "w": 2400,
+  "h": 1350,
+  "q": "p=1&truck=Excavating&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-14,7,15&tgt=-10.5,-.3,.5&fov=40&dig=0&ox=0.13"
+ },
+ {
+  "name": "dig-after",
+  "w": 2400,
+  "h": 1350,
+  "q": "p=1&truck=Excavating&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-14,7,15&tgt=-10.5,-.3,.5&fov=40&dig=1&ox=0.13"
+ },
+ {
+  "name": "dig-s1",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Excavating&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-14,7,15&tgt=-10.5,-.3,.5&fov=40&dig=0"
+ },
+ {
+  "name": "dig-s2",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Excavating&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-7.5,4.2,9&tgt=-11.2,.2,1.5&fov=42&dig=.41"
+ },
+ {
+  "name": "dig-s3",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Excavating&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-17.2,4.8,-2.2&tgt=-10.8,-1.2,.4&fov=42&dig=.8"
+ },
+ {
+  "name": "dig-s4",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Excavating&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-17.2,4.8,-2.2&tgt=-10.8,-1.2,.4&fov=42&dig=1"
+ },
+ {
+  "name": "dig-dusk",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Excavating&tx=-1.5&tz=35.4&tr=1.5708&tod=0.84&cam=-19,7.5,19&tgt=-9,0,1&fov=40&dig=1"
+ },
+ {
+  "name": "dig-bucket",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Excavating&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-7.5,4.2,9&tgt=-11.2,.2,1.5&fov=42&dig=.449"
+ },
+ {
+  "name": "dig-forms",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Excavating&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-17.2,4.8,-2.2&tgt=-10.8,-1.2,.4&fov=42&dig=.95"
+ },
+ {
+  "name": "dig-pile",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Excavating&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-14,7,15&tgt=-10.5,-.3,.5&fov=40&dig=.6"
+ },
+ {
+  "name": "well-before",
+  "w": 2400,
+  "h": 1350,
+  "q": "p=1&truck=Well+Drilling&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-24,4.2,23.5&tgt=-9.5,4.4,11&fov=40&well=.19&ox=0.13"
+ },
+ {
+  "name": "well-after",
+  "w": 2400,
+  "h": 1350,
+  "q": "p=1&truck=Well+Drilling&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-24,4.2,23.5&tgt=-9.5,4.4,11&fov=40&well=.645&ox=0.13"
+ },
+ {
+  "name": "well-s1",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Well+Drilling&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-24,4.2,23.5&tgt=-9.5,4.4,11&fov=40&well=.19"
+ },
+ {
+  "name": "well-s2",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Well+Drilling&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-24,4.2,23.5&tgt=-9.5,4.4,11&fov=40&well=.5"
+ },
+ {
+  "name": "well-s3",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Well+Drilling&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-13.5,1.9,7.4&tgt=-11,.9,11.6&fov=42&well=.645"
+ },
+ {
+  "name": "well-s4",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Well+Drilling&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-14,2.4,16.5&tgt=-11,.3,11.4&fov=40&well=1"
+ },
+ {
+  "name": "well-dusk",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Well+Drilling&tx=-1.5&tz=35.4&tr=1.5708&tod=0.84&cam=-14,2.4,16.5&tgt=-11,.3,11.4&fov=40&well=1"
+ },
+ {
+  "name": "well-mast",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Well+Drilling&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-27,5,28&tgt=-9,4,11&fov=40&well=.45"
+ },
+ {
+  "name": "well-water",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Well+Drilling&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-13.5,1.9,7.4&tgt=-11,.9,11.6&fov=42&well=.64"
+ },
+ {
+  "name": "well-cap",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Well+Drilling&tx=-1.5&tz=35.4&tr=1.5708&tod=0.3&cam=-14,2.4,16.5&tgt=-11,.3,11.4&fov=40&well=1"
  }
 ]

@@ -985,3 +985,231 @@ export async function snowJob(world, house, {sign = "", font} = {}) {
   set({fix: 0});
   return {root, set, truck: T};
 }
+
+// shared bits for the dig and the well: materials, a seeded random, smoothstep, canvas textures, a bar between two points
+const kit3 = (root, seed0) => {
+  const mat = (c, ro = .8, m = 0, o = {}) => new THREE.MeshStandardMaterial({color: c, roughness: ro, metalness: m, envMapIntensity: .5, ...o});
+  const add = (geo, m, px, py, pz, parent = root) => { const o = new THREE.Mesh(geo, m); o.position.set(px, py, pz); o.castShadow = o.receiveShadow = true; parent.add(o); return o; };
+  const box = (w, h, d, m, px, py, pz, parent = root) => add(new THREE.BoxGeometry(w, h, d), m, px, py, pz, parent);
+  const cyl = (r0, r1, h, m, px, py, pz, parent = root, n = 14) => add(new THREE.CylinderGeometry(r0, r1, h, n), m, px, py, pz, parent);
+  let seed = seed0; const r = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const ss = (a, b, t) => { const k = Math.min(1, Math.max(0, (t - a) / (b - a))); return k * k * (3 - 2 * k); };
+  const tex = (w, h, draw) => { const cv = document.createElement("canvas"); cv.width = w; cv.height = h; draw(cv.getContext("2d"), w, h); const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t; };
+  const bar = (p0, p1, th, m, parent = root, round = false) => { const a = new THREE.Vector3(...p0), b = new THREE.Vector3(...p1), len = a.distanceTo(b);
+    const o = round ? cyl(th, th, len, m, 0, 0, 0, parent, 10) : box(th, len, th, m, 0, 0, 0, parent); o.position.copy(a).add(b).multiplyScalar(.5);
+    o.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), b.clone().sub(a).normalize()); return o; };
+  const mound = (rad, h, m, px, pz, parent = root, jit = .14) => { const g = new THREE.SphereGeometry(1, 26, 12, 0, Math.PI * 2, 0, Math.PI / 2), p = g.attributes.position;
+    for (let i = 0; i < p.count; i++) { const k = 1 + (r() - .5) * jit; p.setXYZ(i, p.getX(i) * k, p.getY(i) * k, p.getZ(i) * k); } g.computeVertexNormals();
+    const o = add(g, m, px, 0, pz, parent); o.userData.s = [rad, h]; return o; };
+  const soilTex = (dark = "62,46,32") => tex(512, 512, (g, w, h) => { const gr = g.createRadialGradient(256, 256, 120, 256, 256, 256); gr.addColorStop(0, `rgba(${dark},1)`); gr.addColorStop(.8, `rgba(${dark},.9)`); gr.addColorStop(1, `rgba(${dark},0)`);
+    g.fillStyle = gr; g.fillRect(0, 0, w, h); for (let i = 0; i < 1600; i++) { const a = r() * 6.28, rr = Math.sqrt(r()) * 236; g.fillStyle = ["rgba(36,26,16,.6)", "rgba(140,112,80,.5)", "rgba(184,160,120,.45)"][i % 3]; g.fillRect(256 + Math.cos(a) * rr, 256 + Math.sin(a) * rr, 2 + r() * 3, 2 + r() * 2); } });
+  return {mat, add, box, cyl, r, ss, tex, bar, mound, soilTex};
+};
+
+// digJob(world): an excavating crew digs for an addition in the side yard left of the house. A hole is cut in the ground disc
+// (four clip planes, clipIntersection) and a real pit sits below it. set({fix}): stakes and string lines mark the dig (<.22),
+// a mini excavator tracks in from the street (.03-.18), digs in five swings, dumping on a spoil pile (.22-.66), trims the floor
+// (.66-.74), gravel goes down (.7-.8), footing forms go in (.78-.9) and the machine backs off and parks (.88-.98).
+export function digJob(world, {x0 = -13.8, x1 = -7.9, z0 = -2.6, z1 = 2.2, D = 1.35} = {}) {
+  const root = new THREE.Group(); world.scene.add(root); world.R.localClippingEnabled = true;
+  const {mat, add, box, cyl, r, ss, tex, bar, mound, soilTex} = kit3(root, 47);
+  const W = x1 - x0, L = z1 - z0, cx = (x0 + x1) / 2, cz = (z0 + z1) / 2;
+  // ---------- the hole: clip the ground disc inside the rectangle, a pit box (inside faces only) below it ----------
+  const gnd = world.scene.children.find(o => o.isMesh && o.geometry.type === "CircleGeometry" && o.geometry.parameters.radius > 500);
+  const holePl = [new THREE.Plane(new THREE.Vector3(-1, 0, 0), x0), new THREE.Plane(new THREE.Vector3(1, 0, 0), -x1), new THREE.Plane(new THREE.Vector3(0, 0, -1), z0), new THREE.Plane(new THREE.Vector3(0, 0, 1), -z1)];
+  let holeOn = false; const hole = on => { if (!gnd || on === holeOn) return; holeOn = on; gnd.material.clippingPlanes = on ? holePl : null; gnd.material.clipIntersection = true; gnd.material.needsUpdate = true; };
+  const wallT = tex(256, 512, (g, w, h) => { const gr = g.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, "#3b2c1f"); gr.addColorStop(.16, "#4a3624"); gr.addColorStop(.2, "#7a5634"); gr.addColorStop(.62, "#8a6440"); gr.addColorStop(.66, "#9b7a52"); gr.addColorStop(1, "#8d6e4a");
+    g.fillStyle = gr; g.fillRect(0, 0, w, h); for (let i = 0; i < 2400; i++) { g.fillStyle = ["rgba(30,20,12,.45)", "rgba(190,160,120,.35)", "rgba(120,90,60,.4)"][i % 3]; g.fillRect(r() * w, r() * h, 1 + r() * 3, 1 + r() * 3); }
+    g.strokeStyle = "rgba(40,28,18,.35)"; g.lineWidth = 2; for (let i = 0; i < 26; i++) { const x = r() * w; g.beginPath(); g.moveTo(x, h * .2); g.lineTo(x + (r() - .5) * 12, h); g.stroke(); }
+    g.fillStyle = "rgba(60,90,40,.9)"; for (let i = 0; i < 90; i++) g.fillRect(r() * w, 0, 2, 4 + r() * 10); });
+  wallT.wrapS = THREE.RepeatWrapping;
+  const pit = new THREE.Group(); pit.position.set(cx, 0, cz); root.add(pit);
+  const pitG = new THREE.BoxGeometry(1, 1, 1); pitG.translate(0, -.5, 0);
+  const walls = add(pitG, mat(0xffffff, 1, 0, {map: wallT, side: THREE.BackSide}), 0, 0, 0, pit); walls.castShadow = false;
+  const floorT = tex(512, 512, (g, w, h) => { g.fillStyle = "#86663f"; g.fillRect(0, 0, w, h); for (let i = 0; i < 3000; i++) { g.fillStyle = ["rgba(60,42,26,.5)", "rgba(170,140,100,.45)"][i % 2]; g.fillRect(r() * w, r() * h, 2 + r() * 4, 2 + r() * 3); }
+    g.strokeStyle = "rgba(70,50,30,.5)"; g.lineWidth = 6; for (let i = 0; i < 7; i++) { const y = (i + .5) / 7 * h; g.beginPath(); for (let x = 0; x <= w; x += 16) g.lineTo(x, y + Math.sin(x * .05 + i) * 5); g.stroke(); } });
+  const floor = add(new THREE.PlaneGeometry(1, 1), mat(0xffffff, 1, 0, {map: floorT}), 0, -.01, 0, pit); floor.rotation.x = -Math.PI / 2; floor.castShadow = false;
+  const gravT = tex(512, 512, (g, w, h) => { g.fillStyle = "#8f8c86"; g.fillRect(0, 0, w, h); for (let i = 0; i < 9000; i++) { g.fillStyle = ["#6f6c66", "#b3afa7", "#a29d94", "#5d5a55"][i % 4]; g.beginPath(); g.ellipse(r() * w, r() * h, 1.5 + r() * 2.5, 1 + r() * 2, r() * 3, 0, 7); g.fill(); } });
+  const gravel = add(new THREE.PlaneGeometry(W - .5, L - .5), mat(0xffffff, .95, 0, {map: gravT}), cx, -D + .03, cz); gravel.rotation.x = -Math.PI / 2; gravel.castShadow = false;
+  // footing forms: boards on edge around the floor, stakes behind them, a strip of rebar inside
+  const forms = new THREE.Group(); forms.position.set(cx, -D + .03, cz); root.add(forms); const fM = mat(0xc49a63, .75), rb = mat(0x7a4a2c, .6, .5);
+  const fw = W - 1.3, fl = L - 1.3;
+  for (const [w, d, px, pz] of [[fw, .05, 0, -fl / 2], [fw, .05, 0, fl / 2], [.05, fl, -fw / 2, 0], [.05, fl, fw / 2, 0], [fw - .9, .05, 0, -fl / 2 + .45], [fw - .9, .05, 0, fl / 2 - .45], [.05, fl - .9, -fw / 2 + .45, 0], [.05, fl - .9, fw / 2 - .45, 0]]) box(w, .3, d, fM, px, .15, pz, forms);
+  for (const s of [-1, 1]) { const b = cyl(.012, .012, fw - .3, rb, 0, .12, s * (fl / 2 - .22), forms, 6); b.rotation.z = Math.PI / 2; const c = cyl(.012, .012, fl - .3, rb, s * (fw / 2 - .22), .12, 0, forms, 6); c.rotation.x = Math.PI / 2; }
+  // the lip: loose soil around the edge, the middle cut out so the pit shows
+  const lipT = tex(512, 512, (g, w, h) => { const m = 70; g.fillStyle = "rgba(78,58,38,.95)"; g.fillRect(0, 0, w, h);
+    for (let i = 0; i < 2200; i++) { g.fillStyle = ["rgba(40,28,18,.6)", "rgba(150,120,84,.5)", "rgba(110,86,58,.6)"][i % 3]; g.fillRect(r() * w, r() * h, 2 + r() * 4, 2 + r() * 3); }
+    g.globalCompositeOperation = "destination-out"; g.fillStyle = "#000"; g.fillRect(m, m, w - 2 * m, h - 2 * m);
+    const e = g.createLinearGradient(0, 0, m * .8, 0); for (const [x0g, rot] of [[0, 0], [w, Math.PI], [0, -Math.PI / 2], [0, Math.PI / 2]]) { g.save(); if (rot === Math.PI) { g.translate(w, h); g.rotate(Math.PI); } else if (rot === -Math.PI / 2) { g.translate(0, h); g.rotate(-Math.PI / 2); } else if (rot) { g.translate(w, 0); g.rotate(Math.PI / 2); }
+      e.addColorStop(0, "rgba(0,0,0,1)"); e.addColorStop(1, "rgba(0,0,0,0)"); for (let k = 0; k < 40; k++) { g.fillStyle = "rgba(0,0,0,.08)"; g.fillRect(0, r() * w, 10 + r() * m * .7, 6 + r() * 20); } g.restore(); } });
+  const lipM = mat(0xffffff, 1, 0, {map: lipT, transparent: true, alphaTest: .3, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2});
+  const lip = add(new THREE.PlaneGeometry(W * 512 / (512 - 140), L * 512 / (512 - 140)), lipM, cx, .012, cz); lip.rotation.x = -Math.PI / 2; lip.castShadow = false; lip.renderOrder = 2;
+  // ---------- stakes and string lines marking the dig ----------
+  const stakes = new THREE.Group(); root.add(stakes); const stM = mat(0xd9b98a, .8), strM = mat(0xff6a1a, .6), flagM = mat(0xff4d6d, .6, 0, {side: THREE.DoubleSide});
+  const strings = new THREE.Group(); root.add(strings);
+  const C = [[x0 - .35, z0 - .35], [x1 + .35, z0 - .35], [x1 + .35, z1 + .35], [x0 - .35, z1 + .35]];
+  C.forEach(([px, pz], i) => { box(.05, .6, .05, stM, px, .3, pz, stakes); const f = add(new THREE.PlaneGeometry(.14, .09), flagM, px + .07, .55, pz, stakes); f.rotation.y = .5;
+    const [qx, qz] = C[(i + 1) % 4]; bar([px, .32, pz], [qx, .32, qz], .008, strM, strings, true); });
+  for (const t of [.25, .5, .75]) for (const [ax, az, bx, bz] of [[x0, z0, x1, z0], [x0, z1, x1, z1]]) { const px = ax + (bx - ax) * t, pz = az + (bz - az) * t; const p = add(new THREE.CircleGeometry(.05, 10), mat(0xff6a1a, .6), px, .014, pz, strings); p.rotation.x = -Math.PI / 2; }
+  // ---------- the spoil pile ----------
+  const spoilT = tex(512, 512, (g, w, h) => { g.fillStyle = "#6e5236"; g.fillRect(0, 0, w, h); for (let i = 0; i < 5000; i++) { g.fillStyle = ["#4d3826", "#8a6a46", "#9b7a52", "#3e2d1e"][i % 4]; g.beginPath(); g.ellipse(r() * w, r() * h, 2 + r() * 6, 2 + r() * 4, r() * 3, 0, 7); g.fill(); } });
+  spoilT.wrapS = spoilT.wrapT = THREE.RepeatWrapping; spoilT.repeat.set(2, 2);
+  const PX = x1 - 1.1, PZ = z1 + 5.6;
+  const spoil = mound(1, 1, mat(0xffffff, 1, 0, {map: spoilT}), PX, PZ); spoil.scale.set(.01, .01, .01);
+  const skirt = add(new THREE.CircleGeometry(1, 40), mat(0xffffff, 1, 0, {map: soilTex("78,58,38"), transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2}), PX, .013, PZ); skirt.rotation.x = -Math.PI / 2; skirt.castShadow = false; skirt.renderOrder = 2;
+  // ---------- the mini excavator (faces -z): tracks and blade, the house on a turntable, cab, boom, stick and bucket ----------
+  const yel = mat(0xf2b01e, .42, .15), dk = mat(0x2a2b2e, .6, .3), rub = mat(0x1b1b1c, .92), stl = mat(0xb9bcbf, .3, .85), gl = mat(0x22303a, .08, .2, {transparent: true, opacity: .55});
+  const ex = new THREE.Group(); root.add(ex);
+  const trackT = tex(64, 256, (g, w, h) => { g.fillStyle = "#1c1c1d"; g.fillRect(0, 0, w, h); g.fillStyle = "#3a3a3c"; for (let y = 0; y < h; y += 16) g.fillRect(0, y, w, 6); });
+  trackT.wrapT = THREE.RepeatWrapping; trackT.repeat.set(1, 3); const trkM = mat(0xffffff, .85, .2, {map: trackT});
+  for (const sx of [-1, 1]) { const tg = new THREE.Group(); tg.position.set(sx * .78, 0, 0); ex.add(tg);
+    box(.42, .34, 1.9, trkM, 0, .27, 0, tg); for (const ez of [-.95, .95]) { const e = cyl(.27, .27, .42, trkM, 0, .27, ez, tg, 18); e.rotation.z = Math.PI / 2; }
+    box(.3, .2, 1.6, dk, 0, .3, 0, tg); for (const z of [-.6, -.2, .2, .6]) { const w = cyl(.09, .09, .44, stl, 0, .14, z, tg, 10); w.rotation.z = Math.PI / 2; } }
+  box(1.0, .3, 1.2, dk, 0, .42, 0, ex);
+  const blade = box(2.0, .42, .1, yel, 0, .26, -1.32, ex); bar([-.4, .45, -.6], [-.4, .3, -1.25], .045, yel, ex); bar([.4, .45, -.6], [.4, .3, -1.25], .045, yel, ex);
+  const up = new THREE.Group(); up.position.y = .62; ex.add(up);
+  cyl(.62, .62, .1, dk, 0, .05, 0, up, 24);
+  box(1.62, .62, 1.55, yel, 0, .42, .2, up);
+  const cw = cyl(.82, .82, .62, yel, 0, .42, .42, up, 28); cw.scale.set(1, 1, .7); cw.geometry.translate(0, 0, 0);
+  box(.8, .34, .9, yel, .38, .88, .35, up);
+  { const grill = tex(128, 64, (g, w, h) => { g.fillStyle = "#2a2b2e"; g.fillRect(0, 0, w, h); g.fillStyle = "#111"; for (let x = 6; x < w; x += 10) g.fillRect(x, 6, 5, h - 12); }); const gr = box(.5, .2, .01, mat(0xffffff, .6, .2, {map: grill}), .55, .55, -.58, up); }
+  // cab: posts, a roof and glass all round
+  const cab = new THREE.Group(); cab.position.set(-.36, .72, -.12); up.add(cab);
+  for (const [px, pz] of [[-.4, -.48], [.4, -.48], [-.4, .48], [.4, .48]]) box(.06, 1.2, .06, dk, px, .6, pz, cab);
+  box(.9, .07, 1.04, yel, 0, 1.22, 0, cab); box(.86, 1.12, .98, gl, 0, .6, 0, cab).castShadow = false;
+  box(.5, .14, .5, dk, 0, .2, .05, cab); box(.5, .55, .1, dk, 0, .5, .28, cab);
+  // boom (bent), stick and bucket; hydraulic rams ride along them
+  const boom = new THREE.Group(); boom.position.set(.28, .62, -.72); up.add(boom);
+  box(.3, .5, .3, yel, 0, .1, .05, boom);
+  bar([0, 0, 0], [0, 1.25, -1.0], .2, yel, boom); bar([0, 1.25, -1.0], [0, 1.0, -2.5], .2, yel, boom);
+  bar([0, -.1, .02], [0, .9, -.9], .05, stl, boom, true); bar([0, 1.35, -.9], [0, 1.3, -1.9], .045, stl, boom, true);
+  const stick = new THREE.Group(); stick.position.set(0, 1.0, -2.5); boom.add(stick);
+  bar([0, .25, 0], [0, -1.75, 0], .16, yel, stick); bar([0, .3, -.08], [0, -1.2, -.12], .04, stl, stick, true);
+  const bkt = new THREE.Group(); bkt.position.set(0, -1.75, 0); stick.add(bkt);
+  { const sh = add(new THREE.CylinderGeometry(.34, .34, .62, 18, 1, true, Math.PI * .5, Math.PI * 1.1), mat(0x3a3b3e, .55, .4, {side: THREE.DoubleSide}), 0, -.3, -.12, bkt); sh.rotation.z = Math.PI / 2;
+    for (const s of [-1, 1]) { const e = add(new THREE.CircleGeometry(.34, 18, Math.PI * .5, Math.PI * 1.1), mat(0x3a3b3e, .55, .4, {side: THREE.DoubleSide}), s * .31, -.3, -.12, bkt); e.rotation.y = s * Math.PI / 2; e.rotation.z = 0; }
+    for (let i = 0; i < 4; i++) box(.06, .12, .05, stl, -.22 + i * .147, -.66, -.06, bkt); box(.2, .14, .2, yel, 0, 0, 0, bkt); }
+  const load = mound(1, 1, mat(0xffffff, 1, 0, {map: spoilT}), 0, 0, bkt); load.position.set(0, -.34, -.14); load.scale.set(.27, .18, .2);
+  // pose: [boom, stick, bucket curl, swing]
+  const P = {park: [.55, -.95, 1.4, 0], reach: [-.05, .75, -.5, 0], down: [-.42, .12, -.1, 0], curl: [-.3, -.25, 1.25, 0], lift: [.45, -.25, 1.35, 0],
+             pile: [.45, -.1, 1.35, -2.46], dump: [.38, .45, -.75, -2.46], trim: [-.5, .35, .25, 0]};
+  const mix = (a, b, t) => a.map((v, i) => v + (b[i] - v) * t);
+  const cyc = u => { const K = [[0, P.lift], [.14, P.reach], [.28, P.down], [.4, P.curl], [.52, P.lift], [.66, P.pile], [.78, P.dump], [.88, P.pile], [1, P.lift]];
+    for (let i = 1; i < K.length; i++) if (u <= K[i][0]) { const t = (u - K[i - 1][0]) / (K[i][0] - K[i - 1][0]); return [mix(K[i - 1][1], K[i][1], t * t * (3 - 2 * t)), i]; } return [P.lift, 8]; };
+  const EX = (x0 + x1) / 2 - .9, EZ = z1 + 2.25, N = 5, A = .22, B = .66;
+  let fix = -1;
+  const set = ({fix: f = 0} = {}) => { if (Math.abs(f - fix) < 1e-4) return; fix = f;
+    const dig = ss(A + .02, B, f), dep = Math.max(.001, dig * D);
+    hole(dig > .003); pit.visible = dig > .003; pit.scale.set(W, 1, L); walls.scale.y = dep; floor.position.y = -dep + .005; floor.scale.set(1, 1, 1);
+    lipM.opacity = Math.min(1, dig * 6); lip.visible = dig > .003;
+    gravel.visible = f > .7; gravel.material.opacity = 1; gravel.scale.setScalar(Math.max(.01, ss(.7, .8, f)));
+    const fm = ss(.78, .9, f); forms.visible = fm > .01; forms.scale.set(1, fm, 1);
+    strings.visible = f < A; stakes.visible = f < .9;
+    // the pile grows with each dump; the skirt of loose soil around it
+    const pv = Math.min(1, ss(A, B, f) * 1.05); spoil.visible = skirt.visible = pv > .01; spoil.scale.set(.6 + 1.7 * Math.sqrt(pv), .08 + 1.25 * pv, .5 + 1.4 * Math.sqrt(pv)); skirt.scale.setScalar(1 + 1.9 * Math.sqrt(pv));
+    // the machine: in from the street, digs, trims, then backs off and parks
+    const inn = ss(.03, .18, f), out = ss(.88, .98, f);
+    ex.position.set(EX - out * 4.3, 0, EZ + (1 - inn) * 26 + out * 3); ex.rotation.y = out * .5;
+    let pose = P.park, loaded = false;
+    if (f > .18 && f < A) pose = mix(P.park, P.lift, ss(.18, A, f));
+    else if (f >= A && f < B) { const u = (f - A) / (B - A) * N, [p, k] = cyc(u % 1); pose = p; loaded = k >= 4 && k <= 7; }
+    else if (f >= B && f < .74) pose = mix(P.trim, [P.trim[0], P.trim[1] - .5, P.trim[2], 0], .5 - .5 * Math.cos((f - B) / (.74 - B) * Math.PI * 4));
+    else if (f >= .74 && f < .88) pose = mix(P.trim, P.park, ss(.74, .84, f));
+    boom.rotation.x = pose[0]; stick.rotation.x = pose[1]; bkt.rotation.x = pose[2]; up.rotation.y = pose[3];
+    load.visible = loaded; blade.position.y = f > .2 && f < .88 ? .2 : .26; };
+  set({fix: 0});
+  return {root, set, exclude: (px, pz) => (px > x0 - .5 && px < x1 + .5 && pz > z0 - .5 && pz < z1 + .5) || Math.hypot((px - PX) / 2.4, (pz - PZ) / 2.1) < 1};
+}
+
+// wellJob(world): a well drilling rig in the front yard left of the path. The rig backs in (.03-.18), the jacks go down and the
+// mast swings up (.18-.32), it drills rod after rod with cuttings piling up (.32-.62), hits water and it sprays out of the hole
+// (.6-.7), the casing goes in and gets its cap (.7-.78), the mast lays back down (.76-.86) and the rig drives off (.88-.98),
+// leaving the well cap in a ring of raked soil. A flag marks the spot before it starts.
+export function wellJob(world, {x = -11, z = 11.4} = {}) {
+  const root = new THREE.Group(); root.position.set(x, 0, z); world.scene.add(root);
+  const {mat, add, box, cyl, r, ss, tex, bar, mound, soilTex} = kit3(root, 59);
+  // ---------- the spot: a flag, then mud, cuttings, the casing and its cap, raked soil at the end ----------
+  const flag = new THREE.Group(); root.add(flag); cyl(.006, .006, .6, mat(0x8a8d90, .5), 0, .3, 0, flag, 5); { const f = add(new THREE.PlaneGeometry(.16, .11), mat(0x2a64d6, .6, 0, {side: THREE.DoubleSide}), .08, .54, 0, flag); f.rotation.y = .6; }
+  const mudT = tex(512, 512, (g, w, h) => { for (let i = 0; i < 300; i++) { const cx = w / 2 + (r() - .5) * w * .5, cy = h / 2 + (r() - .5) * h * .5, rad = 30 + r() * 90, gr = g.createRadialGradient(cx, cy, 0, cx, cy, rad);
+    const c = r() < .5 ? "74,64,52" : "56,48,40"; gr.addColorStop(0, `rgba(${c},.45)`); gr.addColorStop(1, `rgba(${c},0)`); g.fillStyle = gr; g.fillRect(0, 0, w, h); } });
+  const mudM = mat(0xffffff, .85, 0, {map: mudT, transparent: true, depthWrite: false, envMapIntensity: .3, polygonOffset: true, polygonOffsetFactor: -2});
+  const mud = add(new THREE.CircleGeometry(2.0, 40), mudM, -.2, .013, -.3); mud.rotation.x = -Math.PI / 2; mud.castShadow = false; mud.renderOrder = 2;
+  const pudM = mat(0x3e372e, .45, 0, {transparent: true, opacity: .8, depthWrite: false, envMapIntensity: .3, polygonOffset: true, polygonOffsetFactor: -3});
+  const pud = add(new THREE.CircleGeometry(.9, 36), pudM, -.6, .016, -.4); pud.rotation.x = -Math.PI / 2; pud.scale.set(1, 1.4, 1); pud.castShadow = false; pud.renderOrder = 3;
+  const cutT = tex(256, 256, (g, w, h) => { g.fillStyle = "#8d8478"; g.fillRect(0, 0, w, h); for (let i = 0; i < 3000; i++) { g.fillStyle = ["#6f675d", "#a49b8e", "#5c544b"][i % 3]; g.fillRect(r() * w, r() * h, 1 + r() * 3, 1 + r() * 3); } });
+  const cuttings = mound(1, 1, mat(0xffffff, .9, 0, {map: cutT}), -1.15, .5, root, .2);
+  const soil = add(new THREE.CircleGeometry(1.5, 40), mat(0xffffff, 1, 0, {map: soilTex("72,56,38"), transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2}), 0, .012, 0); soil.rotation.x = -Math.PI / 2; soil.castShadow = false; soil.renderOrder = 2;
+  const straw = new THREE.Group(); root.add(straw); const strM = mat(0xd9c27a, .8);
+  for (let i = 0; i < 160; i++) { const a = r() * 6.28, rr = .35 + Math.sqrt(r()) * 1.05, s = box(.12 + r() * .1, .006, .008, strM, Math.cos(a) * rr, .02, Math.sin(a) * rr, straw); s.rotation.y = r() * 3.14; s.castShadow = false; }
+  const casing = new THREE.Group(); root.add(casing);
+  cyl(.085, .085, .62, mat(0x4a4d52, .45, .7), 0, .31, 0, casing, 20); cyl(.105, .105, .1, mat(0xf2f1ec, .5), 0, .66, 0, casing, 20); cyl(.07, .07, .04, mat(0xf2f1ec, .5), 0, .73, 0, casing, 20);
+  { const conduit = cyl(.012, .012, .2, mat(0x6b6e72, .5, .5), .09, .55, 0, casing, 6); conduit.rotation.z = .5; }
+  const gravelRing = add(new THREE.RingGeometry(.09, .34, 28), mat(0x9a968e, .95), 0, .015, 0, casing); gravelRing.rotation.x = -Math.PI / 2; gravelRing.castShadow = false;
+  // water spraying out when the drill hits it
+  const dropM = mat(0xd4e3ee, .05, 0, {transparent: true, opacity: .55, envMapIntensity: 1.2}), drops = [];
+  for (let i = 0; i < 220; i++) { const d = add(new THREE.SphereGeometry(.012 + r() * .016, 5, 4), dropM, 0, 0, 0); d.scale.y = 2.2; d.castShadow = false; drops.push([d, r() * 6.28, .2 + r() * .7, r(), 1.8 + r() * 1.8]); }
+  const jet = add(new THREE.CylinderGeometry(.24, .05, 2.6, 18, 1, true), mat(0xeef4f8, .1, 0, {transparent: true, opacity: .35, depthWrite: false, side: THREE.DoubleSide, envMapIntensity: 1.5}), 0, 1.35, 0); jet.castShadow = false;
+  // ---------- the rig: a straight truck, rear at the hole, cab toward the street (+z) ----------
+  const red = mat(0xb8322a, .45, .2), wht = mat(0xf1efe9, .5, .1), dk = mat(0x26282b, .6, .3), stl = mat(0xb9bcbf, .3, .85), rub = mat(0x1a1a1a, .9), gl = mat(0x1e2a33, .06, .3);
+  const rig = new THREE.Group(); root.add(rig);
+  box(1.1, .3, 7.0, dk, 0, .82, 4.6, rig);
+  for (const wz of [2.0, 3.25, 7.35]) for (const sx of [-1, 1]) { const w = cyl(.52, .52, .36, rub, sx * 1.0, .52, wz, rig, 22); w.rotation.z = Math.PI / 2; const h = cyl(.28, .28, .38, stl, sx * 1.0, .52, wz, rig, 14); h.rotation.z = Math.PI / 2; }
+  for (const wz of [2.6, 7.35]) box(2.4, .1, wz > 5 ? 1.4 : 2.6, dk, 0, 1.12, wz, rig);
+  box(2.5, .16, 5.2, mat(0x4b4e52, .7, .4), 0, 1.12, 3.6, rig);
+  // cab with a windshield, side windows and a grille
+  const cabG = new THREE.Group(); cabG.position.set(0, 0, 7.6); rig.add(cabG);
+  box(2.4, 1.5, 1.7, wht, 0, 2.1, 0, cabG); box(2.4, .9, .9, wht, 0, 1.35, 1.2, cabG); box(2.3, .9, .04, gl, 0, 2.35, .86, cabG).castShadow = false;
+  for (const sx of [-1, 1]) box(.04, .7, 1.0, gl, sx * 1.21, 2.4, .1, cabG).castShadow = false;
+  box(1.6, .5, .05, dk, 0, 1.4, 1.66, cabG); box(2.5, .22, .2, stl, 0, .95, 1.7, cabG); for (const sx of [-1, 1]) cyl(.1, .1, .05, mat(0xfff4d6, .2, 0, {emissive: 0x332a10}), sx * .9, 1.45, 1.67, cabG, 12).rotation.x = Math.PI / 2;
+  box(2.4, .1, .1, red, 0, 1.6, 1.66, cabG); box(.05, 1.5, 1.7, red, 1.21, 2.0, 0, cabG); box(.05, 1.5, 1.7, red, -1.21, 2.0, 0, cabG);
+  box(2.0, .5, .1, dk, 0, 2.9, -.95, cabG); // the rack the mast rests on
+  // the power unit, the pump, a water tank and a rack of drill rods on the deck
+  box(1.6, 1.1, 1.5, red, -.2, 1.75, 4.6, rig); box(1.7, .1, 1.6, dk, -.2, 2.33, 4.6, rig); cyl(.06, .06, .5, dk, .3, 2.6, 4.9, rig, 8);
+  { const t = cyl(.55, .55, 1.6, wht, .55, 1.75, 2.9, rig, 22); t.rotation.x = Math.PI / 2; }
+  for (let i = 0; i < 8; i++) { const p = cyl(.045, .045, 3.0, stl, -1.0 + (i % 4) * .1, 1.32 + Math.floor(i / 4) * .1, 2.5, rig, 8); p.rotation.x = Math.PI / 2; }
+  box(.08, .35, .08, dk, -1.15, 1.35, 1.2, rig); box(.08, .35, .08, dk, -1.15, 1.35, 3.8, rig);
+  // rear jacks
+  const jacks = []; for (const sx of [-1, 1]) { const j = new THREE.Group(); j.position.set(sx * 1.1, 0, 1.25); rig.add(j); box(.18, .5, .18, red, 0, 1.0, 0, j); const leg = cyl(.07, .07, 1.0, stl, 0, .5, 0, j, 10); const pad = box(.4, .05, .4, dk, 0, .03, 0, j); jacks.push([leg, pad]); }
+  // ---------- the mast: a lattice tower pivoting at the back of the deck, the top head that drives the rods ----------
+  const MH = 8.6, mast = new THREE.Group(); mast.position.set(0, 1.25, .95); rig.add(mast);
+  for (const sx of [-1, 1]) for (const sz of [-1, 1]) box(.1, MH, .1, red, sx * .26, MH / 2, sz * .2, mast);
+  for (let y = .5; y < MH; y += .55) { for (const sz of [-1, 1]) bar([-.26, y, sz * .2], [.26, y + .5, sz * .2], .03, red, mast); for (const sx of [-1, 1]) bar([sx * .26, y, -.2], [sx * .26, y + .5, .2], .03, red, mast); }
+  box(.7, .35, .6, red, 0, MH + .1, 0, mast); { const sh = cyl(.18, .18, .1, stl, 0, MH + .32, 0, mast, 16); sh.rotation.z = Math.PI / 2; }
+  bar([0, MH + .32, -.18], [0, 1, -.62], .012, dk, mast, true);
+  const head = new THREE.Group(); mast.add(head); head.position.set(0, 6, -.62);
+  box(.62, .55, .5, mat(0x2f3134, .5, .5), 0, 0, .1, head); box(.4, .2, .4, red, 0, .35, .1, head); const spin = cyl(.14, .14, .2, stl, 0, -.38, 0, head, 12);
+  for (const sx of [-1, 1]) cyl(.04, .04, .4, dk, sx * .22, .1, .25, head, 8);
+  const rodT = tex(32, 128, (g, w, h) => { g.fillStyle = "#9da2a6"; g.fillRect(0, 0, w, h); g.fillStyle = "#6b7074"; g.fillRect(0, 0, w / 3, h); g.fillStyle = "#c9cdd0"; g.fillRect(w * .55, 0, w / 6, h); });
+  rodT.wrapT = THREE.RepeatWrapping; const rod = cyl(.05, .05, 1, mat(0xffffff, .35, .7, {map: rodT}), 0, 0, -.62, mast, 12);
+  // a helper at the back: hard hat and vest
+  const man = new THREE.Group(); man.position.set(2.2, 0, .2); man.rotation.y = -1.4; root.add(man);
+  { const skin = mat(0xc89270, .7), jeans = mat(0x2f3f5a, .9), vest = mat(0xe8f23a, .6), hat = mat(0xf2f1ec, .4);
+    for (const sx of [-1, 1]) cyl(.07, .07, .85, jeans, sx * .1, .43, 0, man, 8); box(.38, .55, .22, mat(0x4a5560, .8), 0, 1.15, 0, man); box(.4, .5, .24, vest, 0, 1.17, 0, man);
+    for (const sx of [-1, 1]) { const a = cyl(.05, .05, .6, mat(0x4a5560, .8), sx * .24, 1.1, .05, man, 8); a.rotation.x = -.3; }
+    add(new THREE.SphereGeometry(.12, 14, 10), skin, 0, 1.56, 0, man); const h = add(new THREE.SphereGeometry(.14, 14, 8, 0, Math.PI * 2, 0, Math.PI / 2), hat, 0, 1.6, 0, man); box(.3, .02, .32, hat, 0, 1.6, -.03, man); }
+  // ---------- timeline ----------
+  let fix = -1, tt = 0, drilling = false, spray = 0;
+  const water = time => { for (const [d, a, v, ph, hgt] of drops) { if (spray < .01) { d.visible = false; continue; } const p = (time * 1.4 + ph) % 1; d.visible = true;
+    d.position.set(Math.cos(a) * v * p * .8, .7 + (hgt * p - 3.4 * p * p) * spray, Math.sin(a) * v * p * .8); } dropM.opacity = .55 * spray; };
+  world.onTick.push((t, dt) => { tt += dt; if (drilling) { spin.rotation.y += dt * 14; rod.rotation.y += dt * 14; } if (spray > .01) water(tt); });
+  const set = ({fix: f = 0} = {}) => { if (Math.abs(f - fix) < 1e-4) return; fix = f;
+    const inn = ss(.03, .18, f), out = ss(.88, .98, f);
+    rig.position.z = (1 - inn) * 22 + out * 22; rig.visible = f > .02 && f < .985; man.visible = f > .18 && f < .88;
+    const jk = ss(.18, .22, f) * (1 - ss(.84, .88, f)); for (const [leg, pad] of jacks) { leg.scale.y = .25 + .75 * jk; leg.position.y = 1.0 - .5 * (.25 + .75 * jk); pad.position.y = 1.0 - (.25 + .75 * jk) + .03; }
+    const raise = ss(.21, .32, f) * (1 - ss(.76, .86, f)); mast.rotation.x = (1 - raise) * 1.22;
+    // drilling: four rods, the head runs down each one and back up for the next
+    const dr = ss(.32, .66, f) * 4; let hy = 7.4;
+    if (f >= .32 && f < .7) { const k = dr % 1, n = Math.floor(dr); hy = n >= 4 ? 1.2 : k < .82 ? 7.4 - (k / .82) * 6.2 : 1.2 + ((k - .82) / .18) * 6.2; }
+    else if (f >= .7) hy = 7.4;
+    head.position.y = hy; const showRod = f > .3 && f < .72; rod.visible = showRod; rod.scale.y = hy + 1.25; rod.position.y = (hy - 1.25) / 2 - .35;
+    drilling = f > .32 && f < .66;
+    spray = ss(.6, .63, f) * (1 - ss(.67, .7, f)); water(tt || 0); jet.visible = spray > .01; jet.scale.set(1, Math.max(.01, spray), 1); jet.position.y = .05 + 1.3 * spray; jet.material.opacity = .35 * spray;
+    const wet = ss(.33, .5, f) * (1 - ss(.8, .9, f)); mudM.opacity = wet; mud.visible = wet > .01;
+    const pw = ss(.6, .66, f) * (1 - ss(.78, .9, f)); pudM.opacity = .8 * pw; pud.visible = pw > .01;
+    const cv = ss(.34, .62, f) * (1 - ss(.82, .9, f)); cuttings.visible = cv > .01; cuttings.scale.set(.35 + .55 * Math.sqrt(cv), .05 + .3 * cv, .3 + .45 * Math.sqrt(cv));
+    casing.visible = f > .7; casing.position.y = -.62 * (1 - ss(.7, .76, f)); casing.children[1].visible = casing.children[2].visible = f > .76;
+    const sv = ss(.8, .9, f); soil.visible = straw.visible = sv > .01; soil.material.opacity = sv; straw.scale.setScalar(Math.max(.01, ss(.9, .96, f)));
+    flag.visible = f < .3; };
+  set({fix: 0});
+  return {root, set, exclude: (px, pz) => Math.hypot(px - x, pz - z) < 1.8};
+}

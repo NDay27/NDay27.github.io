@@ -1036,7 +1036,7 @@ CAM.update(glassh=("-6.2,1.8,14.4", "-2.2,1.15,10.0", 32), glassc=("-4.4,2.2,12.
 
 def renders(g):
     d = GROUPS[g]; tr = d["truck"].replace(" ", "+").replace("&", "%26")
-    base = (f"p=1&drive={d['drive']}&truck={tr}&tx=-1.5" if d["drive"] else f"p=1&truck={tr}&tx={ {'plumb': -6, 'handy': 1.5, 'roof': -1.5, 'elec': -1.5, 'lock': -1.5, 'fence': -1.5}.get(g, -11) }") + "&tz=35.4&tr=1.5708"
+    base = (f"p=1&drive={d['drive']}&truck={tr}&tx=-1.5" if d["drive"] else f"p=1&truck={tr}&tx={ {'plumb': -6, 'handy': 1.5, 'roof': -1.5, 'elec': -1.5, 'lock': -1.5, 'fence': -1.5, 'dig': -1.5, 'well': -1.5}.get(g, -11) }") + "&tz=35.4&tr=1.5708"
     def r(name, w, h, cam, tod, st, ox=0):
         c, t, f = CAM[cam]
         q = f"{base}&tod={tod}&cam={c}&tgt={t}&fov={f}&{st}" + (f"&ox={ox}" if ox else "")
@@ -1196,3 +1196,141 @@ def renders(g):
             r("s3", 1200, 800, "close", .3, "fix=.7"), r("s4", 1200, 800, "close", .3, "fix=1"),
             r("dusk", 1600, 1000, "dusk", .84, "fix=1"), r("drive", 1600, 1000, "close", .3, "fix=1"),
             r("walk", 1600, 1000, "walk", .3, "fix=1"), r("cracks", 1600, 1000, "close", .3, "fix=0")]
+
+
+# ---------- Nov 22: excavating (yard.js digJob, lab dig=) and well drilling (yard.js wellJob, lab well=) ----------
+# Handyman leads whose Google category is an excavating or well drilling contractor move here from pick.py.
+_B83 = ("dig", "well")
+GROUPS.update({"dig": dict(vs=["excavation"], drive=None, noun="excavating crew", truck="Excavating"),
+               "well": dict(vs=["welldrill"], drive=None, noun="well drilling crew", truck="Well Drilling")})
+KGROUP.update({v: g for g in _B83 for v in GROUPS[g]["vs"]}); KIT_V.update(KGROUP)
+NAME_OUT.update({"dig": r"septic pumping|portable|toilet|demolition only|equipment|rental|sales|supply|trucking|hauling only",
+                 "well": r"oil|gas|pump sales|supply|rental|equipment|geotech|environmental"})
+TRADE.update({"excavation": "Excavating contractor", "welldrill": "Well drilling contractor"})
+SCHEMA.update({"excavation": "HomeAndConstructionBusiness", "welldrill": "HomeAndConstructionBusiness"})
+TRADE_LABEL.update({"excavation": "Excavating", "welldrill": "Well Drilling"})
+# the mix copy promised foundations and footings; every service is an "ask about"
+V_NEW["excavation"] = dict(group="trades", noun="crew", h300=["Dirt work?", "Ask for a quote."], h750=["Dig, grade,", "done."], h1250=["Bare dirt to", "ready to build."],
+                           lede="Excavating in {town} and nearby. Tell us about the job and ask for a straight quote.",
+                           services=[("Digging", "Ask about digging for an addition, a garage or footings."), ("Grading and drainage", "Ask about getting the water to go where it should."),
+                                     ("Site prep", "Ask about clearing and leveling before a build.")],
+                           jobs=["Digging", "Grading", "Drainage", "Site prep", "Something else"], when=["As soon as possible", "In the next two weeks", "This season", "Just getting a quote"],
+                           who="homeowners and builders", ask="What's the job?")
+V_NEW["welldrill"] = dict(group="trades", noun="crew", h300=["Need a well?", "Start here."], h750=["Drill it.", "Cap it."], h1250=["Down to", "the water."],
+                          lede="Well drilling in {town} and nearby. Tell us about the property and ask about a new well or one that's acting up.",
+                          services=[("New wells", "Ask about drilling a new well."), ("Well service", "Ask about a well that's acting up."), ("Pumps", "Ask about pumps and pressure tanks.")],
+                          jobs=["New well", "Well problem", "Pump or tank", "Something else"], when=["As soon as possible", "This month", "This season", "Just getting a quote"],
+                          who="homeowners", ask="What do you need?")
+THEME.update({"dig": _t("#2b2416", "#3a311e", "#f7f3ea", "#ede6d6", "#211b10", "#6b6354", "#dcd3c0", "#e0a21e", "#f2c661", "#3d6f8a", "#17120a", "archivo", "dmsans"),
+              "well": _t("#16303f", "#1f4052", "#f3f7f8", "#e4ecef", "#10232e", "#5a6b74", "#d0dce1", "#c8402f", "#e8826f", "#2f7fb5", "#0b1a22", "archivo", "dmsans")})
+EXTRA_CSS.update({g: EXTRA_CSS["snow"] for g in _B83})
+_RD = {"dig": "What's going in, roughly how big, and a few photos of the spot if you can.",
+       "well": "Where the property is, what's going on with the water, and how old the well is if you know."}
+READY.update(_RD)
+COPY["dig"] = dict(svc_h="What we do", svc_intro="Tell us about the job, the spot and roughly how big. Not sure? Ask anyway.",
+                   quote_h="Get a dig quote", cta="Get a dig quote", msg_ph=_RD["dig"],
+                   sheet=("A dig in {town}", "Staked out to ready to build"), sheet_label="Line drawing of a two-storey farmhouse with a porch and a garage wing",
+                   shot=("dig-after", "A dug-out pit beside a farmhouse with gravel, footing forms and a mini excavator parked", "Illustration. Your real job photos go here."))
+COPY["well"] = dict(svc_h="What we do", svc_intro="Tell us about the property and what's going on with the water. Not sure? Ask anyway.",
+                    quote_h="Ask about a well", cta="Ask about a well", msg_ph=_RD["well"],
+                    sheet=("A well in {town}", "Bare lawn to a new well"), sheet_label="Line drawing of a two-storey farmhouse with a porch and a garage wing",
+                    shot=("well-after", "A red well drilling rig in a front yard with its mast up and water spraying out of the new well", "Illustration. Your real job photos go here."))
+STEPS.update({"dig": [("Tell us about the job", "What's going in, roughly how big, and any photos."), ("Get a straight quote", "Ask about the price and when the crew can start."),
+                      ("Ready to build", "Dug to the lines and ready for the next step.")],
+              "well": [("Tell us about the property", "Where the house is and what you need."), ("Get a straight answer", "Ask about the price and when the rig can come."),
+                       ("Water on tap", "The well drilled, cased and capped.")]})
+GLYPH.update({"dig": _G.format("M16 4v13M12 4h8", "currentColor") + _G.format("M9 17h14l-2 11h-10z", "var(--pencil)"),
+              "well": _G.format("M16 5c5 7 8 11 8 15a8 8 0 0 1-16 0c0-4 3-8 8-15z", "currentColor") + _G.format("M12 21a4 4 0 0 0 4 4", "var(--pencil)")})
+_J.update(bucket='<path d="M8 20h26l-4 18H14z"/><path d="M14 38l-2 6M20 38v6M26 38v6M32 38l2 6"/><path d="M34 20l10-10"/>',
+          grade='<path d="M4 40c10-10 20-14 48-14"/><path d="M4 46h48"/><path d="M38 14l6 6-6 6"/>',
+          level='<path d="M6 36h44v8H6z"/><path d="M12 36V24h32v12"/><circle cx="28" cy="30" r="3"/>',
+          rig='<path d="M28 4v34"/><path d="M22 4h12"/><path d="M8 44h40v6H8z"/><path d="M22 38h12v6H22z"/><path d="M28 12l-8 8M28 20l8 8"/>',
+          tap='<path d="M10 20h22a6 6 0 0 1 6 6v6"/><path d="M10 14v12"/><path d="M38 38c-2 4-4 6-4 8a4 4 0 0 0 8 0c0-2-2-4-4-8z"/>',
+          ptank='<path d="M16 12h24v30H16z"/><path d="M16 12a12 6 0 0 1 24 0"/><path d="M22 42v6M34 42v6"/><path d="M40 24h8"/>')
+SVC_ICON.update({("dig", "Digging"): _J["bucket"], ("dig", "Grading and drainage"): _J["grade"], ("dig", "Site prep"): _J["level"],
+                 ("well", "New wells"): _J["rig"], ("well", "Well service"): _J["tap"], ("well", "Pumps"): _J["ptank"]})
+_HERO.update({"dig": ("dig-before", "dig-after", "The side yard of a white farmhouse with stakes and orange string marking out a dig",
+                      "The same side yard dug out: a deep pit with gravel and footing forms, the dirt piled up and the mini excavator parked", "50% 50%"),
+              "well": ("well-before", "well-after", "A red well drilling rig parked in the front yard of a farmhouse with its mast laid down",
+                       "The same rig with its mast up and water spraying out of the new well", "50% 50%")})
+_SVC.update({"dig": [("dig-bucket", "A yellow mini excavator swinging a bucket of dirt beside a pit next to a house"), ("dig-forms", "A pit with a gravel floor and wooden footing forms set out"),
+                     ("dig-pile", "A pile of fresh dirt beside a dug-out pit and a mini excavator")],
+             "well": [("well-mast", "A well drilling rig with its red mast standing up in a front yard"), ("well-water", "Water spraying up out of a new well beside the rig"),
+                      ("well-cap", "A new well cap sticking up out of raked soil and straw in the lawn")]})
+_STAGES.update({"dig": [("dig-s1", "Before", "Staked out", "Stakes and orange string marking where the dig goes."),
+                        ("dig-s2", "Dig", "Bucket by bucket", "The mini excavator digs down and piles the dirt off to the side."),
+                        ("dig-s3", "Floor", "Trimmed flat", "The bottom trimmed flat and gravel spread across it."),
+                        ("dig-s4", "Done", "Ready for footings", "Forms set on the gravel and the machine parked out of the way.")],
+                "well": [("well-s1", "Before", "Rig in the yard", "The rig backs in and parks over the flag."),
+                         ("well-s2", "Drill", "Mast up", "The mast swings up and the drill goes down, rod by rod."),
+                         ("well-s3", "Water", "Hit water", "Water comes up out of the hole."),
+                         ("well-s4", "Done", "Cased and capped", "The casing in, the cap on and the soil raked out.")]})
+VISIT.update({"dig": "From staked out to ready to build", "well": "From bare lawn to a new well"})
+TOOL.update({
+ "dig": ("Dig planner", "What's the job?", "Pick the job, and know what to mention for a straight quote.",
+         "What do you need?", [("dig", "Digging", "Mention what's going in and roughly how big."), ("grade", "Grading", "Mention where the water goes now and where you want it."),
+                               ("prep", "Site prep", "Mention the size and what needs clearing."), ("q", "Not sure", "Call or text and describe the spot.")],
+         "Photos of the spot and rough sizes get a straight quote fastest.", "A quick guide, not a quote. The crew will tell you what it really takes."),
+ "well": ("Well planner", "What do you need?", "Pick the job, and know what to mention when you call.",
+          "What's going on?", [("new", "A new well", "Mention where the property is and where the house sits."), ("out", "No water", "Mention when it stopped and anything you've noticed."),
+                               ("press", "Low pressure", "Mention when it started and how old the well is."), ("pump", "Pump or tank", "Mention what it's doing and how old it is.")],
+          "The address and how old the well is help the crew answer fastest.", "A quick guide, not a quote. The crew will tell you what it really takes."),
+})
+for _g, _d in (("dig", "dig the pit yourself"), ("well", "drill the well yourself")):
+    TOOLS[_g] = ("Text-the-crew button", f"Before-and-after slider and a {TOOL[_g][0].lower()}", "a live 3D house where you " + _d)
+TRY.update({"dig": ("Tap a choice under \"Rather text than call?\" and watch the text write itself.",
+                    "Drag the slider on the top picture from staked out to dug out, then try the dig planner.",
+                    "Scroll to watch the excavator dig the pit and pile the dirt, then dig it yourself."),
+            "well": ("Tap a choice under \"Rather text than call?\" and watch the text write itself.",
+                     "Drag the slider on the top picture from parked to hitting water, then try the well planner.",
+                     "Scroll to watch the mast go up, the drill go down and the water come up, then drill it yourself.")})
+CAM.update(digh=("-14,7,15", "-10.5,-.3,.5", 40), digc=("-7.5,4.2,9", "-11.2,.2,1.5", 42), digp=("-17.2,4.8,-2.2", "-10.8,-1.2,.4", 42), digd=("-19,7.5,19", "-9,0,1", 40),
+           wellh=("-24,4.2,23.5", "-9.5,4.4,11", 40), wellc=("-13.5,1.9,7.4", "-11,.9,11.6", 42), welld=("-14,2.4,16.5", "-11,.3,11.4", 40), wellw=("-27,5,28", "-9,4,11", 40))
+_beats0, _controls0, _renders0 = beats, controls, renders
+
+
+def beats(g):
+    if g not in _B83:
+        return _beats0(g)
+    s1, s2, s3, s4 = stages(g)
+    if g == "dig":
+        return [("hero", .3, {"fix": 0}, None, "dig-before", None),
+                ("close", .3, {"fix": 0}, {"fix": .62}, "dig-s2", ("01 · " + s2[1], s2[2], "Keep scrolling and watch the excavator dig down, bucket by bucket.")),
+                ("pit", .3, {"fix": .62}, {"fix": .96}, "dig-s3", ("02 · " + s3[1], s3[2], "The bottom trimmed flat, gravel down and the forms set out.")),
+                ("hero", .3, {"fix": .96}, {"fix": 1}, "dig-after", ("03 · " + s4[1], s4[2], s4[3])),
+                ("dusk", .84, {"fix": 1}, None, "dig-dusk", ("04 · Evening", "Ready by dark", "The pit dug, the forms set and the machine parked for the night.")),
+                ("cfg", .3, {}, None, "dig-after", "cfg")]
+    return [("hero", .3, {"fix": .19}, None, "well-before", None),
+            ("hero", .3, {"fix": .19}, {"fix": .58}, "well-s2", ("01 · " + s2[1], s2[2], "Keep scrolling and watch the mast swing up and the drill go down.")),
+            ("close", .3, {"fix": .58}, {"fix": .68}, "well-s3", ("02 · " + s3[1], s3[2], s3[3])),
+            ("done", .3, {"fix": .68}, {"fix": 1}, "well-s4", ("03 · " + s4[1], s4[2], s4[3])),
+            ("dusk", .84, {"fix": 1}, None, "well-dusk", ("04 · Evening", "Capped by dark", "The rig gone, the cap in the lawn and the windows lit.")),
+            ("cfg", .3, {}, None, "well-after", "cfg")]
+
+
+def controls(g):
+    if g == "dig":
+        return ('<div class="ctl"><label for="u-fix">Dig it out <span>drag</span></label><input id="u-fix" type="range" min="0" max="100" value="100" data-set="fix"></div>'), "Your turn: dig it yourself", {"fix": 1, "tod": .3}
+    if g == "well":
+        return ('<div class="ctl"><label for="u-fix">Drill the well <span>drag</span></label><input id="u-fix" type="range" min="0" max="100" value="62" data-set="fix"></div>'), "Your turn: drill it yourself", {"fix": .62, "tod": .3}
+    return _controls0(g)
+
+
+def renders(g):
+    if g not in _B83:
+        return _renders0(g)
+    tr = GROUPS[g]["truck"].replace(" ", "+")
+    def r(name, w, h, cam, tod, st, ox=0):
+        c, t, f = CAM[cam]
+        return {"name": f"{g}-{name}", "w": w, "h": h, "q": f"p=1&truck={tr}&tx=-1.5&tz=35.4&tr=1.5708&tod={tod}&cam={c}&tgt={t}&fov={f}&{st}" + (f"&ox={ox}" if ox else "")}
+    if g == "dig":
+        return [r("before", 2400, 1350, "digh", .3, "dig=0", .13), r("after", 2400, 1350, "digh", .3, "dig=1", .13),
+                r("s1", 1200, 800, "digh", .3, "dig=0"), r("s2", 1200, 800, "digc", .3, "dig=.41"),
+                r("s3", 1200, 800, "digp", .3, "dig=.8"), r("s4", 1200, 800, "digp", .3, "dig=1"),
+                r("dusk", 1600, 1000, "digd", .84, "dig=1"), r("bucket", 1600, 1000, "digc", .3, "dig=.449"),
+                r("forms", 1600, 1000, "digp", .3, "dig=.95"), r("pile", 1600, 1000, "digh", .3, "dig=.6")]
+    return [r("before", 2400, 1350, "wellh", .3, "well=.19", .13), r("after", 2400, 1350, "wellh", .3, "well=.645", .13),
+            r("s1", 1200, 800, "wellh", .3, "well=.19"), r("s2", 1200, 800, "wellh", .3, "well=.5"),
+            r("s3", 1200, 800, "wellc", .3, "well=.645"), r("s4", 1200, 800, "welld", .3, "well=1"),
+            r("dusk", 1600, 1000, "welld", .84, "well=1"), r("mast", 1600, 1000, "wellw", .3, "well=.45"),
+            r("water", 1600, 1000, "wellc", .3, "well=.64"), r("cap", 1600, 1000, "welld", .3, "well=1")]
