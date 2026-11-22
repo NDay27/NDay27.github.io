@@ -22,6 +22,8 @@ GROUPS = {
  "roof": dict(vs=["roofing"], drive=None, noun="roofing crew", truck="Roofing"),
  "semi": dict(vs=["truck"], drive=None, noun="truck repair shop", truck="Truck Repair"),
  "glass": dict(vs=["autoglass"], drive=None, noun="auto glass shop", truck="Auto Glass"),
+ "elec": dict(vs=["electrical"], drive=None, noun="electrician", truck="Electric"),
+ "floor": dict(vs=["flooring"], drive=None, noun="flooring team", truck="Flooring"),
 }
 KGROUP = {v: g for g, d in GROUPS.items() for v in d["vs"]}
 KIT_V = dict(KGROUP)
@@ -40,11 +42,13 @@ NAME_OUT = {
  "roof": r"commercial|industrial|supply|solar|metal roof|flat roof",
  "semi": r"on site|road service|roadside|mobile|performance|\btires?\b|towing|wreck|sales|parts|trailer rental",
  "glass": r"mobile|tint|residential|home|window|door|mirror|construction|plate glass",
+ "elec": r"commercial|industrial|supply|wholesale|solar|motor|auto|generator|sign",
+ "floor": r"\btile\b|carpet clean|commercial|industrial|epoxy|garage|concrete|cabinet|kitchen|bath",
  "engine": r"mobile|salvage|marine|outboard|auto|truck|diesel",
  "office": r"carpet|window|pressure|power wash|restoration|duct|chimney|pool|supply|house|home|maid|residential",
 }
-TRADE = {"pressurewash": "Pressure washing", "concrete": "Concrete contractor", "hvac": "Heating and air conditioning", "plumbing": "Plumber", "handyman": "Handyman", "houseclean": "House cleaning service", "stump": "Stump grinding", "janitorial": "Janitorial service", "towing": "Towing service", "smallengine": "Small engine repair", "welding": "Welding and fabrication", "carpetclean": "Carpet cleaning service", "roofing": "Roofing contractor"}
-SCHEMA = {"pressurewash": "HomeAndConstructionBusiness", "concrete": "HomeAndConstructionBusiness", "hvac": "HVACBusiness", "plumbing": "Plumber", "handyman": "HomeAndConstructionBusiness", "houseclean": "LocalBusiness", "stump": "HomeAndConstructionBusiness", "janitorial": "LocalBusiness", "towing": "AutomotiveBusiness", "smallengine": "LocalBusiness", "welding": "HomeAndConstructionBusiness", "carpetclean": "LocalBusiness", "roofing": "RoofingContractor"}
+TRADE = {"pressurewash": "Pressure washing", "concrete": "Concrete contractor", "hvac": "Heating and air conditioning", "plumbing": "Plumber", "handyman": "Handyman", "houseclean": "House cleaning service", "stump": "Stump grinding", "janitorial": "Janitorial service", "towing": "Towing service", "smallengine": "Small engine repair", "welding": "Welding and fabrication", "carpetclean": "Carpet cleaning service", "roofing": "Roofing contractor", "electrical": "Electrician", "flooring": "Flooring"}
+SCHEMA = {"pressurewash": "HomeAndConstructionBusiness", "concrete": "HomeAndConstructionBusiness", "hvac": "HVACBusiness", "plumbing": "Plumber", "handyman": "HomeAndConstructionBusiness", "houseclean": "LocalBusiness", "stump": "HomeAndConstructionBusiness", "janitorial": "LocalBusiness", "towing": "AutomotiveBusiness", "smallengine": "LocalBusiness", "welding": "HomeAndConstructionBusiness", "carpetclean": "LocalBusiness", "roofing": "RoofingContractor", "electrical": "Electrician", "flooring": "HomeAndConstructionBusiness"}
 OVERRIDE = {}
 # stump grinders are tree-service leads on Google; pick.py moves the ones with "stump" in the name onto their own variant
 V_NEW = {"stump": dict(group="tree", noun="crew", h300=["Stumps gone.", "Lawn back."], h750=["Grind it out.", "Mow right over."],
@@ -85,6 +89,8 @@ THEME = {
  "carpet": _t("#2b2340", "#382e52", "#f7f5f2", "#ece8e1", "#231c35", "#655e72", "#ddd6e2", "#e0a43a", "#f0c97c", "#5a7fb8", "#171225", "fraunces", "dmsans"),
  "roof": _t("#24272c", "#30343b", "#f5f3ef", "#e9e6e0", "#1d2024", "#62656c", "#d8d4cc", "#c8642c", "#e6996b", "#3c5f7c", "#121417", "archivo", "dmsans"),
  "semi": _t("#1b1f24", "#272c33", "#f4f3f0", "#e8e6e1", "#15181c", "#5f646b", "#d8d5ce", "#d9452b", "#f08a6f", "#e0a82e", "#0f1114", "archivo", "plex"),
+ "floor": _t("#2a2119", "#382c21", "#f7f4ee", "#ece6da", "#211a13", "#665c51", "#ddd4c5", "#b5642e", "#e3a571", "#4f7a6a", "#16110c", "fraunces", "dmsans"),
+ "elec": _t("#161a22", "#222836", "#f5f4ef", "#e9e7df", "#12151b", "#5f6470", "#d7d4cb", "#c27c0e", "#efc25a", "#3d6fb3", "#0d1016", "archivo", "dmsans"),
  "glass": _t("#14263a", "#1d3550", "#f3f6f9", "#e4ebf2", "#0f1d2c", "#58687a", "#d2dce7", "#2f9fd8", "#86cbef", "#e8862c", "#0a1520", "archivo", "dmsans"),
  "hvac": _t("#132640", "#1c3558", "#f4f6f9", "#e5eaf1", "#101c2e", "#566377", "#d3dbe6", "#e4583c", "#f39079", "#2f72b8", "#0a1526", "jost", "dmsans"),
 }
@@ -93,8 +99,10 @@ EXTRA_CSS = {"wash": ".hero h1 .l2{font-style:normal}.hero h1{font-weight:700;le
              "plumb": None,
              "clean": None,
              "carpet": None,
+             "floor": None,
              "roof": ".hero h1 .l2{font-style:normal}.hero h1{font-weight:800;letter-spacing:-.035em}h2{font-weight:700!important}.hero0 h1 em{font-style:normal}",
              "semi": ".hero h1 .l2{font-style:normal}.hero h1{font-weight:800;letter-spacing:-.035em}h2{font-weight:700!important}.hero0 h1 em{font-style:normal}",
+             "elec": ".hero h1 .l2{font-style:normal}.hero h1{font-weight:800;letter-spacing:-.035em}h2{font-weight:700!important}.hero0 h1 em{font-style:normal}",
              "glass": ".hero h1 .l2{font-style:normal}.hero h1{font-weight:800;letter-spacing:-.035em}h2{font-weight:700!important}.hero0 h1 em{font-style:normal}",
              "weld": ".hero h1 .l2{font-style:normal}.hero h1{font-weight:800;letter-spacing:-.035em}h2{font-weight:700!important}.hero0 h1 em{font-style:normal}",
              "engine": ".hero h1 .l2{font-style:normal}.hero h1{font-weight:700;letter-spacing:-.035em}h2{font-weight:600!important}.hero0 h1 em{font-style:normal}",
@@ -140,6 +148,16 @@ COPY["semi"] = dict(svc_h="What we fix", svc_intro="Engines, brakes, air systems
                    sheet=("A shop in {town}", "Hood tilted, engine open"),
                    sheet_label="Line drawing of a two-bay truck repair shop with a semi tractor nosed out of bay one",
                    shot=("semi-before", "A red semi tractor with its hood tilted forward outside a truck repair shop", "Illustration. Your real shop photos go here."))
+COPY["floor"] = dict(svc_h="What we do", svc_intro="New floors, refinishing and repairs. If it isn't on the list, ask anyway.",
+                    quote_h="Get a flooring quote", cta="Get a floor quote", msg_ph="Which rooms, roughly how big, what's there now and what you'd like instead.",
+                    sheet=("A home in {town}", "Old floor out, new floor in"),
+                    sheet_label="Line drawing of a two-storey farmhouse with a porch and a garage wing",
+                    shot=("floor-after", "A living room with a new hardwood floor wall to wall", "Illustration. Your real job photos go here."))
+COPY["elec"] = dict(svc_h="What we do", svc_intro="Repairs, lighting and panel upgrades. If it isn't on the list, ask anyway.",
+                   quote_h="Ask an electrician", cta="Ask about the job", msg_ph="What's going on, which rooms, and a photo of the panel if you can.",
+                   sheet=("A house in {town}", "New panel, lights back on"),
+                   sheet_label="Line drawing of a two-storey farmhouse with a porch and a garage wing",
+                   shot=("elec-after", "A farmhouse at dusk with every room lit, the porch light on and path lights along the walk", "Illustration. Your real job photos go here."))
 COPY["glass"] = dict(svc_h="What we fix", svc_intro="Windshields, side and back glass, and chips caught early. If it isn't on the list, ask anyway.",
                     quote_h="Ask about glass", cta="Ask about glass", msg_ph="The year, make and model, which glass is broken, and when you'd like it done.",
                     sheet=("A shop in {town}", "New glass, set and sealed"),
@@ -186,6 +204,8 @@ STEPS = {
  "wash": [("Tell us what needs washing", "The house, the drive, a deck or all three."), ("Get a straight quote", "Know the price before anyone starts."), ("Watch it come clean", "Bright again, and the mess rinsed away.")],
  "concrete": [("Tell us about the project", "What's there now, the size and what you want."), ("Get a straight quote", "Know the plan and the price before work starts."), ("Poured and finished", "Formed, poured, finished and left clean.")],
  "clean": [("Tell us about your home", "Rooms, the kind of clean and how often."), ("Get a straight quote", "Know the price before the first visit."), ("Come home to clean", "Every room done, top to bottom.")],
+ "floor": [("Tell us about the rooms", "Which rooms, roughly how big, and what's there now."), ("Get a straight quote", "Know the price before the old floor comes up."), ("Walk on new floors", "Old floor out, new floor in, and the room put back.")],
+ "elec": [("Tell us what's going on", "A breaker that trips, lights that flicker or something new."), ("Get a straight answer", "Know the price before work starts."), ("Power you can trust", "Wired right, tested, and cleaned up after.")],
  "roof": [("Tell us about the roof", "A leak, storm damage or a full replacement."), ("Get a straight quote", "Know the price before the tear-off starts."), ("Sealed up tight", "Old roof off, new roof on, and the yard picked up.")],
  "semi": [("Call or text about the truck", "What it is and what it's doing."), ("Get a straight answer", "What it needs and the price before work starts."), ("Back on the road", "Fixed, checked over and ready to roll.")],
  "glass": [("Tell us what's broken", "The windshield, a side window or the back glass."), ("Get a straight answer", "What it takes and the price before work starts."), ("Clear view again", "New glass set, sealed and cleaned up.")],
@@ -204,6 +224,8 @@ GLYPH = {
  "wash": _G.format("M6 22h8l3-4h6", "currentColor") + _G.format("M23 18l5-3M23 18l6 0M23 18l5 3", "var(--pencil)") + _G.format("M6 22v4h8", "currentColor"),
  "concrete": _G.format("M5 24h22v4H5z", "currentColor") + _G.format("M9 24l4-8h6l4 8M13 16v-6h6v6", "var(--pencil)"),
  "clean": _G.format("M10 27l6-14h4l-2 14", "currentColor") + _G.format("M22 8l1.5 3.5L27 13l-3.5 1.5L22 18l-1.5-3.5L17 13l3.5-1.5z", "var(--pencil)"),
+ "floor": _G.format("M4 26h24M4 21h14M20 21h8M4 16h8M14 16h14", "currentColor") + _G.format("M8 10l8-5 8 5", "var(--pencil)"),
+ "elec": _G.format("M18 4L8 18h7l-2 10 11-15h-7z", "currentColor") + _G.format("M5 28h22", "var(--pencil)"),
  "roof": _G.format("M4 18L16 8l12 10M8 15v11h16V15", "currentColor") + _G.format("M13 26v-6h6v6", "var(--pencil)"),
  "semi": _G.format("M3 23h8V11h7l4 6v6h7", "currentColor") + _G.format("M8 26a2 2 0 1 0 0 .1M24 26a2 2 0 1 0 0 .1M12 15h4", "var(--pencil)"),
  "glass": _G.format("M5 22l3-10h16l3 10z", "currentColor") + _G.format("M14 17l2-2 1 3 2-2M16 15l-3-2", "var(--pencil)"),
@@ -237,6 +259,10 @@ _J = {
  "stump": '<path d="M14 46h28"/><path d="M17 46l2-18h18l2 18"/><ellipse cx="28" cy="28" rx="9" ry="3"/><path d="M12 46l-4 3M44 46l4 3"/>',
  "stumps": '<path d="M6 46h44"/><path d="M9 46l1-10h10l1 10M27 46l1-14h12l1 14"/><ellipse cx="15" cy="36" rx="5" ry="2"/><ellipse cx="34" cy="32" rx="6" ry="2"/>',
  "roots": '<path d="M8 22h40"/><path d="M28 22c0 8-6 10-12 14M28 22c2 7 8 9 14 12M28 22v20M20 28c-4 0-8 2-10 4M36 28c4 1 7 3 9 6"/>',
+ "planks": '<path d="M6 44h44M6 36h26M36 36h14M6 28h12M22 28h28M6 20h34M44 20h6"/>',
+ "refinish": '<path d="M6 44h44M6 36h44"/><path d="M14 30V14h20v16"/><path d="M24 14V6"/><path d="M38 12l2 4 4 2-4 2-2 4-2-4-4-2 4-2z"/>',
+ "bulb": '<path d="M28 6a12 12 0 0 0-7 21.8V34h14v-6.2A12 12 0 0 0 28 6z"/><path d="M22 40h12M24 46h8"/>',
+ "panel": '<rect x="14" y="6" width="28" height="44" rx="2"/><path d="M20 14h7M29 14h7M20 21h7M29 21h7M20 28h7M29 28h7M20 35h7M29 35h7"/>',
  "roofpatch": '<path d="M4 30L28 10l24 20"/><path d="M10 26v22h36V26"/><path d="M22 22h12v8H22z"/>',
  "newroof": '<path d="M4 30L28 10l24 20"/><path d="M12 24l16-13 16 13"/><path d="M10 28v20h36V28"/><path d="M24 48V36h8v12"/>',
  "inspect": '<circle cx="24" cy="24" r="12"/><path d="M33 33l13 13"/><path d="M16 26l8-7 8 7"/>',
@@ -263,6 +289,7 @@ SVC_ICON = {"House washing": _J["house"], "Driveways and walks": _J["drive"], "D
             ("weld", "Repairs"): _J["weld"], "Fabrication": _J["beam"], "Mobile work": _J["van"],
             "Mowers": _J["mower"], "Saws and trimmers": _J["saw"],
             "Towing": _J["tow"], "Roadside help": _J["roadside"], "Hauling": _J["flatbed"],
+            "New floors": _J["planks"], "Refinishing": _J["refinish"], "Lighting": _J["bulb"], "Panels and upgrades": _J["panel"],
             "Roof repair": _J["roofpatch"], "New roofs": _J["newroof"], "Inspections": _J["inspect"],
             "Carpet cleaning": _J["wand"], "Spots and stains": _J["drop"], "Upholstery": _J["sofa"],
             "Office cleaning": _J["desk"], "Regular service": _J["calendar"],
@@ -290,6 +317,10 @@ _HERO = {
             "The same mower fixed and out on the front lawn, hood down and lights on", "60% 50%"),
  "tow": ("tow-before", "tow-after", "A blue pickup broken down at the curb with its hood up and hazards on, in front of a white farmhouse",
          "The same pickup strapped down on a rollback tow truck at the curb, ready to roll", "60% 50%"),
+ "floor": ("floor-before", "floor-after", "A living room with an old beige carpet marked by a wine stain, a coffee spill and muddy paw prints",
+           "The same room with a new hardwood floor wall to wall", "62% 50%"),
+ "elec": ("elec-before", "elec-after", "A farmhouse at dusk with most windows dark, an old fuse box and a rusted meter on the side wall",
+          "The same farmhouse with every room lit, the porch light on and path lights along the front walk", "62% 50%"),
  "roof": ("roof-before", "roof-after", "A farmhouse with an old, worn shingle roof: curled and missing tabs, moss and a blue tarp over a leak",
           "The same farmhouse with a new charcoal shingle roof", "62% 50%"),
  "semi": ("semi-before", "semi-after", "A red semi tractor nosed out of a truck repair shop's first bay with its hood tilted forward and the engine open",
@@ -324,6 +355,8 @@ _SVC = {
  "weld": [("weld-arc", "Sparks flying as a joint on a steel gate is welded"), ("weld-gate", "A black steel double gate across a farmhouse drive"), ("weld-rust", "A rusted gate leaf sagging with a snapped brace")],
  "engine": [("engine-bench", "A riding mower with its hood up and old parts laid out on a blue tarp"), ("engine-lawn", "A red riding mower out on the lawn in front of a white farmhouse"), ("engine-parts", "An old spark plug, a clogged air filter and a dull blade on a tarp")],
  "tow": [("tow-ramp", "A rollback tow truck with its bed tilted down to the road and a pickup being winched up"), ("tow-front", "The front of a white tow truck with the pickup loaded behind the cab"), ("tow-stuck", "A pickup stopped at the curb with its hood up")],
+ "floor": [("floor-boards", "New hardwood boards going down over a bare subfloor"), ("floor-new", "A new hardwood floor in a living room"), ("floor-old", "An old stained carpet before it comes up")],
+ "elec": [("elec-panel", "A new gray breaker panel and meter on the side wall of a house"), ("elec-walk", "Path lights along a front walk at night"), ("elec-ladder", "A ladder up the side of a house during a panel upgrade")],
  "roof": [("roof-close", "New charcoal shingles going on above bare roof deck"), ("roof-tear", "Old shingles torn off down to the roof deck"), ("roof-street", "A roll-off dumpster in the drive during a roof replacement")],
  "semi": [("semi-close", "A semi tractor's engine, open under a tilted hood"), ("semi-side", "A red semi tractor beside a two-bay truck repair shop"), ("semi-front", "A red semi tractor parked on the lot, ready to roll")],
  "glass": [("glass-crack", "A star break and a long crack across a pickup's windshield"), ("glass-cups", "Suction cup handles on a new windshield as it goes in"), ("glass-clear", "A red pickup with a clear new windshield, ready to go")],
@@ -365,6 +398,14 @@ _STAGES = {
          ("tow-s2", "On scene", "Bed down to the road", "The truck pulls in ahead, slides the bed back and tilts it down."),
          ("tow-s3", "Loading", "Winched up slow and straight", "The cable pulls it up the bed one foot at a time."),
          ("tow-s4", "Done", "Strapped down and rolling", "Bed back in place, straps on all four wheels, and on the way.")],
+ "floor": [("floor-s1", "Before", "Worn and stained", "An old carpet with a wine stain, a coffee spill and paw prints that won't come out."),
+           ("floor-s2", "Tear-out", "Down to the subfloor", "The old carpet cut, rolled up and carried out."),
+           ("floor-s3", "New floor", "Board by board", "New hardwood laid row by row across the room."),
+           ("floor-s4", "Done", "Wall to wall", "A new floor, the furniture back and the room ready to live in.")],
+ "elec": [("elec-s1", "Before", "Flickering and half dark", "An old fuse box, a rusted meter and a porch light that won't come on."),
+          ("elec-s2", "Power off", "Old gear out, new panel in", "The meter pulled, the fuse box out and a new breaker panel set on the wall."),
+          ("elec-s3", "Power on", "Room by room", "Breakers on one at a time: the porch first, then every room."),
+          ("elec-s4", "Done", "Every light working", "The porch, every room and new path lights along the walk.")],
  "roof": [("roof-s1", "Before", "Worn and leaking", "Curled and missing shingles, moss, and a blue tarp over the leak."),
           ("roof-s2", "Tear-off", "Down to the deck", "Old shingles off from the ridge down, straight into the dumpster."),
           ("roof-s3", "New roof", "Course by course", "New shingles laid from the eaves up to the ridge."),
@@ -408,11 +449,11 @@ def stages(g):
     return _STAGES[g]
 
 
-VISIT = {"wash": "From grimy to bright", "concrete": "From cracked to brand new", "hvac": "From worn out to brand new", "plumb": "From soggy lawn to fixed", "handy": "From to-do list to done", "clean": "From lived-in to spotless", "stump": "From stump to grass", "office": "From end of day to ready for the morning", "tow": "From stuck to on the way", "engine": "From won't start to mowing", "weld": "From broken to built strong", "carpet": "From stained to fresh", "roof": "From leaking to covered"}
+VISIT = {"wash": "From grimy to bright", "concrete": "From cracked to brand new", "hvac": "From worn out to brand new", "plumb": "From soggy lawn to fixed", "handy": "From to-do list to done", "clean": "From lived-in to spotless", "stump": "From stump to grass", "office": "From end of day to ready for the morning", "tow": "From stuck to on the way", "engine": "From won't start to mowing", "weld": "From broken to built strong", "carpet": "From stained to fresh", "roof": "From leaking to covered", "elec": "From flickering to lit up", "floor": "From worn out to brand new"}
 VISIT["semi"] = "From the bay to the road"
 VISIT["glass"] = "From cracked to clear"
 VISIT_INTRO = "Shown on the same house, from before to done."
-VISIT_INTRO_G = {"glass": "Shown on the same truck, start to finish.", "semi": "Shown on the same truck, start to finish.", "clean": "Shown in the same room, from before to done.", "office": "Shown in the same office, from before to done.", "carpet": "Shown in the same room, from before to done."}
+VISIT_INTRO_G = {"glass": "Shown on the same truck, start to finish.", "semi": "Shown on the same truck, start to finish.", "clean": "Shown in the same room, from before to done.", "office": "Shown in the same office, from before to done.", "carpet": "Shown in the same room, from before to done.", "floor": "Shown in the same room, from before to done."}
 
 TOOL = {
  "wash": ("Wash planner", "What needs a wash?", "Pick what needs cleaning and how bad it is, and know what to mention when you ask.",
@@ -450,6 +491,18 @@ TOOL = {
                                    ("van", "A van or something with a trailer", "Say the length and whether the trailer comes too."),
                                    ("other", "Something else", "A mower, a motorcycle or a project car? Say what it is.")],
          "Where you are and where it's going gets you a straight answer fastest.", "A quick guide, not a quote. The crew will tell you what it really takes."),
+ "floor": ("Floor planner", "Which rooms?", "Pick how much floor and know what to mention for a straight quote.",
+           "How much floor?", [("one", "One room", "Mention the room, roughly how big, and what's there now."),
+                               ("few", "A few rooms", "Mention which rooms and whether they connect, plus any stairs."),
+                               ("whole", "The whole main floor", "Mention the rough square footage and what's there now."),
+                               ("fix", "A repair or refinish", "Say what's wrong, like scratches, a damaged board or a worn finish.")],
+           "Which rooms, roughly how big, and a photo of what's there now gets a straight quote fastest.", "A quick guide, not a quote. The team will tell you what it really takes."),
+ "elec": ("Power check", "What's going on?", "Pick what you're seeing, and know what to mention for a straight answer.",
+          "What's happening?", [("trip", "A breaker keeps tripping", "Mention which room and what's running when it trips."),
+                                ("flicker", "Lights flicker or dim", "Say if it's one room or the whole house, and when it happens."),
+                                ("dead", "An outlet or light is dead", "Say where it is and whether anything else went out with it."),
+                                ("new", "Adding something new", "Lights, outlets or a panel upgrade? Say what and where.")],
+          "A photo of the panel with the door open helps get a straight answer.", "A quick guide, not a quote. The electrician will tell you what it really needs."),
  "roof": ("Roof check", "What's going on?", "Pick how old the roof is, and know what to mention for a straight quote.",
           "How old is the roof?", [("new", "Under 10 years", "Mention what you're seeing, like a leak or a few missing shingles."),
                                    ("mid", "10 to 20 years", "Repairs often still make sense. A photo of the worst spot helps."),
@@ -513,6 +566,8 @@ READY = {
  "weld": "What it is, what's broken or what you want built, a rough size, and a photo up close.",
  "engine": "What it is, the make and model if you know it, what it's doing, and a photo of the label.",
  "tow": "Where the vehicle is, what it is, what happened, and where it needs to go.",
+ "floor": "Which rooms, roughly how big, what's there now, what you'd like instead, and a photo if you can.",
+ "elec": "What's going on, which rooms, roughly how old the house is, and a photo of the panel if you can.",
  "roof": "What's going on, roughly how old the roof is, any leaks inside, and a photo from the street.",
  "semi": "The make and model, the engine, roughly the miles, what it's doing, and any warning lights.",
  "glass": "The year, make and model, which glass is broken, and a photo of the damage.",
@@ -524,8 +579,8 @@ READY = {
  "hvac": "What the system is doing, roughly how old it is, and a photo of the label on the outdoor unit if you can.",
 }
 
-TOOLS = {g: ("Text-the-team button" if g in ("clean", "office", "carpet") else "Text-the-shop button" if g in ("engine", "weld", "semi", "glass") else "Text-the-crew button", f"Before-and-after slider and a {TOOL[g][0].lower()}",
-             ("a live 3D room where you " if g in ("clean", "carpet") else "a live 3D office where you " if g == "office" else "a live 3D street where you " if g == "tow" else "a live 3D driveway where you " if g in ("engine", "weld") else "a live 3D shop where you " if g in ("semi", "glass") else "a live 3D house where you ") + {"wash": "wash the drive yourself", "concrete": "pour the new drive yourself", "hvac": "swap in the new unit yourself", "plumb": "dig down and fix the line yourself", "handy": "work through the list yourself", "clean": "tidy it up yourself", "stump": "grind the stump out yourself", "office": "clean it up yourself", "tow": "load the pickup yourself", "engine": "fix the mower yourself", "weld": "weld the gate yourself", "carpet": "clean the carpet yourself", "roof": "put the new roof on yourself", "semi": "tilt the hood and drive it out yourself", "glass": "swap in the new windshield yourself"}[g]) for g in GROUPS}
+TOOLS = {g: ("Text-the-team button" if g in ("clean", "office", "carpet", "floor") else "Text-the-shop button" if g in ("engine", "weld", "semi", "glass") else "Text-the-crew button", f"Before-and-after slider and a {TOOL[g][0].lower()}",
+             ("a live 3D room where you " if g in ("clean", "carpet", "floor") else "a live 3D office where you " if g == "office" else "a live 3D street where you " if g == "tow" else "a live 3D driveway where you " if g in ("engine", "weld") else "a live 3D shop where you " if g in ("semi", "glass") else "a live 3D house where you ") + {"wash": "wash the drive yourself", "concrete": "pour the new drive yourself", "hvac": "swap in the new unit yourself", "plumb": "dig down and fix the line yourself", "handy": "work through the list yourself", "clean": "tidy it up yourself", "stump": "grind the stump out yourself", "office": "clean it up yourself", "tow": "load the pickup yourself", "engine": "fix the mower yourself", "weld": "weld the gate yourself", "carpet": "clean the carpet yourself", "roof": "put the new roof on yourself", "elec": "turn the lights back on yourself", "floor": "lay the new floor yourself", "semi": "tilt the hood and drive it out yourself", "glass": "swap in the new windshield yourself"}[g]) for g in GROUPS}
 TRY = {"wash": ("Tap a choice under \"Rather text than call?\" and watch the text write itself.",
                 "Drag the slider on the top picture from grimy to clean, then try the wash planner.",
                 "Scroll to watch the siding and the drive come clean, then drag the wand down the drive yourself."),
@@ -544,6 +599,12 @@ TRY = {"wash": ("Tap a choice under \"Rather text than call?\" and watch the tex
        "tow": ("Tap a choice under \"Rather text than call?\" and watch the text write itself.",
                "Drag the slider on the top picture from stuck to loaded, then try the tow check.",
                "Scroll to watch the truck pull in and load the pickup, then load it yourself."),
+       "floor": ("Tap a choice under \"Rather text than call?\" and watch the text write itself.",
+                 "Drag the slider on the top picture from worn carpet to new wood, then try the floor planner.",
+                 "Scroll to watch the old carpet come up and the new floor go down, then lay it yourself."),
+       "elec": ("Tap a choice under \"Rather text than call?\" and watch the text write itself.",
+                "Drag the slider on the top picture from dark to lit, then try the power check.",
+                "Scroll to watch the old panel come out and the lights come on room by room, then flip the power yourself."),
        "roof": ("Tap a choice under \"Rather text than call?\" and watch the text write itself.",
                 "Drag the slider on the top picture from worn to new, then try the roof check.",
                 "Scroll to watch the old roof come off and the new one go on, then roof it yourself."),
@@ -625,6 +686,20 @@ def beats(g):
                 ("side", .3, {"hood": 1, "pos": 0}, {"hood": 0, "pos": 0}, "semi-s1", ("03 · Back together", "Hood down, checked over", "Everything buttoned up and checked before the keys go back.")),
                 ("dusk", .84, {"hood": 0, "pos": 0}, {"hood": 0, "pos": 1}, "semi-dusk", ("04 · " + s4[1], s4[2], s4[3])),
                 ("cfg", .3, {}, None, "semi-after", "cfg")]
+    if g == "floor":
+        return [("hero", .3, {"fix": 0}, None, "floor-before", None),
+                ("close", .3, {"fix": 0}, {"fix": .45}, "floor-s2", ("01 · " + s2[1], s2[2], "Keep scrolling and watch the old carpet come up, down to the subfloor.")),
+                ("floor", .3, {"fix": .45}, {"fix": .95}, "floor-s3", ("02 · " + s3[1], s3[2], s3[3])),
+                ("hero", .3, {"fix": .95}, {"fix": 1}, "floor-after", ("03 · Done", s4[2], s4[3])),
+                ("dusk", .84, {"fix": 1}, None, "floor-dusk", ("04 · Evening", "Warm underfoot", "The lamp on and the new floor glowing, ready for the first night back in.")),
+                ("cfg", .3, {}, None, "floor-after", "cfg")]
+    if g == "elec":
+        return [("hero", .8, {"fix": 0}, None, "elec-before", None),
+                ("close", .8, {"fix": 0}, {"fix": .5}, "elec-s2", ("01 · " + s2[1], s2[2], "Keep scrolling and watch the old meter and fuse box come out and the new panel go in.")),
+                ("close", .8, {"fix": .5}, {"fix": .8}, "elec-s3", ("02 · " + s3[1], s3[2], s3[3])),
+                ("hero", .8, {"fix": .8}, {"fix": 1}, "elec-after", ("03 · " + s4[1], s4[2], s4[3])),
+                ("dusk", .9, {"fix": 1}, None, "elec-dusk", ("04 · After dark", "Lit up to the street", "Path lights along the walk and the porch light on, so nobody steps out into the dark.")),
+                ("cfg", .8, {}, None, "elec-after", "cfg")]
     if g == "roof":
         return [("hero", .3, {"fix": 0}, None, "roof-before", None),
                 ("close", .3, {"fix": 0}, {"fix": .45}, "roof-s2", ("01 · " + s2[1], s2[2], "Keep scrolling and watch the old shingles come off from the ridge down.")),
@@ -704,6 +779,10 @@ def controls(g):
         return ('<div class="ctl"><label for="u-hood">Tilt the hood <span>drag</span></label><input id="u-hood" type="range" min="0" max="100" value="0" data-set="hood"></div>'
                 '<div class="ctl"><div class="lab">Truck</div><div class="seg" role="group" aria-label="Truck"><button type="button" aria-pressed="true" data-set="pos" data-v="0">In the bay</button><button type="button" aria-pressed="false" data-set="pos" data-v="1">Drive it out</button></div></div>'
                 f'<div class="ctl"><div class="lab">Paint <span id="cfgName">Red</span></div><div class="seg" role="group" aria-label="Paint color">{sw}</div></div>'), "Your turn: run the bay", {"hood": 0, "pos": 0, "color": 0xb3241c, "tod": .3}
+    if g == "floor":
+        return ('<div class="ctl"><label for="u-fix">Lay the new floor <span>drag</span></label><input id="u-fix" type="range" min="0" max="100" value="100" data-set="fix"></div>'), "Your turn: lay it yourself", {"fix": 1, "tod": .3}
+    if g == "elec":
+        return ('<div class="ctl"><label for="u-fix">Turn the power on <span>drag</span></label><input id="u-fix" type="range" min="0" max="100" value="100" data-set="fix"></div>'), "Your turn: flip the power on", {"fix": 1, "tod": .8}
     if g == "roof":
         return ('<div class="ctl"><label for="u-fix">Roof the house <span>drag</span></label><input id="u-fix" type="range" min="0" max="100" value="100" data-set="fix"></div>'), "Your turn: roof it yourself", {"fix": 1, "tod": .3}
     if g == "carpet":
@@ -742,12 +821,14 @@ _DIRTY = "siding=a9a68f&trim=6f6d60"
 # truck repair (labauto kind=truck): the semi sits nosed out of bay one, hood tilting forward over the apron
 CAM.update(semih=("-14,3.6,24", ".5,2.6,2", 36), semis=("-11.5,2.6,4.8", "-2.6,1.6,.4", 40), semic=("-7.6,2.2,3.6", "-2.8,1.4,1.3", 42),
            semid=("-12,2.4,24", "2,2.4,5", 40))
+CAM.update(elech=("-15,3,24", "-1,3.4,2", 38), elecc=("-11.5,2.2,7.5", "-6,1.9,1.2", 36), elecp=("-8.6,1.7,3.2", "-6.1,1.4,.1", 40),
+           elecw=("-4.4,1.5,19", ".2,.9,9", 40), elecl=("-12.5,3.2,6.5", "-6,3.2,.8", 40), elecv=("-2.6,.9,16.5", "0,.35,9.5", 40))
 CAM.update(glassh=("-6.2,1.8,14.4", "-2.2,1.15,10.0", 32), glassc=("-4.4,2.2,12.2", "-1.55,1.45,9.9", 36), glassd=("-11,1.8,19", "0,2.4,3", 36))
 
 
 def renders(g):
     d = GROUPS[g]; tr = d["truck"].replace(" ", "+").replace("&", "%26")
-    base = (f"p=1&drive={d['drive']}&truck={tr}&tx=-1.5" if d["drive"] else f"p=1&truck={tr}&tx={ {'plumb': -6, 'handy': 1.5, 'roof': -1.5}.get(g, -11) }") + "&tz=35.4&tr=1.5708"
+    base = (f"p=1&drive={d['drive']}&truck={tr}&tx=-1.5" if d["drive"] else f"p=1&truck={tr}&tx={ {'plumb': -6, 'handy': 1.5, 'roof': -1.5, 'elec': -1.5}.get(g, -11) }") + "&tz=35.4&tr=1.5708"
     def r(name, w, h, cam, tod, st, ox=0):
         c, t, f = CAM[cam]
         q = f"{base}&tod={tod}&cam={c}&tgt={t}&fov={f}&{st}" + (f"&ox={ox}" if ox else "")
@@ -812,12 +893,27 @@ def renders(g):
                 rs("s3", 1200, 800, "semic", .3, "hood=1"), rs("s4", 1200, 800, "semih", .3, "pos=1"),
                 rs("dusk", 1600, 1000, "semid", .84, "pos=1"), rs("close", 1600, 1000, "semic", .3, "hood=1"),
                 rs("side", 1600, 1000, "semis", .3, "hood=1"), rs("front", 1600, 1000, "semid", .3, "pos=1")]
+    if g == "elec":
+        return [r("before", 2400, 1350, "elech", .8, "elec=0", .13), r("after", 2400, 1350, "elech", .8, "elec=1", .13),
+                r("s1", 1200, 800, "elecc", .8, "elec=0"), r("s2", 1200, 800, "elecc", .8, "elec=.42"),
+                r("s3", 1200, 800, "elecc", .8, "elec=.8"), r("s4", 1200, 800, "elech", .8, "elec=1"),
+                r("dusk", 1600, 1000, "elecw", .9, "elec=1"), r("panel", 1600, 1000, "elecp", .8, "elec=1"),
+                r("walk", 1600, 1000, "elecv", .9, "elec=1"), r("ladder", 1600, 1000, "elecl", .8, "elec=.42")]
     if g == "roof":
         return [r("before", 2400, 1350, "roofh", .3, "roof=0", .13), r("after", 2400, 1350, "roofh", .3, "roof=1", .13),
                 r("s1", 1200, 800, "roofc", .3, "roof=0"), r("s2", 1200, 800, "roofc", .3, "roof=.22"),
                 r("s3", 1200, 800, "roofc", .3, "roof=.72"), r("s4", 1200, 800, "roofh", .3, "roof=1"),
                 r("dusk", 1600, 1000, "roofh", .84, "roof=1"), r("close", 1600, 1000, "roofc", .3, "roof=.72"),
                 r("tear", 1600, 1000, "roofc", .3, "roof=.3"), r("street", 1600, 1000, "roofs", .3, "roof=.3")]
+    if g == "floor":
+        def rf(name, w, h, cam, tod, fx, ox=0):
+            c, t, f = CAM[cam]
+            return {"name": f"floor-{name}", "w": w, "h": h, "lab": "labroom", "q": f"kind=floor&tod={tod}&cam={c}&tgt={t}&fov={f}&fix={fx}" + (f"&ox={ox}" if ox else "")}
+        return [rf("before", 2400, 1350, "room", .3, 0, .13), rf("after", 2400, 1350, "room", .3, 1, .13),
+                rf("s1", 1200, 800, "floorc", .3, 0), rf("s2", 1200, 800, "room", .3, .3),
+                rf("s3", 1200, 800, "floorc", .3, .66), rf("s4", 1200, 800, "roomc", .3, 1),
+                rf("dusk", 1600, 1000, "room", .84, 1), rf("boards", 1600, 1000, "floorc", .3, .66),
+                rf("new", 1600, 1000, "roomc", .3, 1), rf("old", 1600, 1000, "floorc", .3, 0)]
     if g == "carpet":
         def rc(name, w, h, cam, tod, fx, ox=0):
             c, t, f = CAM[cam]

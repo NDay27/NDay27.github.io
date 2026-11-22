@@ -18,6 +18,7 @@ export const KIND = {
   shop:   {trim: 0x24365e, awn: AWN.navy, wall: 0xf0e9dd, floor: "wood", sign: ["#24365e", "#f4f0e6"], icon: "bag"},
   groom:  {trim: 0x2f7f86, awn: AWN.teal, wall: 0xeef0e8, floor: "tile", sign: ["#f2f5f4", "#235f65"], icon: "paw"},
   scoop:  {trim: 0xf4efe4, awn: AWN.teal, wall: 0xfbefe6, wain: 0x7fc4b4, floor: "check", sign: ["#f6efe4", "#2f7f86"], icon: "cone"},
+  tattoo: {trim: 0x161618, awn: AWN.black, wall: 0x4a4a50, wain: 0x1b1b1e, floor: "check", sign: ["#161618", "#f1e6d0"], icon: "machine"},
   antique: {trim: 0x3b2a1e, awn: AWN.gold, wall: 0xeadcc6, wain: 0x5a3e2b, floor: "wood", sign: ["#2a1f18", "#f1e6d0"], icon: "clock"},
   sew:    {trim: 0x5a3550, awn: AWN.plum, wall: 0xefe7df, floor: "wood", sign: ["#5a3550", "#f6eee6"], icon: "needle"},
 };
@@ -25,6 +26,7 @@ KIND.tailor = KIND.sew; KIND.uphol = KIND.sew;
 
 // blade-sign icons, drawn with Path2D on a 56 box
 const ICON = {
+  machine: ["M12 44 26 30", "M22 20h18v12H22z", "M26 20v-6h10v6", "M26 32l-4 4", "M40 26h6"],
   clock: ["M28 10a18 18 0 1 0 .1 0", "M28 18v10l7 5", "M22 48h12"],
   cupcake: ["M14 30h28l-4 16H18z", "M12 30c0-8 6-12 10-12 2-6 10-6 12 0 4 0 10 4 10 12", "M28 12v-4"],
   scissors: ["M20 14 36 42", "M36 14 20 42", "M16 44a5 5 0 1 0 0 .1", "M40 44a5 5 0 1 0 0 .1"],
@@ -452,6 +454,49 @@ export async function makeStore(world, {kind = "bakery", sign = "Bakery", font =
     box(.7, .7, .5, walnut, -2.2, .35, -1.0); const gr = new THREE.Group(); gr.position.set(-2.2, .7, -1.0); P.add(gr); box(.4, .18, .4, walnut, 0, .09, 0, gr); cyl(.16, .16, .01, dark, 0, .19, 0, gr, 24);
     const horn = add(new THREE.CylinderGeometry(.3, .02, .55, 24, 1, true), mat(0xb8893a, .3, .8), .08, .55, .1, gr); horn.material.side = THREE.DoubleSide; horn.rotation.set(-.6, 0, -.5); cyl(.012, .012, .3, brass, .04, .3, .02, gr, 6);
     plant(3.0, -1.4, .9);
+  } else if (kind === "tattoo") {
+    // flash sheets framed up the left wall, two stations (bed, stool, lamp, cart), a front counter with a portfolio
+    const flash = (seed) => { const cv = document.createElement("canvas"); cv.width = 256; cv.height = 320; const g = cv.getContext("2d");
+      g.fillStyle = "#efe6d2"; g.fillRect(0, 0, 256, 320); g.lineWidth = 5; g.lineJoin = g.lineCap = "round"; g.strokeStyle = "#1b1b1d";
+      const red = "#b3241c", grn = "#2f6b4f", yel = "#d9a72e", blu = "#24497a";
+      const heart = (x, y, s) => { g.beginPath(); g.moveTo(x, y + s * .9); g.bezierCurveTo(x - s * 1.4, y, x - s * .6, y - s * .9, x, y - s * .2); g.bezierCurveTo(x + s * .6, y - s * .9, x + s * 1.4, y, x, y + s * .9); g.fillStyle = red; g.fill(); g.stroke(); };
+      const rose = (x, y, s) => { g.fillStyle = red; g.beginPath(); g.arc(x, y, s, 0, 7); g.fill(); g.stroke(); g.beginPath(); g.arc(x, y, s * .55, .5, 5.2); g.stroke(); g.beginPath(); g.arc(x + s * .15, y - s * .1, s * .25, 2, 7); g.stroke();
+        g.fillStyle = grn; for (const a of [-2.4, -.7]) { g.beginPath(); g.ellipse(x + Math.cos(a) * s * 1.35, y - Math.sin(a) * s * 1.1, s * .55, s * .25, -a, 0, 7); g.fill(); g.stroke(); } };
+      const star = (x, y, s) => { g.beginPath(); for (let i = 0; i < 10; i++) { const a = -Math.PI / 2 + i * Math.PI / 5, r = i % 2 ? s * .42 : s; g.lineTo(x + Math.cos(a) * r, y + Math.sin(a) * r); } g.closePath(); g.fillStyle = yel; g.fill(); g.stroke(); };
+      const anchor = (x, y, s) => { g.strokeStyle = "#1b1b1d"; g.beginPath(); g.moveTo(x, y - s); g.lineTo(x, y + s); g.moveTo(x - s * .5, y - s * .55); g.lineTo(x + s * .5, y - s * .55); g.stroke(); g.beginPath(); g.arc(x, y + s * .3, s * .7, .2, Math.PI - .2); g.stroke(); g.beginPath(); g.arc(x, y - s * 1.15, s * .18, 0, 7); g.stroke(); };
+      const swallow = (x, y, s) => { g.beginPath(); g.moveTo(x - s, y - s * .2); g.quadraticCurveTo(x - s * .2, y - s * .5, x, y); g.quadraticCurveTo(x + s * .3, y - s * .9, x + s * 1.1, y - s * .7); g.lineTo(x + s * .4, y + s * .1); g.lineTo(x + s * .9, y + s * .6); g.lineTo(x, y + s * .3); g.closePath(); g.fillStyle = blu; g.fill(); g.stroke(); };
+      const dagger = (x, y, s) => { g.beginPath(); g.moveTo(x, y - s); g.lineTo(x + s * .14, y + s * .35); g.lineTo(x - s * .14, y + s * .35); g.closePath(); g.fillStyle = "#c9ccd0"; g.fill(); g.stroke(); g.beginPath(); g.moveTo(x - s * .35, y + s * .38); g.lineTo(x + s * .35, y + s * .38); g.stroke(); g.fillStyle = yel; g.fillRect(x - s * .07, y + s * .42, s * .14, s * .4); g.strokeRect(x - s * .07, y + s * .42, s * .14, s * .4); };
+      const all = [heart, rose, star, anchor, swallow, dagger];
+      [[70, 80, 34], [180, 90, 30], [80, 210, 30], [180, 220, 36], [128, 150, 22]].forEach(([x, y, sz], i) => all[(seed + i * 2) % 6](x, y, sz));
+      g.fillStyle = "#1b1b1d"; g.fillRect(0, 0, 256, 6); g.fillRect(0, 314, 256, 6);
+      const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t; };
+    const frameM = mat(0x111113, .4, .3), vinyl = mat(0x141416, .35, .05), chromeM = mat(0xcfd3d7, .2, .9);
+    let k = 0; for (const y of [1.6, 2.35]) for (let i = 0; i < 6; i++) { const z = -2.0 - i * .78; box(.04, .58, .48, frameM, -IW / 2 + .03, y, z);
+      const pic = add(new THREE.PlaneGeometry(.42, .52), new THREE.MeshStandardMaterial({map: flash(k++), roughness: .7, envMapIntensity: .3}), -IW / 2 + .055, y, z, P); pic.rotation.y = Math.PI / 2; pic.castShadow = false; }
+    const station = (x, z, ry) => { const g = new THREE.Group(); g.position.set(x, 0, z); g.rotation.y = ry; P.add(g);
+      // the bed: chrome base, black padded top with a raised back
+      cyl(.05, .07, .5, chromeM, 0, .25, 0, g, 12); box(.6, .04, .4, chromeM, 0, .03, 0, g); box(.62, .1, 1.3, vinyl, 0, .58, .15, g);
+      const back = box(.62, .1, .7, vinyl, 0, .78, -.72, g); back.rotation.x = -.6; box(.2, .06, .3, vinyl, 0, .66, .88, g);
+      // stool, lamp, cart with ink caps and a machine
+      cyl(.2, .2, .08, vinyl, .75, .55, .2, g, 20); cyl(.025, .025, .5, chromeM, .75, .28, .2, g, 8); for (let a = 0; a < 5; a++) { const b = box(.3, .025, .04, chromeM, .75 + Math.cos(a * 1.257) * .14, .04, .2 + Math.sin(a * 1.257) * .14, g); b.rotation.y = -a * 1.257; }
+      cyl(.02, .02, 1.6, chromeM, -.55, .8, -.3, g, 8); const arm = box(.03, .03, .7, chromeM, -.55, 1.6, .02, g); arm.rotation.x = .25;
+      const head = add(new THREE.CylinderGeometry(.13, .16, .06, 20), mat(0x1d1f22, .4, .3), -.55, 1.5, .36, g); add(new THREE.CircleGeometry(.12, 20), glow(0xfff4e0, 1.6), -.55, 1.466, .36, g).rotation.x = Math.PI / 2;
+      box(.5, .03, .36, chromeM, -.6, .9, .55, g); cyl(.015, .015, .88, chromeM, -.6, .45, .55, g, 6); box(.36, .02, .3, chromeM, -.6, .3, .55, g);
+      for (let i = 0; i < 7; i++) cyl(.015, .013, .025, mat([0x111111, 0xb3241c, 0x24497a, 0x2f6b4f, 0xd9a72e, 0x6b3a5e, 0xe9e4dc][i], .4), -.78 + i * .055, .93, .45, g, 8);
+      box(.05, .06, .11, mat(0x3a3d42, .3, .7), -.5, .945, .62, g); cyl(.006, .006, .1, chromeM, -.5, .93, .7, g, 6).rotation.x = Math.PI / 2;
+      lamp(x - .55, 1.42, z + .36, .5, 3.5, 0xfff4e0); return g; };
+    station(-1.55, -3.4, .0); station(-1.55, -5.9, .0);
+    // half-wall divider between the stations, a mirror, and a front counter with a portfolio and a card stand
+    box(1.4, 1.1, .08, trim, -1.75, .55, -4.65);
+    box(.04, 1.3, .7, mat(0xdfe4e8, .05, .9), IW / 2 - .03, 1.6, -5.6).castShadow = false; box(.06, 1.4, .8, trim, IW / 2 - .01, 1.6, -5.6);
+    box(1.6, .95, .6, trim, 1.6, .475, -3.2); box(1.66, .05, .66, mat(0x3a2f2a, .4), 1.6, .975, -3.2);
+    box(.5, .05, .36, mat(0x7a1f1f, .6), 1.4, 1.025, -3.15).rotation.y = .2; box(.08, .1, .05, mat(0xe9e4dc, .4), 2.0, 1.05, -3.05);
+    for (let i = 0; i < 3; i++) box(.02, .5, .38, frameM, IW / 2 - .02, 2.2, -2.2 - i * .7);
+    for (let i = 0; i < 3; i++) { const pic = add(new THREE.PlaneGeometry(.32, .42), new THREE.MeshStandardMaterial({map: flash(20 + i), roughness: .7, envMapIntensity: .3}), IW / 2 - .035, 2.2, -2.2 - i * .7, P); pic.rotation.y = -Math.PI / 2; pic.castShadow = false; }
+    // window: a flash binder on a stand and a plant
+    box(.9, .6, .5, trim, -2.1, .3, -.95); const bind = box(.5, .04, .36, mat(0x161618, .5), -2.1, .63, -.95); bind.rotation.x = -.15;
+    const open_ = add(new THREE.PlaneGeometry(.44, .32), new THREE.MeshStandardMaterial({map: flash(31), roughness: .7, envMapIntensity: .3}), -2.1, .66, -.95, P); open_.rotation.x = -Math.PI / 2 - .15; open_.castShadow = false;
+    plant(2.6, -1.2, 1.0);
   } else if (kind === "groom") {
     // grooming table, the tub, dryer, a shelf of shampoos; a dog waiting in the window
     const tbl = new THREE.Group(); tbl.position.set(-1.1, 0, -4.2); P.add(tbl);

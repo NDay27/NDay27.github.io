@@ -2069,5 +2069,205 @@
   "w": 1600,
   "h": 1000,
   "q": "kind=glass&sign=Auto+Glass&tod=0.3&cam=-6.2,1.8,14.4&tgt=-2.2,1.15,10.0&fov=32&pos=1&fix=1"
+ },
+ {
+  "name": "elec-before",
+  "w": 2400,
+  "h": 1350,
+  "q": "p=1&truck=Electric&tx=-1.5&tz=35.4&tr=1.5708&tod=0.8&cam=-15,3,24&tgt=-1,3.4,2&fov=38&elec=0&ox=0.13"
+ },
+ {
+  "name": "elec-after",
+  "w": 2400,
+  "h": 1350,
+  "q": "p=1&truck=Electric&tx=-1.5&tz=35.4&tr=1.5708&tod=0.8&cam=-15,3,24&tgt=-1,3.4,2&fov=38&elec=1&ox=0.13"
+ },
+ {
+  "name": "elec-s1",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Electric&tx=-1.5&tz=35.4&tr=1.5708&tod=0.8&cam=-11.5,2.2,7.5&tgt=-6,1.9,1.2&fov=36&elec=0"
+ },
+ {
+  "name": "elec-s2",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Electric&tx=-1.5&tz=35.4&tr=1.5708&tod=0.8&cam=-11.5,2.2,7.5&tgt=-6,1.9,1.2&fov=36&elec=.42"
+ },
+ {
+  "name": "elec-s3",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Electric&tx=-1.5&tz=35.4&tr=1.5708&tod=0.8&cam=-11.5,2.2,7.5&tgt=-6,1.9,1.2&fov=36&elec=.8"
+ },
+ {
+  "name": "elec-s4",
+  "w": 1200,
+  "h": 800,
+  "q": "p=1&truck=Electric&tx=-1.5&tz=35.4&tr=1.5708&tod=0.8&cam=-15,3,24&tgt=-1,3.4,2&fov=38&elec=1"
+ },
+ {
+  "name": "elec-dusk",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Electric&tx=-1.5&tz=35.4&tr=1.5708&tod=0.9&cam=-4.4,1.5,19&tgt=.2,.9,9&fov=40&elec=1"
+ },
+ {
+  "name": "elec-panel",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Electric&tx=-1.5&tz=35.4&tr=1.5708&tod=0.8&cam=-8.6,1.7,3.2&tgt=-6.1,1.4,.1&fov=40&elec=1"
+ },
+ {
+  "name": "elec-walk",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Electric&tx=-1.5&tz=35.4&tr=1.5708&tod=0.9&cam=-2.6,.9,16.5&tgt=0,.35,9.5&fov=40&elec=1"
+ },
+ {
+  "name": "elec-ladder",
+  "w": 1600,
+  "h": 1000,
+  "q": "p=1&truck=Electric&tx=-1.5&tz=35.4&tr=1.5708&tod=0.8&cam=-12.5,3.2,6.5&tgt=-6,3.2,.8&fov=40&elec=.42"
+ },
+ {
+  "name": "floor-before",
+  "w": 2400,
+  "h": 1350,
+  "lab": "labroom",
+  "q": "kind=floor&tod=0.3&cam=2.4,1.6,1.4&tgt=-.8,.85,-2.8&fov=46&fix=0&ox=0.13"
+ },
+ {
+  "name": "floor-after",
+  "w": 2400,
+  "h": 1350,
+  "lab": "labroom",
+  "q": "kind=floor&tod=0.3&cam=2.4,1.6,1.4&tgt=-.8,.85,-2.8&fov=46&fix=1&ox=0.13"
+ },
+ {
+  "name": "floor-s1",
+  "w": 1200,
+  "h": 800,
+  "lab": "labroom",
+  "q": "kind=floor&tod=0.3&cam=2.2,.9,.4&tgt=-.6,.05,-2.0&fov=46&fix=0"
+ },
+ {
+  "name": "floor-s2",
+  "w": 1200,
+  "h": 800,
+  "lab": "labroom",
+  "q": "kind=floor&tod=0.3&cam=2.4,1.6,1.4&tgt=-.8,.85,-2.8&fov=46&fix=0.3"
+ },
+ {
+  "name": "floor-s3",
+  "w": 1200,
+  "h": 800,
+  "lab": "labroom",
+  "q": "kind=floor&tod=0.3&cam=2.2,.9,.4&tgt=-.6,.05,-2.0&fov=46&fix=0.66"
+ },
+ {
+  "name": "floor-s4",
+  "w": 1200,
+  "h": 800,
+  "lab": "labroom",
+  "q": "kind=floor&tod=0.3&cam=1.3,1.25,-.6&tgt=-.7,.5,-2.6&fov=44&fix=1"
+ },
+ {
+  "name": "floor-dusk",
+  "w": 1600,
+  "h": 1000,
+  "lab": "labroom",
+  "q": "kind=floor&tod=0.84&cam=2.4,1.6,1.4&tgt=-.8,.85,-2.8&fov=46&fix=1"
+ },
+ {
+  "name": "floor-boards",
+  "w": 1600,
+  "h": 1000,
+  "lab": "labroom",
+  "q": "kind=floor&tod=0.3&cam=2.2,.9,.4&tgt=-.6,.05,-2.0&fov=46&fix=0.66"
+ },
+ {
+  "name": "floor-new",
+  "w": 1600,
+  "h": 1000,
+  "lab": "labroom",
+  "q": "kind=floor&tod=0.3&cam=1.3,1.25,-.6&tgt=-.7,.5,-2.6&fov=44&fix=1"
+ },
+ {
+  "name": "floor-old",
+  "w": 1600,
+  "h": 1000,
+  "lab": "labroom",
+  "q": "kind=floor&tod=0.3&cam=2.2,.9,.4&tgt=-.6,.05,-2.0&fov=46&fix=0"
+ },
+ {
+  "name": "tattoo-before",
+  "lab": "labstore",
+  "w": 2400,
+  "h": 1350,
+  "q": "kind=tattoo&sign=Tattoo&word=Tattoo&tod=0.62&cam=-9,2.3,17.5&tgt=.8,3.5,0&fov=36&open=0&lights=0&awning=0&door=0&ox=0.13"
+ },
+ {
+  "name": "tattoo-after",
+  "lab": "labstore",
+  "w": 2400,
+  "h": 1350,
+  "q": "kind=tattoo&sign=Tattoo&word=Tattoo&tod=0.14&cam=-9,2.3,17.5&tgt=.8,3.5,0&fov=36&open=1&lights=1&awning=1&door=0&ox=0.13"
+ },
+ {
+  "name": "tattoo-s1",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=tattoo&sign=Tattoo&word=Tattoo&tod=0.62&cam=-4.6,2.4,11.5&tgt=.6,2.7,0&fov=40&open=0&lights=0&awning=0&door=0"
+ },
+ {
+  "name": "tattoo-s2",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=tattoo&sign=Tattoo&word=Tattoo&tod=0.45&cam=-4.6,2.4,11.5&tgt=.6,2.7,0&fov=40&open=0&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "tattoo-s3",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=tattoo&sign=Tattoo&word=Tattoo&tod=0.14&cam=0,1.6,5.5&tgt=0,1.5,-2&fov=40&open=1&lights=1&awning=1&door=1"
+ },
+ {
+  "name": "tattoo-s4",
+  "lab": "labstore",
+  "w": 1200,
+  "h": 800,
+  "q": "kind=tattoo&sign=Tattoo&word=Tattoo&tod=0.14&cam=1.6,1.75,-1.6&tgt=-.8,1.15,-5.2&fov=55&open=1&lights=1&awning=1&door=1&second=0"
+ },
+ {
+  "name": "tattoo-dusk",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=tattoo&sign=Tattoo&word=Tattoo&tod=0.84&cam=-7.5,1.9,15&tgt=.8,3.2,0&fov=36&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "tattoo-window",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=tattoo&sign=Tattoo&word=Tattoo&tod=0.14&cam=-3.6,1.55,3.6&tgt=-1.6,1.3,-1.0&fov=40&open=1&lights=1&awning=1&door=0"
+ },
+ {
+  "name": "tattoo-inside",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=tattoo&sign=Tattoo&word=Tattoo&tod=0.14&cam=1.6,1.75,-1.6&tgt=-.8,1.15,-5.2&fov=55&open=1&lights=1&awning=1&door=1&second=0"
+ },
+ {
+  "name": "tattoo-door",
+  "lab": "labstore",
+  "w": 1600,
+  "h": 1000,
+  "q": "kind=tattoo&sign=Tattoo&word=Tattoo&tod=0.14&cam=0,1.6,5.5&tgt=0,1.5,-2&fov=40&open=1&lights=1&awning=1&door=0"
  }
 ]

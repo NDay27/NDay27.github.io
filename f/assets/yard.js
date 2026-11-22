@@ -677,3 +677,93 @@ export function roofJob(world, house) {
   set({fix: 0});
   return {root, set, exclude: (px, pz) => false};
 }
+
+// elecJob(world, house): a service upgrade on the left gable wall, then the lights come back on. set({fix, t}): 0 = dusk with
+// most rooms dark, one window flickering, the porch light dead and a rusted meter + fuse box; ~.15-.6 = power off, ladder up,
+// old gear out and a new meter + breaker panel in (door open on the breakers); .6-1 = the porch, rooms, lanterns and new
+// path lights come on in turn. House glows and lamps are scaled after each time-of-day update (world.onTod).
+export function elecJob(world, house) {
+  const root = new THREE.Group(); world.scene.add(root);
+  const mat = (c, ro = .6, m = 0, o = {}) => new THREE.MeshStandardMaterial({color: c, roughness: ro, metalness: m, envMapIntensity: .6, ...o});
+  const add = (geo, m, px, py, pz, parent = root) => { const o = new THREE.Mesh(geo, m); o.position.set(px, py, pz); o.castShadow = o.receiveShadow = true; parent.add(o); return o; };
+  const box = (w, h, d, m, px, py, pz, parent) => add(new THREE.BoxGeometry(w, h, d), m, px, py, pz, parent);
+  const ss = (a, b, t) => { const k = Math.min(1, Math.max(0, (t - a) / (b - a))); return k * k * (3 - 2 * k); };
+  const WX = -6.08, MZ = .45, PZ = -.25;   // the left gable wall face, meter and panel positions along it
+  const rustT = (base) => { const cv = document.createElement("canvas"); cv.width = cv.height = 128; const g = cv.getContext("2d"); g.fillStyle = base; g.fillRect(0, 0, 128, 128);
+    let s = 7; const r = () => (s = (s * 16807) % 2147483647) / 2147483647;
+    for (let i = 0; i < 30; i++) { const x = r() * 128, y = r() * 128, gr = g.createRadialGradient(x, y, 0, x, y, 4 + r() * 16); gr.addColorStop(0, "rgba(120,62,24,.85)"); gr.addColorStop(1, "rgba(120,62,24,0)"); g.fillStyle = gr; g.fillRect(0, 0, 128, 128); }
+    for (let i = 0; i < 8; i++) { const x = r() * 128, gr = g.createLinearGradient(0, 40, 0, 128); gr.addColorStop(0, "rgba(110,56,20,0)"); gr.addColorStop(1, "rgba(110,56,20,.6)"); g.fillStyle = gr; g.fillRect(x, 40 + r() * 30, 2 + r() * 3, 128); }
+    const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; return t; };
+  // old gear: a rusted meter socket with a cloudy glass meter, a small fuse box, a bent mast
+  const old = new THREE.Group(); root.add(old); const rm = mat(0xffffff, .8, .3, {map: rustT("#8a8a82")});
+  box(.1, .42, .3, rm, WX - .05, 1.55, MZ, old);
+  { const g = add(new THREE.CylinderGeometry(.11, .11, .14, 20), mat(0xcfd2c8, .35, 0, {transparent: true, opacity: .75}), WX - .17, 1.6, MZ, old); g.rotation.z = Math.PI / 2; }
+  box(.1, .46, .36, rm, WX - .05, 1.12, PZ, old);
+  { const m = add(new THREE.CylinderGeometry(.028, .028, 3.9, 8), rm, WX - .07, 3.75, MZ, old); m.rotation.x = .045; }
+  // new gear: meter base + digital meter, a 200 A panel with a door that swings open, straight mast + weatherhead
+  const nu = new THREE.Group(); root.add(nu); const gm = mat(0x8f969b, .45, .55), dk = mat(0x1b1d20, .5, .2);
+  box(.12, .48, .32, gm, WX - .06, 1.55, MZ, nu);
+  { const g = add(new THREE.CylinderGeometry(.12, .12, .16, 24), mat(0xe8eef2, .15, 0, {transparent: true, opacity: .6}), WX - .2, 1.6, MZ, nu); g.rotation.z = Math.PI / 2;
+    const face = add(new THREE.PlaneGeometry(.12, .05), world.glowMat(0x9fe8b0, .35, {color: 0x203024}), WX - .281, 1.62, MZ, nu); face.rotation.y = -Math.PI / 2; face.castShadow = false; }
+  const PW = .5, PH = .75;
+  box(.12, PH, PW, gm, WX - .06, 1.2, PZ, nu);
+  const inner = box(.01, PH - .08, PW - .06, mat(0xd6d9d6, .6), WX - .121, 1.2, PZ, nu); inner.castShadow = false;
+  for (let row = 0; row < 7; row++) for (const s of [-1, 1]) { const b = box(.03, .055, .1, dk, WX - .13, 1.46 - row * .085, PZ + s * .07, nu); b.castShadow = false; }
+  const door = new THREE.Group(); door.position.set(WX - .125, 1.2, PZ + PW / 2); nu.add(door);
+  { const d = box(.02, PH, PW, gm, -.01, 0, -PW / 2, door); box(.025, .06, .02, dk, -.02, 0, -PW + .05, door); }
+  add(new THREE.CylinderGeometry(.03, .03, 4.05, 8), gm, WX - .08, 3.8, MZ, nu);
+  { const h = add(new THREE.SphereGeometry(.07, 12, 8, 0, Math.PI * 2, 0, Math.PI / 2), gm, WX - .08, 5.84, MZ, nu); h.scale.set(1, .7, 1); }
+  // the service drop from a pole off the side of the lot
+  const pole = new THREE.Group(); pole.position.set(-14, 0, 5.5); root.add(pole); const wood = mat(0x5e4b3a, .95);
+  add(new THREE.CylinderGeometry(.13, .17, 9.2, 10), wood, 0, 4.6, 0, pole); box(1.8, .12, .12, wood, 0, 8.6, 0, pole);
+  add(new THREE.CylinderGeometry(.26, .26, .7, 14), mat(0x8a9096, .5, .5), .32, 7.7, 0, pole);
+  { const a = new THREE.Vector3(-13.8, 7.6, 5.5), b = new THREE.Vector3(WX - .1, 5.78, MZ), pts = [];
+    for (let i = 0; i <= 16; i++) { const k = i / 16, p = a.clone().lerp(b, k); p.y -= Math.sin(k * Math.PI) * .55; pts.push(p); }
+    add(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 32, .018, 5), dk, 0, 0, 0); }
+  // ladder against the wall, tool bag and a coil of wire at its foot
+  const ladder = new THREE.Group(); ladder.position.set(WX - .85, 0, MZ + .95); ladder.rotation.z = -.2; root.add(ladder); const fg = mat(0xe0b21c, .5);
+  for (const s of [-.22, .22]) box(.07, 4.4, .09, fg, 0, 2.2, s, ladder); for (let y = .3; y < 4.3; y += .3) box(.04, .035, .44, mat(0x9aa0a6, .4, .7), 0, y, 0, ladder);
+  const kit = new THREE.Group(); kit.position.set(WX - 1.1, 0, PZ - .5); root.add(kit);
+  box(.42, .28, .24, mat(0x2a2d31, .8), 0, .14, 0, kit); box(.42, .04, .26, mat(0xd95a26, .6), 0, .29, 0, kit);
+  { const c = add(new THREE.TorusGeometry(.17, .045, 8, 20), mat(0x1d1f22, .6), .1, .05, -.55, kit); c.rotation.x = Math.PI / 2;
+    const c2 = add(new THREE.TorusGeometry(.13, .04, 8, 20), mat(0xb84a26, .6), .1, .12, -.55, kit); c2.rotation.x = Math.PI / 2; }
+  // new path lights along the front walk
+  const path = new THREE.Group(); root.add(path); const bronze = mat(0x2a2420, .5, .5), PL = [];
+  for (const z of [8.6, 10.8, 13]) for (const x of [-1.05, 1.05]) { const g = new THREE.Group(); g.position.set(x, 0, z); path.add(g);
+    add(new THREE.CylinderGeometry(.035, .045, .46, 8), bronze, 0, .23, 0, g);
+    const cap = world.glowMat(0xffd6a0, .3, {color: 0x3a2a18}); add(new THREE.CylinderGeometry(.07, .06, .07, 12), cap, 0, .47, 0, g);
+    box(.16, .02, .16, bronze, 0, .52, 0, g); PL.push(cap); }
+  const pathLamps = [world.lamp(-1.05, .5, 10.8, 0xffc58a, .12, 3.5), world.lamp(1.05, .5, 10.8, 0xffc58a, .12, 3.5)];
+
+  // what to dim: every glowing material on the house (window rooms, lamp shades, porch fixture, lanterns) and its lamps
+  house.root.updateMatrixWorld(true);
+  const E = [], seen = new Set(), wp = new THREE.Vector3();
+  house.root.traverse(o => { if (!o.isMesh || !o.material || !o.material.emissive || !o.material.emissive.getHex() || seen.has(o.material)) return; seen.add(o.material);
+    o.getWorldPosition(wp); E.push({m: o.material, x: wp.x, y: wp.y, z: wp.z}); });
+  (house.lamps || []).forEach(l => E.push({l, x: l.position.x, y: l.position.y, z: l.position.z}));
+  E.forEach(e => { const porch = e.z > 4.6 && Math.abs(e.x) < 1, lantern = e.z > 3 && e.x > 5.5;
+    e.kind = porch ? "porch" : lantern ? "lantern" : "room";
+    e.rank = porch ? 0 : lantern ? .82 : .12 + .6 * ((e.y > 3.6 ? .5 : 0) + (e.x + 7) / 22);
+    e.before = e.kind === "room" ? ((Math.round(e.x * 3) & 3) === 1 ? .55 : 0) : e.kind === "lantern" && e.x < 9 ? .7 : 0; });
+  const fl = E.filter(e => e.kind === "room" && e.before === 0 && e.y < 3.6).sort((a, b) => a.x - b.x)[0];
+  if (fl) fl.flick = true;
+  PL.forEach(m => E.push({m, kind: "path", rank: .9, before: 0})); pathLamps.forEach(l => E.push({l, kind: "path", rank: .93, before: 0}));
+  let F = 0, flick = .3;
+  const level = e => { if (F < .15) return e.flick ? flick : e.before * (1 - ss(.08, .15, F));
+    return ss(.6 + .3 * e.rank, .66 + .3 * e.rank, F); };
+  const base = e => e.base ?? (e.base = e.m ? e.m.emissiveIntensity : e.l.intensity);
+  const apply = () => { for (const e of E) { const v = base(e) * level(e); if (e.m) e.m.emissiveIntensity = v; else e.l.intensity = v; } };
+  world.onTod.push(() => { for (const e of E) e.base = e.m ? e.m.emissiveIntensity : e.l.intensity; apply(); });
+  let cur = -1, lastSh = -1;
+  function set({fix: f = 0, t} = {}) {
+    if (t != null && f < .15 && fl) { const k = Math.sin(t * 23) * Math.sin(t * 7.3 + 1) > .2 ? .75 : (Math.sin(t * 61) > .6 ? .4 : .04); if (k !== flick) { flick = k; if (f === cur) apply(); } }
+    if (f === cur) return; cur = f; F = f;
+    const swap = f > .34;
+    old.visible = !swap; nu.visible = swap; door.rotation.y = -1.9 * ss(.36, .44, f) * (1 - ss(.56, .62, f));
+    ladder.visible = kit.visible = f > .12 && f < .9; path.visible = f > .5;
+    apply();
+    if (Math.abs(f - lastSh) > .02 || ((f === 0 || f === 1) && f !== lastSh)) { lastSh = f; world.shadows(); }
+  }
+  set({fix: 0});
+  return {root, set, exclude: () => false};
+}

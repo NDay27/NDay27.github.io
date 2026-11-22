@@ -2,7 +2,7 @@
 // t1250.js turns scroll into a state (camera keys, light, trade values); this file draws it on the Harlow engine.
 import {makeWorld, reduce, small} from "../../harlow/assets/world.js";
 import {makeHouse} from "../../harlow/assets/house.js";
-import {lawn, yardTree, flatwork, workTruck, acUnit, yardLine, fixList, stumpGrind, towJob, mowerFix, weldGate, roofJob} from "./yard.js";
+import {lawn, yardTree, flatwork, workTruck, acUnit, yardLine, fixList, stumpGrind, towJob, mowerFix, weldGate, roofJob, elecJob} from "./yard.js";
 
 // camera keys: position, target, field of view (desktop)
 const K = {
@@ -47,7 +47,7 @@ K.tow = {hero: [[3, 2.4, 48], [-3.5, 1.2, 35.4], 44], close: [[-12, 2.2, 45], [-
 // small engine repair: a riding mower that won't run in the drive, fixed and driven onto the lawn
 K.engine = {hero: [[14.5, 2.4, 30], [7.6, .5, 22], 40], close: [[13.5, 1.8, 26.5], [9.5, .5, 22], 42], dusk: [[14.5, 2.4, 30], [7.6, .5, 22], 40],
             cfg: [[13, 2.2, 29], [7.5, .5, 21.5], 42]};
-const HOME = {wash: "wash", concrete: "concrete", hvac: "ac", plumb: "pipe", handy: "list", stump: "stump", tow: "tow", engine: "engine", weld: "weld", roof: "roof"};
+const HOME = {wash: "wash", concrete: "concrete", hvac: "ac", plumb: "pipe", handy: "list", stump: "stump", tow: "tow", engine: "engine", weld: "weld", roof: "roof", elec: "elec"};
 // welding: a rusted, sagging double gate at the end of the drive, welded, painted and hung true
 K.weld = {hero: [[14, 1.9, 37], [9.5, .7, 30], 44], close: [[12.8, 1.3, 33.2], [11, .7, 30.2], 44], dusk: [[14, 1.9, 37], [9.5, .7, 30], 44],
           cfg: [[13.4, 1.7, 35.5], [9.8, .7, 30], 44]};
@@ -57,6 +57,9 @@ K.glass = {hero: [[-6.2, 1.8, 14.4], [-2.2, 1.15, 10.0], 32], close: [[-4.4, 2.2
            cfg: [[-8.4, 1.9, 15.2], [-2.6, .9, 9.9], 36]};
 K.semi = {hero: [[-14, 3.6, 24], [.5, 2.6, 2], 36], side: [[-11.5, 2.6, 4.8], [-2.6, 1.6, .4], 40], close: [[-7.6, 2.2, 3.6], [-2.8, 1.4, 1.3], 42],
           dusk: [[-12, 2.4, 24], [2, 2.4, 5], 40], cfg: [[-10.5, 2.8, 15], [-1.2, 1.8, 2.5], 40]};
+// electrical: dusk with most rooms dark and an old fuse box on the side wall; a new panel goes in and the lights come on room by room
+K.elec = {hero: [[-15, 3, 24], [-1, 3.4, 2], 38], close: [[-11.5, 2.2, 7.5], [-6, 1.9, 1.2], 36], dusk: [[-4.4, 1.5, 19], [.2, .9, 9], 40],
+          cfg: [[-14, 3, 22], [-1.5, 3.2, 2], 38]};
 K.roof = {hero: [[-11, 8, 27], [1.5, 4.6, 0], 40], close: [[-6, 9.5, 14], [0, 6.6, 0], 40], dusk: [[-11, 8, 27], [1.5, 4.6, 0], 40],
           cfg: [[-10, 7.6, 25], [1.5, 4.8, 0], 40]};
 
@@ -145,7 +148,7 @@ async function startStore(HB) {
 // house cleaning: inside a living room, swept clean from left to right
 K.clean = {hero: [[2.4, 1.6, 1.4], [-.8, .85, -2.8], 46], close: [[2.4, 1.6, 1.4], [-.8, .85, -2.8], 46], floor: [[2.2, .9, .4], [-.6, .05, -2.0], 46],
            dusk: [[2.4, 1.6, 1.4], [-.8, .85, -2.8], 46], cfg: [[1.6, 1.4, .4], [-.7, .7, -2.7], 46]};
-K.office = K.carpet = K.clean;  // janitorial: the same room, fitted out as an office
+K.office = K.carpet = K.floor = K.clean;  // janitorial: the same room, fitted out as an office
 async function startRoom(HB) {
   const keys = K[HB.group] || K.clean, {makeRoom} = await import("./room.js");
   const world = await makeWorld({
@@ -153,7 +156,7 @@ async function startRoom(HB) {
     tod: .3, ground: "lawn", grassR: 30, grassH: .15, grassW: .04, grassN: small ? .3 : .6, offset: false, fov: () => 46, exclude: (x, z) => x > -3.8 && x < 3.8 && z > -5.2 && z < 3,
   });
   const font = getComputedStyle(document.documentElement).getPropertyValue("--serif").split(",")[0].trim() || "sans-serif";
-  const R = makeRoom(world, {card: HB.name || "", font, kind: HB.group === "office" ? "office" : HB.group === "carpet" ? "carpet" : "home"});
+  const R = makeRoom(world, {card: HB.name || "", font, kind: HB.group === "office" ? "office" : HB.group === "carpet" ? "carpet" : HB.group === "floor" ? "floor" : "home"});
   const rig = makeRig(world, keys, HB), cur = {fix: 0};
   let first = true;
   world.onTick.push((t, dt) => {
@@ -173,7 +176,7 @@ async function startRoom(HB) {
 }
 
 export async function start(HB) {
-  if (HB.group === "clean" || HB.group === "office" || HB.group === "carpet") return startRoom(HB);
+  if (HB.group === "clean" || HB.group === "office" || HB.group === "carpet" || HB.group === "floor") return startRoom(HB);
   if (STORE[HB.group]) return startStore(HB);
   if (HB.group === "auto" || HB.group === "body" || HB.group === "semi" || HB.group === "glass") return startAuto(HB);
   const g = HB.group, keys = K[g];
@@ -198,7 +201,7 @@ export async function start(HB) {
   let drive = null; const hcur = {fix: 0, house: 0}, GRIME = {siding: new THREE.Color(0xa9a68f), trim: new THREE.Color(0x6f6d60)}, CLEAN = {};
   if (HOME[g]) {
     const font = getComputedStyle(document.documentElement).getPropertyValue("--serif").split(",")[0].trim() || "sans-serif";
-    drive = HOME[g] === "tow" ? await towJob(world, {sign: HB.name || "", font}) : HOME[g] === "engine" ? mowerFix(world) : HOME[g] === "weld" ? weldGate(world) : HOME[g] === "roof" ? roofJob(world, house) : HOME[g] === "ac" ? acUnit(world) : HOME[g] === "list" ? fixList(world) : line || flatwork(world, {kind: HOME[g]});
+    drive = HOME[g] === "tow" ? await towJob(world, {sign: HB.name || "", font}) : HOME[g] === "engine" ? mowerFix(world) : HOME[g] === "weld" ? weldGate(world) : HOME[g] === "roof" ? roofJob(world, house) : HOME[g] === "elec" ? elecJob(world, house) : HOME[g] === "ac" ? acUnit(world) : HOME[g] === "list" ? fixList(world) : line || flatwork(world, {kind: HOME[g]});
     if (!["tow", "engine", "weld"].includes(HOME[g])) await workTruck(world, {sign: HB.name || "", font, x: {ac: -11, pipe: -6, list: 1.5}[HOME[g]] ?? -1.5, z: 35.4, ry: Math.PI / 2});
     CLEAN.siding = house.M.siding.color.clone(); CLEAN.trim = house.M.trim.color.clone();
   }
