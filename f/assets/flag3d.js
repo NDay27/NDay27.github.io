@@ -24,9 +24,13 @@ const K = {
 // main-street storefronts share one set of keys; the walk inside runs straight through the open door
 const SK = {hero: [[-9, 2.3, 17.5], [.8, 3.5, 0], 36], front: [[-4.6, 2.4, 11.5], [.6, 2.7, 0], 40], door: [[0, 1.6, 5.5], [0, 1.5, -2], 40],
             inside: [[0, 1.6, -3.4], [-.4, 1.2, -7.2], 50], dusk: [[.6, 2.0, 16], [.4, 3.0, 0], 36], cfg: [[-6.5, 2.2, 13.5], [.6, 2.6, 0], 38]};
-const STORE = {bakery: "bakery", salon: "salon", barber: "barber", nails: "nails", eat: "eat", shop: "shop", groom: "groom", tailor: "sew", uphol: "sew", scoop: "scoop"};
+// every store group in _build/flagship/store.py GROUPS must be listed here (make.py checks), or its live 3D falls back to stills
+const STORE = {bakery: "bakery", salon: "salon", barber: "barber", nails: "nails", eat: "eat", shop: "shop", groom: "groom", tailor: "sew", uphol: "sew", scoop: "scoop",
+               antique: "antique", tattoo: "tattoo", dojo: "dojo", jewel: "jewel", appst: "appst", massage: "massage", cafe: "cafe", gym: "gym", music: "music", photo: "photo"};
 const WORD = {bakery: "Bakery", cake: "Cakes", donut: "Donuts", salon: "Hair", barber: "Barber", nails: "Nails", restaurant: "Eat",
-              thrift: "Thrift", boutique: "Boutique", petgroom: "Grooming", tailor: "Tailor", upholstery: "Upholstery", icecream: "Ice Cream"};
+              thrift: "Thrift", boutique: "Boutique", petgroom: "Grooming", tailor: "Tailor", upholstery: "Upholstery", icecream: "Ice Cream",
+              antique: "Antiques", tattoo: "Tattoo", martial: "Martial Arts", jewelry: "Jewelry", applstore: "Appliances", massage: "Massage",
+              coffee: "Coffee", gym: "Fitness", music: "Music", photo: "Studio"};
 for (const g in STORE) K[g] = SK;
 K.concrete = {...K.wash, hero: [[1.2, 2.9, 31.5], [8.6, .9, 12], 40]};
 // heating and cooling: the outdoor unit beside the house is the subject, the crew's truck at the curb

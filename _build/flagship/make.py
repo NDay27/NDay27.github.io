@@ -11,6 +11,7 @@ The $300 page also carries the nds-shop JSON the pitch room (meet/) reads.
 --img converts render PNGs (from render.cjs) into f/img/<trade>/ WebPs first.
 """
 import json
+import re
 import os
 import sys
 
@@ -124,10 +125,21 @@ def page300(s, meet):
     return kit.fill(src, vals)
 
 
+def _check_flag3d():
+    """Every store group needs an entry in flag3d.js STORE (and its variants in WORD), or the $1,250 live 3D quietly falls back to stills."""
+    import store
+    js = open(os.path.join(ROOT, "f/assets/flag3d.js")).read()
+    blk = lambda name: set(re.findall(r"(\w+):", re.search(r"const " + name + r" = \{(.*?)\};", js, re.S).group(1)))
+    st, wd = blk("STORE"), blk("WORD")
+    miss = [g for g in store.GROUPS if g not in st] + [v for g in store.GROUPS for v in store.GROUPS[g]["vs"] if v not in wd]
+    assert not miss, f"add these to STORE / WORD in f/assets/flag3d.js: {miss}"
+
+
 def main():
     a = sys.argv[1:]
     if "--img" in a:
         convert(a[a.index("--img") + 1])
+    _check_flag3d()
     shops = kit.load_shops()
     if "--only" in a:
         keep = set(a[a.index("--only") + 1].split(","))
