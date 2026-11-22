@@ -96,6 +96,12 @@ def candidates():
         if s["v"] in STUMP_V and re.search(r"stump", s["name"].lower()) and kit.st(s) != "CA":
             out.append(("stump", dict(s, kv="stump")))
             continue
+        # a handyman lead listed only as a contractor / construction company whose name says roofing or concrete gets that kit
+        if g == "handy" and re.search(r"^(general )?contractor$|^construction company$", (s.get("cat") or "").lower()):
+            k = "roof" if re.search(r"roof", s["name"].lower()) else "concrete" if re.search(r"concrete", s["name"].lower()) else None
+            if k and not re.search(NAME_OUT[k], s["name"].lower()):
+                out.append((k, dict(s, kv={"roof": "roofing", "concrete": "concrete"}[k])))
+                continue
         # a handyman lead whose Google category is an excavating or well drilling contractor gets the dig or the well kit (own variants, see home.V_NEW)
         if g == "handy" and re.search(r"excavat|well drill", (s.get("cat") or "").lower()):
             k = "well" if "well" in s["cat"].lower() else "dig"

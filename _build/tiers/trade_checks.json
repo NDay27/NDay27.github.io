@@ -7353,5 +7353,19 @@
   "trade": "Boxing gym",
   "src": "Google listing category",
   "on": "2026-11-22"
+ },
+ "grd-attic-insulation-roofing-services-inc-nj-harrington-park-nj": {
+  "v": "handyman",
+  "trade": "Contractor",
+  "src": "Google listing category",
+  "on": "2026-11-22",
+  "name_ok": true
+ },
+ "boan-concrete-construction-co-griffin-ga": {
+  "v": "handyman",
+  "trade": "Construction company",
+  "src": "Google listing category",
+  "on": "2026-11-22",
+  "name_ok": true
  }
 }
