@@ -64,7 +64,7 @@ CSS = """
 
 
 def beats(s):
-    g = s["group"]; v = V[s["v"]]; c = kit.COPY[g]
+    g = s["group"]; v = kit.vof(s); c = kit.COPY[g]
     h = [x.replace("{town}", s["town"]) for x in v["h1250"]]
     if g == "lawn":
         B = [("hero", .56, {"cut": 0, "stripes": 1}, None, "lawn-before", None),

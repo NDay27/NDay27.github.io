@@ -29,7 +29,7 @@ def page(s, meet):
     u = f"{kit.BASE}{s['slug']}/"
     hi1, hi2 = f"/f/img/{t}/{hero}-1200.webp", f"/f/img/{t}/{hero}-2400.webp"
     short, town = E(s["short"]), E(s["town"])
-    trade = kit.TRADE[s["v"]].lower()
+    trade = (s.get("trade") or kit.TRADE[s["v"]]).lower()
     who = OWNER.get(s.get("owner"), "Nolan Day")
     # head: title, meta, art, absolute asset paths
     head = re.sub(r"<title>.*?</title>", f"<title>Three websites for {short} · Nolan Day Studio</title>", head, flags=re.S)

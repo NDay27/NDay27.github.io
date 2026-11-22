@@ -45,10 +45,10 @@ def convert(src):
 
 
 def base_vals(s, tier):
-    g = s["group"]; v = V[s["v"]]; t = THEME[g]
+    g = s["group"]; v = kit.vof(s); t = THEME[g]
     return {
         "NAME": E(s["name"]), "SHORT": E(s["short"]), "SHORT_POSS": E(kit.poss(s["short"])), "TOWN": E(s["town"]), "ST": kit.st(s), "STATE": kit.state(s),
-        "TRADE": TRADE[s["v"]], "PHONE": s["phone"], "TEL": s["tel"], "MAPS": E(s.get("maps") or f"https://www.google.com/maps/search/{s['name']} {s['town']} {kit.st(s)}"),
+        "TRADE": s.get("trade") or TRADE[s["v"]], "PHONE": s["phone"], "TEL": s["tel"], "MAPS": E(s.get("maps") or f"https://www.google.com/maps/search/{s['name']} {s['town']} {kit.st(s)}"),
         "THEME": kit.theme_vars(g), "EXTRA_CSS": kit.EXTRA_CSS[g], "PAPER": t["paper"], "FONTS": t["fonts"], "FAVICON": kit.favicon(g), "VER": VER,
         "LOGO": kit.logo(g), "BAR": kit.bar(s, tier), "LDJSON": kit.ldjson(s), "CFG": kit.cfg(s, tier),
         "OG": f"{SITE}{BASE}{s['slug']}/shots/v{tier}.jpg",
@@ -77,7 +77,7 @@ def NOWRAP(h):
 
 
 def rows(s):
-    v = V[s["v"]]; out = []
+    v = kit.vof(s); out = []
     jobs = v["jobs"]
     for i, (h, p) in enumerate(v["services"]):
         job = jobs[i] if i < len(jobs) - 1 else jobs[0]
@@ -102,7 +102,7 @@ def rate_card(s):
 
 
 def page300(s, meet):
-    g = s["group"]; v = V[s["v"]]; c = COPY[g]
+    g = s["group"]; v = kit.vof(s); c = COPY[g]
     h = [x.replace("{town}", s["town"]) for x in v["h300"]]
     shot = c["shot"][0]
     vals = base_vals(s, 300)

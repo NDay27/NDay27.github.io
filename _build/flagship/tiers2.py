@@ -130,7 +130,7 @@ for _g in home.GROUPS:
 
 def quiz(s):
     """Signature tool for storefronts: question one is the shop's own job list, question two is the trade's own."""
-    g = s["group"]; v = V[s["v"]]; nav, title, intro, q2, opts, tip, note = (store.TOOL.get(g) or home.TOOL[g])
+    g = s["group"]; v = kit.vof(s); nav, title, intro, q2, opts, tip, note = (store.TOOL.get(g) or home.TOOL[g])
     jobs = [j for j in v["jobs"] if j not in ("Something else", "Question")]
     b1 = "".join(f'<button type="button" aria-pressed="false" data-v="{E(j)}">{E(j)}</button>' for j in jobs)
     b2 = "".join(f'<button type="button" aria-pressed="false" data-v="{o[0]}"' + (f' style="--c:{o[3]}"><i></i>' if len(o) > 3 else ">") + f'{E(o[1])}</button>' for o in opts)
@@ -157,7 +157,7 @@ def strip(s):
 
 
 def services(s):
-    g = s["group"]; v = V[s["v"]]; out = []
+    g = s["group"]; v = kit.vof(s); out = []
     for i, (h, p) in enumerate(v["services"]):
         job = v["jobs"][i] if i < len(v["jobs"]) - 1 else v["jobs"][0]
         im, alt = SVC_IMG[g][i]
@@ -229,7 +229,7 @@ def tool(s):
 
 
 def picks(s):
-    v = V[s["v"]]
+    v = kit.vof(s)
     grp = [("job", v["ask"], v["jobs"]), ("when", "When?", v["when"]), ("reach", "How should we reach you?", ["Call me", "Text me", "Either is fine"])]
     p = "".join(f'<div><h3>{E(t)}</h3><div class="opts" data-pick="{k}" role="group" aria-label="{E(t)}">' + "".join(f'<button type="button" aria-pressed="false" data-v="{E(o)}">{E(o)}</button>' for o in opts) + "</div></div>" for k, t, opts in grp)
     rows = "".join(f'<div><dt>{t}</dt><dd data-out="{k}">—</dd></div>' for k, t in (("job", "Job"), ("when", "When"), ("reach", "Reach me")))
@@ -263,7 +263,7 @@ def shared(s):
 
 def vals750(s, tier):
     import make
-    g = s["group"]; v = V[s["v"]]; c = COPY[g]
+    g = s["group"]; v = kit.vof(s); c = COPY[g]
     b, a, balt, aalt, pos = HERO[g]
     h = [x.replace("{town}", s["town"]) for x in (v["h750"] if tier == 750 else v["h1250"])]
     css, contact, foot = shared(s)

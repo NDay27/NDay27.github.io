@@ -296,6 +296,27 @@ def elevation(g, s=None):
 
 # ---------- shop facts ----------
 
+# Leads with hand-written copy (multi-trade shops like "Painting & Pressure Washing") keep their own service names, job list and
+# trade label on top of the variant. Their old descriptions made claims, so every service is re-worded as an "Ask about ...".
+_ASK = {"Get started": "Ask how to get started.", "A plan": "Ask about a plan that fits your schedule.", "Upkeep": "Ask about regular upkeep."}
+
+
+def own_copy(s):
+    c = s.get("copy") or {}
+    if c.get("services"):
+        s["vx"] = {"services": [(n, _ASK.get(n) or f"Ask about {n[0].lower() + n[1:]}.") for n, _ in c["services"]]}
+        if c.get("jobs"):
+            s["vx"]["jobs"] = list(c["jobs"])
+    if c.get("label"):
+        s["trade"] = c["label"]
+
+
+def vof(s):
+    """The shop's variant, with its own services and jobs on top when the lead has hand-written copy (see own_copy)."""
+    v = V[s["v"]]
+    return {**v, **s["vx"]} if s.get("vx") else v
+
+
 def load_shops():
     shops = json.load(open(os.path.join(ROOT, "_build/tiers/shops.json")))
     # dealt HQ leads (in calling/interested) live in their own file; they get the kit too
@@ -319,6 +340,7 @@ def load_shops():
         s["name"] = nice_name(nov.get(s["slug"], s["name"]))
         s["short"] = short_name(s["name"])
         s["tel"] = tel(s["phone"])
+        own_copy(s)
         out.append(s)
     return out
 
@@ -358,7 +380,7 @@ def ldjson(s):
 
 
 def cfg(s, tier):
-    v = V[s["v"]]
+    v = vof(s)
     d = {"tier": tier, "group": s["group"], "v": s["v"], "name": s["name"], "short": s["short"], "town": s["town"], "st": st(s), "phone": s["phone"], "tel": s["tel"],
          "jobs": v["jobs"], "when": v["when"]}
     return json.dumps(d, ensure_ascii=False).replace("</", "<\\/")
