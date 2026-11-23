@@ -8,16 +8,33 @@
 <script type="module">
 // Hidden-line drawing of the Brecklin's station, dumped from the same model the $1,250 page runs live.
 // Usage: labstation.html?cam=x,y,z&tgt=x,y,z&fov=28   (window.__svg = {W,H,layers,signs}, window.__done when ready)
+// Add &color=1 for the same view in color at 2x: window.__png = {night, day, mask} (data URLs; mask = alpha of the station alone).
 const q = new URLSearchParams(location.search), num = (k, d) => q.has(k) ? +q.get(k) : d, vec = (k, d) => q.has(k) ? q.get(k).split(",").map(Number) : d;
 const src = await (await fetch("../../brecklins1250/scene.js")).text();
-const url = URL.createObjectURL(new Blob([src + "\n;window.__S={THREE,scene,cam,R,canopy,bld,car,att,controls,state:()=>carState,moving:()=>carMoving,BX,BZ,BH,CH};"], {type: "text/javascript"}));
+const url = URL.createObjectURL(new Blob([src + "\n;window.__S={THREE,scene,cam,R,canopy,bld,car,att,controls,state:()=>carState,moving:()=>carMoving,BX,BZ,BH,CH,setMode,modeT:()=>modeT};"], {type: "text/javascript"}));
 await import(url);
 const S = window.__S, THREE = S.THREE;
 // wait for the car to reach the pump and the attendant to finish, so the sheet shows a car being served
 await new Promise(r => { const t0 = performance.now(), iv = setInterval(() => { if ((S.state() === "pump" && !S.moving()) || performance.now() - t0 > 90000) { clearInterval(iv); r(); } }, 500); });
+if (q.has("color")) await new Promise(r => { const t0 = performance.now(), iv = setInterval(() => { if (!S.att.visible || performance.now() - t0 > 120000) { clearInterval(iv); r(); } }, 500); });
 S.controls.enabled = false;
 const cam = S.cam.clone(); cam.fov = num("fov", 28); cam.aspect = innerWidth / innerHeight; cam.position.fromArray(vec("cam", [16, 5, 32])); cam.lookAt(new THREE.Vector3(...vec("tgt", [-3, 2.2, -4]))); cam.updateProjectionMatrix(); cam.updateMatrixWorld(true);
-window.__svg = drawing(); window.__done = true;
+window.__svg = drawing();
+if (q.has("color")) {
+  const R = S.R, W = innerWidth * 2, H = innerHeight * 2, grab = () => { R.setRenderTarget(null); R.render(S.scene, cam); return R.domElement.toDataURL("image/png"); };
+  R.setPixelRatio(1); R.setSize(W, H, false);
+  const out = {night: grab()};
+  S.setMode("day"); await new Promise(r => { const t0 = performance.now(), iv = setInterval(() => { if (S.modeT() >= 1 || performance.now() - t0 > 180000) { clearInterval(iv); r(); } }, 500); });
+  await new Promise(r => setTimeout(r, 1500)); out.day = grab();
+  // alpha mask: everything the sheet draws (station, pumps, car, apron), from a depth pass at the same size
+  const dm = new THREE.MeshBasicMaterial({color: 0xffffff, side: THREE.DoubleSide}), ds = new THREE.Scene();
+  window.__occ.forEach(m => { const c = new THREE.Mesh(m.geometry, dm); c.matrixAutoUpdate = false; c.matrix.copy(m.matrixWorld); c.matrixWorld.copy(m.matrixWorld); ds.add(c); });
+  const rt = new THREE.WebGLRenderTarget(W, H); R.setRenderTarget(rt); R.setClearColor(0x000000, 1); R.clear(); R.render(ds, cam); const buf = new Uint8Array(W * H * 4); R.readRenderTargetPixels(rt, 0, 0, W, H, buf); R.setRenderTarget(null);
+  const cv = document.createElement("canvas"); cv.width = W; cv.height = H; const cx = cv.getContext("2d"), im = cx.createImageData(W, H);
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) { const v = buf[((H - 1 - y) * W + x) * 4] > 127 ? 255 : 0, i = (y * W + x) * 4; im.data[i] = im.data[i + 1] = im.data[i + 2] = v; im.data[i + 3] = 255; }
+  cx.putImageData(im, 0, 0); out.mask = cv.toDataURL("image/png"); window.__png = out;
+}
+window.__done = true;
 
 function drawing() {
   const R = S.R, W = innerWidth, H = innerHeight, keep = [], occ = [];
@@ -36,6 +53,7 @@ function drawing() {
     if (L === "site" && (bb.max.y > .6 || bb.max.x - bb.min.x > 100)) return;   // trees, the neighbour, the endless street: not on the sheet
     occ.push(o); o.userData.layer = L; keep.push(o);
   });
+  window.__occ = occ;
   const far = 400;
   const dm = new THREE.ShaderMaterial({side: THREE.DoubleSide, vertexShader: `varying float vz;void main(){vec4 mv=modelViewMatrix*vec4(position,1.);vz=-mv.z;gl_Position=projectionMatrix*mv;}`,
     fragmentShader: `#include <packing>\nvarying float vz;void main(){gl_FragColor=packDepthToRGBA(clamp(vz/${far.toFixed(1)},0.,.9999));}`});
