@@ -23,7 +23,17 @@ await world.ready; world.setTodNow(num("tod", .5)); world.shadows();
 // stills that sit behind a headline are framed like the live scene: subject pushed right of the copy
 if (q.has("ox")) { const w = world.host.clientWidth, h = world.host.clientHeight; world.cam.setViewOffset(w, h, -num("ox", 0) * w, 0, w, h); world.cam.updateProjectionMatrix(); }
 if (q.get("mode") === "svg") { world.ctl.update(); world.cam.updateMatrixWorld(); window.__svg = drawing(); window.__done = true; }
-else { for (let i = 0; i < 4; i++) { world.grade.uniforms.t.value = i; world.renderOnce(); await new Promise(r => requestAnimationFrame(r)); } window.__done = true; }
+else { for (let i = 0; i < 4; i++) { world.grade.uniforms.t.value = i; world.renderOnce(); await new Promise(r => requestAnimationFrame(r)); }
+  // color cut-out: window.__mask is the truck's alpha (2x the view, so it can be smoothed down), taken from a flat pass of the truck alone
+  { const THREE = world.THREE, R = world.R, W = innerWidth * 2, H = innerHeight * 2, dm = new THREE.MeshBasicMaterial({color: 0xffffff, side: THREE.DoubleSide}), ds = new THREE.Scene();
+    G.root.updateMatrixWorld(true); world.cam.updateMatrixWorld();
+    G.truck.car.traverse(o => { let v = true; for (let x = o; x; x = x.parent) if (!x.visible) v = false; if (!o.isMesh || !v || o.geometry.type === "PlaneGeometry" || new THREE.Box3().setFromObject(o).max.y < .05) return;
+      const c = new THREE.Mesh(o.geometry, dm); c.matrixAutoUpdate = false; c.matrix.copy(o.matrixWorld); c.matrixWorld.copy(o.matrixWorld); ds.add(c); });
+    const rt = new THREE.WebGLRenderTarget(W, H); R.setRenderTarget(rt); R.setClearColor(0x000000, 1); R.clear(); R.render(ds, world.cam); const buf = new Uint8Array(W * H * 4); R.readRenderTargetPixels(rt, 0, 0, W, H, buf); R.setRenderTarget(null);
+    const cv = document.createElement("canvas"); cv.width = W; cv.height = H; const cx = cv.getContext("2d"), im = cx.createImageData(W, H);
+    for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) { const v = buf[((H - 1 - y) * W + x) * 4] > 127 ? 255 : 0, i = (y * W + x) * 4; im.data[i] = im.data[i + 1] = im.data[i + 2] = v; im.data[i + 3] = 255; }
+    cx.putImageData(im, 0, 0); window.__mask = cv.toDataURL("image/png"); world.renderOnce(); }
+  window.__done = true; }
 
 // Hidden-line drawing from the same camera: edges of every mesh tagged with userData.layer, kept where a depth pass says they are visible.
 function drawing() {
