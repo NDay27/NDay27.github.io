@@ -7607,5 +7607,245 @@
   "trade": "Auto repair shop",
   "src": "Google listing category",
   "on": "2026-11-22"
+ },
+ "lumier-s-chimney-cake-peachtree-corners-ga": {
+  "v": "bakery",
+  "trade": "Dessert shop",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "santa-maria-bakery-1-hammond-in": {
+  "v": "bakery",
+  "trade": "Bakery",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "mug-shots-coffee-house-oroville-ca": {
+  "v": "coffee",
+  "trade": "Coffee shop",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "olympic-diner-greek-american-home-cooking-clifton-heights-pa": {
+  "v": "restaurant",
+  "trade": "Diner",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "aces-chicago-pizza-mayfield-ky": {
+  "v": "restaurant",
+  "trade": "Pizza restaurant",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "cmp-auto-repair-waco-tx": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "cafe-au-latte-mayfield-ky": {
+  "v": "coffee",
+  "trade": "Cafe",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "m-j-automotive-repairs-largo-fl": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "family-baking-chamblee-ga": {
+  "v": "bakery",
+  "trade": "Bakery",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "muegge-air-gatesville-gatesville-tx": {
+  "v": "hvac",
+  "trade": "Air conditioning contractor",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "a-budget-appliance-repair-danville-pa": {
+  "v": "appliance",
+  "trade": "Appliance repair service",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "rj-automotive-largo-fl": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "hair-room-battle-creek-mi": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "a-1-lock-safe-llc-scranton-pa": {
+  "v": "locksmith",
+  "trade": "Locksmith",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "sun-seafood-yeadon-pa": {
+  "v": "restaurant",
+  "trade": "Seafood restaurant",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "gto-acambaro-panaderia-yuba-city-ca": {
+  "v": "bakery",
+  "trade": "Bakery",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "apple-jack-s-coffee-shop-el-monte-ca": {
+  "v": "restaurant",
+  "trade": "Restaurant",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "daisy-s-bakery-south-el-monte-ca": {
+  "v": "bakery",
+  "trade": "Bakery",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "li-l-ev-s-barber-shop-oldsmar-fl": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "the-junk-trunk-llc-fairmont-wv": {
+  "v": "thrift",
+  "trade": "Antique store",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "artistry-tattoos-and-piercings-yuba-city-ca": {
+  "v": "tattoo",
+  "trade": "Tattoo shop",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "chuck-ds-tree-service-trimming-removal-riverview-mi": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "almira-s-pastry-wedding-cake-shop-hammond-in": {
+  "v": "bakery",
+  "trade": "Bakery",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "vip-dog-grooming-stanton-ca": {
+  "v": "petgroom",
+  "trade": "Pet groomer",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "yummy-donuts-bryant-ar": {
+  "v": "bakery",
+  "trade": "Bakery",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "h-nail-salon-elgin-tx": {
+  "v": "nails",
+  "trade": "Nail salon",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "pete-s-barber-shop-pearl-river-ny": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "jc-java-oroville-ca": {
+  "v": "coffee",
+  "trade": "Coffee shop",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "paw-house-cypress-ca": {
+  "v": "petgroom",
+  "trade": "Pet groomer",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "blue-south-lansdowne-pa": {
+  "v": "restaurant",
+  "trade": "Soul food restaurant",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "karl-son-s-auto-repair-inc-largo-fl": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "babel-tailor-shop-san-bernardino-ca": {
+  "v": "tailor",
+  "trade": "Tailor",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "mobile-small-engine-service-llc-rock-hill-sc": {
+  "v": "smallengine",
+  "trade": "Lawn mower repair service",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "little-stirr-vienna-wv": {
+  "v": "bakery",
+  "trade": "Bakery",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "cordova-s-tailor-shop-san-bernardino-ca": {
+  "v": "tailor",
+  "trade": "Tailor",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "rose-alterations-embroidery-san-bernardino-ca": {
+  "v": "tailor",
+  "trade": "Clothing alteration service",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "redd-s-tree-service-livonia-mi": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "bryan-plumbing-llc-orlando-fl": {
+  "v": "plumbing",
+  "trade": "Plumber",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "blissful-bakery-and-more-bauxite-ar": {
+  "v": "donut",
+  "trade": "Donut shop",
+  "src": "Google listing category",
+  "on": "2026-11-23"
+ },
+ "farm-to-market-kitchen-llc-bellville-tx": {
+  "v": "restaurant",
+  "trade": "Takeout Restaurant",
+  "src": "Google listing category",
+  "on": "2026-11-23"
  }
 }
