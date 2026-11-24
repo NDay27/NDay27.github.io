@@ -440,8 +440,18 @@ for _g, _c in home.EXTRA_CSS.items():
 HOMES = tuple(home.GROUPS)
 
 
+# Nov 24: warm leads list services in their own words; borrow the closest existing icon
+ICON_ALIAS = {"Tree and shrub removal": "Tree removal", "Trimming": "Trimming and pruning", "Tree trimming": "Trimming and pruning",
+              "Storm damage and emergency cleanup": "Storm cleanup", "Storm damage cleanup": "Storm cleanup", "Lot clearing": "Cleanups",
+              "Firewood, slab wood and lumber": "Hauling", "Snow removal": "Driveways", "Stump removal": "Stump grinding", "Tree planting": "Landscaping",
+              "Engine diagnostics": "Diagnostics", "Transmission service": "Transmission repair", "Heating and A/C": "Cooling",
+              "Tires and oil changes": "Maintenance", "Collision, body and detailing": "Collision repair", "Parts": "Engine and drivetrain",
+              "Detailing": "Paint", "Industrial repair": "Fabrication"}
+
+
 def svc_icon(g, h):
     """Service icon, group-specific first (two trades can both list "Repairs")."""
+    h = ICON_ALIAS.get(h, h)
     return SVC_ICON.get((g, h)) or SVC_ICON.get(h, SVC_ICON["_more"])
 QUIZ = STORES + HOMES  # groups whose Signature tool is the two-question quiz
 KIT_V_EXTRA.update(home.KIT_V)
