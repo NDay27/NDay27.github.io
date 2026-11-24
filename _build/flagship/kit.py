@@ -326,6 +326,10 @@ def load_shops():
     vov = {x["slug"]: x["v"] for x in final if x.get("v")}
     # capitals only, same words as the Google listing ("Shaun's fab llc" reads as a typo on a headline)
     nov = {x["slug"]: x["name"] for x in final if x.get("name")}
+    # Nov 24: a hand-checked street address (from the shop's own directory listing) shown first in the $300 facts list
+    fov = {x["slug"]: x["fact"] for x in final if x.get("fact")}
+    # Nov 24: hand-written headlines, lede, question and button for a lead whose trade the variant only half fits
+    hov = {x["slug"]: x["head"] for x in final if x.get("head")}
     import importlib.util
     spec = importlib.util.spec_from_file_location("tiers_build", os.path.join(ROOT, "_build/tiers/build.py"))
     tb = importlib.util.module_from_spec(spec); spec.loader.exec_module(tb)
@@ -340,7 +344,14 @@ def load_shops():
         s["name"] = nice_name(nov.get(s["slug"], s["name"]))
         s["short"] = short_name(s["name"])
         s["tel"] = tel(s["phone"])
+        if s["slug"] in fov:
+            s["fact"] = fov[s["slug"]]
         own_copy(s)
+        if s["slug"] in hov:
+            h = dict(hov[s["slug"]])
+            if h.get("cta"):
+                s["cta"] = h.pop("cta")
+            s["vx"] = {**(s.get("vx") or {}), **h}
         out.append(s)
     return out
 

@@ -158,7 +158,7 @@ def beats(s):
         if cap is None:
             out.append(f'<section class="beat hero0" data-hero data-beat="{attr}" aria-labelledby="h1"><div class="wrap"><div class="hcopy">'
                        f'<h1 id="h1">{E(h[0])} <em>{E(h[1])}</em></h1><p class="lede">{E(v["lede"].replace("{town}", s["town"]))}</p>'
-                       f'<div class="acts"><a class="btn gold" href="#plan">{c["cta"]}</a><a class="btn line" href="tel:{s["tel"]}">{kit.IC["PHONE_ICON"]}<span class="tnum">{s["phone"]}</span></a></div>'
+                       f'<div class="acts"><a class="btn gold" href="#plan">{E(s["cta"]) if s.get("cta") else c["cta"]}</a><a class="btn line" href="tel:{s["tel"]}">{kit.IC["PHONE_ICON"]}<span class="tnum">{s["phone"]}</span></a></div>'
                        f'<p class="scroll"><i></i>Scroll to see the work happen, live in 3D</p></div></div></section>')
         elif cap == "cfg":
             out.append(f'<section class="beat cfgb" id="design" data-beat="{attr}" aria-labelledby="h-design"><div class="wrap"><div class="cap panel"><span class="k">05 · Live 3D</span>'
