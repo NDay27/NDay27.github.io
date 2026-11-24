@@ -71,6 +71,10 @@ COPY_OK = {"101-corvette-paint-body-shop-macomb", "a-a-paint-seamless-gutters-wa
            "moore-s-lawncare-handy-man-cleaning-services-shelby-oh", "suit-expo-florence-sc", "four-eyes-a-brush-painting-and-pressure-washing-valdosta-ga",
            "root-eaters-plumbing-and-drain-cleaning-services-llc-saginaw-mi", "wright-personal-fitness-rome-ga", "hoff-s-machine-welding-inc-salina-ks",
            "bywaters-plumbing-repair-services-drain-cleaning-cairo-ga"}
+# Nov 24: partner-called leads checked by hand on their directory listings (same phone, address and trade): Allen Automotive
+# (performance parts and repair, 427 Taylor St), The Grease Spot (oil and lube, 3332 Court St) and Home Improvements Plus
+# (home improvements and landscaping, 1915 S Main St). They were held on Nov 22 because no Google listing turned up.
+COPY_OK |= {"allen-automotive-east-peoria", "the-grease-spot-pekin", "home-improvements-plus-morton"}
 KEEP = KEEP | COPY_OK
 # checked by hand: the kit's story would be wrong (Nov 22: a boxing gym whose listing address looks like a house, not a storefront)
 HOLD = {"bearcityboxing-new-bern-nc"}

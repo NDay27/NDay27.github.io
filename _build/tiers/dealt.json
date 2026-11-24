@@ -1719,5 +1719,62 @@
   "list": "dealt",
   "rating": 4.8,
   "reviews": 22
+ },
+ {
+  "slug": "allen-automotive-east-peoria",
+  "name": "Allen Automotive",
+  "town": "East Peoria",
+  "phone": "(309) 694-2413",
+  "list": "dealt",
+  "wk": "none",
+  "addr": "427 Taylor St, East Peoria, IL 61611",
+  "rating": 4.9,
+  "reviews": 9,
+  "maps": "https://www.google.com/maps/search/?api=1&query=Allen+Automotive+427+Taylor+St%2C+East+Peoria%2C+IL+61611",
+  "towns": [
+   "East Peoria",
+   "Creve Coeur",
+   "Peoria",
+   "Bartonville",
+   "Groveland",
+   "Peoria Heights",
+   "Morton",
+   "Pekin",
+   "Edwards"
+  ],
+  "v": "auto",
+  "cat": "Performance parts & auto repair",
+  "copy": {
+   "label": "Auto Parts & Performance",
+   "h300": [
+    "Parts, power",
+    "and know-how."
+   ],
+   "lede": "Performance parts, accessories and repair in {town}. Tell us what you're after and get a straight answer.",
+   "services": [
+    [
+     "Performance and racing parts",
+     "The parts you're after, and advice on what fits."
+    ],
+    [
+     "Accessories",
+     "Upgrades and add-ons for your car or truck."
+    ],
+    [
+     "Repair and service",
+     "Work done right by people who know cars."
+    ]
+   ],
+   "jobs": [
+    "Find a part",
+    "Performance upgrade",
+    "Accessories",
+    "Repair",
+    "Something else"
+   ],
+   "ask": "What are you after?"
+  },
+  "stage": "calling",
+  "gstatus": "open"
  }
 ]

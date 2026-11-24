@@ -8483,5 +8483,75 @@
   "src": [
    "Google listing category (trade check)"
   ]
+ },
+ {
+  "slug": "allen-automotive-east-peoria",
+  "owner": "cooper",
+  "fact": "427 Taylor St, East Peoria",
+  "src": [
+   "Directory listing checked by hand Nov 24 2026: https://www.superpages.com/east-peoria-il/auto-repair-service"
+  ],
+  "head": {
+   "h300": [
+    "Parts, power",
+    "and know-how."
+   ],
+   "h750": [
+    "Find the part.",
+    "Get it fitted."
+   ],
+   "h1250": [
+    "Up on the lift.",
+    "Built to run."
+   ],
+   "lede": "Performance and racing parts, accessories and repair in {town}. Tell us what you're after and get a straight answer.",
+   "ask": "What are you after?",
+   "cta": "Ask about a part"
+  }
+ },
+ {
+  "slug": "the-grease-spot-pekin",
+  "owner": "nolan",
+  "fact": "3332 Court St, Pekin",
+  "src": [
+   "Directory listing checked by hand Nov 24 2026: https://www.yellowpages.com/pekin-il/auto-oil-lube"
+  ],
+  "head": {
+   "h300": [
+    "In and out,",
+    "oil changed."
+   ],
+   "h750": [
+    "Pull in.",
+    "Drive out fresh."
+   ],
+   "h1250": [
+    "Up on the lift.",
+    "Fresh oil, back out."
+   ],
+   "lede": "Oil changes, lube and quick maintenance in {town}. Stop in or tell us what the car needs.",
+   "ask": "What does the car need?",
+   "cta": "Ask about an oil change"
+  }
+ },
+ {
+  "slug": "home-improvements-plus-morton",
+  "owner": "nolan",
+  "fact": "1915 S Main St, Morton",
+  "src": [
+   "Directory listing checked by hand Nov 24 2026: https://www.yellowpages.com/morton-il/home-improvements"
+  ],
+  "head": {
+   "h750": [
+    "Inside and out.",
+    "Done right."
+   ],
+   "h1250": [
+    "House and yard.",
+    "Off the list."
+   ],
+   "lede": "Home improvements, repairs and landscaping in {town} and nearby. Tell us about the project and get a straight quote.",
+   "ask": "What's the project?"
+  }
  }
 ]

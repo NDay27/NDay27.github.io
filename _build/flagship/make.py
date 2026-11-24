@@ -56,7 +56,7 @@ def base_vals(s, tier):
         "ASK": E(v["ask"]), "JOB_OPTS": "".join(f"<option>{E(j)}</option>" for j in v["jobs"]),
         "TOWNS": "".join(f"<span>{E(x)}</span>" for x in kit.towns(s)),
         "SMS_CHIPS": "".join(f'<button type="button" aria-pressed="false">{E(j)}</button>' for j in v["jobs"] if j != "Something else"),
-        "MSG_PH": COPY[g]["msg_ph"], "QUOTE_H": COPY[g]["quote_h"], "CTA": COPY[g]["cta"],
+        "MSG_PH": COPY[g]["msg_ph"], "QUOTE_H": COPY[g]["quote_h"], "CTA": E(s["cta"]) if s.get("cta") else COPY[g]["cta"],
         "BODYCLS": ' class="longname"' if len(s["short"]) > 24 else "",
         "COUNT": kit.count_script(s["slug"] if tier == 300 else f"t{tier}-{s['slug']}"),
     }
@@ -68,6 +68,8 @@ def facts(s):
            f"Call or text {s['phone']}",
            f"Rated {kit.rnum(s)} on Google" if kit.rating_ok(s) else "Find us on Google Maps",
            "Quote request in about a minute"]
+    if s.get("fact"):
+        out = [f"Find us at {s['fact']}"] + out[:3]
     return "".join(f"<li>{ck}{E(x)}</li>" for x in out)
 
 
