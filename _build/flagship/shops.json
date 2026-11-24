@@ -1787,12 +1787,16 @@
    "label": "Auto Repair & Body",
    "services": [
     [
-     "Engine diagnostics",
-     "Check engine light on, or running rough? Start with a diagnostic."
-    ],
-    [
      "Brakes",
      "Squealing, grinding or a soft pedal. Ask about a brake check."
+    ],
+    [
+     "Tires and oil changes",
+     "The regular upkeep that keeps it on the road."
+    ],
+    [
+     "Engine diagnostics",
+     "Check engine light on, or running rough? Start with a diagnostic."
     ],
     [
      "Transmission service",
@@ -1803,20 +1807,16 @@
      "No heat or no cold air. Ask about climate control repair."
     ],
     [
-     "Tires and oil changes",
-     "The regular upkeep that keeps it on the road."
-    ],
-    [
      "Collision, body and detailing",
      "Dents, scrapes and a full detail when it's done."
     ]
    ],
    "jobs": [
-    "Warning light",
     "Brakes",
+    "Oil change",
+    "Warning light",
     "Transmission",
     "Heat or A/C",
-    "Oil change",
     "Body damage",
     "Something else"
    ]
@@ -3292,12 +3292,12 @@
      "Limbs over the roof, the drive or the lines."
     ],
     [
-     "Stump removal",
-     "Ask about grinding out the stump that's left."
-    ],
-    [
      "Storm damage cleanup",
      "A tree or limb down after a storm? Call or text."
+    ],
+    [
+     "Stump removal",
+     "Ask about grinding out the stump that's left."
     ],
     [
      "Tree planting",
@@ -3311,8 +3311,8 @@
    "jobs": [
     "Remove a tree",
     "Trim or prune",
-    "Stump",
     "Storm damage",
+    "Stump",
     "Planting",
     "Estimate",
     "Something else"
