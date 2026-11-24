@@ -1,0 +1,102 @@
+[
+ {
+  "slug": "cjt-lawncare-bloomington",
+  "name": "CJT Lawncare",
+  "town": "Bloomington",
+  "phone": "(309) 530-1377",
+  "cat": "Lawn care",
+  "v": "lawn",
+  "maps": "https://www.google.com/maps/search/?api=1&query=CJT+Lawncare+Bloomington%2C+IL",
+  "towns": [
+   "Bloomington",
+   "Normal",
+   "Hudson",
+   "Towanda",
+   "Downs",
+   "Heyworth",
+   "Le Roy",
+   "Carlock"
+  ],
+  "list": "email-nov24"
+ },
+ {
+  "slug": "morris-ave-garage-bloomington",
+  "name": "Morris Ave Garage",
+  "town": "Bloomington",
+  "phone": "(309) 829-4436",
+  "cat": "Auto repair",
+  "v": "auto",
+  "maps": "https://www.google.com/maps/search/?api=1&query=Morris+Ave+Garage+Bloomington%2C+IL",
+  "towns": [
+   "Bloomington",
+   "Normal",
+   "Hudson",
+   "Towanda",
+   "Downs",
+   "Heyworth",
+   "Le Roy",
+   "Carlock"
+  ],
+  "list": "email-nov24"
+ },
+ {
+  "slug": "big-jim-s-tree-service-canton",
+  "name": "Big Jim's Tree Service",
+  "town": "Canton",
+  "phone": "(309) 668-3264",
+  "cat": "Tree service",
+  "v": "tree",
+  "maps": "https://www.google.com/maps/search/?api=1&query=Big+Jim%27s+Tree+Service+Canton%2C+IL",
+  "towns": [
+   "Canton",
+   "Cuba",
+   "Farmington",
+   "Glasford",
+   "Lewistown",
+   "Yates City",
+   "Hanna City",
+   "Elmwood"
+  ],
+  "list": "email-nov24"
+ },
+ {
+  "slug": "roots-outdoor-living-east-peoria",
+  "name": "Roots Outdoor Living",
+  "town": "East Peoria",
+  "phone": "(309) 885-2486",
+  "cat": "Landscaping",
+  "v": "lawn",
+  "maps": "https://www.google.com/maps/search/?api=1&query=Roots+Outdoor+Living+East+Peoria%2C+IL",
+  "towns": [
+   "East Peoria",
+   "Peoria",
+   "Washington",
+   "Morton",
+   "Creve Coeur",
+   "Groveland",
+   "Pekin",
+   "Germantown Hills"
+  ],
+  "list": "email-nov24"
+ },
+ {
+  "slug": "rod-s-tree-service-el-paso",
+  "name": "Rod's Tree Service",
+  "town": "El Paso",
+  "phone": "(309) 275-3913",
+  "cat": "Tree service",
+  "v": "tree",
+  "maps": "https://www.google.com/maps/search/?api=1&query=Rod%27s+Tree+Service+El+Paso%2C+IL",
+  "towns": [
+   "El Paso",
+   "Eureka",
+   "Gridley",
+   "Secor",
+   "Kappa",
+   "Roanoke",
+   "Minonk",
+   "Normal"
+  ],
+  "list": "email-nov24"
+ }
+]
