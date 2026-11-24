@@ -118,5 +118,105 @@
    "Carlock"
   ],
   "list": "email-nov24"
+ },
+ {
+  "slug": "precision-tree-service-peoria",
+  "name": "Precision Tree Service",
+  "town": "Peoria",
+  "phone": "(309) 657-7069",
+  "cat": "Tree service",
+  "v": "tree",
+  "maps": "https://www.google.com/maps/search/?api=1&query=Precision+Tree+Service+Peoria%2C+IL",
+  "towns": [
+   "Peoria",
+   "East Peoria",
+   "Peoria Heights",
+   "West Peoria",
+   "Bartonville",
+   "Dunlap",
+   "Creve Coeur",
+   "Pekin"
+  ],
+  "list": "calls-nov24"
+ },
+ {
+  "slug": "tyler-s-lawn-care-bartonville",
+  "name": "Tyler's Lawn Care",
+  "town": "Bartonville",
+  "phone": "(309) 397-1505",
+  "cat": "Lawn care",
+  "v": "lawn",
+  "maps": "https://www.google.com/maps/search/?api=1&query=Tyler%27s+Lawn+Care+Bartonville%2C+IL",
+  "towns": [
+   "Bartonville",
+   "Peoria",
+   "West Peoria",
+   "Pekin",
+   "Hanna City",
+   "Mapleton",
+   "Creve Coeur",
+   "East Peoria"
+  ],
+  "list": "calls-nov24"
+ },
+ {
+  "slug": "mike-s-painting-decorating-peoria",
+  "name": "Mike's Painting & Decorating",
+  "town": "Peoria",
+  "phone": "(309) 693-2422",
+  "cat": "Painter",
+  "v": "painter",
+  "maps": "https://www.google.com/maps/search/?api=1&query=Mike%27s+Painting+%26+Decorating+Peoria%2C+IL",
+  "towns": [
+   "Peoria",
+   "East Peoria",
+   "Peoria Heights",
+   "West Peoria",
+   "Bartonville",
+   "Dunlap",
+   "Creve Coeur",
+   "Pekin"
+  ],
+  "list": "calls-nov24"
+ },
+ {
+  "slug": "pure-painting-inc-peoria",
+  "name": "Pure Painting Inc",
+  "town": "Peoria",
+  "phone": "(309) 472-1681",
+  "cat": "Painter",
+  "v": "painter",
+  "maps": "https://www.google.com/maps/search/?api=1&query=Pure+Painting+Inc+Peoria%2C+IL",
+  "towns": [
+   "Peoria",
+   "East Peoria",
+   "Peoria Heights",
+   "West Peoria",
+   "Bartonville",
+   "Dunlap",
+   "Creve Coeur",
+   "Pekin"
+  ],
+  "list": "calls-nov24"
+ },
+ {
+  "slug": "affordable-stump-removal-peoria",
+  "name": "Affordable Stump Removal",
+  "town": "Peoria",
+  "phone": "(309) 208-2998",
+  "cat": "Stump removal",
+  "v": "stump",
+  "maps": "https://www.google.com/maps/search/?api=1&query=Affordable+Stump+Removal+Peoria%2C+IL",
+  "towns": [
+   "Peoria",
+   "East Peoria",
+   "Peoria Heights",
+   "West Peoria",
+   "Bartonville",
+   "Dunlap",
+   "Creve Coeur",
+   "Pekin"
+  ],
+  "list": "calls-nov24"
  }
 ]
