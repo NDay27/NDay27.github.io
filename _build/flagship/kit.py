@@ -304,7 +304,8 @@ _ASK = {"Get started": "Ask how to get started.", "A plan": "Ask about a plan th
 def own_copy(s):
     c = s.get("copy") or {}
     if c.get("services"):
-        s["vx"] = {"services": [(n, _ASK.get(n) or f"Ask about {n[0].lower() + n[1:]}.") for n, _ in c["services"]]}
+        # Nov 24: a warm lead's own services carry a short line in the shop's own words (from its own Facebook intro or listing)
+        s["vx"] = {"services": [(n, (d if s.get("copy_checked") else None) or _ASK.get(n) or f"Ask about {n[0].lower() + n[1:]}.") for n, d in c["services"]]}
         if c.get("jobs"):
             s["vx"]["jobs"] = list(c["jobs"])
     if c.get("label"):
@@ -330,6 +331,8 @@ def load_shops():
     fov = {x["slug"]: x["fact"] for x in final if x.get("fact")}
     # Nov 24: hand-written headlines, lede, question and button for a lead whose trade the variant only half fits
     hov = {x["slug"]: x["head"] for x in final if x.get("head")}
+    # Nov 24: hand-checked services for warm leads (their own Facebook intro or directory listing), see own_copy
+    cov = {x["slug"]: x["copy"] for x in final if x.get("copy")}
     import importlib.util
     spec = importlib.util.spec_from_file_location("tiers_build", os.path.join(ROOT, "_build/tiers/build.py"))
     tb = importlib.util.module_from_spec(spec); spec.loader.exec_module(tb)
@@ -346,6 +349,8 @@ def load_shops():
         s["tel"] = tel(s["phone"])
         if s["slug"] in fov:
             s["fact"] = fov[s["slug"]]
+        if s["slug"] in cov:
+            s["copy"] = cov[s["slug"]]; s["copy_checked"] = True
         own_copy(s)
         if s["slug"] in hov:
             h = dict(hov[s["slug"]])
