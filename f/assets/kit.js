@@ -86,6 +86,13 @@
     $$(".rv").forEach(function (el) { ro.observe(el); });
   } else $$(".rv").forEach(function (el) { el.classList.add("in"); });
 
+  // garage pictures (auto, body, glass, truck shops) were rendered with a stock sign: put the shop's own name on it
+  var gar = $$("img").filter(function (i) { return /\/f\/img\/(auto|body|glass|semi)\//.test(i.getAttribute("src") || ""); });
+  if (gar.length && (C.short || C.name)) {
+    var sf = getComputedStyle(H).getPropertyValue("--serif").split(",")[0].trim() || "sans-serif";
+    import("/f/assets/signs.js?v=20261124").then(function (m) { m.run(gar, C.short || C.name, sf); }).catch(function () {});
+  }
+
   // live request ticket (Signature + Immersive): chips fill in a ticket, then the form
   var tick = $(".tick");
   if (tick) {
