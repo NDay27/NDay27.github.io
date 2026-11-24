@@ -7847,5 +7847,245 @@
   "trade": "Takeout Restaurant",
   "src": "Google listing category",
   "on": "2026-11-23"
+ },
+ "wooster-nail-spa-wooster-oh": {
+  "v": "nails",
+  "trade": "Nail salon",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "wholly-grounds-coffeehouse-oxford-pa": {
+  "v": "coffee",
+  "trade": "Coffee shop",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "lucky-nails-graham-nc": {
+  "v": "nails",
+  "trade": "Nail salon",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "grady-s-garage-kansas-city-ks": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "may-s-bakery-country-store-taylor-mi": {
+  "v": "bakery",
+  "trade": "Bakery",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "newcomb-auto-glass-llc-dunkirk-ny": {
+  "v": "autoglass",
+  "trade": "Auto glass shop",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "j-j-auto-exhaust-oroville-ca": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "early-bird-cafe-oxford-pa": {
+  "v": "coffee",
+  "trade": "Cafe",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "davis-barber-shop-denison-tx": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "garagi-88-auto-service-bethel-park-pa": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "marietta-barbell-gym-marietta-ga": {
+  "v": "gym",
+  "trade": "Gym",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "blown-away-salon-blythewood-sc": {
+  "v": "salon",
+  "trade": "Hair salon",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "stan-s-barber-shop-sherman-tx": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "springfield-towing-recovery-llc-wyndmoor-pa": {
+  "v": "towing",
+  "trade": "Towing service",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "hancock-s-automotive-oroville-ca": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "lomita-lock-and-key-lomita-ca": {
+  "v": "locksmith",
+  "trade": "Locksmith",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "the-ridge-coffeehouse-hartsville-tn": {
+  "v": "coffee",
+  "trade": "Coffee shop",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "bob-s-sewing-machine-exchange-ogden-ut": {
+  "v": "tailor",
+  "trade": "Sewing machine repair service",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "bamboo-a-boutique-salon-southern-pines-nc": {
+  "v": "salon",
+  "trade": "Beauty salon",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "avanti-salon-vero-beach-vero-beach-fl": {
+  "v": "salon",
+  "trade": "Hair salon",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "petals-poetry-cakery-and-cafe-detroit-mi": {
+  "v": "coffee",
+  "trade": "Cafe",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "oroville-motors-inc-oroville-ca": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "danner-s-automotive-llc-formerly-auto-perfection-bethel-park-pa": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "simi-thrift-store-simi-family-thrift-collective-simi-valley-ca": {
+  "v": "thrift",
+  "trade": "Thrift store",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "a-to-z-appliance-repair-co-niskayuna-ny": {
+  "v": "appliance",
+  "trade": "Appliance repair service",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "bizakaya-hibachi-sushi-korean-lafayette-tn": {
+  "v": "restaurant",
+  "trade": "Asian restaurant",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "kings-auto-care-llc-pittsburgh-pa": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "courtesy-easy-2-own-home-furniture-pendleton-or": {
+  "v": "furniture",
+  "trade": "Furniture store",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "nessa-s-shop-wilton-manors-fl": {
+  "v": "tailor",
+  "trade": "Clothing alteration service",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "market-st-cheesesteaks-oxford-pa": {
+  "v": "restaurant",
+  "trade": "American restaurant",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "bay-transmission-spanish-fort-al": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "paradise-cakes-llc-cleveland-oh": {
+  "v": "bakery",
+  "trade": "Bakery",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "r-r-collision-repair-lansing-lansing-mi": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "sonntag-plumbing-inc-sheboygan-wi": {
+  "v": "plumbing",
+  "trade": "Plumber",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "ray-s-trading-co-sebastopol-ca": {
+  "v": "thrift",
+  "trade": "Antique store",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "the-fitness-lab-coalinga-ca": {
+  "v": "gym",
+  "trade": "Fitness center",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "vortex-electric-llc-thornville-oh": {
+  "v": "electrical",
+  "trade": "Electrical installation service",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "mom-s-kitchen-fort-lee-nj": {
+  "v": "restaurant",
+  "trade": "Takeout Restaurant",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "s-t-nails-mebane-nc": {
+  "v": "nails",
+  "trade": "Nail salon",
+  "src": "Google listing category",
+  "on": "2026-11-24"
+ },
+ "diamond-club-towing-norristown-pa": {
+  "v": "towing",
+  "trade": "Towing service",
+  "src": "Google listing category",
+  "on": "2026-11-24"
  }
 }
