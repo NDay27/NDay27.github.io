@@ -130,6 +130,12 @@ def _clean_svc(x):
 
 
 def services_for(lead, K):
+    out = _services_for(lead, K)
+    fix = lead.get("svc_d") or {}
+    return [dict(x, d=fix[x["t"]]) if x["t"] in fix else x for x in out]
+
+
+def _services_for(lead, K):
     own = [_clean_svc(x) for x in (lead.get("services") or []) if x and not SKIP_SVC.search(x.strip())]
     own = [x for x in own if 2 < len(x) <= 34]
     if len(own) >= 2:
