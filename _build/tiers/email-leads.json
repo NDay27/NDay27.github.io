@@ -98,5 +98,25 @@
    "Normal"
   ],
   "list": "email-nov24"
+ },
+ {
+  "slug": "j-d-auto-body-inc-bloomington",
+  "name": "J & D Auto Body Inc",
+  "town": "Bloomington",
+  "phone": "(309) 262-8182",
+  "cat": "Auto body",
+  "v": "autobody",
+  "maps": "https://www.google.com/maps/search/?api=1&query=J+%26+D+Auto+Body+Inc+Bloomington%2C+IL",
+  "towns": [
+   "Bloomington",
+   "Normal",
+   "Hudson",
+   "Towanda",
+   "Downs",
+   "Heyworth",
+   "Le Roy",
+   "Carlock"
+  ],
+  "list": "email-nov24"
  }
 ]
