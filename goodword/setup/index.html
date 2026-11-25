@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Good Word setup · team only</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../page.css">
+<style>
+.setup{max-width:720px;padding-block:40px 80px}
+.setup h1{font-size:clamp(36px,5vw,52px)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:24px;margin-top:20px}
+.panel h2{font:700 19px/1.3 Figtree,sans-serif;letter-spacing:0}
+.out{font:13.5px/1.5 ui-monospace,Menlo,Consolas,monospace;background:var(--bg);border-radius:12px;padding:12px 14px;margin-top:12px;white-space:pre-wrap;overflow-wrap:anywhere}
+.rowb{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.rowb .btn{min-height:46px;font-size:15px;padding:0 18px}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.hint{font-size:14px;color:var(--muted);margin-top:6px}
+</style>
+</head>
+<body>
+<main class="wrap setup">
+  <p class="kicker">Team only</p>
+  <h1>Make a Good Word link for a shop</h1>
+  <p class="muted" style="margin-top:12px">Fill in what you know. A preview link works with only the name. To turn a paying shop on, add their review link and send the file text to Claude.</p>
+  <form class="panel" id="f" novalidate>
+    <h2>The shop</h2>
+    <label for="name">Business name</label><input id="name" name="name" maxlength="80" required>
+    <div class="two">
+      <div><label for="town">Town</label><input id="town" name="town" maxlength="60"></div>
+      <div><label for="state">State</label><input id="state" name="state" maxlength="20" placeholder="IL"></div>
+    </div>
+    <div class="two">
+      <div><label for="owner">Owner's first name</label><input id="owner" name="owner" maxlength="40"></div>
+      <div><label for="phone">Shop phone</label><input id="phone" name="phone" type="tel" maxlength="30"></div>
+    </div>
+    <label for="link">Google review link or Place ID</label><input id="link" name="link" maxlength="400" placeholder="https://g.page/r/…/review">
+    <p class="hint">Best source: the owner opens their Google Business Profile, taps “Ask for reviews” and copies the link. Leave blank for a preview.</p>
+    <label for="start">Google reviews today</label><input id="start" name="start" type="number" inputmode="numeric" min="0" max="100000">
+    <p class="err" id="err" role="alert" hidden></p>
+    <button class="btn" type="submit" style="width:100%;margin-top:20px">Make the links</button>
+  </form>
+  <div id="result" hidden>
+    <section class="panel"><h2>1. Preview link to text the owner</h2><p class="out" id="demoLink"></p>
+      <div class="rowb"><button class="btn" type="button" data-copy="demoLink">Copy link</button><a class="btn ghost" id="openDemo" target="_blank" rel="noopener">Open it</a></div></section>
+    <section class="panel"><h2>2. Text to send with it</h2><p class="out" id="pitch"></p>
+      <div class="rowb"><button class="btn" type="button" data-copy="pitch">Copy text</button></div></section>
+    <section class="panel"><h2>3. When they say yes</h2><p class="hint">Send this to Claude with “turn on Good Word for this shop”. It becomes the file <b id="fileName"></b> and their real link is <b id="liveLink"></b></p><p class="out" id="json"></p>
+      <div class="rowb"><button class="btn" type="button" data-copy="json">Copy file text</button></div></section>
+  </div>
+</main>
+<script src="../app/core.js"></script>
+<script src="setup.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leave a review</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<style>
+body{margin:0;min-height:100dvh;display:grid;place-content:center;justify-items:center;gap:14px;padding:24px;text-align:center;background:#F4F1EA;color:#15171A;font:17px/1.5 system-ui,-apple-system,sans-serif}
+h1{font-size:24px;margin:0}
+p{margin:0;color:#5B5F66;max-width:32ch}
+a.btn{display:inline-flex;align-items:center;min-height:52px;padding:0 24px;border-radius:14px;background:#15171A;color:#fff;font-weight:700;text-decoration:none}
+@media (prefers-color-scheme:dark){body{background:#101214;color:#F1F0EC}p{color:#A3A7AE}a.btn{background:#F1F0EC;color:#101214}}
+</style>
+</head>
+<body>
+<h1 id="title">Opening the review page…</h1>
+<p id="note">One moment.</p>
+<a class="btn" id="go" href="#" hidden>Leave a Google review</a>
+<script src="../app/core.js"></script>
+<script>
+(function () {
+  'use strict';
+  var slug = new URLSearchParams(location.search).get('s') || '';
+  var title = document.getElementById('title');
+  var note = document.getElementById('note');
+  function fail() {
+    title.textContent = 'This review link is not set up yet';
+    note.textContent = 'Search for the business on Google and tap "Write a review". Thank you for trying.';
+  }
+  if (!GW.SLUG_RE.test(slug)) { fail(); return; }
+  fetch('../shops/' + slug + '.json', { cache: 'no-cache' })
+    .then(function (res) { if (!res.ok) throw new Error('missing'); return res.json(); })
+    .then(function (raw) {
+      var shop = GW.cleanShop(raw);
+      if (!shop) throw new Error('bad');
+      var url = GW.reviewUrl(shop);
+      var go = document.getElementById('go');
+      title.textContent = 'Thanks for choosing ' + shop.name;
+      note.textContent = 'Taking you to Google to leave your review.';
+      go.href = url; go.hidden = false;
+      location.replace(url);
+    })
+    .catch(fail);
+})();
+</script>
+</body>
+</html>

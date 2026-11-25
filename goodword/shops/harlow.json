@@ -1,0 +1,11 @@
+{
+  "name": "Harlow Building Co.",
+  "town": "Morton",
+  "state": "IL",
+  "owner": "Sam",
+  "phone": "(309) 555-0148",
+  "start": 12,
+  "goal": 8,
+  "status": "active",
+  "sample": true
+}
