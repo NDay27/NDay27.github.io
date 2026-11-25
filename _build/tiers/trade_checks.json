@@ -8087,5 +8087,246 @@
   "trade": "Towing service",
   "src": "Google listing category",
   "on": "2026-11-24"
+ },
+ "hole-in-one-donuts-zephyrhills-fl": {
+  "v": "donut",
+  "trade": "Donut shop",
+  "src": "Google listing category",
+  "on": "2026-11-25"
+ },
+ "wq-diner-pottstown-pa": {
+  "v": "restaurant",
+  "trade": "Diner",
+  "src": "Google listing category",
+  "on": "2026-11-25"
+ },
+ "thrifty-bargain-fairfield-fairfield-ca": {
+  "v": "thrift",
+  "trade": "Thrift store",
+  "src": "Google listing category",
+  "on": "2026-11-25"
+ },
+ "sharon-hill-nail-salon-sharon-hill-pa": {
+  "v": "nails",
+  "trade": "Nail salon",
+  "src": "Google listing category",
+  "on": "2026-11-25"
+ },
+ "rise-shine-cafe-pottstown-pa": {
+  "v": "restaurant",
+  "trade": "Breakfast restaurant",
+  "src": "Google listing category",
+  "on": "2026-11-25"
+ },
+ "tucker-s-cut-rate-plumbing-melbourne-fl": {
+  "v": "plumbing",
+  "trade": "Handyman/Handywoman/Handyperson (name: Tucker's Cut Rate Plumbing)",
+  "src": "Google listing category + business name",
+  "on": "2026-11-25"
+ },
+ "top-notch-barbershop-and-beauty-studio-columbia-sc": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-25"
+ },
+ "adriana-s-taqueria-breckenridge-tx": {
+  "v": "restaurant",
+  "trade": "Mexican restaurant",
+  "src": "Google listing category",
+  "on": "2026-11-25"
+ },
+ "jones-towing-automotive-storage-lemoore-ca": {
+  "v": "towing",
+  "trade": "Towing service",
+  "src": "Google listing category",
+  "on": "2026-11-25"
+ },
+ "holidays-barber-shop-columbia-sc": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-25"
+ },
+ "milhimes-automotive-inc-gettysburg-pa": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-25"
+ },
+ "retro-reload-lomita-ca": {
+  "v": "boutique",
+  "trade": "Clothing store",
+  "src": "Google listing category",
+  "on": "2026-11-25"
+ },
+ "lonnie-s-small-engine-repair-mt-morris-mi": {
+  "v": "smallengine",
+  "trade": "Small engine repair service",
+  "src": "Google listing category",
+  "on": "2026-11-25"
+ },
+ "v-donuts-byram-ms": {
+  "v": "donut",
+  "trade": "Donut shop",
+  "src": "Google listing category",
+  "on": "2026-11-25"
+ },
+ "shampoodles-grooming-anderson-ca": {
+  "v": "petgroom",
+  "trade": "Pet groomer",
+  "src": "Google listing category",
+  "on": "2026-11-25"
+ },
+ "stonehill-coffee-house-sorry-no-call-ahead-orders-la-center-wa": {
+  "v": "coffee",
+  "trade": "Coffee shop",
+  "src": "Google listing category",
+  "on": "2026-11-25",
+  "name_ok": true
+ },
+ "shadley-shack-coffee-scappoose-or": {
+  "v": "coffee",
+  "trade": "Coffee shop",
+  "src": "Google listing category",
+  "on": "2026-11-25"
+ },
+ "santa-anita-barbershop-arcadia-ca": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-25"
+ },
+ "the-cove-cafe-gloucester-ma": {
+  "v": "coffee",
+  "trade": "Cafe",
+  "src": "Google listing category",
+  "on": "2026-11-25"
+ },
+ "peoples-cuts-camden-wyoming-de": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-25"
+ },
+ "southern-automotive-daleville-al": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-25"
+ },
+ "auto-tech-of-fayetteville-inc-fayetteville-nc": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-25"
+ },
+ "the-ink-arcade-universal-city-tx": {
+  "v": "tattoo",
+  "trade": "Tattoo shop",
+  "src": "Google listing category",
+  "on": "2026-11-25"
+ },
+ "king-s-barber-shop-columbia-sc": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-25"
+ },
+ "los-amigos-barber-shop-arcadia-ca": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-25"
+ },
+ "the-firm-barbershop-arcadia-ca": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-25"
+ },
+ "sunny-sewing-studio-lincoln-ne": {
+  "v": "tailor",
+  "trade": "Clothing alteration service",
+  "src": "Google listing category",
+  "on": "2026-11-25"
+ },
+ "canbeq-auto-service-sierra-madre-ca": {
+  "v": "auto",
+  "trade": "Car repair and maintenance service",
+  "src": "Google listing category",
+  "on": "2026-11-25"
+ },
+ "may-s-alterations-lincoln-ne": {
+  "v": "tailor",
+  "trade": "Clothing alteration service",
+  "src": "Google listing category",
+  "on": "2026-11-25"
+ },
+ "cns-autoworks-prosper-tx": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-25"
+ },
+ "j-dee-alteration-lincoln-ne": {
+  "v": "tailor",
+  "trade": "Clothing alteration service",
+  "src": "Google listing category",
+  "on": "2026-11-25"
+ },
+ "allwood-tree-service-jacksonville-fl": {
+  "v": "tree",
+  "trade": "Tree service",
+  "src": "Google listing category",
+  "on": "2026-11-25"
+ },
+ "luxe-consignment-northampton-ma": {
+  "v": "thrift",
+  "trade": "Consignment shop",
+  "src": "Google listing category",
+  "on": "2026-11-25"
+ },
+ "casa-de-kathy-thrift-store-san-juan-capistrano-ca": {
+  "v": "thrift",
+  "trade": "Thrift store",
+  "src": "Google listing category",
+  "on": "2026-11-25"
+ },
+ "zc-willis-heating-cooling-morgan-pa": {
+  "v": "hvac",
+  "trade": "HVAC contractor",
+  "src": "Google listing category",
+  "on": "2026-11-25"
+ },
+ "a-plus-nail-beauty-long-branch-nj": {
+  "v": "nails",
+  "trade": "Nail salon",
+  "src": "Google listing category",
+  "on": "2026-11-25"
+ },
+ "melissa-s-jewelry-repair-lomita-ca": {
+  "v": "jewelry",
+  "trade": "Jewelry repair service",
+  "src": "Google listing category",
+  "on": "2026-11-25"
+ },
+ "lyle-s-paint-body-shop-enid-ok": {
+  "v": "autobody",
+  "trade": "Auto repair shop (name: Lyle's Paint & Body Shop)",
+  "src": "Google listing category + business name",
+  "on": "2026-11-25"
+ },
+ "mo-s-iron-works-jamaica-ny": {
+  "v": "welding",
+  "trade": "Welder",
+  "src": "Google listing category",
+  "on": "2026-11-25"
+ },
+ "famous-nails-farmville-nc": {
+  "v": "nails",
+  "trade": "Nail salon",
+  "src": "Google listing category",
+  "on": "2026-11-25"
  }
 }
