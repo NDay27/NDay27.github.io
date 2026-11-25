@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Shop Reels · short videos for local shops · Nolan Day Studio</title>
+<meta name="description" content="We film your shop on a phone for an hour a month, then edit, caption and post 12 short videos for you. Morton, Peoria and nearby. Your first reel is free.">
+<link rel="canonical" href="https://nday27.github.io/shopreels/">
+<meta property="og:title" content="Shop Reels: your shop on every phone in town, every week">
+<meta property="og:description" content="One hour of filming a month. 12 finished short videos, posted for you. First reel free.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nday27.github.io/shopreels/">
+<meta name="theme-color" content="#14130F">
+<link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+:root{--paper:#F3EFE6;--card:#FBF9F4;--ink:#14130F;--ink2:#4A473F;--line:#D9D3C4;--rec:#E0321F;--rec-ink:#fff;--night:#14130F;--night2:#211F19;--cream:#F3EFE6;
+  --disp:"Bricolage Grotesque","Figtree",system-ui,sans-serif;--body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;--gut:clamp(16px,4vw,40px);--max:1120px;color-scheme:light}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.55 var(--body);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+h1,h2,h3{font-family:var(--disp);font-weight:800;line-height:1.02;letter-spacing:-.025em;margin:0;text-wrap:balance}
+p{margin:0;text-wrap:pretty}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--rec);outline-offset:3px;border-radius:6px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gut)}
+.kick{font:700 12.5px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);display:flex;align-items:center;gap:8px}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--rec);flex:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 24px;border-radius:999px;border:2px solid var(--ink);background:var(--ink);color:var(--paper);font:700 16.5px/1 var(--body);text-decoration:none;cursor:pointer;transition:transform .15s ease,background-color .15s ease,color .15s ease}
+.btn:hover{background:var(--rec);border-color:var(--rec);color:#fff}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+
+/* top bar */
+.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;height:60px}
+.logo{display:flex;align-items:center;gap:10px;font:800 19px/1 var(--disp);letter-spacing:-.02em;text-decoration:none}
+.logo small{font:500 12.5px/1 var(--body);letter-spacing:0;color:var(--ink2)}
+.top nav{display:flex;align-items:center;gap:22px;font-weight:600;font-size:15px}
+.top nav a{text-decoration:none}
+.top nav a:not(.btn):hover{color:var(--rec)}
+.top .btn{min-height:40px;padding:0 16px;font-size:14.5px}
+@media (max-width:720px){.top nav a:not(.btn){display:none}.logo small{display:none}}
+
+/* hero */
+.hero{padding:clamp(28px,6vw,72px) 0 clamp(40px,7vw,88px);overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(24px,5vw,64px);align-items:center}
+.hero h1{font-size:clamp(44px,8.4vw,104px);margin:18px 0 20px}
+.hero h1 em{font-style:normal;color:var(--rec)}
+.lede{font-size:clamp(17.5px,2vw,21px);color:var(--ink2);max-width:33em}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin:28px 0 18px}
+.fine{font-size:14.5px;color:var(--ink2)}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr}.stage{order:-1;margin:0 auto}}
+
+/* the phone */
+.stage{position:relative;width:min(100%,340px);justify-self:center}
+.phone{position:relative;aspect-ratio:9/16;border-radius:38px;background:var(--night);padding:9px;box-shadow:0 30px 60px -28px rgba(20,19,15,.55),0 0 0 1px rgba(20,19,15,.9)}
+.screen{position:relative;width:100%;height:100%;border-radius:30px;overflow:hidden;background:#000;isolation:isolate}
+.scene{position:absolute;inset:0;opacity:0;animation:show 15s infinite}
+.scene svg{display:block;width:100%;height:100%;animation:push 15s infinite linear;transform-origin:50% 60%}
+.scene:nth-child(3),.scene:nth-child(3) svg,.scene:nth-child(3) .hook,.scene:nth-child(3) .cap{animation-delay:5s}
+.scene:nth-child(4),.scene:nth-child(4) svg,.scene:nth-child(4) .hook,.scene:nth-child(4) .cap{animation-delay:10s}
+@keyframes show{0%{opacity:0}1.5%,33%{opacity:1}34.5%,100%{opacity:0}}
+@keyframes push{0%{transform:scale(1)}34%{transform:scale(1.09)}100%{transform:scale(1.09)}}
+.hook,.cap{position:absolute;left:50%;translate:-50% 0;width:max-content;max-width:84%;text-align:center;font-family:var(--disp);font-weight:800;letter-spacing:-.01em;opacity:0}
+.hook{top:15%;background:#fff;color:#111;font-size:clamp(17px,5.3cqw,21px);line-height:1.12;padding:9px 13px 10px;border-radius:12px;animation:pop 15s infinite}
+.cap{bottom:19%;background:rgba(17,17,17,.86);color:#fff;font-size:clamp(14px,4.3cqw,17px);line-height:1.15;padding:7px 12px 8px;border-radius:10px;animation:pop2 15s infinite}
+@keyframes pop{0%,1%{opacity:0;scale:.86}2.5%,14%{opacity:1;scale:1}16%,100%{opacity:0;scale:1}}
+@keyframes pop2{0%,15%{opacity:0;scale:.9}17%,32%{opacity:1;scale:1}33.5%,100%{opacity:0;scale:1}}
+.screen{container-type:inline-size}
+.bars{position:absolute;top:12px;left:12px;right:12px;display:flex;gap:4px;z-index:3}
+.bars i{flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,.35);overflow:hidden}
+.bars i::after{content:"";display:block;height:100%;background:#fff;transform:scaleX(0);transform-origin:left;animation:fill 15s infinite linear}
+.bars i:nth-child(2)::after{animation-delay:5s}.bars i:nth-child(3)::after{animation-delay:10s}
+@keyframes fill{0%{transform:scaleX(0)}33.3%{transform:scaleX(1)}99.9%{transform:scaleX(1)}100%{transform:scaleX(0)}}
+.who{position:absolute;left:14px;bottom:14px;right:14px;z-index:3;color:#fff;font:600 12.5px/1.3 var(--body);text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.who b{display:block;font-size:13.5px}
+.rail{position:absolute;right:12px;bottom:16px;z-index:3;display:flex;flex-direction:column;gap:14px}
+.rail span{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.2);border:1.5px solid rgba(255,255,255,.85)}
+.rail span:first-child{background:var(--rec);border-color:var(--rec)}
+.tag{position:absolute;z-index:4;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 13px;font:600 13.5px/1.3 var(--body);box-shadow:0 14px 30px -18px rgba(20,19,15,.5)}
+.tag b{display:block;font:800 21px/1 var(--disp);letter-spacing:-.02em}
+.tag.a{left:-26px;top:40%}.tag.b{right:-22px;bottom:16%}
+@media (max-width:420px){.tag.a{left:-6px}.tag.b{right:-6px}}
+.note{margin-top:14px;text-align:center;font-size:13px;color:var(--ink2)}
+
+/* sections */
+section{padding:clamp(48px,8vw,104px) 0}
+.h2{font-size:clamp(32px,5.4vw,60px);margin:14px 0 14px;max-width:16em}
+.sub{color:var(--ink2);font-size:clamp(17px,1.8vw,19.5px);max-width:38em}
+.night{background:var(--night);color:var(--cream)}
+.night .kick,.night .sub{color:#B9B3A4}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:clamp(28px,4vw,48px);border-top:1px solid #3A372E}
+.step{padding:26px clamp(0px,2vw,28px) 6px 0;border-right:1px solid #3A372E;display:flex;flex-direction:column;gap:10px}
+.step+.step{padding-left:clamp(0px,2vw,28px)}
+.step:last-child{border-right:0}
+.step .t{font:700 13px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--rec)}
+.step h3{font-size:clamp(23px,2.6vw,30px)}
+.step p{color:#B9B3A4;font-size:16.5px}
+.step .you{margin-top:auto;padding-top:10px;font-weight:700;font-size:15px;color:var(--cream)}
+@media (max-width:760px){.steps{grid-template-columns:1fr}.step,.step+.step{padding:22px 0;border-right:0;border-bottom:1px solid #3A372E}}
+
+/* shot picker */
+.pick{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 22px}
+.pick button{min-height:44px;padding:0 16px;border-radius:999px;border:1.5px solid var(--line);background:var(--card);font:600 15px/1 var(--body);color:var(--ink);cursor:pointer;transition:background-color .15s ease,color .15s ease,border-color .15s ease}
+.pick button:hover{border-color:var(--ink)}
+.pick button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.shots{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;counter-reset:s}
+.shots li{counter-increment:s;position:relative;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:44px 18px 18px;font-weight:600;font-size:16.5px;line-height:1.35;min-height:132px}
+.shots li::before{content:"Reel " counter(s,decimal-leading-zero);position:absolute;top:16px;left:18px;font:700 12px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--rec)}
+.shots li::after{content:"";position:absolute;top:14px;right:16px;width:11px;height:19px;border:1.5px solid var(--ink2);border-radius:3px}
+@media (max-width:860px){.shots{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.shots{grid-template-columns:1fr}.shots li{min-height:0}}
+
+/* plans */
+.plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:clamp(26px,4vw,44px);align-items:stretch}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:26px 24px 24px;display:flex;flex-direction:column;gap:14px}
+.plan.best{background:var(--night);color:var(--cream);border-color:var(--night)}
+.plan h3{font-size:26px}
+.plan .for{font-size:15.5px;color:var(--ink2);min-height:3.1em}
+.plan.best .for{color:#B9B3A4}
+.price{font:800 clamp(44px,5vw,58px)/1 var(--disp);letter-spacing:-.03em}
+.price small{font:600 15.5px/1 var(--body);letter-spacing:0;color:var(--ink2)}
+.plan.best .price small{color:#B9B3A4}
+.plan ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px;font-size:16px}
+.plan li{padding-left:22px;position:relative}
+.plan li::before{content:"";position:absolute;left:2px;top:.55em;width:8px;height:8px;border-radius:50%;background:var(--rec)}
+.plan .btn{margin-top:auto}
+.plan.best .btn{background:var(--rec);border-color:var(--rec);color:#fff}
+.plan.best .btn:hover{background:var(--cream);border-color:var(--cream);color:var(--ink)}
+.flag{align-self:flex-start;font:700 12px/1 var(--body);letter-spacing:.1em;text-transform:uppercase;background:var(--rec);color:#fff;padding:6px 10px;border-radius:999px}
+.terms{margin-top:18px;font-size:15px;color:var(--ink2);max-width:52em}
+@media (max-width:900px){.plans{grid-template-columns:1fr}.plan .for{min-height:0}}
+
+/* straight talk */
+.straight{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(20px,4vw,56px);margin-top:clamp(24px,4vw,40px)}
+.straight h3{font-size:22px;margin-bottom:12px}
+.straight ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column}
+.straight li{padding:13px 0;border-top:1px solid var(--line);font-size:16.5px}
+@media (max-width:760px){.straight{grid-template-columns:1fr}}
+
+/* faq */
+.faq{margin-top:26px;border-top:1px solid var(--line);max-width:820px}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;padding:18px 40px 18px 0;font:700 clamp(18px,2vw,21px)/1.25 var(--disp);letter-spacing:-.01em;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:6px;top:14px;font:500 26px/1 var(--body);color:var(--rec);transition:rotate .2s ease}
+.faq details[open] summary::after{rotate:45deg}
+.faq p{padding:0 0 20px;color:var(--ink2);max-width:42em}
+
+/* form */
+.ask .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,5vw,64px);align-items:start}
+.ask h2{font-size:clamp(34px,5.6vw,64px);margin:14px 0 14px}
+form{display:grid;grid-template-columns:1fr 1fr;gap:12px;background:var(--night2);border:1px solid #3A372E;border-radius:22px;padding:clamp(18px,3vw,28px)}
+label{display:flex;flex-direction:column;gap:6px;font:600 13.5px/1.2 var(--body);color:#B9B3A4}
+label.wide{grid-column:1/-1}
+input,select{width:100%;min-height:50px;padding:0 14px;border-radius:12px;border:1.5px solid #4A473F;background:#14130F;color:var(--cream);font:500 16.5px/1 var(--body)}
+input:focus,select:focus{outline:0;border-color:var(--cream)}
+form .btn{grid-column:1/-1;background:var(--rec);border-color:var(--rec);color:#fff}
+form .btn:hover{background:var(--cream);border-color:var(--cream);color:var(--ink)}
+.err{grid-column:1/-1;color:#FF9C8F;font-size:14.5px;min-height:1.2em;margin:0}
+.or{grid-column:1/-1;font-size:14.5px;color:#B9B3A4;margin:0}
+@media (max-width:860px){.ask .wrap{grid-template-columns:1fr}}
+@media (max-width:480px){form{grid-template-columns:1fr}}
+
+footer{background:var(--night);color:#B9B3A4;padding:26px 0 calc(26px + env(safe-area-inset-bottom,0px));border-top:1px solid #3A372E;font-size:14.5px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
+footer a{color:var(--cream)}
+
+.rv{opacity:0;translate:0 14px;transition:opacity .6s ease,translate .6s ease}
+.rv.in{opacity:1;translate:0 0}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .scene,.scene svg,.hook,.cap,.bars i::after{animation:none}
+  .scene:nth-child(2){opacity:1}.scene:nth-child(2) .hook,.scene:nth-child(2) .cap{opacity:1}
+  .bars i:first-child::after{transform:scaleX(1)}
+  .rv{opacity:1;translate:none;transition:none}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Shop Reels, home"><span class="dot" aria-hidden="true"></span>Shop Reels <small>by Nolan Day Studio</small></a>
+    <nav aria-label="Page">
+      <a href="#how">How it works</a><a href="#shots">What we film</a><a href="#plans">Plans</a><a href="#faq">Questions</a>
+      <a class="btn" href="#free">Free reel</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <p class="kick"><span class="dot" aria-hidden="true"></span>Morton, Peoria and nearby</p>
+      <h1>Your shop on every phone in town. <em>Every week.</em></h1>
+      <p class="lede">We film at your shop for about an hour a month. Then we edit, caption and post 12 short videos to Instagram, Facebook, TikTok and your Google listing. You never open the app.</p>
+      <div class="cta"><a class="btn" href="#free">Film my free reel</a><a class="btn ghost" href="#plans">See the plans</a></div>
+      <p class="fine">The first reel is free and yours to keep. Month to month after that.</p>
+    </div>
+    <div class="stage">
+      <div class="phone" role="img" aria-label="A phone playing three sample reels: a bakery at 5 AM, an auto shop explaining a brake squeal, and a barber shop with walk-ins until 6.">
+        <div class="screen" aria-hidden="true">
+          <div class="bars"><i></i><i></i><i></i></div>
+          <div class="scene">
+            <svg viewBox="0 0 360 640" preserveAspectRatio="xMidYMid slice">
+              <rect width="360" height="640" fill="#2A1A12"/>
+              <rect y="0" width="360" height="250" fill="#3A2317"/>
+              <rect x="34" y="60" width="292" height="150" rx="10" fill="#1B110B"/>
+              <rect x="48" y="74" width="264" height="122" rx="6" fill="#F0862C"/>
+              <rect x="48" y="74" width="264" height="122" rx="6" fill="url(#glow)"/>
+              <g stroke="#1B110B" stroke-width="5"><path d="M48 106h264M48 138h264M48 170h264"/></g>
+              <rect x="150" y="222" width="60" height="9" rx="4.5" fill="#C9B79C"/>
+              <rect x="0" y="330" width="360" height="310" fill="#5B3A22"/>
+              <rect x="22" y="352" width="316" height="206" rx="14" fill="#2B2B2D"/>
+              <rect x="34" y="364" width="292" height="182" rx="8" fill="#3A3A3D"/>
+              <use href="#roll" x="86" y="412"/><use href="#roll" x="180" y="412"/><use href="#roll" x="274" y="412"/>
+              <use href="#roll" x="86" y="500"/><use href="#roll" x="180" y="500"/><use href="#roll" x="274" y="500"/>
+              <defs><g id="roll"><circle r="40" fill="#D9933F"/><circle r="40" fill="none" stroke="#B36F25" stroke-width="3"/><path d="M0 0c7-2 12 4 9 11-4 9-18 9-23-1-6-12 4-26 18-25 16 1 25 17 19 31" fill="none" stroke="#7A4417" stroke-width="5" stroke-linecap="round"/><path d="M-22-16c8-10 26-12 36-2" fill="none" stroke="#FFF3DC" stroke-width="7" stroke-linecap="round" opacity=".9"/></g><radialGradient id="glow" cx=".5" cy="1" r=".9"><stop offset="0" stop-color="#FFD27A"/><stop offset="1" stop-color="#F0862C" stop-opacity="0"/></radialGradient></defs>
+            </svg>
+            <p class="hook">5 AM. Before the sign is on.</p>
+            <p class="cap">Cinnamon rolls go in first</p>
+          </div>
+          <div class="scene">
+            <svg viewBox="0 0 360 640" preserveAspectRatio="xMidYMid slice">
+              <rect width="360" height="640" fill="#1E2A33"/>
+              <rect x="0" y="0" width="360" height="120" fill="#16212A"/>
+              <g fill="#2B3B47"><rect x="24" y="40" width="96" height="150" rx="4"/><rect x="132" y="40" width="96" height="150" rx="4"/><rect x="240" y="40" width="96" height="150" rx="4"/></g>
+              <g stroke="#1E2A33" stroke-width="4"><path d="M24 90h312M24 140h312"/></g>
+              <rect x="0" y="470" width="360" height="170" fill="#39424A"/>
+              <path d="M0 470h360" stroke="#F2C230" stroke-width="6" stroke-dasharray="26 16"/>
+              <g fill="#F2C230"><rect x="78" y="250" width="14" height="230" rx="3"/><rect x="268" y="250" width="14" height="230" rx="3"/><rect x="60" y="372" width="240" height="12" rx="4"/></g>
+              <g>
+                <path d="M52 368c2-22 10-34 30-38l34-6c16-34 36-48 78-48h46c30 0 46 12 60 44l14 8c10 6 14 16 14 40z" fill="#D8412F"/>
+                <path d="M128 322c12-24 28-34 62-34h14v34zM216 288h30c22 0 34 10 44 34h-74z" fill="#BFE3F2"/>
+                <circle cx="112" cy="368" r="27" fill="#14181C"/><circle cx="112" cy="368" r="12" fill="#AEB7BD"/>
+                <circle cx="262" cy="368" r="27" fill="#14181C"/><circle cx="262" cy="368" r="12" fill="#AEB7BD"/>
+              </g>
+              <g transform="translate(180 548)"><circle r="46" fill="#AEB7BD"/><circle r="46" fill="none" stroke="#7C868C" stroke-width="4"/><circle r="16" fill="#39424A"/><path d="M-46 0a46 46 0 0 1 46-46v20a26 26 0 0 0-26 26z" fill="#D8412F"/></g>
+            </svg>
+            <p class="hook">What that squeal means</p>
+            <p class="cap">Pads this thin? Come in this week.</p>
+          </div>
+          <div class="scene">
+            <svg viewBox="0 0 360 640" preserveAspectRatio="xMidYMid slice">
+              <rect width="360" height="640" fill="#E9DFCB"/>
+              <rect y="430" width="360" height="210" fill="#1F4B43"/>
+              <g fill="#17382F"><rect y="430" width="60" height="60"/><rect x="120" y="430" width="60" height="60"/><rect x="240" y="430" width="60" height="60"/><rect x="60" y="490" width="60" height="60"/><rect x="180" y="490" width="60" height="60"/><rect x="300" y="490" width="60" height="60"/><rect y="550" width="60" height="90"/><rect x="120" y="550" width="60" height="90"/><rect x="240" y="550" width="60" height="90"/></g>
+              <rect x="40" y="70" width="170" height="230" rx="85" fill="#F7F2E6" stroke="#1F4B43" stroke-width="8"/>
+              <path d="M70 250c20-60 90-60 110 0" fill="none" stroke="#C9BFA9" stroke-width="6" stroke-linecap="round"/>
+              <g transform="translate(286 96)">
+                <rect x="-16" y="-22" width="32" height="14" rx="7" fill="#1F4B43"/>
+                <clipPath id="pole"><rect x="-13" y="-8" width="26" height="190" rx="4"/></clipPath>
+                <rect x="-13" y="-8" width="26" height="190" rx="4" fill="#fff"/>
+                <g clip-path="url(#pole)" stroke-width="13"><path d="M-30 20l60-40M-30 60l60-40M-30 100l60-40M-30 140l60-40M-30 180l60-40" stroke="#D8412F"/><path d="M-30 40l60-40M-30 80l60-40M-30 120l60-40M-30 160l60-40M-30 200l60-40" stroke="#2C5BA8"/></g>
+                <rect x="-16" y="182" width="32" height="14" rx="7" fill="#1F4B43"/>
+              </g>
+              <g>
+                <rect x="150" y="470" width="22" height="90" fill="#8C8F92"/><rect x="104" y="554" width="114" height="18" rx="9" fill="#55585B"/>
+                <rect x="92" y="392" width="140" height="84" rx="18" fill="#7A2E24"/>
+                <rect x="104" y="268" width="116" height="140" rx="22" fill="#9A3A2D"/>
+                <rect x="126" y="232" width="72" height="40" rx="12" fill="#7A2E24"/>
+                <rect x="72" y="380" width="24" height="70" rx="10" fill="#55585B"/><rect x="228" y="380" width="24" height="70" rx="10" fill="#55585B"/>
+              </g>
+            </svg>
+            <p class="hook">Walk-ins till 6 today</p>
+            <p class="cap">A fade takes 25 minutes</p>
+          </div>
+          <div class="who"><b>Your shop here</b>Posted for you, 3 times a week</div>
+        </div>
+      </div>
+      <div class="tag a"><b>1 hour</b>of your month</div>
+      <div class="tag b"><b>12 reels</b>edited and posted</div>
+      <p class="note">Drawn samples of the format. Your reels are real video of your shop.</p>
+    </div>
+  </div>
+</section>
+
+<section class="night" id="how">
+  <div class="wrap">
+    <p class="kick"><span class="dot" aria-hidden="true"></span>How it works</p>
+    <h2 class="h2">You run the shop. We bring the camera.</h2>
+    <p class="sub">Most owners know they should post video and never have the time. So we took every step off your plate except one: being there for an hour.</p>
+    <div class="steps">
+      <div class="step rv"><span class="t">Once a month</span><h3>We film</h3><p>We come by on a slow hour with a shot list made for your kind of shop. Phones, not a film crew. Nobody has to act.</p><p class="you">Your part: about an hour.</p></div>
+      <div class="step rv"><span class="t">That week</span><h3>We edit</h3><p>Each reel gets a hook in the first second, captions people can read with the sound off, a cover, and the words for the post.</p><p class="you">Your part: nothing.</p></div>
+      <div class="step rv"><span class="t">Three times a week</span><h3>We post</h3><p>You add us to your pages once, with no passwords shared. We post on a schedule and text you the real numbers on the 1st.</p><p class="you">Your part: read one text.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="shots">
+  <div class="wrap">
+    <p class="kick"><span class="dot" aria-hidden="true"></span>What we film</p>
+    <h2 class="h2">Six setups. A month of reels.</h2>
+    <p class="sub">Pick your kind of shop to see the list we would bring to your first visit. Each setup becomes two reels.</p>
+    <div class="pick" id="pick" role="group" aria-label="Kind of shop"></div>
+    <ol class="shots" id="shotList" aria-live="polite"></ol>
+  </div>
+</section>
+
+<section id="plans" style="padding-top:0">
+  <div class="wrap">
+    <p class="kick"><span class="dot" aria-hidden="true"></span>Plans</p>
+    <h2 class="h2">Pick how much we do.</h2>
+    <p class="sub">Agencies list short-video packages at about $1,350 to $1,500 a month. <a href="https://www.lyfemarketing.com/services/short-form-video-agency/pricing" rel="noopener nofollow">Source</a>. We are three people from Morton with phones and a good editing setup, so it costs less.</p>
+    <div class="plans">
+      <article class="plan rv"><h3>Clip Kit</h3><p class="for">You film on your own phone. We do everything after. Works anywhere in the US.</p><p class="price">$297 <small>a month</small></p>
+        <ul><li>8 finished reels a month</li><li>A 5-shot list every Monday</li><li>Captions, hook, cover and post text</li><li>We post, or send you the files</li></ul><a class="btn ghost" href="#free" data-plan="Clip Kit">Start with a free reel</a></article>
+      <article class="plan best rv"><span class="flag">Most shops</span><h3>Crew</h3><p class="for">We come film once a month. Within 25 miles of Morton.</p><p class="price">$697 <small>a month</small></p>
+        <ul><li>12 finished reels a month</li><li>One filming visit, about an hour</li><li>Posted to Instagram, Facebook, TikTok and Google</li><li>A text on the 1st with views, follows and calls</li></ul><a class="btn" href="#free" data-plan="Crew">Start with a free reel</a></article>
+      <article class="plan rv"><h3>Crew Plus</h3><p class="for">Two visits, more reels, and we run your ads with the best ones.</p><p class="price">$1,197 <small>a month</small></p>
+        <ul><li>20 finished reels a month</li><li>Two filming visits</li><li>Facebook and Instagram ads run by us</li><li>A weekly 3-line text: spend, leads, best reel</li></ul><a class="btn ghost" href="#free" data-plan="Crew Plus">Start with a free reel</a></article>
+    </div>
+    <p class="terms">Month to month. Cancel any time before the next month starts. You own every video. On Crew Plus you pay Facebook directly for the ad budget you choose; it never goes through us.</p>
+    <div class="straight">
+      <div><h3>What we promise</h3><ul><li>Your reels are posted on schedule, every week.</li><li>Nothing goes up that you have not said yes to.</li><li>The real numbers every month, good or bad.</li><li>You can stop any month and keep everything we made.</li></ul></div>
+      <div><h3>What we will not promise</h3><ul><li>A number of views, followers or sales. Nobody honest can.</li><li>That one video goes viral. Steady posting is the point.</li><li>Fake reviews, made-up offers or footage that is not yours.</li><li>Your passwords. You add us to your pages; we never ask.</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" style="padding-top:0">
+  <div class="wrap">
+    <p class="kick"><span class="dot" aria-hidden="true"></span>Questions</p>
+    <h2 class="h2">Fair questions.</h2>
+    <div class="faq">
+      <details><summary>Do I have to be on camera?</summary><p>No. Plenty of good reels are hands, tools, food and finished work. If you are up for it, ten seconds of the owner talking usually does best, and we will ask you two easy questions to get it.</p></details>
+      <details><summary>What is the free reel, exactly?</summary><p>We stop by for 15 minutes, film a few clips, and send you one finished reel the next day. It is yours to post whether or not you ever hire us. No card, no contract.</p></details>
+      <details><summary>What about my customers and staff?</summary><p>We ask before anyone is on camera and we do not film kids. If someone would rather not be in it, they are not in it.</p></details>
+      <details><summary>I do not have Instagram or TikTok.</summary><p>We can walk you through creating the pages in a few minutes. You log in; we never see your password. After that you add us as a helper on the page.</p></details>
+      <details><summary>How do I pay?</summary><p>Venmo or Cash App on the 1st of each month. You approve your first reels before the first payment.</p></details>
+      <details><summary>I am not near Morton.</summary><p>Clip Kit works anywhere. We send a short shot list every Monday, you film about ten minutes on your phone and text us the clips. We do the rest.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="night ask" id="free">
+  <div class="wrap">
+    <div>
+      <p class="kick"><span class="dot" aria-hidden="true"></span>Free reel</p>
+      <h2>See your shop as a reel before you spend a dollar.</h2>
+      <p class="sub">Tell us where you are. We will set a 15-minute visit this week, and you will have a finished reel the next day.</p>
+    </div>
+    <form id="ask" novalidate>
+      <label>Your name<input name="name" autocomplete="name" required></label>
+      <label>Shop name<input name="shop" autocomplete="organization" required></label>
+      <label>Town<input name="town" autocomplete="address-level2" required></label>
+      <label>Phone<input name="phone" type="tel" inputmode="tel" autocomplete="tel" required></label>
+      <label class="wide">Kind of shop<select name="kind" id="kind"></select></label>
+      <input type="hidden" name="plan" id="plan" value="">
+      <p class="err" id="err" role="alert"></p>
+      <button class="btn" type="submit">Ask for my free reel</button>
+      <p class="or">This opens your email app with the details filled in. Or write to <a href="mailto:hanbackj1@gmail.com?subject=Free%20reel%20for%20my%20shop">hanbackj1@gmail.com</a>.</p>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap"><span>Shop Reels is part of <a href="/">Nolan Day Studio</a>, Morton, Illinois.</span><span>Need a website too? <a href="/#plans">See the site plans</a>.</span></div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  var SHOTS = {
+    "Food and coffee": ["The first thing made that morning, close up", "A best-seller from order to hand-off", "You, on what the regulars order", "Something poured, cut or pulled apart in slow motion", "This week's special with the price on screen", "The room at the busy hour"],
+    "Auto shops": ["A car coming in and the same car leaving", "One warning light explained in 10 seconds", "A worn part next to the new part", "The lift going up", "What that noise means", "Your one tip before winter"],
+    "Hair and barbers": ["Before and after of one cut, with the client's OK", "Hands at work, close up", "The pick of the week", "The walk from the door to the chair", "What to ask for, with the finished look", "An open slot this week"],
+    "Gyms and studios": ["One move done right, one cue on screen", "The room before class, then full", "A member's first day back", "The coach's 15-second tip", "What a first class looks like", "This month's class times"],
+    "Boutiques and gifts": ["Three new arrivals, then the price", "Picks under $25", "Unboxing this week's delivery", "A gift set built on the counter", "Your favorite thing in the shop and why", "The window, day and night"],
+    "Trades and home services": ["Before, during and after of one job", "The crew arriving and setting up", "One mistake homeowners make", "The satisfying close-up: the cut, the spray, the stripe", "The truck and the yard sign on the street", "What a job costs and why"],
+    "Realtors": ["The front door, then five rooms in ten seconds", "One detail buyers miss in this house", "The street and the nearest park", "What the price buys in town this month", "Just listed, open house and just sold", "Your 10-second market note"],
+    "Dental and med spa": ["The hello at the front desk", "One question people are afraid to ask", "A tool or a step explained simply", "Meet one team member", "What a first visit looks like", "This month's opening"]
+  };
+  var names = Object.keys(SHOTS), pick = document.getElementById("pick"), list = document.getElementById("shotList"), kind = document.getElementById("kind");
+  function show(name) {
+    list.textContent = "";
+    SHOTS[name].forEach(function (t) { var li = document.createElement("li"); li.textContent = t; list.appendChild(li); });
+    Array.prototype.forEach.call(pick.children, function (b) { b.setAttribute("aria-pressed", String(b.textContent === name)); });
+    kind.value = name;
+  }
+  names.forEach(function (name) {
+    var b = document.createElement("button"); b.type = "button"; b.textContent = name; b.addEventListener("click", function () { show(name); }); pick.appendChild(b);
+    var o = document.createElement("option"); o.value = name; o.textContent = name; kind.appendChild(o);
+  });
+  var other = document.createElement("option"); other.value = "Something else"; other.textContent = "Something else"; kind.appendChild(other);
+  show(names[0]);
+
+  Array.prototype.forEach.call(document.querySelectorAll("[data-plan]"), function (a) {
+    a.addEventListener("click", function () { document.getElementById("plan").value = a.getAttribute("data-plan"); });
+  });
+
+  var form = document.getElementById("ask"), err = document.getElementById("err");
+  form.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var f = form.elements, need = ["name", "shop", "town", "phone"], missing = need.filter(function (k) { return !f[k].value.trim(); });
+    if (missing.length) { err.textContent = "Please fill in your " + missing[0] + " so we can reach you."; f[missing[0]].focus(); return; }
+    if (f.phone.value.replace(/\D/g, "").length < 10) { err.textContent = "That phone number looks short. Include the area code."; f.phone.focus(); return; }
+    err.textContent = "";
+    var body = ["Name: " + f.name.value.trim(), "Shop: " + f.shop.value.trim(), "Town: " + f.town.value.trim(), "Phone: " + f.phone.value.trim(), "Kind of shop: " + f.kind.value,
+      f.plan.value ? "Plan I am looking at: " + f.plan.value : "", "", "Please film a free reel of my shop."].filter(function (x) { return x !== ""; }).join("\n");
+    window.location.href = "mailto:hanbackj1@gmail.com?subject=" + encodeURIComponent("Free reel for " + f.shop.value.trim()) + "&body=" + encodeURIComponent(body);
+  });
+
+  var rv = document.querySelectorAll(".rv");
+  if ("IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }); }, { rootMargin: "0px 0px -8% 0px" });
+    Array.prototype.forEach.call(rv, function (el, i) { el.style.transitionDelay = (i % 3) * 80 + "ms"; io.observe(el); });
+  } else { Array.prototype.forEach.call(rv, function (el) { el.classList.add("in"); }); }
+
+  try { if (location.hostname === "nday27.github.io") fetch("https://abacus.jasoncameron.dev/hit/ndstudio/shopreels").catch(function () {}); } catch (e) { /* the counter is optional */ }
+})();
+</script>
+</body>
+</html>
