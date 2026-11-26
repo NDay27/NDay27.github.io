@@ -482,8 +482,58 @@
   "slug": "dmz-s-trees-canton",
   "owner": "nolan",
   "src": [
-   "Google listing category (trade check 2026-11-20)"
-  ]
+   "Google listing category (trade check 2026-11-20)",
+   "Own Facebook page facebook.com/dmzstrees checked Nov 24 2026: same phone; services and 40-mile radius from its intro"
+  ],
+  "head": {
+   "h300": [
+    "Trees, storms",
+    "and lots, cleared."
+   ],
+   "h750": [
+    "Within 40 miles",
+    "of {town}."
+   ],
+   "lede": "Tree and shrub removal, trimming, lot clearing and storm cleanup within 40 miles of {town}. Firewood, slab wood and lumber too, and snow removal in the winter.",
+   "ask": "What needs to come down?"
+  },
+  "copy": {
+   "services": [
+    [
+     "Tree and shrub removal",
+     "Trees and shrubs you want gone. Tell us where they are and how big."
+    ],
+    [
+     "Trimming",
+     "Limbs over the roof, the drive or the lines. Ask what should come off."
+    ],
+    [
+     "Storm damage and emergency cleanup",
+     "A tree down after a storm? Call or text and say how bad it is."
+    ],
+    [
+     "Lot clearing",
+     "Overgrown lots and fence lines, cleared out."
+    ],
+    [
+     "Firewood, slab wood and lumber",
+     "Ask what's on hand right now."
+    ],
+    [
+     "Snow removal",
+     "In the winter too. Ask about getting on the list."
+    ]
+   ],
+   "jobs": [
+    "Remove a tree",
+    "Trim",
+    "Storm damage",
+    "Lot clearing",
+    "Firewood or lumber",
+    "Snow removal",
+    "Something else"
+   ]
+  }
  },
  {
   "slug": "ellis-painting-eureka",
@@ -1721,8 +1771,56 @@
   "slug": "amigos-auto-repair-peoria",
   "owner": "nolan",
   "src": [
-   "Google listing category (trade check 2026-11-20)"
-  ]
+   "Google listing category (trade check 2026-11-20)",
+   "Own Facebook page facebook.com/1Amigos.Auto.Repair checked Nov 24 2026: moved Sept 4 to 1300 SW Washington St; est. 2004; services, slogan, both phone numbers"
+  ],
+  "fact": "1300 SW Washington St, Peoria",
+  "head": {
+   "h300": [
+    "Honesty, quality,",
+    "service."
+   ],
+   "lede": "Auto repair, diagnostics and body work in {town} since 2004, now at 1300 SW Washington St. Se habla español. Tell us what the car is doing and get a straight answer.",
+   "ask": "What is the car doing?"
+  },
+  "copy": {
+   "label": "Auto Repair & Body",
+   "services": [
+    [
+     "Brakes",
+     "Squealing, grinding or a soft pedal. Ask about a brake check."
+    ],
+    [
+     "Tires and oil changes",
+     "The regular upkeep that keeps it on the road."
+    ],
+    [
+     "Engine diagnostics",
+     "Check engine light on, or running rough? Start with a diagnostic."
+    ],
+    [
+     "Transmission service",
+     "Slipping, hard shifts or a leak. Ask what it needs."
+    ],
+    [
+     "Heating and A/C",
+     "No heat or no cold air. Ask about climate control repair."
+    ],
+    [
+     "Collision, body and detailing",
+     "Dents, scrapes and a full detail when it's done."
+    ]
+   ],
+   "jobs": [
+    "Brakes",
+    "Oil change",
+    "Warning light",
+    "Transmission",
+    "Heat or A/C",
+    "Body damage",
+    "Something else"
+   ]
+  }
  },
  {
   "slug": "amigos-repair-shop-peoria",
@@ -1777,8 +1875,40 @@
   "slug": "meredith-garage-macomb",
   "owner": "nolan",
   "src": [
-   "Google listing category (trade check 2026-11-20)"
-  ]
+   "Google listing category (trade check 2026-11-20)",
+   "Macomb Chamber listing checked Nov 24 2026: 917 E Pierce St, same phone, Auto Repair, Parts & Detailing"
+  ],
+  "fact": "917 E Pierce St, Macomb",
+  "head": {
+   "lede": "Auto repair, parts and detailing on E Pierce St in {town}. Tell us what the car is doing and get a straight answer before any work starts."
+  },
+  "copy": {
+   "services": [
+    [
+     "Repairs",
+     "Brakes, noises, leaks and warning lights."
+    ],
+    [
+     "Maintenance",
+     "Oil changes and the regular upkeep."
+    ],
+    [
+     "Parts",
+     "Ask if the part you need is in stock."
+    ],
+    [
+     "Detailing",
+     "Inside and out, when the car needs a refresh."
+    ]
+   ],
+   "jobs": [
+    "Strange noise",
+    "Oil change",
+    "Parts",
+    "Detailing",
+    "Something else"
+   ]
+  }
  },
  {
   "slug": "paul-s-auto-garage-springfield",
@@ -1798,8 +1928,17 @@
   "slug": "bill-s-full-service-bloomington",
   "owner": "nolan",
   "src": [
-   "Google listing category (trade check 2026-11-20)"
-  ]
+   "Google listing category (trade check 2026-11-20)",
+   "Own Facebook page facebook.com/billsfullserviceinc checked Nov 24 2026: family owned for over 30 years, 929 W Wood St, same phone"
+  ],
+  "fact": "929 W Wood St, Bloomington",
+  "head": {
+   "h300": [
+    "Family owned",
+    "for 30+ years."
+   ],
+   "lede": "Full-service auto repair on W Wood St in {town}, family owned for over 30 years. Tell us what the car is doing and get a straight answer before any work starts."
+  }
  },
  {
   "slug": "duvall-s-automotive-lincoln",
@@ -3135,8 +3274,50 @@
   "slug": "buck-s-tree-service-landscaping-peoria",
   "owner": "nolan",
   "src": [
-   "Google listing category (trade check)"
-  ]
+   "Google listing category (trade check)",
+   "Superpages listing with the same phone, checked Nov 24 2026: family-owned tree removal in Peoria, licensed and insured, free estimates"
+  ],
+  "head": {
+   "lede": "Family-owned tree removal in {town}. Removal, trimming, stumps, planting and storm cleanup, with free estimates.",
+   "ask": "What does the tree need?"
+  },
+  "copy": {
+   "services": [
+    [
+     "Tree removal",
+     "Big or small, near the house or out back."
+    ],
+    [
+     "Tree trimming",
+     "Limbs over the roof, the drive or the lines."
+    ],
+    [
+     "Storm damage cleanup",
+     "A tree or limb down after a storm? Call or text."
+    ],
+    [
+     "Stump removal",
+     "Ask about grinding out the stump that's left."
+    ],
+    [
+     "Tree planting",
+     "Ask about what to plant and where."
+    ],
+    [
+     "Free estimates",
+     "Tell us about the job and get a price before any work starts."
+    ]
+   ],
+   "jobs": [
+    "Remove a tree",
+    "Trim or prune",
+    "Storm damage",
+    "Stump",
+    "Planting",
+    "Estimate",
+    "Something else"
+   ]
+  }
  },
  {
   "slug": "a-1-warren-painting-peoria",
@@ -5998,8 +6179,45 @@
   "slug": "langley-automobile-industrial-rpr-springfield",
   "owner": "nolan",
   "src": [
-   "Google listing category (trade check)"
-  ]
+   "Google listing category (trade check)",
+   "BBB listing with the same phone, checked Nov 24 2026: owner James Langley, Auto Repairs, 315 E Camp Sangamo Rd"
+  ],
+  "fact": "315 E Camp Sangamo Rd, Springfield",
+  "head": {
+   "h300": [
+    "Auto and",
+    "industrial repair."
+   ],
+   "lede": "Auto and industrial repair on E Camp Sangamo Rd in {town}. Tell us what needs fixing and get a straight answer before any work starts.",
+   "ask": "What needs fixing?"
+  },
+  "copy": {
+   "services": [
+    [
+     "Repairs",
+     ""
+    ],
+    [
+     "Maintenance",
+     ""
+    ],
+    [
+     "Diagnostics",
+     ""
+    ],
+    [
+     "Industrial repair",
+     "Ask about industrial and equipment repair."
+    ]
+   ],
+   "jobs": [
+    "Strange noise",
+    "Oil change",
+    "Warning light",
+    "Equipment",
+    "Something else"
+   ]
+  }
  },
  {
   "slug": "j-m-automotive-diesel-lincoln",

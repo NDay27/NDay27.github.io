@@ -160,7 +160,7 @@ def services(s):
     g = s["group"]; v = kit.vof(s); out = []
     for i, (h, p) in enumerate(v["services"]):
         job = v["jobs"][i] if i < len(v["jobs"]) - 1 else v["jobs"][0]
-        im, alt = SVC_IMG[g][i]
+        im, alt = SVC_IMG[g][i] if i < len(SVC_IMG[g]) else (None, "")  # a warm lead with its own longer service list
         fig = (pic(g, im, alt) if im else
                f'<div style="width:100%;height:100%;display:grid;place-items:center;background:linear-gradient(135deg,#f3e2d3,#e9d5c9 50%,#d9dde8);color:var(--navy)">{kit._I.format(kit.svc_icon(g, h)).replace("class=\"ic\"", "style=\"width:96px;height:96px\"")}</div>')
         out.append(f'<div class="sv rv"><span class="no">0{i + 1}</span><div><h3>{E(h)}</h3></div><div><p>{E(p)}</p>'

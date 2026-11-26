@@ -50,7 +50,7 @@ def meet(s):
     d = json.loads(tb.meet_json(shop).replace("<\\/", "</"))
     if s.get("trade"):
         d["trade"] = s["trade"]
-    if s.get("vx"):
+    if (s.get("vx") or {}).get("services"):
         d["services"] = [x[0] for x in s["vx"]["services"]]
     r = tb.rating_txt(shop)
     d["tools"] = {"essential": t[0], "signature": t[1], "immersive": t[2]}

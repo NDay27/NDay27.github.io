@@ -304,7 +304,8 @@ _ASK = {"Get started": "Ask how to get started.", "A plan": "Ask about a plan th
 def own_copy(s):
     c = s.get("copy") or {}
     if c.get("services"):
-        s["vx"] = {"services": [(n, _ASK.get(n) or f"Ask about {n[0].lower() + n[1:]}.") for n, _ in c["services"]]}
+        # Nov 24: a warm lead's own services carry a short line in the shop's own words (from its own Facebook intro or listing)
+        s["vx"] = {"services": [(n, (d if s.get("copy_checked") else None) or _ASK.get(n) or f"Ask about {n[0].lower() + n[1:]}.") for n, d in c["services"]]}
         if c.get("jobs"):
             s["vx"]["jobs"] = list(c["jobs"])
     if c.get("label"):
@@ -330,6 +331,8 @@ def load_shops():
     fov = {x["slug"]: x["fact"] for x in final if x.get("fact")}
     # Nov 24: hand-written headlines, lede, question and button for a lead whose trade the variant only half fits
     hov = {x["slug"]: x["head"] for x in final if x.get("head")}
+    # Nov 24: hand-checked services for warm leads (their own Facebook intro or directory listing), see own_copy
+    cov = {x["slug"]: x["copy"] for x in final if x.get("copy")}
     import importlib.util
     spec = importlib.util.spec_from_file_location("tiers_build", os.path.join(ROOT, "_build/tiers/build.py"))
     tb = importlib.util.module_from_spec(spec); spec.loader.exec_module(tb)
@@ -346,6 +349,8 @@ def load_shops():
         s["tel"] = tel(s["phone"])
         if s["slug"] in fov:
             s["fact"] = fov[s["slug"]]
+        if s["slug"] in cov:
+            s["copy"] = cov[s["slug"]]; s["copy_checked"] = True
         own_copy(s)
         if s["slug"] in hov:
             h = dict(hov[s["slug"]])
@@ -435,8 +440,18 @@ for _g, _c in home.EXTRA_CSS.items():
 HOMES = tuple(home.GROUPS)
 
 
+# Nov 24: warm leads list services in their own words; borrow the closest existing icon
+ICON_ALIAS = {"Tree and shrub removal": "Tree removal", "Trimming": "Trimming and pruning", "Tree trimming": "Trimming and pruning",
+              "Storm damage and emergency cleanup": "Storm cleanup", "Storm damage cleanup": "Storm cleanup", "Lot clearing": "Cleanups",
+              "Firewood, slab wood and lumber": "Hauling", "Snow removal": "Driveways", "Stump removal": "Stump grinding", "Tree planting": "Landscaping",
+              "Engine diagnostics": "Diagnostics", "Transmission service": "Transmission repair", "Heating and A/C": "Cooling",
+              "Tires and oil changes": "Maintenance", "Collision, body and detailing": "Collision repair", "Parts": "Engine and drivetrain",
+              "Detailing": "Paint", "Industrial repair": "Fabrication"}
+
+
 def svc_icon(g, h):
     """Service icon, group-specific first (two trades can both list "Repairs")."""
+    h = ICON_ALIAS.get(h, h)
     return SVC_ICON.get((g, h)) or SVC_ICON.get(h, SVC_ICON["_more"])
 QUIZ = STORES + HOMES  # groups whose Signature tool is the two-question quiz
 KIT_V_EXTRA.update(home.KIT_V)
