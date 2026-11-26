@@ -1,0 +1,222 @@
+[
+ {
+  "slug": "cjt-lawncare-bloomington",
+  "name": "CJT Lawncare",
+  "town": "Bloomington",
+  "phone": "(309) 530-1377",
+  "cat": "Lawn care",
+  "v": "lawn",
+  "maps": "https://www.google.com/maps/search/?api=1&query=CJT+Lawncare+Bloomington%2C+IL",
+  "towns": [
+   "Bloomington",
+   "Normal",
+   "Hudson",
+   "Towanda",
+   "Downs",
+   "Heyworth",
+   "Le Roy",
+   "Carlock"
+  ],
+  "list": "email-nov24"
+ },
+ {
+  "slug": "morris-ave-garage-bloomington",
+  "name": "Morris Ave Garage",
+  "town": "Bloomington",
+  "phone": "(309) 829-4436",
+  "cat": "Auto repair",
+  "v": "auto",
+  "maps": "https://www.google.com/maps/search/?api=1&query=Morris+Ave+Garage+Bloomington%2C+IL",
+  "towns": [
+   "Bloomington",
+   "Normal",
+   "Hudson",
+   "Towanda",
+   "Downs",
+   "Heyworth",
+   "Le Roy",
+   "Carlock"
+  ],
+  "list": "email-nov24"
+ },
+ {
+  "slug": "big-jim-s-tree-service-canton",
+  "name": "Big Jim's Tree Service",
+  "town": "Canton",
+  "phone": "(309) 668-3264",
+  "cat": "Tree service",
+  "v": "tree",
+  "maps": "https://www.google.com/maps/search/?api=1&query=Big+Jim%27s+Tree+Service+Canton%2C+IL",
+  "towns": [
+   "Canton",
+   "Cuba",
+   "Farmington",
+   "Glasford",
+   "Lewistown",
+   "Yates City",
+   "Hanna City",
+   "Elmwood"
+  ],
+  "list": "email-nov24"
+ },
+ {
+  "slug": "roots-outdoor-living-east-peoria",
+  "name": "Roots Outdoor Living",
+  "town": "East Peoria",
+  "phone": "(309) 885-2486",
+  "cat": "Landscaping",
+  "v": "lawn",
+  "maps": "https://www.google.com/maps/search/?api=1&query=Roots+Outdoor+Living+East+Peoria%2C+IL",
+  "towns": [
+   "East Peoria",
+   "Peoria",
+   "Washington",
+   "Morton",
+   "Creve Coeur",
+   "Groveland",
+   "Pekin",
+   "Germantown Hills"
+  ],
+  "list": "email-nov24"
+ },
+ {
+  "slug": "rod-s-tree-service-el-paso",
+  "name": "Rod's Tree Service",
+  "town": "El Paso",
+  "phone": "(309) 275-3913",
+  "cat": "Tree service",
+  "v": "tree",
+  "maps": "https://www.google.com/maps/search/?api=1&query=Rod%27s+Tree+Service+El+Paso%2C+IL",
+  "towns": [
+   "El Paso",
+   "Eureka",
+   "Gridley",
+   "Secor",
+   "Kappa",
+   "Roanoke",
+   "Minonk",
+   "Normal"
+  ],
+  "list": "email-nov24"
+ },
+ {
+  "slug": "j-d-auto-body-inc-bloomington",
+  "name": "J & D Auto Body Inc",
+  "town": "Bloomington",
+  "phone": "(309) 262-8182",
+  "cat": "Auto body",
+  "v": "autobody",
+  "maps": "https://www.google.com/maps/search/?api=1&query=J+%26+D+Auto+Body+Inc+Bloomington%2C+IL",
+  "towns": [
+   "Bloomington",
+   "Normal",
+   "Hudson",
+   "Towanda",
+   "Downs",
+   "Heyworth",
+   "Le Roy",
+   "Carlock"
+  ],
+  "list": "email-nov24"
+ },
+ {
+  "slug": "precision-tree-service-peoria",
+  "name": "Precision Tree Service",
+  "town": "Peoria",
+  "phone": "(309) 657-7069",
+  "cat": "Tree service",
+  "v": "tree",
+  "maps": "https://www.google.com/maps/search/?api=1&query=Precision+Tree+Service+Peoria%2C+IL",
+  "towns": [
+   "Peoria",
+   "East Peoria",
+   "Peoria Heights",
+   "West Peoria",
+   "Bartonville",
+   "Dunlap",
+   "Creve Coeur",
+   "Pekin"
+  ],
+  "list": "calls-nov24"
+ },
+ {
+  "slug": "tyler-s-lawn-care-bartonville",
+  "name": "Tyler's Lawn Care",
+  "town": "Bartonville",
+  "phone": "(309) 397-1505",
+  "cat": "Lawn care",
+  "v": "lawn",
+  "maps": "https://www.google.com/maps/search/?api=1&query=Tyler%27s+Lawn+Care+Bartonville%2C+IL",
+  "towns": [
+   "Bartonville",
+   "Peoria",
+   "West Peoria",
+   "Pekin",
+   "Hanna City",
+   "Mapleton",
+   "Creve Coeur",
+   "East Peoria"
+  ],
+  "list": "calls-nov24"
+ },
+ {
+  "slug": "mike-s-painting-decorating-peoria",
+  "name": "Mike's Painting & Decorating",
+  "town": "Peoria",
+  "phone": "(309) 693-2422",
+  "cat": "Painter",
+  "v": "painter",
+  "maps": "https://www.google.com/maps/search/?api=1&query=Mike%27s+Painting+%26+Decorating+Peoria%2C+IL",
+  "towns": [
+   "Peoria",
+   "East Peoria",
+   "Peoria Heights",
+   "West Peoria",
+   "Bartonville",
+   "Dunlap",
+   "Creve Coeur",
+   "Pekin"
+  ],
+  "list": "calls-nov24"
+ },
+ {
+  "slug": "pure-painting-inc-peoria",
+  "name": "Pure Painting Inc",
+  "town": "Peoria",
+  "phone": "(309) 472-1681",
+  "cat": "Painter",
+  "v": "painter",
+  "maps": "https://www.google.com/maps/search/?api=1&query=Pure+Painting+Inc+Peoria%2C+IL",
+  "towns": [
+   "Peoria",
+   "East Peoria",
+   "Peoria Heights",
+   "West Peoria",
+   "Bartonville",
+   "Dunlap",
+   "Creve Coeur",
+   "Pekin"
+  ],
+  "list": "calls-nov24"
+ },
+ {
+  "slug": "affordable-stump-removal-peoria",
+  "name": "Affordable Stump Removal",
+  "town": "Peoria",
+  "phone": "(309) 208-2998",
+  "cat": "Stump removal",
+  "v": "stump",
+  "maps": "https://www.google.com/maps/search/?api=1&query=Affordable+Stump+Removal+Peoria%2C+IL",
+  "towns": [
+   "Peoria",
+   "East Peoria",
+   "Peoria Heights",
+   "West Peoria",
+   "Bartonville",
+   "Dunlap",
+   "Creve Coeur",
+   "Pekin"
+  ],
+  "list": "calls-nov24"
+ }
+]

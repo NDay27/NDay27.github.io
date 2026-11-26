@@ -321,6 +321,8 @@ def load_shops():
     shops = json.load(open(os.path.join(ROOT, "_build/tiers/shops.json")))
     # dealt HQ leads (in calling/interested) live in their own file; they get the kit too
     shops += json.load(open(os.path.join(ROOT, "_build/tiers/dealt.json")))
+    # Nov 24: cold-email leads that still had the older basic preview (public email found on their own Facebook page)
+    shops += json.load(open(os.path.join(ROOT, "_build/tiers/email-leads.json")))
     final = json.load(open(os.path.join(HERE, "shops.json")))
     own = {x["slug"]: x["owner"] for x in final}
     vov = {x["slug"]: x["v"] for x in final if x.get("v")}
