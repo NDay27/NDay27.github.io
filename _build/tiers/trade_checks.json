@@ -8568,5 +8568,245 @@
   "trade": "Antique store",
   "src": "Google listing category",
   "on": "2026-11-26"
+ },
+ "rusty-rooster-waverly-tn": {
+  "v": "restaurant",
+  "trade": "Diner",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "lance-s-pizza-subs-waverly-tn": {
+  "v": "restaurant",
+  "trade": "Pizza restaurant",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "joe-clark-s-restaurant-fenton-mo": {
+  "v": "restaurant",
+  "trade": "American restaurant",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "bre-s-gourmet-restaurant-and-catering-brighton-al": {
+  "v": "restaurant",
+  "trade": "Soul food restaurant",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "twin-peaks-barber-shop-lake-forest-ca": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "second-image-thrift-store-pinellas-park-fl": {
+  "v": "thrift",
+  "trade": "Thrift store",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "donut-country-hanford-ca": {
+  "v": "donut",
+  "trade": "Donut shop",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "henry-s-steak-house-kingsford-mi": {
+  "v": "restaurant",
+  "trade": "Steak house",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "second-cup-lock-haven-pa": {
+  "v": "restaurant",
+  "trade": "Brunch restaurant",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "piedmont-j-j-donuts-piedmont-ok": {
+  "v": "donut",
+  "trade": "Donut shop",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "bling-nails-salon-milford-mi": {
+  "v": "nails",
+  "trade": "Nail salon",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "wear-me-again-villa-rica-ga": {
+  "v": "thrift",
+  "trade": "Consignment shop",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "donut-king-hanford-ca": {
+  "v": "donut",
+  "trade": "Donut shop",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "division-auto-body-inc-keyport-nj": {
+  "v": "autobody",
+  "trade": "Auto body shop",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "mini-mac-diner-chester-nj": {
+  "v": "restaurant",
+  "trade": "Diner",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "wish-a-cut-groton-ct": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "masons-boat-dock-waverly-tn": {
+  "v": "restaurant",
+  "trade": "Southern restaurant (US)",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "fanci-nails-sturgeon-bay-wi": {
+  "v": "nails",
+  "trade": "Nail salon",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "smart-threading-salon-groton-ct": {
+  "v": "salon",
+  "trade": "Beauty salon",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "little-prague-bakery-cafe-mukilteo-wa": {
+  "v": "coffee",
+  "trade": "Cafe",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "johnson-towing-recovery-llc-eaton-in": {
+  "v": "towing",
+  "trade": "Towing service",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "beal-s-barbershop-lincolnton-nc": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "ultimate-auto-repair-aubrey-tx": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "wicker-basket-deli-mendham-township-nj": {
+  "v": "restaurant",
+  "trade": "Deli",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "just-cuts-harker-heights-tx": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "marsha-s-nitro-wv": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "village-of-oak-creek-barber-sedona-az": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "antiques-on-mainstreet-llc-hopkins-mn": {
+  "v": "thrift",
+  "trade": "Antique store",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "yudimar-coffee-shop-clayton-nc": {
+  "v": "coffee",
+  "trade": "Coffee shop",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "magnolia-jane-nails-andalusia-al": {
+  "v": "nails",
+  "trade": "Nail salon",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "colonial-pantry-mendham-nj": {
+  "v": "restaurant",
+  "trade": "Deli",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "the-hangar-villa-rica-ga": {
+  "v": "thrift",
+  "trade": "Consignment shop",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "beaufort-auto-electric-and-auto-repair-port-royal-sc": {
+  "v": "auto",
+  "trade": "Auto electrical service",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "raineri-s-towing-passaic-nj": {
+  "v": "towing",
+  "trade": "Towing service",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "supreme-heating-cooling-benton-ky": {
+  "v": "hvac",
+  "trade": "HVAC contractor",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "the-finer-consigner-alpharetta-ga": {
+  "v": "thrift",
+  "trade": "Consignment shop",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "joe-s-barber-shop-laguna-niguel-ca": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "lotus-foot-spa-bedford-tx": {
+  "v": "massage",
+  "trade": "Massage therapist",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "red-rock-barber-shop-sedona-az": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-27"
+ },
+ "in-and-out-tune-ups-nc-auto-inspection-auto-repair-service-spring-lake-nc-spring-lake-nc": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-27"
  }
 }
