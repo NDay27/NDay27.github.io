@@ -8808,5 +8808,245 @@
   "trade": "Auto repair shop",
   "src": "Google listing category",
   "on": "2026-11-27"
+ },
+ "luberto-s-pastry-shop-revere-ma": {
+  "v": "bakery",
+  "trade": "Pastry shop",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "rancho-viejo-mexican-restaurant-russellville-al": {
+  "v": "restaurant",
+  "trade": "Mexican restaurant",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "a-s-plumbing-inc-napa-ca": {
+  "v": "plumbing",
+  "trade": "Plumber",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "just-peachy-nails-lashes-sherman-tx": {
+  "v": "nails",
+  "trade": "Nail salon",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "first-lady-nail-spa-sherman-tx": {
+  "v": "nails",
+  "trade": "Nail salon",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "natural-nails-sherman-tx": {
+  "v": "nails",
+  "trade": "Nail salon",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "osuna-bakery-inc-kansas-city-ks": {
+  "v": "bakery",
+  "trade": "Bakery",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "pho-thai-street-food-bakery-sumter-sc": {
+  "v": "restaurant",
+  "trade": "Thai restaurant",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "china-house-gering-ne": {
+  "v": "restaurant",
+  "trade": "Chinese restaurant",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "murray-s-car-keys-bangor-me": {
+  "v": "locksmith",
+  "trade": "Locksmith",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "rock-springs-cafe-catering-fort-worth-tx": {
+  "v": "coffee",
+  "trade": "Cafe",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "natural-nail-salon-springville-ut": {
+  "v": "nails",
+  "trade": "Nail salon",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "interstate-auto-truck-service-inc-dunn-nc": {
+  "v": "truck",
+  "trade": "Truck repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "clark-and-sons-yuba-city-ca": {
+  "v": "smallengine",
+  "trade": "Small engine repair service",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "exotic-nails-fair-lawn-nj": {
+  "v": "nails",
+  "trade": "Nail salon",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "finishline-cafe-gering-ne": {
+  "v": "coffee",
+  "trade": "Cafe",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "jack-s-barber-shop-manor-tx": {
+  "v": "barber",
+  "trade": "Barber shop",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "sexy-nails-iii-fair-lawn-nj": {
+  "v": "nails",
+  "trade": "Nail salon",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "annette-s-sewing-alterations-bozeman-mt": {
+  "v": "tailor",
+  "trade": "Clothing alteration service",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "cafe-delite-winthrop-ma": {
+  "v": "coffee",
+  "trade": "Coffee shop",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "sack-s-tailor-shop-dunmore-pa": {
+  "v": "tailor",
+  "trade": "Tailor",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "treasure-trove-thrift-st-petersburg-fl": {
+  "v": "thrift",
+  "trade": "Thrift store",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "mane-attraction-hair-salon-manor-tx": {
+  "v": "salon",
+  "trade": "Beauty salon",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "big-country-s-llc-hillsdale-mi": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "nail-asia-pelham-al": {
+  "v": "nails",
+  "trade": "Nail salon",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "lou-s-small-engine-parts-service-barberton-oh": {
+  "v": "smallengine",
+  "trade": "Small engine repair service",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "bud-s-auto-service-manhattan-ks": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "brownlee-lawnmower-services-youngstown-oh": {
+  "v": "smallengine",
+  "trade": "Lawn mower repair service",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "davila-s-tailors-el-paso-tx": {
+  "v": "tailor",
+  "trade": "Tailor",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "golden-machine-alterations-el-paso-tx": {
+  "v": "tailor",
+  "trade": "Clothing alteration service",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "designer-exchange-st-petersburg-fl": {
+  "v": "thrift",
+  "trade": "Consignment shop",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "seaside-small-engine-service-and-repair-murrells-inlet-sc": {
+  "v": "smallengine",
+  "trade": "Small engine repair service",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "absolute-auto-repair-and-body-binghamton-ny": {
+  "v": "auto",
+  "trade": "Auto repair shop",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "ok-tailor-shop-el-paso-tx": {
+  "v": "tailor",
+  "trade": "Tailor",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "doc-s-pot-pies-winthrop-ma": {
+  "v": "restaurant",
+  "trade": "American restaurant",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "st-vincent-s-thrift-shop-gulfport-fl": {
+  "v": "thrift",
+  "trade": "Thrift store",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "missoula-tailoring-services-missoula-mt": {
+  "v": "tailor",
+  "trade": "Tailor",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "mid-south-appliance-la-vergne-tn": {
+  "v": "appliance",
+  "trade": "Appliance repair service",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "rusty-rails-antique-vendor-flea-market-farmville-nc": {
+  "v": "thrift",
+  "trade": "Antique store",
+  "src": "Google listing category",
+  "on": "2026-11-28"
+ },
+ "new-french-nails-fair-lawn-nj": {
+  "v": "nails",
+  "trade": "Nail salon",
+  "src": "Google listing category",
+  "on": "2026-11-28"
  }
 }
