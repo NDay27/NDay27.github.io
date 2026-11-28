@@ -8553,5 +8553,13 @@
    "lede": "Home improvements, repairs and landscaping in {town} and nearby. Tell us about the project and get a straight quote.",
    "ask": "What's the project?"
   }
+ },
+ {
+  "slug": "mike-s-painting-decorating-peoria",
+  "owner": "cooper",
+  "src": [
+   "Google Maps (open, no website)",
+   "YellowPages"
+  ]
  }
 ]
