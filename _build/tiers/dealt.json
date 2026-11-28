@@ -1776,5 +1776,32 @@
   },
   "stage": "calling",
   "gstatus": "open"
+ },
+ {
+  "slug": "mike-s-painting-decorating-peoria",
+  "name": "Mike's Painting & Decorating",
+  "town": "Peoria",
+  "phone": "(309) 693-2422",
+  "cat": "Painter",
+  "v": "painter",
+  "maps": "https://www.google.com/maps/search/?api=1&query=Mike%27s+Painting+%26+Decorating+5530+N+Stephen+Dr%2C+Peoria%2C+IL+61615",
+  "towns": [
+   "Peoria",
+   "East Peoria",
+   "Creve Coeur",
+   "Peoria Heights",
+   "Bartonville",
+   "Groveland",
+   "Edwards",
+   "Germantown Hills",
+   "Morton"
+  ],
+  "wk": "none",
+  "list": "dealt",
+  "stage": "new",
+  "gstatus": "open",
+  "addr": "5530 N Stephen Dr, Peoria, IL 61615",
+  "rating": 3,
+  "reviews": 2
  }
 ]
